@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Material;
+use App\Models\Ticket;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MaterialController extends Controller
+class TicketController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        return view('material/list');
+         return view('ticket/list');
     }
 
     /**
@@ -25,7 +25,7 @@ class MaterialController extends Controller
      */
     public function create()
     {
-       
+        //
     }
 
     /**
@@ -42,21 +42,21 @@ class MaterialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Material  $material
+     * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ticket $ticket)
     {
-         return view('material/add_products',compact('id'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Material  $material
+     * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function edit(Material $material)
+    public function edit(Ticket $ticket)
     {
         //
     }
@@ -65,10 +65,10 @@ class MaterialController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Material  $material
+     * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Material $material)
+    public function update(Request $request, Ticket $ticket)
     {
         //
     }
@@ -76,10 +76,10 @@ class MaterialController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Material  $material
+     * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Material $material)
+    public function destroy(Ticket $ticket)
     {
         //
     }

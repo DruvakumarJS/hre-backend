@@ -560,12 +560,13 @@ progress {
 .body-background
 {
  margin: 0;
-  background: linear-gradient(to bottom, #FDF2DF 30%, #FFF9F4 0%);
+  background: linear-gradient(to bottom, #FDF2DF 20%, #FFF9F4 0%);
   height:100vh;
   background-repeat: no-repeat;
   background-attachment: fixed;
   
 }
+
 
 .container-header{
     width: 100%;
@@ -585,9 +586,31 @@ progress {
 #div3{
     float:right;
 }
+.nav-links{
+  color: #000
+}
+.label-bold{
+  font-weight: bold;
+  font-size: 15px;
+}
 
-
-
+.curved-text {
+  background-color: #FDF2DF;
+  border-radius: 5px;
+  color: #000;
+  font-size: 12px;
+  border-color: #FDF2DF;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.curved-text-disabled {
+  background-color: #D3D3D3;
+  border-radius: 10px;
+  color: white;
+  border-color: #00cc88;
+  padding-left: 10px;
+  padding-right: 10px;
+}
 
 
 @media (min-width: 1200px) {

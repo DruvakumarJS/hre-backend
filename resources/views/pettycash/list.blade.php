@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <label class="label-bold">Tickets</label>
+    <div class="label-bold" class="row justify-content-center">
+        <label>Pettycash</label>
     </div>
 </div>
 @endsection

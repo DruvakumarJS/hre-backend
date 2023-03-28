@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -37,7 +37,7 @@
                 </a> -->
 
              <a
-                href=""
+                href="{{route('home')}}"
                    class="list-group-item  py-2 ripple {{ request()->routeIs('customer-dashboard')
                    ? 'active' : '' }}"
                    >
@@ -45,12 +45,12 @@
                </a>
 
                <div>
-                    <a href=""><label style="margin-left: 50px">User Master</label></a>
-                    <a href="{{route('materials')}}"><label style="margin-left: 20px">Material Master</label></a>
-                    <a href=""><label style="margin-left: 50px">PCN</label></a>
-                    <a href="{{route('tickets')}}"><label style="margin-left: 50px">Tickets</label></a>
-                    <a href=""><label style="margin-left: 50px">Attendance</label></a>
-                    <a href=""><label style="margin-left: 50px">Petty Cash</label></a>
+                    <a href="{{route('users')}}"><label class="nav-links" style="margin-left: 50px">User Master</label></a>
+                    <a href="{{route('materials')}}"><label class="nav-links" style="margin-left: 20px">Material Master</label></a>
+                    <a href="{{route('PCN')}}"><label class="nav-links" style="margin-left: 50px">PCN</label></a>
+                    <a href="{{route('tickets')}}"><label class="nav-links" style="margin-left: 50px">Tickets</label></a>
+                    <a href="{{route('attendance')}}"><label class="nav-links" style="margin-left: 50px">Attendance</label></a>
+                    <a href="{{route('pettycash')}}"><label class="nav-links" style="margin-left: 50px">Petty Cash</label></a>
                </div>
 
               
@@ -106,11 +106,7 @@
 
                              <a href=""> <img class="circle" src="{{asset('images/person.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
                       
-                             <label style="margin-left: 50px ; color: black"> {{ Auth::user()->name }}</label>
-
-
-                            
-                            
+                             <label style="margin-left: 50px ; color: black"> {{ Auth::user()->name }}</label>                            
 
                         @endguest
                     </ul>

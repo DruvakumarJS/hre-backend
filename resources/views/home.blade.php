@@ -2,10 +2,10 @@
 
 @section('content')
 
-<div class="container">
+<div class="container" >
     <div class="row ">
         <div >
-            <!-- <div class="card">
+            <!-- <div class="c ard">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
@@ -21,7 +21,7 @@
         </div> -->
 
         <div class="container-header">
-            <label id="div1">Dashboard</label>
+            <label class="label-bold" id="div1">Dashboard</label>
            <div id="div2">
             <button class="btn btn-light" ><i class="fa fa-plus"></i>  Create User</button>
             
@@ -143,14 +143,15 @@
                  <div class="col-sm-6 col-md-3" >
                     <div class="card border-white" style="height: 350px">
                         <label>Pending Intends</label>
-                   
+                        
+                        
                     <div>
                         <canvas id="myChart" style="height: 200px ; width: 200px" ></canvas>
                     </div>
                   </div>
                            <script>
                             var xValues = ["Arathi", "Brigade" ,"Prestige"];
-                            var yValues = [49,25,70];
+                            var yValues = [99,98,90];
                             var barColors = [
                               "#2C2C2C",
                               "#FDF2DF",
@@ -184,5 +185,6 @@
 
 
     </div>
+</div>
 </div>
 @endsection
