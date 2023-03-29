@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        $guards = empty($guards) ? [null] : $guards;
+        /*$guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
@@ -28,5 +28,29 @@ class RedirectIfAuthenticated
         }
 
         return $next($request);
+    }*/
+
+    if (Auth::guard($guards)->check()) {
+
+        $role = Auth::user()->role; 
+              switch ($role) {
+                case 'admin':
+                  return '/home';
+                  break;
+                  
+                case 'manager':
+                  return '/manager_home';
+                  break; 
+
+                case 'procurement':
+                  return '/procurement_home';
+                  break;      
+
+                default:
+                  return '/home'; 
+                break;
+              }
+      }
+      return $next($request);
     }
 }

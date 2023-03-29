@@ -36,22 +36,80 @@
                     {{ config('app.name', 'Laravel') }}
                 </a> -->
 
-             <a
+             
+               @if(Auth::user()->role_id == 1)
+
+               <a
                 href="{{route('home')}}"
-                   class="list-group-item  py-2 ripple {{ request()->routeIs('customer-dashboard')
-                   ? 'active' : '' }}"
+                   >
+                  <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
+               </a>
+
+
+               <div>
+                    <a href="{{route('users')}}"><label class="nav-links" style="margin-left: 20px">User Master</label></a>
+
+                    <a href="{{route('materials')}}"><label class="nav-links" style="margin-left: 20px">Material Master</label></a>
+                   
+
+                    <a href="{{route('PCN')}}"><label class="nav-links" style="margin-left: 30px">PCN</label></a>
+                  
+
+                    <a href="{{route('tickets')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
+                   
+
+                    <a href="{{route('attendance')}}"><label class="nav-links" style="margin-left: 30px">Attendance</label></a>
+                  
+
+                    <a href="{{route('pettycash')}}"><label class="nav-links" style="margin-left: 30px">Petty Cash</label></a>
+
+                    
+               </div>
+
+               @elseif(Auth::user()->role_id == 2)
+
+               <a
+                href="{{route('manager_home')}}"
+                   >
+                  <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
+               </a>
+
+
+               <div>
+                    <a href=""><label class="nav-links" style="margin-left: 20px">Employee</label></a>
+
+                    <a href=""><label class="nav-links" style="margin-left: 20px">Intend</label></a>
+
+                    <a href="{{route('tickets')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
+                   
+
+                    <a href="{{route('attendance')}}"><label class="nav-links" style="margin-left: 30px">Attendance</label></a>
+
+                    <a href="{{route('pettycash')}}"><label class="nav-links" style="margin-left: 30px">Petty Cash</label></a>
+                  
+               </div>
+
+               @elseif(Auth::user()->role_id == 3)
+
+               <a
+                href="{{route('procurement_home')}}"
                    >
                   <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
                </a>
 
                <div>
-                    <a href="{{route('users')}}"><label class="nav-links" style="margin-left: 50px">User Master</label></a>
-                    <a href="{{route('materials')}}"><label class="nav-links" style="margin-left: 20px">Material Master</label></a>
-                    <a href="{{route('PCN')}}"><label class="nav-links" style="margin-left: 50px">PCN</label></a>
-                    <a href="{{route('tickets')}}"><label class="nav-links" style="margin-left: 50px">Tickets</label></a>
-                    <a href="{{route('attendance')}}"><label class="nav-links" style="margin-left: 50px">Attendance</label></a>
-                    <a href="{{route('pettycash')}}"><label class="nav-links" style="margin-left: 50px">Petty Cash</label></a>
+                    <a href="{{route('intends')}}"><label class="nav-links" style="margin-left: 20px">Intends</label></a>
+                   
+                    <a href="{{route('tickets')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
+                   
+
+                  
                </div>
+
+               @endif
+
+
+
 
               
 
@@ -66,7 +124,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto" style="margin-top: 20px">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -81,9 +139,20 @@
                                 </li>
                             @endif
                         @else
-                           <!--  <li class="nav-item dropdown">
+                         
+                             <a href=""> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a>
+
+                             <a href=""> <img class="circle" src="{{asset('images/mail.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
+
+                             <a href=""> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
+
+                             <a href=""> <img class="circle" src="{{asset('images/person.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
+                            
+                              <label style="margin-left: 20px ; color: black"> {{ Auth::user()->name }}</br>{{Auth::user()->role }}</label>
+
+                               <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                   
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -93,28 +162,22 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                   
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                 </div>
-                            </li> -->
+                            </li>
 
-                            
-                             <a href=""> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a>
 
-                             <a href=""> <img class="circle" src="{{asset('images/mail.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
-
-                             <a href=""> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
-
-                             <a href=""> <img class="circle" src="{{asset('images/person.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
-                      
-                             <label style="margin-left: 50px ; color: black"> {{ Auth::user()->name }}</label>                            
-
+                               
+                                                    
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <main class="py-4" style="margin-top: 50px">
+        <main class="py-4" style="margin-top: 80px">
             @yield('content')
         </main>
     </div>

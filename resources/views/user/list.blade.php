@@ -6,7 +6,7 @@
         <div class="container-header">
             <label class="label-bold" id="div1">Users</label>
           
-          <div id="div2" style="margin-right: 30px">
+          <div id="div2">
              <button class="btn btn-light" ><i class="fa fa-plus"></i> Create User</button>
           </div>
 

@@ -560,7 +560,7 @@ progress {
 .body-background
 {
  margin: 0;
-  background: linear-gradient(to bottom, #FDF2DF 20%, #FFF9F4 0%);
+  background: linear-gradient(to bottom, #FDF2DF 25%, #FFF9F4 0%);
   height:100vh;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -593,6 +593,18 @@ progress {
   font-weight: bold;
   font-size: 15px;
 }
+.label-small{
+  font-weight: normal;
+  font-size: 10px;
+}
+.label-medium{
+  font-weight: bolder;
+  font-size: 12px;
+}
+.label-bolder{
+  font-weight: bolder;
+  font-size: 22px;
+}
 
 .curved-text {
   background-color: #FDF2DF;
@@ -603,6 +615,16 @@ progress {
   padding-left: 10px;
   padding-right: 10px;
 }
+.curved-text-button {
+  background-color: #FDF2DF;
+  border-radius: 5px;
+  color: #000;
+  text-align: center;
+  font-size: 12px;
+  border-color: #FDF2DF;
+ padding-left: 10px;
+  padding-right: 10px;
+}
 .curved-text-disabled {
   background-color: #D3D3D3;
   border-radius: 10px;
@@ -610,6 +632,11 @@ progress {
   border-color: #00cc88;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.current_page_item {
+  background-color: red;
+  color: white;
 }
 
 

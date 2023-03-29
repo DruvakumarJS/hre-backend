@@ -61,7 +61,7 @@
                             <h4 class="card-text-black" style="color: #fff; font-weight: bold; font-size: 25px">Attendance</h4>
                            
                         </div >
-                        <label class="card-text-label" style="color:#fff">Today's working</label>
+                        <label class="card-text-label" style="color:#fff">Today working</label>
                     </div>
                     <!--</div>-->
                 </div>
