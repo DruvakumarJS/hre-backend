@@ -31,7 +31,7 @@ class RedirectIfAuthenticated
     }*/
 
     if (Auth::guard($guards)->check()) {
-
+     
         $role = Auth::user()->role; 
               switch ($role) {
                 case 'admin':
@@ -47,7 +47,7 @@ class RedirectIfAuthenticated
                   break;      
 
                 default:
-                  return '/home'; 
+                  return '/login'; 
                 break;
               }
       }

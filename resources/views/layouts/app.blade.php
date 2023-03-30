@@ -76,16 +76,16 @@
 
 
                <div>
-                    <a href=""><label class="nav-links" style="margin-left: 20px">Employee</label></a>
+                    <a href="{{route('employee_list')}}"><label class="nav-links" style="margin-left: 20px">Employee</label></a>
 
-                    <a href=""><label class="nav-links" style="margin-left: 20px">Intend</label></a>
+                    <a href="{{route('intend_list')}}"><label class="nav-links" style="margin-left: 20px">Intend</label></a>
 
-                    <a href="{{route('tickets')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
+                    <a href="{{route('tickets_list')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
                    
 
-                    <a href="{{route('attendance')}}"><label class="nav-links" style="margin-left: 30px">Attendance</label></a>
+                    <a href="{{route('attendance_list')}}"><label class="nav-links" style="margin-left: 30px">Attendance</label></a>
 
-                    <a href="{{route('pettycash')}}"><label class="nav-links" style="margin-left: 30px">Petty Cash</label></a>
+                    <a href="{{route('petty_cash')}}"><label class="nav-links" style="margin-left: 30px">Petty Cash</label></a>
                   
                </div>
 
@@ -100,7 +100,7 @@
                <div>
                     <a href="{{route('intends')}}"><label class="nav-links" style="margin-left: 20px">Intends</label></a>
                    
-                    <a href="{{route('tickets')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
+                    <a href="{{route('ticketslist')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
                    
 
                   

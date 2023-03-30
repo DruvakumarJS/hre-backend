@@ -49,7 +49,11 @@
                               <td>Telephonic Draw Channel</td>
                               <td>20</td>
                               <td>15</td>
+                              @if(Auth::user()->role_id == 2)
+                              <td> <a href="{{route('indent_details','M001')}}"><label class="curved-text-button">View/Edit</label></a></td>
+                              @elseif(Auth::user()->role_id == 3)
                               <td> <a href="{{route('update_intends','M001')}}"><label class="curved-text-button">View/Edit</label></a></td>
+                              @endif
                             </tr>
 
                              <tr>  

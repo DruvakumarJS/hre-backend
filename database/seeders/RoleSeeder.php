@@ -16,19 +16,23 @@ class RoleSeeder extends Seeder
     {
         $input = [
                     [
-                        'name' => 'Super Admin',
+                        'name' => 'admin',
+                        'alias' => 'Super Admin',
                         'description'=>'All Controles'
                     ],
                     [
-                        'name' => 'Project Mangaer',
+                        'name' => 'mangaer',
+                        'alias' => 'Project Manager',
                         'description'=>'All Controles'
                     ],
                     [
-                        'name' => 'Procurement',
+                        'name' => 'procurement',
+                        'alias' => 'Procurement',
                         'description'=>'Limited data can see'
                     ],
                     [
-                        'name' => 'Supervisor',
+                        'name' => 'supervisor',
+                        'alias' => 'Supervisor',
                         'description'=>'Limited data can see'
                     ]
                  ];

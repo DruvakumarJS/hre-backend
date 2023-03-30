@@ -24,7 +24,7 @@ class AdminSeeder extends Seeder
                     'name' => 'SuperAdmin',
                     'email' =>'admin@admin.com',
                     'role_id' => '1',
-                    'role' => 'Super Admin',
+                    'role' => 'admin',
                     'password' => Hash::make('admin')
                 ],
                 
@@ -32,7 +32,7 @@ class AdminSeeder extends Seeder
                     'name' => 'Druva Kumar JS',
                     'email' =>'druva@netiapps.com',
                     'role_id' => '1',
-                    'role' => 'Super Admin',
+                    'role' => 'admin',
                     'password' => Hash::make('druva')
                 ],
 
@@ -40,14 +40,14 @@ class AdminSeeder extends Seeder
                     'name' => 'Druva Kumar JS',
                     'email' =>'manager@netiapps.com',
                     'role_id' => '2',
-                    'role' => 'Project Manager',
+                    'role' => 'manager',
                     'password' => Hash::make('druva')
                 ],
                  [
                     'name' => 'Druva Kumar JS',
                     'email' =>'procurement@netiapps.com',
                     'role_id' => '3',
-                    'role' => 'Procurement',
+                    'role' => 'procurement',
                     'password' => Hash::make('druva')
                 ],
 
@@ -55,7 +55,7 @@ class AdminSeeder extends Seeder
                     'name' => 'Druva Kumar JS',
                     'email' =>'supervisor@netiapps.com',
                     'role_id' => '4',
-                    'role' => 'Supervisor',
+                    'role' => 'supervisor',
                     'password' => Hash::make('druva')
                 ]
 

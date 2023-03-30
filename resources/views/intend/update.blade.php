@@ -4,9 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <label class="label-bold">Intend Details</label>
+
     </div>
 
-    <div style="margin-top: 50px">
+    <div style="margin-top: 70px">
 
     	<div class="row">
     		 <div class="col-md-2">
@@ -35,7 +36,7 @@
 
              
 
-    	</div>
+    	</div >
         <div class="row" style="margin-top: 20px">
 
         	<div class="card border-white col-md-6">

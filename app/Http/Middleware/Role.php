@@ -13,8 +13,24 @@ class Role {
 
     $user = Auth::user();
     if($user->role == $role)
+    {
       return $next($request);
+    }
 
-    return redirect('/home');
+
+
+   if($user->role_id == '1')
+   	return redirect('/home');
+      //return $next($request);
+
+  if($user->role_id == '2')
+      return redirect('/manager_home');
+
+   if($user->role_id == '3')
+      return redirect('/procurement_home');
+  
+
+
+    //return redirect('/home');
   }
 }
