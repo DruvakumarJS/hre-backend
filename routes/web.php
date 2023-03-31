@@ -24,8 +24,8 @@ use App\Http\Controllers\IntendController;
 */
 
 Route::get('/', function () {
-	// return view('welcome');
-    return redirect(route('login'));    
+	return view('welcome');
+    // return redirect(route('login'));    
 });
 
 Auth::routes();
