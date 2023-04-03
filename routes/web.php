@@ -25,13 +25,13 @@ use App\Http\Controllers\SettingController;
 */
 
 Route::get('/', function () {
-   // return redirect(route('login'));
+ // return redirect(route('login'));
    return view('welcome'); 
 });
 
 Auth::routes();
 
-//Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('role:admin');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('role:admin');
 
 Route::middleware('role:admin')->group(function () {
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
