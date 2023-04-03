@@ -622,8 +622,10 @@ progress {
   text-align: center;
   font-size: 12px;
   border-color: #FDF2DF;
- padding-left: 10px;
+  padding-left: 10px;
   padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .curved-text-disabled {
   background-color: #D3D3D3;

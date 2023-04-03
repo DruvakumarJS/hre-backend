@@ -12,6 +12,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\PettycashController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\IntendController;
+use App\Http\Controllers\SettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +25,8 @@ use App\Http\Controllers\IntendController;
 */
 
 Route::get('/', function () {
-    return redirect(route('login'));    
+   // return redirect(route('login'));
+   return view('welcome'); 
 });
 
 Auth::routes();
@@ -42,6 +44,7 @@ Route::middleware('role:admin')->group(function () {
     Route::get('pettycash',[PettycashController::class,'index'])->name('pettycash');
     
 	});
+
 
 Route::middleware('role:manager')->group(function () {
 	Route::get('/manager_home', [ManagerHomeController::class, 'index'])->name('manager_home');
@@ -63,6 +66,9 @@ Route::middleware('role:procurement')->group(function () {
 	
 
 	});
+Route::get('settings',[SettingController::class,'index'])->name('settings');
+
+
 
 
 
