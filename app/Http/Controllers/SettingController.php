@@ -25,7 +25,11 @@ class SettingController extends Controller
      */
     public function create()
     {
-        //
+        
+    }
+
+    public function add_supervisor_form(){
+        return view('settings/supervisor/add');
     }
 
     /**

@@ -25,13 +25,13 @@ use App\Http\Controllers\SettingController;
 */
 
 Route::get('/', function () {
- // return redirect(route('login'));
-   return view('welcome'); 
+
+    return redirect(route('login'));
+  
 });
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('role:admin');
 
 Route::middleware('role:admin')->group(function () {
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -67,6 +67,7 @@ Route::middleware('role:procurement')->group(function () {
 
 	});
 Route::get('settings',[SettingController::class,'index'])->name('settings');
+Route::get('add-supervisor',[SettingController::class,'add_supervisor_form'])->name('add_supervisor');
 
 
 

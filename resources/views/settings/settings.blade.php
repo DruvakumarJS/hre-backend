@@ -38,7 +38,7 @@
                         </div>
                         <div  >
                            
-                             <a style="float: right;" href=""><label class="curved-text-button">Add</label></a>
+                             <a style="float: right;" href="{{route('add_supervisor')}}"><label class="curved-text-button">Add</label></a>
                               <a style="float: right;margin-right: 20px" href=""><label class="curved-text-button">View</label></a>
                            
                         </div >
