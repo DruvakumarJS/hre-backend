@@ -8,12 +8,11 @@
            <div id="div2">
             <a  class="btn btn-light" href=""></i> View Material</a>
             
-            
           </div>
-          <div id="div2" style="margin-right: 30px">
+         <!--  <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light" href=""><i class="fa fa-plus"></i> Create Material</a>
             
-          </div>
+          </div> -->
 
            <div id="div2" style="margin-right: 30px" >
             <a data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-light" href=""><i class="fa fa-plus"></i> 
@@ -45,7 +44,7 @@
                   @csrf
                   <div class="mb-3">
                     <label for="recipient-name" class="col-form-label">Category Name:</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Category name">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Category name" required>
                   </div>
                   <div class="mb-3">
                     <label for="message-text" class="col-form-label">Description (optional)</label>
@@ -63,6 +62,12 @@
           </div>
         </div>
 <!-- Modal -->
+
+
+        @if(Session::has('message'))
+            <p id="errormessage" class="text-danger text-center">{{ Session::get('message') }}</p>
+        @endif       
+
         <div style="margin-top: 50px">
         	<label style="margin-left: 20px">Material Category</label>
 
@@ -71,8 +76,8 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Material id</th>
-                              <th scope="col">Material Category</th>
+                              <th scope="col">Category id</th>
+                              <th scope="col">Category Name</th>
                               <th scope="col">Action</th>
                              
                             </tr>
@@ -87,10 +92,38 @@
                               </td>
                             </tr>
  -->
+                            @foreach($categories as $key => $value)
+
+                            <td>{{$value-> code}}</td>
+                              <td>{{$value->name}}</td>
+                              <td>
+                                <a href="{{route('add_product','M0001')}}"><label class="curved-text">Add Product</label></a>
+                                <a href="{{route('add_product','M0001')}}"><label class="curved-text">View Product</label></a>   
+                              </td>
+                              <td>
+                                 <a href=""  ><i class='fa fa-edit' style='font-size:24px;'></i></a>
+                              </td>
+                               <td class="openModal">   
+                                  <a > <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
+                              </td>
+                              <td >
+                                 
+        
+                              </td>
+                            </tr>
+
+                            @endforeach
+
+
                              
                              
                           </tbody>
                         </table>
+
+                         <label>Showing {{ $categories->firstItem() }} to {{ $categories->lastItem() }}
+                                    of {{$categories->total()}} results</label>
+
+                                {!! $categories->links() !!}
                         
                     </div>
                     <!--</div>-->
@@ -100,4 +133,20 @@
 
    
 </div>
+
+
+ <script type="text/javascript">
+                setTimeout(function () {
+                    $("errormessage").fadeOut().empty();
+                }, 3000);
+            </script>
+<script type="text/javascript">
+
+  $('.openModal').on('click',function(){
+  
+    $("#editModal").modal("show");
+    $("#id").val($(this).closest('tr').children()[0].textContent);
+
+});
+</script>
 @endsection

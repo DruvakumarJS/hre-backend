@@ -15,7 +15,7 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        return view('material/list');
+       
     }
 
     /**
@@ -23,9 +23,9 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-       
+      
     }
 
     /**

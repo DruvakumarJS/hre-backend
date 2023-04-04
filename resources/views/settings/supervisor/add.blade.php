@@ -24,7 +24,7 @@
          </div>
 
           <div>
-         	<label>Name</label>
+         	<label>Name</label> 
     	    <input type="text" name="" placeholder="Name"> 	
          </div>
     	

@@ -49,7 +49,7 @@
                <div>
                     <a href="{{route('users')}}"><label class="nav-links" style="margin-left: 20px">User Master</label></a>
 
-                    <a href="{{route('materials')}}"><label class="nav-links" style="margin-left: 20px">Material Master</label></a>
+                    <a href="{{route('materials_master')}}"><label class="nav-links" style="margin-left: 20px">Material Master</label></a>
                    
 
                     <a href="{{route('PCN')}}"><label class="nav-links" style="margin-left: 30px">PCN</label></a>
