@@ -20,10 +20,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/mycustomestyle.css') }}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
-    
+
 </head>
 
 
@@ -36,7 +37,7 @@
                     {{ config('app.name', 'Laravel') }}
                 </a> -->
 
-             
+
                @if(Auth::user()->role_id == 1)
 
                <a
@@ -50,20 +51,20 @@
                     <a href="{{route('users')}}"><label class="nav-links" style="margin-left: 20px">User Master</label></a>
 
                     <a href="{{route('materials')}}"><label class="nav-links" style="margin-left: 20px">Material Master</label></a>
-                   
+
 
                     <a href="{{route('PCN')}}"><label class="nav-links" style="margin-left: 30px">PCN</label></a>
-                  
+
 
                     <a href="{{route('tickets')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
-                   
+
 
                     <a href="{{route('attendance')}}"><label class="nav-links" style="margin-left: 30px">Attendance</label></a>
-                  
+
 
                     <a href="{{route('pettycash')}}"><label class="nav-links" style="margin-left: 30px">Petty Cash</label></a>
 
-                    
+
                </div>
 
                @elseif(Auth::user()->role_id == 2)
@@ -81,12 +82,12 @@
                     <a href="{{route('intend_list')}}"><label class="nav-links" style="margin-left: 20px">Intend</label></a>
 
                     <a href="{{route('tickets_list')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
-                   
+
 
                     <a href="{{route('attendance_list')}}"><label class="nav-links" style="margin-left: 30px">Attendance</label></a>
 
                     <a href="{{route('petty_cash')}}"><label class="nav-links" style="margin-left: 30px">Petty Cash</label></a>
-                  
+
                </div>
 
                @elseif(Auth::user()->role_id == 3)
@@ -99,11 +100,11 @@
 
                <div>
                     <a href="{{route('intends')}}"><label class="nav-links" style="margin-left: 20px">Intends</label></a>
-                   
-                    <a href="{{route('ticketslist')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
-                   
 
-                  
+                    <a href="{{route('ticketslist')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
+
+
+
                </div>
 
                @endif
@@ -111,7 +112,7 @@
 
 
 
-              
+
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -139,7 +140,7 @@
                                 </li>
                             @endif
                         @else
-                         
+
                              <a href=""> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a>
 
                              <a href=""> <img class="circle" src="{{asset('images/mail.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
@@ -147,12 +148,12 @@
                              <a href="{{route('settings')}}"> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
 
                              <a href=""> <img class="circle" src="{{asset('images/person.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
-                            
+
                               <label style="margin-left: 20px ; color: black"> {{ Auth::user()->name }}</br>{{Auth::user()->role }}</label>
 
                                <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                   
+
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -169,8 +170,8 @@
                             </li>
 
 
-                               
-                                                    
+
+
                         @endguest
                     </ul>
                 </div>

@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <style type="text/css">
 .body-background1
@@ -26,7 +27,7 @@
   background: linear-gradient(to right, #FDF2DF 30%, #FFF9F4 0%);
   height:100vh;
   color:#000;
-  
+
 }
 </style>
 
@@ -58,7 +59,7 @@
                     <a href=""><label style="margin-left: 50px">Petty Cash</label></a>
                </div>
  -->
-              
+
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -74,7 +75,7 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                           
+
                         @else
                            <!--  <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -88,11 +89,11 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                   
+
                                 </div>
                             </li> -->
 
-                            
+
                              <a href=""> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a>
 
                              <a href=""> <img class="circle" src="{{asset('images/mail.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
@@ -100,12 +101,12 @@
                              <a href=""> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
 
                              <a href=""> <img class="circle" src="{{asset('images/person.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
-                      
+
                               <label style="margin-left: 50px ; color: black"> {{ Auth::user()->name }}</label>
 
-                        
-                            
-                            
+
+
+
 
                         @endguest
                     </ul>

@@ -1,0 +1,93 @@
+.card {
+    padding: 10px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    border-radius: 20px;
+    padding: 20px;
+    border: none;
+}
+.body-background
+{
+    margin: 0;
+    background: linear-gradient(to bottom, #FDF2DF 25%, #FFF9F4 0%);
+    height:100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.container-header{
+    width: 100%;
+    float: left;
+    text-align: center;
+}
+.container-header button{
+    display: inline-block;
+}
+#div1{
+    float:left;
+}
+#div2{
+    float:right;
+}
+#div3{
+    float:right;
+}
+.nav-links{
+    color: #000
+}
+.label-bold{
+    font-weight: bold;
+    font-size: 15px;
+}
+.label-small{
+    font-weight: normal;
+    font-size: 10px;
+}
+.label-medium{
+    font-weight: bolder;
+    font-size: 12px;
+}
+.label-bolder{
+    font-weight: bolder;
+    font-size: 22px;
+}
+.curved-text {
+    background-color: #FDF2DF;
+    border-radius: 5px;
+    color: #000;
+    font-size: 12px;
+    border-color: #FDF2DF;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.curved-text-button {
+    background-color: #FDF2DF;
+    border-radius: 5px;
+    color: #000;
+    text-align: center;
+    font-size: 12px;
+    border-color: #FDF2DF;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.curved-text-disabled {
+    background-color: #D3D3D3;
+    border-radius: 10px;
+    color: white;
+    border-color: #00CC88;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.current_page_item {
+    background-color: red;
+    color: white;
+}
+
+.loginform{
+    width:500px;
+    top:150px;
+    right:10px;
+    z-index: 3;
+    position:absolute;
+}
