@@ -45,6 +45,7 @@ Route::middleware('role:admin')->group(function () {
 	Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
     Route::get('pettycash',[PettycashController::class,'index'])->name('pettycash');
     Route::post('create_category',[CategoryController::class, 'create'])->name('create-category');
+    Route::get('delete_category/{id}',[CategoryController::class, 'destroy'])->name('delete_category');
 
 	});
 
