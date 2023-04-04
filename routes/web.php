@@ -39,7 +39,8 @@ Route::middleware('role:admin')->group(function () {
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
 	Route::get('users_list',[UserController::class, 'index'])->name('users');
     Route::get('material_master',[CategoryController::class, 'index'])->name('materials_master');
-    Route::get('add_product/{id}',[MaterialController::class,'show'])->name('add_product');
+    Route::get('add_material/{id}',[MaterialController::class,'show'])->name('add_material');
+    Route::post('create_material',[MaterialController::class,'create'])->name('create_material');
 	Route::get('PCN',[PcnController::class,'index'])->name('PCN');
 	Route::get('tickets',[TicketController::class, 'index'])->name('tickets');
 	Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');

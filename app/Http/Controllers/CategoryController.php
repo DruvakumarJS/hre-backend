@@ -29,13 +29,13 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
          $categoryName = $request->name ;
+         $categoryHint = $request->hint ;
          $categoryDesc = $request->desc ;
 
-       //  print_r($request->Input());
+         if($data = Category::exists()){
 
-         $validate = Category::where('name',$categoryName)->get();
+        $validate = Category::where('name',$categoryName)->get();
 
-       //  print_r($validate);
 
          if(sizeof($validate)>0){
              return redirect()->route('materials_master')->withMessage('Category Already Exists')->withInput();
@@ -43,29 +43,38 @@ class CategoryController extends Controller
          else {
 
             $category_id=Category::select('code')->orderBy('id', 'DESC')->first();
-
+            
             $code = ++$category_id->code;
 
              $CreateCategory = Category::create(
             [
                 'code' => $code,
                 'name' => $categoryName,
+                'hint' => $categoryHint,
                 'description' => $categoryDesc
             ]) ;
 
-             return redirect()->route('materials_master');
+         }
+         }
+   
+         else{
 
+           
+             $CreateCategory = Category::create(
+            [
+                'code' => "C0001",
+                'name' => $categoryName,
+                'hint' => $categoryHint,
+                'description' => $categoryDesc
+            ]) ;
 
 
          }
 
-    
+          return redirect()->route('materials_master');
+         }
 
         
-
-
-
-    }
 
     /**
      * Store a newly created resource in storage.

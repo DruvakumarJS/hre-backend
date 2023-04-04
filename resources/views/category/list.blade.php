@@ -92,71 +92,71 @@
                             </tr>
                           </thead>
                           <tbody>
-                           <!--  <tr>  
-                              <td>M00001</td>
-                              <td>Civil</td>
-                              <td>
-                              	<a href="{{route('add_product','M0001')}}"><label class="curved-text">Add Product</label></a>
-                              	<a href="{{route('add_product','M0001')}}"><label class="curved-text">View Product</label></a>
-                              </td>
-                            </tr>
- -->
+                          
                             @foreach($categories as $key => $value)
 
                             <td>{{$value->code}}</td>
                               <td>{{$value->name}}</td>
                               <td>{{$value->hint}}</td>
                               <td>
-                                <a href="{{route('add_product','M0001')}}"><label class="curved-text">Add Product</label></a>
-                                <a href="{{route('add_product','M0001')}}"><label class="curved-text">View Product</label></a>   
+                                <a href="{{route('add_material',$value->code)}}"><label class="curved-text">Add Material</label></a>
+                                <a href="{{route('add_material',$value->code)}}"><label class="curved-text">View Material</label></a>   
                               </td>
                                <td class="openModal" >
-                                <a href=""  ><i class='fa fa-edit' style='font-size:24px;'></i></a>
+                                <a href="" data-bs-toggle="modal"  data-bs-target="#myModal" ><i class='fa fa-edit' style='font-size:24px;'></i></a>
+                                
                                  </td>
                                <td >
-                                  <a id="MybtnModal_{{$key}}"> <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
-                                
+                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_category',$value->id)}}" > <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
+
+                                   
                               </td>
-                              <td >
+                              <td>
                                  
         
                               </td>
                             </tr>
 
-                            <!-- Modal -->
-
-                                <div class="modal" id="modal_{{$key}}" >
+                           
+                            <!-- The Modal -->
+                                <div class="modal" id="myModal">
                                   <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header" style="background-color:white;">
-                                        
-                                        <h5 class="modal-title" >Hydrolore</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <p>Are you sure to delete the user {{$value->name}}?</p>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn " data-bs-dismiss="modal">No</button>
-                                         <a href="{{route('delete_category',$value->id)}}"> <input class="btn btn-primary" type="button"  data-bs-dismiss="modal"  value="Yes" style="padding-left:20px;padding-right:20px"> </a>
-                                      </div>
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Edit Material Category</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
+                                    <div class="modal-body">
+                                      <form method="post" action="{{route('create-category')}}">
+                                        @csrf
+                                        <div class="mb-3">
+                                          <label for="recipient-name" class="col-form-label">Category Name:</label>
+                                          <input type="text" class="form-control" id="name" name="name" placeholder="Enter Category name" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                          <label for="message-text" class="col-form-label">HINT</label>
+                                           <input type="text" class="form-control" id="hint" name="hint" placeholder="Enter Hint" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                          <label for="message-text" class="col-form-label">Description (optional)</label>
+                                          <textarea class="form-control" id="desc" name="desc" ></textarea>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                          <button type="submit" class="btn btn-primary">SAVE</button>
+                                        </div>
+                                      </form>
+                                    </div>
+                                    
                                   </div>
                                 </div>
+                                </div>
+          <!-- End edit Modal -->
 
-                <!--  end Modal -->
-
-                <script>
-                  $(document).ready(function(){
-                    $('#MybtnModal_{{$key}}').click(function(){
-                      alert("lll");
-                      $('#modal_{{$key}}').modal('show')
-                    });
-                  });  
-                  </script>
-
-
-
+                     
                             @endforeach
      
                              
@@ -185,6 +185,14 @@
                     $("errormessage").fadeOut().empty();
                 }, 3000);
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function()
+{
+    console.log("lll");
+};
+</script>
+
 
 
 

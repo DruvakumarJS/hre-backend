@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class MaterialController extends Controller
      */
     public function create(Request $request)
     {
-      
+      //print_r($request->Input());die();
     }
 
     /**
@@ -47,7 +48,13 @@ class MaterialController extends Controller
      */
     public function show($id)
     {
-         return view('material/add_products',compact('id'));
+
+        $c_name = Category::select('name')->where('code',$id)->first();
+
+        $name = $c_name->name ;
+
+        //print_r($c_name->name);die();
+         return view('material/add_material',compact('id','name'));
     }
 
     /**
