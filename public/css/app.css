@@ -8,11 +8,12 @@
 .logo {
   width: 50px;
   height: 60px;
+  margin-right: 40px;
 }
 
 .navigation a {
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
   font-weight: 600;
 }
 
@@ -30,6 +31,7 @@
 
 .navbar {
   background: #fdf2df;
+  border-bottom: 1px solid #ffffff;
 }
 
 /*!
