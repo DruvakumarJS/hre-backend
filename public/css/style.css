@@ -84,10 +84,3 @@
     color: white;
 }
 
-.loginform{
-    width:500px;
-    top:150px;
-    right:10px;
-    z-index: 3;
-    position:absolute;
-}

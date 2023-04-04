@@ -43,28 +43,17 @@
                <a
                 href="{{route('home')}}"
                    >
-                  <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
+                  <img class="logo" src="{{asset('images/logo.svg')}}">
                </a>
 
 
-               <div>
-                    <a href="{{route('users')}}"><label class="nav-links" style="margin-left: 20px">User Master</label></a>
-
-                    <a href="{{route('materials')}}"><label class="nav-links" style="margin-left: 20px">Material Master</label></a>
-
-
-                    <a href="{{route('PCN')}}"><label class="nav-links" style="margin-left: 30px">PCN</label></a>
-
-
-                    <a href="{{route('tickets')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
-
-
-                    <a href="{{route('attendance')}}"><label class="nav-links" style="margin-left: 30px">Attendance</label></a>
-
-
-                    <a href="{{route('pettycash')}}"><label class="nav-links" style="margin-left: 30px">Petty Cash</label></a>
-
-
+               <div class="navigation">
+                    <a href="{{route('users')}}"><label class="nav-links">User Master</label></a>
+                    <a href="{{route('materials')}}"><label class="nav-links">Material Master</label></a>
+                    <a href="{{route('PCN')}}"><label class="nav-links">PCN</label></a>
+                    <a href="{{route('tickets')}}"><label class="nav-links" >Tickets</label></a>
+                    <a href="{{route('attendance')}}"><label class="nav-links" >Attendance</label></a>
+                    <a href="{{route('pettycash')}}"><label class="nav-links" >Petty Cash</label></a>
                </div>
 
                @elseif(Auth::user()->role_id == 2)
@@ -76,17 +65,16 @@
                </a>
 
 
-               <div>
-                    <a href="{{route('employee_list')}}"><label class="nav-links" style="margin-left: 20px">Employee</label></a>
+               <div class="navigation">
+                    <a href="{{route('employee_list')}}"><label class="nav-links">Employee</label></a>
 
-                    <a href="{{route('intend_list')}}"><label class="nav-links" style="margin-left: 20px">Intend</label></a>
+                    <a href="{{route('intend_list')}}"><label class="nav-links">Intend</label></a>
 
-                    <a href="{{route('tickets_list')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
+                    <a href="{{route('tickets_list')}}"><label class="nav-links">Tickets</label></a>
 
+                    <a href="{{route('attendance_list')}}"><label class="nav-links">Attendance</label></a>
 
-                    <a href="{{route('attendance_list')}}"><label class="nav-links" style="margin-left: 30px">Attendance</label></a>
-
-                    <a href="{{route('petty_cash')}}"><label class="nav-links" style="margin-left: 30px">Petty Cash</label></a>
+                    <a href="{{route('petty_cash')}}"><label class="nav-links">Petty Cash</label></a>
 
                </div>
 
@@ -98,13 +86,9 @@
                   <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
                </a>
 
-               <div>
-                    <a href="{{route('intends')}}"><label class="nav-links" style="margin-left: 20px">Intends</label></a>
-
-                    <a href="{{route('ticketslist')}}"><label class="nav-links" style="margin-left: 30px">Tickets</label></a>
-
-
-
+               <div class="navigation">
+                    <a href="{{route('intends')}}"><label class="nav-links">Intends</label></a>
+                    <a href="{{route('ticketslist')}}"><label class="nav-links">Tickets</label></a>
                </div>
 
                @endif
@@ -149,11 +133,13 @@
 
                              <a href=""> <img class="circle" src="{{asset('images/person.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
 
-                              <label style="margin-left: 20px ; color: black"> {{ Auth::user()->name }}</br>{{Auth::user()->role }}</label>
+                            <div class="userLogin">
+                                <h4> {{ Auth::user()->name }}</h4>
+                                <h5>{{Auth::user()->role }}</h5>
+                            </div>
 
                                <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
