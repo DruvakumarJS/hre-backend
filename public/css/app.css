@@ -35,6 +35,10 @@
   border-bottom: 1px solid #ffffff;
 }
 
+.active label {
+  border-bottom: 1px solid #000000;
+}
+
 /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors

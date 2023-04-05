@@ -50,7 +50,7 @@
                   <img class="circle" src="{{asset('images/logo.svg')}}" style="width: 100px;height: 100px;">
                </a>
 
-            
+
 
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -95,9 +95,6 @@
                              <a href=""> <img class="circle" src="{{asset('images/person.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
 
                               <label style="margin-left: 50px ; color: black"> {{ Auth::user()->name }}</label>
-
-
-
 
 
                         @endguest
