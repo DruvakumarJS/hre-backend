@@ -54,8 +54,12 @@
 
 
                <div class="navigation">
-                    <a href="{{route('users')}}"><label class="nav-links">User Master</label></a>
-                    <a href="{{route('materials_master')}}"><label class="nav-links">Material Master</label></a>
+                    <a href="{{route('users')}}" ><label class="nav-links">User Master</label></a>
+
+                    <a href="{{route('materials_master')}}"
+                     class="{{request()->routeIs('materials_master')? 'active' : ''}}">
+                     <label class="nav-links">Material Master</label></a>
+
                     <a href="{{route('PCN')}}"><label class="nav-links">PCN</label></a>
                     <a href="{{route('tickets')}}"><label class="nav-links" >Tickets</label></a>
                     <a href="{{route('attendance')}}"><label class="nav-links" >Attendance</label></a>
