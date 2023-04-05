@@ -6,20 +6,14 @@
         <div class="container-header">
             <label class="label-bold" id="div1">Material Category</label>
            <div id="div2">
-            <a  class="btn btn-light" href=""></i> View Material</a>
+            <a  class="btn btn-light" href="{{route('materials')}}"></i> View Materials</a>
             
           </div>
-         <!--  <div id="div2" style="margin-right: 30px">
-            <a class="btn btn-light" href=""><i class="fa fa-plus"></i> Create Material</a>
-            
-          </div> -->
-
+        
            <div id="div2" style="margin-right: 30px" >
             <a data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-light" href=""><i class="fa fa-plus"></i> 
              <label id="modal">Create Category</label>
            </a>
-
-         <!--   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button> -->
 
     
           </div>
@@ -48,8 +42,13 @@
                   </div>
 
                   <div class="mb-3">
-                    <label for="message-text" class="col-form-label">HINT</label>
-                     <input type="text" class="form-control" id="hint" name="hint" placeholder="Enter Hint" required>
+                    <label for="message-text" class="col-form-label">Material Category</label>
+                     <input type="text" class="form-control" id="material_category" name="material_category" placeholder="Enter Material Category" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Unit</label>
+                     <input type="text" class="form-control" id="unit" name="unit" placeholder="Enter unit" required>
                   </div>
 
                   <div class="mb-3">
@@ -82,9 +81,9 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Category id</th>
-                              <th scope="col">Category Name</th>
-                              <th scope="col">Hint</th>
+                              <th scope="col">Category</th>
+                              <th scope="col">Material Category</th>
+                              <th scope="col">Unit</th>
                               <th scope="col">Action</th>
                               <th ></th>
                               <th ></th>
@@ -94,13 +93,12 @@
                           <tbody>
                           
                             @foreach($categories as $key => $value)
-
-                            <td>{{$value->code}}</td>
-                              <td>{{$value->name}}</td>
-                              <td>{{$value->hint}}</td>
+                              <td>{{$value->category}}</td>
+                              <td>{{$value->material_category}}</td>
+                              <td>{{$value->unit}}</td>
                               <td>
-                                <a href="{{route('add_material',$value->code)}}"><label class="curved-text">Add Material</label></a>
-                                <a href="{{route('add_material',$value->code)}}"><label class="curved-text">View Material</label></a>   
+                                <a href="{{route('add_product',$value->code)}}"><label class="curved-text">Add Product</label></a>
+                                <a href="{{route('view_products',$value->code)}}"><label class="curved-text">View Product</label></a>   
                               </td>
                                <td class="openModal" >
                                 <a href="" data-bs-toggle="modal"  data-bs-target="#myModal" ><i class='fa fa-edit' style='font-size:24px;'></i></a>
@@ -134,9 +132,14 @@
                                           <input type="text" class="form-control" id="name" name="name" placeholder="Enter Category name" required>
                                         </div>
 
+                                         <div class="mb-3">
+                                          <label for="message-text" class="col-form-label">Material Category</label>
+                                           <input type="text" class="form-control" id="material_category" name="material_category" placeholder="Enter Material Category" required>
+                                        </div>
+
                                         <div class="mb-3">
-                                          <label for="message-text" class="col-form-label">HINT</label>
-                                           <input type="text" class="form-control" id="hint" name="hint" placeholder="Enter Hint" required>
+                                          <label for="message-text" class="col-form-label">Unit</label>
+                                           <input type="text" class="form-control" id="unit" name="unit" placeholder="Enter unit" required>
                                         </div>
 
                                         <div class="mb-3">

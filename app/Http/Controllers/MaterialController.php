@@ -16,7 +16,9 @@ class MaterialController extends Controller
      */
     public function index()
     {
+        $MaterialList = Material::paginate(10);
        
+       return view('material/list', compact('MaterialList'));
     }
 
     /**
@@ -26,7 +28,48 @@ class MaterialController extends Controller
      */
     public function create(Request $request)
     {
-      //print_r($request->Input());die();
+
+       // $searchcategoty = Material::where()
+     
+      if($data = Material::exists()){
+
+        $Material_id=Material::select('item_code')->orderBy('id', 'DESC')->first();
+
+         $itemcode = ++$Material_id->item_code;
+
+         $MaterialData = Material::create([
+            'category_id' => $request->category_id,
+            'item_code' => $itemcode,
+            'name' => $request->name,
+            'brand' =>$request->brand,
+            'size' =>$request->size,
+            'thickness' =>$request->thickness,
+            'grade' =>$request->grade,
+            'shade_no' =>$request->shade,
+            'unit'=> $request->unit,
+      ]);
+
+      }
+      else{
+
+         $itemcode = $request->category_hint ."00001";
+
+         $MaterialData = Material::create([
+            'category_id' => $request->category_id,
+            'item_code' => $itemcode,
+            'name' => $request->name,
+            'brand' =>$request->brand,
+            'size' =>$request->size,
+            'thickness' =>$request->thickness,
+            'grade' =>$request->grade,
+            'shade_no' =>$request->shade,
+            'unit'=> $request->unit,
+      ]);
+
+      }
+      return redirect()->route('materials');
+     
+
     }
 
     /**
@@ -49,12 +92,13 @@ class MaterialController extends Controller
     public function show($id)
     {
 
-        $c_name = Category::select('name')->where('code',$id)->first();
+        $c_name = Category::select('category' , 'material_category')->where('code',$id)->first();
 
-        $name = $c_name->name ;
+        $category = $c_name->category ;
+        $material_category = $c_name->material_category ;
 
         //print_r($c_name->name);die();
-         return view('material/add_material',compact('id','name'));
+         return view('material/add_product',compact('id','category','material_category'));
     }
 
     /**
@@ -63,9 +107,16 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function edit(Material $material)
+    public function edit($id)
     {
-        //
+        $c_name = Category::select('category' , 'material_category')->where('code',$id)->first();
+
+        $category = $c_name->category ;
+        $material_category = $c_name->material_category ;
+
+         $MaterialList = Material::where('category_id',$id)->get();
+       
+       return view('material/edit_products', compact('MaterialList' ,'category','material_category'));
     }
 
     /**
@@ -90,4 +141,6 @@ class MaterialController extends Controller
     {
         //
     }
+
+
 }

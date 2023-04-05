@@ -15,6 +15,15 @@ class CreateMaterialsTable extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
+            $table->string('item_code');
+            $table->string('category_id');
+            $table->string('name');
+            $table->string('brand')->nullable();
+            $table->string('size')->nullable();
+            $table->string('thickness')->nullable();
+            $table->string('grade')->nullable();
+            $table->string('shade_no')->nullable();
+            $table->string('unit');
             $table->timestamps();
         });
     }

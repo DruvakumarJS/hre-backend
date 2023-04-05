@@ -6,24 +6,24 @@
         <div class="container-header">
             <label class="label-bold" id="div1">Add Material</label>
            <div id="div2">
-            <button class="btn btn-light">View Material</button>
-            
+            <a  class="btn btn-light" href="{{route('materials')}}"></i> View Material</a>
+           
           </div>
           <div id="div2" style="margin-right: 30px">
-             <button class="btn btn-light" ><i class="fa fa-plus"></i> Create Material</button>
+             <button class="btn btn-light" ></i> View Category</button>
           </div>
        
         </div>
 
         <div style="margin-top: 50px">
         
-        	<label class="label-bold">Category id : {{$id}}</label>
+        	<label class="label-bold">Category  : {{$category}}</label>
           <div>
-             <label class="label-bold">Category Name : {{$name}}</label>
+             <label class="label-bold">Material Category : {{$material_category}}</label>
 
           </div>
          
-                 <div class="card border-white">
+                <!--  <div class="card border-white">
 
                         <table class="table">
                           <thead>
@@ -57,10 +57,14 @@
                           </tbody>
                         </table>
                         
-                    </div>
+                    </div> -->
                
 
                     </div>
+
+                    <div class="div-margin">
+                      
+                    
 
                      <form method="post" action="{{route('create_material')}}">
 
@@ -143,12 +147,14 @@
                           <input type="text" name="grade" placeholder="Enter Grade">
                         </div>
                         <div class="col-md-2"> 
-                          <input type="text" name="sahde" placeholder="Enter Shade No">
+                          <input type="text" name="shade" placeholder="Enter Shade No">
                         </div>
                         <div class="col-md-2"> 
                           <input type="text" name="unit" placeholder="Enter Unit">
                         </div>
-                        <input type="hidden" name="category_name" value="{{$name}}">
+                        <input type="hidden" name="category_name" value="{{$category}}">
+                        <input type="hidden" name="category_hint" value="{{$material_category}}">
+                        <input type="hidden" name="category_id" value="{{$id}}">
 
                         <div class="col-md-2" >
                           
@@ -161,7 +167,8 @@
                       <!--  2nd row -->
 
                     </form> 
-                      
+                    
+                    </div>  
 
                         
                       </div>

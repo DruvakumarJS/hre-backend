@@ -29,12 +29,13 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
          $categoryName = $request->name ;
-         $categoryHint = $request->hint ;
+         $material_category = $request->material_category ;
+         $unit = $request->unit ;
          $categoryDesc = $request->desc ;
 
          if($data = Category::exists()){
 
-        $validate = Category::where('name',$categoryName)->get();
+        $validate = Category::where('category',$categoryName)->get();
 
 
          if(sizeof($validate)>0){
@@ -49,8 +50,9 @@ class CategoryController extends Controller
              $CreateCategory = Category::create(
             [
                 'code' => $code,
-                'name' => $categoryName,
-                'hint' => $categoryHint,
+                'category' => $categoryName,
+                'material_category' => $material_category,
+                'unit' => $unit,
                 'description' => $categoryDesc
             ]) ;
 
@@ -62,9 +64,10 @@ class CategoryController extends Controller
            
              $CreateCategory = Category::create(
             [
-                'code' => "C0001",
-                'name' => $categoryName,
-                'hint' => $categoryHint,
+                'code' => "C001",
+                'category' => $categoryName,
+                'material_category' => $material_category,
+                'unit' => $unit,
                 'description' => $categoryDesc
             ]) ;
 

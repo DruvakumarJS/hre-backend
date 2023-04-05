@@ -38,13 +38,18 @@ Route::get("logout",[HomeController::class,"destroy"])->name("logout");
 Route::middleware('role:admin')->group(function () {
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
 	Route::get('users_list',[UserController::class, 'index'])->name('users');
-    Route::get('material_master',[CategoryController::class, 'index'])->name('materials_master');
-    Route::get('add_material/{id}',[MaterialController::class,'show'])->name('add_material');
+
+    Route::get('materials',[MaterialController::class,'index'])->name('materials');
+    Route::get('add_product/{id}',[MaterialController::class,'show'])->name('add_product');
     Route::post('create_material',[MaterialController::class,'create'])->name('create_material');
+    Route::get('view_products/{id}',[MaterialController::class,'edit'])->name('view_products');
+
 	Route::get('PCN',[PcnController::class,'index'])->name('PCN');
 	Route::get('tickets',[TicketController::class, 'index'])->name('tickets');
 	Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
     Route::get('pettycash',[PettycashController::class,'index'])->name('pettycash');
+
+    Route::get('material_master',[CategoryController::class, 'index'])->name('materials_master');
     Route::post('create_category',[CategoryController::class, 'create'])->name('create-category');
     Route::get('delete_category/{id}',[CategoryController::class, 'destroy'])->name('delete_category');
 

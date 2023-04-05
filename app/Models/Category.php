@@ -11,8 +11,13 @@ class Category extends Model
 
    protected $fillable = [
    	    'code',
-        'name',
-        'hint',
+        'category',
+        'material_category',
+        'unit',
         'description',   
     ];
+
+    function materials(){
+            return $this->hasMany(materials::class,'code', 'category_id');
+        }
 }
