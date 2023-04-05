@@ -10,16 +10,16 @@
            
           </div>
           <div id="div2" style="margin-right: 30px">
-             <button class="btn btn-light" ></i> View Category</button>
+             <a  class="btn btn-light" href="{{route('materials_master')}}"></i> View Category</a>
           </div>
        
         </div>
 
         <div style="margin-top: 50px">
         
-        	<label class="label-bold">Category  : {{$category}}</label>
+        	<label class="label-bold">Category  : {{$categoryData->category}}</label>
           <div>
-             <label class="label-bold">Material Category : {{$material_category}}</label>
+             <label class="label-bold">Material Category : {{$categoryData->material_category}}</label>
 
           </div>
          
@@ -152,10 +152,8 @@
                         <div class="col-md-2"> 
                           <input type="text" name="unit" placeholder="Enter Unit">
                         </div>
-                        <input type="hidden" name="category_name" value="{{$category}}">
-                        <input type="hidden" name="category_hint" value="{{$material_category}}">
-                        <input type="hidden" name="category_id" value="{{$id}}">
-
+                        <input type="hidden" name="code" value="{{$categoryData->code}}">
+                        
                         <div class="col-md-2" >
                           
                          <button type="submit" class="btn btn-danger btn-sm mt-auto">Add Material</button>

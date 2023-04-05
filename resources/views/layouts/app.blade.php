@@ -52,18 +52,40 @@
                   <img class="logo" src="{{asset('images/logo.svg')}}">
                </a>
 
-
                <div class="navigation">
-                    <a href="{{route('users')}}" ><label class="nav-links">User Master</label></a>
+                    <a href="{{route('users')}}" 
+                     class="{{request()->routeIs('users')
+                      ? 'active' : ''}}">
+                      <label class="nav-links">User Master</label></a>
 
                     <a href="{{route('materials_master')}}"
-                     class="{{request()->routeIs('materials_master')? 'active' : ''}}">
+                     class="{{request()->routeIs('materials_master')
+                     || request()->routeIs('materials')
+                     || request()->routeIs('add_product')
+                     || request()->routeIs('create_material')
+                     || request()->routeIs('view_products')
+                     ? 'active' : ''}}">
                      <label class="nav-links">Material Master</label></a>
 
-                    <a href="{{route('PCN')}}"><label class="nav-links">PCN</label></a>
-                    <a href="{{route('tickets')}}"><label class="nav-links" >Tickets</label></a>
-                    <a href="{{route('attendance')}}"><label class="nav-links" >Attendance</label></a>
-                    <a href="{{route('pettycash')}}"><label class="nav-links" >Petty Cash</label></a>
+                    <a href="{{route('PCN')}}"
+                      class="{{request()->routeIs('PCN')
+                      ? 'active' : ''}}">
+                    <label class="nav-links">PCN</label></a>
+
+                    <a href="{{route('tickets')}}"
+                    class="{{request()->routeIs('tickets')
+                      ? 'active' : ''}}">
+                    <label class="nav-links" >Tickets</label></a>
+
+                    <a href="{{route('attendance')}}"
+                    class="{{request()->routeIs('attendance')
+                      ? 'active' : ''}}">
+                    <label class="nav-links" >Attendance</label></a>
+
+                    <a href="{{route('pettycash')}}"
+                    class="{{request()->routeIs('pettycash')
+                      ? 'active' : ''}}">
+                      <label class="nav-links" >Petty Cash</label></a>
                </div>
 
                @elseif(Auth::user()->role_id == 2)
