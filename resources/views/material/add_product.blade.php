@@ -16,7 +16,9 @@
         </div>
 
         <div style="margin-top: 50px">
-        
+         <div>
+           
+         </div> 
         	<label class="label-bold">Category  : {{$categoryData->category}}</label>
           <div>
              <label class="label-bold">Material Category : {{$categoryData->material_category}}</label>

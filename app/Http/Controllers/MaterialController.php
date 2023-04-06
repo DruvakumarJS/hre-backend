@@ -148,9 +148,9 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Material $material)
+    public function update(Request $request)
     {
-        //
+       
     }
 
     /**
@@ -159,9 +159,10 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Material $material)
+    public function destroy($id)
     {
-        //
+        $DeleteMaterial = Material::where('id',$id)->delete();
+         return redirect()->route('materials');
     }
 
 

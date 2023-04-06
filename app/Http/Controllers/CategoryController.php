@@ -119,9 +119,18 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request)
     {
-        //
+       // print_r($request->Input());
+        $UpdateCategory = Category::where('id',$request->id)
+                          ->update(
+                            [
+                                'category' => $request->name,
+                                'material_category' => $request->material_category,
+                                'unit' => $request->unit,
+                                'description' => $request->desc
+                            ]);
+        return redirect()->route('materials_master');
     }
 
     /**

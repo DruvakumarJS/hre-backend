@@ -62,8 +62,12 @@
                               <td>{{$value->grade}}</td>
                               <td>{{$value->shade_no}}</td>
                               <td>{{$value->unit}}</td>
+                               <td>
+                                  <a href="" > <i class='fa fa-edit' style='font-size:24px;color:blue;'></i></a>   
+                              </td>
+
                               <td >
-                                  <a onclick="return confirm('Are you sure to delete?')" href="" > <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
+                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_product',$value->id)}}" > <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
      
                               </td>
                               
@@ -73,7 +77,12 @@
                              
                           </tbody>
                         </table>
-                        
+                        @if(sizeof($MaterialList)>0)
+                        <label>Showing {{ $MaterialList->firstItem() }} to {{ $MaterialList->lastItem() }}
+                                    of {{$MaterialList->total()}} results</label>
+
+                                {!! $MaterialList->links() !!}
+                        @endif
                     </div>
                     <!--</div>-->
                  </div>

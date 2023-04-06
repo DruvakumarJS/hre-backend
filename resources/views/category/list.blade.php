@@ -106,7 +106,9 @@
                                 <a href="{{route('view_products',$value->code)}}"><label class="curved-text">View Product</label></a>   
                               </td>
                                <td class="openModal" >
-                                <a href="" data-bs-toggle="modal"  data-bs-target="#myModal" ><i class='fa fa-edit' style='font-size:24px;'></i></a>
+                                <!-- <a href="" data-bs-toggle="modal"  data-bs-target="#myModal" ><i class='fa fa-edit' style='font-size:24px;'></i></a> -->
+
+                                <a id="MybtnModal_{{$key}}" data-id="{{$value->category}}"> <i class='fa fa-edit' style='font-size:24px;color:blue;'></i></a>
                                 
                                  </td>
                                <td >
@@ -119,6 +121,59 @@
         
                               </td>
                             </tr>
+
+                            <!-- Modal -->
+
+                              <div class="modal" id="modal_{{$key}}" >
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Edit Material Category</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form method="post" action="{{route('update-category')}}">
+                                        @csrf
+                                        <div class="mb-3">
+                                          <label for="recipient-name" class="col-form-label">Category Name:</label>
+                                          <input type="text" class="form-control" id="name" name="name" placeholder="Enter Category name" value="{{$value->category}}" required>
+                                        </div>
+
+                                         <div class="mb-3">
+                                          <label for="message-text" class="col-form-label">Material Category</label>
+                                           <input type="text" class="form-control" id="material_category" name="material_category" placeholder="Enter Material Category" value="{{$value->material_category}}" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                          <label for="message-text" class="col-form-label">Unit</label>
+                                           <input type="text" class="form-control" id="unit" name="unit" placeholder="Enter unit" value="{{$value->unit}}" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                          <label for="message-text" class="col-form-label">Description (optional)</label>
+                                          <textarea class="form-control" id="desc" name="desc" ></textarea>
+                                        </div>
+                                        <input type="hidden" name="id" value="{{$value->id}}">
+
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                          <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                      </form>
+                                    </div>
+                    </div>
+                  </div>
+                </div>
+
+<!--  end Modal -->
+
+ <script>
+$(document).ready(function(){
+  $('#MybtnModal_{{$key}}').click(function(){
+    $('#modal_{{$key}}').modal('show');
+  });
+});  
+</script>
 
                            
                             <!-- The Modal -->
@@ -193,6 +248,10 @@
                    $("mydiv").fadeOut().empty();
 
                 }, 3000);
+</script>
+
+ <script type="text/javascript">
+                
 </script>
 
 
