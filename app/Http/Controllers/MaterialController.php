@@ -28,17 +28,36 @@ class MaterialController extends Controller
      */
     public function create(Request $request)
     {
-
-       // $searchcategoty = Material::where()
+       
+      $categoryData = Category::where('code',$request->code)->first(); 
+      $code = $categoryData->material_category ; 
      
       if($data = Material::exists()){
+        
+        //$Material_id=Material::select('item_code')->orderBy('id', 'DESC')->first();
 
-        $Material_id=Material::select('item_code')->orderBy('id', 'DESC')->first();
+        $validate=Material::select('item_code')->where('item_code','LIKE','%'.$code.'%')->orderBy('id', 'DESC')->first();
 
-         $itemcode = ++$Material_id->item_code;
+        if(!empty($validate)){
+        $itemcode = ++$validate->item_code;
 
          $MaterialData = Material::create([
-            'category_id' => $request->category_id,
+            'category_id' => $categoryData->code,
+            'item_code' => $itemcode,
+            'name' => $request->name,
+            'brand' =>$request->brand,
+            'size' =>$request->size,
+            'thickness' =>$request->thickness,
+            'grade' =>$request->grade,
+            'shade_no' =>$request->shade,
+            'unit'=> $request->unit,
+      ]);
+        }
+        else {
+        $itemcode = $categoryData->material_category ."00001";
+
+         $MaterialData = Material::create([
+            'category_id' => $categoryData->code,
             'item_code' => $itemcode,
             'name' => $request->name,
             'brand' =>$request->brand,
@@ -49,13 +68,16 @@ class MaterialController extends Controller
             'unit'=> $request->unit,
       ]);
 
+        }
+
+    
       }
       else{
 
-         $itemcode = $request->category_hint ."00001";
+         $itemcode = $categoryData->material_category ."00001";
 
          $MaterialData = Material::create([
-            'category_id' => $request->category_id,
+            'category_id' => $categoryData->code,
             'item_code' => $itemcode,
             'name' => $request->name,
             'brand' =>$request->brand,
@@ -92,13 +114,13 @@ class MaterialController extends Controller
     public function show($id)
     {
 
-        $c_name = Category::select('category' , 'material_category')->where('code',$id)->first();
+        $categoryData = Category::where('code',$id)->first();
 
-        $category = $c_name->category ;
+       /* $category = $c_name->category ;
         $material_category = $c_name->material_category ;
-
+*/
         //print_r($c_name->name);die();
-         return view('material/add_product',compact('id','category','material_category'));
+         return view('material/add_product',compact('categoryData'));
     }
 
     /**

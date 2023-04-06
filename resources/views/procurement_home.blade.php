@@ -41,10 +41,10 @@
                             <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">34</h2>
                         </div>
                        <div>
-                            <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;">Intends</h4>
+                            <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;">Indents</h4>
                             <a style="float: right;" href=""><label class="curved-text-button">View</label></a>
                         </div>
-                        <label class="card-text-label ">No. of intend received today</label>
+                        <label class="card-text-label ">No. of indent received today</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -58,7 +58,7 @@
                             <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">54</h2>
                         </div>
                        <div>
-                            <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;color: #fff">Completed Intends</h4>
+                            <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;color: #fff">Completed Indents</h4>
                             <a style="float: right;" href=""><label class="curved-text-button">View</label></a>
                         </div>
                         <label class="card-text-label" style="color:#fff">Today working</label>
@@ -87,7 +87,7 @@
             </div>
 
             <div>
-                <label>Recent Intend</label>
+                <label>Recent Indent</label>
 
                 <div class="row">
                   <div class="col-sm-6 col-md-12">
@@ -96,7 +96,7 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Intend Number</th>
+                              <th scope="col">Indent Number</th>
                               <th scope="col">Employee Id</th>
                               <th scope="col">Material Category</th>
                               <th scope="col">Material Name</th>

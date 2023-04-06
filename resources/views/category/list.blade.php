@@ -69,9 +69,14 @@
 <!-- Modal -->
 
 
-        @if(Session::has('message'))
+        <!-- @if(Session::has('message'))
             <p id="errormessage" class="text-danger text-center">{{ Session::get('message') }}</p>
-        @endif       
+        @endif     -->   
+        @if(Session::has('message'))
+                        <div id="mydiv" class="alert-box success">
+                            {{ Session::get('message') }}
+                        </div>
+                    @endif
 
         <div style="margin-top: 50px">
         	<label style="margin-left: 20px">Material Category</label>
@@ -185,16 +190,12 @@
 
  <script type="text/javascript">
                 setTimeout(function () {
-                    $("errormessage").fadeOut().empty();
+                   $("mydiv").fadeOut().empty();
+
                 }, 3000);
 </script>
 
-<script type="text/javascript">
-  $(document).ready(function()
-{
-    console.log("lll");
-};
-</script>
+
 
 
 

@@ -11,6 +11,10 @@
             
           </div>
 
+          <div id="div2" style="margin-right: 30px">
+             <a  class="btn btn-light" href="{{route('materials_master')}}"></i> View Category</a>
+          </div>
+
            <div id="div3" style="margin-right: 30px">
              <button class="btn btn-light" > Download CSV</button>
           </div>
