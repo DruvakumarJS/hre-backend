@@ -41,10 +41,10 @@
                             <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">34</h2>
                         </div>
                         <div  >
-                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Today's Intend</h4>
+                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Today's Indent</h4>
                            
                         </div >
-                        <label class="card-text-label ">No. of intend created today</label>
+                        <label class="card-text-label ">No. of indent created today</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -98,7 +98,7 @@
                             <tr>
                               <th scope="col">Customer Name</th>
                               <th scope="col">PCN</th>
-                              <th scope="col">Pending Intend</th>
+                              <th scope="col">Pending Indent</th>
                              
                             </tr>
                           </thead>

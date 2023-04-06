@@ -15,6 +15,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -28,11 +30,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
 
 
 </head>
-
 
 <body class="body-background">
     <div id="app">
@@ -42,7 +43,6 @@
                <!--  <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a> -->
-
 
                @if(Auth::user()->role_id == 1)
 
@@ -98,15 +98,30 @@
 
 
                <div class="navigation">
-                    <a href="{{route('employee_list')}}"><label class="nav-links">Employee</label></a>
+                    <a href="{{route('employee_list')}}"
+                     class="{{request()->routeIs('employee_list')
+                      ? 'active' : ''}}"
+                    ><label class="nav-links">Employee</label></a>
 
-                    <a href="{{route('intend_list')}}"><label class="nav-links">Intend</label></a>
+                    <a href="{{route('intend_list')}}"
+                     class="{{request()->routeIs('intend_list')
+                      ? 'active' : ''}}"
+                      ><label class="nav-links">Indent</label></a>
 
-                    <a href="{{route('tickets_list')}}"><label class="nav-links">Tickets</label></a>
+                    <a href="{{route('tickets_list')}}"
+                     class="{{request()->routeIs('tickets_list')
+                      ? 'active' : ''}}">
+                      <label class="nav-links">Tickets</label></a>
 
-                    <a href="{{route('attendance_list')}}"><label class="nav-links">Attendance</label></a>
+                    <a href="{{route('attendance_list')}}"
+                     class="{{request()->routeIs('attendance_list')
+                      ? 'active' : ''}}">
+                      <label class="nav-links">Attendance</label></a>
 
-                    <a href="{{route('petty_cash')}}"><label class="nav-links">Petty Cash</label></a>
+                    <a href="{{route('petty_cash')}}"
+                     class="{{request()->routeIs('petty_cash')
+                      ? 'active' : ''}}">
+                      <label class="nav-links">Petty Cash</label></a>
 
                </div>
 
@@ -119,8 +134,15 @@
                </a>
 
                <div class="navigation">
-                    <a href="{{route('intends')}}"><label class="nav-links">Intends</label></a>
-                    <a href="{{route('ticketslist')}}"><label class="nav-links">Tickets</label></a>
+                    <a href="{{route('intends')}}"
+                     class="{{request()->routeIs('intends')
+                      ? 'active' : ''}}">
+                      <label class="nav-links">Indents</label></a>
+
+                    <a href="{{route('ticketslist')}}"
+                     class="{{request()->routeIs('ticketslist')
+                      ? 'active' : ''}}">
+                      <label class="nav-links">Tickets</label></a>
                </div>
 
                @endif
