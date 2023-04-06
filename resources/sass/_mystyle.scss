@@ -41,3 +41,29 @@
         border-bottom: 1px solid #000000;
     }
 }
+
+
+.top-counter{
+    .card-text{
+        font-size: 38px;
+    }
+    .card{
+        padding: 10px;
+        margin-bottom: 10px;
+        a{
+            color: #E31E24;
+            text-decoration: none;
+            border-bottom: 1px solid #E31E24;
+        }
+        h2{
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+            font-size: 18px;
+        }
+    }
+    .page-container{
+        margin-top: 30px;
+    }
+
+
+}

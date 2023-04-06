@@ -9,7 +9,6 @@
 .body-background
 {
     margin: 0;
-    background: linear-gradient(to bottom, #FDF2DF 25%, #FFF9F4 0%);
     height:100vh;
     background-repeat: no-repeat;
     background-attachment: fixed;
