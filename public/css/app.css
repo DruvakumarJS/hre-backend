@@ -39,6 +39,27 @@
   border-bottom: 1px solid #000000;
 }
 
+.top-counter .card-text {
+  font-size: 38px;
+}
+.top-counter .card {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.top-counter .card a {
+  color: #E31E24;
+  text-decoration: none;
+  border-bottom: 1px solid #E31E24;
+}
+.top-counter .card h2, .top-counter .card .h2 {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  font-size: 18px;
+}
+.top-counter .page-container {
+  margin-top: 30px;
+}
+
 /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
@@ -88,7 +109,7 @@
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg-rgb: 255, 0, 0;
+  --bs-body-bg-rgb: 255, 249, 244;
   --bs-font-sans-serif: "Nunito", sans-serif;
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
@@ -97,7 +118,7 @@
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.6;
   --bs-body-color: #212529;
-  --bs-body-bg: red;
+  --bs-body-bg: #FFF9F4;
   --bs-border-width: 1px;
   --bs-border-style: solid;
   --bs-border-color: #dee2e6;
@@ -639,7 +660,7 @@ progress {
 
 .img-thumbnail {
   padding: 0.25rem;
-  background-color: red;
+  background-color: #FFF9F4;
   border: 1px solid var(--bs-border-color);
   border-radius: 0.375rem;
   max-width: 100%;
@@ -2373,10 +2394,10 @@ textarea.form-control-lg {
   outline: 0;
 }
 .form-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px red, 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 1px #FFF9F4, 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 .form-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px red, 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 1px #FFF9F4, 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 .form-range::-moz-focus-outer {
   border: 0;
@@ -3682,8 +3703,8 @@ textarea.form-control-lg {
   --bs-nav-tabs-border-radius: 0.375rem;
   --bs-nav-tabs-link-hover-border-color: #e9ecef #e9ecef #dee2e6;
   --bs-nav-tabs-link-active-color: #495057;
-  --bs-nav-tabs-link-active-bg: red;
-  --bs-nav-tabs-link-active-border-color: #dee2e6 #dee2e6 red;
+  --bs-nav-tabs-link-active-bg: #FFF9F4;
+  --bs-nav-tabs-link-active-border-color: #dee2e6 #dee2e6 #FFF9F4;
   border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
 }
 .nav-tabs .nav-link {
@@ -4367,7 +4388,7 @@ textarea.form-control-lg {
 
 .accordion {
   --bs-accordion-color: #212529;
-  --bs-accordion-bg: red;
+  --bs-accordion-bg: #FFF9F4;
   --bs-accordion-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
   --bs-accordion-border-color: var(--bs-border-color);
   --bs-accordion-border-width: 1px;

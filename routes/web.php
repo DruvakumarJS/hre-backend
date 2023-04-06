@@ -28,7 +28,7 @@ use App\Http\Controllers\CategoryController;
 Route::get('/', function () {
 
     return redirect(route('login'));
-  
+
 });
 
 Auth::routes();
@@ -55,17 +55,23 @@ Route::middleware('role:admin')->group(function () {
     Route::get('delete_category/{id}',[CategoryController::class, 'destroy'])->name('delete_category');
     Route::post('update-category',[CategoryController::class, 'update'])->name('update-category');
 
+    Route::get('add_procurement',[UserController::class, 'add_procurement'])->name('add_procurement');
+    Route::get('create_user',[UserController::class, 'create_user'])->name('create_user');
+
+
+
+
 	});
 
 Route::middleware('role:manager')->group(function () {
 	Route::get('/manager_home', [ManagerHomeController::class, 'index'])->name('manager_home');
-	Route::get('employee',[EmployeeController::class,'index'])->name('employee_list'); 	
+	Route::get('employee',[EmployeeController::class,'index'])->name('employee_list');
 	Route::get('intend_list',[IntendController::class,'index'])->name('intend_list');
     Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
 	Route::get('tickets_list',[TicketController::class, 'index'])->name('tickets_list');
 	Route::get('attendance_list',[AttendanceController::class,'index'])->name('attendance_list');
     Route::get('PettyCash',[PettycashController::class,'index'])->name('petty_cash');
-    
+
 	});
 
 
@@ -74,7 +80,7 @@ Route::middleware('role:procurement')->group(function () {
 	Route::get('intends',[IntendController::class,'index'])->name('intends');
 	Route::get('update_intends/{id}',[IntendController::class,'edit'])->name('update_intends');
 	Route::get('ticketslist',[TicketController::class, 'index'])->name('ticketslist');
-	
+
 
 	});
 Route::get('settings',[SettingController::class,'index'])->name('settings');

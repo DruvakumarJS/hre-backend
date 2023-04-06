@@ -82,4 +82,12 @@ class UserController extends Controller
     {
         //
     }
+
+    public  function add_procurement(){
+        return view('user/procurement');
+    }
+
+    public  function create_user(){
+        return view('user/create_user');
+    }
 }
