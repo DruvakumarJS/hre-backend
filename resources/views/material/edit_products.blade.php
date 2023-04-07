@@ -23,12 +23,12 @@
         </div>
 
 
-        <div style="margin-top: 50px">
+        <div>
         
 
           <label class="label-bold">Category : {{$category}}</label>
           <div>
-             <label class="label-bold">Material Category : {{$material_category}}</label>
+             <label class="label-bold">Category Code : {{$material_category}}</label>
 
           </div>
          
@@ -77,12 +77,7 @@
                              
                           </tbody>
                         </table>
-                        @if(sizeof($MaterialList)>0)
-                        <label>Showing {{ $MaterialList->firstItem() }} to {{ $MaterialList->lastItem() }}
-                                    of {{$MaterialList->total()}} results</label>
-
-                                {!! $MaterialList->links() !!}
-                        @endif
+                       
                     </div>
                     <!--</div>-->
                  </div>

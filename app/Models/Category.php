@@ -13,7 +13,6 @@ class Category extends Model
    	    'code',
         'category',
         'material_category',
-        'unit',
         'description',   
     ];
 

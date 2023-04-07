@@ -10,15 +10,12 @@ class Material extends Model
     use HasFactory;
 
     protected $fillable = [
-        'item_code',
-        'category_id',
+      'item_code',
+      'category_id',
     	'name',
     	'brand',
-    	'size',
-    	'thickness',
-    	'grade',
-    	'shade_no',
-    	'unit'
+    	'uom',
+    	'information'
     ];
 
 

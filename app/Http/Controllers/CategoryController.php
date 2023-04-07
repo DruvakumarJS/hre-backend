@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Material;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -141,7 +142,19 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $delete = Category::where('id',$id)->delete();
+
+        $Materials = Material::where('category_id',$id)->get();
+
+        if(sizeof($Materials)>0)
+        {
+             return redirect()->route('materials_master')->withMessage('Please delete Materials and then try deleting Category')->withInput();
+      
+        }
+        else{
+            $delete = Category::where('code',$id)->delete();
         return redirect()->route('materials_master');
+        }
+
+        
     }
 }

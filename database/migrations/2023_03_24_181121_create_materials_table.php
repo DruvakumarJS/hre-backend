@@ -19,11 +19,8 @@ class CreateMaterialsTable extends Migration
             $table->string('category_id');
             $table->string('name');
             $table->string('brand')->nullable();
-            $table->string('size')->nullable();
-            $table->string('thickness')->nullable();
-            $table->string('grade')->nullable();
-            $table->string('shade_no')->nullable();
-            $table->string('unit');
+            $table->string('uom')->nullable();
+            $table->json('information')->nullable(); 
             $table->timestamps();
         });
     }

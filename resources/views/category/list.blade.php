@@ -42,15 +42,11 @@
                   </div>
 
                   <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Material Category</label>
-                     <input type="text" class="form-control" id="material_category" name="material_category" placeholder="Enter Material Category" required>
+                    <label for="message-text" class="col-form-label">Category Code</label>
+                     <input type="text" class="form-control" id="material_category" name="material_category" placeholder="Enter Category code" required>
                   </div>
 
-                  <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Unit</label>
-                     <input type="text" class="form-control" id="unit" name="unit" placeholder="Enter unit" required>
-                  </div>
-
+          
                   <div class="mb-3">
                     <label for="message-text" class="col-form-label">Description (optional)</label>
                     <textarea class="form-control" id="desc" name="desc" ></textarea>
@@ -68,17 +64,11 @@
         </div>
 <!-- Modal -->
 
-
-        <!-- @if(Session::has('message'))
-            <p id="errormessage" class="text-danger text-center">{{ Session::get('message') }}</p>
-        @endif     -->   
         @if(Session::has('message'))
-                        <div id="mydiv" class="alert-box success">
-                            {{ Session::get('message') }}
-                        </div>
-                    @endif
-
-        <div style="margin-top: 50px">
+            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
+        @endif       
+       
+        <div>
         	<label style="margin-left: 20px">Material Category</label>
 
         	<div class="card border-white">
@@ -87,8 +77,7 @@
                           <thead>
                             <tr>
                               <th scope="col">Category</th>
-                              <th scope="col">Material Category</th>
-                              <th scope="col">Unit</th>
+                              <th scope="col">Category Code</th>
                               <th scope="col">Action</th>
                               <th ></th>
                               <th ></th>
@@ -100,7 +89,7 @@
                             @foreach($categories as $key => $value)
                               <td>{{$value->category}}</td>
                               <td>{{$value->material_category}}</td>
-                              <td>{{$value->unit}}</td>
+                              
                               <td>
                                 <a href="{{route('add_product',$value->code)}}"><label class="curved-text">Add Product</label></a>
                                 <a href="{{route('view_products',$value->code)}}"><label class="curved-text">View Product</label></a>   
@@ -112,7 +101,7 @@
                                 
                                  </td>
                                <td >
-                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_category',$value->id)}}" > <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
+                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_category',$value->code)}}" > <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
 
                                    
                               </td>
@@ -140,15 +129,11 @@
                                         </div>
 
                                          <div class="mb-3">
-                                          <label for="message-text" class="col-form-label">Material Category</label>
-                                           <input type="text" class="form-control" id="material_category" name="material_category" placeholder="Enter Material Category" value="{{$value->material_category}}" required>
+                                          <label for="message-text" class="col-form-label">Category Code</label>
+                                           <input type="text" class="form-control" id="material_category" name="material_category" placeholder="Category Code" value="{{$value->material_category}}" required>
                                         </div>
 
-                                        <div class="mb-3">
-                                          <label for="message-text" class="col-form-label">Unit</label>
-                                           <input type="text" class="form-control" id="unit" name="unit" placeholder="Enter unit" value="{{$value->unit}}" required>
-                                        </div>
-
+                                        
                                         <div class="mb-3">
                                           <label for="message-text" class="col-form-label">Description (optional)</label>
                                           <textarea class="form-control" id="desc" name="desc" ></textarea>
@@ -245,14 +230,13 @@ $(document).ready(function(){
 
  <script type="text/javascript">
                 setTimeout(function () {
-                   $("mydiv").fadeOut().empty();
+                 //  $("#mydiv").fadeOut().empty();
+                 $('#mydiv').delay(10000).hide(0); 
 
-                }, 3000);
+                }, 10000);
 </script>
 
- <script type="text/javascript">
-                
-</script>
+
 
 
 

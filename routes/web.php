@@ -83,7 +83,7 @@ Route::middleware('role:procurement')->group(function () {
 
 
 	});
-Route::get('settings',[SettingController::class,'index'])->name('settings');
+//Route::get('settings',[SettingController::class,'index'])->name('settings');
 Route::get('add-supervisor',[SettingController::class,'add_supervisor_form'])->name('add_supervisor');
 
 

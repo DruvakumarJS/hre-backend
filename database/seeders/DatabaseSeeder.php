@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(AdminSeeder::class);
-         $this->call(RoleSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(SizeSeeder::class);
+        $this->call(UnitSeeder::class);
+        $this->call(ThicknessSeeder::class);
     }
 }

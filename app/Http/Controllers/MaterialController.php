@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Material;
 use App\Models\Category;
+use App\Models\SizeMaster;
+use App\Models\UnitMaster;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 
 class MaterialController extends Controller
 {
@@ -29,7 +32,19 @@ class MaterialController extends Controller
     public function create(Request $request)
     {
        
+        $data = $request->specifications ;
+
+        foreach ($data as $key => $value) {
+         
+            $result[$value['spec']]=$value['value'];
+        }
+
+        $features = json_encode($result);
+        
+       // print_r($features);die();
+       
       $categoryData = Category::where('code',$request->code)->first(); 
+      
       $code = $categoryData->material_category ; 
      
       if($data = Material::exists()){
@@ -40,32 +55,28 @@ class MaterialController extends Controller
 
         if(!empty($validate)){
         $itemcode = ++$validate->item_code;
+        $t = $request->thickness;
+        $thickness = $t . " "."mm";
 
          $MaterialData = Material::create([
             'category_id' => $categoryData->code,
             'item_code' => $itemcode,
             'name' => $request->name,
             'brand' =>$request->brand,
-            'size' =>$request->size,
-            'thickness' =>$request->thickness,
-            'grade' =>$request->grade,
-            'shade_no' =>$request->shade,
-            'unit'=> $request->unit,
-      ]);
+            'uom' =>$request->uom,
+            'information'=> $features,
+      ]);   
         }
         else {
         $itemcode = $categoryData->material_category ."00001";
 
          $MaterialData = Material::create([
-            'category_id' => $categoryData->code,
+             'category_id' => $categoryData->code,
             'item_code' => $itemcode,
             'name' => $request->name,
             'brand' =>$request->brand,
-            'size' =>$request->size,
-            'thickness' =>$request->thickness,
-            'grade' =>$request->grade,
-            'shade_no' =>$request->shade,
-            'unit'=> $request->unit,
+            'uom' =>$request->uom,
+            'information'=> $features,
       ]);
 
         }
@@ -75,17 +86,15 @@ class MaterialController extends Controller
       else{
 
          $itemcode = $categoryData->material_category ."00001";
+        
 
          $MaterialData = Material::create([
             'category_id' => $categoryData->code,
             'item_code' => $itemcode,
             'name' => $request->name,
             'brand' =>$request->brand,
-            'size' =>$request->size,
-            'thickness' =>$request->thickness,
-            'grade' =>$request->grade,
-            'shade_no' =>$request->shade,
-            'unit'=> $request->unit,
+            'uom' =>$request->uom,
+            'information'=> $features,
       ]);
 
       }
@@ -115,12 +124,15 @@ class MaterialController extends Controller
     {
 
         $categoryData = Category::where('code',$id)->first();
+        $sizemaster = SizeMaster::where('category_id',$categoryData->material_category)->get();
+        $unitmaster = UnitMaster::where('category_id',$categoryData->material_category)->get();
+
 
        /* $category = $c_name->category ;
         $material_category = $c_name->material_category ;
 */
         //print_r($c_name->name);die();
-         return view('material/add_product',compact('categoryData'));
+         return view('material/add_product',compact('categoryData' , 'sizemaster' , 'unitmaster'));
     }
 
     /**
