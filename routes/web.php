@@ -48,9 +48,11 @@ Route::middleware('role:admin')->group(function () {
 	Route::get('PCN',[PcnController::class,'index'])->name('PCN');
 
     Route::get('create_pcn',[PcnController::class,'create_pcn'])->name('create_pcn');
+    Route::get('view_pcn',[PcnController::class,'view_pcn'])->name('view_pcn');
 
 
-	Route::get('tickets',[TicketController::class, 'index'])->name('tickets');
+
+    Route::get('tickets',[TicketController::class, 'index'])->name('tickets');
 	Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
     Route::get('pettycash',[PettycashController::class,'index'])->name('pettycash');
 
