@@ -37,12 +37,12 @@ Route::get("logout",[HomeController::class,"destroy"])->name("logout");
 
 Route::middleware('role:admin')->group(function () {
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
-	Route::get('users_list',[UserController::class, 'index'])->name('users');
+	Route::get('users',[UserController::class, 'index'])->name('users');
 
     Route::get('materials',[MaterialController::class,'index'])->name('materials');
     Route::get('add_product/{id}',[MaterialController::class,'show'])->name('add_product');
     Route::post('create_material',[MaterialController::class,'create'])->name('create_material');
-    Route::get('view_products/{id}',[MaterialController::class,'edit'])->name('view_products');
+    Route::get('view_products/{id}',[MaterialController::class,'view'])->name('view_products');
     Route::get('delete_product/{id}',[MaterialController::class,'destroy'])->name('delete_product');
 
 	Route::get('PCN',[PcnController::class,'index'])->name('PCN');
@@ -55,11 +55,14 @@ Route::middleware('role:admin')->group(function () {
     Route::get('delete_category/{id}',[CategoryController::class, 'destroy'])->name('delete_category');
     Route::post('update-category',[CategoryController::class, 'update'])->name('update-category');
 
-    Route::get('add_procurement',[UserController::class, 'add_procurement'])->name('add_procurement');
+    Route::get('superadmins',[UserController::class, 'view_superadmins'])->name('superadmin');
+    Route::get('managers',[UserController::class, 'view_managers'])->name('manager');
+    Route::get('supervisors',[UserController::class, 'view_supervisors'])->name('supervisors');
+    Route::get('procurement',[UserController::class, 'view_procurement'])->name('procurement');
+    Route::get('finance',[UserController::class, 'view_finance'])->name('finance');
+
     Route::get('create_user',[UserController::class, 'create_user'])->name('create_user');
-
-
-
+    Route::post('save_user',[UserController::class , 'store'])->name('save_user');
 
 	});
 
@@ -84,7 +87,7 @@ Route::middleware('role:procurement')->group(function () {
 
 	});
 //Route::get('settings',[SettingController::class,'index'])->name('settings');
-Route::get('add-supervisor',[SettingController::class,'add_supervisor_form'])->name('add_supervisor');
+//Route::get('supervisors/{id}',[UserController::class,'view_users'])->name('supervisors');
 
 
 

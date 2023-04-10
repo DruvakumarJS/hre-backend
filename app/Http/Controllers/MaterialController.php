@@ -31,15 +31,29 @@ class MaterialController extends Controller
      */
     public function create(Request $request)
     {
+
+      //  print_r($request->Input());die();
        
         $data = $request->specifications ;
+        $result = array();
 
         foreach ($data as $key => $value) {
-         
-            $result[$value['spec']]=$value['value'];
-        }
 
-        $features = json_encode($result);
+           if(!empty($value['value'])){
+            $result[$value['spec']]=$value['value'];
+           }
+            
+        }
+         if(sizeof($result)>0){
+             $features = json_encode($result);
+         }
+         else{
+             $features = "{}";
+         }
+
+       
+
+       
         
        // print_r($features);die();
        
@@ -141,7 +155,7 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function view($id)
     {
         $c_name = Category::select('category' , 'material_category')->where('code',$id)->first();
 
@@ -150,7 +164,7 @@ class MaterialController extends Controller
 
          $MaterialList = Material::where('category_id',$id)->get();
        
-       return view('material/edit_products', compact('MaterialList' ,'category','material_category'));
+       return view('material/view_products', compact('MaterialList' ,'category','material_category'));
     }
 
     /**

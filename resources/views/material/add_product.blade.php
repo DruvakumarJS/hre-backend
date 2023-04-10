@@ -47,7 +47,15 @@
 
                         <div class="col-md-4">
                           <label>UoM *</label>
-                          <input class="form-control" type="input" name="uom" placeholder="Enter Units of Measurement" required="">
+                         <!--  <input class="form-control" type="input" name="uom" placeholder="Enter Units of Measurement" required=""> -->
+                         <select class="form-control" name="uom" >
+                            <option>Unit</option>
+                            @foreach ($unitmaster as $key => $value)
+                                <option value="{{ $value->unit }}"> 
+                                    {{ $value->unit }} 
+                                </option>
+                            @endforeach    
+                        </select> 
                           
                         </div>
                          <input type="hidden" name="code" value="{{$categoryData->code}}">
@@ -70,7 +78,7 @@
                             <td><input type="text" name="specifications[0][value]" placeholder="Enter param Value" class="form-control" />
                             </td>
 
-                            <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add Subject</button></td>
+                            <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add </button></td>
                         </tr>
                     </table>
                <div class="div-margin">

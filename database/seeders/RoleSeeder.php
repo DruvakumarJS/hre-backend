@@ -21,7 +21,7 @@ class RoleSeeder extends Seeder
                         'description'=>'All Controles'
                     ],
                     [
-                        'name' => 'mangaer',
+                        'name' => 'manager',
                         'alias' => 'Project Manager',
                         'description'=>'All Controles'
                     ],
@@ -33,6 +33,11 @@ class RoleSeeder extends Seeder
                     [
                         'name' => 'supervisor',
                         'alias' => 'Supervisor',
+                        'description'=>'Limited data can see'
+                    ],
+                    [
+                        'name' => 'finace',
+                        'alias' => 'Finance',
                         'description'=>'Limited data can see'
                     ]
                  ];

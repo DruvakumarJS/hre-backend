@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Roles extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+    	'name',
+    	'alias',
+    	'description'];
+    	
+
+	 public function Users()
+	  {
+	     return $this->hasMany(User::class,'id','role_id');
+
+	  }
 }
+
+     

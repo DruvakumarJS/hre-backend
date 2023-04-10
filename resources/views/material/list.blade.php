@@ -30,11 +30,9 @@
                               <th scope="col">Material Id</th>
                               <th scope="col">Material Name</th>
                               <th scope="col">Make / Brand</th>
-                              <th scope="col">Size</th>
-                              <th scope="col">Thickness</th>
-                              <th scope="col">Grade</th>
-                              <th scope="col">Shade No</th>
-                              <th scope="col">Unit</th>
+                              <th scope="col">UoM</th>
+                              <th scope="col">Specifications</th>
+                              
                               <th > </th>
                               <th > </th>
                              
@@ -47,11 +45,23 @@
                               <td>{{$value->item_code}}</td>
                               <td>{{$value->name}}</td>
                               <td>{{$value->brand}}</td>
-                              <td>{{$value->size}}</td>
-                              <td>{{$value->thickness}}</td>
-                              <td>{{$value->grade}}</td>
-                              <td>{{$value->shade_no}}</td>
-                              <td>{{$value->unit}}</td>
+                              <td>{{$value->uom}}</td>
+                              <td> <table>
+                                <tbody>
+                                  @php
+                                   $info = json_decode($value->information);
+                                  @endphp
+
+                                  @foreach($info as $key => $val)
+                                    
+                                          <tr>
+                                              <td>{{$key}} = {{$val}}</td>
+                                          </tr>
+                                     
+                                  @endforeach
+                                </tbody>
+                              </table></td>
+                              
                                <td>
                                   <a href="" > <i class='fa fa-edit' style='font-size:24px;color:blue;'></i></a>   
                               </td>
