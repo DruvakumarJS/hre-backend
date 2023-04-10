@@ -89,5 +89,10 @@ class PcnController extends Controller
         return view('pcn/create_pcn');
     }
 
+    public function view_pcn()
+    {
+        return view('pcn/view_pcn');
+    }
+
 
 }
