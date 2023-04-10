@@ -122,6 +122,7 @@
                         <div class="form-group row">
                             <div class="offset-5 col-7">
                                 <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                                <button name="submit" type="submit" class="btn btn-link">Cancel</button>
                             </div>
                         </div>
                     </form>
