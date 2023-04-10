@@ -196,4 +196,8 @@ class UserController extends Controller
         $roles = Roles::select('name')->get();
         return view('user/create_user',compact('roles'));
     }
+
+    public  function create_pcn(){
+        return view('pcn/create_pcn');
+    }
 }

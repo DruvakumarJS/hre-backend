@@ -14,6 +14,7 @@
         </div>
     </div>
 
+
     <div class="page-container">
       <form method="post" action="{{route('save_user')}}">
         @csrf
@@ -37,7 +38,8 @@
                 
           </div>
 
-       </div>
+      </div>
+    
 
        <div class="row div-margin">
            
@@ -82,5 +84,6 @@
       </form>
     </div>
     </div>
+
 
 @endsection

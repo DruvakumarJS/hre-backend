@@ -46,6 +46,10 @@ Route::middleware('role:admin')->group(function () {
     Route::get('delete_product/{id}',[MaterialController::class,'destroy'])->name('delete_product');
 
 	Route::get('PCN',[PcnController::class,'index'])->name('PCN');
+
+    Route::get('create_pcn',[PcnController::class,'create_pcn'])->name('create_pcn');
+
+
 	Route::get('tickets',[TicketController::class, 'index'])->name('tickets');
 	Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
     Route::get('pettycash',[PettycashController::class,'index'])->name('pettycash');
@@ -76,6 +80,7 @@ Route::middleware('role:manager')->group(function () {
     Route::get('PettyCash',[PettycashController::class,'index'])->name('petty_cash');
 
 	});
+
 
 
 Route::middleware('role:procurement')->group(function () {
