@@ -31,7 +31,7 @@ class CategoryController extends Controller
     {
          $categoryName = $request->name ;
          $material_category = $request->material_category ;
-         $unit = $request->unit ;
+        
          $categoryDesc = $request->desc ;
 
          if($data = Category::exists()){
@@ -53,7 +53,6 @@ class CategoryController extends Controller
                 'code' => $code,
                 'category' => $categoryName,
                 'material_category' => $material_category,
-                'unit' => $unit,
                 'description' => $categoryDesc
             ]) ;
 
@@ -68,7 +67,6 @@ class CategoryController extends Controller
                 'code' => "C001",
                 'category' => $categoryName,
                 'material_category' => $material_category,
-                'unit' => $unit,
                 'description' => $categoryDesc
             ]) ;
 
@@ -128,7 +126,6 @@ class CategoryController extends Controller
                             [
                                 'category' => $request->name,
                                 'material_category' => $request->material_category,
-                                'unit' => $request->unit,
                                 'description' => $request->desc
                             ]);
         return redirect()->route('materials_master');

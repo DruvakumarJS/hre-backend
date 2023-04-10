@@ -40,12 +40,8 @@
                             <tr>
                               <th scope="col">Material Id</th>
                               <th scope="col">Material Name</th>
-                              <th scope="col">Make / Brand</th>
-                              <th scope="col">Size</th>
-                              <th scope="col">Thickness</th>
-                              <th scope="col">Grade</th>
-                              <th scope="col">Shade No</th>
-                              <th scope="col">Unit</th>
+                              <th scope="col">Make / Brand</th>   
+                              <th scope="col">Uom</th>
                               <th ></th>
                              
                             </tr>
@@ -56,12 +52,8 @@
                             <tr>  
                               <td>{{$value->item_code}}</td>
                               <td>{{$value->name}}</td>
-                              <td>{{$value->brand}}</td>
-                              <td>{{$value->size}}</td>
-                              <td>{{$value->thickness}}</td>
-                              <td>{{$value->grade}}</td>
-                              <td>{{$value->shade_no}}</td>
-                              <td>{{$value->unit}}</td>
+                              <td>{{$value->brand}}</td> 
+                              <td>{{$value->uom}}</td>
                                <td>
                                   <a href="" > <i class='fa fa-edit' style='font-size:24px;color:blue;'></i></a>   
                               </td>
