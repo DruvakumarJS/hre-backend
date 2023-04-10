@@ -16,7 +16,9 @@ class Employee extends Model
     	'mobile',
     	'email',
     	'role',
-    	
-    	
+    	 	
     ];
+
+    protected $hidden=[
+        'timestamps',];
 }

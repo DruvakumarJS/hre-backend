@@ -41,7 +41,8 @@
                               <th scope="col">Material Id</th>
                               <th scope="col">Material Name</th>
                               <th scope="col">Make / Brand</th>   
-                              <th scope="col">Uom</th>
+                              <th scope="col">UoM</th>
+                               <th scope="col">Specifications</th>
                               <th ></th>
                              
                             </tr>
@@ -54,6 +55,21 @@
                               <td>{{$value->name}}</td>
                               <td>{{$value->brand}}</td> 
                               <td>{{$value->uom}}</td>
+                              <td> <table>
+                                <tbody>
+                                  @php
+                                   $info = json_decode($value->information);
+                                  @endphp
+
+                                  @foreach($info as $key => $val)
+                                    
+                                          <tr>
+                                              <td>{{$key}} = {{$val}}</td>
+                                          </tr>
+                                     
+                                  @endforeach
+                                </tbody>
+                              </table></td>
                                <td>
                                   <a href="" > <i class='fa fa-edit' style='font-size:24px;color:blue;'></i></a>   
                               </td>

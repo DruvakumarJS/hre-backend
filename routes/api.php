@@ -22,4 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/getusers',[UserController::class , 'index']);
 Route::post('/search-user',[UserController::class , 'search']);
-Route::post('/validate-login',[EmployeeController::class,'validate_login']);
+Route::post('/validate-login',[UserController::class,'validate_login']);
