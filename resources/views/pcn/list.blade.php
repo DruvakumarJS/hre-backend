@@ -6,11 +6,13 @@
        <div class="container-header">
             <label class="label-bold" id="div1">PCN</label>
            <div id="div2">
-            <button class="btn btn-light" >View PCN</button>
+            <a class="btn btn-light" href="{{route('view_pcn')}}"></i> 
+             <label id="modal">View PCN</label></a>
             
           </div>
           <div id="div2" style="margin-right: 30px">
-             <button class="btn btn-light" ><i class="fa fa-plus"></i>  Create PCN</button>
+             <a class="btn btn-light" href="{{route('create_pcn')}}"><i class="fa fa-plus"></i> 
+             <label id="modal">Create PCN</label></a>
           </div>
 
            <div id="div3" style="margin-right: 30px">
