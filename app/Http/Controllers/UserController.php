@@ -90,4 +90,8 @@ class UserController extends Controller
     public  function create_user(){
         return view('user/create_user');
     }
+
+    public  function create_pcn(){
+        return view('pcn/create_pcn');
+    }
 }
