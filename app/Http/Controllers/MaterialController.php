@@ -164,7 +164,7 @@ class MaterialController extends Controller
 
          $MaterialList = Material::where('category_id',$id)->get();
        
-       return view('material/view_products', compact('MaterialList' ,'category','material_category'));
+       return view('material/view_products', compact('MaterialList' ,'category','material_category' ,'id'));
     }
 
     /**

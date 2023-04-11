@@ -7,7 +7,7 @@
             <label class="label-bold" id="div1">Materials</label>
            
           <div id="div2" style="margin-right: 30px">
-            <a class="btn btn-light" href=""><i class="fa fa-plus"></i> Create Material</a>
+            <a class="btn btn-light" href="{{route('add_product',$id)}}"><i class="fa fa-plus"></i> Create Material</a>
             
           </div>
 

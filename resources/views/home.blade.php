@@ -27,7 +27,8 @@
             
           </div>
           <div id="div2" style="margin-right: 30px">
-             <button class="btn btn-light" ><i class="fa fa-plus"></i>  Create Customer</button>
+            <a class="btn btn-light" href="{{route('create_customer')}}"><i class="fa fa-plus"></i> 
+             <label id="modal">Create Customer</label></a>
           </div>
 
             

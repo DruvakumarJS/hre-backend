@@ -70,6 +70,8 @@ Route::middleware('role:admin')->group(function () {
     Route::get('create_user',[UserController::class, 'create_user'])->name('create_user');
     Route::post('save_user',[UserController::class , 'store'])->name('save_user');
 
+    Route::get('create_customer' ,[])->name('create_customer');
+
 	});
 
 Route::middleware('role:manager')->group(function () {

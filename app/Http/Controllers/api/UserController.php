@@ -10,51 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-    	$Users = User::all();
-
-    	return response()->json([
-    		'status'=> 1,
-    		'data'=> $Users
-    	],200);
-
-    }
-
-    public function search(Request $request){
-
-     //   $user = User::where('email',$request->email)->
-
-     $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-
-        	$search = User::where('email',$request->email)
- 
-    	            ->first();
-
-                    $userarray=[
-                        'password'=>$search->password ,
-                        'user_name'=>$s];
-
-           return response()->json([
-    		'status'=> 1,
-    		'data'=> $userarray
-    	],200);
-           
-        }
-
-        else {
-        	return response()->json([
-    		'status'=> 0,
-    		'message' => 'No user found'
-    		
-    	],200);
-
-        }
-      
-    	
-    }
-
+   
     public function validate_login(Request $request){
 
          $credentials = $request->only('email', 'password');
@@ -66,14 +22,23 @@ class UserController extends Controller
       
 
             if(!empty($search)){
+                $userdata = [
+                    'user_id' => $search->id,
+                    'employee_id' => $search->employee_id,
+                    'username' => $search->name,
+                    'role' => $search->role
+                     ];
+
                  return response()->json([
-                    'status'=> 1,
-                    'data'=> $search
-                             ],200);
+                    'status' => 1,
+                    'message' => 'success',
+                    'data' => $userdata]
+                    ,200);
             }
+
             else {
                  return response()->json([
-                        'status'=> 0,
+                        'status '=> 0,
                         'message' => 'Invalid credentials'
                         
                 ],200);
@@ -84,7 +49,7 @@ class UserController extends Controller
 
         else {
             return response()->json([
-            'status'=> 0,
+            'status' => 0,
             'message' => 'Invalid credentials'
             
         ],200);

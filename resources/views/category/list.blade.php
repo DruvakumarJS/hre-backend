@@ -38,12 +38,12 @@
                   @csrf
                   <div class="mb-3">
                     <label for="recipient-name" class="col-form-label">Category Name:</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Category name" required>
+                    <input type="text" class="form-control" id="name" name="name" style="text-transform:uppercase;" required>
                   </div>
 
                   <div class="mb-3">
                     <label for="message-text" class="col-form-label">Category Code</label>
-                     <input type="text" class="form-control" id="material_category" name="material_category" placeholder="Enter Category code" required>
+                     <input type="text" class="form-control" id="material_category" name="material_category"  style="text-transform:uppercase;" required>
                   </div>
 
           
