@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Address;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -15,7 +17,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::with('address')->paginate(10);
+        return view('customer/list',compact('customers'));
     }
 
     /**
@@ -25,7 +28,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('customer/create_customer');
     }
 
     /**
@@ -36,7 +39,52 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:3',
+            'mobile' => 'required|min:10|unique:customers',
+            'email' => 'required|email|unique:customers',    
+        ]);
+
+
+       if ($validator->fails()) {
+              return redirect()->route('create_customer')
+                        ->withErrors($validator)
+                        ->withInput();
+                     
+        }
+        else{
+           
+           $customer = Customer::create([
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'mobile' => $request->mobile ,
+            'email' => $request->email ,
+            'telephone' => $request->tel, 
+           ]);
+
+           if($customer){
+
+            $customer_id = Customer::select('id')->where('email',$request->email)->first();
+
+            $customer_address =  $request->address ;
+
+            foreach ($customer_address as $key => $value) {
+               $addres = Address::create([
+                'customer_id'=> $customer_id->id ,
+                'area' => $value['area'] , 
+                'city' => $value['city'] , 
+                'state' => $value['state']   
+
+               ]);
+            } 
+
+        
+           }
+
+        return redirect()->route('view_customers');
+        
+        }
     }
 
     /**

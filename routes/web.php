@@ -14,6 +14,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\IntendController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -70,7 +71,9 @@ Route::middleware('role:admin')->group(function () {
     Route::get('create_user',[UserController::class, 'create_user'])->name('create_user');
     Route::post('save_user',[UserController::class , 'store'])->name('save_user');
 
-    Route::get('create_customer' ,[])->name('create_customer');
+    Route::get('create_customer' ,[CustomerController::class,'create'])->name('create_customer');
+    Route::post('save_customer' ,[CustomerController::class,'store'])->name('save_customer');
+    Route::get('view_customers' ,[CustomerController::class,'index'])->name('view_customers');
 
 	});
 

@@ -54,8 +54,10 @@
 
           <div class="col-md-4">
                 <label>Email ID</label>
-                <input class="form-control" type="input" name="email" placeholder="Enter Email ID" required="">
-                
+                <input class="form-control" type="input" name="email" placeholder="Enter Email ID" required=""value="{{old('email')}}">
+                 @error('email')
+               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+             @enderror
           </div>
 
        </div>

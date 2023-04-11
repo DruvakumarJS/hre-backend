@@ -65,12 +65,8 @@
                       <div class="div-margin">
                         <h5>Additional Specification ( Optional )</h5>
                         
-                         <table id="dynamicAddRemove">
-                <!-- <tr>
-                    <th>Subject</th>
-                    <th>marks</th>
-                    <th>Action</th>
-                </tr> -->
+                    <table id="dynamicAddRemove">
+            
                         <tr>
                             <td><input type="text" name="specifications[0][spec]" placeholder="Enter param Name" class="form-control" />
                             </td>
@@ -81,6 +77,7 @@
                             <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add </button></td>
                         </tr>
                     </table>
+                  </div>
                <div class="div-margin">
                 <button type="submit" class="btn btn-danger btn-sm mt-auto ">Add Material</button>
               </div>
