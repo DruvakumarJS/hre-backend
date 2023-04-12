@@ -112,7 +112,8 @@ class MaterialController extends Controller
       ]);
 
       }
-      return redirect()->route('materials');
+    //  return redirect()->route('materials');
+       return redirect()->route('add_product',$request->code);
      
 
     }

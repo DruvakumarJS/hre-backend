@@ -29,8 +29,9 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
-         $categoryName = $request->name ;
-         $material_category = $request->material_category ;
+       // print_r($request->Input());die();
+         $categoryName = strtoupper($request->name); ;
+         $material_category = strtoupper($request->material_category) ;
         
          $categoryDesc = $request->desc ;
 

@@ -4,13 +4,18 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-            <label class="label-bold" id="div1">Add User</label>
+            <label class="label-bold" id="div1">Add</label>
           <div id="div2">
              <button class="btn btn-light" ><i class="fa fa-plus"></i> Create User</button>
           </div>
            <div id="div3" style="margin-right: 30px">
              <button class="btn btn-light" > Download CSV</button>
           </div>
+
+           @if(Session::has('message'))
+            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
+          @endif       
+       
         </div>
     </div>
 
@@ -30,8 +35,8 @@
           </div>
 
           <div class="col-md-4">
-                <label>User Name</label>
-                <input class="form-control" type="input" name="name" placeholder="Enter User Name" required=""value="{{old('name')}}">
+                <label>Name</label>
+                <input class="form-control" type="input" name="name" placeholder="Enter Name" required=""value="{{old('name')}}">
                  @error('name')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -65,17 +70,20 @@
         <div class="row div-margin">
            
            <div class="col-md-4">
-                <label>Role</label>
-                 <select class="form-control" name="role" >
-                            <option>Role</option>
-                            @foreach ($roles as $key => $value)
-                                <option value="{{ $value->name }}"> 
-                                    {{ $value->name }} 
-                                </option>
-                            @endforeach    
-                </select> 
+                <label>Password</label>
+                <input class="form-control" type="input" name="password" required="" placeholder="Enter Password">
+                
                 
           </div>
+
+           <div class="col-md-4">
+                <label>Confirm Password</label>
+                <input class="form-control" type="input" name="confirm_password" required="" placeholder="Enter Confirm Password">
+                 
+                
+          </div>
+
+          <input type="hidden" name="role" value="{{$role}}">
 
         
 

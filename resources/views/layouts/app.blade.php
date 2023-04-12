@@ -30,9 +30,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
-    
-
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
+     
 </head>
 
 <body class="body-background">

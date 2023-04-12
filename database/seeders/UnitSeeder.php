@@ -17,12 +17,12 @@ class UnitSeeder extends Seeder
         $input = [
                     [
                         'category_id' => 'CT',
-                        'unit' => "No's",
+                        'unit' => "Nos",
                         'description'=>''
                     ],
                     [
                         'category_id' => 'FS',
-                        'unit' => "No's",
+                        'unit' => "Nos",
                         'description'=>''
                     ],
                     [
@@ -42,7 +42,7 @@ class UnitSeeder extends Seeder
                     ],
                      [
                         'category_id' => 'EL',
-                        'unit' => "No's",
+                        'unit' => "Nos",
                         'description'=>''
                     ]
                     
