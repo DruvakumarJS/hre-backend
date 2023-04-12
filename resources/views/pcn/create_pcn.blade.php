@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+  
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
@@ -33,7 +34,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Client Name / Billing Name</label>
                             <div class="col-7">
-                                <input id="" name="" type="text" class="form-control">
+                                <input name="client_name" id="client_name" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -132,4 +133,28 @@
 
     </div>
 </div>
+
+<script>
+
+var path = "{{ route('autocomplete') }}";
+
+$('#client_name').typeahead({
+
+    source: function(query, process){
+
+        return $.get(path, {query:query}, function(data){
+        //console.log(data['brand']);
+            return process(data);
+
+        });
+
+    }
+
+});
+
+
+
+
+</script>
+
 @endsection

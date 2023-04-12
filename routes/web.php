@@ -50,6 +50,7 @@ Route::middleware('role:admin')->group(function () {
 
     Route::get('create_pcn',[PcnController::class,'create_pcn'])->name('create_pcn');
     Route::get('view_pcn',[PcnController::class,'view_pcn'])->name('view_pcn');
+    Route::get('autocomplete',[PcnController::class,'action'])->name('autocomplete');
 
 
 
@@ -68,12 +69,14 @@ Route::middleware('role:admin')->group(function () {
     Route::get('procurement',[UserController::class, 'view_procurement'])->name('procurement');
     Route::get('finance',[UserController::class, 'view_finance'])->name('finance');
 
-    Route::get('create_user',[UserController::class, 'create_user'])->name('create_user');
+    Route::get('create_user/{role}',[UserController::class, 'create_user'])->name('create_user');
     Route::post('save_user',[UserController::class , 'store'])->name('save_user');
 
     Route::get('create_customer' ,[CustomerController::class,'create'])->name('create_customer');
     Route::post('save_customer' ,[CustomerController::class,'store'])->name('save_customer');
     Route::get('view_customers' ,[CustomerController::class,'index'])->name('view_customers');
+
+
 
 	});
 

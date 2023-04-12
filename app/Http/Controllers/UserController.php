@@ -47,11 +47,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+     
+      //print_r($request->Input());die();
 
-
-      $role_id = Roles::where('name',$request->role)->first();
-
-
+    
        $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
             'mobile' => 'required|min:10|unique:employees',
@@ -60,14 +59,30 @@ class UserController extends Controller
 
 
        if ($validator->fails()) {
-              return redirect()->route('create_user')
+              return redirect()->route('create_user',$request->role)
                         ->withErrors($validator)
                         ->withInput();
                      
         }
         else{
 
-               $users = User::create([
+            $role_id = Roles::where('name',$request->role)->first();
+
+            $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users',    
+            ]);
+
+            if ($validator->fails()) {
+              return redirect()->route('create_user',$request->role)
+                        ->withErrors($validator)
+                        ->withInput();
+                     
+              }
+              else{
+
+                if($request->password == $request->confirm_password){
+
+                    $users = User::create([
                 'name' => $request->name ,
                 'email' => $request->email,
                 'role_id'=> $role_id->id,
@@ -110,8 +125,21 @@ class UserController extends Controller
 
                    }
                    else {
-                    return redirect()->route('users')->withMessage('Category Already Exists')->withInput();
+                    return redirect()->route('users')->withMessage('Something went wrong')->withInput();
                    }
+
+
+                }
+                else {
+                     return redirect()->route('create_user',$request->role)
+                        ->withMessage("Password and Confirm Password do not match")
+                        ->withInput();
+                }
+
+
+
+               
+                }   
         }   
 
     }
@@ -164,37 +192,42 @@ class UserController extends Controller
     public  function view_superadmins(){
        $users = Employee::where('role','admin')->paginate(10);
        $role = "Super Admin";
-        return view('user/users_list',compact('users' , 'role'));
+       $role_name = 'admin';
+        return view('user/users_list',compact('users' , 'role' ,'role_name'));
     }
 
      public  function view_managers(){
         $users = Employee::where('role','manager')->paginate(10);
        $role = "Project Manager";
-        return view('user/users_list',compact('users' , 'role'));
+       $role_name = 'manager';
+        return view('user/users_list',compact('users' , 'role','role_name'));
     }
 
      public  function view_supervisors(){
         $users = Employee::where('role','supervisor')->paginate(10);
         $role = "Supervisor";
-        return view('user/users_list',compact('users' , 'role'));
+        $role_name = 'supervisor';
+        return view('user/users_list',compact('users' , 'role','role_name'));
     }
 
      public  function view_procurement(){
        $users = Employee::where('role','procurement')->paginate(10);
        $role = "Procurement";
-        return view('user/users_list',compact('users' , 'role'));
+        $role_name = 'procurement';
+        return view('user/users_list',compact('users' , 'role','role_name'));
     }
 
      public  function view_finance(){
        $users = Employee::where('role','finance')->paginate(10);
        $role = "Finance";
-        return view('user/users_list',compact('users' , 'role'));
+       $role_name = 'finance';
+        return view('user/users_list',compact('users' , 'role','role_name'));
     }
 
     
-    public  function create_user(){
-        $roles = Roles::select('name')->get();
-        return view('user/create_user',compact('roles'));
+    public  function create_user($role){
+        $roles = Roles::select('*')->where('name',$role)->first();
+        return view('user/create_user',compact('roles', 'role'));
     }
 
     public  function create_pcn(){

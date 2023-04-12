@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pcn;
+use App\Models\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,8 @@ class PcnController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+   
+
     public function create()
     {
         //
@@ -86,12 +89,29 @@ class PcnController extends Controller
 
     public function create_pcn()
     {
+
         return view('pcn/create_pcn');
     }
 
     public function view_pcn()
     {
         return view('pcn/view_pcn');
+    }
+
+
+    function action(Request $request)
+    {
+     // print_r("lll");die();
+        $data = $request->all();
+
+        $query = $data['query'];
+
+        $filter_data = Customer::select('name')
+                        ->where('name', 'LIKE', '%'.$query.'%')
+                        ->get();
+
+
+        return response()->json($filter_data);
     }
 
 

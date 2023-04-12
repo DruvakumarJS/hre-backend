@@ -23,7 +23,7 @@
         <div class="container-header">
             <label class="label-bold" id="div1">Dashboard</label>
            <div id="div2">
-           <a class="btn btn-light" href="{{route('create_user')}}"><i class="fa fa-plus"></i> 
+           <a class="btn btn-light" href="{{route('users')}}"><i class="fa fa-plus"></i> 
              <label id="modal">Create User</label></a>
             
           </div>

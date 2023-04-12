@@ -7,7 +7,7 @@
             <label class="label-bold" id="div1">Users Master / {{$role}}</label>
           <div id="div2">
               <div id="div2" style="margin-right: 30px" >
-            <a class="btn btn-light" href="{{route('create_user')}}"><i class="fa fa-plus"></i> 
+            <a class="btn btn-light" href="{{route('create_user',$role_name)}}"><i class="fa fa-plus"></i> 
              <label id="modal">Add User</label>
            </a>
           </div>
