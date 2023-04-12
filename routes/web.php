@@ -56,6 +56,12 @@ Route::middleware('role:admin')->group(function () {
 
     Route::get('tickets',[TicketController::class, 'index'])->name('tickets');
 	Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
+    Route::get('employee-details',[AttendanceController::class,'employeedetails'])->name('employee-details');
+
+    Route::get('employee-history',[AttendanceController::class,'employeehistory'])->name('employee-history');
+
+
+
     Route::get('pettycash',[PettycashController::class,'index'])->name('pettycash');
 
     Route::get('material_master',[CategoryController::class, 'index'])->name('materials_master');

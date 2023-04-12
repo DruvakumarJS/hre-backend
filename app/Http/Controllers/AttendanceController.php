@@ -83,4 +83,14 @@ class AttendanceController extends Controller
     {
         //
     }
+
+    public function employeedetails()
+    {
+        return view('attendance/employee-details');
+    }
+
+    public function employeehistory()
+    {
+        return view('attendance/employee-history');
+    }
 }
