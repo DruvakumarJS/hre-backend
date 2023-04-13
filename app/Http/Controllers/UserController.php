@@ -87,7 +87,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'role_id'=> $role_id->id,
                 'role' => $request->role,
-                'password' =>Hash::make($request->mobile)
+                'password' =>Hash::make($request->password)
             ]);
 
                if($users){
@@ -101,7 +101,7 @@ class UserController extends Controller
                     'mobile' => $request->mobile,
                     'email' => $request->email,
                     'role' => $request->role,
-                    'password' =>Hash::make($request->mobile),
+    
                        ]);
 
                    if($request->role == 'supervisor'){

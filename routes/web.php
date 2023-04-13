@@ -51,6 +51,7 @@ Route::middleware('role:admin')->group(function () {
     Route::get('create_pcn',[PcnController::class,'create_pcn'])->name('create_pcn');
     Route::get('view_pcn',[PcnController::class,'view_pcn'])->name('view_pcn');
     Route::get('autocomplete',[PcnController::class,'action'])->name('autocomplete');
+    Route::post('save_pcn',[PcnController::class,'store'])->name('save_pcn');
 
 
 

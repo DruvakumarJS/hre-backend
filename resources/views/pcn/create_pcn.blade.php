@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   
 <div class="container">
     <div class="row justify-content-center">
@@ -18,38 +21,46 @@
              <button class="btn btn-light" > Download CSV</button>
           </div>
 
+         @if(Session::has('message'))
+            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
+          @endif 
 
         </div>
         <div class="form-build">
             <div class="row">
                 <div class="col-6">
-                    <form>
+                    <form method="Post" action="{{route('save_pcn')}}">
+                        @csrf
                         <h3>Project Details</h3>
                         <div class="form-group row">
                             <label for="text" class="col-5 col-form-label">Project Code</label>
                             <div class="col-7">
-                                <input id="text" name="text" type="text" class="form-control">
+                                <input id="text" name="pcn" type="text" class="form-control" required="required" value="{{old('pcn')}}">
+                                     @error('pcn')
+                                   <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                 @enderror
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Client Name / Billing Name</label>
                             <div class="col-7">
-                                <input name="client_name" id="client_name" type="text" class="form-control">
+                                <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Brand Name</label>
                             <div class="col-7">
-                                <input id="" name="" type="text" class="form-control">
+                                <input id="brand" name="brand" type="text" class="form-control" readonly="readonly" required="required">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Type of Work</label>
                             <div class="col-7">
-                                <select id="" name="" class="custom-select form-control">
-                                    <option value="">Re-furbishment</option>
-                                    <option value="">Furniture Supply</option>
-                                    <option value="">New Project</option>
+                                <select id="" name="work" class="custom-select form-control form-select" required="required">
+                                    <option value="">Select type of work</option>
+                                    <option value="Re-furbishment">Re-furbishment</option>
+                                    <option value="Furniture Supply">Furniture Supply</option>
+                                    <option value="New Project">New Project</option>
                                 </select>
                             </div>
                         </div>
@@ -57,22 +68,33 @@
                         <hr/>
                         <h3>Location Details</h3>
 
-                        <div class="form-group row">
+                      <!--   <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Location</label>
                             <div class="col-7">
-                                <input id="" name="" type="text" class="form-control">
+                                <input id="location" name="location" type="text" class="form-control">
                             </div>
+                            <div id="location"></div>
                         </div>
+
+ -->
+                        <div class="form-group row">
+                             <label for="" class="col-5 col-form-label">Location</label>
+                             <div class="col-7 " id="location" >
+                                 <input  class="form-control" type="text" required="required">
+                             </div>
+                        </div>
+                       
+                    
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">City</label>
                             <div class="col-7">
-                                <select id="" name="" class="custom-select form-control"></select>
+                                <input id="city" class="form-control" type="text" name="city">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">State</label>
                             <div class="col-7">
-                                <select id="" name="" class="custom-select form-control"></select>
+                               <input id="state" class="form-control" type="text" name="state">
                             </div>
                         </div>
 
@@ -81,49 +103,49 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
-                                <input id="" name="" type="text" class="form-control">
+                                <input id="" name="start_date" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project End Date</label>
                             <div class="col-7">
-                                <input id="" name="" type="text" class="form-control">
+                                <input id="" name="end_date" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Target Date</label>
                             <div class="col-7">
-                                <input id="" name="" type="text" class="form-control">
+                                <input id="" name="target_date" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">
-                                <input id="text1" name="text1" type="text" class="form-control">
+                                <input id="text1" name="actual_start_date" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Completed Date</label>
                             <div class="col-7">
-                                <input id="" name="" type="text" class="form-control">
+                                <input id="" name="actual_end_date" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Hold Days</label>
                             <div class="col-7">
-                                <input id="" name="" type="text" class="form-control">
+                                <input id="" name="hold_days" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="text2" class="col-5 col-form-label">Actual Days Achived</label>
                             <div class="col-7">
-                                <input id="text2" name="text2" type="text" class="form-control">
+                                <input id="text2" name="days_achieved" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="offset-5 col-7">
                                 <button name="submit" type="submit" class="btn btn-primary">Submit</button>
-                                <button name="submit" type="submit" class="btn btn-link">Cancel</button>
+                                <button name="submit" type="submit2" class="btn btn-link">Cancel</button>
                             </div>
                         </div>
                     </form>
@@ -134,27 +156,81 @@
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
 
-var path = "{{ route('autocomplete') }}";
+$( document ).ready(function() {
+    var path = "{{ route('autocomplete') }}";
+   let text = "";
+    $( "#client_name" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            success: function( data ) {
+               response( data );
+            }
+          });
+        },
+        select: function (event, ui) {
+           $('#client_name').val(ui.item.label);
+            $('#brand').val(ui.item.brand);
+           var address = ui.item.address ;
+           console.log(address); 
 
-$('#client_name').typeahead({
+          // address.forEach(myFunction);
+          //  $('#address').val(ui.item.address);
+          // console.log(ui.item); 
+ 
+     var location = '<select class="form-control form-select" name="area" required="required"> <option value=""> Select Area</option>'
+          address.forEach(function(item) {
+               // console.log('III==',item)A
+               var name = item.area;
+               location +=" <option data-city="+item.city+" data-state="+item.state+" value='"+name+"'>"+ name +" </option>";
 
-    source: function(query, process){
+               /*$('#city').val(item.city);
+               $('#state').val(item.state);*/
+          });
+          location += '</select>'; 
+        
+        $('#location').html(location);
+      
+           /*return false;*/
+        }
+      });
 
-        return $.get(path, {query:query}, function(data){
-        //console.log(data['brand']);
-            return process(data);
-
-        });
-
-    }
+       /* $('#location select').on('change',function() {
+             console.log('KUBLULJLJLJL');
+          });*/
+        $(document).on('change','#location select',function(){
+    //alert('Change Happened');
+    //alert($(this).find(':selected').attr('data-city'));
+    $('#city').val($(this).find(':selected').attr('data-city'));
+               $('#state').val($(this).find(':selected').attr('data-state'));
 
 });
 
+        
+        
+            
 
+        // $('#loc_select').on('change', function(){
 
+        //    alert( $(this).data('city'));
+        // });
+});
 
+    function myFunction(){
+        // alert('dkldk');
+    }
+     function setCity(){
+        alert('dkldk');
+         alert($(this).find(':selected').attr('data-city'));
+    }
+  
 </script>
 
 @endsection

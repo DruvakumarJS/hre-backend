@@ -127,11 +127,31 @@ class MaterialController extends Controller
 
 
     	}
+       } 
+
+        function material_list(Request $request){
+
+            if(isset($request->user_id)){
+
+                $materials = Material::select('name')->groupBy('name')->get();
+
+            return response()->json([
+                "status"=> 1 ,
+                "message" => "success",
+                "data" => $materials]);
+
+            }
+            else {
+            return response()->json([
+                "status"=> 0 ,
+                "message" => "Authentication failure",
+                "data" => ""]);
+            }
+            
+        }
 
     	
-    	
 
 
-
-    }
+    
 }

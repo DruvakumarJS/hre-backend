@@ -39,53 +39,15 @@
                             </tr>
                           </thead>
                           <tbody>
+                            @foreach($pcns as $key => $value)
                             <tr>  
-                              <td>PCN885</td>
-                              <td>Prestige Apartment</td>
+                              <td>{{$value->pcn}}</td>
+                              <td>{{$value->client_name}}</td>
                               <td>prestige@prestige.com</td>
-                              <td>Bangalore</td>
+                              <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>
                               <td ><a href=""><label class="curved-text">View/Edit</label></a></td>
                             </tr>
-
-                             <tr>  
-                              <td>PCN885</td>
-                              <td>Prestige Apartment</td>
-                              <td>prestige@prestige.com</td>
-                              <td>Bangalore</td>
-                              <td ><a href=""><label class="curved-text">View/Edit</label></a></td>
-                            </tr>
-
-                             <tr>  
-                              <td>PCN885</td>
-                              <td>Prestige Apartment</td>
-                              <td>prestige@prestige.com</td>
-                              <td>Bangalore</td>
-                              <td ><a href=""><label class="curved-text">View/Edit</label></a></td>
-                            </tr>
-
-                             <tr>  
-                              <td>PCN885</td>
-                              <td>Prestige Apartment</td>
-                              <td>prestige@prestige.com</td>
-                              <td>Bangalore</td>
-                              <td ><a href=""><label class="curved-text">View/Edit</label></a></td>
-                            </tr>
-
-                             <tr>  
-                              <td>PCN885</td>
-                              <td>Prestige Apartment</td>
-                              <td>prestige@prestige.com</td>
-                              <td>Bangalore</td>
-                              <td ><a href=""><label class="curved-text">View/Edit</label></a></td>
-                            </tr>
-
-                             <tr>  
-                              <td>PCN885</td>
-                              <td>Prestige Apartment</td>
-                              <td>prestige@prestige.com</td>
-                              <td>Bangalore</td>
-                              <td ><a href=""><label class="curved-text">View/Edit</label></a></td>
-                            </tr>
+                          @endforeach
                              
                           </tbody>
                         </table>

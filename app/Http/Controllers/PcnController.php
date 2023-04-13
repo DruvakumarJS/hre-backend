@@ -6,6 +6,7 @@ use App\Models\Pcn;
 use App\Models\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PcnController extends Controller
 {
@@ -16,7 +17,11 @@ class PcnController extends Controller
      */
     public function index()
     {
-       return view('pcn/list');
+        /*$pcns = Pcn::paginate(20); 
+       return view('pcn/list', compact('pcns'));*/
+
+       $pcns = Pcn::paginate(20);
+        return view('pcn/view_pcn' , compact('pcns'));
     }
 
     /**
@@ -39,8 +44,60 @@ class PcnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       //print_r($request->Input());die();
+
+       $validator = Validator::make($request->all(), [
+             'pcn' => 'required|unique:pcns',
+           
+        ]);
+
+       if ($validator->fails()) {
+
+              return redirect()->route('create_pcn')
+                        ->withErrors($validator)
+                        ->withInput();
+                     
+        }
+        else {
+
+             $PCN_data = [
+            'pcn'=>$request->pcn ,
+            'client_name' => $request->client_name,
+            'brand' => $request->brand ,
+            'work' => $request->work,
+            'area' => $request->area,
+            'city' => $request->city,
+            'state' => $request->state,
+            'status' => "Active",
+
+            ];
+
+            $createPCN = Pcn::create([
+                'pcn'=>$request->pcn ,
+                'client_name' => $request->client_name,
+                'brand' => $request->brand ,
+                'work' => $request->work,
+                'area' => $request->area,
+                'city' => $request->city,
+                'state' => $request->state,
+                'status' => "Active"
+        ]);
+
+            if($createPCN){
+                return redirect()->route('view_pcn');
+            }
+            else{
+                 return redirect()->route('create_pcn')->withMessage('Something went wrong')->withInput(); ;
+            }
+
+
+
+            }
+
     }
+
+
+      
 
     /**
      * Display the specified resource.
@@ -95,14 +152,15 @@ class PcnController extends Controller
 
     public function view_pcn()
     {
-        return view('pcn/view_pcn');
+        $pcns = Pcn::paginate(20);
+        return view('pcn/view_pcn' , compact('pcns'));
     }
 
 
     function action(Request $request)
     {
      // print_r("lll");die();
-        $data = $request->all();
+       /* $data = $request->all();
 
         $query = $data['query'];
 
@@ -111,7 +169,14 @@ class PcnController extends Controller
                         ->get();
 
 
-        return response()->json($filter_data);
+        return response()->json($filter_data);*/
+
+        $data = Customer::select("name as value", "id" , "brand")
+                    ->with("address")
+                    ->where('name', 'LIKE', '%'. $request->get('search'). '%')
+                    ->get();
+    
+        return response()->json($data);
     }
 
 

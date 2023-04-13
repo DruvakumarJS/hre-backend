@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card border-white">
-                        <div class="table-responsive">
+                        <div class="table table-responsive">
                             <table class="table  table-lg table-hover">
                                 <thead>
                                 <tr>
@@ -45,166 +45,25 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+
+                                    @foreach($pcns as $key => $value)
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@dsafads fadsf adsf</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@madsfasdfdo</td>
-                                    <td>Mark</td>
-                                    <td>asdfasdfasdf</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@asdfasdfdf</td>
-                                    <td>Mark</td>
+                                    <td>{{$value->pcn}}</td>
+                                    <td>{{$value->client_name}}</td>
+                                    <td>{{$value->brand}}</td>
+                                    <td>{{$value->work}}</td>
+                                    <td>{{$value->area}}</td>
+                                    <td>{{$value->city}}</td>
+                                    <td>{{$value->state}}</td>
+                                    <td>{{$value->proposed_end_date}}</td>
+                                    <td>{{$value->targeted_days}}</td>
+                                    <td>{{$value->actual_start_date}}</td>
+                                    <td>{{$value->actual_completed_date}}</td>
+                                    <td>{{$value->hold_days}}</td>
+                                    <td>{{$value->days_acheived}}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdasdfadsfdfo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Maadfadsfrk</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@dsafads fadsf adsf</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@madsfasdfdo</td>
-                                    <td>Mark</td>
-                                    <td>asdfasdfasdf</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@asdfasdfdf</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdasdfadsfdfo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Maadfadsfrk</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@dsafads fadsf adsf</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@madsfasdfdo</td>
-                                    <td>Mark</td>
-                                    <td>asdfasdfasdf</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@asdfasdfdf</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdasdfadsfdfo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Maadfadsfrk</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@dsafads fadsf adsf</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@madsfasdfdo</td>
-                                    <td>Mark</td>
-                                    <td>asdfasdfasdf</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@asdfasdfdf</td>
-                                    <td>Mark</td>
-                                </tr>
+                               @endforeach
 
                                 </tbody>
                             </table>

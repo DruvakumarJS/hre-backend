@@ -25,3 +25,4 @@ Route::get('/getusers',[UserController::class , 'index']);
 Route::post('/search-user',[UserController::class , 'search']);
 Route::post('/validate-login',[UserController::class,'validate_login']);
 Route::post('/get-material-details',[MaterialController::class,'material_data']);
+Route::post('/get-material-list',[MaterialController::class,'material_list']);

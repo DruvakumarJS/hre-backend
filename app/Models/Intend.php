@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Intend extends Model
 {
     use HasFactory;
+    
 }

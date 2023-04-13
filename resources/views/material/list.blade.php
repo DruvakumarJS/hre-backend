@@ -76,6 +76,11 @@
                              
                           </tbody>
                         </table>
+                         <label>Showing {{ $MaterialList->firstItem() }} to {{ $MaterialList->lastItem() }}
+                                    of {{$MaterialList->total()}} results</label>
+
+                                {!! $MaterialList->links() !!}
+                        
                         
                     </div>
                     <!--</div>-->
