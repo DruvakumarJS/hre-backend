@@ -32,7 +32,7 @@ class MaterialController extends Controller
 
     		return response()->json([
     		'status'=> 1 ,
-    		'data' => $material_data]);
+    		'data' => array($material_data)]);
 
     	}
     	else {

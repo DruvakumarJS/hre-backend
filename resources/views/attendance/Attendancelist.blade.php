@@ -46,7 +46,7 @@
                         <td>ramesh@hre.com</td>
                         <td>+91 92323 23234</td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-light">view</button>
+                            <a href="{{route('employee-history')}}"><button type="button" class="btn btn-sm btn-light">view</button></a>
                         </td>
                     </tr>
                     <tr>
