@@ -142,6 +142,7 @@
                                 <input id="text2" name="days_achieved" type="text" class="form-control">
                             </div>
                         </div>
+                        <input type="hidden" name="customer_id" id="customer_id">
                         <div class="form-group row">
                             <div class="offset-5 col-7">
                                 <button name="submit" type="submit" class="btn btn-primary">Submit</button>
@@ -172,28 +173,24 @@ $( document ).ready(function() {
             },
             success: function( data ) {
                response( data );
+              
             }
           });
         },
         select: function (event, ui) {
            $('#client_name').val(ui.item.label);
             $('#brand').val(ui.item.brand);
+            $('#customer_id').val(ui.item.id);
+
            var address = ui.item.address ;
            console.log(address); 
 
-          // address.forEach(myFunction);
-          //  $('#address').val(ui.item.address);
-          // console.log(ui.item); 
- 
      var location = '<select class="form-control form-select" name="area" required="required"> <option value=""> Select Area</option>'
           address.forEach(function(item) {
                // console.log('III==',item)A
                var name = item.area;
                location +=" <option data-city="+item.city+" data-state="+item.state+" value='"+name+"'>"+ name +" </option>";
-
-               /*$('#city').val(item.city);
-               $('#state').val(item.state);*/
-          });
+       });
           location += '</select>'; 
         
         $('#location').html(location);
@@ -202,35 +199,17 @@ $( document ).ready(function() {
         }
       });
 
-       /* $('#location select').on('change',function() {
-             console.log('KUBLULJLJLJL');
-          });*/
+    
         $(document).on('change','#location select',function(){
-    //alert('Change Happened');
-    //alert($(this).find(':selected').attr('data-city'));
-    $('#city').val($(this).find(':selected').attr('data-city'));
+  
+               $('#city').val($(this).find(':selected').attr('data-city'));
                $('#state').val($(this).find(':selected').attr('data-state'));
 
 });
 
-        
-        
-            
-
-        // $('#loc_select').on('change', function(){
-
-        //    alert( $(this).data('city'));
-        // });
+  
 });
 
-    function myFunction(){
-        // alert('dkldk');
-    }
-     function setCity(){
-        alert('dkldk');
-         alert($(this).find(':selected').attr('data-city'));
-    }
-  
 </script>
 
 @endsection

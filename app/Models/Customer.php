@@ -18,5 +18,9 @@ class Customer extends Model
 
      function address(){
             return $this->hasMany(Address::class,'customer_id', 'id');
-        }  	
+        }
+
+      function pcn(){
+            return $this->hasMany(Customer::class,'id', 'customer_id');
+        }      	
 }

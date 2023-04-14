@@ -11,6 +11,7 @@ class Pcn extends Model
 
     protected $fillable = [
     	'pcn',
+        'customer_id',
     	'client_name',
     	'brand',
     	'work',
@@ -27,4 +28,10 @@ class Pcn extends Model
     	'days_acheived',
     	'status',
     	'assigned_to'];
+
+        public function customer()
+          {
+             return $this->belongsTo(Customer::class,'customer_id','id');
+
+          } 
 }

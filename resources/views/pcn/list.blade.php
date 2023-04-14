@@ -7,7 +7,7 @@
             <label class="label-bold" id="div1">PCN</label>
            <div id="div2">
             <a class="btn btn-light" href="{{route('view_pcn')}}"></i> 
-             <label id="modal">View PCN</label></a>
+             <label id="modal">View PCN </label></a>
             
           </div>
           <div id="div2" style="margin-right: 30px">
@@ -43,7 +43,7 @@
                             <tr>  
                               <td>{{$value->pcn}}</td>
                               <td>{{$value->client_name}}</td>
-                              <td>prestige@prestige.com</td>
+                              <td>{{$value->customer->email}}</td>
                               <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>
                               <td ><a href=""><label class="curved-text">View/Edit</label></a></td>
                             </tr>

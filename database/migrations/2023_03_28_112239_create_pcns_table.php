@@ -16,6 +16,7 @@ class CreatePcnsTable extends Migration
         Schema::create('pcns', function (Blueprint $table) {
             $table->id();
             $table->string('pcn')->unique();
+            $table->string('customer_id');
             $table->string('client_name');
             $table->string('brand');
             $table->string('work');

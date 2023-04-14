@@ -17,11 +17,8 @@ class PcnController extends Controller
      */
     public function index()
     {
-        /*$pcns = Pcn::paginate(20); 
-       return view('pcn/list', compact('pcns'));*/
-
-       $pcns = Pcn::paginate(20);
-        return view('pcn/view_pcn' , compact('pcns'));
+        $pcns = Pcn::orderBy('id','DESC')->paginate(20); 
+       return view('pcn/list', compact('pcns'));
     }
 
     /**
@@ -44,7 +41,7 @@ class PcnController extends Controller
      */
     public function store(Request $request)
     {
-       //print_r($request->Input());die();
+      // print_r($request->Input());die();
 
        $validator = Validator::make($request->all(), [
              'pcn' => 'required|unique:pcns',
@@ -60,20 +57,10 @@ class PcnController extends Controller
         }
         else {
 
-             $PCN_data = [
-            'pcn'=>$request->pcn ,
-            'client_name' => $request->client_name,
-            'brand' => $request->brand ,
-            'work' => $request->work,
-            'area' => $request->area,
-            'city' => $request->city,
-            'state' => $request->state,
-            'status' => "Active",
-
-            ];
 
             $createPCN = Pcn::create([
                 'pcn'=>$request->pcn ,
+                'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,
                 'brand' => $request->brand ,
                 'work' => $request->work,
@@ -84,7 +71,7 @@ class PcnController extends Controller
         ]);
 
             if($createPCN){
-                return redirect()->route('view_pcn');
+                return redirect()->route('PCN');
             }
             else{
                  return redirect()->route('create_pcn')->withMessage('Something went wrong')->withInput(); ;
@@ -159,18 +146,7 @@ class PcnController extends Controller
 
     function action(Request $request)
     {
-     // print_r("lll");die();
-       /* $data = $request->all();
-
-        $query = $data['query'];
-
-        $filter_data = Customer::select('name')
-                        ->where('name', 'LIKE', '%'.$query.'%')
-                        ->get();
-
-
-        return response()->json($filter_data);*/
-
+    
         $data = Customer::select("name as value", "id" , "brand")
                     ->with("address")
                     ->where('name', 'LIKE', '%'. $request->get('search'). '%')

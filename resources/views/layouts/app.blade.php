@@ -55,6 +55,13 @@
                <div class="navigation">
                     <a href="{{route('users')}}" 
                      class="{{request()->routeIs('users')
+                     ||request()->routeIs('superadmin')
+                     ||request()->routeIs('manager')
+                     ||request()->routeIs('supervisors')
+                     ||request()->routeIs('procurement')
+                     ||request()->routeIs('finance')
+                     ||request()->routeIs('create_user')
+                     ||request()->routeIs('users')
                       ? 'active' : ''}}">
                       <label class="nav-links">User Master</label></a>
 
@@ -69,6 +76,8 @@
 
                     <a href="{{route('PCN')}}"
                       class="{{request()->routeIs('PCN')
+                      || request()->routeIs('create_pcn')
+                      || request()->routeIs('view_pcn')
                       ? 'active' : ''}}">
                     <label class="nav-links">PCN</label></a>
 
@@ -79,6 +88,8 @@
 
                     <a href="{{route('attendance')}}"
                     class="{{request()->routeIs('attendance')
+                    ||request()->routeIs('employee-details')
+                    ||request()->routeIs('employee-history')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Attendance</label></a>
 
