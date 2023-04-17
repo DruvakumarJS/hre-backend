@@ -41,7 +41,7 @@
                           	@foreach($customers as $key =>$value)
 
                             <tr>  
-                               <td>{{$key+1}}</td>
+                               <td>{{$key + $customers->firstItem()}}</td>
                               <td>{{$value->name}}</td>
                               <td>{{$value->brand}}</td>
                               <td>{{$value->email}}</td>
@@ -60,6 +60,11 @@
                             
                           </tbody>
                         </table>
+
+                         <label>Showing {{ $customers->firstItem() }} to {{ $customers->lastItem() }}
+                                    of {{$customers->total()}} results</label>
+
+                                {!! $customers->links('pagination::bootstrap-4') !!}
                         
                     </div>
     		

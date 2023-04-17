@@ -91,23 +91,24 @@ class IndentController extends Controller
        
         return response()->json([
          	 		'status' => 1 ,
-         	 		'message' => 'Indent Created Succesfully' ,
-         	 		'data' => '']);
+         	 		'message' => 'Indent Created Succesfully' 
+         	 		]);
         }
 
         else {
             return response()->json([
-           	 		'status' => 1 ,
-           	 		'message' => 'Indent array is empty' ,
-           	 		'data' => '']);
+           	 		'status' => 0 ,
+           	 		'message' => 'Indent array is empty' 
+           	 ]);
         }
    	 }
 
    	 else {
+
      	 	return response()->json([
-         	 		'status' => 1 ,
-         	 		'message' => 'Insufficient inputs' ,
-         	 		'data' => '']);
+         	 		'status' => 0 ,
+         	 		'message' => 'Insufficient inputs' 
+         	 		]);
      	 }
 
    }

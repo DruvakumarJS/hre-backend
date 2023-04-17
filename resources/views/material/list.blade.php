@@ -27,6 +27,7 @@
                         <table class="table">
                           <thead>
                             <tr>
+                              <th>Sl.no</th>
                               <th scope="col">Material Id</th>
                               <th scope="col">Material Name</th>
                               <th scope="col">Make / Brand</th>
@@ -41,7 +42,8 @@
                           <tbody>
 
                           @foreach($MaterialList as $key=>$value)
-                            <tr>  
+                            <tr>
+                            <td>{{$key + $MaterialList->firstItem()}}</td>  
                               <td>{{$value->item_code}}</td>
                               <td>{{$value->name}}</td>
                               <td>{{$value->brand}}</td>
@@ -76,12 +78,10 @@
                              
                           </tbody>
                         </table>
-                         <label>Showing {{ $MaterialList->firstItem() }} to {{ $MaterialList->lastItem() }}
-                                    of {{$MaterialList->total()}} results</label>
+                         <label>Showing {{ $MaterialList->firstItem() }} to {{ $MaterialList->lastItem() }} of {{$MaterialList->total()}} results</label>
 
-                                {!! $MaterialList->links() !!}
-                        
-                        
+                                {!! $MaterialList->links('pagination::bootstrap-4') !!}
+                                       
                     </div>
                     <!--</div>-->
                  </div>

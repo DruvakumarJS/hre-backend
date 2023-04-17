@@ -105,6 +105,7 @@ Route::middleware('role:manager')->group(function () {
 Route::middleware('role:procurement')->group(function () {
 	Route::get('/procurement_home', [ProcurementHomeController::class, 'index'])->name('procurement_home');
 	Route::get('intends',[IntendController::class,'index'])->name('intends');
+    Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
 	Route::get('update_intends/{id}',[IntendController::class,'edit'])->name('update_intends');
 	Route::get('ticketslist',[TicketController::class, 'index'])->name('ticketslist');
 

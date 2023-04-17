@@ -76,6 +76,7 @@
                         <table class="table">
                           <thead>
                             <tr>
+                              <th>Sl.no</th>
                               <th scope="col">Category</th>
                               <th scope="col">Category Code</th>
                               <th scope="col">Action</th>
@@ -87,6 +88,7 @@
                           <tbody>
                           
                             @foreach($categories as $key => $value)
+                              <td>{{$key + $categories->firstItem()}}</td>
                               <td>{{$value->category}}</td>
                               <td>{{$value->material_category}}</td>
                               
@@ -214,7 +216,7 @@ $(document).ready(function(){
                          <label>Showing {{ $categories->firstItem() }} to {{ $categories->lastItem() }}
                                     of {{$categories->total()}} results</label>
 
-                                {!! $categories->links() !!}
+                                {!! $categories->links('pagination::bootstrap-4') !!}
                         
                     </div>
                     <!--</div>-->

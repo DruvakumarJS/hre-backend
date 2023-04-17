@@ -38,7 +38,7 @@
                           <tbody>
                           	@foreach($indents_list as $key => $value)
                              <tr>
-                             	<td>{{$key+1}}</td>
+                             	<td>{{$key + $indents_list->firstItem()}}</td>
                              	<td>{{$value->material_id}}</td>
                              	<td>{{$value->materials->name}}</td>
                               <td>{{$value->materials->brand}}</td>
@@ -75,6 +75,11 @@
                             
                           </tbody>
                         </table>
+
+                        <label>Showing {{ $indents_list->firstItem() }} to {{ $indents_list->lastItem() }}
+                                    of {{$indents_list->total()}} results</label>
+
+                                {!! $indents_list->links('pagination::bootstrap-4') !!}
                         
                     </div>
                     <!--</div>-->

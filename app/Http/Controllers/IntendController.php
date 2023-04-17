@@ -54,7 +54,7 @@ class IntendController extends Controller
         $indents= Intend::select('id')->where('indent_no',$id)->first();
         $indent_id = $indents->id ;
 
-        $indents_list = Indent_list::where('indent_id',$indent_id)->get();
+        $indents_list = Indent_list::where('indent_id',$indent_id)->paginate(10);
 
        // print_r($indents_list);die();
          return view('indent/view_indents',compact('id' , 'indents_list'));

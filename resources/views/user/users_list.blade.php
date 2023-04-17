@@ -25,6 +25,7 @@
                        <table class="table">
                            <thead>
                            <tr>
+                            <th>Sl.no</th>
                                <th scope="col">Employee ID</th>
                                <th scope="col">Name</th>
                                <th scope="col">Email ID</th>
@@ -37,6 +38,7 @@
                            <tbody>
                             @foreach($users as $key => $value)
                                <tr>
+                                   <td>{{$key + $users->firstItem()}}</td>
                                    <td>{{$value->employee_id}}</td>
                                    <td>{{$value->name}}</td>
                                    <td>{{$value->email}}</td>
@@ -52,7 +54,7 @@
                        <label>Showing {{ $users->firstItem() }} to {{ $users->lastItem() }}
                                     of {{$users->total()}} results</label>
 
-                                {!! $users->links() !!}
+                                {!! $users->links('pagination::bootstrap-4') !!}
                    </div>
 
                </div>

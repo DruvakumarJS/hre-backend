@@ -33,8 +33,6 @@
                             <tr>
                                <th scope="col">Sl.no</th>
                               <th scope="col">Indend Number</th>
-                              <th scope="col">Employee Id</th>
-                              
                               <th scope="col">Received</th>
                               <th scope="col">Pending</th>
                               <th scope="col">Status</th>
@@ -45,19 +43,15 @@
                           <tbody>
                             @foreach($indents as $key =>$value)
                               <tr> 
-                                <td>{{$key+1}}</td> 
-                                <td>{{$value->indent_no}}</td>
-                                <td>{{$value->employee->employee_id}}</td>
-                                
+                                <td>{{$key + $indents->firstItem()}}</td> 
+                                <td>{{$value->indent_no}}</td>  
                                 <td>{{$value->recieved}}</td>
                                 <td>{{$value->pending}}</td>
                                 <td>{{$value->status}}</td>
     
-                                @if(Auth::user()->role_id == 2)
+                               
                                 <td> <a href="{{route('indent_details',$value->indent_no)}}"><label class="curved-text-button">View/Edit</label></a></td>
-                                @elseif(Auth::user()->role_id == 3)
-                                <td> <a href="{{route('update_intends','M001')}}"><label class="curved-text-button">View/Edit</label></a></td>
-                                @endif
+                                
                               </tr>
                           @endforeach
                             
@@ -67,7 +61,7 @@
                          <label>Showing {{ $indents->firstItem() }} to {{ $indents->lastItem() }}
                                     of {{$indents->total()}} results</label>
 
-                                {!! $indents->links() !!}
+                                {!! $indents->links('pagination::bootstrap-4') !!}
                         
                         
                     </div>

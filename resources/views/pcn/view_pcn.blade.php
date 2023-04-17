@@ -27,7 +27,7 @@
                             <table class="table  table-lg table-hover">
                                 <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">Sl.no</th>
                                     <th scope="col">Project Code</th>
                                     <th scope="col">Client Name / Billing Name</th>
                                     <th scope="col">Brand Name</th>
@@ -52,7 +52,7 @@
 
                                     @foreach($pcns as $key => $value)
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <td>{{$key + $pcns->firstItem()}}</td>
                                     <td>{{$value->pcn}}</td>
                                     <td>{{$value->client_name}}</td>
 
@@ -78,6 +78,11 @@
 
                                 </tbody>
                             </table>
+
+                            <label>Showing {{ $pcns->firstItem() }} to {{ $pcns->lastItem() }}
+                                    of {{$pcns->total()}} results</label>
+
+                                {!! $pcns->links('pagination::bootstrap-4') !!}
                         </div>
                     </div>
 

@@ -30,6 +30,7 @@
                         <table class="table">
                           <thead>
                             <tr>
+                              <th>Sl.no</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Customer Name</th>
                               <th scope="col">Customer Email</th>
@@ -41,6 +42,7 @@
                           <tbody>
                             @foreach($pcns as $key => $value)
                             <tr>  
+                              <td>{{$key + $pcns->firstItem()}}</td>
                               <td>{{$value->pcn}}</td>
                               <td>{{$value->client_name}}</td>
                               <td>{{$value->customer->email}}</td>
@@ -52,6 +54,11 @@
                              
                           </tbody>
                         </table>
+
+                        <label>Showing {{ $pcns->firstItem() }} to {{ $pcns->lastItem() }}
+                                    of {{$pcns->total()}} results</label>
+
+                                {!! $pcns->links('pagination::bootstrap-4') !!}
                         
                     </div>
                     <!--</div>-->
