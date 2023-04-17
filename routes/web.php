@@ -52,7 +52,8 @@ Route::middleware('role:admin')->group(function () {
     Route::get('view_pcn',[PcnController::class,'view_pcn'])->name('view_pcn');
     Route::get('autocomplete',[PcnController::class,'action'])->name('autocomplete');
     Route::post('save_pcn',[PcnController::class,'store'])->name('save_pcn');
-
+    Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
+    Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');
 
 
     Route::get('tickets',[TicketController::class, 'index'])->name('tickets');
@@ -90,8 +91,9 @@ Route::middleware('role:admin')->group(function () {
 Route::middleware('role:manager')->group(function () {
 	Route::get('/manager_home', [ManagerHomeController::class, 'index'])->name('manager_home');
 	Route::get('employee',[EmployeeController::class,'index'])->name('employee_list');
-	Route::get('intend_list',[IntendController::class,'index'])->name('intend_list');
+	Route::get('indent_list',[IntendController::class,'index'])->name('indent_list');
     Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
+  //  Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
 	Route::get('tickets_list',[TicketController::class, 'index'])->name('tickets_list');
 	Route::get('attendance_list',[AttendanceController::class,'index'])->name('attendance_list');
     Route::get('PettyCash',[PettycashController::class,'index'])->name('petty_cash');

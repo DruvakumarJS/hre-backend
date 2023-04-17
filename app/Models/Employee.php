@@ -19,6 +19,7 @@ class Employee extends Model
     	 	
     ];
 
-    protected $hidden=[
-        'timestamps',];
+    function intends(){
+            return $this->hasMany(Intend::class,'user_id', 'user_id');
+        } 
 }

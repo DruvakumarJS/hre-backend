@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\EmployeeController;
 use App\Http\Controllers\api\MaterialController;
+use App\Http\Controllers\api\IndentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::post('/search-user',[UserController::class , 'search']);
 Route::post('/validate-login',[UserController::class,'validate_login']);
 Route::post('/get-material-details',[MaterialController::class,'material_data']);
 Route::post('/get-material-list',[MaterialController::class,'material_list']);
+Route::post('/create-indent',[IndentController::class,'create']);
+Route::post('/pcns',[IndentController::class,'pcn_list']);

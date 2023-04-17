@@ -35,12 +35,16 @@
                                     <th scope="col">Location</th>
                                     <th scope="col">City</th>
                                     <th scope="col">State</th>
-                                    <th scope="col">Proposed Project End Date</th>
+                                     <th scope="col">Proposed Start Date</th>
+                                    <th scope="col">Proposed End Date</th>
+                                    <th scope="col">Approve Holidays</th>
                                     <th scope="col">Target Date</th>
                                     <th scope="col">Actual Start Date</th>
                                     <th scope="col">Actual Completed Date</th>
                                     <th scope="col">Project Hold Days</th>
                                     <th scope="col">Actual Days Achived</th>
+                                    <th scope="col">Status</th>
+                                    <th></th>
                                 </tr>
                                 </tr>
                                 </thead>
@@ -51,17 +55,24 @@
                                     <th scope="row">1</th>
                                     <td>{{$value->pcn}}</td>
                                     <td>{{$value->client_name}}</td>
+
                                     <td>{{$value->brand}}</td>
                                     <td>{{$value->work}}</td>
                                     <td>{{$value->area}}</td>
                                     <td>{{$value->city}}</td>
                                     <td>{{$value->state}}</td>
+                                    <td>{{$value->proposed_start_date}}</td>
                                     <td>{{$value->proposed_end_date}}</td>
+                                    <td>{{$value->approve_holidays}}</td>
                                     <td>{{$value->targeted_days}}</td>
                                     <td>{{$value->actual_start_date}}</td>
                                     <td>{{$value->actual_completed_date}}</td>
                                     <td>{{$value->hold_days}}</td>
                                     <td>{{$value->days_acheived}}</td>
+                                    <td>{{$value->status}}</td>
+                                    <td>
+                                        <a href="{{route('edit_pcn',$value->pcn)}}"><i class="fa fa-edit"></i></a>
+                                    </td>
                                 </tr>
                                @endforeach
 

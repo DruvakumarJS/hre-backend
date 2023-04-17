@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIntendsTable extends Migration
+class CreateIndentListsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateIntendsTable extends Migration
      */
     public function up()
     {
-        Schema::create('intends', function (Blueprint $table) {
+        Schema::create('indent_lists', function (Blueprint $table) {
             $table->id();
-            $table->string('indent_no');
-            $table->string('pcn');
-            $table->string('user_id');
+            $table->string('indent_id');
+            $table->string('material_id');
+            $table->string('decription');
             $table->string('quantity');
             $table->string('recieved');
             $table->string('pending');
@@ -33,6 +33,6 @@ class CreateIntendsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('intends');
+        Schema::dropIfExists('indent_lists');
     }
 }

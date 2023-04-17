@@ -114,8 +114,8 @@
                       ? 'active' : ''}}"
                     ><label class="nav-links">Employee</label></a>
 
-                    <a href="{{route('intend_list')}}"
-                     class="{{request()->routeIs('intend_list')
+                    <a href="{{route('indent_list')}}"
+                     class="{{request()->routeIs('indent_list')
                       ? 'active' : ''}}"
                       ><label class="nav-links">Indent</label></a>
 

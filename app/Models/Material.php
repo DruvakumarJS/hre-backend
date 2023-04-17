@@ -24,4 +24,10 @@ class Material extends Model
              return $this->belongsTo(Category::class,'category_id','code');
 
           }
+
+       public function indent_list()
+          {
+             return $this->hasMany(Indent_list::class,'item_code','material_id');
+
+          }    
 }

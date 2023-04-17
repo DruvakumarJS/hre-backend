@@ -45,7 +45,8 @@
                               <td>{{$value->client_name}}</td>
                               <td>{{$value->customer->email}}</td>
                               <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>
-                              <td ><a href=""><label class="curved-text">View/Edit</label></a></td>
+                              <td ><a href="{{route('edit_pcn',$value->pcn)}}"><label class="curved-text">View/Edit</label></a>
+                              </td>
                             </tr>
                           @endforeach
                              

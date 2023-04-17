@@ -103,9 +103,12 @@ class PcnController extends Controller
      * @param  \App\Models\Pcn  $pcn
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pcn $pcn)
+    public function edit($id)
     {
-        //
+
+        $pcn_data = Pcn::where('pcn', $id)->first();
+       
+        return view('pcn/edit',compact('pcn_data' , 'id'));
     }
 
     /**
@@ -115,9 +118,38 @@ class PcnController extends Controller
      * @param  \App\Models\Pcn  $pcn
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pcn $pcn)
+    public function update(Request $request)
     {
-        //
+       // print_r($request->Input());die();
+
+            $updatePCN = Pcn::where('pcn' ,$request->pcn)->update([
+                'customer_id' => $request->customer_id ,
+                'client_name' => $request->client_name,
+                'brand' => $request->brand ,
+                'work' => $request->work,
+                'area' => $request->area,
+                'city' => $request->city,
+                'state' => $request->state,
+                'proposed_start_date' => $request->start_date,
+                'proposed_end_date' => $request->end_date,
+                'approve_holidays' => $request->holiday,
+                'targeted_days' => $request->target_date,
+                'actual_start_date' => $request->actual_start_date,
+                'actual_completed_date' => $request->actual_end_date,
+                'hold_days' => $request->hold_days,
+                'days_acheived'=> $request->days_achieved,
+                'status' => $request->status
+                
+        ]);
+
+            if($updatePCN){
+                return redirect()->route('PCN');
+            }
+            else{
+                 return redirect()->route('create_pcn')->withMessage('Something went wrong')->withInput(); ;
+            }
+
+
     }
 
     /**
