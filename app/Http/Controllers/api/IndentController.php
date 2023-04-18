@@ -13,11 +13,7 @@ class IndentController extends Controller
    
    function create(Request $request){
 
-      return response()->json([
-              'status' => 0 ,
-              'message' => 'no validation' ,
-              'inputs' => $request->Input()
-              ]);
+     
 
    //	 print_r($request->Input());die();
 
@@ -118,6 +114,12 @@ class IndentController extends Controller
               'inputs' => json_encode($request->Input())
          	 		]);*/
      	 }
+
+        return response()->json([
+              'status' => 0 ,
+              'message' => 'no validation' ,
+              'inputs' => $request->Input()
+              ]);
 
    }
 
