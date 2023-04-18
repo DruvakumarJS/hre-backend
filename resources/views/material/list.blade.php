@@ -65,7 +65,7 @@
                               </table></td>
                               
                                <td>
-                                  <a href="" > <i class='fa fa-edit' style='font-size:24px;color:blue;'></i></a>   
+                                  <a href="{{route('edit_product',$value->item_code)}}" > <i class='fa fa-edit' style='font-size:24px;color:blue;'></i></a>   
                               </td>
 
                                <td>

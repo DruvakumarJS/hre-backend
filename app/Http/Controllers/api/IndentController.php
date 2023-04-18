@@ -73,7 +73,6 @@ class IndentController extends Controller
                     }
              }
 
-
              }
 
              
@@ -91,14 +90,16 @@ class IndentController extends Controller
        
         return response()->json([
          	 		'status' => 1 ,
-         	 		'message' => 'Indent Created Succesfully' 
+         	 		'message' => 'Indent Created Succesfully',
+              'inputs' => json_encode($request->Input())
          	 		]);
         }
 
         else {
             return response()->json([
            	 		'status' => 0 ,
-           	 		'message' => 'Indent array is empty' 
+           	 		'message' => 'Indent array is empty' ,
+                'inputs' => json_encode($request->Input())
            	 ]);
         }
    	 }
@@ -107,7 +108,8 @@ class IndentController extends Controller
 
      	 	return response()->json([
          	 		'status' => 0 ,
-         	 		'message' => 'Insufficient inputs' 
+         	 		'message' => 'Insufficient inputs' ,
+              'inputs' => json_encode($request->Input())
          	 		]);
      	 }
 

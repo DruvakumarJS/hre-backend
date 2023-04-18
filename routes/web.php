@@ -45,6 +45,7 @@ Route::middleware('role:admin')->group(function () {
     Route::post('create_material',[MaterialController::class,'create'])->name('create_material');
     Route::get('view_products/{id}',[MaterialController::class,'view'])->name('view_products');
     Route::get('delete_product/{id}',[MaterialController::class,'destroy'])->name('delete_product');
+    Route::get('edit_product/{id}',[MaterialController::class,'edit'])->name('edit_product');
 
 	Route::get('PCN',[PcnController::class,'index'])->name('PCN');
 

@@ -33,6 +33,7 @@
                             <tr>
                                <th scope="col">Sl.no</th>
                               <th scope="col">Indend Number</th>
+                               <th scope="col">PCN</th>
                               <th scope="col">Received</th>
                               <th scope="col">Pending</th>
                               <th scope="col">Status</th>
@@ -44,7 +45,8 @@
                             @foreach($indents as $key =>$value)
                               <tr> 
                                 <td>{{$key + $indents->firstItem()}}</td> 
-                                <td>{{$value->indent_no}}</td>  
+                                <td>{{$value->indent_no}}</td> 
+                                <td>{{$value->pcn}}</td>  
                                 <td>{{$value->recieved}}</td>
                                 <td>{{$value->pending}}</td>
                                 <td>{{$value->status}}</td>

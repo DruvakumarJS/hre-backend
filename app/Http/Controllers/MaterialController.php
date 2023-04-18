@@ -175,6 +175,14 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
+    
+    public function edit($id){
+         $material_data = Material::where('item_code' , $id)->first();
+
+         return view('material/edit_product',compact('material_data'));
+    }
+
+
     public function update(Request $request)
     {
        
