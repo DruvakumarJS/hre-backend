@@ -13,9 +13,15 @@ class IndentController extends Controller
    
    function create(Request $request){
 
+      return response()->json([
+              'status' => 0 ,
+              'message' => 'no validation' ,
+              'inputs' => json_encode($request->Input())
+              ]);
+
    //	 print_r($request->Input());die();
 
-   	 if(isset($request->user_id) && isset($request->pcn) && isset($request->indents))
+   	/* if(isset($request->user_id) && isset($request->pcn) && isset($request->indents))
    	 {
        
         if(!empty($request->indents)){
@@ -111,7 +117,7 @@ class IndentController extends Controller
          	 		'message' => 'Insufficient inputs' ,
               'inputs' => json_encode($request->Input())
          	 		]);
-     	 }
+     	 }*/
 
    }
 

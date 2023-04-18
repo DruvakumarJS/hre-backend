@@ -46,6 +46,7 @@ Route::middleware('role:admin')->group(function () {
     Route::get('view_products/{id}',[MaterialController::class,'view'])->name('view_products');
     Route::get('delete_product/{id}',[MaterialController::class,'destroy'])->name('delete_product');
     Route::get('edit_product/{id}',[MaterialController::class,'edit'])->name('edit_product');
+    Route::post('update_product',[MaterialController::class,'update'])->name('update_product');
 
 	Route::get('PCN',[PcnController::class,'index'])->name('PCN');
 

@@ -21,7 +21,7 @@
 
                     <div class="div-margin">
                       
-                     <form  method="post" action="{{route('create_material')}}">
+                     <form  method="post" action="{{route('update_product')}}">
                       @csrf
                       <div class="row">
                         <div class="col-md-4">
@@ -48,38 +48,61 @@
 
                       <div class="div-margin">
                         
-
+ <h5>Additional Specification ( Optional )</h5>
                         <table id="dynamicAddRemove">
 
                          @php
                          $information = json_decode($material_data->information);
+                         echo "<pre>";
+                         
+                         $i=1;
+                          $cnt = sizeOf($material_data->information);
+                        // $cnt = count($information);
                          @endphp 
 
                          @foreach($information as $key => $value)
-            
-                        <tr>
-                            <td><input type="text" name="specifications[0][spec]" placeholder="Enter param Name" class="form-control" placeholder="$" />
+
+                          <tr>
+                            <td><input type="text" name="specifications[{{$i}}][spec]" placeholder="Enter param Name" class="form-control" value={{$key}} />
                             </td>
 
-                            <td><input type="text" name="specifications[0][value]" placeholder="Enter param Value" class="form-control" />
+                            <td><input type="text" name="specifications[{{$i}}][value]" placeholder="Enter param Value" class="form-control" value={{$value}} />
+                            </td>
+
+                            <td>
+                            <button type="button" class="btn btn-outline-danger remove-input-field">Delete</button>
+                          </td>
+
+
+                        </tr>
+            
+                       <!--  <tr>
+                            <td><input type="text" name="{{$key}}" placeholder="Enter param Name" class="form-control" value="{{$key}}" />
+                            </td>
+
+                            <td><input type="text" name="{{$key}}" placeholder="Enter param Value" class="form-control" value="{{$value}}"/>
                             </td>
 
                           
-                        </tr>
+                        </tr> -->
+                        @php
+                           $i++;
+                        @endphp
 
                         @endforeach
+
                     </table>
 
-                 <h5>Additional Specification ( Optional )</h5>
+                 <h5></h5>
 
                         
                     <table id="dynamicAddRemove">
             
                         <tr>
-                            <td><input type="text" name="specifications[0][spec]" placeholder="Enter param Name" class="form-control" />
+                            <td><input type="text" name="specifications[{{$cnt}}][spec]" placeholder="Enter param Name" class="form-control" />
                             </td>
 
-                            <td><input type="text" name="specifications[0][value]" placeholder="Enter param Value" class="form-control" />
+                            <td><input type="text" name="specifications[{{$cnt}}][value]" placeholder="Enter param Value" class="form-control" />
                             </td>
 
                             <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add </button></td>

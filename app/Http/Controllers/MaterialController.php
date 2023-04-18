@@ -179,12 +179,16 @@ class MaterialController extends Controller
     public function edit($id){
          $material_data = Material::where('item_code' , $id)->first();
 
+        // print_r(json_decode($material_data->information));die();
+
          return view('material/edit_product',compact('material_data'));
     }
 
 
     public function update(Request $request)
     {
+        echo "<pre>";
+        print_r($request->Input());die();
        
     }
 
