@@ -163,7 +163,7 @@ class MaterialController extends Controller
         $category = $c_name->category ;
         $material_category = $c_name->material_category ;
 
-         $MaterialList = Material::where('category_id',$id)->get();
+         $MaterialList = Material::where('category_id',$id)->paginate(10);
        
        return view('material/view_products', compact('MaterialList' ,'category','material_category' ,'id'));
     }
@@ -187,8 +187,37 @@ class MaterialController extends Controller
 
     public function update(Request $request)
     {
-        echo "<pre>";
-        print_r($request->Input());die();
+       // echo "<pre>";
+       // print_r($request->Input());die();
+
+        $data = $request->specifications ;
+        $result = array();
+
+        foreach ($data as $key => $value) {
+
+           if(!empty($value['value'])){
+            $result[$value['spec']]=$value['value'];
+           }
+            
+        }
+         if(sizeof($result)>0){
+             $features = json_encode($result);
+         }
+         else{
+             $features = "{}";
+         }    
+        
+    
+      $update_material = Material::where('item_code' , $request->id)->update([
+                                        'name' => $request->name,
+                                        'brand' =>$request->brand,
+                                        'uom' =>$request->uom,
+                                        'information'=> $features]);
+      if($update_material){
+        return redirect()->route('materials');
+      }
+
+
        
     }
 

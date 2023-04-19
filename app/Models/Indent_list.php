@@ -19,11 +19,11 @@ class Indent_list extends Model
     	'status'
     ];
 
-    /* public function indent()
+     public function indent()
           {
              return $this->belongsTo(Intend::class,'indent_id','id');
 
-          }*/
+          }
 
     public function materials()
           {

@@ -23,7 +23,7 @@ class EmployeeController extends Controller
        
         if($passed==1 ){
 
-        	return response()->json([
+        	return response()->json([ 
         		'status' => 'true' ,
         		'message' => 'login successfull',
         		'data' => $validate_user

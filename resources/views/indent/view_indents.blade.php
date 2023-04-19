@@ -4,14 +4,26 @@
 <div class="container">
 
     <div class="row justify-content-center">
+     <div class="row">
 
-    	 <div >
-	    	 	<label>Intend Number</label>
-	    	 	<div>
-	    	 		<label class="label-bolder">{{$id}}</label>
-	    	 	</div>
-	            
-             </div>
+       <div class="col-md-2">
+          <label>Intend Number</label>
+          <div>
+            <label class="label-bolder">{{$id}}</label>
+          </div>
+              
+        </div>
+
+        <div class="col-md-2">
+          <label>PCN</label>
+          <div>
+            <label class="label-bolder">{{$pcn}}</label>
+          </div>
+              
+        </div>
+       
+     </div>
+    	
 
          <div style="margin-top: 50px">
         	<label style="margin-left: 20px">Material List</label>
@@ -65,7 +77,7 @@
                              	<td>{{$value->pending}}</td>
                              	<td>{{$value->status}}</td>
                              	<td>
-                                <a href=""><i class="fa fa-edit"></i></a>
+                                <a href="{{route('edit_intends' , $value->id)}}"><i class="fa fa-edit"></i></a>
                              		
                              	</td>
                              </tr>

@@ -114,7 +114,7 @@
                               <td>Telephonic Draw Channel</td>
                               <td>20</td>
                               <td>15</td>
-                              <td> <a href="{{route('update_intends','M001')}}"><label class="curved-text-button">View/Edit</label></a></td>
+                              <td> <a href=""><label class="curved-text-button">View/Edit</label></a></td>
                             </tr>
 
                              <tr>  

@@ -52,13 +52,13 @@
                         <table id="dynamicAddRemove">
 
                          @php
-                         $information = json_decode($material_data->information);
-                         echo "<pre>";
-                         
+                         $information = json_decode($material_data->information , true);
+                        
                          $i=1;
-                          $cnt = sizeOf($material_data->information);
-                        // $cnt = count($information);
+
                          @endphp 
+
+                         <input type="hidden" name="length" id="length" value="{{count($information)}}">
 
                          @foreach($information as $key => $value)
 
@@ -99,11 +99,11 @@
                     <table id="dynamicAddRemove">
             
                         <tr>
-                            <td><input type="text" name="specifications[{{$cnt}}][spec]" placeholder="Enter param Name" class="form-control" />
+                           <!--  <td><input type="text" name="specifications[0][spec]" placeholder="Enter param Name" class="form-control" />
                             </td>
 
-                            <td><input type="text" name="specifications[{{$cnt}}][value]" placeholder="Enter param Value" class="form-control" />
-                            </td>
+                            <td><input type="text" name="specifications[0][value]" placeholder="Enter param Value" class="form-control" />
+                            </td> -->
 
                             <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add </button></td>
                         </tr>
@@ -132,7 +132,9 @@
 </div>
 
 <script type="text/javascript">
-    var i = 0;
+   // var i = 4;
+    var i = $("#length").val();
+  //  alert(i);
     $("#dynamic-ar").click(function () {
         ++i;
         $("#dynamicAddRemove").append('<tr><td> <input type="text" name="specifications[' + i +

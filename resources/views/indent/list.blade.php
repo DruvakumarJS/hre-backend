@@ -34,6 +34,7 @@
                                <th scope="col">Sl.no</th>
                               <th scope="col">Indend Number</th>
                                <th scope="col">PCN</th>
+                               <th scope="col">Total Quantity</th>
                               <th scope="col">Received</th>
                               <th scope="col">Pending</th>
                               <th scope="col">Status</th>
@@ -47,6 +48,7 @@
                                 <td>{{$key + $indents->firstItem()}}</td> 
                                 <td>{{$value->indent_no}}</td> 
                                 <td>{{$value->pcn}}</td>  
+                                <td>{{$value->quantity}}</td>  
                                 <td>{{$value->recieved}}</td>
                                 <td>{{$value->pending}}</td>
                                 <td>{{$value->status}}</td>

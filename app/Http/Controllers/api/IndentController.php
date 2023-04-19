@@ -13,8 +13,6 @@ class IndentController extends Controller
    
    function create(Request $request){
 
-     
-
    //	 print_r($request->Input());die();
 
    	 if(isset($request->user_id) && isset($request->pcn) && isset($request->indents))
@@ -90,36 +88,32 @@ class IndentController extends Controller
          
  
        
-       /* return response()->json([
+        return response()->json([
          	 		'status' => 1 ,
          	 		'message' => 'Indent Created Succesfully',
               'inputs' => json_encode($request->Input())
-         	 		]);*/
+         	 		]);
         }
 
         else {
-           /* return response()->json([
+            return response()->json([
            	 		'status' => 0 ,
            	 		'message' => 'Indent array is empty' ,
                 'inputs' => json_encode($request->Input())
-           	 ]);*/
+           	 ]);
         }
    	 }
 
    	 else {
 
-     	 /*	return response()->json([
+     	 	return response()->json([
          	 		'status' => 0 ,
          	 		'message' => 'Insufficient inputs' ,
               'inputs' => json_encode($request->Input())
-         	 		]);*/
+         	 		]);
      	 }
 
-        return response()->json([
-              'status' => 0 ,
-              'message' => 'no validation' ,
-              'inputs' => $request->Input()
-              ]);
+      
 
    }
 
