@@ -154,7 +154,6 @@
                                 <select class="form-control form-select" required="required" name="status">
                                   <option value="">Select Status</option>
                                    <option value="Active"  <?php echo ($pcn_data->status == 'Active') ? 'selected' : ''; ?> >Active</option>
-                                  <option value="On hold"  <?php echo ($pcn_data->status == 'On hold') ? 'selected' : ''; ?> >On Hold</option>
                                   <option value="Pending"  <?php echo ($pcn_data->status == 'Pending') ? 'selected' : ''; ?> >Pending</option>
                                   <option value="Completed"  <?php echo ($pcn_data->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
                                 </select>

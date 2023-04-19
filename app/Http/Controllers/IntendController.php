@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Intend;
 use App\Models\Indent_list;
 use App\Models\Indent_tracker;
+use App\Models\GRN;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,13 @@ class IntendController extends Controller
      */
     public function index()
     { 
-        $indents=Intend::paginate(20);
+        $indents=Intend::orderBy('id', 'DESC')->paginate(10);
+        $activeCount = Intend::where('status','Active')->count();
+        $pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::where('status','Completed')->count();
+        //print_r($pendingCount);
 
-         return view('indent/list' , compact('indents'));
+         return view('indent/list' , compact('indents' , 'activeCount', 'pendingCount' , 'compltedCount'));
     } 
 
     /**
@@ -72,8 +77,9 @@ class IntendController extends Controller
     {
        $indend_data = Indent_list::where('id' , $id)->first();
 
-       $indent_tracker = Indent_tracker::where('indent_list_id' , $id)->get();
-       return view('indent/edit_indent_items',compact('indend_data' , 'id' , 'indent_tracker'));
+       $grn = GRN::where('indent_list_id' , $id)->orderby('id', 'DESC')->get();
+       $dispatched = $grn->sum('dispatched');
+       return view('indent/edit_indent_items',compact('indend_data' , 'id' , 'grn' ,'dispatched'));
     }
 
     /**
@@ -90,7 +96,7 @@ class IntendController extends Controller
 
     public function update_quantity(Request $request)
     {
-       // print_r($request->Input());die();
+       print_r($request->Input());die();
 
         $Insert = Indent_tracker::create([
             'indent_list_id' => $request->id,
@@ -136,6 +142,44 @@ class IntendController extends Controller
             return redirect()->route('edit_intends',$request->id)
                             ->withmessage('Could not update quantity');
         }
+
+    }
+
+    public function update_dispatches(Request $request)
+    {
+         //print_r($request->Input());die();
+
+         if($request->quantity > $request->pending){
+            return redirect()->route('edit_intends',$request->id)
+                             ->withmessage("Dispatch Quantity should be less than Pending Quantity")
+                             ->withInput();
+         }
+         else{
+
+            if(GRN::exists()){
+                $GRN_id = GRN::select('grn')->orderBy('id' ,'DESC')->first();
+                $GRN_id = ++$GRN_id->grn;
+            }
+            else {
+                $GRN_id = "GRN001";
+            }
+
+            $Insert = GRN::create([
+                'grn' => $GRN_id ,
+                'indent_list_id' => $request->id,
+                'indent_no' => $request->indent_no,
+                'pcn' => $request->pcn,
+                'dispatched' => $request->quantity,
+                'status' => "Awaiting for Confirmation"
+        ]);
+
+            return redirect()->route('edit_intends',$request->id)
+                            ->withmessage('GRN created successfully');
+           
+         }
+
+         
+
 
     }
 

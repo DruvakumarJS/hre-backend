@@ -34,4 +34,10 @@ class Pcn extends Model
              return $this->belongsTo(Customer::class,'customer_id','id');
 
           } 
+
+        public function employee()
+          {
+             return $this->belongsTo(Employee::class,'assigned_to','user_id');
+
+          }   
 }

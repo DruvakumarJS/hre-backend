@@ -35,7 +35,7 @@
                         <div class="form-group row">
                             <label for="text" class="col-5 col-form-label">Project Code</label>
                             <div class="col-7">
-                                <input id="text" name="pcn" type="text" class="form-control" required="required" value="{{old('pcn')}}">
+                                <input id="text" name="pcn" type="text" class="form-control" required="required" value="{{old('pcn')}}" placeholder="Enter PCN">
                                      @error('pcn')
                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                  @enderror
@@ -44,7 +44,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Client Name / Billing Name</label>
                             <div class="col-7">
-                                <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required">
+                                <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" placeholder="Search by Client name">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -100,20 +100,38 @@
 
                         <hr/>
                         <h3>Completion Details</h3>
+                         @if(Auth::user()->role_id == 1)
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">PCN owner</label>
+                            <div class="col-7">
+                                <select id="" name="user_id" class="custom-select form-control form-select" required="required">
+                                  <option value="">Select Project Manager</option>
+                                  
+                                    @foreach($managerlist as $key => $value)
+                                     <option value="{{$value->user_id}}">{{$value->name}}</option>
+                                    @endforeach
+                                   
+                                </select>
+                            </div>
+                        </div>
+                        @elseif(Auth::user()->role_id == 2)
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                        @endif
+                        
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
-                                <input id="" name="start_date" type="text" class="form-control">
+                                <input id="" name="start_date" type="date" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project End Date</label>
                             <div class="col-7">
-                                <input id="" name="end_date" type="text" class="form-control">
+                                <input id="" name="end_date" type="date" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Target Date</label>
+                            <label for="" class="col-5 col-form-label">Targeted Days</label>
                             <div class="col-7">
                                 <input id="" name="target_date" type="text" class="form-control">
                             </div>
@@ -121,13 +139,13 @@
                         <div class="form-group row">
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">
-                                <input id="text1" name="actual_start_date" type="text" class="form-control">
+                                <input id="text1" name="actual_start_date" type="date" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Completed Date</label>
                             <div class="col-7">
-                                <input id="" name="actual_end_date" type="text" class="form-control">
+                                <input id="" name="actual_end_date" type="date" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">

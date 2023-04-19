@@ -53,26 +53,12 @@
                </a>
 
                <div class="navigation">
-                    <a href="{{route('users')}}" 
-                     class="{{request()->routeIs('users')
-                     ||request()->routeIs('superadmin')
-                     ||request()->routeIs('manager')
-                     ||request()->routeIs('supervisors')
-                     ||request()->routeIs('procurement')
-                     ||request()->routeIs('finance')
-                     ||request()->routeIs('create_user')
-                     ||request()->routeIs('users')
-                      ? 'active' : ''}}">
-                      <label class="nav-links">User Master</label></a>
-
-                    <a href="{{route('materials_master')}}"
-                     class="{{request()->routeIs('materials_master')
-                     || request()->routeIs('materials')
-                     || request()->routeIs('add_product')
-                     || request()->routeIs('create_material')
-                     || request()->routeIs('view_products')
-                     ? 'active' : ''}}">
-                     <label class="nav-links">Material Master</label></a>
+                    <a href="{{route('view_customers')}}"
+                     class="{{request()->routeIs('view_customers')
+                        || request()->routeIs('create_customer')
+                      ? 'active' : ''}}" 
+                    >
+                      <label class="nav-links">Customers</label></a>  
 
                     <a href="{{route('PCN')}}"
                       class="{{request()->routeIs('PCN')
@@ -114,20 +100,20 @@
                       ? 'active' : ''}}"
                     ><label class="nav-links">Employee</label></a>
 
-                    <a href="{{route('indent_list')}}"
-                     class="{{request()->routeIs('indent_list')
+                    <a href="{{route('PCN')}}"
+                     class="{{request()->routeIs('PCN')
                       ? 'active' : ''}}"
-                      ><label class="nav-links">Indent</label></a>
+                      ><label class="nav-links">PCN</label></a>
 
                     <a href="{{route('tickets_list')}}"
                      class="{{request()->routeIs('tickets_list')
                       ? 'active' : ''}}">
                       <label class="nav-links">Tickets</label></a>
 
-                    <a href="{{route('attendance_list')}}"
+                    <!-- <a href="{{route('attendance_list')}}"
                      class="{{request()->routeIs('attendance_list')
                       ? 'active' : ''}}">
-                      <label class="nav-links">Attendance</label></a>
+                      <label class="nav-links">Attendance</label></a> -->
 
                     <a href="{{route('petty_cash')}}"
                      class="{{request()->routeIs('petty_cash')
@@ -147,6 +133,8 @@
                <div class="navigation">
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
+                     ||request()->routeIs('indent_details')
+                     ||request()->routeIs('edit_intends')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -187,8 +175,10 @@
                              <a href=""> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a>
 
                              <a href=""> <img class="circle" src="{{asset('images/mail.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
-
-                             <a href=""> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
+                             
+                             @if(Auth::user()->role_id == 1)
+                             <a href="{{route('settings')}}"> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
+                             @endif
 
                              <a href=""> <img class="circle" src="{{asset('images/person.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
 

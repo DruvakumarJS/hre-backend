@@ -40,7 +40,7 @@
                     <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/indent.svg') }}" alt="intend" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">34</h2>
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$todaysIndent}}</h2>
                         </div>
                         <div  >
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Today's Indent</h4>
@@ -57,7 +57,7 @@
                     <div class="card border-black" style="background-color: #242424">
                         <div class="card-body" >
                             <img src="{{ asset('images/attendance.svg') }}" alt="attendance" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">54</h2>
+                            <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">{{$attendance}}</h2>
                         </div>
                         <div  >
                             <h4 class="card-text-black" style="color: #fff; font-weight: bold; font-size: 25px">Attendance</h4>
@@ -73,7 +73,7 @@
                     <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/tickets.svg') }}" alt="ticket" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">12</h2>
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$tickets}}</h2>
                         </div>
                         <div  >
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Tickets</h4>
@@ -105,36 +105,13 @@
                             </tr>
                           </thead>
                           <tbody>
+                            @foreach($Pcn as $key =>$value)
                             <tr>  
-                              <td>Prestige Apartment</td>
-                              <td>PCN885</td>
+                              <td>{{$value->client_name}}</td>
+                              <td>{{$value->pcn}}</td>
                               <td>39</td>
                             </tr>
-                            <tr>    
-                              <td>Arathi Interior</td>
-                              <td>PCN886</td>
-                              <td>42</td>
-                            </tr>
-                            <tr>
-                              <td>Brigade</td>
-                              <td>PCN887</td>
-                              <td>12</td>
-                            </tr>
-                            <tr>  
-                              <td>Prestige Apartment</td>
-                              <td>PCN885</td>
-                              <td>55</td>
-                            </tr>
-                            <tr>    
-                              <td>Arathi Interior</td>
-                              <td>PCN886</td>
-                              <td>39</td>
-                            </tr>
-                            <tr>
-                              <td>Brigade</td>
-                              <td>PCN887</td>
-                              <td>25</td>
-                            </tr>
+                           @endforeach 
                           </tbody>
                         </table>
                         

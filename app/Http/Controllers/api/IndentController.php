@@ -41,7 +41,7 @@ class IndentController extends Controller
                                   'quantity' => "0",
                                   'recieved'=> "0",
                                   'pending'=>"0",
-                                  'status'=>'pending'
+                                  'status'=>'Active'
           ]);
 
           if($create_indent){
@@ -60,7 +60,7 @@ class IndentController extends Controller
                                   'quantity' => $value['quantity'],
                                   'recieved'=> "0",
                                   'pending'=>$value['quantity'],
-                                  'status'=>'pending']);
+                                  'status'=>'Active']);
 
              if($indents){
                     if($totalQualntity=="0"){

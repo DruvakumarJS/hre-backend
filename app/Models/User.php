@@ -49,5 +49,8 @@ class User extends Authenticatable
           {
              return $this->belongsTo(Roles::class,'role_id','id');
 
-          }           
+          } 
+     function intends(){
+            return $this->hasMany(Intend::class,'id', 'user_id');
+        }                
 }

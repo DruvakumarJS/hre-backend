@@ -22,4 +22,8 @@ class Employee extends Model
     function intends(){
             return $this->hasMany(Intend::class,'user_id', 'user_id');
         } 
+
+    function Pcn(){
+            return $this->hasMany(Pcn::class,'user_id', 'assigned_to');
+        }     
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pcn;
 use App\Models\Customer;
+use App\Models\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +18,7 @@ class PcnController extends Controller
      */
     public function index()
     {
-        $pcns = Pcn::orderBy('id','DESC')->paginate(20); 
+        $pcns = Pcn::where('status','Active')->orderBy('id','DESC')->paginate(20); 
        return view('pcn/list', compact('pcns'));
     }
 
@@ -67,6 +68,15 @@ class PcnController extends Controller
                 'area' => $request->area,
                 'city' => $request->city,
                 'state' => $request->state,
+                'proposed_start_date' => $request->start_date,
+                'proposed_end_date' => $request->end_date,
+                'approve_holidays' => "",
+                'targeted_days' => $request->target_date,
+                'actual_start_date' => $request->actual_start_date,
+                'actual_completed_date' => $request->actual_end_date,
+                'hold_days' => $request->hold_days,
+                'days_acheived' => $request->days_achieved,
+                'assigned_to' => $request->user_id,
                 'status' => "Active"
         ]);
 
@@ -165,8 +175,8 @@ class PcnController extends Controller
 
     public function create_pcn()
     {
-
-        return view('pcn/create_pcn');
+        $managerlist = Employee::where('role','manager')->get();
+        return view('pcn/create_pcn',compact('managerlist'));
     }
 
     public function view_pcn()

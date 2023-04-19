@@ -6,7 +6,7 @@
         <div class="container-header">
             <label class="label-bold" id="div1">Material Category</label>
            <div id="div2">
-            <a  class="btn btn-light" href="{{route('materials')}}"></i> View Materials</a>
+            <a  class="btn btn-light" href="{{route('materials')}}"></i> View All Products</a>
             
           </div>
         

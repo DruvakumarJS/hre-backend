@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Intend;
+use App\Models\Ticket;
+use App\Models\Pcn;
+use App\Models\Attendance;
 
 class HomeController extends Controller
 {
@@ -23,7 +27,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+         $date = date('Y-m-d');
+         $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
+         $tickets = Ticket::count();
+         $attendance = Attendance::where('created_at','LIKE','%'.$date.'%')->count();
+         $Pcn = Pcn::get();
+
+        return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'Pcn'));
     }
 
      public function destroy(){

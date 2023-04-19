@@ -29,6 +29,8 @@ class Indent_list extends Model
           {
              return $this->belongsTo(Material::class,'material_id','item_code');
 
-          }       
+          } 
+
+               
 
 }

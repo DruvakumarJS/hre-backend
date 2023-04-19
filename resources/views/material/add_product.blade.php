@@ -74,9 +74,11 @@
                             <td><input type="text" name="specifications[0][value]" placeholder="Enter param Value" class="form-control" />
                             </td>
 
-                            <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add </button></td>
+                           <td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td>
                         </tr>
+
                     </table>
+                    <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary div-margin">Add </button>
                   </div>
                <div class="div-margin">
                 <button type="submit" class="btn btn-danger btn-sm mt-auto ">Add Material</button>
@@ -110,7 +112,10 @@
             );
     });
     $(document).on('click', '.remove-input-field', function () {
-        $(this).parents('tr').remove();
+        var del=confirm("Are you sure to delete ?");
+          if (del==true){
+              $(this).parents('tr').remove();
+          }
     });
 </script>
 

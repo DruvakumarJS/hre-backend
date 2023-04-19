@@ -110,7 +110,7 @@
                     </table>
                   </div>
                <div class="div-margin">
-                <button type="submit" class="btn btn-danger btn-sm mt-auto ">Add Material</button>
+                <button type="submit" class="btn btn-danger btn-sm mt-auto ">Update Material</button>
               </div>
                    
                        
@@ -139,11 +139,14 @@
         ++i;
         $("#dynamicAddRemove").append('<tr><td> <input type="text" name="specifications[' + i +
             '][spec]" placeholder="Enter param Name" class="form-control" /></td>  <td> <input type="text" name="specifications[' + i +
-            '][value]" placeholder="Enter param Value" class="form-control" /></td>   <td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></td></tr>'
+            '][value]" placeholder="Enter param Value" class="form-control" /></td>  <td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></td></tr>'
             );
     });
     $(document).on('click', '.remove-input-field', function () {
-        $(this).parents('tr').remove();
+     var del=confirm("Are you sure to delete ?");
+          if (del==true){
+              $(this).parents('tr').remove();
+          }
     });
 </script>
 

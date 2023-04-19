@@ -71,14 +71,14 @@
            
            <div class="col-md-4">
                 <label>Password</label>
-                <input class="form-control" type="input" name="password" required="" placeholder="Enter Password">
+                <input class="form-control" type="password" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');" name="password" required="" placeholder="Enter Password">
                 
                 
           </div>
 
            <div class="col-md-4">
                 <label>Confirm Password</label>
-                <input class="form-control" type="input" name="confirm_password" required="" placeholder="Enter Confirm Password">
+                <input class="form-control" type="password" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');" name="confirm_password" required="" placeholder="Enter Confirm Password">
                  
                 
           </div>

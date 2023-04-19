@@ -38,7 +38,11 @@ Route::get("logout",[HomeController::class,"destroy"])->name("logout");
 
 Route::middleware('role:admin')->group(function () {
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
-	Route::get('users',[UserController::class, 'index'])->name('users');
+
+	Route::get('settings/UserMaster',[UserController::class, 'index'])->name('users');
+    Route::get('settings/create_user/{role}',[UserController::class, 'create_user'])->name('create_user');
+    Route::post('save_user',[UserController::class , 'store'])->name('save_user');
+
 
     Route::get('materials',[MaterialController::class,'index'])->name('materials');
     Route::get('add_product/{id}',[MaterialController::class,'show'])->name('add_product');
@@ -48,14 +52,13 @@ Route::middleware('role:admin')->group(function () {
     Route::get('edit_product/{id}',[MaterialController::class,'edit'])->name('edit_product');
     Route::post('update_product',[MaterialController::class,'update'])->name('update_product');
 
-	Route::get('PCN',[PcnController::class,'index'])->name('PCN');
-
+	/*Route::get('PCN',[PcnController::class,'index'])->name('PCN');
     Route::get('create_pcn',[PcnController::class,'create_pcn'])->name('create_pcn');
     Route::get('view_pcn',[PcnController::class,'view_pcn'])->name('view_pcn');
     Route::get('autocomplete',[PcnController::class,'action'])->name('autocomplete');
     Route::post('save_pcn',[PcnController::class,'store'])->name('save_pcn');
     Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
-    Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');
+    Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');*/
 
 
     Route::get('tickets',[TicketController::class, 'index'])->name('tickets');
@@ -68,7 +71,7 @@ Route::middleware('role:admin')->group(function () {
 
     Route::get('pettycash',[PettycashController::class,'index'])->name('pettycash');
 
-    Route::get('material_master',[CategoryController::class, 'index'])->name('materials_master');
+    Route::get('settings/Material-master',[CategoryController::class, 'index'])->name('materials_master');
     Route::post('create_category',[CategoryController::class, 'create'])->name('create-category');
     Route::get('delete_category/{id}',[CategoryController::class, 'destroy'])->name('delete_category');
     Route::post('update-category',[CategoryController::class, 'update'])->name('update-category');
@@ -79,15 +82,12 @@ Route::middleware('role:admin')->group(function () {
     Route::get('procurement',[UserController::class, 'view_procurement'])->name('procurement');
     Route::get('finance',[UserController::class, 'view_finance'])->name('finance');
 
-    Route::get('create_user/{role}',[UserController::class, 'create_user'])->name('create_user');
-    Route::post('save_user',[UserController::class , 'store'])->name('save_user');
-
+   
     Route::get('create_customer' ,[CustomerController::class,'create'])->name('create_customer');
     Route::post('save_customer' ,[CustomerController::class,'store'])->name('save_customer');
     Route::get('view_customers' ,[CustomerController::class,'index'])->name('view_customers');
 
-
-
+    Route::get('settings',[SettingController::class,'index'])->name('settings');
 	});
 
 Route::middleware('role:manager')->group(function () {
@@ -100,23 +100,33 @@ Route::middleware('role:manager')->group(function () {
 	Route::get('attendance_list',[AttendanceController::class,'index'])->name('attendance_list');
     Route::get('PettyCash',[PettycashController::class,'index'])->name('petty_cash');
 
+
+
+
 	});
 
 
 
 Route::middleware('role:procurement')->group(function () {
 	Route::get('/procurement_home', [ProcurementHomeController::class, 'index'])->name('procurement_home');
-	Route::get('intends',[IntendController::class,'index'])->name('intends');
+	Route::get('indents',[IntendController::class,'index'])->name('intends');
     Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
 	Route::get('edit_intends/{id}',[IntendController::class,'edit'])->name('edit_intends');
-    Route::post('update_quantity',[IntendController::class,'update_quantity'])->name('update_quantity');
+    Route::post('update_quantity',[IntendController::class,'update_dispatches'])->name('update_quantity');
 
 	Route::get('ticketslist',[TicketController::class, 'index'])->name('ticketslist');
 
 
 	});
-//Route::get('settings',[SettingController::class,'index'])->name('settings');
+
 //Route::get('supervisors/{id}',[UserController::class,'view_users'])->name('supervisors');
+    Route::get('PCN',[PcnController::class,'index'])->name('PCN');
+    Route::get('create_pcn',[PcnController::class,'create_pcn'])->name('create_pcn');
+    Route::get('view_pcn',[PcnController::class,'view_pcn'])->name('view_pcn');
+    Route::get('autocomplete',[PcnController::class,'action'])->name('autocomplete');
+    Route::post('save_pcn',[PcnController::class,'store'])->name('save_pcn');
+    Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
+    Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');
 
 
 

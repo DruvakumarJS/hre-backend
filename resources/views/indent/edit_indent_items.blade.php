@@ -27,7 +27,7 @@
          </div>
 
               <div class="col-md-1">
-	    	 	 <label style="font-weight: bold;font-size: 23px ; color: #44B400; margin-left: 10px">{{$indend_data->recieved}}</label>
+	    	 	 <label style="font-weight: bold;font-size: 23px ; color: #D3D3D3; margin-left: 10px">{{$dispatched}}</label>
 	    	 	 <div>
 	    	 	 	<label class="label-bold">Dispatched</label>
 	    	 	 </div>
@@ -43,24 +43,22 @@
              </div>
 
               <div class="col-md-1">
-           <label style="font-weight: bold;font-size: 23px ; color: #FF0000; margin-left: 10px">{{$indend_data->pending}}</label>
+           <label style="font-weight: bold;font-size: 23px ; color: #44B400; margin-left: 10px">{{$indend_data->recieved}}</label>
            <div>
-            <label class="label-bold">Received</label>
+            <label class="label-bold">Accepted</label>
            </div>
                
              </div>
 
 
-        @if(Session::has('message'))
-            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
-        @endif 
+       
 <!-- <p id="mydiv" class="text-danger text-center">hfhfh</p>
  -->             
 
     	</div >
         <div class="row" style="margin-top: 20px">
 
-        	<div class="card border-white col-md-6">
+        	<div class="card border-white col-md-4">
         		<div>
         			<label class="label-small">Material Category</label>
         			<div>
@@ -112,67 +110,103 @@
     		
     	    </div>
 
-    	    <div class=" col-md-6" >
+    	    <div class="col-md-8 div-margin" >
     	    <div style="margin-left: 60px">
          <form method="post" action="{{route('update_quantity')}}">
           @csrf
-          <div class="row">
-            <div class="col-md-3">
-              <label>Qunatity Received</label>
-              <input class="form-control" type="text" name="quantity" required="required">
+             <div class="form-group row">
+                            <label for="text" class="col-4 col-form-label">Qunatity Dispatched</label>
+                            <div class="col-4">
+                                <input id="text" type="text" class="form-control" placeholder="Enter numbers"  name="quantity" required="required" value="{{old('quantity')}}"> 
+                                    
+                            </div>
+                            <input type="hidden" name="indent_no" value="{{$indend_data->indent->indent_no}}">
+                            <input type="hidden" name="pcn" value="{{$indend_data->indent->pcn}}">
+                            <input type="hidden" name="id" value="{{$id}}">
+                            <input type="hidden" name="pending" value="{{$indend_data->pending}}">
+                             <div class="col-md-3" >
+                                <button class="btn btn-danger">Submit</button>
+                            </div>
             </div>
 
-             <div class="col-md-3" >
-              <button class="btn btn-danger">Update</button>
-            </div>
-
-            <input type="hidden" name="indent_no" value="{{$indend_data->indent->indent_no}}">
-            <input type="hidden" name="pcn" value="{{$indend_data->indent->pcn}}">
-            <input type="hidden" name="id" value="{{$id}}">
-            
-          </div>
          </form>  
+
+        @if(Session::has('message'))
+            <p id="mydiv" class="text-danger text-center div-margin">{{ Session::get('message') }}</p>
+        @endif 
+
 
     	    	<label class="label-bolder div-margin">Recent Updates</label>
 
             <div class="div-margin">
                     <div class="row">
+                       <!--  <div class="col-md-1">
+                          <label class="label-bold"># </label>
+                       </div> -->
+
+                        <div class="col-md-2">
+                          <label class="label-bold">GRN </label>
+                       </div>
+
+                        <div class="col-md-2">
+                          <label class="label-bold">Dispatched </label>
+                       </div>
+
+                        <div class="col-md-2">
+                          <label class="label-bold">GRN Status </label>
+                       </div>
+
                        <div class="col-md-2">
-                          <label class="label-bolder">#</label>
+                          <label class="label-bold">Accepted </label>
                        </div>
 
-                        <div class="col-md-3">
-                          <label class="label-bolder">Quantity </label>
+                        <div class="col-md-2">
+                          <label class="label-bold">Rejected </label>
                        </div>
-
-                        <div class="col-md-4">
-                          <label class="label-bolder">Date </label>
+                       <div class="col-md-2">
+                          <label class="label-bold">Dispatched date </label>
                        </div>
-
-                        
-                    
+                 
+                                        
                    </div>
       
             </div>
 
-            @foreach($indent_tracker as $key =>$value)
-    	    	<div class="card">
-                    <div class="row">
-                   	   <div class="col-md-2">
+            @foreach($grn as $key =>$value)
+    	    	<div class="div-margin ">
+                    <div class="row ">
+                      <div style="background-color: #000 ; height: 2px"></div>
+                   	  
+                   	 <!--    <div class="col-md-1">
                    	   	  <label class="label-medium">{{$key+1}}</label>
                    	   </div>
+ -->
+                       <div class="col-md-2">
+                          <label class="label-medium">{{$value->grn}}</label>
+                       </div>
 
-                   	    <div class="col-md-3">
-                   	   	  <label class="label-medium">{{$value->quantity}}</label>
-                   	   </div>
+                        <div class="col-md-2">
+                          <label class="label-medium">{{$value->dispatched}}</label>
+                       </div>
 
-                   	    <div class="col-md-4">
-                   	   	  <label class="label-medium">{{$value->created_at}}</label>
-                   	   </div>
+                        <div class="col-md-2">
+                          <label class="label-medium">{{$value->status}}</label>
+                       </div>
+                       <div class="col-md-2">
+                          <label class="label-medium">{{$value->approved}}</label>
+                       </div>
 
-                   	    <div class="col-md-3">
-                   	   	 <label class="curved-text" style="background-color: #44B400 ; color:#fff">Received</label> 
-                   	   </div>
+                        <div class="col-md-2">
+                          <label class="label-medium">{{$value->damaged}}</label>
+                       </div>
+
+                   	   
+
+                        <div class="col-md-2">
+                          <label class="label-medium">{{$value->created_at}}</label>
+                       </div>
+
+
                    	
                    </div>
   		

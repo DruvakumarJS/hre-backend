@@ -34,15 +34,15 @@
                           <thead>
                             <tr>
                               <th scope="col">Sl.no</th>
-                              <th scope="col">material_id</th>
+                              <th scope="col">Material_id</th>
                               <th scope="col">Material Name</th>
                               <th scope="col">Brand</th>
                               <th scope="col">Information</th>
-                              <th scope="col">description</th>                          
-                              <th scope="col">quantity</th>
-                              <th scope="col">recieved</th>
-                              <th scope="col">pending</th>
-                              <th scope="col">status</th>
+                              <th scope="col">Description</th>                          
+                              <th scope="col">Total Quantity</th>
+                              <th scope="col">Delivered</th>
+                              <th scope="col">Pending</th>
+                              <th scope="col">Status</th>
                               <th scope="col">Action</th>
              
                             </tr>

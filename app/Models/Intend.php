@@ -19,11 +19,17 @@ class Intend extends Model
     	'status'
     ];
 
-     public function employee()
+     function employee()
           {
              return $this->belongsTo(Employee::class,'user_id','user_id');
 
           }
+
+     function user()
+          {
+             return $this->belongsTo(User::class,'user_id','id');
+
+          }     
 
      function intends_list(){
             return $this->hasMany(Indent_list::class,'id', 'indent_id');

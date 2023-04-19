@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Intend;
+use App\Models\Ticket;
 
 class ProcurementHomeController extends Controller
 {
@@ -14,7 +16,13 @@ class ProcurementHomeController extends Controller
      */
     public function index()
     {
-         return view('procurement_home');
+        $date = date('Y-m-d');
+        $indents = Intend::orderby('id','DESC')->paginate(10);
+        $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
+        $compltedCount = Intend::where('status','Completed')->count();
+        $tickets = Ticket::count();
+        
+         return view('procurement_home',compact('indents' , 'todaysIndent' , 'compltedCount' , 'tickets'));
     }
 
     /**
