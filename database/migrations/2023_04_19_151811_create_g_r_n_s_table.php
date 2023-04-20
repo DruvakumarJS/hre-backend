@@ -16,6 +16,7 @@ class CreateGRNSTable extends Migration
         Schema::create('g_r_n_s', function (Blueprint $table) {
             $table->id();
             $table->string('grn');
+            $table->string('user_id');
             $table->string('indent_list_id');
             $table->string('indent_no');
             $table->string('pcn');

@@ -19,17 +19,22 @@ class Indent_list extends Model
     	'status'
     ];
 
-     public function indent()
+      function indent()
           {
              return $this->belongsTo(Intend::class,'indent_id','id');
 
           }
 
-    public function materials()
+     function materials()
           {
              return $this->belongsTo(Material::class,'material_id','item_code');
 
           } 
+
+     function grn(){
+            return $this->hasMany(GRN::class,'id', 'indent_list_id');
+        }      
+        
 
                
 

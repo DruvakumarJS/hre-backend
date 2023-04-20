@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Intend;
 use App\Models\Indent_list;
 use App\Models\Pcn;
+use App\Models\GRN;
+use App\Models\Material;
 
 class IndentController extends Controller
 {
@@ -75,8 +77,6 @@ class IndentController extends Controller
 
              }
 
-             
-
               $update_indents = Intend::where('indent_no', $ind_no)->update([
                                          'quantity' => $totalQualntity,
                                           'recieved'=> "0",
@@ -85,9 +85,7 @@ class IndentController extends Controller
 
           }
 
-         
- 
-       
+
         return response()->json([
          	 		'status' => 1 ,
          	 		'message' => 'Indent Created Succesfully',
@@ -135,6 +133,147 @@ class IndentController extends Controller
                     'data'=> ""]);
      }
 
+
+   }
+
+   function grn_list(Request $request){
+
+        if(isset($request->user_id))
+        {
+          $user_id = $request->user_id ;
+
+          $grns = GRN::where('user_id',$user_id)->where('status','!=','Received')->get();
+
+          if(sizeof($grns)>0){
+
+            $grn_array = array();
+
+          foreach ($grns as $key => $value) {
+
+            $indent_list = Indent_list::where('id',$value->indent_list_id)->first();
+
+            $material = Material::where('item_code',$indent_list->material_id)->first();
+            
+            $material_detail = [
+              'material_name' => $material->name,
+              'brand' => $material->brand,
+              'information' => json_decode($material->information, true, JSON_UNESCAPED_SLASHES),
+              'quantity_raised' => $indent_list->quantity,
+              'quantity_received' => $indent_list->recieved,
+              'quantity_pending' => $indent_list->pending,
+
+            ];
+
+             $grs_data = [
+              'grn' => $value->grn,
+              'pcn' => $value->pcn,
+              'indent_no' => $value->indent_no,
+              'dispatched' => $value->dispatched,
+              'indent_details' => array($material_detail)
+            ];
+
+            array_push($grn_array, $grs_data);
+          }
+
+          return response()->json([
+                        'status' => 1 ,
+                        'message' => 'success',
+                        'data'=> $grn_array]);
+
+          }
+          else {
+
+            return response()->json([
+                        'status' => 1 ,
+                        'message' => 'No active GRN available',
+                        'data'=> ""]);
+
+          }
+
+          
+
+        }
+        else {
+
+           return response()->json([
+                        'status' => 0 ,
+                        'message' => 'Unauthorized',
+                        'data'=> ""]);
+        }
+
+        
+
+   }
+
+   function update_grn(Request $request){
+
+      if(isset($request->user_id) && isset($request->grn) && isset($request->approved)){
+        $approved =$request->approved;
+
+        $update_grn_data = GRN::where('grn',$request->grn)->update([
+                                       'approved'=> $approved,
+                                       'damaged' => $request->rejected,
+                                       'dispatched'=>'0',
+                                       'status' => 'Received'
+                                      ]);
+        if($update_grn_data){
+         
+           $GRNdata = GRN::select('indent_list_id', 'indent_no')->where('grn',$request->grn)->first();
+
+           $indent_list = Indent_list::where('id',$GRNdata->indent_list_id)->first();
+            
+            $pending = intval($indent_list->pending)-intval($request->approved);
+            $received = intval($indent_list->recieved)+intval($request->approved);
+
+            $update_indent_list = Indent_list::where('id',$GRNdata->indent_list_id)->update([
+                'pending' => $pending,
+                'recieved' => $received ]);
+
+
+            if($update_indent_list){
+
+            $indent_data = Intend::where('indent_no',$GRNdata->indent_no)->first();
+
+            $pending = intval($indent_data->pending)-intval($request->approved);
+            $received = intval($indent_data->recieved)+intval($request->approved);
+
+            $update_indent = Intend::where('indent_no',$GRNdata->indent_no)->update([
+                'pending' => $pending,
+                'recieved' => $received ]);
+
+
+            return response()->json([
+                        'status' => 1 ,
+                        'message' => 'updated successfully'
+                        ]);
+
+            
+               
+            }
+
+             
+
+        }
+        else {
+           return response()->json([
+                        'status' => 1 ,
+                        'message' => 'Could not update GRN'
+                        ]);
+
+        }
+
+            
+      }
+      else{
+
+        return response()->json([
+                        'status' => 0 ,
+                        'message' => 'Unauthorized/Insufficient data'
+                        ]);
+
+      }
+
+       
 
    }
 }

@@ -33,6 +33,10 @@ class Intend extends Model
 
      function intends_list(){
             return $this->hasMany(Indent_list::class,'id', 'indent_id');
-        }      
+        } 
+
+      function grn(){
+            return $this->hasMany(GRN::class,'indent_no', 'indent_no');
+        }         
     
 }

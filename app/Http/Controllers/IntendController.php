@@ -164,14 +164,18 @@ class IntendController extends Controller
                 $GRN_id = "GRN001";
             }
 
+            $indent = Intend::select('user_id')->where('indent_no', $request->indent_no)->first();
+
             $Insert = GRN::create([
                 'grn' => $GRN_id ,
+                'user_id' => $indent->user_id,
                 'indent_list_id' => $request->id,
                 'indent_no' => $request->indent_no,
                 'pcn' => $request->pcn,
                 'dispatched' => $request->quantity,
                 'status' => "Awaiting for Confirmation"
-        ]);
+            ]);
+
 
             return redirect()->route('edit_intends',$request->id)
                             ->withmessage('GRN created successfully');

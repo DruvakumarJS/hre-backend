@@ -32,12 +32,14 @@ class MaterialController extends Controller
 
     		return response()->json([
     		'status'=> 1 ,
+            'message' => "Success",
     		'data' => array($material_data)]);
 
     	}
     	else {
     		return response()->json([
-    		'status'=> 1 ,
+    		'status'=> 0,
+            'message' => "Invalid item code ",
     		'data' => ""]);
 
     	}
@@ -73,6 +75,7 @@ class MaterialController extends Controller
 
              	return response()->json([
 		    		'status'=> 1 ,
+                    'message' => "Success",
 		    		'data' => $material_array]);
 
              
@@ -81,7 +84,8 @@ class MaterialController extends Controller
              }
              else {
              	return response()->json([
-	    		'status'=> 1 ,
+	    		'status'=> 0 ,
+                'message' => "No materials found for your search",
 	    		'data' => ""]);
              }
 
@@ -112,15 +116,14 @@ class MaterialController extends Controller
 
              	return response()->json([
 		    		'status'=> 1 ,
-		    		'data' => $material_array]);
-
-             
-             	
+                    'message' => "Success",
+		    		'data' => $material_array]);       	
 
              }
              else {
              	return response()->json([
-	    		'status'=> 1 ,
+	    		'status'=> 0 ,
+                'message' => "No materials found for your search",
 	    		'data' => ""]);
              }
     		}
