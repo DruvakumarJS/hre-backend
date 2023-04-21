@@ -34,6 +34,11 @@
   background: #fdf2df;
   border-bottom: 1px solid #ffffff;
 }
+.navbar a label {
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
+}
 
 .active label {
   border-bottom: 1px solid #000000;

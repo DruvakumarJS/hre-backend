@@ -34,6 +34,12 @@
 .navbar {
     background: #fdf2df;
     border-bottom: 1px solid #ffffff;
+    a{
+        label{
+            cursor: pointer;
+            width: fit-content;
+        }
+    }
 }
 
 .active{
