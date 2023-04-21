@@ -22,15 +22,7 @@
 
         <div class="container-header">
             <label class="label-bold" id="div1">Dashboard</label>
-           <div id="div2">
-            <button class="btn btn-light" ><i class="fa fa-plus"></i>  Create User</button>
-            
-          </div>
-          <div id="div2" style="margin-right: 30px">
-             <button class="btn btn-light" ><i class="fa fa-plus"></i>  Create Customer</button>
-          </div>
-
-            
+           
         </div>
    
        <div class="row">

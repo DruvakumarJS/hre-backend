@@ -104,9 +104,10 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit($id)
     {
-        //
+       $customer = Customer::where('id', $id)->with('address')->first();
+       return view('customer/edit', compact('customer'));
     }
 
     /**
@@ -116,9 +117,69 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request)
     {
-        //
+       // echo '<pre>';
+       
+        //print_r($request->Input());die();
+
+        $update_customer = Customer::where('id', $request->id)->update([
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'mobile' => $request->mobile ,
+            'email' => $request->email ,
+            'telephone' => $request->tel
+            ]);
+
+        if($update_customer){
+
+            foreach ($request->address as $key => $value) {
+
+                if(isset($value['area']) && isset($value['city']) && isset($value['state']) ){
+
+                if(isset($value['id'])){
+
+                     if(Address::where('id',$value['id'])->first()->exists()){
+                  $update=Address::where('id',$value['id'])->update([
+                    'area' => $value['area'] , 
+                    'city' => $value['city'] , 
+                    'state' => $value['state']]);
+               }
+               else {
+               
+                $addres = Address::create([
+                    'customer_id'=> $request->id ,
+                    'area' => $value['area'] , 
+                    'city' => $value['city'] , 
+                    'state' => $value['state']   
+
+               ]);
+
+               }
+
+               }
+               else {
+
+                $addres = Address::create([
+                    'customer_id'=> $request->id,
+                    'area' => $value['area'] , 
+                    'city' => $value['city'] , 
+                    'state' => $value['state']  ]);  
+
+               
+
+                }
+              }
+
+             
+                
+            }
+
+            
+        }
+
+        return redirect()->route('view_customers');
+
     }
 
     /**
@@ -130,5 +191,29 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         //
+    }
+
+    public function delete_address(Request $request)
+    {
+     //  print_r($request->Input());die();
+
+       // $delete = Address::();
+        //echo 'RESP='.$request->input('id');exit;
+
+        $deleteAddress = Address::where('id',$request->id)->delete();
+
+        if($deleteAddress){
+            return response()->json([
+                'status'=>1,
+                'message'=> 'deleted' ]);
+        } 
+        else {
+             return response()->json([
+                'status'=>0,
+                'message'=> 'fail' ]);
+
+        }
+
+       
     }
 }

@@ -52,7 +52,7 @@
                                   @endforeach
                                 </td>
                               <td>
-                              	 <a href=""><button class="btn btn-light btn-sm">Edit</button></a>
+                              	 <a href="{{route('edit_customer',$value->id)}}"><button class="btn btn-light btn-sm">Edit</button></a>
                                 <a href=""><button class="btn btn-danger btn-sm">Delete</button></a>  
                               </td>
                             </tr>

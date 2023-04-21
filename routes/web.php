@@ -86,6 +86,12 @@ Route::middleware('role:admin')->group(function () {
     Route::get('create_customer' ,[CustomerController::class,'create'])->name('create_customer');
     Route::post('save_customer' ,[CustomerController::class,'store'])->name('save_customer');
     Route::get('view_customers' ,[CustomerController::class,'index'])->name('view_customers');
+    Route::get('edit_customer/{id}' ,[CustomerController::class,'edit'])->name('edit_customer');
+    Route::post('update_customer' ,[CustomerController::class,'update'])->name('update_customer');
+    Route::post('delete_customer/{id}' ,[CustomerController::class,'destroy'])->name('delete_customer');
+
+    Route::post('delete_address' ,[CustomerController::class,'delete_address'])->name('delete_address');
+
 
     Route::get('settings',[SettingController::class,'index'])->name('settings');
 	});
@@ -100,11 +106,7 @@ Route::middleware('role:manager')->group(function () {
 	Route::get('attendance_list',[AttendanceController::class,'index'])->name('attendance_list');
     Route::get('PettyCash',[PettycashController::class,'index'])->name('petty_cash');
 
-
-
-
 	});
-
 
 
 Route::middleware('role:procurement')->group(function () {

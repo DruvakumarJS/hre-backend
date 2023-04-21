@@ -22,16 +22,7 @@
 
         <div class="container-header">
             <label class="label-bold" id="div1">Dashboard</label>
-           <div id="div2">
-           <a class="btn btn-light" href="{{route('users')}}"><i class="fa fa-plus"></i> 
-             <label id="modal">Create User</label></a>
-            
-          </div>
-          <div id="div2" style="margin-right: 30px">
-            <a class="btn btn-light" href="{{route('create_customer')}}"><i class="fa fa-plus"></i> 
-             <label id="modal">Create Customer</label></a>
-          </div>
-
+          
             
         </div>
    

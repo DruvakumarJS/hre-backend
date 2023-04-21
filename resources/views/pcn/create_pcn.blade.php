@@ -178,7 +178,7 @@
 <script type="text/javascript">
 
 $( document ).ready(function() {
-    var path = "{{ route('autocomplete') }}";
+  var path = "{{ route('autocomplete') }}";
    let text = "";
     $( "#client_name" ).autocomplete({
         source: function( request, response ) {

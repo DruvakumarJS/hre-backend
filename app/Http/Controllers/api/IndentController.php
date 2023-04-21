@@ -225,10 +225,17 @@ class IndentController extends Controller
             $pending = intval($indent_list->pending)-intval($request->approved);
             $received = intval($indent_list->recieved)+intval($request->approved);
 
+            if($pending == '0'){
+              $status = 'Completed';
+            }
+            else {
+              $status = 'Active';
+            }
+
             $update_indent_list = Indent_list::where('id',$GRNdata->indent_list_id)->update([
                 'pending' => $pending,
-                'recieved' => $received ]);
-
+                'recieved' => $received,
+                'status'=> $status]);
 
             if($update_indent_list){
 
@@ -237,9 +244,17 @@ class IndentController extends Controller
             $pending = intval($indent_data->pending)-intval($request->approved);
             $received = intval($indent_data->recieved)+intval($request->approved);
 
+            if($pending == '0'){
+              $status = 'Completed';
+            }
+            else {
+              $status = 'Active';
+            }
+
             $update_indent = Intend::where('indent_no',$GRNdata->indent_no)->update([
                 'pending' => $pending,
-                'recieved' => $received ]);
+                'recieved' => $received,
+                'status'=> $status ]);
 
 
             return response()->json([
