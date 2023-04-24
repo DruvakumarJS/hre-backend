@@ -37,35 +37,35 @@
             <div class="row" style="margin-top: 20px">
                 <div class="card border-white col-md-4">
                     <div>
-                        <label class="label-small">Material Category</label>
+                        <label>Material Category</label>
                         <div>
                             <label class="label-bold">{{$indend_data->materials->Category->category}}</label>
                         </div>
                     </div>
 
                     <div style="margin-top: 20px">
-                        <label class="label-small">Material Id</label>
+                        <label>Material Id</label>
                         <div>
                             <label class="label-bold">{{$indend_data->material_id}}</label>
                         </div>
                     </div>
 
                     <div style="margin-top: 20px">
-                        <label class="label-small">Material Name</label>
+                        <label>Material Name</label>
                         <div>
                             <label class="label-bold">{{$indend_data->materials->name}}</label>
                         </div>
                     </div>
 
                     <div style="margin-top: 20px">
-                        <label class="label-small">Brand Name</label>
+                        <label>Brand Name</label>
                         <div>
                             <label class="label-bold">{{$indend_data->materials->brand}}</label>
                         </div>
                     </div>
 
                     <div style="margin-top: 20px">
-                        <label class="label-small">Material Description</label>
+                        <label>Material Description</label>
                         <div>
                             @php
                                 $info = json_decode($indend_data->materials->information , true);
@@ -79,7 +79,7 @@
                     </div>
 
                     <div style="margin-top: 20px">
-                        <label class="label-small">Created Date</label>
+                        <label>Created Date</label>
                         <div>
                             <label class="label-bold">{{$indend_data->created_at}}</label>
                         </div>
@@ -119,8 +119,6 @@
 
                         <table class="table table-striped">
                             <thead>
-
-
                             <tr>
                                 <th>GRN</th>
                                 <th>Dispatched</th>
@@ -130,8 +128,6 @@
                                 <th>Dispatched Date</th>
                             </tr>
                             </thead>
-
-
                         @foreach($grn as $key =>$value)
                                 <tr>
                                     <td>{{$value->grn}}</td>
