@@ -84,6 +84,16 @@
   font-size: 34px;
 }
 
+.HeadCounter {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 10px;
+}
+.HeadCounter h3, .HeadCounter .h3 {
+  font-size: 26px;
+}
+
 /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
