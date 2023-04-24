@@ -8,9 +8,7 @@
           <div id="div2">
              <button class="btn btn-light" ><i class="fa fa-plus"></i> Create User</button>
           </div>
-           <div id="div3" style="margin-right: 30px">
-             <button class="btn btn-light" > Download CSV</button>
-          </div>
+          
 
            @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>

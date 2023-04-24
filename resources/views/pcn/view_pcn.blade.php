@@ -14,7 +14,7 @@
           </div>
 
            <div id="div3" style="margin-right: 30px">
-             <button class="btn btn-light" > Download CSV</button>
+             <a href="{{route('export-pcn')}}"><button class="btn btn-light" > Download CSV</button></a>
           </div>
 
 

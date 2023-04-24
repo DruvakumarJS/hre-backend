@@ -51,6 +51,7 @@ Route::middleware('role:admin')->group(function () {
     Route::get('delete_product/{id}',[MaterialController::class,'destroy'])->name('delete_product');
     Route::get('edit_product/{id}',[MaterialController::class,'edit'])->name('edit_product');
     Route::post('update_product',[MaterialController::class,'update'])->name('update_product');
+    Route::get('export-material/{filter}',[MaterialController::class,'export'])->name('export-materials');
 
 	/*Route::get('PCN',[PcnController::class,'index'])->name('PCN');
     Route::get('create_pcn',[PcnController::class,'create_pcn'])->name('create_pcn');
@@ -75,12 +76,14 @@ Route::middleware('role:admin')->group(function () {
     Route::post('create_category',[CategoryController::class, 'create'])->name('create-category');
     Route::get('delete_category/{id}',[CategoryController::class, 'destroy'])->name('delete_category');
     Route::post('update-category',[CategoryController::class, 'update'])->name('update-category');
+    Route::get('export',[CategoryController::class , 'export'])->name('export-categories');
 
     Route::get('superadmins',[UserController::class, 'view_superadmins'])->name('superadmin');
     Route::get('managers',[UserController::class, 'view_managers'])->name('manager');
     Route::get('supervisors',[UserController::class, 'view_supervisors'])->name('supervisors');
     Route::get('procurement',[UserController::class, 'view_procurement'])->name('procurement');
     Route::get('finance',[UserController::class, 'view_finance'])->name('finance');
+    Route::get('export-users/{role}',[UserController::class , 'export'])->name('export-users');
 
    
     Route::get('create_customer' ,[CustomerController::class,'create'])->name('create_customer');
@@ -91,6 +94,7 @@ Route::middleware('role:admin')->group(function () {
     Route::post('delete_customer/{id}' ,[CustomerController::class,'destroy'])->name('delete_customer');
 
     Route::post('delete_address' ,[CustomerController::class,'delete_address'])->name('delete_address');
+    Route::get('delete_customer//{id}' ,[CustomerController::class,'delete_customer'])->name('delete_customer');
 
 
     Route::get('settings',[SettingController::class,'index'])->name('settings');
@@ -101,7 +105,8 @@ Route::middleware('role:manager')->group(function () {
 	Route::get('employee',[EmployeeController::class,'index'])->name('employee_list');
 	Route::get('indent_list',[IntendController::class,'index'])->name('indent_list');
     Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
-  //  Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
+    Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');
+
 	Route::get('tickets_list',[TicketController::class, 'index'])->name('tickets_list');
 	Route::get('attendance_list',[AttendanceController::class,'index'])->name('attendance_list');
     Route::get('PettyCash',[PettycashController::class,'index'])->name('petty_cash');
@@ -115,6 +120,7 @@ Route::middleware('role:procurement')->group(function () {
     Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
 	Route::get('edit_intends/{id}',[IntendController::class,'edit'])->name('edit_intends');
     Route::post('update_quantity',[IntendController::class,'update_dispatches'])->name('update_quantity');
+    Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');
 
 	Route::get('ticketslist',[TicketController::class, 'index'])->name('ticketslist');
 
@@ -129,7 +135,7 @@ Route::middleware('role:procurement')->group(function () {
     Route::post('save_pcn',[PcnController::class,'store'])->name('save_pcn');
     Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
     Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');
-
+    Route::get('export-pcn',[PcnController::class,'export'])->name('export-pcn');
 
 
 

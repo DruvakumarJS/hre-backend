@@ -8,6 +8,8 @@ use App\Models\Indent_tracker;
 use App\Models\GRN;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Exports\ExportIndents;
+use Excel;
 
 class IntendController extends Controller
 {
@@ -196,5 +198,14 @@ class IntendController extends Controller
     public function destroy(Intend $intend)
     {
         //
+    }
+
+    public function export($indent_no){
+
+        $Indent = Intend::where('indent_no',$indent_no)->first();
+        $IndentList = Indent_list::with('materials')->where('indent_id',$Indent->id)->get();
+      
+        return Excel::download(new ExportIndents($indent_no) , 'indents_'.$indent_no.".csv");
+
     }
 }

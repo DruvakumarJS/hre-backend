@@ -8,6 +8,8 @@ use App\Models\SizeMaster;
 use App\Models\UnitMaster;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Exports\ExportMaterial;
+use Excel;
 
 
 class MaterialController extends Controller
@@ -227,10 +229,16 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         $DeleteMaterial = Material::where('id',$id)->delete();
          return redirect()->route('materials');
+    }
+
+    public function export($filter){
+       
+        return Excel::download(new ExportMaterial($filter) ,'Materials.csv' );
     }
 
 

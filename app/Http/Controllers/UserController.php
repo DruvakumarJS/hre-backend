@@ -9,6 +9,8 @@ Use App\Models\Roles ;
 Use App\Models\Employee ; 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+Use App\Exports\exportUsers;
+use Excel;
 
 class UserController extends Controller
 {
@@ -232,5 +234,9 @@ class UserController extends Controller
 
     public  function create_pcn(){
         return view('pcn/create_pcn');
+    }
+
+      public function export($role){
+          return Excel::download(new ExportUsers($role) , $role."s.csv");
     }
 }

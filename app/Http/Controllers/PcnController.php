@@ -8,6 +8,8 @@ use App\Models\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Exports\ExportPcn;
+use Excel;
 
 class PcnController extends Controller
 {
@@ -195,6 +197,12 @@ class PcnController extends Controller
                     ->get();
     
         return response()->json($data);
+    }
+
+    public function export(){
+
+        return Excel::download(new ExportPcn() , "PCNs.csv");
+
     }
 
 

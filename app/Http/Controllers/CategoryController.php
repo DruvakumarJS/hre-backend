@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Material;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Exports\ExportCategory;
+use Excel;
 
 class CategoryController extends Controller
 {
@@ -154,5 +156,12 @@ class CategoryController extends Controller
         }
 
         
+    }
+
+    public function export(){
+      
+          $file_name = 'category.csv';
+         return Excel::download(new ExportCategory(), $file_name);
+
     }
 }

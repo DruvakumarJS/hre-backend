@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Address;
+use App\Models\Pcn;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -215,5 +216,36 @@ class CustomerController extends Controller
         }
 
        
+    }
+
+    public function delete_customer($id){
+       
+        if(Pcn::where('customer_id', $id)->where('status', 'Active')->exists()){
+            return redirect()->route('view_customers')->withmessage('The Customer has Active PCN , You cannot delete the Customer');
+
+        }
+        else {
+            $deleteCustomerAddress = Address::where('customer_id', $id)->delete();
+            if($deleteCustomerAddress){
+                $deleteCustomer = Customer::where('id', $id)->delete();
+
+                if($deleteCustomer){
+                    return redirect()->route('view_customers')->withmessage('Sucessfully Deleted ');
+                }
+                else{
+                    return redirect()->route('view_customers')->withmessage('Something went wrong');
+
+
+                }
+            }
+            else {
+                return redirect()->route('view_customers')->withmessage('Could not delete address');
+
+            }
+
+        }
+
+
+
     }
 }

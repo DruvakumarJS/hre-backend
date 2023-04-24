@@ -12,7 +12,7 @@
            </a>
           </div>
            <div id="div3" style="margin-right: 30px">
-             <button class="btn btn-light" > Download CSV</button>
+             <a href="{{route('export-users',$role_name)}}"> <button class="btn btn-light" > Download CSV</button> </a>
           </div>
         </div>
     </div>

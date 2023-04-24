@@ -11,6 +11,9 @@
              <label id="modal">Create Customer</label></a>
               
          </div>
+        @if(Session::has('message'))
+            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
+        @endif
 
     </div>
        
@@ -53,7 +56,7 @@
                                 </td>
                               <td>
                               	 <a href="{{route('edit_customer',$value->id)}}"><button class="btn btn-light btn-sm">Edit</button></a>
-                                <a href=""><button class="btn btn-danger btn-sm">Delete</button></a>  
+                                <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_customer', $value->id)}}"><button class="btn btn-danger btn-sm">Delete</button></a>  
                               </td>
                             </tr>
                             @endforeach
