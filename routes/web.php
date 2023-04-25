@@ -52,6 +52,7 @@ Route::middleware('role:admin')->group(function () {
     Route::get('edit_product/{id}',[MaterialController::class,'edit'])->name('edit_product');
     Route::post('update_product',[MaterialController::class,'update'])->name('update_product');
     Route::get('export-material/{filter}',[MaterialController::class,'export'])->name('export-materials');
+    Route::get('uoms',[MaterialController::class,'action'])->name('uoms');
 
 	/*Route::get('PCN',[PcnController::class,'index'])->name('PCN');
     Route::get('create_pcn',[PcnController::class,'create_pcn'])->name('create_pcn');

@@ -23,7 +23,7 @@ class UserController extends Controller
 
             if(!empty($search)){
                 $userdata = [
-                    'user_id' => $search->id,
+                    'user_id' => $search->user_id,
                     'employee_id' => $search->employee_id,
                     'username' => $search->name,
                     'role' => $search->role

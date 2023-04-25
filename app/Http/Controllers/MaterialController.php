@@ -34,7 +34,7 @@ class MaterialController extends Controller
     public function create(Request $request)
     {
 
-      //  print_r($request->Input());die();
+        //print_r($request->Input());die();
        
         $data = $request->specifications ;
         $result = array();
@@ -53,10 +53,7 @@ class MaterialController extends Controller
              $features = "{}";
          }
 
-       
-
-       
-        
+      
        // print_r($features);die();
        
       $categoryData = Category::where('code',$request->code)->first(); 
@@ -115,6 +112,20 @@ class MaterialController extends Controller
 
       }
     //  return redirect()->route('materials');
+
+      if(UnitMaster::where('unit',$request->uom)->exists())
+      {
+        
+      }
+      else
+      {
+        $Units = UnitMaster::create([
+        'category_id' => $request->category_id,
+        'unit' => $request->uom
+        ]);
+      }
+
+      
        return redirect()->route('add_product',$request->code);
      
 
@@ -239,6 +250,16 @@ class MaterialController extends Controller
     public function export($filter){
        
         return Excel::download(new ExportMaterial($filter) ,'Materials.csv' );
+    }
+
+    function action(Request $request)
+    {
+
+        $data = UnitMaster::select("unit as value")
+                    ->where('category_id',$request->search)
+                    ->get();
+    
+        return response()->json($data);
     }
 
 

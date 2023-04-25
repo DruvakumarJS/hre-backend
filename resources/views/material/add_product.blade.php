@@ -47,18 +47,20 @@
 
                         <div class="col-md-4">
                           <label>UoM *</label>
-                         <!--  <input class="form-control" type="input" name="uom" placeholder="Enter Units of Measurement" required=""> -->
-                         <select class="form-control" name="uom" >
-                            <option>Unit</option>
+                          <!-- <input class="typeahead form-control" id="uom" type="input" name="uom" placeholder="Enter Units of Measurement" required=""> -->
+                          <input name="uom" id="uom" type="text" class="typeahead form-control" required="required" placeholder="Enter Units of Measurement">
+                        <!--  <select class="form-control" name="uom" >
+                           
                             @foreach ($unitmaster as $key => $value)
                                 <option value="{{ $value->unit }}"> 
                                     {{ $value->unit }} 
                                 </option>
                             @endforeach    
-                        </select> 
+                        </select>  -->
                           
                         </div>
                          <input type="hidden" name="code" value="{{$categoryData->code}}">
+                         <input type="hidden" name="category_id" value="{{$categoryData->material_category}}">
                         
                       </div>
 
@@ -103,6 +105,41 @@
 </div>
 
 <script type="text/javascript">
+
+$( document ).ready(function() {
+
+  var path = "{{ route('uoms') }}";
+   let text = '<?php echo $categoryData->material_category  ?>';
+  
+    $( "#uom" ).autocomplete({
+
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: text
+            },
+            success: function( data ) {
+               response( data );
+              
+            }
+          });
+        },
+        select: function (event, ui) {
+           $('#uom').val(ui.item.label);
+            
+        }
+     
+});
+
+  
+});
+
+</script>
+
+<script type="text/javascript">
     var i = 0;
     $("#dynamic-ar").click(function () {
         ++i;
@@ -116,8 +153,11 @@
           if (del==true){
               $(this).parents('tr').remove();
           }
-    });
+    }); 
+
 </script>
+
+
 
 
 @endsection
