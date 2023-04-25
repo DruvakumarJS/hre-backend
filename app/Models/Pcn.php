@@ -11,7 +11,7 @@ class Pcn extends Model
 
     protected $fillable = [
     	'pcn',
-        'customer_id',
+      'customer_id',
     	'client_name',
     	'brand',
     	'work',
@@ -39,5 +39,9 @@ class Pcn extends Model
           {
              return $this->belongsTo(Employee::class,'assigned_to','user_id');
 
-          }   
+          }  
+
+        public function indents(){
+          return $this->hasMany(Intend::class,'pcn','pcn');
+        }   
 }

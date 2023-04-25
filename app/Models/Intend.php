@@ -37,6 +37,11 @@ class Intend extends Model
 
       function grn(){
             return $this->hasMany(GRN::class,'indent_no', 'indent_no');
-        }         
+        } 
+
+     function pcn()
+          {
+             return $this->belongsTo(Pcn::class,'pcn','pcn');
+          }           
     
 }

@@ -30,7 +30,7 @@
                     <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/indent.svg') }}" alt="intend" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">34</h2>
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$todaysIndent}}</h2>
                         </div>
                        <div>
                             <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;">Received Indent</h4>
@@ -47,7 +47,7 @@
                     <div class="card border-black" style="background-color: #242424">
                         <div class="card-body" >
                             <img src="{{ asset('images/attendance.svg') }}" alt="attendance" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">54</h2>
+                            <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">{{$attendance}}</h2>
                         </div>
                        <div>
                             <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;color: #fff">Attendance</h4>
@@ -63,7 +63,7 @@
                     <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/tickets.svg') }}" alt="ticket" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">12</h2>
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$tickets}}</h2>
                         </div>
                         <div>
                            <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;">Tickets</h4>

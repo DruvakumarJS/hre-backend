@@ -31,9 +31,24 @@ class HomeController extends Controller
          $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
          $tickets = Ticket::count();
          $attendance = Attendance::where('created_at','LIKE','%'.$date.'%')->count();
+         
          $Pcn = Pcn::get();
+         $pcn_array=array();
 
-        return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'Pcn'));
+         foreach ($Pcn as $key => $value) {
+            
+             $Indents = Intend::where('pcn',$value->pcn)->count();
+
+             $result[$value->client_name][$value->pcn][] = $Indents; 
+
+         }
+         // echo '<pre>';
+         // print_r($result);
+         // exit;
+
+         $chart_pcn = Pcn::select('client_name')->groupby('client_name')->get();
+
+        return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result'));
     }
 
      public function destroy(){

@@ -53,7 +53,7 @@
                             <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;color: #fff">Completed Indents</h4>
                             <a style="float: right;" href=""><label class="curved-text-button">View</label></a>
                         </div>
-                        <label class="card-text-label" style="color:#fff">Today working</label>
+                        <label class="card-text-label" style="color:#fff">No. of indent Processed today</label>
                     </div>
                     <!--</div>-->
                 </div>

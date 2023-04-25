@@ -45,12 +45,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Category()
+     public function roles()
           {
              return $this->belongsTo(Roles::class,'role_id','id');
 
           } 
-     function intends(){
+     public function intends(){
             return $this->hasMany(Intend::class,'id', 'user_id');
-        }                
+        }  
+
+
 }

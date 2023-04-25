@@ -9,7 +9,7 @@ Use App\Models\Roles ;
 Use App\Models\Employee ; 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-Use App\Exports\exportUsers;
+Use App\Exports\ExportUsers;
 use Excel;
 
 class UserController extends Controller

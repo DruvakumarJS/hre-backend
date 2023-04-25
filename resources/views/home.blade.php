@@ -2,6 +2,11 @@
 
 @section('content')
 
+@php
+$xvalue=array();
+$yvalue=array();
+@endphp
+
 <div class="container" >
     <div class="row ">
         <div >
@@ -83,7 +88,7 @@
                 <label>Customers</label>
 
                 <div class="row">
-                  <div class="col-sm-6 col-md-9">
+                  <div class="col-sm-6 col-md-6">
                     <div class="card border-white" style="height: 350px">
 
                         <table class="table">
@@ -96,32 +101,67 @@
                             </tr>
                           </thead>
                           <tbody>
-                            @foreach($Pcn as $key =>$value)
+                            @foreach($result as $key =>$value)
+                              @php
+                                 
+                                  $sum = 0;
+                              @endphp
+                           
                             <tr>  
-                              <td>{{$value->client_name}}</td>
-                              <td>{{$value->pcn}}</td>
-                              <td>39</td>
-                            </tr>
+                              <td>{{$key}}</td>
+                            
+                            <td>
+                              <table>
+                              @foreach($value as $kk => $val)
+                              <tr> 
+                                  <td>  {{ $kk }} </td>
+                              </tr>
+                              @endforeach
+                            </table>
+                             </td>
+                             <td>
+                              <table>
+                              @foreach($value as $kk => $val)
+                              @php 
+                                 $sum += $val['0'];
+                              @endphp
+                              <tr> 
+                                  <td>  {{ $val['0'] }} </td>
+                              </tr>
+                              @endforeach
+                              @php 
+                                if($sum > 0){
+                                 $xvalue[] = $key;
+                                 $yvalue[] = $sum;
+                                }
+                              @endphp
+                            </table>
+                             </td>
+                            
                            @endforeach 
+
                           </tbody>
                         </table>
-                        
                     </div>
-                    <!--</div>-->
+                    
                  </div>
 
-                 <div class="col-sm-6 col-md-3" >
+                 <div class="col-sm-6 col-md-6" >
+                  @if(sizeof($yvalue)>0)  
                     <div class="card border-white" style="height: 350px">
                         <label>Pending Intends</label>
                         
-                        
+                      
                     <div>
-                        <canvas id="myChart" style="height: 200px ; width: 200px" ></canvas>
+                        <canvas id="myChart" ></canvas>
                     </div>
+                   
                   </div>
+                   @endif
                            <script>
-                            var xValues = ["Arathi", "Brigade" ,"Prestige"];
-                            var yValues = [99,98,90];
+                            var xValues = <?php echo json_encode($xvalue); ?>;
+                            var yValues = <?php echo json_encode($yvalue); ?>;
+                           
                             var barColors = [
                               "#2C2C2C",
                               "#FDF2DF",
@@ -134,24 +174,45 @@
                               data: {
                                 labels: xValues,
                                 datasets: [{
-                                  backgroundColor: barColors,
+                                  backgroundColor: getRandomColor(),
                                   borderWidth: 0, 
                                   data: yValues
                                 }]
                               },
                               options: {
+                                 legend: {
+                                    position: 'right'
+                                  },
                                 title: {
                                   display: true
                                  
                                 }
                               }
                             });
+
+                            function getRandomColor() { //generates random colours and puts them in string
+                              var colors = [];
+                              var size = <?php echo sizeof($yvalue); ?> ;
+                              for (var i = 0; i < size; i++) {
+                                var letters = '0123456789ABCDEF'.split('');
+                                var color = '#';
+                                for (var x = 0; x < 6; x++) {
+                                  color += letters[Math.floor(Math.random() * 16)];
+                                }
+                                colors.push(color);
+                              }
+                              return colors;
+                            }
+
                             </script>
 
                            
                  </div>
                     
                 </div>
+
+
+                  
             </div>
 
 

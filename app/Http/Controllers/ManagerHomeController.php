@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Intend;
+use App\Models\Ticket;
+use App\Models\Attendance;
 
 class ManagerHomeController extends Controller
 {
@@ -19,6 +22,12 @@ class ManagerHomeController extends Controller
      */
     public function index()
     {
-        return view('manager_home');
+        $date = date('Y-m-d');
+        $indents = Intend::orderby('id','DESC')->paginate(10);
+        $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
+        $attendance = Attendance::where('created_at','LIKE','%'.$date.'%')->count();
+        $tickets = Ticket::count();
+
+        return view('manager_home', compact('indents' , 'todaysIndent' , 'attendance' , 'tickets'));
     }
 }

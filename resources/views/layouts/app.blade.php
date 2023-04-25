@@ -185,7 +185,7 @@
 
                             <div class="userLogin">
                                 <h4> {{ Auth::user()->name }}</h4>
-                                <h5>{{Auth::user()->role }}</h5>
+                                <h5>{{Auth::user()->roles->alias }}</h5>
                             </div>
 
                                <li class="nav-item dropdown">
