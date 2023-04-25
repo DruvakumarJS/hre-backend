@@ -88,57 +88,27 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Indent Number</th>
-                              <th scope="col">Employee Id</th>
-                              <th scope="col">Material Category</th>
-                              <th scope="col">Material Name</th>
-                              <th scope="col">Received</th>
-                              <th scope="col">Pending</th>
-                               <th scope="col">Action</th>
+                              <th scope="col">Sl.no</th>
+                              <th scope="col">Indend Number</th>
+                              <th scope="col">PCN</th>
+                              <th scope="col">Indent Owner</th>
+                              <th scope="col">Status</th>
+                              <th scope="col">Created On</th>
                              
                             </tr>
                           </thead>
                           <tbody>
+                            @foreach($indents as $key =>$value)
                             <tr>  
-                              <td>M001</td>
-                              <td>EMP001</td>
-                              <td>Hardware</td>
-                              <td>Telephonic Draw Channel</td>
-                              <td>20</td>
-                              <td>15</td>
-                              <td> <a href="{{route('indent_details','M001')}}"><label class="curved-text-button">View/Edit</label></a></td>
+                               <td>{{$key + $indents->firstItem()}}</td> 
+                                <td>{{$value->indent_no}}</td> 
+                                <td>{{$value->pcn}}</td>  
+                                <td>{{$value->user->name}}</td>  
+                                <td>{{$value->status}}</td>
+                                <td>{{$value->created_at}}</td>
                             </tr>
-
-                             <tr>  
-                              <td>M001</td>
-                              <td>EMP001</td>
-                              <td>Hardware</td>
-                              <td>Telephonic Draw Channel</td>
-                              <td>20</td>
-                              <td>15</td>
-                              <td> <a href=""><label class="curved-text-button">View/Edit</label></a></td>
-                            </tr>
-
-                             <tr>  
-                              <td>M001</td>
-                              <td>EMP001</td>
-                              <td>Hardware</td>
-                              <td>Telephonic Draw Channel</td>
-                              <td>20</td>
-                              <td>15</td>
-                              <td> <a href=""><label class="curved-text-button">View/Edit</label></a></td>
-                            </tr>
-
-                             <tr>  
-                              <td>M001</td>
-                              <td>EMP001</td>
-                              <td>Hardware</td>
-                              <td>Telephonic Draw Channel</td>
-                              <td>20</td>
-                              <td>15</td>
-                              <td> <a href=""><label class="curved-text-button">View/Edit</label></a></td>
-                            </tr>
-                           
+                            @endforeach
+     
                           </tbody>
                         </table>
                         

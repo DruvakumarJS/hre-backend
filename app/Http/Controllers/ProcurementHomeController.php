@@ -19,7 +19,7 @@ class ProcurementHomeController extends Controller
         $date = date('Y-m-d');
         $indents = Intend::orderby('id','DESC')->paginate(10);
         $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
-        $compltedCount = Intend::where('updated_at','LIKE','%'.$date.'%')->count();
+        $compltedCount = Intend::where('updated_at','LIKE','%'.$date.'%')->where('status','Completed')->count();
         $tickets = Ticket::count();
         
          return view('procurement_home',compact('indents' , 'todaysIndent' , 'compltedCount' , 'tickets'));

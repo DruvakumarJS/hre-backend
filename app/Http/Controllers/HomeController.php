@@ -32,14 +32,16 @@ class HomeController extends Controller
          $tickets = Ticket::count();
          $attendance = Attendance::where('created_at','LIKE','%'.$date.'%')->count();
          
-         $Pcn = Pcn::get();
-         $pcn_array=array();
+         $Pcn = Pcn::where('status','!=','Completed')->get();
+         $result=array();
 
          foreach ($Pcn as $key => $value) {
             
              $Indents = Intend::where('pcn',$value->pcn)->count();
 
-             $result[$value->client_name][$value->pcn][] = $Indents; 
+             if($Indents > 0){
+                 $result[$value->client_name][$value->pcn][] = $Indents; 
+             }
 
          }
          // echo '<pre>';
