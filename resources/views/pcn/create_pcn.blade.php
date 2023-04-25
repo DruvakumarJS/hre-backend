@@ -7,7 +7,8 @@
        <div class="container-header">
             <label class="label-bold" id="div1">Create PCN</label>
            <div id="div2">
-            <button class="btn btn-light" >View PCN</button>
+            <a href="{{route('PCN')}}"><button class="btn btn-light" >View PCN</button></a>
+            
 
           </div>
           <div id="div2" style="margin-right: 30px">
@@ -77,7 +78,7 @@
                         <div class="form-group row">
                              <label for="" class="col-5 col-form-label">Location</label>
                              <div class="col-7 " id="location" >
-                                 <input  class="form-control" type="text" required="required">
+                                 <input  class="form-control" type="text" required="required" readonly="readonly">
                              </div>
                         </div>
                        
@@ -85,13 +86,13 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">City</label>
                             <div class="col-7">
-                                <input id="city" class="form-control" type="text" name="city">
+                                <input id="city" class="form-control" type="text" name="city" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">State</label>
                             <div class="col-7">
-                               <input id="state" class="form-control" type="text" name="state">
+                               <input id="state" class="form-control" type="text" name="state" readonly="readonly">
                             </div>
                         </div>
 
@@ -160,8 +161,8 @@
                         <input type="hidden" name="customer_id" id="customer_id">
                         <div class="form-group row">
                             <div class="offset-5 col-7">
-                                <button name="submit" type="submit" class="btn btn-primary">Submit</button>
-                                <button name="submit" type="submit2" class="btn btn-link">Cancel</button>
+                                <button name="submit" type="submit" class="btn btn-success">Submit</button>
+                                <a href="{{route('create_pcn')}}"><label>Cancel</label></a>
                             </div>
                         </div>
                     </form>

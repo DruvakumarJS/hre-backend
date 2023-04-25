@@ -63,8 +63,16 @@
                       class="{{request()->routeIs('PCN')
                       || request()->routeIs('create_pcn')
                       || request()->routeIs('view_pcn')
+                      || request()->routeIs('edit_pcn')
                       ? 'active' : ''}}">
                     <label class="nav-links">PCN</label></a>
+
+                    <a href="{{route('intends')}}"
+                     class="{{request()->routeIs('intends')
+                     ||request()->routeIs('indent_details')
+                     ||request()->routeIs('edit_intends')
+                      ? 'active' : ''}}">
+                      <label class="nav-links">Indents</label></a>
 
                     <a href="{{route('tickets')}}"
                     class="{{request()->routeIs('tickets')
@@ -101,6 +109,9 @@
 
                     <a href="{{route('PCN')}}"
                      class="{{request()->routeIs('PCN')
+                     || request()->route('edit_pcn')
+                     || request()->routeIs('create_pcn')
+                     || request()->routeIs('edit_pcn')
                       ? 'active' : ''}}"
                       ><label class="nav-links">PCN</label></a>
 
@@ -182,6 +193,7 @@
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item" href="{{route('users')}}">User Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('materials_master')}}">Material Master</a></li>
+                                        <li><a class="dropdown-item" href="">Recycle & Restore</a></li>
                                     </ul>
                                 </div>
                              @endif

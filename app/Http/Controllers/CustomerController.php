@@ -220,8 +220,8 @@ class CustomerController extends Controller
 
     public function delete_customer($id){
        
-        if(Pcn::where('customer_id', $id)->where('status', 'Active')->exists()){
-            return redirect()->route('view_customers')->withmessage('The Customer has Active PCN , You cannot delete the Customer');
+        if(Pcn::where('customer_id', $id)->exists()){
+            return redirect()->route('view_customers')->withmessage('The Customer is PCN data, You cannot delete the Customer');
 
         }
         else {

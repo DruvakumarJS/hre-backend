@@ -162,8 +162,8 @@
                         <input type="hidden" name="customer_id" id="customer_id" value="{{$pcn_data->customer_id}}">
                         <div class="form-group row">
                             <div class="offset-5 col-7">
-                                <button name="submit" type="submit" class="btn btn-primary">Update</button>
-                                <button name="submit" type="submit2" class="btn btn-link">Cancel</button>
+                                <button name="submit" type="submit" class="btn btn-success">Update</button>
+                               <a href="{{route('PCN')}}"><label>Cancel</label></a>
                             </div>
                         </div>
                     </form>

@@ -104,9 +104,9 @@ Route::middleware('role:admin')->group(function () {
 Route::middleware('role:manager')->group(function () {
 	Route::get('/manager_home', [ManagerHomeController::class, 'index'])->name('manager_home');
 	Route::get('employee',[EmployeeController::class,'index'])->name('employee_list');
-	Route::get('indent_list',[IntendController::class,'index'])->name('indent_list');
+  /*Route::get('indent_list',[IntendController::class,'index'])->name('indent_list');
     Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
-    Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');
+    Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');*/
 
 	Route::get('tickets_list',[TicketController::class, 'index'])->name('tickets_list');
 	Route::get('attendance_list',[AttendanceController::class,'index'])->name('attendance_list');
@@ -117,11 +117,12 @@ Route::middleware('role:manager')->group(function () {
 
 Route::middleware('role:procurement')->group(function () {
 	Route::get('/procurement_home', [ProcurementHomeController::class, 'index'])->name('procurement_home');
-	Route::get('indents',[IntendController::class,'index'])->name('intends');
+
+	/*Route::get('indents',[IntendController::class,'index'])->name('intends');
     Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
 	Route::get('edit_intends/{id}',[IntendController::class,'edit'])->name('edit_intends');
     Route::post('update_quantity',[IntendController::class,'update_dispatches'])->name('update_quantity');
-    Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');
+    Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');*/
 
 	Route::get('ticketslist',[TicketController::class, 'index'])->name('ticketslist');
 
@@ -137,6 +138,13 @@ Route::middleware('role:procurement')->group(function () {
     Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
     Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');
     Route::get('export-pcn',[PcnController::class,'export'])->name('export-pcn');
+
+
+    Route::get('indents',[IntendController::class,'index'])->name('intends');
+    Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
+    Route::get('edit_intends/{id}',[IntendController::class,'edit'])->name('edit_intends');
+    Route::post('update_quantity',[IntendController::class,'update_dispatches'])->name('update_quantity');
+    Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');
 
 
 

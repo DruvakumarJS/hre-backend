@@ -78,7 +78,7 @@ class IndentController extends Controller
              }
 
               $update_indents = Intend::where('indent_no', $ind_no)->update([
-                                         'quantity' => $totalQualntity,
+                                          'quantity' => $totalQualntity,
                                           'recieved'=> "0",
                                           'pending'=>$totalQualntity,
                                   ]);
@@ -119,12 +119,24 @@ class IndentController extends Controller
 
      if(isset($request->user_id))
      {
-      $Pcns = Pcn::select('pcn')->get();
+      $Pcns = Pcn::get();
+
+      foreach ($Pcns as $key => $value) {
+      $pcn_array[] = [
+        'pcn'=> $value->pcn,
+        'client_name'=>$value->client_name,
+        'type+of_work' => $value->work,
+        'area' => $value->area,
+        'city' => $value->city,
+        'state' => $value->state
+         ];
+
+      }
 
       return response()->json([
                     'status' => 1 ,
                     'message' => 'success',
-                    'data'=> $Pcns]);
+                    'data'=> $pcn_array]);
      }
      else {
       return response()->json([

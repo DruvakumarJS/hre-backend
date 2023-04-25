@@ -4,7 +4,7 @@
 <div class="container">
 
     <div class="row justify-content-center">
-     <div class="row">
+     <!-- <div class="row">
 
        <div class="col-md-2">
           <label>Intend Number</label>
@@ -22,13 +22,37 @@
               
         </div>
 
-         <!-- <div class="col-md-2">
-             <a href="{{route('export-indents',$id)}}"><button class="btn btn-light" > Download CSV</button></a>
-          </div> -->
-       
+     </div> -->
 
 
-     </div>
+      <div class="container-header">
+        <div id="div1">
+          
+            <div>
+              <label class="label-bolder">{{$id}}</label>
+            </div>
+             <label>Intend Number</label>
+          
+        </div>
+           
+        <div id="div1" style="margin-left: 30px">
+           
+            <div>
+             <label class="label-bolder">{{$pcn}}</label>
+            </div>
+            <label>Project Code Number</label>
+          
+        </div>
+             
+
+
+           <div id="div2">
+            <a href="{{route('intends')}}"><button class="btn btn-light" >View Indents</button></a>
+          </div>
+          
+
+
+        </div>
     	
 
          <div style="margin-top: 50px">

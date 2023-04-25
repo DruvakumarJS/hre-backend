@@ -7,7 +7,7 @@
             <label class="label-bold" id="div1">PCN</label>
            <div id="div2">
             <a class="btn btn-light" href="{{route('view_pcn')}}"></i> 
-             <label id="modal">View All PCN </label></a>
+             <label id="modal">View Detailed PCN </label></a>
             
           </div>
           <div id="div2" style="margin-right: 30px">
