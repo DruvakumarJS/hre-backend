@@ -90,14 +90,19 @@
                       <input class="form-control" type="text" name="address[{{$key}}][area]" value="{{$value->area}}">
                     </div>
 
-                     <div class="col-md-3">
+                     <div class="col-md-2">
                       <label>City</label>
                       <input class="form-control" type="text" name="address[{{$key}}][city]" value="{{$value->city}}">
                     </div>
 
-                     <div class="col-md-3">
+                     <div class="col-md-2">
                       <label>State</label>
                       <input class="form-control" type="text" name="address[{{$key}}][state]" value="{{$value->state}}">
+                    </div>
+
+                    <div class="col-md-2">
+                      <label>GST No.</label>
+                      <input class="form-control" type="text" name="address[{{$key}}][gst]" value="{{$value->gst}}">
                     </div>
                     <input type="hidden" name="address[{{$key}}][id]" value="{{$value->id}}">
                    
@@ -123,46 +128,20 @@
               @endforeach   
           </table>
 
-         <div class="col-md-3">
+        <div class="row">
 
-                      <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add another </button>
-                    </div>
+        <div class="col-md-2">
+           <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary div-margin">Add Location </button>
+          
+        </div>
 
-        <!-- <table class="table table-responsive " id="dynamicAddRemove">
-              
-              <tr>
-                  <td>
-                   
-                   <div class="row"> 
-                     <div class="col-md-3">
-                      <label>Area / Location</label>
-                      <input class="form-control" type="text" name="address[0][area]" >
-                    </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary div-margin" type="submit" value="submit">SUBMIT</button>
+      
+        </div>
+         
 
-                     <div class="col-md-3">
-                      <label>City</label>
-                      <input class="form-control" type="text" name="address[0][city]">
-                    </div>
-
-                     <div class="col-md-3">
-                      <label>State</label>
-                      <input class="form-control" type="text" name="address[0][state]">
-                    </div>
-
-
-                   </td> 
-
-                 </tr>  
-
-                    <div class="col-md-3">
-
-                      <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add another </button>
-                    </div>
-                 
-                
-          </table> -->
-
-       <button class="btn btn-primary div-margin" type="submit" value="submit">SUBMIT</button>
+      </div>  
 
       </form>
     </div>
@@ -172,7 +151,7 @@
     var i = $("#length").val();
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr><td><div class="row"><div class="col-md-3"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]"></div><div class="col-md-3"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]"></div><div class="col-md-3"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]"></div>  <div class="col-md-3"><label></label>  <div class="col-md-1"> <button type="button" data-id="00"  class=" form-controle btn btn-outline-danger remove-input-field">Delete</button> </div></div></td></tr>');
+        $("#dynamicAddRemove").append('<tr><td><div class="row"><div class="col-md-3"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]"></div><div class="col-md-2"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div>  <div class="col-md-2"><label></label>  <div class="col-md-1"> <button type="button" data-id="00"  class="form-controle btn btn-outline-danger remove-input-field">Delete</button> </div></div></td></tr>');
     });
     
     $(document).on('click', '.remove-input-field', function () {

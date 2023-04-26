@@ -6,9 +6,9 @@
        <div class="container-header">
             <label class="label-bold" id="div1">PCN</label>
            <div id="div2">
-            <a class="btn btn-light" href="{{route('view_pcn')}}"></i> 
-             <label id="modal">View Detailed PCN </label></a>
-            
+            <a class="btn btn-light" href="{{route('view_pcn')}}">
+             <label id="modal">View Detailed PCN </label> </a>
+          
           </div>
           <div id="div2" style="margin-right: 30px">
              <a class="btn btn-light" href="{{route('create_pcn')}}"><i class="fa fa-plus"></i> 
@@ -29,11 +29,10 @@
                             <tr>
                               <th>Sl.no</th>
                               <th scope="col">PCN</th>
-                              <th scope="col">PCN Owner</th>
                               <th scope="col">Customer Name</th>
                               <th scope="col">Customer Email</th>
                               <th scope="col">Address</th>
-                              <th scope="col">Create On</th>
+                              <th scope="col">Created Date</th>
                               <th scope="col">Action</th>
                              
                             </tr>
@@ -43,7 +42,7 @@
                             <tr>  
                               <td>{{$key + $pcns->firstItem()}}</td>
                               <td>{{$value->pcn}}</td>
-                              <td>{{$value->employee->name}}</td>
+                              
                               <td>{{$value->client_name}}</td>
                               <td>{{$value->customer->email}}</td>
                               <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>

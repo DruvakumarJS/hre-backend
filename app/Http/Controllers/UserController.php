@@ -166,7 +166,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $userData = Employee::where('id',$id)->first();
+        $userData = Employee::where('user_id',$id)->first();
         return view('user/edit', compact('userData'));
     }
 
@@ -179,7 +179,22 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-       
+        //print_r($request->Input());die();
+
+        if($request->password == $request->confirm_password){
+            $update = User::where('id',$request->user_id)->update([
+                'password'=> Hash::make($request->password)]);
+
+            if($update){
+                return redirect()->route($request->role);
+            }
+        }
+        else {
+             return redirect()->back()
+                        ->withMessage("Password and Confirm Password do not match")
+                        ->withInput();
+        }
+
 
     }
 
@@ -191,7 +206,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = User::where('id',$id)->delete();
+
+        if($delete){
+            $delete = Employee::where('user_id',$id)->delete();
+            return redirect()->back();
+        }
     }
 
     public  function view_superadmins(){

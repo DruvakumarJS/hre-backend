@@ -48,8 +48,12 @@ class CategoryController extends Controller
          else {
 
             $category_id=Category::select('code')->orderBy('id', 'DESC')->first();
+
+            $arr = explode("C00", $category_id->code);
+
+            $code = 'C00'.++$arr[1];
             
-            $code = ++$category_id->code;
+           // $code = ++$category_id->code;
 
              $CreateCategory = Category::create(
             [

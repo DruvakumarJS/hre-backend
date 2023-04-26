@@ -30,7 +30,7 @@ class IndentController extends Controller
            //  print_r($indent_no);die();
           }
           else {
-          	$ind_no = "IN001" ;
+          	$ind_no = "MI001" ;
           }
 
           $indent_array = $request->indents ; 
@@ -257,7 +257,6 @@ class IndentController extends Controller
         $update_grn_data = GRN::where('grn',$request->grn)->update([
                                        'approved'=> $approved,
                                        'damaged' => $request->rejected,
-                                       'dispatched'=>'0',
                                        'status' => 'Received'
                                       ]);
         if($update_grn_data){

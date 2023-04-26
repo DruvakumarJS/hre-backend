@@ -19,6 +19,7 @@ class CreateAddressesTable extends Migration
             $table->string('area');
             $table->string('city');
             $table->string('state');
+            $table->string('gst')->nullable();
             $table->timestamps();
         });
     }

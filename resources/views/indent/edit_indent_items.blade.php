@@ -3,10 +3,19 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <label class="label-bold">Intend Details</label>
+            
+        
+        <div class="container-header">
+            <label class="label-bold" id="div1">Intend Details</label>
+           <div id="div2">
+            <a class="btn btn-light" href="">
+             <label id="modal"> </label> </a>
+          
+          </div>
+         
         </div>
 
-        <div style="margin-top: 30px">
+        <div class="div-margin">
             <div class="HeadCounter">
                 <div class="row">
                     <div class="col">
@@ -145,6 +154,6 @@
             </div>
         </div>
     </div>
-
+</div>
     
 @endsection

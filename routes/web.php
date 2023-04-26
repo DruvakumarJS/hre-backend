@@ -44,6 +44,7 @@ Route::middleware('role:admin')->group(function () {
     Route::post('save_user',[UserController::class , 'store'])->name('save_user');
     Route::get('edit_user/{id}',[UserController::class , 'edit'])->name('edit_user');
     Route::post('update_user',[UserController::class , 'update'])->name('update_user');
+    Route::get('delete_user/{id}',[UserController::class , 'destroy'])->name('delete_user');
 
 
     Route::get('materials',[MaterialController::class,'index'])->name('materials');
@@ -83,7 +84,7 @@ Route::middleware('role:admin')->group(function () {
 
     Route::get('superadmins',[UserController::class, 'view_superadmins'])->name('superadmin');
     Route::get('managers',[UserController::class, 'view_managers'])->name('manager');
-    Route::get('supervisors',[UserController::class, 'view_supervisors'])->name('supervisors');
+    Route::get('supervisors',[UserController::class, 'view_supervisors'])->name('supervisor');
     Route::get('procurement',[UserController::class, 'view_procurement'])->name('procurement');
     Route::get('finance',[UserController::class, 'view_finance'])->name('finance');
     Route::get('export-users/{role}',[UserController::class , 'export'])->name('export-users');

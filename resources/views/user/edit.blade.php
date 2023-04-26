@@ -9,7 +9,6 @@
              <button class="btn btn-light" > View Users</button>
           </div>
           
-
            @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
           @endif       
@@ -19,13 +18,13 @@
 
 
     <div class="page-container">
-      <form>
+      <form method="post" action="{{route('update_user')}}">
         @csrf
        <div class="row">
            
            <div class="col-md-4">
                 <label>Employee ID</label>
-                <input class="form-control" type="input" name="employee_id" placeholder="Enter Empoyee ID" required="" value="{{$userData->employee_id}}">
+                <input class="form-control" type="input" name="employee_id" placeholder="Enter Empoyee ID" required="" value="{{$userData->employee_id}}" readonly="readonly">
                  @error('employee_id')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -48,7 +47,7 @@
            
            <div class="col-md-4">
                 <label>Mobile Number</label>
-                <input class="form-control" type="input" name="mobile" placeholder="Enter Mobile Number" required=""value="{{$userData->mobile}}">
+                <input class="form-control" type="input" name="mobile" placeholder="Enter Mobile Number" required=""value="{{$userData->mobile}}" readonly="readonly">
                  @error('mobile')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -57,7 +56,7 @@
 
           <div class="col-md-4">
                 <label>Email ID</label>
-                <input class="form-control" type="input" name="email" placeholder="Enter Email ID" required=""value="{{$userData->email}}">
+                <input class="form-control" type="input" name="email" placeholder="Enter Email ID" required=""value="{{$userData->email}}" readonly="readonly">
                  @error('email')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror

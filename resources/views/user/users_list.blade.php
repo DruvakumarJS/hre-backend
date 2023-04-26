@@ -55,7 +55,9 @@
                                    <td>{{$value->mobile}}</td>
                                    <td>{{$value->role}}</td>                                  
                                    <td>{{$value->created_at}}</td>
-                                   <td><a href="{{route('edit_user',$value->id)}}"><button class="btn btn-light btn-sm">Edit</button></a></td>
+                                   <td>
+                                    <a href="{{route('edit_user',$value->user_id)}}"><i class="fa fa-edit"></i></a>
+                                    <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_user',$value->user_id)}}"><i class="fa fa-trash"></i></a></td>
                                </tr>
                             @endforeach   
 

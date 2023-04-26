@@ -75,7 +75,8 @@ class CustomerController extends Controller
                 'customer_id'=> $customer_id->id ,
                 'area' => $value['area'] , 
                 'city' => $value['city'] , 
-                'state' => $value['state']   
+                'state' => $value['state'] ,
+                'gst' => $value['gst'] 
 
                ]);
             } 
@@ -144,7 +145,8 @@ class CustomerController extends Controller
                   $update=Address::where('id',$value['id'])->update([
                     'area' => $value['area'] , 
                     'city' => $value['city'] , 
-                    'state' => $value['state']]);
+                    'state' => $value['state'],
+                    'gst' => $value['gst']]);
                }
                else {
                
@@ -152,7 +154,8 @@ class CustomerController extends Controller
                     'customer_id'=> $request->id ,
                     'area' => $value['area'] , 
                     'city' => $value['city'] , 
-                    'state' => $value['state']   
+                    'state' => $value['state'],
+                    'gst' => $value['gst']   
 
                ]);
 
@@ -165,7 +168,8 @@ class CustomerController extends Controller
                     'customer_id'=> $request->id,
                     'area' => $value['area'] , 
                     'city' => $value['city'] , 
-                    'state' => $value['state']  ]);  
+                    'state' => $value['state'],
+                    'gst' => $value['gst']  ]);  
 
                
 

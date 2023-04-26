@@ -98,23 +98,7 @@
 
                         <hr/>
                         <h3>Completion Details</h3>
-                         @if(Auth::user()->role_id == 1)
-                        <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">PCN owner *</label>
-                            <div class="col-7">
-                                <select id="" name="user_id" class="custom-select form-control form-select" required="required">
-                                  <option value="">Select Project Manager</option>
-                                  
-                                    @foreach($managerlist as $key => $value)
-                                     <option value="{{$value->user_id}}">{{$value->name}}</option>
-                                    @endforeach
-                                   
-                                </select>
-                            </div>
-                        </div>
-                        @elseif(Auth::user()->role_id == 2)
                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                        @endif
                         
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>

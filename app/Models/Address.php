@@ -13,7 +13,8 @@ class Address extends Model
     	'customer_id',
     	'area',
     	'city',
-    	'state'];
+    	'state',
+      'gst'];
 
     public function customer()
           {

@@ -36,7 +36,7 @@
                               <th scope="col">PCN</th>
                               <th scope="col">Indent Owner</th>
                               <th scope="col">Status</th>
-                              <th scope="col">Created On</th>
+                              <th scope="col">Created Date</th>
                               <th scope="col">Action</th>
                              
                             </tr>

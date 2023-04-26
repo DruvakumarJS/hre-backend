@@ -80,7 +80,10 @@ class IntendController extends Controller
        $indend_data = Indent_list::where('id' , $id)->first();
 
        $grn = GRN::where('indent_list_id' , $id)->orderby('id', 'DESC')->get();
-       $dispatched = $grn->sum('dispatched');
+       $activegrn = GRN::where('indent_list_id' , $id)->where('status', '!=' ,'Received')->orderby('id', 'DESC')->get();
+       $dispatched = $activegrn->sum('dispatched');
+
+      // print_r($dispatched);die();
        return view('indent/edit_indent_items',compact('indend_data' , 'id' , 'grn' ,'dispatched'));
     }
 
@@ -160,7 +163,11 @@ class IntendController extends Controller
 
             if(GRN::exists()){
                 $GRN_id = GRN::select('grn')->orderBy('id' ,'DESC')->first();
-                $GRN_id = ++$GRN_id->grn;
+
+                $arr = explode("GRN00", $GRN_id->grn);
+
+                $GRN_id = 'GRN00'.++$arr[1];
+
             }
             else {
                 $GRN_id = "GRN001";

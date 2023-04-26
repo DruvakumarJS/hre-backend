@@ -54,7 +54,7 @@
                             <div>
                                 <h2>Supervisor</h2>
                                  <div class="div-margin">
-                                     <a href="{{route('supervisors')}}">View Users</a>
+                                     <a href="{{route('supervisor')}}">View Users</a>
                                  <a style="margin-left: 30px" href="{{route('create_user','supervisor')}}"></i> 
                                     <label id="modal">Create User</label>
                                  </a>
