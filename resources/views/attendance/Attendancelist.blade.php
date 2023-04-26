@@ -38,7 +38,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                   <!--  <tr>
                         <td>EMP0123232</td>
                         <td>Ramesh</td>
                         <td>Supervisor</td>
@@ -49,7 +49,7 @@
                             <a href="{{route('employee-history')}}"><button type="button" class="btn btn-sm btn-light">view</button></a>
                         </td>
                     </tr>
-                    
+                     -->
                 </tbody>
             </table>
 

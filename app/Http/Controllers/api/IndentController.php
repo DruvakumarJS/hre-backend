@@ -109,9 +109,41 @@ class IndentController extends Controller
          	 		'message' => 'Insufficient inputs' ,
               'inputs' => json_encode($request->Input())
          	 		]);
-     	 }
+     	 }    
 
-      
+   }
+
+   function indents(Request $request){
+      if(!isset($request->user_id)){
+        return response()->json([
+              'status' => 0 ,
+              'message' => 'Unauthorized' ,
+              'data' => ''
+              ]);
+      }
+      else {
+        $indents = Intend::where('user_id',$request->user_id)->where('status','!=','Completed')->get();
+        $indentarray=array();
+
+        foreach ($indents as $key => $value) {
+          $indentarray[] = [
+            'indent_id' => $value->id ,
+            'indent_no' => $value->indent_no,
+            'pcn' => $value->pcn,
+            'status'=> $value->status,
+            'created_on' => $value->created_at
+
+          ];
+              
+        }
+        return response()->json([
+              'status' => 1 ,
+              'message' => 'success' ,
+              'data' => $indentarray
+              ]);
+
+
+      }
 
    }
 

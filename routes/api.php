@@ -28,6 +28,7 @@ Route::post('/validate-login',[UserController::class,'validate_login']);
 Route::post('/get-material-details',[MaterialController::class,'material_data']);
 Route::post('/get-material-list',[MaterialController::class,'material_list']);
 Route::post('/create-indent',[IndentController::class,'create']);
+Route::post('/get-indents',[IndentController::class,'indents']);
 Route::post('/pcns',[IndentController::class,'pcn_list']);
 Route::get('/grn',[IndentController::class,'grn_list']);
 Route::post('/update-grn',[IndentController::class,'update_grn']);
