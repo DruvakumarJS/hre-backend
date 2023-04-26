@@ -131,7 +131,7 @@ class IndentController extends Controller
             'indent_no' => $value->indent_no,
             'pcn' => $value->pcn,
             'status'=> $value->status,
-            'created_on' => $value->created_at
+            'created_on' => $value->created_at->toDateTimeString()
 
           ];
               
@@ -157,7 +157,7 @@ class IndentController extends Controller
       $pcn_array[] = [
         'pcn'=> $value->pcn,
         'client_name'=>$value->client_name,
-        'type+of_work' => $value->work,
+        'type_of_work' => $value->work,
         'area' => $value->area,
         'city' => $value->city,
         'state' => $value->state

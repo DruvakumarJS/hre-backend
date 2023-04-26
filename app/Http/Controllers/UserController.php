@@ -55,6 +55,7 @@ class UserController extends Controller
     
        $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
+            'employee_id' => 'required|unique:employees',
             'mobile' => 'required|min:10|unique:employees',
             'email' => 'required|email|unique:employees',    
         ]);
@@ -165,7 +166,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $userData = Employee::where('id',$id)->first();
+        return view('user/edit', compact('userData'));
     }
 
     /**
@@ -175,9 +177,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+       
+
     }
 
     /**

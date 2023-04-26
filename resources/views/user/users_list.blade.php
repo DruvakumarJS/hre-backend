@@ -55,7 +55,7 @@
                                    <td>{{$value->mobile}}</td>
                                    <td>{{$value->role}}</td>                                  
                                    <td>{{$value->created_at}}</td>
-                                   <td><button class="btn btn-light btn-sm">Edit</button></td>
+                                   <td><a href="{{route('edit_user',$value->id)}}"><button class="btn btn-light btn-sm">Edit</button></a></td>
                                </tr>
                             @endforeach   
 

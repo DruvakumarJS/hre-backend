@@ -42,6 +42,8 @@ Route::middleware('role:admin')->group(function () {
 	Route::get('settings/UserMaster',[UserController::class, 'index'])->name('users');
     Route::get('settings/create_user/{role}',[UserController::class, 'create_user'])->name('create_user');
     Route::post('save_user',[UserController::class , 'store'])->name('save_user');
+    Route::get('edit_user/{id}',[UserController::class , 'edit'])->name('edit_user');
+    Route::post('update_user',[UserController::class , 'update'])->name('update_user');
 
 
     Route::get('materials',[MaterialController::class,'index'])->name('materials');

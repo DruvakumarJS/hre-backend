@@ -31,7 +31,7 @@
                         @csrf
                         <h3>Project Details</h3>
                         <div class="form-group row">
-                            <label for="text" class="col-5 col-form-label">Project Code</label>
+                            <label for="text" class="col-5 col-form-label">Project Code *</label>
                             <div class="col-7">
                                 <input id="text" name="pcn" type="text" class="form-control" required="required" value="{{old('pcn')}}" placeholder="Enter PCN">
                                      @error('pcn')
@@ -40,19 +40,19 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Client Name / Billing Name</label>
+                            <label for="" class="col-5 col-form-label">Client Name / Billing Name *</label>
                             <div class="col-7">
                                 <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" placeholder="Search by Client name">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Brand Name</label>
+                            <label for="" class="col-5 col-form-label">Brand Name *</label>
                             <div class="col-7">
                                 <input id="brand" name="brand" type="text" class="form-control" readonly="readonly" required="required">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Type of Work</label>
+                            <label for="" class="col-5 col-form-label">Type of Work *</label>
                             <div class="col-7">
                                 <select id="" name="work" class="custom-select form-control form-select" required="required">
                                     <option value="">Select type of work</option>
@@ -76,7 +76,7 @@
 
  -->
                         <div class="form-group row">
-                             <label for="" class="col-5 col-form-label">Location</label>
+                             <label for="" class="col-5 col-form-label">Location *</label>
                              <div class="col-7 " id="location" >
                                  <input  class="form-control" type="text" required="required" readonly="readonly">
                              </div>
@@ -84,13 +84,13 @@
                        
                     
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">City</label>
+                            <label for="" class="col-5 col-form-label">City *</label>
                             <div class="col-7">
                                 <input id="city" class="form-control" type="text" name="city" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">State</label>
+                            <label for="" class="col-5 col-form-label">State *</label>
                             <div class="col-7">
                                <input id="state" class="form-control" type="text" name="state" readonly="readonly">
                             </div>
@@ -100,7 +100,7 @@
                         <h3>Completion Details</h3>
                          @if(Auth::user()->role_id == 1)
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">PCN owner</label>
+                            <label for="" class="col-5 col-form-label">PCN owner *</label>
                             <div class="col-7">
                                 <select id="" name="user_id" class="custom-select form-control form-select" required="required">
                                   <option value="">Select Project Manager</option>
