@@ -7,6 +7,11 @@ use App\Models\Intend;
 use App\Models\Ticket;
 use App\Models\Pcn;
 use App\Models\Attendance;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestEmail;
+use PDF;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -56,5 +61,33 @@ class HomeController extends Controller
      public function destroy(){
          auth()->logout();
          return redirect()->route('login');
+    }
+
+    function send_email(){
+      //  print_r("here");die();
+        Mail::to('druva@netiapps.com')->send(new TestEmail());
+
+    }
+
+    function generatePDF(){
+         $data = [
+            'title' => 'Welcome to HRE',
+            'date' => date('m/d/Y')
+        ];
+
+         $filename = 'hre.pdf';
+          
+        $pdf = PDF::loadView('pdf.mypdf', $data);
+      // $dfile =  $pdf->download($filename);
+        $pdf->save(public_path('test_pdf.pdf'));
+       // echo '<pre>';
+       // print_r($dfile);
+       //$pdf->save(public_path());
+        // return $pdf->download($filename);
+
+
+
+        // Mail::to('druva@netiapps.com')->send(new TestEmail());
+
     }
 }

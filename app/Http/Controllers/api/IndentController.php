@@ -9,6 +9,9 @@ use App\Models\Indent_list;
 use App\Models\Pcn;
 use App\Models\GRN;
 use App\Models\Material;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestEmail;
+use PDF;
 
 class IndentController extends Controller
 {
@@ -24,8 +27,10 @@ class IndentController extends Controller
 
           if(Intend::exists()){
           	$Indent = Intend::select('indent_no')->orderBy('id', 'DESC')->first();
+
+             $arr = explode("MI00", $Indent->indent_no);
            
-          	$ind_no = ++$Indent->indent_no ;
+          	$ind_no = "MI00".++$arr[1];
 
            //  print_r($indent_no);die();
           }
@@ -85,19 +90,38 @@ class IndentController extends Controller
 
           }
 
+          // pdf data
+
+
+          $idtend= Intend::where('indent_no',$ind_no)->first();
+           $pdf_array = Indent_list::where('indent_id' , $idtend->id)->with('materials')->get();
+
+           $indent_details = [
+                 'indent_no' => $idtend->indent_no,
+                 'pcn' => $idtend->pcn ,
+                 'details'=> $pdf_array     
+          ];
+
+        
+       /* $filename = 'hre.pdf';
+          
+        $pdf = PDF::loadView('pdf.mypdf', $indent_details);
+      
+        $pdf->download($filename);*/
+
+
+      // Mail::to('druva@netiapps.com')->send(new TestEmail($indent_details));
 
         return response()->json([
          	 		'status' => 1 ,
-         	 		'message' => 'Indent Created Succesfully',
-              'inputs' => json_encode($request->Input())
+         	 		'message' => 'Indent Created Succesfully'
          	 		]);
         }
 
         else {
             return response()->json([
            	 		'status' => 0 ,
-           	 		'message' => 'Indent array is empty' ,
-                'inputs' => json_encode($request->Input())
+           	 		'message' => 'Indent array is empty' 
            	 ]);
         }
    	 }
@@ -106,8 +130,7 @@ class IndentController extends Controller
 
      	 	return response()->json([
          	 		'status' => 0 ,
-         	 		'message' => 'Insufficient inputs' ,
-              'inputs' => json_encode($request->Input())
+         	 		'message' => 'Insufficient inputs' 
          	 		]);
      	 }    
 

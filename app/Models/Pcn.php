@@ -27,7 +27,8 @@ class Pcn extends Model
     	'hold_days',
     	'days_acheived',
     	'status',
-    	'assigned_to'];
+    	'assigned_to',
+      'owner'];
 
         public function customer()
           {
@@ -41,7 +42,17 @@ class Pcn extends Model
 
           }  
 
+         public function user()
+          {
+             return $this->belongsTo(Employee::class,'assigned_to','user_id');
+
+          }    
+
         public function indents(){
           return $this->hasMany(Intend::class,'pcn','pcn');
+        }
+
+        public function tickets(){
+          return $this->hasMany(Ticket::class,'pcn','pcn');
         }   
 }

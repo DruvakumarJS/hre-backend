@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use App\Models\Employee;
+use App\Models\Pcn;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,8 @@ class TicketController extends Controller
      */
     public function index()
     {
-         return view('ticket/list');
+         $tickets = Ticket::orderby('id' , 'DESC')->paginate();
+         return view('ticket/list' ,  compact('tickets'));
     }
 
     /**
@@ -25,7 +28,8 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+        $supervisor = Employee::where('role','supervisor')->get();
+        return view('ticket/create', compact('supervisor'));
     }
 
     /**
@@ -36,7 +40,40 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      
+        if(Pcn::where('pcn', $request->pcn)->exists())
+        {
+            if(Ticket::exists()){
+            $tickets = Ticket::select('ticket_id')->orderby('id' , 'DESC')->first();
+
+            $arr = explode("TN00", $tickets->ticket_id);
+           // print_r($arr);die();
+            $ticket_id = "TN00".++$arr[1];
+        }
+        else {
+            $ticket_id ="TN001";
+        }
+
+        $Insert = Ticket::create([
+            'ticket_id'=> $ticket_id,
+            'pcn' => $request->pcn,
+            'indent_no' => $request->indent_no,
+            'issue' => $request->issue ,
+            'assigned_to' => $request->user_id,
+            'owner' => $request->owner ,
+            'status' => 'Pending'
+        ]);
+
+        if($Insert){
+            return redirect()->route('tickets');
+        }
+
+        }
+        else {
+             return redirect()->route('generate-ticket')->withInput()->withmessage('PCN does not exist');
+        }
+
+        
     }
 
     /**
@@ -56,9 +93,11 @@ class TicketController extends Controller
      * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ticket $ticket)
+    public function edit($id)
     {
-        //
+        $tickets = Ticket::where('ticket_id', $id)->first();
+        $supervisor = Employee::where('role','supervisor')->get();
+        return view('ticket/edit', compact('tickets' , 'supervisor'));
     }
 
     /**
@@ -68,10 +107,19 @@ class TicketController extends Controller
      * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update(Request $request)
     {
-        //
+       // print_r($request->Input());die();
+
+       $update = Ticket::where('id',$request->id)->update([
+            'indent_no' => $request->indent_no,
+            'issue' => $request->issue ,
+            'assigned_to' => $request->user_id,
+            'status' => $request->status]);
+
+       return redirect()->route('tickets');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -79,7 +79,8 @@ class PcnController extends Controller
                 'hold_days' => $request->hold_days,
                 'days_acheived' => $request->days_achieved,
                 'assigned_to' => $request->user_id,
-                'status' => "Active"
+                'status' => "Active",
+                'owner' => $request->user_id,
         ]);
 
             if($createPCN){

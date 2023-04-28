@@ -108,7 +108,7 @@ class UserController extends Controller
                        ]);
 
                    if($request->role == 'supervisor'){
-                    return redirect()->route('supervisors');
+                    return redirect()->route('supervisor');
 
                    }
                    else if($request->role == 'admin') {

@@ -53,6 +53,12 @@ class User extends Authenticatable
      public function intends(){
             return $this->hasMany(Intend::class,'id', 'user_id');
         }  
+    
+     public function tickets(){
+            return $this->hasMany(Ticket::class,'id', 'owner');
+        }  
+
+
 
 
 }

@@ -19,7 +19,7 @@
            
            <div class="col-md-4">
                 <label>Customer name / Billing Name *</label>
-                <input class="form-control" type="input" name="name" required="" value="{{old('name')}}">
+                <input class="form-control" type="input" name="name" required="" placeholder="Enter Customer Name" value="{{old('name')}}">
                  @error('name')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -28,7 +28,7 @@
 
           <div class="col-md-4">
                 <label>Brand *</label>
-                <input class="form-control" type="input" name="brand"  required=""value="{{old('brand')}}">
+                <input class="form-control" type="input" name="brand"  required="" placeholder="Enter Brand" value="{{old('brand')}}">
                  @error('brand')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -85,17 +85,17 @@
                       <input class="form-control" type="text" name="address[0][area]" required="required">
                     </div>
 
-                     <div class="col-md-3">
+                     <div class="col-md-2">
                       <label>City *</label>
                       <input class="form-control" type="text" name="address[0][city]" required="required">
                     </div>
 
-                     <div class="col-md-3">
+                     <div class="col-md-2">
                       <label>State *</label>
                       <input class="form-control" type="text" name="address[0][state]" required="required">
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       <label>GST no. *</label>
                       <input class="form-control" type="text" name="address[0][gst]" required="required">
                     </div>
@@ -137,7 +137,7 @@
     var i = 0;
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr><td><div class="row"><div class="col-md-3"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]"></div><div class="col-md-3"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]"></div><div class="col-md-3"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]"></div><div class="col-md-3"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div></td></tr>');
+        $("#dynamicAddRemove").append('<tr><td><div class="row"><div class="col-md-3"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]"required=" required"></div><div class="col-md-2"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]" required="required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-2"><label></label>  <div class="col-md-1"> <button type="button" data-id="00"  class="form-controle btn btn-outline-danger remove-input-field">Delete</button> </div></td></tr>');
     });
     $(document).on('click', '.remove-input-field', function () {
         $(this).parents('tr').remove();

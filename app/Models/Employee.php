@@ -25,5 +25,9 @@ class Employee extends Model
 
     function Pcn(){
             return $this->hasMany(Pcn::class,'user_id', 'assigned_to');
-        }     
+        }  
+
+      function tickets(){
+            return $this->hasMany(Ticket::class,'id', 'owner');
+        }       
 }

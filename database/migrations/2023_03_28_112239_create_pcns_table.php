@@ -33,6 +33,7 @@ class CreatePcnsTable extends Migration
             $table->string('days_acheived')->nullable();
             $table->string('status');
             $table->string('assigned_to')->nullable();
+            $table->string('owner')->nullable();
 
             $table->timestamps();
         });

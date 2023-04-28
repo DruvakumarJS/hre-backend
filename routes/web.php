@@ -66,7 +66,7 @@ Route::middleware('role:admin')->group(function () {
     Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');*/
 
 
-    Route::get('tickets',[TicketController::class, 'index'])->name('tickets');
+    
 	Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
     Route::get('employee-details',[AttendanceController::class,'employeedetails'])->name('employee-details');
 
@@ -111,7 +111,7 @@ Route::middleware('role:manager')->group(function () {
     Route::get('indent_details/{id}',[IntendController::class,'show'])->name('indent_details');
     Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');*/
 
-	Route::get('tickets_list',[TicketController::class, 'index'])->name('tickets_list');
+	//Route::get('tickets_list',[TicketController::class, 'index'])->name('tickets_list');
 	Route::get('attendance_list',[AttendanceController::class,'index'])->name('attendance_list');
     Route::get('PettyCash',[PettycashController::class,'index'])->name('petty_cash');
 
@@ -127,7 +127,7 @@ Route::middleware('role:procurement')->group(function () {
     Route::post('update_quantity',[IntendController::class,'update_dispatches'])->name('update_quantity');
     Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');*/
 
-	Route::get('ticketslist',[TicketController::class, 'index'])->name('ticketslist');
+	//Route::get('ticketslist',[TicketController::class, 'index'])->name('ticketslist');
 
 
 	});
@@ -148,6 +148,15 @@ Route::middleware('role:procurement')->group(function () {
     Route::get('edit_intends/{id}',[IntendController::class,'edit'])->name('edit_intends');
     Route::post('update_quantity',[IntendController::class,'update_dispatches'])->name('update_quantity');
     Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');
+
+    Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');
+    Route::get('generate-pdf', [HomeController::class, 'generatePDF'])->name('pdf');
+
+    Route::get('tickets',[TicketController::class, 'index'])->name('tickets');
+    Route::get('generate_ticket',[TicketController::class,'create'])->name('generate-ticket');
+    Route::post('save_ticket',[TicketController::class,'store'])->name('save-ticket');
+    Route::get('edit_ticket/{id}',[TicketController::class,'edit'])->name('edit-ticket');
+    Route::post('update_ticket',[TicketController::class,'update'])->name('update-ticket');
 
 
 
