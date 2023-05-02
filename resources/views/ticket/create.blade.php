@@ -37,9 +37,16 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Customer Issue *</label>
+                            <label for="" class="col-5 col-form-label">Subject *</label>
                             <div class="col-7">
-                                <textarea  name="issue" id="issue" type="text" class="typeahead form-control" required="required" placeholder="Enter Customer issue here" >{{old('issue')}}</textarea>
+                                <input name="subject" id="subject" type="text" class="typeahead form-control" placeholder="Enter Subject for Conversation" value="{{old('subject')}}" required="required">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Ticket Description *</label>
+                            <div class="col-7">
+                                <textarea  name="issue" id="issue" type="text" class="typeahead form-control" required="required" placeholder="Enter Ticket details here" >{{old('issue')}}</textarea>
                             </div>
                         </div>
 

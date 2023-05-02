@@ -56,7 +56,15 @@ class User extends Authenticatable
     
      public function tickets(){
             return $this->hasMany(Ticket::class,'id', 'owner');
+        }
+
+     public function sender(){
+            return $this->hasMany(TicketConversation::class,'id', 'sender');
         }  
+
+      public function recipient(){
+            return $this->hasMany(TicketConversation::class,'id', 'recipient');
+        }        
 
 
 

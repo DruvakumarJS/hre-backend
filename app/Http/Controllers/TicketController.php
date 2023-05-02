@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use App\Models\TicketConversation;
 use App\Models\Employee;
 use App\Models\Pcn;
 use App\Http\Controllers\Controller;
@@ -58,6 +59,7 @@ class TicketController extends Controller
             'ticket_id'=> $ticket_id,
             'pcn' => $request->pcn,
             'indent_no' => $request->indent_no,
+            'subject' => $request->subject,
             'issue' => $request->issue ,
             'assigned_to' => $request->user_id,
             'owner' => $request->owner ,
@@ -65,7 +67,21 @@ class TicketController extends Controller
         ]);
 
         if($Insert){
+            $conversation = TicketConversation::create([
+                'ticket_id' => $ticket_id ,
+                'sender' => $request->owner ,
+                'recipient' => $request->user_id,
+                'message' => $request->issue ,
+                'status' => 'Pending'  
+            ]);
+
+            if($conversation){   
             return redirect()->route('tickets');
+            }
+            else{
+                Ticket::where('ticket_id' ,$ticket_id)->delete();
+                return redirect()->route('generate-ticket')->withInput()->withmessage('Could not create ticket');
+            }
         }
 
         }
@@ -120,6 +136,13 @@ class TicketController extends Controller
        return redirect()->route('tickets');
     }
 
+    public function ticket_details($id){
+        $ticket = Ticket::where('ticket_id', $id)->first();
+        $conversation = TicketConversation::where('ticket_id', $id)->get();
+        return view('ticket/details' , compact('id' , 'ticket' , 'conversation'));
+
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -130,5 +153,21 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         //
+    }
+
+    public function filter(Request $request)
+    {
+       // print_r($request->Input());
+        if(empty($request->filter)){
+          return redirect()->route('tickets');
+        }
+        else if($request->filter == '0'){
+            $tickets = Ticket::orderby('id' , 'DESC')->paginate();
+            return view('ticket/list' ,  compact('tickets'));
+        }
+        else {
+            $tickets = Ticket::where('assigned_to' , $request->filter)->orWhere('status',$request->filter)->orderby('id' , 'DESC')->paginate();
+            return view('ticket/list' ,  compact('tickets'));
+        }
     }
 }

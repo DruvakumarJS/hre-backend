@@ -13,6 +13,7 @@ class Ticket extends Model
     	'ticket_id',
     	'pcn',
     	'indent_no',
+      'subject',
     	'issue',
     	'assigned_to',
     	'owner',
@@ -21,6 +22,11 @@ class Ticket extends Model
    function pcn()
     {
           return $this->belongsTo(Pcn::class,'pcn', 'pcn');
+    }
+
+    function conversation()
+    {
+          return $this->hasMany(TicketConversation::class,'ticket_id', 'ticket_id');
     }
 
 

@@ -16,7 +16,7 @@
         }
     </style>
 </head>
-<body>
+<body class="body-background">
     <h1>Indent Details : {{$indent_no}}</h1>
     <h2>Indent No : {{$pcn}}</h2>
     <h3>PCN :</h3>

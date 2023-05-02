@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTicketsTable extends Migration
+class CreateTicketConversationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateTicketsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create('ticket_conversations', function (Blueprint $table) {
             $table->id();
             $table->string('ticket_id');
-            $table->string('pcn');
-            $table->string('indent_no')->nullable();
-            $table->string('subject');
-            $table->string('issue');
-            $table->string('assigned_to');
-            $table->string('owner');
-            $table->string('status');
+            $table->string('sender');
+            $table->string('recipient');
+            $table->string('message');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ class CreateTicketsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('ticket_conversations');
     }
 }

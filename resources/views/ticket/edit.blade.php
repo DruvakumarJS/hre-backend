@@ -45,7 +45,7 @@
                             <label for="" class="col-5 col-form-label">Assign to *</label>
                             <div class="col-7">
                                 <!-- <input name="assign_to" type="assign_to" class="typeahead form-control" required="required" placeholder="Assign ticket to Employee " value="{{$tickets->employee->name}}"> -->
-                                <select class="form-control" name="user_id" >
+                                <select class="form-control" name="user_id" id="user_id">
                                     <option value="">Select user</option>
                                     <option value="{{Auth::user()->id}}" <?php echo (Auth::user()->id == $tickets->assigned_to) ? 'selected' : ''; ?> >Self</option>
 
@@ -64,7 +64,7 @@
                             <label for="" class="col-5 col-form-label">Status</label>
                             <div class="col-7">
                                 <!-- <input name="assign_to" type="assign_to" class="typeahead form-control" required="required" placeholder="Assign ticket to Employee " value="{{$tickets->employee->name}}"> -->
-                                <select class="form-control" name="status" required="required" >
+                                <select class="form-control" name="status" id='status' required="required"  onchange="run()" >
                                    
                                     <option value="Pending" <?php echo ($tickets->status == 'Pending') ? 'selected' : ''; ?>  >Pending</option>
                                     <option value="Closed" <?php echo ($tickets->status == 'Closed') ? 'selected' : ''; ?> >Closed</option>
@@ -98,5 +98,22 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    function run(){
+        var status = document.getElementById("status").value;
+       
+        if(status == 'Reopen'){
+            alert('Since you are reopening the ticket, ticket will be assigned to youself');
+
+           document.getElementById('user_id').value = <?php echo Auth::user()->id ?>;
+          // document.getElementById("user_id").disabled=true;
+        }
+        else {
+            document.getElementById("user_id").disabled=false;
+        }
+
+    }
+    
+</script>
 
 @endsection

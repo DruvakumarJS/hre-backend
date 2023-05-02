@@ -15,6 +15,8 @@ use App\Http\Controllers\IntendController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\TicketConversationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -157,9 +159,9 @@ Route::middleware('role:procurement')->group(function () {
     Route::post('save_ticket',[TicketController::class,'store'])->name('save-ticket');
     Route::get('edit_ticket/{id}',[TicketController::class,'edit'])->name('edit-ticket');
     Route::post('update_ticket',[TicketController::class,'update'])->name('update-ticket');
-
-
-
-
+    Route::post('filter',[TicketController::class, 'filter'])->name('filter');
+    Route::get('ticket_details/{id}',[TicketController::class,''])->name('ticket-details');
+    Route::get('ticket_details/{id}',[TicketController::class,'ticket_details'])->name('ticket-details');
+    Route::post('reply_conversation',[TicketConversationController::class,'store'])->name('reply_conversation');
 
 

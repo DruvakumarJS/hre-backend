@@ -115,8 +115,8 @@
                       ? 'active' : ''}}"
                       ><label class="nav-links">PCN</label></a>
 
-                    <a href="{{route('tickets_list')}}"
-                     class="{{request()->routeIs('tickets_list')
+                    <a href="{{route('tickets')}}"
+                     class="{{request()->routeIs('tickets')
                       ? 'active' : ''}}">
                       <label class="nav-links">Tickets</label></a>
 
