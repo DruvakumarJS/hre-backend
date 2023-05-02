@@ -17,9 +17,9 @@
     </style>
 </head>
 <body>
-    <h1>Indent Details  </h1>
-    <h2>Indent No : {{$indent_details['indent_no']}}</h2>
-    <h3>PCN : {{$indent_details['pcn']}}</h3>
+    <h1>Indent Details : {{$indent_no}}</h1>
+    <h2>Indent No : {{$pcn}}</h2>
+    <h3>PCN :</h3>
 
     <div  class="card border-white">
       <table class="table responsive" width="100%">
@@ -35,8 +35,8 @@
                             </tr>
                           </thead>
                           <tbody>
-                            @foreach($indent_details['details'] as $key => $value)
-                            
+                          	@foreach($details as $key => $value)
+                          	
                              <tr>
                                 <td>{{$key+1}}</td>
                                 <td>{{$value->material_id}}</td>

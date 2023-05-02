@@ -10,7 +10,7 @@ use App\Models\Pcn;
 use App\Models\GRN;
 use App\Models\Material;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\TestEmail;
+use App\Mail\IndentsMail;
 use PDF;
 
 class IndentController extends Controller
@@ -103,14 +103,17 @@ class IndentController extends Controller
           ];
 
         
-       /* $filename = 'hre.pdf';
+        $file = 'HRE_'.$idtend->indent_no.'.pdf';
           
-        $pdf = PDF::loadView('pdf.mypdf', $indent_details);
+        $pdf = PDF::loadView('pdf.indentsPDF', $indent_details);
       
-        $pdf->download($filename);*/
+        $pdf->save(public_path('pdf/'.$file));
+
+        $path = public_path('pdf');
+        $filename = $path.'/'.$file;
 
 
-      // Mail::to('druva@netiapps.com')->send(new TestEmail($indent_details));
+       Mail::to('druva@netiapps.com')->send(new IndentsMail($indent_details , $filename));
 
         return response()->json([
          	 		'status' => 1 ,
@@ -155,6 +158,49 @@ class IndentController extends Controller
             'pcn' => $value->pcn,
             'status'=> $value->status,
             'created_on' => $value->created_at->toDateTimeString()
+
+          ];
+              
+        }
+        return response()->json([
+              'status' => 1 ,
+              'message' => 'success' ,
+              'data' => $indentarray
+              ]);
+
+
+      }
+
+   }
+
+   function indent_details(Request $request){
+
+   
+      if(!isset($request->user_id) || !isset($request->indent_id) ){
+        return response()->json([
+              'status' => 0 ,
+              'message' => 'Unauthorized' ,
+              'data' => ''
+              ]);
+      }
+      else {
+        $indents_list = Indent_list::where('indent_id',$request->indent_id)->get();
+        $indentarray=array();
+
+        foreach ($indents_list as $key => $value) {
+          $indentarray[] = [
+            'indent_id' => $value->indent_id ,
+            'material_id' => $value->material_id,
+            'material_name' => $value->materials->name,
+            'material_brand' => $value->materials->brand,
+            'material_info' => json_decode($value->materials->information),
+            'decription' => $value->decription,
+            'quantity'=> $value->quantity,
+            'recieved'=> $value->recieved,
+            'pending'=> $value->pending,
+            'status'=> $value->status,
+            'created_on' => $value->created_at->toDateTimeString(),
+            'last_update' => $value->updated_at->toDateTimeString()
 
           ];
               
