@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Models\Pcn;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use File;
 
 class TicketController extends Controller
 {
@@ -18,7 +19,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-         $tickets = Ticket::orderby('id' , 'DESC')->paginate();
+         $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
          return view('ticket/list' ,  compact('tickets'));
     }
 
@@ -45,18 +46,18 @@ class TicketController extends Controller
         if(Pcn::where('pcn', $request->pcn)->exists())
         {
             if(Ticket::exists()){
-            $tickets = Ticket::select('ticket_id')->orderby('id' , 'DESC')->first();
+            $tickets = Ticket::select('ticket_no')->orderby('id' , 'DESC')->first();
 
-            $arr = explode("TN00", $tickets->ticket_id);
+            $arr = explode("TN00", $tickets->ticket_no);
            // print_r($arr);die();
-            $ticket_id = "TN00".++$arr[1];
+            $ticket_no = "TN00".++$arr[1];
         }
         else {
-            $ticket_id ="TN001";
+            $ticket_no ="TN001";
         }
 
         $Insert = Ticket::create([
-            'ticket_id'=> $ticket_id,
+            'ticket_no'=> $ticket_no,
             'pcn' => $request->pcn,
             'indent_no' => $request->indent_no,
             'subject' => $request->subject,
@@ -67,12 +68,36 @@ class TicketController extends Controller
         ]);
 
         if($Insert){
+            $t_data = Ticket::where('ticket_no' ,$ticket_no)->first();
+            $fileName = '';
+
+
+            if($file = $request->hasFile('image')) {
+             
+            $file = $request->file('image') ;
+            $fileName = $file->getClientOriginalName() ;
+            
+           // $newfilename = round(microtime(true)) . '.' . end($temp);
+
+            if(TicketConversation::exists()){
+                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
+                 $temp = explode(".", $file->getClientOriginalName());
+                 $fileName=$ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
+            }
+           
+            $destinationPath = public_path().'/ticketimages' ;
+            $file->move($destinationPath,$fileName);
+            
+    }
+
             $conversation = TicketConversation::create([
-                'ticket_id' => $ticket_id ,
+                'ticket_id' => $t_data->id ,
+                'ticket_no' => $ticket_no ,
                 'sender' => $request->owner ,
                 'recipient' => $request->user_id,
                 'message' => $request->issue ,
-                'status' => 'Pending'  
+                'status' => 'Pending',
+                'filename' => $fileName 
             ]);
 
             if($conversation){   
@@ -111,7 +136,7 @@ class TicketController extends Controller
      */
     public function edit($id)
     {
-        $tickets = Ticket::where('ticket_id', $id)->first();
+        $tickets = Ticket::where('ticket_no', $id)->first();
         $supervisor = Employee::where('role','supervisor')->get();
         return view('ticket/edit', compact('tickets' , 'supervisor'));
     }
@@ -137,7 +162,7 @@ class TicketController extends Controller
     }
 
     public function ticket_details($id){
-        $ticket = Ticket::where('ticket_id', $id)->first();
+        $ticket = Ticket::where('ticket_no', $id)->first();
         $conversation = TicketConversation::where('ticket_id', $id)->get();
         return view('ticket/details' , compact('id' , 'ticket' , 'conversation'));
 

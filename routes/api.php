@@ -6,6 +6,7 @@ use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\EmployeeController;
 use App\Http\Controllers\api\MaterialController;
 use App\Http\Controllers\api\IndentController;
+use App\Http\Controllers\api\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,6 @@ Route::post('/get-indent-details',[IndentController::class,'indent_details']);
 Route::post('/pcns',[IndentController::class,'pcn_list']);
 Route::get('/grn',[IndentController::class,'grn_list']);
 Route::post('/update-grn',[IndentController::class,'update_grn']);
+Route::post('/create-ticket',[TicketController::class,'create']);
+Route::post('/get-tickets',[TicketController::class,'index']);
+Route::post('/add-conversation',[TicketController::class,'conversation']);

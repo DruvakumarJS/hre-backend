@@ -76,6 +76,9 @@
 
                     <a href="{{route('tickets')}}"
                     class="{{request()->routeIs('tickets')
+                    || request()->routeIs('edit-ticket')
+                    || request()->routeIs('ticket-details')
+                    || request()->routeIs('generate-ticket')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
 
@@ -116,9 +119,12 @@
                       ><label class="nav-links">PCN</label></a>
 
                     <a href="{{route('tickets')}}"
-                     class="{{request()->routeIs('tickets')
+                    class="{{request()->routeIs('tickets')
+                    || request()->routeIs('edit-ticket')
+                    || request()->routeIs('ticket-details')
+                    || request()->routeIs('generate-ticket')
                       ? 'active' : ''}}">
-                      <label class="nav-links">Tickets</label></a>
+                    <label class="nav-links" >Tickets</label></a>
 
                     <!-- <a href="{{route('attendance_list')}}"
                      class="{{request()->routeIs('attendance_list')

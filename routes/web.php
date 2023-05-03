@@ -161,7 +161,7 @@ Route::middleware('role:procurement')->group(function () {
     Route::post('update_ticket',[TicketController::class,'update'])->name('update-ticket');
     Route::post('filter',[TicketController::class, 'filter'])->name('filter');
     Route::get('ticket_details/{id}',[TicketController::class,''])->name('ticket-details');
-    Route::get('ticket_details/{id}',[TicketController::class,'ticket_details'])->name('ticket-details');
+    Route::get('ticket_details/{id}',[TicketConversationController::class,'index'])->name('ticket-details');
     Route::post('reply_conversation',[TicketConversationController::class,'store'])->name('reply_conversation');
 
 

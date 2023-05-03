@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<style type="text/css">
+    img[src=""] {
+    display: none;
+}
+</style>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -17,7 +22,7 @@
      <div class="form-build">
      	<div class="row">
      			<div class="col-6">
-     				<form method="post" action="{{route('save-ticket')}}">
+     				<form method="post" action="{{route('save-ticket')}}" enctype="multipart/form-data">
      					@csrf
      					<div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Code Number *</label>
@@ -65,6 +70,16 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Attach image </label>
+                            <div class="col-7">
+                                <input type="file" class="form-control form-control-sm" name="image" id="imgInp" >
+                
+                            </div>
+                        </div>
+
+
                         <input type="hidden" name="owner" value="{{Auth::user()->id}}">
 
                          <div class="form-group row">
@@ -74,10 +89,18 @@
                             </div>
                         </div>
 
+                        
+
+
      					
      				</form>
      				
      			</div>
+
+                <div class="col-6">
+                     <img class="imagen" id="blah" src="" alt="ticketimage" style="width: 200px;height: 200px" />
+
+                </div>
      		
      		
      	</div>
@@ -86,6 +109,18 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+
+
+    imgInp.onchange = evt => {
+  const [file] = imgInp.files
+  if (file) {
+    blah.src = URL.createObjectURL(file)
+    $(".imagen").show();
+  }
+}
+</script>
 
 
 @endsection

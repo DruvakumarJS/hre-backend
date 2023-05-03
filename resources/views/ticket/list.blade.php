@@ -26,7 +26,7 @@
 	             	<option value="Reopen">Reopend Tickets</option>
                  </select>
                  <div class="input-group-prepend">
-				    <button class="btn btn-outline-secondary" type="submit">Filter</button>
+				    <button class="btn btn-outline-secondary rounded-0" type="submit">Filter</button>
 				  </div>
 				</div>
              </form>
@@ -59,7 +59,7 @@
 	            @foreach($tickets as $key=>$value)
 	                <tr>
 	                	<td>{{$key + $tickets->firstItem()}}</td>
-	                	<td>{{$value->ticket_id}}</td>
+	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
 	                	<td>{{$value->subject}}</td>
 	                	<td>{{$value->Pcn->client_name}}</td>
@@ -81,9 +81,9 @@
 	                	<td>{{$value->updated_at}}</td>
 	                	<td>{{$value->status}}</td>
 	                	<td>
-	                		<a href="{{route('edit-ticket', $value->ticket_id)}}"><label class="btn btn-light">Edit</label></a>
+	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><label class="btn btn-light">Edit</label></a>
 
-	                		<a href="{{route('ticket-details', $value->ticket_id)}}"><label class="btn btn-light">Details</label></a>
+	                		<a href="{{route('ticket-details', $value->ticket_no)}}"><label class="btn btn-light">Details</label></a>
 
 	                	</td>
 	                </tr>

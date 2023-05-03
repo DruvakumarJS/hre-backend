@@ -6,7 +6,10 @@
         <div class="container-header">
             <label class="label-bold" id="div1">Add</label>
           <div id="div2">
-             <button class="btn btn-light" ><i class="fa fa-plus"></i> Create User</button>
+            <a href="{{route('users')}}">
+              <button class="btn btn-light"> User Master</button>
+            </a>
+             
           </div>
           
 

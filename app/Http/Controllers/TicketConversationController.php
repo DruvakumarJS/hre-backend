@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\TicketConversation;
+use App\Models\Ticket;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -11,11 +13,14 @@ class TicketConversationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Responses
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $ticket = Ticket::where('ticket_no', $id)->first();
+        $conversation = TicketConversation::where('ticket_id', $ticket->id)->get();
+        $employee = User::select('id' , 'name' , 'role_id')->where('role_id', '!=' , '1')->get();
+        return view('ticket/details' , compact('id' , 'ticket' , 'conversation' , 'employee'));
     }
 
     /**
@@ -36,7 +41,47 @@ class TicketConversationController extends Controller
      */
     public function store(Request $request)
     {
-        print_r($request->Input());die();
+       // print_r($request->Input());die();
+
+        $Ticket = Ticket::select('status')->where('ticket_no',$request->ticket_no)->first();
+        $fileName = '';
+        if($Ticket->status == 'Pending'){
+
+            if($file = $request->hasFile('image')) {
+             
+            $file = $request->file('image') ;
+            $fileName = $file->getClientOriginalName() ;
+            
+           // $newfilename = round(microtime(true)) . '.' . end($temp);
+
+            if(TicketConversation::exists()){
+                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
+                 $temp = explode(".", $file->getClientOriginalName());
+                 $fileName=$request->ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
+            }
+           
+            $destinationPath = public_path().'/ticketimages' ;
+            $file->move($destinationPath,$fileName);
+            
+    }
+
+            $conversation = TicketConversation::create([
+                'ticket_id' => $request->ticket_id ,
+                'ticket_no' => $request->ticket_no ,
+                'message' => $request->message ,
+                'sender' => $request->sender ,
+                'recipient' => $request->recipient,
+                'status' => 'pending',
+                'filename' => $fileName]);
+
+            if($conversation){
+                return redirect()->route('ticket-details',$request->ticket_no)->withMessage('Message sent');
+            }
+
+        }
+        else {
+            return redirect()->route('ticket-details',$request->ticket_no)->withMessage('Ticket is closed . You cannot communicate to this ticket No .');
+        }
     }
 
     /**

@@ -11,14 +11,16 @@ class TicketConversation extends Model
 
     protected $fillable=[
     	'ticket_id',
+        'ticket_no',
     	'sender',
     	'recipient',
     	'message',
-    	'status'
+    	'status',
+        'filename'
     ];
 
     function ticket(){
-    	return $this->belongsTo(User::class,'ticket_id', 'ticket_id');
+    	return $this->belongsTo(User::class,'ticket_no', 'ticket_no');
     }
 
     function mailsender(){

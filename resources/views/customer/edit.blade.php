@@ -85,7 +85,7 @@
 
                    <div class="row"> 
 
-                     <div class="col-md-3">
+                     <div class="col-md-2">
                       <label>Area / Location</label>
                       <input class="form-control" type="text" name="address[{{$key}}][area]" value="{{$value->area}}">
                     </div>
@@ -106,7 +106,7 @@
                     </div>
                     <input type="hidden" name="address[{{$key}}][id]" value="{{$value->id}}">
                    
-                      <div class="col-md-1">
+                      <div class="col-md-2">
                       <label></label>
                       @php
                       if(isset($value->id)){
@@ -151,7 +151,8 @@
     var i = $("#length").val();
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr><td><div class="row"><div class="col-md-3"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]"></div><div class="col-md-2"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-1"><label></label>  <div class="col-md-1"> <button type="button" data-id="00"  class="form-controle btn btn-outline-danger remove-input-field">Delete</button> </div></div></td></tr>');
+        $("#dynamicAddRemove").append('<tr><td><div class="row"><div class="col-md-2"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]" required="required"></div><div class="col-md-2"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]" required="required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-2"><label></label>  <div class="col-md-2"> <button type="button" data-id="00"  class="form-controle btn btn-outline-danger remove-input-field">Delete</button> </div></div></td></tr>');
+
     });
     
     $(document).on('click', '.remove-input-field', function () {

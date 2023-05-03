@@ -20,9 +20,9 @@
                             <div>
                                 <h2>Super Admin</h2>
                                 <div class="div-margin">
-                                     <a href="{{route('superadmin')}}">View Users</a>
-                                 <a style="margin-left: 30px" href="{{route('create_user','admin')}}"></i> 
-                                    <label id="modal">Create User</label>
+                                     <a href="{{route('superadmin')}}"><label class="btn btn-light" id="modal">View Users</label></a>
+                                 <a style="margin-left: 30px" href="{{route('create_user','admin')}}"> 
+                                    <label class="btn btn-light curved-text-button" id="modal">Create User</label>
                                  </a>
                                 </div>
                             </div>
@@ -38,9 +38,9 @@
                             <div>
                                 <h2>Project Manager</h2>
                                  <div class="div-margin">
-                                     <a href="{{route('manager')}}">View Users</a>
+                                     <a href="{{route('manager')}}"><label class="btn btn-light" id="modal">View Users</label></a>
                                  <a style="margin-left: 30px" href="{{route('create_user','manager')}}"></i> 
-                                    <label id="modal">Create User</label>
+                                    <label class="btn btn-light curved-text-button" id="modal">Create User</label>
                                  </a>
                                 </div>
                             </div>
@@ -54,9 +54,9 @@
                             <div>
                                 <h2>Supervisor</h2>
                                  <div class="div-margin">
-                                     <a href="{{route('supervisor')}}">View Users</a>
+                                     <a href="{{route('supervisor')}}"><label class="btn btn-light" id="modal">View Users</label></a>
                                  <a style="margin-left: 30px" href="{{route('create_user','supervisor')}}"></i> 
-                                    <label id="modal">Create User</label>
+                                    <label class="btn btn-light curved-text-button" id="modal">Create User</label>
                                  </a>
                                 </div>
                             </div>
@@ -72,9 +72,9 @@
                             <div>
                                 <h2>Procurement</h2>
                                 <div class="div-margin">
-                                     <a href="{{route('procurement')}}">View Users</a>
+                                     <a href="{{route('procurement')}}"><label class="btn btn-light" id="modal">View Users</label></a>
                                  <a style="margin-left: 30px" href="{{route('create_user','procurement')}}"></i> 
-                                    <label id="modal">Create User</label>
+                                    <label class="btn btn-light curved-text-button" id="modal">Create User</label>
                                  </a>
                                 </div>
                             </div>
@@ -91,9 +91,9 @@
                             <div>
                                 <h2>Finance</h2>
                                 <div class="div-margin">
-                                     <a href="{{route('finance')}}">View Users</a>
+                                     <a href="{{route('finance')}}"><label class="btn btn-light" id="modal">View Users</label></a>
                                  <a style="margin-left: 30px" href="{{route('create_user','finance')}}"></i> 
-                                    <label id="modal">Create User</label>
+                                    <label class="btn btn-light curved-text-button" id="modal">Create User</label>
                                  </a>
                                 </div>
                                 

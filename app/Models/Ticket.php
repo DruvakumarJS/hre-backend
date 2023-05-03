@@ -10,7 +10,7 @@ class Ticket extends Model
     use HasFactory;
 
     protected $fillable=[
-    	'ticket_id',
+    	'ticket_no',
     	'pcn',
     	'indent_no',
       'subject',
@@ -26,7 +26,7 @@ class Ticket extends Model
 
     function conversation()
     {
-          return $this->hasMany(TicketConversation::class,'ticket_id', 'ticket_id');
+          return $this->hasMany(TicketConversation::class,'ticket_no', 'ticket_no');
     }
 
 

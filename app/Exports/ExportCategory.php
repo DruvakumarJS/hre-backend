@@ -26,13 +26,13 @@ class ExportCategory implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return Category::select('code', 'category', 'material_category')->get();
+        return Category::select('category', 'material_category')->get();
     }
 
      public function headings(): array
      {       
        return [
-        'Category code', 'Category','Category ID' 
+         'Category','Category code' 
        ];
      }
 }

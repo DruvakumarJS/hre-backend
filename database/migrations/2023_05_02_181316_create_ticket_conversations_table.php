@@ -16,10 +16,12 @@ class CreateTicketConversationsTable extends Migration
         Schema::create('ticket_conversations', function (Blueprint $table) {
             $table->id();
             $table->string('ticket_id');
+            $table->string('ticket_no');
             $table->string('sender');
             $table->string('recipient');
             $table->string('message');
             $table->string('status')->nullable();
+            $table->string('filename')->nullable();
             $table->timestamps();
         });
     }

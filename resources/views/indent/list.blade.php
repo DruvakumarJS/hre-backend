@@ -32,7 +32,7 @@
                           <thead>
                             <tr>
                               <th scope="col">Sl.no</th>
-                              <th scope="col">Indend Number</th>
+                              <th scope="col">Indent Number</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Indent Owner</th>
                               <th scope="col">Status</th>
@@ -52,7 +52,7 @@
                                 <td>{{$value->created_at}}</td> 
     
                                
-                                <td> <a href="{{route('indent_details',$value->indent_no)}}"><label class="curved-text-button">View/Edit</label></a></td>
+                                <td> <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button">View/Edit</button></a></td>
                                 
                               </tr>
                           @endforeach
