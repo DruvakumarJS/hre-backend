@@ -17,15 +17,15 @@
             <label  style="margin-left: 20px" class="label-medium" id="div1">Completed({{$compltedCount}})</label>
           
           <div id="div2" style="margin-right: 30px">
-             <button class="btn btn-light" > View All Tickets</button>
+            <a href="{{route('tickets')}}"><button class="btn btn-light" > View Tickets</button></a>
+             
           </div>
 
           
         </div>
 
-        <div style="margin-top: 50px">
-        	<label style="margin-left: 20px">Active Indents</label>
-
+        <div class="div-margin">
+        	
         	<div class="card border-white">
 
                         <table class="table">
@@ -52,7 +52,7 @@
                                 <td>{{$value->created_at}}</td> 
     
                                
-                                <td> <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button">View/Edit</button></a></td>
+                                <td> <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button">View / Edit</button></a></td>
                                 
                               </tr>
                           @endforeach

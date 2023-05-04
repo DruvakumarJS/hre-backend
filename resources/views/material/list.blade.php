@@ -19,8 +19,8 @@
         </div>
 
 
-        <div style="margin-top: 50px">
-        	<label style="margin-left: 20px">Materials</label>
+        <div>
+        
 
         	<div class="card border-white">
 

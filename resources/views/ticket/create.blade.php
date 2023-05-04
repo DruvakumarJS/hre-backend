@@ -62,9 +62,9 @@
                                 <select class="form-control" name="user_id" required="required" >
                                 	<option value="">Select user</option>
                                 	<option value="{{Auth::user()->id}}">Self</option>
-                                	@foreach($supervisor as $key => $value)
+                                	@foreach($employee as $key => $value)
                                 	
-                                	<option value="{{$value->user_id}}">{{$value->name}}</option>
+                                	<option value="{{$value->user_id}}">{{$value->name}} - {{$value->roles->alias}}</option>
 
                                 	@endforeach
                                 </select>

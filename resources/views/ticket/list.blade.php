@@ -81,9 +81,9 @@
 	                	<td>{{$value->updated_at}}</td>
 	                	<td>{{$value->status}}</td>
 	                	<td>
-	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><label class="btn btn-light">Edit</label></a>
+	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button">Edit</button></a>
 
-	                		<a href="{{route('ticket-details', $value->ticket_no)}}"><label class="btn btn-light">Details</label></a>
+	                		<a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-secondary">Details</button></a>
 
 	                	</td>
 	                </tr>

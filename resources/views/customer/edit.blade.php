@@ -91,26 +91,26 @@
 
                      <div class="col-md-2">
                       <label>Area / Location</label>
-                      <input class="form-control" type="text" name="address[{{$key}}][area]" value="{{$value->area}}">
+                      <input class="form-control" type="text" name="address[{{$key}}][area]" value="{{$value->area}}" required="required">
                     </div>
 
                      <div class="col-md-2">
                       <label>City</label>
-                      <input class="form-control" type="text" name="address[{{$key}}][city]" value="{{$value->city}}">
+                      <input class="form-control" type="text" name="address[{{$key}}][city]" value="{{$value->city}}" required="required">
                     </div>
 
                      <div class="col-md-2">
                       <label>State</label>
-                      <input class="form-control" type="text" name="address[{{$key}}][state]" value="{{$value->state}}">
+                      <input class="form-control" type="text" name="address[{{$key}}][state]" value="{{$value->state}}" required="required">
                     </div>
 
                     <div class="col-md-2">
                       <label>GST No.</label>
-                      <input class="form-control" type="text" name="address[{{$key}}][gst]" value="{{$value->gst}}">
+                      <input class="form-control" type="text" name="address[{{$key}}][gst]" value="{{$value->gst}}" required="required">
                     </div>
                     <input type="hidden" name="address[{{$key}}][id]" value="{{$value->id}}">
                    
-                      <div class="col-md-2">
+                      <div class="col-md-1">
                       <label></label>
                       @php
                       if(isset($value->id)){
@@ -153,12 +153,29 @@
 
 <script type="text/javascript">
     var i = $("#length").val();
+    var j = 'n';
+    
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr><td><div class="row align-items-end"><div class="col-md-2"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]" required="required"></div><div class="col-md-2"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]" required="required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-2"><label></label>  <button type="button" data-id="00"  class="form-control btn btn-outline-danger remove-input-field">Delete</button> </div></td></tr>');
+        $("#dynamicAddRemove").append('<tr><td><div class="row align-items-end"><div class="col-md-2"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]" required="required"></div><div class="col-md-2"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]" required="required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-1"><label></label>  <button type="button" data-id="00"  class="form-control btn btn-outline-danger remove-input-field">Delete</button> </div></td></tr>');
 
     });
+
+   /* $(document).on('click', '.remove-input-field', function () {
     
+      if (i==1){
+       
+        alert('There must be atleast one address');
+      }
+      else
+       {
+        $(this).parents('tr').remove();
+         --i;
+      }
+
+    });*/
+
+     
     $(document).on('click', '.remove-input-field', function () {
        // var id = $(this).closest("tr").find(".nr").text();
        var idd = $(this).data('id');  
@@ -167,14 +184,27 @@
        var del=confirm("Are you sure to delete ? ");
 
        if(idd == "00"){
-        if (del==true){
+       
+        if (del==true && i>1){
            $(this).parents('tr').remove();
+           --i;
+        }
+        else {
+           alert('There must be atleast one address');
         }
 
        }
        else{
 
          if (del==true){
+          
+              if (i==1){
+       
+                alert('There must be atleast one address');
+              }
+              else
+               {
+
              $(this).parents('tr').addClass('delRow');
              $.ajax({
             url: "{{ route('delete_address') }}",
@@ -189,6 +219,7 @@
               if(data.status == 1){
 
                 $('.delRow').remove();
+                 --i;
               }
             },
             error: function (xhr, textStatus, errorThrown) {
@@ -199,11 +230,9 @@
               
           }  
 
-       }
-          
-         
+        }
 
-      
+       }  
      
     });
 

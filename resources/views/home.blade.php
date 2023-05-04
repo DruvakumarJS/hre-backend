@@ -85,7 +85,7 @@ $yvalue=array();
             </div>
 
             <div>
-                <label>Customers</label>
+                <label class="label-bold">Customers</label>
 
                 <div class="row">
                   <div class="col-sm-6 col-md-6">

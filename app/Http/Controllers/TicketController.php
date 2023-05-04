@@ -6,6 +6,7 @@ use App\Models\Ticket;
 use App\Models\TicketConversation;
 use App\Models\Employee;
 use App\Models\Pcn;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use File;
@@ -30,8 +31,9 @@ class TicketController extends Controller
      */
     public function create()
     {
-        $supervisor = Employee::where('role','supervisor')->get();
-        return view('ticket/create', compact('supervisor'));
+       // $supervisor = Employee::where('role','supervisor')->get();
+      $employee = User::select('id' , 'name' , 'role_id')->where('role_id', '!=' , '1')->get();
+        return view('ticket/create', compact('employee'));
     }
 
     /**

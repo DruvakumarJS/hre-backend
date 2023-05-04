@@ -80,6 +80,7 @@
                   <td>
                     <!-- <input type="text" name="specifications[0][spec]" placeholder="Enter param Name" class="form-control" /> -->
                    <div class="row"> 
+                     
                      <div class="col-md-3">
                       <label>Area / Location *</label>
                       <input class="form-control" type="text" name="address[0][area]" required="required">
@@ -100,6 +101,16 @@
                       <input class="form-control" type="text" name="address[0][gst]" required="required">
                     </div>
 
+                    <div class="col-md-1">
+                      <label></label>
+                      <button type="button" id="btnn" data-id="00"  class="form-control btn btn-outline-danger remove-input-mandate" style="display: none;">Delete</button>  
+                    </div>
+
+                     <!-- <div class="col-md-2">
+                      <label>f</label>
+                      <button type="button" data-id="00"  class="form-controle btn btn-outline-danger remove-input-field">Delete</button>
+                    </div> -->
+                   </div>
 
                    </td> 
 
@@ -135,12 +146,40 @@
 
 <script type="text/javascript">
     var i = 0;
+    var j = 'n';
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr><td><div class="row"><div class="col-md-3"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]"required=" required"></div><div class="col-md-2"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]" required="required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-2"><label></label>  <div class="col-md-1"> <button type="button" data-id="00"  class="form-controle btn btn-outline-danger remove-input-field">Delete</button> </div></td></tr>');
+        $("#dynamicAddRemove").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]"required=" required"></div><div class="col-md-2"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]" required="required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-1"><label></label><button type="button" data-id="00"  class="form-control btn btn-outline-danger remove-input-field">Delete</button> </div></td></tr>');
+        
+
+        document.getElementById("btnn").style.display="block";
     });
     $(document).on('click', '.remove-input-field', function () {
+    
+      if (j==0 && i==1){
+       
+        alert('There must be atleast one address');
+      }
+      else
+       {
         $(this).parents('tr').remove();
+         --i;
+      }
+
     });
+
+     $(document).on('click', '.remove-input-mandate', function () {
+     
+      if(!i == 0){
+      j=0;
+        $(this).parents('tr').remove();
+       
+      }
+      else {
+        alert('There must be atleast one address');
+      }
+        
+    });
+      
 </script>
 @endsection

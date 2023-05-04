@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-            <label class="label-bold" id="div1">MATERIAL CATEGORY</label>
+           
            <div id="div2">
             <a  class="btn btn-light" href="{{route('materials')}}"></i> View All Products</a>
             
@@ -69,7 +69,7 @@
         @endif       
        
         <div>
-        	<label style="margin-left: 20px">Material Category</label>
+        	<label class="label-bold" style="margin-left: 20px" >Material Category</label>
 
         	<div class="card border-white">
 

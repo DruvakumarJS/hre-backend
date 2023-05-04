@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
-            <label class="label-bold" id="div1">PCN</label>
+            <label class="label-bold" id="div1">Active PCNs</label>
            <div id="div2">
             <a class="btn btn-light" href="{{route('view_pcn')}}">
              <label id="modal">View Detailed PCN </label> </a>
@@ -19,8 +19,8 @@
             
         </div>
 
-        <div style="margin-top: 50px">
-        	<label style="margin-left: 20px">Active PCNs</label>
+        <div class=" page-container div-margin">
+        	
 
         	<div class="card border-white">
 
@@ -47,7 +47,7 @@
                               <td>{{$value->customer->email}}</td>
                               <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>
                               <td>{{$value->created_at}}</td>
-                              <td ><a href="{{route('edit_pcn',$value->pcn)}}"><label class="curved-text">View/Edit</label></a>
+                              <td ><a href="{{route('edit_pcn',$value->pcn)}}"><button class="btn btn-light curved-text-button">View / Edit</button></a>
                               </td>
                             </tr>
                           @endforeach

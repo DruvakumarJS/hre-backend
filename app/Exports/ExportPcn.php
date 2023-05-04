@@ -18,6 +18,6 @@ class ExportPcn implements FromCollection , WithHeadings
     }
 
     public function headings():array{
-    	return [ 'PCN', 'Client Name', 'Brand', 'type of Work', 'Area', 'City', 'State', 'Proposed Start Date', 'Proposed End Date', 'Approve holidays', 'Targeted Days', 'Actual Start Date', 'Actual Completed Date', 'Hold Days', 'Days Acheived', 'Status'];
+    	return [ 'PCN', 'Client Name', 'Brand Name', 'Type of Work', 'Location', 'City', 'State', 'Proposed Start Date', 'Proposed End Date', 'Approve Holidays', 'Targeted Days', 'Actual Start Date', 'Actual Completed Date', 'Hold Days', 'Days Achieved', 'Status'];
     }
 }

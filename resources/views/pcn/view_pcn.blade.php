@@ -35,14 +35,14 @@
                                     <th scope="col">Location</th>
                                     <th scope="col">City</th>
                                     <th scope="col">State</th>
-                                     <th scope="col">Proposed Start Date</th>
+                                    <th scope="col">Proposed Start Date</th>
                                     <th scope="col">Proposed End Date</th>
                                     <th scope="col">Approve Holidays</th>
-                                    <th scope="col">Target Date</th>
+                                    <th scope="col">Targeted Days</th>
                                     <th scope="col">Actual Start Date</th>
                                     <th scope="col">Actual Completed Date</th>
                                     <th scope="col">Project Hold Days</th>
-                                    <th scope="col">Actual Days Achived</th>
+                                    <th scope="col">Actual Days Achieved</th>
                                     <th scope="col">Status</th>
                                     <th></th>
                                 </tr>
