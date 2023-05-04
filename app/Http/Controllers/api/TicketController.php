@@ -227,6 +227,39 @@ class TicketController extends Controller
 
 	   }
 
-}
+    }
+
+    function conversation_details(Request $request){
+        if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no)){
+
+            $conversation = TicketConversation::where('ticket_id' , $request->ticket_id)->where('ticket_no',$request->ticket_no)->get();
+
+            foreach ($conversation as $key => $value) {
+                $data[]=[
+                    'sender' => $value->mailsender->name ,
+                    'recipient' => $value->mailrecipient->name ,
+                    'message' => $value->message ,
+                    'filepath' => 'https://hre.netiapps.com/ticketImages/',
+                    'filename' => $value->filename,
+                    'date' => $value->created_at->toDateTimeString()];
+            }
+
+            return response()->json([
+                'status' => 1 ,
+                'message' => 'Success',
+                'data'=> $data
+             ]);
+
+        }
+        else{
+            return response()->json([
+                'status' => 0 ,
+                'message' => 'Insufficient inputs',
+                'data'=> ''
+             ]);
+
+        }
+
+    }
 
 }
