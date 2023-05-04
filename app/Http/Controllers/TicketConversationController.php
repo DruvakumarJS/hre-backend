@@ -63,7 +63,7 @@ class TicketConversationController extends Controller
             $destinationPath = public_path().'/ticketimages' ;
             $file->move($destinationPath,$fileName);
             
-    }
+         }
 
             $conversation = TicketConversation::create([
                 'ticket_id' => $request->ticket_id ,

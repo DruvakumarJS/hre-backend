@@ -46,10 +46,5 @@ class EmployeeController extends Controller
         	]);
         }
        
-
-        
-
-
-
     }
 }

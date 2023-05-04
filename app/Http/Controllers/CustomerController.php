@@ -123,7 +123,9 @@ class CustomerController extends Controller
     {
        // echo '<pre>';
        
-        //print_r($request->Input());die();
+       // print_r($request->Input());die();
+
+        if(isset($request->address)){
 
         $update_customer = Customer::where('id', $request->id)->update([
             'name' => $request->name,
@@ -169,9 +171,7 @@ class CustomerController extends Controller
                     'area' => $value['area'] , 
                     'city' => $value['city'] , 
                     'state' => $value['state'],
-                    'gst' => $value['gst']  ]);  
-
-               
+                    'gst' => $value['gst']  ]); 
 
                 }
               }
@@ -184,7 +184,10 @@ class CustomerController extends Controller
         }
 
         return redirect()->route('view_customers');
-
+      }
+      else{
+         return redirect()->Back()->withmessage('Please add atleast one address');
+      }  
     }
 
     /**
