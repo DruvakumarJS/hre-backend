@@ -143,7 +143,7 @@ class IndentController extends Controller
       if(!isset($request->user_id)){
         return response()->json([
               'status' => 0 ,
-              'message' => 'Unauthorized' ,
+              'message' => 'UnAuthorized' ,
               'data' => ''
               ]);
       }
@@ -179,7 +179,7 @@ class IndentController extends Controller
       if(!isset($request->user_id) || !isset($request->indent_id) ){
         return response()->json([
               'status' => 0 ,
-              'message' => 'Unauthorized' ,
+              'message' => 'UnAuthorized' ,
               'data' => ''
               ]);
       }
@@ -242,7 +242,7 @@ class IndentController extends Controller
      else {
       return response()->json([
                     'status' => 0 ,
-                    'message' => 'Unauthorized',
+                    'message' => 'UnAuthorized',
                     'data'=> ""]);
      }
 
@@ -310,7 +310,7 @@ class IndentController extends Controller
 
            return response()->json([
                         'status' => 0 ,
-                        'message' => 'Unauthorized',
+                        'message' => 'UnAuthorized',
                         'data'=> ""]);
         }
 
@@ -395,7 +395,7 @@ class IndentController extends Controller
 
         return response()->json([
                         'status' => 0 ,
-                        'message' => 'Unauthorized/Insufficient data'
+                        'message' => 'UnAuthorized/Insufficient data'
                         ]);
 
       }

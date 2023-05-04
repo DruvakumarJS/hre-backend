@@ -39,7 +39,8 @@ class UserController extends Controller
             else {
                  return response()->json([
                         'status '=> 0,
-                        'message' => 'Invalid credentials'
+                        'message' => 'Invalid credentials',
+                        'data' => ''
                         
                 ],200);
 
@@ -50,7 +51,8 @@ class UserController extends Controller
         else {
             return response()->json([
             'status' => 0,
-            'message' => 'Invalid credentials'
+            'message' => 'Invalid credentials',
+            'data' => ''
             
         ],200);
 
