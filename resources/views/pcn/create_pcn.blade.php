@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+
+@php
+$date = date('dd-mm-yyyy');
+@endphp
     
 <div class="container">
     <div class="row justify-content-center">
@@ -96,14 +100,30 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
-                                <input id="" name="start_date" type="date" class="form-control">
+                                <input id="start_date" name="start_date" type="text" class="form-control" min="{{$date}}" placeholder="dd-mm-yyyy">
+                                <script language="javascript">
+                                   $( function() {
+                                      $( "#start_date" ).datepicker({
+                                        minDate: 0
+                                      });
+                                    });
+
+                                </script>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project End Date</label>
                             <div class="col-7">
-                                <input id="" name="end_date" type="date" class="form-control">
+                                <input id="end_date" name="end_date" type="text" class="form-control" min="{{$date}}" placeholder="dd-mm-yyyy">
                             </div>
+                             <script language="javascript">
+                                   $( function() {
+                                      $( "#end_date" ).datepicker({
+                                        minDate: 0
+                                      });
+                                    });
+
+                                </script>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Targeted Days</label>
@@ -114,14 +134,30 @@
                         <div class="form-group row">
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">
-                                <input id="text1" name="actual_start_date" type="date" class="form-control">
+                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" min="{{$date}}" placeholder="dd-mm-yyyy">
                             </div>
+                             <script language="javascript">
+                                   $( function() {
+                                      $( "#actual_start_date" ).datepicker({
+                                        minDate: 0
+                                      });
+                                    });
+
+                                </script>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Completed Date</label>
                             <div class="col-7">
-                                <input id="" name="actual_end_date" type="date" class="form-control">
+                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" min="{{$date}}" placeholder="dd-mm-yyyy">
                             </div>
+                             <script language="javascript">
+                                   $( function() {
+                                      $( "#actual_end_date" ).datepicker({
+                                        minDate: 0
+                                      });
+                                    });
+
+                                </script>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Hold Days</label>

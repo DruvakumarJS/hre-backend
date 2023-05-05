@@ -23,7 +23,7 @@
 
           
         </div>
-
+      <div class="page-container">
         <div class="div-margin">
         	
         	<div class="card border-white">
@@ -69,7 +69,8 @@
                     </div>
                     <!--</div>-->
                  </div>
-        </div>	
+        </div>
+      </div>    	
     </div>
 </div>
 @endsection

@@ -32,9 +32,10 @@
              </form>
 
           </div>       
-     </div>
+       </div>
 
-     <div class="div-margin">
+    <div class="page-container"> 
+     <div>
      	<div class="card border-white">
      		<table class="table">
 
@@ -103,8 +104,10 @@
      	</div>
      	
      </div>
+    </div> 
    </div>
-</div>
+  </div> 
+
 
 <script type="text/javascript">
 	function getTickets(){

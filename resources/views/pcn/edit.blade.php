@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -94,10 +95,23 @@
 
                         <hr/>
                         <h3>Completion Details</h3>
+                        <input type="text" name="created_date" id="created_date" value="27-04-2023">
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
-                                <input id="" name="start_date" type="date" class="form-control" value="{{$pcn_data->proposed_start_date}}">
+                                <input id="start_date" name="start_date" type="text" class="form-control" value="{{$pcn_data->proposed_start_date}}" placeholder="dd-mm-yyyy" >
+                                <script language="javascript">
+                                   $( function() {
+                                      $( "#start_date" ).datepicker({
+                                        var startdate = document.getElementById('created_date').val;
+                                        alert(startdate);
+
+                                        minDate: startdate
+                                      });
+                                    });
+
+                                </script>
+                            
                             </div>
                         </div>
                         <div class="form-group row">
