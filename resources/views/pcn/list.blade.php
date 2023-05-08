@@ -28,7 +28,7 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th>Sl.no</th>
+                              <th>Sl.No</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Customer Name</th>
                               <th scope="col">Customer Email</th>
@@ -48,7 +48,7 @@
                               <td>{{$value->customer->email}}</td>
                               <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>
                               <td>{{$value->created_at}}</td>
-                              <td ><a href="{{route('edit_pcn',$value->pcn)}}"><button class="btn btn-light curved-text-button">View / Edit</button></a>
+                              <td ><a href="{{route('edit_pcn',$value->pcn)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
                               </td>
                             </tr>
                           @endforeach

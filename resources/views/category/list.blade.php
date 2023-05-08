@@ -80,8 +80,8 @@
                               <th scope="col">Category</th>
                               <th scope="col">Category Code</th>
                               <th scope="col">Action</th>
-                              <th ></th>
-                              <th ></th>
+                              <th >Action</th>
+                            
                              
                             </tr>
                           </thead>
@@ -99,11 +99,9 @@
                                <td class="openModal" >
                                 <!-- <a href="" data-bs-toggle="modal"  data-bs-target="#myModal" ><i class='fa fa-edit' style='font-size:24px;'></i></a> -->
 
-                                <a id="MybtnModal_{{$key}}" data-id="{{$value->category}}"> <i class='fa fa-edit' style='font-size:24px;color:blue;'></i></a>
+                                <a id="MybtnModal_{{$key}}" data-id="{{$value->category}}"> <button class="btn btn-light curved-text-button btn-sm">Edit</button></i></a>
                                 
-                                 </td>
-                               <td >
-                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_category',$value->code)}}" > <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
+                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_category',$value->code)}}" > <button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>
 
                                    
                               </td>

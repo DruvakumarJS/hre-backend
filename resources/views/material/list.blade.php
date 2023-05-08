@@ -34,8 +34,8 @@
                               <th scope="col">UoM</th>
                               <th scope="col">Specifications</th>
                               
-                              <th > </th>
-                              <th > </th>
+                              <th >Action</th>
+                             
                              
                             </tr>
                           </thead>
@@ -48,7 +48,7 @@
                               <td>{{$value->name}}</td>
                               <td>{{$value->brand}}</td>
                               <td>{{$value->uom}}</td>
-                              <td> <table>
+                              <td>Action <table>
                                 <tbody>
                                   @php
                                    $info = json_decode($value->information);
@@ -62,14 +62,13 @@
                                      
                                   @endforeach
                                 </tbody>
-                              </table></td>
+                              </table>
+                            </td>
                               
-                               <td>
-                                  <a href="{{route('edit_product',$value->item_code)}}" > <i class='fa fa-edit' style='font-size:24px;color:blue;'></i></a>   
-                              </td>
-
-                               <td>
-                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_product',$value->id)}}" > <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>   
+                              <td>
+                                  <a href="{{route('edit_product',$value->item_code)}}" > <button class="btn btn-light curved-text-button btn-sm">Edit</button></i></a>   
+                             
+                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_product',$value->id)}}" > <button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>   
                               </td>
                               
                             </tr>

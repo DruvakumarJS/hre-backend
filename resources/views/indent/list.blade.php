@@ -52,7 +52,7 @@
                                 <td>{{$value->created_at}}</td> 
     
                                
-                                <td> <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button">View / Edit</button></a></td>
+                                <td> <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button btn-sm">View</button></a></td>
                                 
                               </tr>
                           @endforeach

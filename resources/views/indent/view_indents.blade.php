@@ -107,7 +107,7 @@
                              	<td>{{$value->pending}}</td>
                              	<td>{{$value->status}}</td>
                              	<td>
-                                <a href="{{route('edit_intends' , $value->id)}}"><i class="fa fa-edit"></i></a>
+                                <a href="{{route('edit_intends' , $value->id)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
                              		
                              	</td>
                              </tr>

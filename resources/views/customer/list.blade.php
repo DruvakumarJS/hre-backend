@@ -55,8 +55,8 @@
                                   @endforeach
                                 </td>
                               <td>
-                              	 <a href="{{route('edit_customer',$value->id)}}"><button class="btn btn-light btn-sm">Edit</button></a>
-                                <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_customer', $value->id)}}"><button class="btn btn-danger btn-sm">Delete</button></a>  
+                              	 <a href="{{route('edit_customer',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
+                                <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_customer', $value->id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>  
                               </td>
                             </tr>
                             @endforeach

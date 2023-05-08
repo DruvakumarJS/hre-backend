@@ -64,7 +64,7 @@
                                 	<option value="{{Auth::user()->id}}">Self</option>
                                 	@foreach($employee as $key => $value)
                                 	
-                                	<option value="{{$value->user_id}}">{{$value->name}} - {{$value->roles->alias}}</option>
+                                	<option value="{{$value->id}}">{{$value->name}} - {{$value->roles->alias}}</option>
 
                                 	@endforeach
                                 </select>
