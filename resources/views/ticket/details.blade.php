@@ -6,7 +6,7 @@
 	 <div class="container-header">
             
           <div id="div2">
-            <a class="btn btn-light" href="{{route('tickets')}}">
+            <a class="btn btn-light btn-outline-secondary" href="{{route('tickets')}}">
              <label id="modal">View Tickets </label> </a>
           </div>
           

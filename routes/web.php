@@ -47,6 +47,7 @@ Route::middleware('role:admin')->group(function () {
     Route::get('edit_user/{id}',[UserController::class , 'edit'])->name('edit_user');
     Route::post('update_user',[UserController::class , 'update'])->name('update_user');
     Route::get('delete_user/{id}',[UserController::class , 'destroy'])->name('delete_user');
+    Route::get('delete_user/{id}',[UserController::class , 'destroy'])->name('back');
 
 
     Route::get('materials',[MaterialController::class,'index'])->name('materials');
@@ -150,6 +151,7 @@ Route::middleware('role:procurement')->group(function () {
     Route::get('edit_intends/{id}',[IntendController::class,'edit'])->name('edit_intends');
     Route::post('update_quantity',[IntendController::class,'update_dispatches'])->name('update_quantity');
     Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');
+    Route::get('filter_indents/{filter}',[IntendController::class,'filter_indents'])->name('filter_indents');
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');
     Route::get('generate-pdf', [HomeController::class, 'generatePDF'])->name('pdf');

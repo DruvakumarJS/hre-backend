@@ -6,12 +6,12 @@
        <div class="container-header">
             <label class="label-bold" id="div1">Active PCNs</label>
            <div id="div2">
-            <a class="btn btn-light" href="{{route('view_pcn')}}">
+            <a class="btn btn-light btn-outline-secondary" href="{{route('view_pcn')}}">
              <label id="modal">View Detailed PCN </label> </a>
           
           </div>
           <div id="div2" style="margin-right: 30px">
-             <a class="btn btn-light" href="{{route('create_pcn')}}"><i class="fa fa-plus"></i> 
+             <a class="btn btn-light btn-outline-secondary" href="{{route('create_pcn')}}"><i class="fa fa-plus"></i> 
              <label id="modal">Create PCN</label></a>
           </div>
 

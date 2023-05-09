@@ -7,12 +7,12 @@
             <label class="label-bold" id="div1">Materials</label>
            
           <div id="div2" style="margin-right: 30px">
-            <a class="btn btn-light" href="{{route('materials_master')}}"></i> View Category</a>
+            <a class="btn btn-light btn-outline-secondary" href="{{route('materials_master')}}"></i> View Category</a>
             
           </div>
 
            <div id="div3" style="margin-right: 30px">
-             <a href="{{route('export-materials','all')}}"><button class="btn btn-light" > Download CSV</button></a>
+             <a href="{{route('export-materials','all')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
           </div>
 
             

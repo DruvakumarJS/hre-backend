@@ -101,21 +101,13 @@ $date = date('dd-mm-yyyy');
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
                                 <input id="start_date" name="start_date" type="text" class="form-control" placeholder="YYYY-MM-DD">
-                                <script language="javascript">
-                                   $( function() {
-                                      $( "#start_date" ).datepicker({
-                                       minDate:0,
-                                        dateFormat: 'yy-mm-dd'
-                                      });
-                                    });
-
-                                </script>
+                                
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project End Date</label>
                             <div class="col-7">
-                                <input id="end_date" name="end_date" type="text" class="form-control"placeholder="YYYY-MM-DD"  onclick="getstartdate()">
+                                <input id="end_date" name="end_date" type="text" class="form-control"placeholder="YYYY-MM-DD" >
                                
                         </div>
                          </div>
@@ -129,22 +121,14 @@ $date = date('dd-mm-yyyy');
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">
                                 <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" placeholder="YYYY-MM-DD">
-                                <script language="javascript">
-                                   $( function() {
-                                      $( "#actual_start_date" ).datepicker({
-                                       minDate:0,
-                                        dateFormat: 'yy-mm-dd'
-                                      });
-                                    });
-
-                                </script>
+                               
                             </div>
                              
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Completed Date</label>
                             <div class="col-7">
-                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" placeholder="YYYY-MM-DD" onclick="getActualstartdate()">
+                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" placeholder="YYYY-MM-DD" >
                                
                         </div>
                          </div>
@@ -163,7 +147,7 @@ $date = date('dd-mm-yyyy');
                         <input type="hidden" name="customer_id" id="customer_id">
                         <div class="form-group row">
                             <div class="offset-5 col-7">
-                                <button name="submit" type="submit" class="btn btn-danger">Submit</button>
+                                <button name="submit" type="submit" class="btn btn-success">Submit</button>
                                 <a href="{{route('create_pcn')}}"><button name="submit" type="submit" class="btn btn-light">Cancel</button></a>
                             </div>
                         </div>
@@ -230,26 +214,49 @@ $( document ).ready(function() {
 
 </script>
 
+<script language="javascript">
+   $( function() {
+      $( "#start_date" ).datepicker({
+       minDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+         // alert(dateText);
+          setenddate(dateText);
+          
+        }
+      });
+    });
 
-<script type="text/javascript">
-  
-     function getstartdate(){
+     function setenddate(dateText){
          $("#end_date" ).datepicker({
-           minDate:document.getElementById('start_date').value,
+           minDate:dateText,
             dateFormat: 'yy-mm-dd'
           });
-       
-
+      
      }
 
-     function getActualstartdate(){
+ $( function() {
+      $( "#actual_start_date" ).datepicker({
+       minDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+        //  alert(dateText);
+          setactualenddate(dateText);
+
+
+        }
+      });
+    });
+
+
+     function setactualenddate(dateText){
          $("#actual_end_date" ).datepicker({
-           minDate:document.getElementById('actual_start_date').value,
+           minDate:dateText,
             dateFormat: 'yy-mm-dd'
           });
-       
-
+      
      }
-   
+
   </script>
+
 @endsection

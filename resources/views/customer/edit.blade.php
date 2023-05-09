@@ -7,7 +7,7 @@
     <div class="container-header">
             <label class="label-bold" id="div1">Edit Customer</label>
          <div id="div2">
-           <a class="btn btn-light" href="{{route('view_customers')}}">
+           <a class="btn btn-light btn-outline-secondary" href="{{route('view_customers')}}">
              <label id="modal"> View All Customers</label></a>
               
          </div>

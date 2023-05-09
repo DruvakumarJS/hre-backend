@@ -12,7 +12,7 @@
        <div class="container-header">
             <label class="label-bold" id="div1">Generate Tickets</label>
            <div id="div2">
-            <a class="btn btn-light" href="{{route('tickets')}}">
+            <a class="btn btn-light btn-outline-secondary" href="{{route('tickets')}}">
              <label id="modal">View Tickets </label> </a>
           
           </div>

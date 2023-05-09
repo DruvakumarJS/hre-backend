@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Edit User</label>
-          <div id="div2">
-             <button class="btn btn-light" > View Users</button>
-          </div>
+          <!-- <div id="div2">
+             <a href="{{route('edit_user' , $id)}}"><button class="btn btn-light btn-outline-secondary"> View Users</button></a>
+          </div> -->
           
            @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>

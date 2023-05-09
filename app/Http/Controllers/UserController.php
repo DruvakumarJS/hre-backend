@@ -167,7 +167,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $userData = Employee::where('user_id',$id)->first();
-        return view('user/edit', compact('userData'));
+        return view('user/edit', compact('userData' , 'id'));
     }
 
     /**
@@ -259,7 +259,11 @@ class UserController extends Controller
         return view('pcn/create_pcn');
     }
 
-      public function export($role){
+    public function export($role){
           return Excel::download(new ExportUsers($role) , $role."s.csv");
+    }
+
+    public function back(){
+        return redirect()->back();
     }
 }

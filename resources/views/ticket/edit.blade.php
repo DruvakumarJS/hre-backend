@@ -20,17 +20,26 @@
      				<form method="post" action="{{route('update-ticket')}}">
      					@csrf
      					<div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Project Code Number *</label>
+                            <label for="" class="col-5 col-form-label">Project Code Number </label>
                             <div class="col-7">
                                 <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Enter PCN" value="{{$tickets->pcn}}" readonly="readonly">
                                
                             </div>
                         </div>
 
+                        
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Indent No</label>
                             <div class="col-7">
                                 <input name="indent_no" id="indent_no" type="text" class="typeahead form-control" placeholder="Enter Indent No (Optional)" value="{{$tickets->indent_no}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Subject </label>
+                            <div class="col-7">
+                                <input name="pcn" id="subject" type="subject" class="typeahead form-control" required="required" value="{{$tickets->subject}}" readonly="readonly">
+                               
                             </div>
                         </div>
 
@@ -45,13 +54,13 @@
                             <label for="" class="col-5 col-form-label">Assign to *</label>
                             <div class="col-7">
                                 <!-- <input name="assign_to" type="assign_to" class="typeahead form-control" required="required" placeholder="Assign ticket to Employee " value="{{$tickets->employee->name}}"> -->
-                                <select class="form-control" name="user_id" id="user_id">
+                                <select class="form-control" name="user_id" id="user_id" required="required">
                                     <option value="">Select user</option>
                                     <option value="{{Auth::user()->id}}" <?php echo (Auth::user()->id == $tickets->assigned_to) ? 'selected' : ''; ?> >Self</option>
 
                                     @foreach($supervisor as $key => $value)
                                     
-                                    <option value="{{$value->user_id}}" <?php echo ($value->user_id == $tickets->assigned_to) ? 'selected' : ''; ?>>{{$value->name}}</option>
+                                    <option value="{{$value->id}}" <?php echo ($value->user_id == $tickets->assigned_to) ? 'selected' : ''; ?>>{{$value->name}} - {{$value->roles->alias}}</option>
 
                                     @endforeach
                                 </select>
@@ -103,13 +112,13 @@
         var status = document.getElementById("status").value;
        
         if(status == 'Reopen'){
-            alert('Since you are reopening the ticket, ticket will be assigned to youself');
+            alert('Since you are reopening the ticket,You will be the owner of the ticket');
 
-           document.getElementById('user_id').value = <?php echo Auth::user()->id ?>;
+          // document.getElementById('user_id').value = <?php echo Auth::user()->id ?>;
           // document.getElementById("user_id").disabled=true;
         }
         else {
-            document.getElementById("user_id").disabled=false;
+           // document.getElementById("user_id").disabled=false;
         }
 
     }

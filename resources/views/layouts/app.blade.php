@@ -71,6 +71,7 @@
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
                      ||request()->routeIs('edit_intends')
+                     ||request()->routeIs('filter_indents')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 

@@ -10,6 +10,9 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use File;
+use SendGrid\Mail\From;
+use SendGrid\Mail\To;
+use SendGrid\Mail\Mail;
 
 class TicketController extends Controller
 {
@@ -103,7 +106,8 @@ class TicketController extends Controller
                 'filename' => $fileName 
             ]);
 
-            if($conversation){   
+            if($conversation){
+
             return redirect()->route('tickets');
             }
             else{
@@ -140,7 +144,7 @@ class TicketController extends Controller
     public function edit($id)
     {
         $tickets = Ticket::where('ticket_no', $id)->first();
-        $supervisor = Employee::where('role','supervisor')->get();
+        $supervisor = User::get();
         return view('ticket/edit', compact('tickets' , 'supervisor'));
     }
 

@@ -1,12 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style type="text/css">
+	table {
+    table-layout:fixed;
+}
+table td {
+    width: 35px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
 	 <div class="container-header">
             <label class="label-bold" id="div1">Tickets</label>
            <div id="div2">
-            <a class="btn btn-light" href="{{route('generate-ticket')}}">
+            <a class="btn btn-light btn-outline-secondary" href="{{route('generate-ticket')}}">
              <label id="modal">Generate Ticket </label> </a>
           
           </div>
@@ -36,19 +48,19 @@
 
     <div class="page-container"> 
      <div>
-     	<div class="card border-white">
+     	<div class="card border-white table-responsive">
      		<table class="table">
 
      			<thead>
 	                <tr>
 	                 
 	                  <th scope="col">Sl.No</th>
-	                  <th scope="col">Ticket ID</th>
+	                  <th scope="col">Ticket No</th>
 	                  <th scope="col">PCN</th>
 	                  <th scope="col">Subject</th>
 	                  <th scope="col">Client Name</th>
 	                
-	                  <th scope="col">Owner</th>
+	                  <th scope="col">Assigned to</th>
 	                  <th scope="col">Created Date</th>
 	                  <th scope="col">Updated date</th>
 	                  <th scope="col">Status</th>
@@ -62,7 +74,7 @@
 	                	<td>{{$key + $tickets->firstItem()}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
-	                	<td>{{$value->subject}}</td>
+	                	<td  >{{$value->subject}}</td>
 	                	<td>{{$value->Pcn->client_name}}</td>
 	                
 	                	<!-- @if($value->owner == Auth::user()->id)

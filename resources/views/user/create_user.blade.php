@@ -7,7 +7,7 @@
             <label class="label-bold" id="div1">Add</label>
           <div id="div2">
             <a href="{{route('users')}}">
-              <button class="btn btn-light"> User Master</button>
+              <button class="btn btn-light btn-outline-secondary"> User Master</button>
             </a>
              
           </div>

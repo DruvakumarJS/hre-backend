@@ -47,7 +47,7 @@
 
 
            <div id="div2">
-            <a href="{{route('intends')}}"><button class="btn btn-light" >View Indents</button></a>
+            <a href="{{route('intends')}}"><button class="btn btn-light btn-outline-secondary" >View Indents</button></a>
           </div>
           
 

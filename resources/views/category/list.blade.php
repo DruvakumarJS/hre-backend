@@ -6,12 +6,12 @@
         <div class="container-header">
            
            <div id="div2">
-            <a  class="btn btn-light" href="{{route('materials')}}"></i> View All Products</a>
+            <a  class="btn btn-light btn-outline-secondary" href="{{route('materials')}}"></i> View All Products</a>
             
           </div>
         
            <div id="div2" style="margin-right: 30px" >
-            <a data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-light" href=""><i class="fa fa-plus"></i> 
+            <a data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-light btn-outline-secondary" href=""><i class="fa fa-plus"></i> 
              <label id="modal">Create Category</label>
            </a>
 
@@ -19,7 +19,7 @@
           </div>
 
            <div id="div3" style="margin-right: 30px">
-             <a href="{{route('export-categories')}}"><button class="btn btn-light" > Download CSV</button></a>
+             <a href="{{route('export-categories')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
           </div>
 
             

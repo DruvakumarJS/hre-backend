@@ -8,13 +8,13 @@
           <div id="div2">
 
               <div id="div2" style="margin-right: 30px" >
-            <a class="btn btn-light" href="{{route('users')}}"> 
+            <a class="btn btn-light btn-outline-secondary" href="{{route('users')}}"> 
              <label id="modal">User Master</label>
            </a>
           </div>
 
               <div id="div2" style="margin-right: 30px" >
-            <a class="btn btn-light" href="{{route('create_user',$role_name)}}"><i class="fa fa-plus"></i> 
+            <a class="btn btn-light btn-outline-secondary" href="{{route('create_user',$role_name)}}"><i class="fa fa-plus"></i> 
              <label id="modal">Add User</label>
            </a>
           </div>
@@ -22,7 +22,7 @@
         
 
            <div id="div3" style="margin-right: 30px">
-             <a href="{{route('export-users',$role_name)}}"> <button class="btn btn-light" > Download CSV</button> </a>
+             <a href="{{route('export-users',$role_name)}}"> <button class="btn btn-light btn-outline-secondary" > Download CSV</button> </a>
           </div>
         </div>
     </div>
@@ -56,8 +56,8 @@
                                    <td>{{$value->role}}</td>                                  
                                    <td>{{$value->created_at}}</td>
                                    <td>
-                                    <a href="{{route('edit_user',$value->user_id)}}"><i class="fa fa-edit"></i></a>
-                                    <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_user',$value->user_id)}}"><i class="fa fa-trash"></i></a></td>
+                                    <a href="{{route('edit_user',$value->user_id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
+                                    <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_user',$value->user_id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></i></a></td>
                                </tr>
                             @endforeach   
 

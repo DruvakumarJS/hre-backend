@@ -6,15 +6,15 @@
        <div class="container-header">
             <label class="label-bold" id="div1">Detailed PCN</label>
            <div id="div2">
-            <a href="{{route('PCN')}}"><button class="btn btn-light" >View PCN</button></a>
+            <a href="{{route('PCN')}}"><button class="btn btn-light btn-outline-secondary" >View PCN</button></a>
           </div>
           <div id="div2" style="margin-right: 30px">
             <a href="{{route('create_pcn')}}">
-             <button class="btn btn-light" ><i class="fa fa-plus"></i>  Create PCN</button> </a>
+             <button class="btn btn-light btn-outline-secondary" ><i class="fa fa-plus"></i>  Create PCN</button> </a>
           </div>
 
            <div id="div3" style="margin-right: 30px">
-             <a href="{{route('export-pcn')}}"><button class="btn btn-light" > Download CSV</button></a>
+             <a href="{{route('export-pcn')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
           </div>
 
 

@@ -21,12 +21,13 @@ class IntendController extends Controller
     public function index()
     { 
         $indents=Intend::orderBy('id', 'DESC')->paginate(10);
+        $all = Intend::count();
         $activeCount = Intend::where('status','Active')->count();
         $pendingCount = Intend::where('status','Pending')->count();
         $compltedCount = Intend::where('status','Completed')->count();
         //print_r($pendingCount);
 
-         return view('indent/list' , compact('indents' , 'activeCount', 'pendingCount' , 'compltedCount'));
+         return view('indent/list' , compact('indents' , 'all' , 'activeCount', 'pendingCount' , 'compltedCount'));
     } 
 
     /**
@@ -214,5 +215,22 @@ class IntendController extends Controller
       
         return Excel::download(new ExportIndents($indent_no) , 'indents_'.$indent_no.".csv");
 
+    }
+
+    public function filter_indents($filter){
+        if($filter=='all'){
+             $indents=Intend::orderBy('id', 'DESC')->paginate(10);
+        }
+        else {
+             $indents=Intend::where('status',$filter)->orderBy('id', 'DESC')->paginate(10);
+        }
+       // $indents=Intend::where('status',$filter)->orderBy('id', 'DESC')->paginate(10);
+        $all = Intend::count();
+        $activeCount = Intend::where('status','Active')->count();
+        $pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::where('status','Completed')->count();
+        //print_r($pendingCount);
+
+         return view('indent/list' , compact('indents' , 'all' , 'activeCount', 'pendingCount' , 'compltedCount'));
     }
 }

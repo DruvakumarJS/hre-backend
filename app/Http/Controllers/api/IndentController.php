@@ -8,10 +8,14 @@ use App\Models\Intend;
 use App\Models\Indent_list;
 use App\Models\Pcn;
 use App\Models\GRN;
+use App\Models\User;
 use App\Models\Material;
-use Illuminate\Support\Facades\Mail;
+//use Illuminate\Support\Facades\Mail;
 use App\Mail\IndentsMail;
 use PDF;
+use SendGrid\Mail\From;
+use SendGrid\Mail\To;
+use SendGrid\Mail\Mail;
 
 class IndentController extends Controller
 {
@@ -96,14 +100,46 @@ class IndentController extends Controller
           $idtend= Intend::where('indent_no',$ind_no)->first();
            $pdf_array = Indent_list::where('indent_id' , $idtend->id)->with('materials')->get();
 
+           foreach ($pdf_array as $key => $value) {
+             $data[] = [
+              'material_id' => $value->material_id ,
+              'name' => $value->materials->name ,
+              'brand' => $value->materials->brand ,
+              'decription' => $value->decription,
+              'quantity' => $value->quantity,
+             ];
+           }
+
+           $res = response()->json(['indent' => $data ]);
+           // print_r(json_encode($res)); die();
+
+           $res = '{
+                    "user": {
+                      "orderHistory": [
+                        {
+                          "date": "2/1/2018",
+                          "item": "shoes"
+                        },
+                        {
+                          "date": "1/4/2017",
+                          "item": "hat"
+                        }
+                      ]
+                    }
+                  }';
+
+      
+
+          /*
+
            $indent_details = [
                  'indent_no' => $idtend->indent_no,
                  'pcn' => $idtend->pcn ,
-                 'details'=> $pdf_array     
-          ];
+                 'details'=> $data     
+          ];*/
 
         
-        $file = 'HRE_'.$idtend->indent_no.'.pdf';
+        /*$file = 'HRE_'.$idtend->indent_no.'.pdf';
           
         $pdf = PDF::loadView('pdf.indentsPDF', $indent_details);
       
@@ -111,9 +147,47 @@ class IndentController extends Controller
 
         $path = public_path('pdf');
         $filename = $path.'/'.$file;
+        Mail::to('druva@netiapps.com')->send(new IndentsMail($indent_details , $filename));*/
+
+        $userdetails = User::where('id', $request->user_id)->first();
+
+        $from = new From("abhishek@netiapps.com", "HRE");
+                $tos = [
+                    new To(
+                        "druva@netiapps.com",
+                        "Druva",
+                        /*[
+                            'subject' => 'Subject 1',
+                            'name' => 'Example User 1',
+                            'city' => 'Denver'
+                        ]*/
+                        [
+                            'indent_no' => $idtend->indent_no,
+                            'pcn' => $idtend->pcn,
+                            'name' => 'Druva',
+                            'supervisor' => $userdetails->name,
+                            'personalization' => $res
+
+                        ]
+                        
+                    )
+                ];
+
+               
+                $email = new Mail(
+                    $from,
+                    $tos
+                );
+                $email->setTemplateId("d-67930bd2eaed425ab4521e06f31e4c04");
+                
+                $sendgrid = new \SendGrid('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');
+                try {
+                  //  $response = $sendgrid->send($email);
+                } catch (Exception $e) {
+                    echo 'Caught exception: '.  $e->getMessage(). "\n";
+                } 
 
 
-       Mail::to('druva@netiapps.com')->send(new IndentsMail($indent_details , $filename));
 
         return response()->json([
          	 		'status' => 1 ,

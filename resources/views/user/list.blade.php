@@ -7,7 +7,7 @@
             <label class="label-bold" id="div1">Users Master</label>
          
            <div id="div3" style="margin-right: 30px">
-             <button class="btn btn-light" > Download CSV</button>
+             <button class="btn btn-light btn-outline-secondary" > Download CSV</button>
           </div>
         </div>
     </div>
