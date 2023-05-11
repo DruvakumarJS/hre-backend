@@ -30,6 +30,10 @@
             <a href="{{route('tickets')}}"><button class="btn btn-light btn-outline-secondary" > View Tickets</button></a>
              
           </div>
+         <!--  <div id="div2" style="margin-right: 30px">
+            <a href="{{route('tickets')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
+             
+          </div> -->
 
           
 

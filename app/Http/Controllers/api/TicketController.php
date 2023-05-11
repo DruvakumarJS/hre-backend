@@ -59,21 +59,10 @@ class TicketController extends Controller
 
 
      function create(Request $request){
-      $fileName = '';
-         if($file = $request->hasFile('image')) {
-             
-            $file = $request->file('image') ;
-            $fileName = $file->getClientOriginalName() ;
-        }
-
-         return response()->json([
-                'status' => 1 ,
-                'message' => $fileName
-             ]);
-
+      
       //  print_r($fileName);die();
 
-     	/*if(isset($request->user_id) && isset($request->pcn) && isset($request->subject) && isset($request->issue))
+     	if(isset($request->user_id) && isset($request->pcn) && isset($request->subject) && isset($request->issue))
      	{
 
      	if(Pcn::where('pcn', $request->pcn)->exists())
@@ -169,7 +158,7 @@ class TicketController extends Controller
              	'message' => 'Insufficient inputs'
              ]);
 
-    }*/
+    }
      	 
 
    }

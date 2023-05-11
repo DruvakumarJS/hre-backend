@@ -1,0 +1,22 @@
+
+Install Composer from  file .
+   -> while installing set php path as : D:Xampp/php/php.exe
+
+Install node from file .
+
+* Create a Laravel project of version 8*:
+  composer create-project laravel/laravel:"8.*" myproject
+    ->wait till all support files are downloaded 
+
+
+ * to start a server : php artisan serve
+
+ * every you run any command on terminal , we have to run server again 
+ * we will install laravel vu for default login and registration form 
+
+    -> composer require laravel/ui
+    -> then we will install Bootstrap : php artisan ui bootstrap --auth
+         ->Mix for using css and SAAS has been setup 
+    -> to generate tables and authenticstion codes : php artisan ui vue --auth
+    
+    -> to migrate / create tables that are created by laravel ui : php artisan migrate     

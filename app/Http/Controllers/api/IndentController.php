@@ -150,6 +150,7 @@ class IndentController extends Controller
         Mail::to('druva@netiapps.com')->send(new IndentsMail($indent_details , $filename));*/
 
         $userdetails = User::where('id', $request->user_id)->first();
+        $pcn_details = Pcn::where('pcn',$request->pcn)->first();
 
         $from = new From("abhishek@netiapps.com", "HRE");
                 $tos = [
@@ -165,24 +166,25 @@ class IndentController extends Controller
                             'indent_no' => $idtend->indent_no,
                             'pcn' => $idtend->pcn,
                             'name' => 'Druva',
-                            'supervisor' => $userdetails->name,
-                            'personalization' => $res
-
+                            'supervisor' => $userdetails->name
                         ]
                         
                     )
                 ];
 
-               
+              
                 $email = new Mail(
                     $from,
                     $tos
                 );
-                $email->setTemplateId("d-67930bd2eaed425ab4521e06f31e4c04");
+                $email->setTemplateId("d-03a5c49c9835443c9bfa4f0df5475e7f");
                 
-                $sendgrid = new \SendGrid('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');
+                $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
                 try {
-                  //  $response = $sendgrid->send($email);
+                    $response = $sendgrid->send($email);
+                     print $response->statusCode() . "\n";
+                     print_r($response->headers());
+                     print $response->body() . "\n"; die();
                 } catch (Exception $e) {
                     echo 'Caught exception: '.  $e->getMessage(). "\n";
                 } 

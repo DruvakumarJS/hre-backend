@@ -73,8 +73,8 @@
              <label id="modal">Reply</label>
            </a>
           </div>
+        
 
-     	<div>
      		<table class="table ">
      			<tr>
      				<th>Date</th>
@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="modal-body">
 
-                                       <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketImages/{{$value->filename}}" alt="ticketimage" style="width: 400px;height: 250px" />
+                                       <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value->filename}}" alt="ticketimage" style="width: 400px;height: 250px" />
                                       
                                     </div>
                     </div>
