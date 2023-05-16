@@ -7,6 +7,7 @@ use App\Http\Controllers\api\EmployeeController;
 use App\Http\Controllers\api\MaterialController;
 use App\Http\Controllers\api\IndentController;
 use App\Http\Controllers\api\TicketController;
+use App\Http\Controllers\api\AttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,5 @@ Route::post('/add-conversation',[TicketController::class,'conversation']);
 Route::post('/get-conversation',[TicketController::class,'conversation_details']);
 
 Route::post('/get-employees',[UserController::class,'employees']);
+
+Route::post('/attendance',[AttendanceController::class,'attendance']);
