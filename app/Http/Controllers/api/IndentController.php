@@ -130,26 +130,26 @@ class IndentController extends Controller
 
       
 
-          /*
+          
 
            $indent_details = [
                  'indent_no' => $idtend->indent_no,
                  'pcn' => $idtend->pcn ,
                  'details'=> $data     
-          ];*/
+          ];
 
         
-        /*$file = 'HRE_'.$idtend->indent_no.'.pdf';
+        $file = 'HRE_'.$idtend->indent_no.'.pdf';
           
         $pdf = PDF::loadView('pdf.indentsPDF', $indent_details);
       
         $pdf->save(public_path('pdf/'.$file));
-
+/*
         $path = public_path('pdf');
         $filename = $path.'/'.$file;
-        Mail::to('druva@netiapps.com')->send(new IndentsMail($indent_details , $filename));*/
-
-        $userdetails = User::where('id', $request->user_id)->first();
+        Mail::to('druva@netiapps.com')->send(new IndentsMail($indent_details , $filename));
+*/
+        /*$userdetails = User::where('id', $request->user_id)->first();
         $pcn_details = Pcn::where('pcn',$request->pcn)->first();
 
         $from = new From("abhishek@netiapps.com", "HRE");
@@ -157,16 +157,15 @@ class IndentController extends Controller
                     new To(
                         "druva@netiapps.com",
                         "Druva",
-                        /*[
-                            'subject' => 'Subject 1',
-                            'name' => 'Example User 1',
-                            'city' => 'Denver'
-                        ]*/
+                       
                         [
                             'indent_no' => $idtend->indent_no,
                             'pcn' => $idtend->pcn,
                             'name' => 'Druva',
-                            'supervisor' => $userdetails->name
+                            'supervisor' => $userdetails->name,
+                            'client_name' => $pcn_details->client_name,
+                            'brand' => $pcn_details->brand,
+                            'client_location' => $pcn_details->area.",".$pcn_details->city.",",$pcn_details->state
                         ]
                         
                     )
@@ -189,7 +188,7 @@ class IndentController extends Controller
                     echo 'Caught exception: '.  $e->getMessage(). "\n";
                 } 
 
-
+*/
 
         return response()->json([
          	 		'status' => 1 ,
@@ -296,7 +295,7 @@ class IndentController extends Controller
 
      if(isset($request->user_id))
      {
-      $Pcns = Pcn::get();
+      $Pcns = Pcn::where('status','Active')->get();
 
       foreach ($Pcns as $key => $value) {
       $pcn_array[] = [

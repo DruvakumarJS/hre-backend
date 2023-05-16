@@ -13,6 +13,9 @@ use File;
 use SendGrid\Mail\From;
 use SendGrid\Mail\To;
 use SendGrid\Mail\Mail;
+use PDF;
+
+use Illuminate\Support\Facades\Storage;
 
 class TicketController extends Controller
 {
@@ -35,8 +38,9 @@ class TicketController extends Controller
     public function create()
     {
        // $supervisor = Employee::where('role','supervisor')->get();
-      $employee = User::select('id' , 'name' , 'role_id')->where('role_id', '!=' , '1')->get();
-        return view('ticket/create', compact('employee'));
+      $employee = User::select('id' , 'name' , 'role_id')->get();
+      $pcn = Pcn::where('status', 'Active')->get();
+        return view('ticket/create', compact('employee', 'pcn'));
     }
 
     /**
@@ -47,7 +51,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //print_r($request->Input());die();
+        print_r($request->Input());die();
       
         if(Pcn::where('pcn', $request->pcn)->exists())
         {
@@ -159,11 +163,60 @@ class TicketController extends Controller
     {
        // print_r($request->Input());die();
 
-       $update = Ticket::where('id',$request->id)->update([
+        if($request->status == 'Re-Opened')
+        {
+             $update = Ticket::where('id',$request->id)->update([
+            'indent_no' => $request->indent_no,
+            'issue' => $request->issue ,
+            'owner' => $request->owner,
+            'assigned_to' => $request->user_id,
+            'status' => 'Pending',
+            'reopened'=> '1']);
+
+             $t_data = Ticket::where('id',$request->id)->first();
+
+             $conversation = TicketConversation::create([
+                'ticket_id' => $request->id ,
+                'ticket_no' => $t_data->ticket_no ,
+                'sender' => $request->owner ,
+                'recipient' => $request->user_id,
+                'message' => "Ticket is Reopened ",
+                'status' => 'Pending',
+                 'filename' => '' 
+               
+            ]);
+
+        }
+        else{
+             $update = Ticket::where('id',$request->id)->update([
             'indent_no' => $request->indent_no,
             'issue' => $request->issue ,
             'assigned_to' => $request->user_id,
             'status' => $request->status]);
+        }
+
+        if(isset($request->checkbox)){
+
+            $t_data = Ticket::where('id',$request->id)->first();
+
+        $data = [
+            'ticket_no' => $t_data->ticket_no,
+            'Subject' => $t_data->subject,
+            'issue' =>  $t_data->issue,
+            'status' => $t_data->status,
+            'created' =>$t_data->created_at,
+
+            'date' => date('m/d/Y')
+        ];
+
+        /* $filename = 'hre1.pdf';
+          
+         $pdf = PDF::loadView('pdf.ticket_invoice', $data);
+         return $pdf->download($filename);
+         
+        }*/
+
+      
 
        return redirect()->route('tickets');
     }
@@ -197,8 +250,12 @@ class TicketController extends Controller
             $tickets = Ticket::orderby('id' , 'DESC')->paginate();
             return view('ticket/list' ,  compact('tickets'));
         }
+         else if($request->filter == 'Reopend'){
+            $tickets = Ticket::where('reopened', '1')->orderby('id' , 'DESC')->paginate();
+            return view('ticket/list' ,  compact('tickets'));
+        }
         else {
-            $tickets = Ticket::where('assigned_to' , $request->filter)->orWhere('status',$request->filter)->orderby('id' , 'DESC')->paginate();
+            $tickets = Ticket::where('owner' , $request->filter)->orWhere('status',$request->filter)->orderby('id' , 'DESC')->paginate();
             return view('ticket/list' ,  compact('tickets'));
         }
     }

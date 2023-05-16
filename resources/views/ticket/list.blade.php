@@ -35,7 +35,7 @@ table td {
 	             	<option value="{{Auth::user()->id}}">My Tickets</option>
 	             	<option value="Pending">Pending Tickets</option>
 	             	<option value="Closed">Closed Tickets</option>
-	             	<option value="Reopen">Reopend Tickets</option>
+	             	<option value="Reopend">Reopend Tickets</option>
                  </select>
                  <div class="input-group-prepend">
 				    <button class="btn btn-outline-secondary rounded-0" type="submit">Filter</button>
@@ -92,7 +92,7 @@ table td {
 	                	
 	                	<td>{{$value->created_at}}</td>
 	                	<td>{{$value->updated_at}}</td>
-	                	<td>{{$value->status}}</td>
+	                	<td>{{$value->status}} <?php echo '<br>';echo($value->reopened == '1') ? 'Re-Opened':'' ?></td>
 	                	<td>
 	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
 

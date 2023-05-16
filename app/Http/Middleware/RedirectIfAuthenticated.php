@@ -35,19 +35,23 @@ class RedirectIfAuthenticated
         $role = Auth::user()->role; 
               switch ($role) {
                 case 'admin':
-                  return '/home';
+                 // return '/home';
+                  return redirect()->route('home');
                   break;
                   
                 case 'manager':
-                  return '/manager_home';
+                  //return '/manager_home';
+                   return redirect()->route('manager_home');
                   break; 
 
                 case 'procurement':
-                  return '/procurement_home';
+                 // return '/procurement_home';
+                   return redirect()->route('procurement_home');
                   break;      
 
                 default:
-                  return '/login'; 
+                 // return '/login'; 
+                   return redirect()->route('login');
                 break;
               }
       }

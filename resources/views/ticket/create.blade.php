@@ -27,7 +27,14 @@
      					<div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Code Number *</label>
                             <div class="col-7">
-                                <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Enter PCN" value="{{old('pcn')}}">
+                                <!-- <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Enter PCN" value="{{old('pcn')}}"> -->
+                                <select class="form-control" required="required" name="pcn">
+                                    <option value="">Select PCN</option>
+                                    @foreach($pcn as $key=>$value)
+                                    <option value="{{$value->pcn}}">{{$value->pcn}}</option>
+
+                                    @endforeach
+                                </select>
                                 @if(Session::has('message'))
                                    <div class="alert alert-danger mt-1 mb-1">{{ Session::get('message') }}</div>
                                 @endif 

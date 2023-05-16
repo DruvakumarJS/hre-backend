@@ -23,6 +23,7 @@ class CreateTicketsTable extends Migration
             $table->string('assigned_to');
             $table->string('owner');
             $table->string('status');
+            $table->string('reopened')->default('0');
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@
             text-align: center;
         }
     </style>
+    
 </head>
 <body>
     <h1>Indent Details</h1>

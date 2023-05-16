@@ -17,7 +17,8 @@ class Ticket extends Model
     	'issue',
     	'assigned_to',
     	'owner',
-    	'status'];
+    	'status',
+      'reopened'];
 
    function pcn()
     {
