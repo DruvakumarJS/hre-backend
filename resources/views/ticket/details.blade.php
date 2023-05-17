@@ -69,7 +69,7 @@
 
 
      	 <div id="div2">
-           <a data-bs-toggle="modal" data-bs-target="#replyModal"  class="btn btn-light" href=""><i class="fa fa-plus"></i> 
+           <a data-bs-toggle="modal" data-bs-target="#replyModal"  class="btn btn-light btn-outline-secondary" href=""><i class="fa fa-plus"></i> 
              <label id="modal">Reply</label>
            </a>
           </div>

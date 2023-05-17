@@ -29,8 +29,8 @@
                                <th scope="col">Material Id</th>
                                <th scope="col">Material Name</th> 
                                <th scope="col">Brand</th>
-                              <th scope="col">Description</th>                          
-                              <th scope="col">Total Quantity</th>
+                                <th scope="col">Description</th>                          
+                                <th scope="col">Total Quantity</th>
                            
                             </tr>
                           </thead>
@@ -39,12 +39,8 @@
                             
                              <tr>
                                 <td>{{$key+1}}</td>
-                                <td>{{$value->material_id}}</td>
-                                <td>{{$value->materials->name}}</td>
-                                <td>{{$value->materials->brand}}</td>
-                                <td>{{$value->decription}}</td>
-                                <td>{{$value->quantity}}</td>
-                              
+                                <td>{{$value['material_id']}}</td>
+                               
                              </tr>
                             @endforeach
                             

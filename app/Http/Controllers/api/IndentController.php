@@ -110,28 +110,7 @@ class IndentController extends Controller
              ];
            }
 
-           $res = response()->json(['indent' => $data ]);
-           // print_r(json_encode($res)); die();
-
-           $res = '{
-                    "user": {
-                      "orderHistory": [
-                        {
-                          "date": "2/1/2018",
-                          "item": "shoes"
-                        },
-                        {
-                          "date": "1/4/2017",
-                          "item": "hat"
-                        }
-                      ]
-                    }
-                  }';
-
-      
-
           
-
            $indent_details = [
                  'indent_no' => $idtend->indent_no,
                  'pcn' => $idtend->pcn ,

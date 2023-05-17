@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
       
@@ -24,7 +25,7 @@
     <div class="page-container">
     	<div class="div-margin">
 
-    		 <div class="card border-white" >
+    		 <div class="card border-white table-responsive" >
 
                         <table class="table">
                           <thead>
@@ -34,7 +35,7 @@
                               <th scope="col">Brand</th>
                               <th scope="col">Email</th>
                               <th scope="col">Mobile</th>
-                              <th scope="col">Address</th>
+                              <th scope="col" width="200px">Address</th>
                               <th scope="col">Action</th>
                              
                             </tr>
@@ -51,7 +52,7 @@
                               <td>{{$value->mobile}}</td>
                               <td>
                                   @foreach($value->address as $key1 =>$value1)
-                                     #{{$key1+1}} : {{ $value1->area }} ,{{ $value1->city }} , {{ $value1->state }} <br>
+                                     {{$key1+1}} : {{ $value1->area }} ,{{ $value1->city }} , {{ $value1->state }} <br>
                                   @endforeach
                                 </td>
                               <td>

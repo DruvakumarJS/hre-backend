@@ -34,7 +34,7 @@
                         </div>
                        <div>
                             <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;">Received Indent</h4>
-                            <a style="float: right;" href=""><label class="curved-text-button">View</label></a>
+                            <a style="float: right;" href="{{route('intends')}}"><label class="curved-text-button">View</label></a>
                         </div>
                         <label class="card-text-label ">No. of indent received today</label>
                     </div>
@@ -51,7 +51,7 @@
                         </div>
                        <div>
                             <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;color: #fff">Attendance</h4>
-                            <a style="float: right;" href=""><label class="curved-text-button">View</label></a>
+                            <a style="float: right;" href="{{route('attendance')}}"><label class="curved-text-button">View</label></a>
                         </div>
                         <label class="card-text-label" style="color:#fff">Today working</label>
                     </div>
@@ -67,7 +67,7 @@
                         </div>
                         <div>
                            <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;">Tickets</h4>
-                             <a style="float: right;margin-top: 10px" href=""><label class="curved-text-button">View</label></a>
+                             <a style="float: right;margin-top: 10px" href="{{route('tickets')}}"><label class="curved-text-button">View</label></a>
                         </div>
                         <label class="card-text-label ">Pending Tickets</label>
                     </div>

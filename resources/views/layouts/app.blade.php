@@ -106,10 +106,10 @@
 
 
                <div class="navigation">
-                    <a href="{{route('employee_list')}}"
+                    <!-- <a href="{{route('employee_list')}}"
                      class="{{request()->routeIs('employee_list')
                       ? 'active' : ''}}"
-                    ><label class="nav-links">Employee</label></a>
+                    ><label class="nav-links">Employee</label></a> -->
 
                     <a href="{{route('PCN')}}"
                      class="{{request()->routeIs('PCN')
@@ -155,10 +155,13 @@
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
-                    <a href="{{route('ticketslist')}}"
-                     class="{{request()->routeIs('ticketslist')
+                    <a href="{{route('tickets')}}"
+                    class="{{request()->routeIs('tickets')
+                    || request()->routeIs('edit-ticket')
+                    || request()->routeIs('ticket-details')
+                    || request()->routeIs('generate-ticket')
                       ? 'active' : ''}}">
-                      <label class="nav-links">Tickets</label></a>
+                    <label class="nav-links" >Tickets</label></a>
                </div>
 
                @endif

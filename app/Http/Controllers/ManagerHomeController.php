@@ -25,7 +25,7 @@ class ManagerHomeController extends Controller
         $date = date('Y-m-d');
         $indents = Intend::orderby('id','DESC')->paginate(10);
         $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
-        $attendance = Attendance::where('created_at','LIKE','%'.$date.'%')->count();
+        $attendance = Attendance::where('date','LIKE','%'.$date.'%')->count();
         $tickets = Ticket::count();
 
         return view('manager_home', compact('indents' , 'todaysIndent' , 'attendance' , 'tickets'));

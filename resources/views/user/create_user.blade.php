@@ -27,7 +27,7 @@
        <div class="row">
            
            <div class="col-md-4">
-                <label>Employee ID</label>
+                <label>Employee ID *</label>
                 <input class="form-control" type="input" name="employee_id" placeholder="Enter Empoyee ID" required="" value="{{old('employee_id')}}">
                  @error('employee_id')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -36,7 +36,7 @@
           </div>
 
           <div class="col-md-4">
-                <label>Name</label>
+                <label>Name *</label>
                 <input class="form-control" type="input" name="name" placeholder="Enter Name" required=""value="{{old('name')}}">
                  @error('name')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -50,7 +50,7 @@
        <div class="row div-margin">
            
            <div class="col-md-4">
-                <label>Mobile Number</label>
+                <label>Mobile Number *</label>
                 <input class="form-control" type="input" name="mobile" placeholder="Enter Mobile Number" required=""value="{{old('mobile')}}">
                  @error('mobile')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -59,7 +59,7 @@
           </div>
 
           <div class="col-md-4">
-                <label>Email ID</label>
+                <label>Email ID *</label>
                 <input class="form-control" type="input" name="email" placeholder="Enter Email ID" required=""value="{{old('email')}}">
                  @error('email')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -71,14 +71,14 @@
         <div class="row div-margin">
            
            <div class="col-md-4">
-                <label>Password</label>
+                <label>Password *</label>
                 <input class="form-control" type="password" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');" name="password" required="" placeholder="Enter Password">
                 
                 
           </div>
 
            <div class="col-md-4">
-                <label>Confirm Password</label>
+                <label>Confirm Password *</label>
                 <input class="form-control" type="password" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');" name="confirm_password" required="" placeholder="Enter Confirm Password">
                  
                 

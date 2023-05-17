@@ -131,21 +131,25 @@ class AttendanceController extends Controller
 
         if(isset($request->user_id) && isset($request->date)){
             $attendance = Attendance::where('user_id',$request->user_id)->where('date','LIKE', '%'.$request->date.'%')->get();
-            $total_hour = $attendance->
-            $data=array();
+            $total_hour = $attendance->sum('total_hours');
+           
+            $data= array();
 
             foreach ($attendance as $key => $value) {
-                $data = [
+                $res = [
                 'date' => $value->date,
                 'login'=> $value->login_time ,
                 'logout' => $value->logout_time,
                 'working_minutes' => $value->total_hours];
+
+                array_push($data, $res);
             }
            
 
             return response()->json([
                 'status' => 1,
                 'message' => 'Success',
+                'total_minute' => $total_hour,
                 'data' => $data]);
 
         }
@@ -153,6 +157,7 @@ class AttendanceController extends Controller
             return response()->json([
                 'status'=> 0,
                 'message' => 'UnAuthorized',
+                'total_minute' => '0',
                 'data' => ''
             ]);
         }

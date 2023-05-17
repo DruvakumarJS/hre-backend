@@ -91,7 +91,7 @@
 
                          <div class="form-group row">
                             <div class="offset-5 col-7">
-                                <button name="submit" type="submit" class="btn btn-success">Generate Ticket</button>
+                                <button name="submit" type="submit" class="btn btn-danger">Generate Ticket</button>
                                 
                             </div>
                         </div>

@@ -70,10 +70,7 @@ Route::middleware('role:admin')->group(function () {
 
 
     
-	Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
-    Route::get('employee-details',[AttendanceController::class,'employeedetails'])->name('employee-details');
-
-    Route::get('employee-history/{id}',[AttendanceController::class,'employeehistory'])->name('employee-history');
+	
 
 
 
@@ -165,5 +162,9 @@ Route::middleware('role:procurement')->group(function () {
     Route::get('ticket_details/{id}',[TicketController::class,''])->name('ticket-details');
     Route::get('ticket_details/{id}',[TicketConversationController::class,'index'])->name('ticket-details');
     Route::post('reply_conversation',[TicketConversationController::class,'store'])->name('reply_conversation');
+
+    Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
+    Route::get('employee-details',[AttendanceController::class,'employeedetails'])->name('employee-details');
+    Route::get('employee-history/{id}',[AttendanceController::class,'employeehistory'])->name('employee-history');
 
 

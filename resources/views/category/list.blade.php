@@ -79,7 +79,7 @@
                               <th>Sl.no</th>
                               <th scope="col">Category</th>
                               <th scope="col">Category Code</th>
-                              <th scope="col">Action</th>
+                              <th scope="col">Products</th>
                               <th >Action</th>
                             
                              
@@ -93,8 +93,8 @@
                               <td>{{$value->material_category}}</td>
                               
                               <td>
-                                <a href="{{route('add_product',$value->code)}}"><label class="curved-text">Add Product</label></a>
-                                <a href="{{route('view_products',$value->code)}}"><label class="curved-text">View Product</label></a>   
+                                <a href="{{route('add_product',$value->code)}}"><label class="btn btn-light btn-outline-secondary  btn-sm">Add Product</label></a>
+                                <a href="{{route('view_products',$value->code)}}"><label class="btn btn-light btn-outline-secondary btn-sm">View Product</label></a>   
                               </td>
                                <td class="openModal" >
                                 <!-- <a href="" data-bs-toggle="modal"  data-bs-target="#myModal" ><i class='fa fa-edit' style='font-size:24px;'></i></a> -->

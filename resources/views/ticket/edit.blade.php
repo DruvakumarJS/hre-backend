@@ -7,7 +7,7 @@
        <div class="container-header">
             <label class="label-bold" id="div1">Edit Tickets</label>
            <div id="div2">
-            <a class="btn btn-light" href="{{route('tickets')}}">
+            <a class="btn btn-light btn-outline-secondary" href="{{route('tickets')}}">
              <label id="modal">View Tickets </label> </a>
           
           </div>
@@ -106,7 +106,7 @@
                         
                          <div class="form-group row">
                             <div class="offset-5 col-7">
-                                <button name="submit" type="submit" class="btn btn-success">Update Ticket</button>
+                                <button name="submit" type="submit" class="btn btn-danger">Update Ticket</button>
                                 
                             </div>
                         </div>
@@ -132,7 +132,7 @@
        
         if(status == 'Re-Opened'){
              x.style.display='none';
-            alert('Since you are reopening the ticket,You will be the owner of the ticket');
+           // alert('Since you are reopening the ticket,You will be the owner of the ticket');
 
           // document.getElementById('user_id').value = <?php echo Auth::user()->id ?>;
           // document.getElementById("user_id").disabled=true;

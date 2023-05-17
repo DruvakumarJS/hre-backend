@@ -9,9 +9,9 @@ $date = date('dd-mm-yyyy');
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
-            <label class="label-bold" id="div1">Create PCN</label>
+            <label class="label-bold " id="div1">Create PCN</label>
            <div id="div2">
-            <a href="{{route('PCN')}}"><button class="btn btn-light" >View PCN</button></a>
+            <a href="{{route('PCN')}}"><button class="btn btn-light btn-outline-secondary" >View PCN</button></a>
             
 
           </div>
@@ -147,7 +147,7 @@ $date = date('dd-mm-yyyy');
                         <input type="hidden" name="customer_id" id="customer_id">
                         <div class="form-group row">
                             <div class="offset-5 col-7">
-                                <button name="submit" type="submit" class="btn btn-success">Submit</button>
+                                <button name="submit" type="submit" class="btn btn-danger">Submit</button>
                                 <a href="{{route('create_pcn')}}"><button name="submit" type="submit" class="btn btn-light">Cancel</button></a>
                             </div>
                         </div>

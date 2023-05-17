@@ -2,16 +2,6 @@
 
 @section('content')
 
-<style type="text/css">
-	table {
-    table-layout:fixed;
-}
-table td {
-    width: 35px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-</style>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -57,7 +47,7 @@ table td {
 	                  <th scope="col">Sl.No</th>
 	                  <th scope="col">Ticket No</th>
 	                  <th scope="col">PCN</th>
-	                  <th scope="col">Subject</th>
+	                  <th scope="col" width="150px">Subject</th>
 	                  <th scope="col">Client Name</th>
 	                
 	                  <th scope="col">Assigned to</th>
