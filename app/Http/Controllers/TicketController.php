@@ -51,7 +51,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        print_r($request->Input());die();
+      //  print_r($request->Input());die();
       
         if(Pcn::where('pcn', $request->pcn)->exists())
         {

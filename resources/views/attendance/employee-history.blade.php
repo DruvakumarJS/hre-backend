@@ -24,12 +24,12 @@
         <div class="col-12">
             <div class="card employee-card">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-4">
                         <h5><b>{{$employee->name}}</b></h5>
                         <h6>{{$employee->user->roles->alias}}</h6>
                         <h6>{{$employee->employee_id}}</h6>
                     </div>
-                    <div class="col-3 text-center">
+                    <div class="col-4 text-center">
                          @php
                           $minute = $total_hour;
                           $hour=  floor($minute / 60) ;
@@ -38,12 +38,8 @@
                         <h2>{{$hour}}Hr : {{$min}}Min</h2>
                         <p>Total Working Hours</p>
                     </div>
-                    <div class="col-3 text-center">
-
-                        <h1>32</h1>
-                        <p>Total Working Hours</p>
-                    </div>
-                    <div class="col-3 text-center">
+                   
+                    <div class="col-4 text-center">
                         <h1>02</h1>
                         <p>Leaves</p>
                     </div>

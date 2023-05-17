@@ -43,3 +43,4 @@ Route::post('/get-conversation',[TicketController::class,'conversation_details']
 Route::post('/get-employees',[UserController::class,'employees']);
 
 Route::post('/attendance',[AttendanceController::class,'attendance']);
+Route::post('/myattendance',[AttendanceController::class,'myattendance']);
