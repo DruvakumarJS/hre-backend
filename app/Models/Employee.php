@@ -19,9 +19,19 @@ class Employee extends Model
     	 	
     ];
 
+   function user()
+          {
+             return $this->belongsTo(User::class,'user_id','id');
+
+          } 
+
     function intends(){
             return $this->hasMany(Intend::class,'user_id', 'user_id');
         } 
+
+    function attendance(){
+            return $this->hasMany(Attendance::class,'user_id', 'user_id');
+        }     
 
     function Pcn(){
             return $this->hasMany(Pcn::class,'user_id', 'assigned_to');

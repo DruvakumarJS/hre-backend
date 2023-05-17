@@ -13,14 +13,16 @@
 
         </div>
 
-        <div id="div2" style="margin-right: 30px">
+      <!--   <div id="div2" style="margin-right: 30px">
             <a  class="btn btn-light btn-outline-secondary" href="#"></i> View Employees</a>
         </div>
-
+ -->
         <div id="div3" style="margin-right: 30px">
             <button class="btn btn-light btn-outline-secondary" > Download CSV</button>
         </div>
     </div>
+
+    <label>Today's Attendance</label>
 
     <div class="row">
         <div class="card border-white">
@@ -28,30 +30,46 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Employee No</th>
-                    <th scope="col">Employee Name</th>
+                    <th scope="col">SL.No</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Employee ID</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Contact No</th>
+                    <th scope="col">Login </th>
+                    <th scope="col">Logout</th>
+                    <th scope="col">Working hours</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                   <!--  <tr>
-                        <td>EMP0123232</td>
-                        <td>Ramesh</td>
-                        <td>Supervisor</td>
-                        <td>Bangalore</td>
-                        <td>ramesh@hre.com</td>
-                        <td>+91 92323 23234</td>
+                    @foreach($attendance as $key=>$value)
+                    <tr>
+                        <td>{{$key + $attendance->firstItem()}}</td>
+                        <td>{{$value->date}}</td>
+                        <td>{{$value->employee->employee_id}}</td>
+                        <td>{{$value->employee->name}}</td>
+                        <td>{{$value->user->roles->alias}}</td>
+                        <td>{{$value->login_time}}</td>
+                        <td>{{$value->logout_time}}</td>
+                        @php
+                          $minute = $value->total_hours;
+                          $hour=  floor($minute / 60) ;
+                          $min = $minute % 60 ;
+                        @endphp
+                        <td>{{$hour}}Hr : {{$min}}Min</td>
+                        
                         <td>
-                            <a href="{{route('employee-history')}}"><button type="button" class="btn btn-sm btn-light">view</button></a>
+                            <a href="{{route('employee-history', $value->user_id)}}"><button type="button" class="btn btn-sm btn-light">view</button></a>
                         </td>
                     </tr>
-                     -->
+                   @endforeach 
                 </tbody>
             </table>
+
+            <label>Showing {{ $attendance->firstItem() }} to {{ $attendance->lastItem() }}
+                                    of {{$attendance->total()}} results</label>
+
+                                {!! $attendance->links('pagination::bootstrap-4') !!}
 
         </div>
     </div>

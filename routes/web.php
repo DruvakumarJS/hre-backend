@@ -47,7 +47,7 @@ Route::middleware('role:admin')->group(function () {
     Route::get('edit_user/{id}',[UserController::class , 'edit'])->name('edit_user');
     Route::post('update_user',[UserController::class , 'update'])->name('update_user');
     Route::get('delete_user/{id}',[UserController::class , 'destroy'])->name('delete_user');
-    Route::get('delete_user/{id}',[UserController::class , 'destroy'])->name('back');
+    //Route::get('delete_user/{id}',[UserController::class , 'destroy'])->name('back');
 
 
     Route::get('materials',[MaterialController::class,'index'])->name('materials');
@@ -73,7 +73,7 @@ Route::middleware('role:admin')->group(function () {
 	Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
     Route::get('employee-details',[AttendanceController::class,'employeedetails'])->name('employee-details');
 
-    Route::get('employee-history',[AttendanceController::class,'employeehistory'])->name('employee-history');
+    Route::get('employee-history/{id}',[AttendanceController::class,'employeehistory'])->name('employee-history');
 
 
 

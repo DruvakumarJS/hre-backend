@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,8 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-       return view('attendance/Attendancelist');
+        $attendance= Attendance::where('date', date('Y-m-d'))->paginate(50);
+       return view('attendance/Attendancelist',compact('attendance'));
     }
 
     /**
@@ -89,8 +91,12 @@ class AttendanceController extends Controller
         return view('attendance/employee-details');
     }
 
-    public function employeehistory()
+    public function employeehistory($id)
     {
-        return view('attendance/employee-history');
+        $employee = Employee::where('user_id',$id)->first();
+        $attendance = Attendance::where('user_id',$id)->where('date','LIKE','%'.date('Y-m').'%')->get();
+        $total_hour = $attendance->sum('total_hours');
+       
+        return view('attendance/employee-history' , compact('attendance' , 'employee' , 'total_hour'));
     }
 }

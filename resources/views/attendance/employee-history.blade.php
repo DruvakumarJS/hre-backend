@@ -25,12 +25,17 @@
             <div class="card employee-card">
                 <div class="row">
                     <div class="col-3">
-                        <h5><b>Kubulu Babu</b></h5>
-                        <h6>Supervisor / Bangalore</h6>
-                        <h6>EMP12334</h6>
+                        <h5><b>{{$employee->name}}</b></h5>
+                        <h6>{{$employee->user->roles->alias}}</h6>
+                        <h6>{{$employee->employee_id}}</h6>
                     </div>
                     <div class="col-3 text-center">
-                        <h1>32</h1>
+                         @php
+                          $minute = $total_hour;
+                          $hour=  floor($minute / 60) ;
+                          $min = $minute % 60 ;
+                        @endphp
+                        <h2>{{$hour}}Hr : {{$min}}Min</h2>
                         <p>Total Working Hours</p>
                     </div>
                     <div class="col-3 text-center">
@@ -61,37 +66,19 @@
                 </tr>
                 </thead>
                 <tbody>
+                    @foreach($attendance as $key=>$value)
                     <tr>
-                        <td>01/02/2023</td>
-                        <td>10:00 AM</td>
-                        <td>07:00 PM</td>
-                        <td>7 Hrs</td>
+                        <td>{{$value->date}}</td>
+                        <td>{{$value->login_time}}</td>
+                        <td>{{$value->logout_time}}</td>
+                         @php
+                          $minute = $value->total_hours;
+                          $hour=  floor($minute / 60) ;
+                          $min = $minute % 60 ;
+                         @endphp
+                        <td>{{$hour}}Hr : {{$min}}Min</td>
                     </tr>
-                    <tr>
-                        <td>01/02/2023</td>
-                        <td>10:00 AM</td>
-                        <td>07:00 PM</td>
-                        <td>7 Hrs</td>
-                    </tr>
-                    <tr>
-                        <td>01/02/2023</td>
-                        <td>10:00 AM</td>
-                        <td>07:00 PM</td>
-                        <td>7 Hrs</td>
-                    </tr>
-                    <tr>
-                        <td>01/02/2023</td>
-                        <td>10:00 AM</td>
-                        <td>07:00 PM</td>
-                        <td>7 Hrs</td>
-                    </tr>
-                    <tr>
-                        <td>01/02/2023</td>
-                        <td>10:00 AM</td>
-                        <td>07:00 PM</td>
-                        <td>7 Hrs</td>
-                    </tr>
-
+                    @endforeach
                 </tbody>
             </table>
 
