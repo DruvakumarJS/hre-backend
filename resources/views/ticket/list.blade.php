@@ -23,8 +23,9 @@
 				  	<option value="">Select </option>
 	             	<option value="0">All Tickets</option>
 	             	<option value="{{Auth::user()->id}}">My Tickets</option>
+	             	<option value="Created">Created Tickets</option>
 	             	<option value="Pending">Pending Tickets</option>
-	             	<option value="Closed">Closed Tickets</option>
+	             	<option value="Completed">Completed Tickets</option>
 	             	<option value="Reopend">Reopend Tickets</option>
                  </select>
                  <div class="input-group-prepend">
@@ -48,7 +49,7 @@
 	                  <th scope="col">Ticket No</th>
 	                  <th scope="col">PCN</th>
 	                  <th scope="col" width="100px">Subject</th>
-	                  <th scope="col">Description</th>
+	                  <th scope="col" width="150px">Description</th>
 	                 <!--  <th scope="col">Creator</th>  -->
 	                  <th scope="col">Priority</th>
 	                  <th scope="col">TAT</th>
