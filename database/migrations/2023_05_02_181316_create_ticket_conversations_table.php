@@ -18,7 +18,7 @@ class CreateTicketConversationsTable extends Migration
             $table->string('ticket_id');
             $table->string('ticket_no');
             $table->string('sender');
-            $table->string('recipient');
+            $table->string('recipient')->nullable();
             $table->string('message');
             $table->string('status')->nullable();
             $table->string('filename')->nullable();

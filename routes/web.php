@@ -137,6 +137,7 @@ Route::middleware('role:procurement')->group(function () {
     Route::get('create_pcn',[PcnController::class,'create_pcn'])->name('create_pcn');
     Route::get('view_pcn',[PcnController::class,'view_pcn'])->name('view_pcn');
     Route::get('autocomplete',[PcnController::class,'action'])->name('autocomplete');
+    Route::get('autocomplete_pcn',[PcnController::class,'autocomplete_pcn'])->name('autocomplete_pcn');
     Route::post('save_pcn',[PcnController::class,'store'])->name('save_pcn');
     Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
     Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');

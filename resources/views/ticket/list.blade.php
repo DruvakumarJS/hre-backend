@@ -47,13 +47,16 @@
 	                  <th scope="col">Sl.No</th>
 	                  <th scope="col">Ticket No</th>
 	                  <th scope="col">PCN</th>
-	                  <th scope="col" width="150px">Subject</th>
-	                  <th scope="col">Client Name</th>
-	                
-	                  <th scope="col">Assigned to</th>
-	                  <th scope="col">Created Date</th>
-	                  <th scope="col">Updated date</th>
+	                  <th scope="col" width="100px">Subject</th>
+	                  <th scope="col">Description</th>
+	                 <!--  <th scope="col">Creator</th>  -->
+	                  <th scope="col">Priority</th>
+	                  <th scope="col">TAT</th>
+	                  <th scope="col" width="150px">Comments</th>
+	                   
 	                  <th scope="col">Status</th>
+	                  <th scope="col" width="100px">Created Date</th>
+	                  <th scope="col">Attachment</th>
 	                  <th scope="col">Action</th>
 	                 
 	                </tr>
@@ -64,32 +67,81 @@
 	                	<td>{{$key + $tickets->firstItem()}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
-	                	<td  >{{$value->subject}}</td>
-	                	<td>{{$value->Pcn->client_name}}</td>
-	                
-	                	<!-- @if($value->owner == Auth::user()->id)
+	                	<td>{{$value->category}}</td>
+	                	<td>{{$value->issue}}</td>
+	                	<!-- @if($value->creator == Auth::user()->id)
 	                	<td>Self</td>
 	                	@else
                         <td>{{$value->user->name}}</td>
-	                	@endif -->
-
-	                	@if($value->employee->id == Auth::user()->id)
-	                	<td>Self</td>
-	                	@else
-                        <td>{{$value->employee->name}}</td>
-	                	@endif
+	                	@endif  -->   
+                       @php
+	                	if($value->priority == 'High'){
+	                	  $colors = 'red' ;
+	                	}
+	                	elseif($value->priority == 'Medium'){
+	                	  $colors = 'gold' ;
+	                	}
+	                	else  
+                         $colors = 'limegreen' ;
+	                	 
+                       @endphp
+	                	<td style="color: <?php echo $colors  ?>;font-weight: bold;" >{{$value->priority}}</td>
+	                	<td>{{$value->tat}}</td>
+	                	<td>{{$value->comments}}</td>
 	                	
-	                	
-	                	<td>{{$value->created_at}}</td>
-	                	<td>{{$value->updated_at}}</td>
 	                	<td>{{$value->status}} <?php echo '<br>';echo($value->reopened == '1') ? 'Re-Opened':'' ?></td>
+	                	<td>{{$value->created_at}}</td>
 	                	<td>
+	                		@if($value->filename != '')
+	                		<a href="#" id="MybtnModal_{{$key}}" data-id="{{$value->filename}}">view</a>
+	                		@endif
+	                	</td>
+	                	
+	                	
+	                	<td>
+	                		@if(Auth::user()->id ==1 || Auth::user()->role == 'manager')
 	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
+                            @endif
+	                		 @if($value->status == 'Created')
+	                		 <a href=""><button class="btn btn-light btn-outline-success btn-sm" disabled="" >Details</button></a>
 
-	                		<a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm">Details</button></a>
+	                		 @else
+	                		 <a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm" >Details</button></a>
+
+	                		 @endif
+
+	                		
 
 	                	</td>
 	                </tr>
+
+	                <!-- Modal -->
+
+                              <div class="modal" id="modal_{{$key}}" >
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Attachment</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                       <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value->filename}}" alt="ticketimage" style="width: 400px;height: 250px" />
+                                      
+                                    </div>
+                    </div>
+                  </div>
+                </div>
+
+<!--  end Modal -->
+
+            <script>
+              $(document).ready(function(){
+                $('#MybtnModal_{{$key}}').click(function(){
+                  $('#modal_{{$key}}').modal('show');
+                });
+              });  
+            </script>
                 @endforeach
 	            
 	            	

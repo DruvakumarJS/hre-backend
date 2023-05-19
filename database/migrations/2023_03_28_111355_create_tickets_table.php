@@ -17,13 +17,17 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->string('ticket_no');
             $table->string('pcn');
-            $table->string('indent_no')->nullable();
-            $table->string('subject');
-            $table->string('issue');
-            $table->string('assigned_to');
-            $table->string('owner');
+            $table->string('category');
+            $table->string('issue')->nullable();
+            $table->string('assigner')->nullable();
+            $table->string('assigned_to')->nullable();
+            $table->string('creator');
             $table->string('status');
             $table->string('reopened')->default('0');
+            $table->string('priority')->nullable();
+            $table->string('tat')->nullable();
+            $table->string('comments')->nullable();
+            $table->string('filename')->nullable();
             $table->timestamps();
         });
     }

@@ -50,7 +50,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
      
-      //print_r($request->Input());die();
+     // print_r($request->Input());die();
 
     
        $validator = Validator::make($request->all(), [

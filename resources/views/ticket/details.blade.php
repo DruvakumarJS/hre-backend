@@ -40,12 +40,14 @@
      				
      			</div>
 
-     			
 
-     			<div class="col-md-2">
+     			<div class="col-md-4">
      				<div class="row">
-     					<label>Ticket Owner</label>
-     				    <h4>{{$ticket->employee->name}}</h4>
+     					<label>Ticket Creator</label>
+             
+                <h4>{{$ticket->user->name}} - {{$ticket->user->roles->alias}}</h4>
+                            
+     				    
      				</div>
      				
      			</div>
@@ -63,9 +65,9 @@
      	</div>
      </div>
      
-     <div class="div-margin">
-     	<h4 class="label-bold">Subject : {{$ticket->subject}}</h4>
-     	<h3>Conversation</h3>
+     <div>
+     	<h4 class="label-bold">CATEGORY : {{$ticket->category}}</h4>
+     	<label>{{$ticket->issue}}</label>
 
 
      	 <div id="div2">
@@ -84,23 +86,26 @@
      			</tr>
 
                 @foreach($conversation as $key => $value)
-     			<tr>
-     				
-     				<td>{{$value->created_at}}</td>
-     				<td>{{$value->mailsender->name}}</td>
-     				<td>{{$value->mailrecipient->name}}</td>
-     				<td>{{$value->message}}</td>
-            @if(!empty($value->filename))
-             <td>
-              <a id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"> <button class="btn btn-light">Attachment</button></a>
-            </td>
-            @else 
-            <td>
-              
-            </td>
-            @endif
-     				
-     			</tr>
+
+               
+             			<tr>
+             				
+             				<td>{{$value->created_at}}</td>
+             				<td>{{$value->mailsender->name}}</td>
+             				<td>{{$value->mailrecipient->name}}</td>
+             				<td>{{$value->message}}</td>
+                    @if(!empty($value->filename))
+                     <td>
+                      <a id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"> <button class="btn btn-light">Attachment</button></a>
+                    </td>
+                    @else 
+                    <td>
+                      
+                    </td>
+                    @endif
+             				
+             			</tr>
+                
 
           <!-- Modal -->
 

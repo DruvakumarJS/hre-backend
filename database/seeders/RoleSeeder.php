@@ -36,7 +36,7 @@ class RoleSeeder extends Seeder
                         'description'=>'Limited data can see'
                     ],
                     [
-                        'name' => 'finace',
+                        'name' => 'finance',
                         'alias' => 'Finance',
                         'description'=>'Limited data can see'
                     ]

@@ -12,13 +12,17 @@ class Ticket extends Model
     protected $fillable=[
     	'ticket_no',
     	'pcn',
-    	'indent_no',
-      'subject',
+      'category',
     	'issue',
+      'assigner',
     	'assigned_to',
-    	'owner',
+    	'creator',
     	'status',
-      'reopened'];
+      'reopened',
+      'priority',
+      'tat',
+      'comments',
+      'filename'];
 
    function pcn()
     {
@@ -33,7 +37,7 @@ class Ticket extends Model
 
     function user()
      {
-          return $this->belongsTo(User::class,'owner', 'id');
+          return $this->belongsTo(User::class,'creator', 'id');
      }  
 
      function employee()

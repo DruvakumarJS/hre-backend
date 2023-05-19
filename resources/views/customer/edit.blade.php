@@ -87,7 +87,7 @@
                  
                   <td>
 
-                   <div class="row"> 
+                   <div class="row align-items-end"> 
 
                      <div class="col-md-2">
                       <label>Area / Location</label>
@@ -121,7 +121,8 @@
                     }
 
                       @endphp
-                      <button type="button" data-id="{{$addres_id}}" class="form-control btn btn-outline-danger remove-input-field">Delete</button>
+                      
+                      <i id="btnn" data-id="{{$addres_id}}" class="fa fa-close remove-input-field" style="color: red"></i>
 
                     </div>
                    </div>  
@@ -157,7 +158,7 @@
     
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr><td><div class="row align-items-end"><div class="col-md-2"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]" required="required"></div><div class="col-md-2"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]" required="required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-1"><label></label>  <button type="button" data-id="00"  class="form-control btn btn-outline-danger remove-input-field">Delete</button> </div></td></tr>');
+        $("#dynamicAddRemove").append('<tr><td><div class="row align-items-end"><div class="col-md-2"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]" required="required"></div><div class="col-md-2"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]" required="required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-1"><label></label>  <i id="btnn" data-id="00" class="fa fa-close remove-input-field" style="color: red"></i> </div></td></tr>');
 
     });
 

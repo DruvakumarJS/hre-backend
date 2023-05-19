@@ -139,7 +139,9 @@ class AttendanceController extends Controller
                 $res = [
                 'date' => $value->date,
                 'login'=> $value->login_time ,
+                'login_location' => '',
                 'logout' => $value->logout_time,
+                'logout_location' => '',
                 'working_minutes' => $value->total_hours];
 
                 array_push($data, $res);

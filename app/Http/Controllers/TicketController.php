@@ -6,6 +6,7 @@ use App\Models\Ticket;
 use App\Models\TicketConversation;
 use App\Models\Employee;
 use App\Models\Pcn;
+use App\Models\Category;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use SendGrid\Mail\From;
 use SendGrid\Mail\To;
 use SendGrid\Mail\Mail;
 use PDF;
+use Auth;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -26,7 +28,15 @@ class TicketController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+
+      if($user->role == 'admin' || $user->role == 'manager' || $user->role == 'finance'){
          $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
+      }
+      else {
+         $tickets = Ticket::where('creator' , $user->id)->orWhere('assigned_to', $user->id )->orderby('id' , 'DESC')->paginate(10);
+      }
+        
          return view('ticket/list' ,  compact('tickets'));
     }
 
@@ -40,7 +50,8 @@ class TicketController extends Controller
        // $supervisor = Employee::where('role','supervisor')->get();
       $employee = User::select('id' , 'name' , 'role_id')->get();
       $pcn = Pcn::where('status', 'Active')->get();
-        return view('ticket/create', compact('employee', 'pcn'));
+      $category=Category::get(); 
+        return view('ticket/create', compact('employee', 'pcn' , 'category'));
     }
 
     /**
@@ -51,10 +62,11 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-      //  print_r($request->Input());die();
+       // print_r($request->Input());die();
       
         if(Pcn::where('pcn', $request->pcn)->exists())
         {
+            $fileName = '';
             if(Ticket::exists()){
             $tickets = Ticket::select('ticket_no')->orderby('id' , 'DESC')->first();
 
@@ -66,23 +78,7 @@ class TicketController extends Controller
             $ticket_no ="TN001";
         }
 
-        $Insert = Ticket::create([
-            'ticket_no'=> $ticket_no,
-            'pcn' => $request->pcn,
-            'indent_no' => $request->indent_no,
-            'subject' => $request->subject,
-            'issue' => $request->issue ,
-            'assigned_to' => $request->user_id,
-            'owner' => $request->owner ,
-            'status' => 'Pending'
-        ]);
-
-        if($Insert){
-            $t_data = Ticket::where('ticket_no' ,$ticket_no)->first();
-            $fileName = '';
-
-
-            if($file = $request->hasFile('image')) {
+         if($file = $request->hasFile('image')) {
              
             $file = $request->file('image') ;
             $fileName = $file->getClientOriginalName() ;
@@ -92,32 +88,28 @@ class TicketController extends Controller
             if(TicketConversation::exists()){
                  $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
                  $temp = explode(".", $file->getClientOriginalName());
-                 $fileName=$ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
+                 $fileName=$ticket_no . '.' . end($temp);
             }
            
             $destinationPath = public_path().'/ticketimages' ;
             $file->move($destinationPath,$fileName);
             
-    }
+          }
 
-            $conversation = TicketConversation::create([
-                'ticket_id' => $t_data->id ,
-                'ticket_no' => $ticket_no ,
-                'sender' => $request->owner ,
-                'recipient' => $request->user_id,
-                'message' => $request->issue ,
-                'status' => 'Pending',
-                'filename' => $fileName 
-            ]);
 
-            if($conversation){
+        $Insert = Ticket::create([
+            'ticket_no'=> $ticket_no,
+            'pcn' => $request->pcn,
+            'category' => $request->category,
+            'issue' => $request->issue,
+            'creator' => $request->owner ,
+            'priority' => $request->priority,
+            'filename' => $fileName,
+            'status' => 'Created'
+        ]);
 
+        if($Insert){
             return redirect()->route('tickets');
-            }
-            else{
-                Ticket::where('ticket_id' ,$ticket_id)->delete();
-                return redirect()->route('generate-ticket')->withInput()->withmessage('Could not create ticket');
-            }
         }
 
         }
@@ -163,10 +155,49 @@ class TicketController extends Controller
     {
        // print_r($request->Input());die();
 
+        if(($request->status) == 'Rejected' || ($request->status) == 'Created' ){
+           
+           
+             $update = Ticket::where('id',$request->id)->update([
+                    'issue' => $request->issue ,
+                    'status' => $request->status,
+                    'comments' => $request->comment,
+                    'assigner' => $request->assigner
+                     ]);
+        }
+
+        else if($request->status == 'Re-Opened'){
+          
+           
+             $update = Ticket::where('id',$request->id)->update([
+                    'issue' => $request->issue ,
+                    'status' => 'Pending',
+                    'comments' => $request->comment,
+                    'assigned_to' => $request->user_id,
+                    'priority' => $request->priority,
+                    'tat' => $request->tat,
+                    'assigner' => $request->assigner,
+                    'reopened' => '1'
+                     ]);
+
+        }
+        else {
+           
+             $update = Ticket::where('id',$request->id)->update([
+                    'issue' => $request->issue ,
+                    'status' => $request->status,
+                    'comments' => $request->comment,
+                    'assigned_to' => $request->user_id,
+                    'assigner' => $request->assigner,
+                    'priority' => $request->priority,
+                    'tat' => $request->tat
+                     ]);
+
+        }
+/*
         if($request->status == 'Re-Opened')
         {
-             $update = Ticket::where('id',$request->id)->update([
-            'indent_no' => $request->indent_no,
+             $update = Ticket::where('id',$request->id)->update(
             'issue' => $request->issue ,
             'owner' => $request->owner,
             'assigned_to' => $request->user_id,
@@ -193,7 +224,7 @@ class TicketController extends Controller
             'issue' => $request->issue ,
             'assigned_to' => $request->user_id,
             'status' => $request->status]);
-        }
+        }*/
 
         if(isset($request->checkbox)){
 
@@ -255,7 +286,7 @@ class TicketController extends Controller
             return view('ticket/list' ,  compact('tickets'));
         }
         else {
-            $tickets = Ticket::where('owner' , $request->filter)->orWhere('status',$request->filter)->orderby('id' , 'DESC')->paginate();
+            $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$request->filter)->orderby('id' , 'DESC')->paginate();
             return view('ticket/list' ,  compact('tickets'));
         }
     }

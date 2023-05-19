@@ -25,59 +25,55 @@
      				<form method="post" action="{{route('save-ticket')}}" enctype="multipart/form-data">
      					@csrf
      					<div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Project Code Number *</label>
+                            <label for="" class="col-5 col-form-label">Project Code Number*</label>
                             <div class="col-7">
-                                <!-- <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Enter PCN" value="{{old('pcn')}}"> -->
-                                <select class="form-control" required="required" name="pcn">
-                                    <option value="">Select PCN</option>
-                                    @foreach($pcn as $key=>$value)
-                                    <option value="{{$value->pcn}}">{{$value->pcn}}</option>
+                                <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Enter PCN">
+                            </div>
+                        </div>
 
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Department*</label>
+                            <div class="col-7">
+                                <select class="form-control" name="category"required="required">
+                                    <option value="">Select Department</option>
+                                    @foreach($category as $key=>$value)
+                                    <option value="{{$value->category}}">{{$value->category}}</option>
                                     @endforeach
                                 </select>
-                                @if(Session::has('message'))
-                                   <div class="alert alert-danger mt-1 mb-1">{{ Session::get('message') }}</div>
-                                @endif 
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Indent No</label>
-                            <div class="col-7">
-                                <input name="indent_no" id="indent_no" type="text" class="typeahead form-control" placeholder="Enter Indent No (Optional)" value="{{old('indent_no')}}">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Subject *</label>
                             <div class="col-7">
                                 <input name="subject" id="subject" type="text" class="typeahead form-control" placeholder="Enter Subject for Conversation" value="{{old('subject')}}" required="required">
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Ticket Description *</label>
                             <div class="col-7">
-                                <textarea  name="issue" id="issue" type="text" class="typeahead form-control" required="required" placeholder="Enter Ticket details here" >{{old('issue')}}</textarea>
+                                <textarea  name="issue" id="issue" type="text" class="form-control" required="required" placeholder="Enter Ticket details here" >{{old('issue')}}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Assign to *</label>
+                            <label for="" class="col-5 col-form-label">Priority*</label>
                             <div class="col-7">
-                                <!-- <input name="assign_to" type="assign_to" class="typeahead form-control" required="required" placeholder="Assign ticket to Employee "> -->
-                                <select class="form-control" name="user_id" required="required" >
-                                	<option value="">Select user</option>
-                                	<option value="{{Auth::user()->id}}">Self</option>
-                                	@foreach($employee as $key => $value)
-                                	
-                                	<option value="{{$value->id}}">{{$value->name}} - {{$value->roles->alias}}</option>
-
-                                	@endforeach
+                               
+                                <select class="form-control" name="priority" id='priority' required="required" >
+                                   <option value="">Select Priority</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                    
                                 </select>
+                               
                             </div>
+   
                         </div>
 
+                       
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Attach image </label>
                             <div class="col-7">
@@ -114,9 +110,39 @@
     </div>
 </div>
 
+
+
 <script type="text/javascript">
 
+$( document ).ready(function() {
+  var path = "{{ route('autocomplete_pcn') }}";
+   let text = "";
+    $( "#pcn" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            success: function( data ) {
+               response( data );
+              
+            }
+          });
+        },
+        select: function (event, ui) {
+           $('#pcn').val(ui.item.label);
+        
+        }
+      });
+ 
+});
 
+</script>
+
+<script type="text/javascript">
     imgInp.onchange = evt => {
   const [file] = imgInp.files
   if (file) {

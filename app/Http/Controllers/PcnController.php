@@ -200,6 +200,16 @@ class PcnController extends Controller
         return response()->json($data);
     }
 
+    public function autocomplete_pcn(Request $request){
+
+        $data = Pcn::select("pcn as value")
+                    ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
+                    ->get();
+    
+        return response()->json($data);
+
+    }
+
     public function export(){
 
         return Excel::download(new ExportPcn() , "PCNs.csv");
