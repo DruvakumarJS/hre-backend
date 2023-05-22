@@ -41,12 +41,12 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Sl.no</th>
+                              <th scope="col">Date</th>
                               <th scope="col">Indent Number</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Indent Owner</th>
                               <th scope="col">Status</th>
-                              <th scope="col">Created Date</th>
+                             
                               <th scope="col">Action</th>
                              
                             </tr>
@@ -54,14 +54,12 @@
                           <tbody>
                             @foreach($indents as $key =>$value)
                               <tr> 
-                                <td>{{$key + $indents->firstItem()}}</td> 
+                                <td>{{date("d-m-Y", strtotime($value->created_at))}}</td> 
                                 <td>{{$value->indent_no}}</td> 
                                 <td>{{$value->pcn}}</td>  
                                 <td>{{$value->user->name}}</td>  
                                 <td>{{$value->status}}</td>
-                                <td>{{$value->created_at}}</td> 
-    
-                               
+                                
                                 <td> <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button btn-sm">View</button></a></td>
                                 
                               </tr>

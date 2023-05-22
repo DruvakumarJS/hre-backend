@@ -35,26 +35,26 @@
                        <table class="table">
                            <thead>
                            <tr>
-                            <th>Sl.no</th>
+                               <th>Date</th>
                                <th scope="col">Employee ID</th>
                                <th scope="col">Name</th>
                                <th scope="col">Email ID</th>
                                <th scope="col">Mobile</th>
                                <th scope="col">Role</th>
-                               <th scope="col">Created On</th>
+                               
                                <th scope="col">Action</th>
                            </tr>
                            </thead>
                            <tbody>
                             @foreach($users as $key => $value)
                                <tr>
-                                   <td>{{$key + $users->firstItem()}}</td>
+                                   <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                                    <td>{{$value->employee_id}}</td>
                                    <td>{{$value->name}}</td>
                                    <td>{{$value->email}}</td>
                                    <td>{{$value->mobile}}</td>
                                    <td>{{$value->role}}</td>                                  
-                                   <td>{{$value->created_at}}</td>
+                                   
                                    <td>
                                     <a href="{{route('edit_user',$value->user_id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
                                     <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_user',$value->user_id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></i></a></td>

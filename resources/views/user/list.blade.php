@@ -20,7 +20,7 @@
                             <div>
                                 <h2>Super Admin</h2>
                                 <div class="div-margin">
-                                     <a href="{{route('superadmin')}}"><label class="btn btn-light" id="modal">View Users</label></a>
+                                     <a href="{{route('admin')}}"><label class="btn btn-light" id="modal">View Users</label></a>
                                  <a style="margin-left: 30px" href="{{route('create_user','admin')}}"> 
                                     <label class="btn btn-light curved-text-button" id="modal">Create User</label>
                                  </a>

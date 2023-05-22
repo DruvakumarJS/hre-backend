@@ -76,7 +76,7 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th>Sl.no</th>
+                              <th>Date</th>
                               <th scope="col">Category</th>
                               <th scope="col">Category Code</th>
                               <th scope="col">Products</th>
@@ -88,7 +88,7 @@
                           <tbody>
                           
                             @foreach($categories as $key => $value)
-                              <td>{{$key + $categories->firstItem()}}</td>
+                              <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->category}}</td>
                               <td>{{$value->material_category}}</td>
                               

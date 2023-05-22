@@ -63,7 +63,7 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Sl.no</th>
+                              <th scope="col">Date</th>
                               <th scope="col">Material_id</th>
                               <th scope="col">Material Name</th>
                               <th scope="col">Brand</th>
@@ -80,7 +80,7 @@
                           <tbody>
                           	@foreach($indents_list as $key => $value)
                              <tr>
-                             	<td>{{$key + $indents_list->firstItem()}}</td>
+                             	<td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                              	<td>{{$value->material_id}}</td>
                              	<td>{{$value->materials->name}}</td>
                               <td>{{$value->materials->brand}}</td>

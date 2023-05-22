@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
-
+use App\Models\Employee;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -32,8 +32,26 @@ class AdminSeeder extends Seeder
             ];
 
              foreach ($admin as $key => $value) {
-            $role = User::create($value);
+            $user = User::create($value);
        }
+
+           $Employees = 
+           [
+            [
+                'user_id' => '1',
+                'employee_id' => "ADMIN001" , 
+                'name' => "Super Admin" ,
+                'mobile' => '9517531472',
+                'email' => 'admin@admin.com',
+                'role' => 'admin',
+    
+            ]
+                   
+           ];
+
+           foreach ($Employees as $key => $value) {
+               $emp = Employee::create($value);
+           }
             
     }
 }

@@ -39,7 +39,7 @@ Route::post('/create-ticket',[TicketController::class,'create']);
 Route::post('/get-tickets',[TicketController::class,'index']);
 Route::post('/add-conversation',[TicketController::class,'conversation']);
 Route::post('/get-conversation',[TicketController::class,'conversation_details']);
-
+Route::post('/get-departments',[IndentController::class,'getdepartments']);
 Route::post('/get-employees',[UserController::class,'employees']);
 
 Route::post('/attendance',[AttendanceController::class,'attendance']);

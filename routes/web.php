@@ -82,7 +82,7 @@ Route::middleware('role:admin')->group(function () {
     Route::post('update-category',[CategoryController::class, 'update'])->name('update-category');
     Route::get('export',[CategoryController::class , 'export'])->name('export-categories');
 
-    Route::get('superadmins',[UserController::class, 'view_superadmins'])->name('superadmin');
+    Route::get('superadmins',[UserController::class, 'view_superadmins'])->name('admin');
     Route::get('managers',[UserController::class, 'view_managers'])->name('manager');
     Route::get('supervisors',[UserController::class, 'view_supervisors'])->name('supervisor');
     Route::get('procurement',[UserController::class, 'view_procurement'])->name('procurement');

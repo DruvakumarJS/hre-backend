@@ -106,7 +106,7 @@ class TicketController extends Controller
             'priority' => $request->priority,
             'creator' => $request->user_id ,
             'filename' => $fileName,
-            'status' => 'Created'
+            'status' => 'Created'   
         ]);
 
         if($Insert){

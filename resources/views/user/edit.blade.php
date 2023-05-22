@@ -24,9 +24,9 @@
            
            <div class="col-md-4">
                 <label>Employee ID</label>
-                <input class="form-control" type="input" name="employee_id" placeholder="Enter Empoyee ID" required="" value="{{$userData->employee_id}}" readonly="readonly">
+                <input class="form-control" type="input" name="employee_id" placeholder="Enter Empoyee ID" required="" value="{{$userData->employee_id}}">
                  @error('employee_id')
-               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+               <div class="alert alert-danger mt-1 mb-1">{{ old('employee_id') }} has been already taken</div>
              @enderror
                 
           </div>
@@ -47,18 +47,18 @@
            
            <div class="col-md-4">
                 <label>Mobile Number</label>
-                <input class="form-control" type="input" name="mobile" placeholder="Enter Mobile Number" required=""value="{{$userData->mobile}}" readonly="readonly">
+                <input class="form-control" type="input" name="mobile" placeholder="Enter Mobile Number" required=""value="{{$userData->mobile}}" >
                  @error('mobile')
-               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+               <div class="alert alert-danger mt-1 mb-1">{{ old('mobile') }} has been already taken</div>
              @enderror
                 
           </div>
 
           <div class="col-md-4">
                 <label>Email ID</label>
-                <input class="form-control" type="input" name="email" placeholder="Enter Email ID" required=""value="{{$userData->email}}" readonly="readonly">
+                <input class="form-control" type="input" name="email" placeholder="Enter Email ID" required=""value="{{$userData->email}}">
                  @error('email')
-               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+               <div class="alert alert-danger mt-1 mb-1">{{ old('email') }} has been already taken</div>
              @enderror
           </div>
 
@@ -83,6 +83,7 @@
 
           <input type="hidden" name="role" value="{{$userData->role}}">
           <input type="hidden" name="user_id" value="{{$userData->user_id}}">
+          <input type="hidden" name="row_id" value="{{$userData->id}}">
 
 
         

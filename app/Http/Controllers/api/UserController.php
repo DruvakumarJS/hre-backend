@@ -18,7 +18,6 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
 
             $search = Employee::where('email',$request->email)
-                    ->where('role','supervisor')
                     ->first();
       
 
@@ -27,7 +26,8 @@ class UserController extends Controller
                     'user_id' => $search->user_id,
                     'employee_id' => $search->employee_id,
                     'username' => $search->name,
-                    'role' => $search->role
+                    'role' => $search->role,
+                    'role_name' => $search->user->roles->alias
                      ];
 
                  return response()->json([

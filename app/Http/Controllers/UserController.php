@@ -179,21 +179,75 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        //print_r($request->Input());die();
+       // print_r($request->Input());die();
 
-        if($request->password == $request->confirm_password){
-            $update = User::where('id',$request->user_id)->update([
-                'password'=> Hash::make($request->password)]);
+         $validator = Validator::make($request->all(), [
+            'employee_id' => 'required|unique:employees,employee_id,'.$request->row_id,
+            'mobile' => 'required|min:10|unique:employees,mobile,'.$request->row_id,
+            'email' => 'required|email|unique:employees,email,'.$request->row_id,    
+        ]);
 
-            if($update){
-                return redirect()->route($request->role);
-            }
+
+       if ($validator->fails()) {
+              return redirect()->back()
+                         ->withErrors($validator)
+                        ->withInput();   
+
+                     
         }
-        else {
-             return redirect()->back()
+        else{
+
+    
+           if($request->password!=''){
+                 if($request->password == $request->confirm_password ){
+                    $updateuser = User::where('id',$request->user_id)->update([
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'password'=> Hash::make($request->password)]);
+                 }
+                else {
+                     return redirect()->back()
                         ->withMessage("Password and Confirm Password do not match")
                         ->withInput();
+          }
+
+           }
+           else {
+            $updateuser = User::where('id',$request->user_id)->update([
+                'name' => $request->name,
+                'email' => $request->email]);
+           }
+            
+
+            if($updateuser){
+
+                $UpdateEmployees = Employee::where('id', $request->row_id)->update([
+                    'employee_id' => $request->employee_id , 
+                    'name' => $request->name ,
+                    'mobile' => $request->mobile,
+                    'email' => $request->email,
+    
+                       ]);
+
+              if($UpdateEmployees){
+                return redirect()->route($request->role);
+              }
+              else {
+                return redirect()->back()
+                        ->withMessage("Error while updating data..")
+                        ->withInput();
+              }
+                
+            }
+            else {
+                 return redirect()->back()
+                        ->withMessage("Error while updating user data..")
+                        ->withInput();
+            }
         }
+       
+
+    
 
 
     }

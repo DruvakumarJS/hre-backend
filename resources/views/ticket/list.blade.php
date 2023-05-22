@@ -27,6 +27,7 @@
 	             	<option value="Pending">Pending Tickets</option>
 	             	<option value="Completed">Completed Tickets</option>
 	             	<option value="Reopend">Reopend Tickets</option>
+	             	<option value="Rejected">Rejected Tickets</option>
                  </select>
                  <div class="input-group-prepend">
 				    <button class="btn btn-outline-secondary rounded-0" type="submit">Filter</button>
@@ -44,19 +45,17 @@
 
      			<thead>
 	                <tr>
-	                 
-	                  <th scope="col">Sl.No</th>
+	                  <th scope="col">Date</th>
 	                  <th scope="col">Ticket No</th>
 	                  <th scope="col">PCN</th>
-	                  <th scope="col" width="100px">Subject</th>
+	                  <th scope="col" width="150px">Department</th>
 	                  <th scope="col" width="150px">Description</th>
 	                 <!--  <th scope="col">Creator</th>  -->
 	                  <th scope="col">Priority</th>
 	                  <th scope="col">TAT</th>
-	                  <th scope="col" width="150px">Comments</th>
-	                   
+	                  
 	                  <th scope="col">Status</th>
-	                  <th scope="col" width="100px">Created Date</th>
+	                 
 	                  <th scope="col">Attachment</th>
 	                  <th scope="col">Action</th>
 	                 
@@ -65,7 +64,7 @@
 	            <tbody>
 	            @foreach($tickets as $key=>$value)
 	                <tr>
-	                	<td>{{$key + $tickets->firstItem()}}</td>
+	                	<td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
 	                	<td>{{$value->category}}</td>
@@ -86,15 +85,15 @@
                          $colors = 'limegreen' ;
 	                	 
                        @endphp
-	                	<td style="color: <?php echo $colors  ?>;font-weight: bold;" >{{$value->priority}}</td>
-	                	<td>{{$value->tat}}</td>
-	                	<td>{{$value->comments}}</td>
+	                	<td><button class="btn btn-light" style="width:50px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></i></td>
+
+	                	<td><?php echo ($value->tat!='') ? date("d-m-Y", strtotime($value->tat)) :''  ?></td>
 	                	
 	                	<td>{{$value->status}} <?php echo '<br>';echo($value->reopened == '1') ? 'Re-Opened':'' ?></td>
-	                	<td>{{$value->created_at}}</td>
+	                	
 	                	<td>
 	                		@if($value->filename != '')
-	                		<a href="#" id="MybtnModal_{{$key}}" data-id="{{$value->filename}}">view</a>
+	                		<a href="#" id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"><i class="fa fa-image" style="color:black"></i></a>
 	                		@endif
 	                	</td>
 	                	
@@ -102,12 +101,17 @@
 	                	<td>
 	                		@if(Auth::user()->id ==1 || Auth::user()->role == 'manager')
 	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
+	                		@elseif($value->status == 'Created')
+	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
+	                		@else
+	                		<a href=""><button class="btn btn-light curved-text-button btn-sm" disabled>Edit</button></a>
                             @endif
+
 	                		 @if($value->status == 'Created')
-	                		 <a href=""><button class="btn btn-light btn-outline-success btn-sm" disabled="" >Details</button></a>
+	                		 <a href=""><button class="btn btn-light btn-outline-success btn-sm" disabled="" >More Info</button></a>
 
 	                		 @else
-	                		 <a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm" >Details</button></a>
+	                		 <a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm" >More Info</button></a>
 
 	                		 @endif
 

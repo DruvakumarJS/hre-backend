@@ -10,6 +10,8 @@ use App\Models\Pcn;
 use App\Models\GRN;
 use App\Models\User;
 use App\Models\Material;
+use App\Models\Category;
+
 //use Illuminate\Support\Facades\Mail;
 use App\Mail\IndentsMail;
 use PDF;
@@ -455,6 +457,28 @@ class IndentController extends Controller
       }
 
        
+
+   }
+
+   function getdepartments(Request $request){
+
+    if(isset($request->user_id)){
+        $data = Category::select('category')->get();
+
+        return response()->json([
+          'status' => 0 ,
+          'message' => 'UnAuthorized/Insufficient data',
+          'data' => $data
+        ]);
+
+    }
+    else {
+      return response()->json([
+                  'status' => 0 ,
+                  'message' => 'UnAuthorized/Insufficient data',
+                  'data' => ''
+                  ]);
+    }
 
    }
 }

@@ -30,7 +30,6 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">SL.No</th>
                     <th scope="col">Date</th>
                     <th scope="col">Employee ID</th>
                     <th scope="col">Name</th>
@@ -44,7 +43,6 @@
                 <tbody>
                     @foreach($attendance as $key=>$value)
                     <tr>
-                        <td>{{$key + $attendance->firstItem()}}</td>
                         <td>{{$value->date}}</td>
                         <td>{{$value->employee->employee_id}}</td>
                         <td>{{$value->employee->name}}</td>
@@ -56,7 +54,11 @@
                           $hour=  floor($minute / 60) ;
                           $min = $minute % 60 ;
                         @endphp
+                        @if($value->total_hours == '0')
+                        <td></td>
+                        @else
                         <td>{{$hour}}Hr : {{$min}}Min</td>
+                        @endif
                         
                         <td>
                             <a href="{{route('employee-history', $value->user_id)}}"><button type="button" class="btn btn-sm btn-light">view</button></a>

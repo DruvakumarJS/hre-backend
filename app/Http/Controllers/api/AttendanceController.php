@@ -31,6 +31,7 @@ class AttendanceController extends Controller
 		              	'login_time' => $request->time ,
 		              	'login_lat' => $request->lattitude ,
 		              	'login_long' => $request->longitude ,
+                        'login_location' => $request->address
 		              ]);
 
 		              if($create){
@@ -76,6 +77,7 @@ class AttendanceController extends Controller
 		              	'logout_time' => $request->time ,
 		              	'logout_lat' => $request->lattitude ,
 		              	'logout_long' => $request->longitude ,
+                        'logout_location' => $request->address,
 		              	'total_hours' => $total_hour/60
 		              ]);	
 

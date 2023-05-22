@@ -38,6 +38,11 @@ class RedirectIfAuthenticated
                  // return '/home';
                   return redirect()->route('home');
                   break;
+
+                 case 'finance':
+                 // return '/home';
+                  return redirect()->route('home');
+                  break;  
                   
                 case 'manager':
                   //return '/manager_home';

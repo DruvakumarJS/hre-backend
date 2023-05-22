@@ -30,12 +30,12 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Sl.No</th>
+                              <th scope="col">Date</th>
                               <th scope="col">Customer Name</th>
                               <th scope="col">Brand</th>
                               <th scope="col">Email</th>
                               <th scope="col">Mobile</th>
-                              <th scope="col" width="200px">Address</th>
+                              <!-- <th scope="col" width="200px">Address</th> -->
                               <th scope="col">Action</th>
                              
                             </tr>
@@ -44,17 +44,17 @@
                             
                           	@foreach($customers as $key =>$value)
 
-                            <tr>  
-                               <td>{{$key + $customers->firstItem()}}</td>
+                            <tr>
+                              <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->name}}</td>
                               <td>{{$value->brand}}</td>
                               <td>{{$value->email}}</td>
                               <td>{{$value->mobile}}</td>
-                              <td>
+                             <!--  <td>
                                   @foreach($value->address as $key1 =>$value1)
                                      {{$key1+1}} : {{ $value1->area }} ,{{ $value1->city }} , {{ $value1->state }} <br>
                                   @endforeach
-                                </td>
+                                </td> -->
                               <td>
                               	 <a href="{{route('edit_customer',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
                                 <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_customer', $value->id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>  

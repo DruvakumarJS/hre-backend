@@ -28,7 +28,7 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th>Sl.No</th>
+                              <th scope="col">Date</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Customer Name</th>
                               <th scope="col">Customer Email</th>
@@ -40,10 +40,9 @@
                           </thead>
                           <tbody>
                             @foreach($pcns as $key => $value)
-                            <tr>  
-                              <td>{{$key + $pcns->firstItem()}}</td>
+                            <tr> 
+                              <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->pcn}}</td>
-                              
                               <td>{{$value->client_name}}</td>
                               <td>{{$value->customer->email}}</td>
                               <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>

@@ -16,7 +16,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $attendance= Attendance::where('date', date('Y-m-d'))->paginate(50);
+        $attendance= Attendance::paginate(50);
        return view('attendance/Attendancelist',compact('attendance'));
     }
 

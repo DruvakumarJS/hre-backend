@@ -27,7 +27,7 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th>Sl.no</th>
+                              <th>Date</th>
                               <th scope="col">Material Id</th>
                               <th scope="col">Material Name</th>
                               <th scope="col">Make / Brand</th>
@@ -43,7 +43,7 @@
 
                           @foreach($MaterialList as $key=>$value)
                             <tr>
-                            <td>{{$key + $MaterialList->firstItem()}}</td>  
+                            <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>  
                               <td>{{$value->item_code}}</td>
                               <td>{{$value->name}}</td>
                               <td>{{$value->brand}}</td>
