@@ -131,7 +131,40 @@ class AttendanceController extends Controller
 
     public function myattendance(Request $request){
 
-        if(isset($request->user_id) && isset($request->date)){
+        if(isset($request->user_id)){
+
+            if(isset($request->start_date) && isset(($request->end_date))){
+            $data= array();
+
+            $startDate = $request->start_date;
+            $endDate = $request->end_date;
+
+            $attendance = Attendance::where('user_id',$request->user_id)->whereBetween('date',[$startDate,$endDate])->get();
+            $total_hour = $attendance->sum('total_hours');
+
+            foreach ($attendance as $key => $value) {
+                $res = [
+                'date' => $value->date,
+                'login'=> $value->login_time ,
+                'login_location' => $value->login_location,
+                'logout' => $value->logout_time,
+                'logout_location' => $value->logout_location,
+                'working_minutes' => $value->total_hours];
+
+                array_push($data, $res);
+            }
+           
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Success',
+                'total_minute' => $total_hour,
+                'data' => $data]);
+
+            }
+
+            else if (isset($request->date)) {
+
             $attendance = Attendance::where('user_id',$request->user_id)->where('date','LIKE', '%'.$request->date.'%')->get();
             $total_hour = $attendance->sum('total_hours');
            
@@ -141,9 +174,9 @@ class AttendanceController extends Controller
                 $res = [
                 'date' => $value->date,
                 'login'=> $value->login_time ,
-                'login_location' => '',
+                'login_location' => $value->login_location,
                 'logout' => $value->logout_time,
-                'logout_location' => '',
+                'logout_location' => $value->logout_location,
                 'working_minutes' => $value->total_hours];
 
                 array_push($data, $res);
@@ -157,6 +190,17 @@ class AttendanceController extends Controller
                 'data' => $data]);
 
         }
+        else {
+             return response()->json([
+                'status'=> 0,
+                'message' => 'Insufficient Inputs',
+                'total_minute' => '0',
+                'data' => ''
+            ]);
+        }
+
+       }
+
         else {
             return response()->json([
                 'status'=> 0,

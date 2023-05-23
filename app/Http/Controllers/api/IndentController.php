@@ -466,8 +466,8 @@ class IndentController extends Controller
         $data = Category::select('category')->get();
 
         return response()->json([
-          'status' => 0 ,
-          'message' => 'UnAuthorized/Insufficient data',
+          'status' => 1 ,
+          'message' => 'success',
           'data' => $data
         ]);
 

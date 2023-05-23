@@ -2,6 +2,13 @@
 
 @section('content')
 
+<style type="text/css">
+    img[src=""] {
+    display: none;
+}
+</style>
+
+
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
@@ -17,7 +24,7 @@
      <div class="form-build">
      	<div class="row">
      			<div class="col-6">
-     				<form method="post" action="{{route('update-ticket')}}">
+     				<form method="post" action="{{route('update-ticket')}}" enctype="multipart/form-data">
      					@csrf
      					<div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Code Number </label>
@@ -91,10 +98,15 @@
                       
 
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Status</label>
+                            <label for="" class="col-5 col-form-label">Status{{Auth::user()->role_id}}</label>
                             <div class="col-7">
                                
                                 <select class="form-control" name="status" id='status' required="required"  onchange="run()" >
+                                @if((Auth::user()->role_id != '1') and (Auth::user()->role_id != '2') and (Auth::user()->role_id != '5'))
+                                 <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
+
+                                @else
+
                                    @if($tickets->status == 'Created')
                                    <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
                                    <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
@@ -110,7 +122,7 @@
                                    @if($tickets->status != 'Created')
                                     <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
                                     @endif
-                                    
+                                 @endif   
                                    
                                 </select>
                                
@@ -138,8 +150,13 @@
                            
    
                         </div>
-
- 
+                       <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Attach image </label>
+                            <div class="col-7">
+                                <input type="file" class="form-control form-control-sm" name="image" id="imgInp" >
+                
+                            </div>
+                        </div>
 
                         <input type="hidden" name="assigner" value="{{Auth::user()->id}}">
                         <input type="hidden" name="id" value="{{$tickets->id}}">
@@ -155,7 +172,13 @@
      				</form>
      				
      			</div>
-     		
+     		<div class="col-6">
+                     <img class="serverimage" id="serverimage"  src="{{ URL::to('/') }}/ticketimages/{{$tickets->filename}}" style="width: 200px;height: 200px" />
+
+                     <img class="imagen" id="blah" src="" alt="ticketimage" style="width: 200px;height: 200px" />
+                </div>
+
+               
      		
      	</div>
      	
@@ -233,7 +256,30 @@
         }
 
     }
+
+
     
 </script>
+
+<script type="text/javascript">
+    imgInp.onchange = evt => {
+  const [file] = imgInp.files
+  if (file) {
+    blah.src = URL.createObjectURL(file)
+    $(".serverimage").hide();
+    $(".imagen").show();
+  }
+}
+</script>
+<script type="text/javascript">
+   var image = document.getElementById('serverimage');
+image.onerror = function () {
+ // alert('error loading ' + this.src);
+  this.src = 'error.png'; // place your error.png image instead
+};
+
+
+</script>
+
 
 @endsection

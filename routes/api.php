@@ -37,6 +37,7 @@ Route::get('/grn',[IndentController::class,'grn_list']);
 Route::post('/update-grn',[IndentController::class,'update_grn']);
 Route::post('/create-ticket',[TicketController::class,'create']);
 Route::post('/get-tickets',[TicketController::class,'index']);
+Route::post('/update-ticket',[TicketController::class,'update']);
 Route::post('/add-conversation',[TicketController::class,'conversation']);
 Route::post('/get-conversation',[TicketController::class,'conversation_details']);
 Route::post('/get-departments',[IndentController::class,'getdepartments']);

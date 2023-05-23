@@ -155,6 +155,31 @@ class TicketController extends Controller
     {
        // print_r($request->Input());die();
 
+         if($file = $request->hasFile('image')) {
+             $fileName = '';
+            $file = $request->file('image') ;
+            $fileName = $file->getClientOriginalName() ;
+            
+           // $newfilename = round(microtime(true)) . '.' . end($temp);
+
+            if(TicketConversation::exists()){
+                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
+                 $temp = explode(".", $file->getClientOriginalName());
+                 $fileName=$request->ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
+            }
+           
+            $destinationPath = public_path().'/ticketimages' ;
+            $file->move($destinationPath,$fileName);
+
+           
+
+             $update = Ticket::where('id',$request->id)->update([
+                    'filename' => $fileName
+                     ]);
+            
+         }
+         
+
         if(($request->status) == 'Rejected' || ($request->status) == 'Created' ){
            
            

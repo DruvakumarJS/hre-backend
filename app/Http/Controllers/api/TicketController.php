@@ -240,4 +240,66 @@ class TicketController extends Controller
 
     }
 
+    function update(Request $request){
+        if(isset($request->user_id) && isset($request->subject) && isset($request->issue) && isset($request->ticket_no)){
+             
+             if($file = $request->hasFile('image')) {
+            
+            $file = $request->file('image') ;
+            $fileName = $file->getClientOriginalName() ;
+            
+           // $newfilename = round(microtime(true)) . '.' . end($temp);
+
+            if(TicketConversation::exists()){
+                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
+                 $temp = explode(".", $file->getClientOriginalName());
+                 $fileName=$request->ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
+            }
+           
+            $destinationPath = public_path().'/ticketimages' ;
+            $file->move($destinationPath,$fileName);
+
+            $update_ticket = Ticket::where('ticket_no', $request->ticket_no)->update([
+                'category' => $request->subject ,
+                'issue' => $request->issue,
+                'filename' => $fileName
+            ]);
+
+            
+         }
+         else {
+            $update_ticket = Ticket::where('ticket_no', $request->ticket_no)->update([
+                'category' => $request->subject ,
+                'issue' => $request->issue
+                
+            ]);
+
+         }
+
+            if($update_ticket){
+                return response()->json([
+                    'status'=> 1,
+                    'message' => 'Ticket updated'
+            ]);
+            }
+            else {
+                return response()->json([
+                    'status'=> 0,
+                    'message' => 'Something went wrong'
+            ]);
+
+            }
+
+    
+
+        }
+        else {
+            return response()->json([
+                'status'=> 0,
+                'message' => 'Insufficient Inputs'
+            ]);
+
+        }
+    }
+
 }
