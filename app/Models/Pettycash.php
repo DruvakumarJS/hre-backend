@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Pettycash extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+    	'user_id',
+    	'total',
+    	'comments',
+    	'spend',
+    	'remaining',
+    	'finance_id'
+    ];
+
+    function employee(){
+    	return $this->belongsTo(Employee::class,'user_id', 'user_id');
+    }
+
+    function pettycsah_details(){
+        return $this->hasMany(PettyCashDetail::class,'id', 'pettycash_id');
+    }
 }

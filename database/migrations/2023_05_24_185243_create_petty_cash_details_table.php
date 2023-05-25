@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePettycashesTable extends Migration
+class CreatePettyCashDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreatePettycashesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pettycashes', function (Blueprint $table) {
+        Schema::create('petty_cash_details', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->string('total');
+            $table->string('pettycash_id');
+            $table->string('billing_no');
+            $table->string('spent_amount');
             $table->string('comments')->nullable();
-            $table->string('spend');
-            $table->string('remaining');
-            $table->string('finance_id');
-           
+            $table->string('filename');
+            $table->string('isapproved')->default('0');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreatePettycashesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pettycashes');
+        Schema::dropIfExists('petty_cash_details');
     }
 }

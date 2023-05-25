@@ -22,7 +22,9 @@ class Role {
    if($user->role_id == '1')
    	return redirect('/home');
       //return $next($request);
-
+   if($user->role_id == '5')
+    return redirect('/home');
+  
   if($user->role_id == '2')
       return redirect('/manager_home');
 

@@ -16,9 +16,9 @@ class TicketController extends Controller
 
      	if(isset($request->user_id)){
 
-     	if(Ticket::where('assigned_to' , $request->user_id)->exists()){
+     	if(Ticket::where('creator' , $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->exists()){
 
-     		$tickets = Ticket::where('creator' , $request->user_id)->orWhere('assigned_to', $request->user_id )->get();
+     		$tickets = Ticket::where('creator' , $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->get();
 
             foreach ($tickets as $key => $value) {
             	$ticketarray[]=[
@@ -27,6 +27,7 @@ class TicketController extends Controller
             		'pcn' => $value->pcn ,
             		'category' => $value->category ,
             		'message' => $value->issue,
+                    'priority' => $value->priority,
             		'status' => $value->status,
             		'created_on' => $value->created_at->toDateTimeString()];
             }
@@ -211,15 +212,19 @@ class TicketController extends Controller
         if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no)){
 
             $conversation = TicketConversation::where('ticket_id' , $request->ticket_id)->where('ticket_no',$request->ticket_no)->get();
+            
+            $data=array();
 
             foreach ($conversation as $key => $value) {
-                $data[]=[
+                $result=[
                     'sender' => $value->mailsender->name ,
                     'recipient' => $value->mailrecipient->name ,
                     'message' => $value->message ,
                     'filepath' => 'https://hre.netiapps.com/ticketImages/',
                     'filename' => $value->filename,
                     'date' => $value->created_at->toDateTimeString()];
+
+                    array_push($data, $result);
             }
 
             return response()->json([

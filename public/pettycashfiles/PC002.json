@@ -1,0 +1,9 @@
+[
+{"type":"header","version":"5.1.1deb5ubuntu1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"hydrolore"},
+{"type":"table","name":"master_sync_data","database":"hydrolore","data":
+[
+{"id":"24795","pod_id":"PDBABA0003","hub_id":"HBSASASA01","Date":"2023-05-24","Time":"00.13.40","AB_T1":"23","AB_H1":"73","POD_T1":"24","POD_H1":"69","TDS_V1":"201","PH_V1":"8","NUT_T1":"0","NP_I1":"0","SV_I1":"0","BAT_V1":"12162","FLO_V1":null,"FLO_V2":null,"STS_PSU":"BAT","STS_NP1":"OK","STS_NP2":"STB","STS_SV1":"OK","STS_SV2":"NA","WL1H":"OFF","WL1L":"ON","WL2H":"OFF","WL2L":"ON","WL3H":"NA","WL3L":"NA","RL1":"OFF","RL2":"OFF","RL3":"OFF","RL4":"OFF","RL5":null,"PMODE":"T1","api_type":"normal","critical_data":"\"null\"","created_at":"2023-05-24 00:13:29","updated_at":"2023-05-24 00:13:29"}
+]
+}
+]

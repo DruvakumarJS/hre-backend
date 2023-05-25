@@ -96,9 +96,8 @@
                       </div>
 
                       
-
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Status{{Auth::user()->role_id}}</label>
+                            <label for="" class="col-5 col-form-label">Status</label>
                             <div class="col-7">
                                
                                 <select class="form-control" name="status" id='status' required="required"  onchange="run()" >

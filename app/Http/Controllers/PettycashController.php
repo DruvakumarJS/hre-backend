@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pettycash;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Auth;
 
 class PettycashController extends Controller
 {
@@ -15,7 +17,16 @@ class PettycashController extends Controller
      */
     public function index()
     {
-         return view('pettycash/list');
+        $user = Auth::user();
+
+      if($user->role == 'admin' || $user->role == 'finance'){
+            $data = Pettycash::paginate(10);
+        }
+        else {
+            $data = Pettycash::where('user_id', $user->id )->paginate(10);
+        }
+        
+         return view('pettycash/list', compact('data'));
     }
 
     /**
@@ -25,7 +36,8 @@ class PettycashController extends Controller
      */
     public function create()
     {
-        //
+        $employee = User::get();
+        return view('pettycash/create', compact('employee'));
     }
 
     /**
@@ -36,7 +48,21 @@ class PettycashController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //print_r($request->Input());die();
+        $craete = Pettycash::create([
+            'user_id' => $request->user_id ,
+            'finance_id' => $request->finance_id , 
+            'total' => $request->amount,
+            'comments' => $request->comment,
+            'remaining' => $request->amount ,
+            'spend' => '0'
+        ]);
+
+        if($craete){
+            return redirect()->route('pettycash');
+
+        }
+
     }
 
     /**
@@ -56,9 +82,11 @@ class PettycashController extends Controller
      * @param  \App\Models\Pettycash  $pettycash
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pettycash $pettycash)
+    public function edit($id)
     {
-        //
+        $employee = User::get();
+        $data = Pettycash::where('id', $id)->first();
+        return view('pettycash/edit', compact('data' ,  'employee'));
     }
 
     /**
@@ -68,10 +96,20 @@ class PettycashController extends Controller
      * @param  \App\Models\Pettycash  $pettycash
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pettycash $pettycash)
+    public function update(Request $request)
     {
-        //
+        $update = Pettycash::where('id', $request->rowid)->update([
+            'user_id' => $request->user_id ,
+            'total' => $request->amount,
+            'comments' => $request->comment,
+            'remaining' => $request->amount ,
+        ]);
+       
+       return redirect()->route('pettycash');
+
     }
+
+
 
     /**
      * Remove the specified resource from storage.

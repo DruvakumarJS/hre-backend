@@ -39,5 +39,12 @@ class Employee extends Model
 
       function tickets(){
             return $this->hasMany(Ticket::class,'id', 'owner');
-        }       
+        }  
+
+      
+      public function pettycash(){
+            return $this->hasMany(PettycashController::class,'user_id', 'user_id');
+        }          
+
+      
 }

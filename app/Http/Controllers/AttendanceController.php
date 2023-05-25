@@ -93,10 +93,57 @@ class AttendanceController extends Controller
 
     public function employeehistory($id)
     {
+
+        /* $arr = array();
+          $now = strtotime('2023-05-01');
+          $last = strtotime('2023-05-30');
+          $data= array();
+
+          while($now <= $last ) {
+           // $arr[] = date('Y-m-d', $now);
+
+            $data = Attendance::where('date',date('Y-m-d', $now))->first();
+            if()
+            
+            $res = [
+                'date' => date('Y-m-d', $now)
+            ];
+            array_push($arr, $res);
+
+           $now = strtotime('+1 day', $now);
+          }
+
+          print_r($arr);die();*/
+
+ 
         $employee = Employee::where('user_id',$id)->first();
         $attendance = Attendance::where('user_id',$id)->where('date','LIKE','%'.date('Y-m').'%')->get();
         $total_hour = $attendance->sum('total_hours');
        
         return view('attendance/employee-history' , compact('attendance' , 'employee' , 'total_hour'));
     }
+
+    function fetch_data(Request $request)
+    {
+
+
+     if($request->ajax())
+     {
+      if($request->from_date != '' && $request->to_date != '')
+      {
+       $data = Attendance::whereBetween('date', [$request->from_date, $request->to_date])->get();
+
+      }
+      else
+      {
+       $data = 'mnm';
+      }
+      echo json_encode($data);
+     }
+
+
+
+    }
 }
+
+

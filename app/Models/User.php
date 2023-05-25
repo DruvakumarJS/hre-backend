@@ -73,8 +73,7 @@ class User extends Authenticatable
 
       public function recipient(){
             return $this->hasMany(TicketConversation::class,'id', 'recipient');
-        }        
-
+        } 
 
 
 

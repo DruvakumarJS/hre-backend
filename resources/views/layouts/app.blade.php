@@ -30,6 +30,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
   
 
 </head>
@@ -44,6 +51,59 @@
                 </a> -->
 
                @if(Auth::user()->role_id == 1)
+
+               <a
+                href="{{route('home')}}"
+                   >
+                  <img class="logo" src="{{asset('images/logo.svg')}}">
+               </a>
+
+               <div class="navigation">
+                    <a href="{{route('view_customers')}}"
+                     class="{{request()->routeIs('view_customers')
+                        || request()->routeIs('create_customer')
+                      ? 'active' : ''}}"
+                    >
+                      <label class="nav-links">Customers</label></a>
+
+                    <a href="{{route('PCN')}}"
+                      class="{{request()->routeIs('PCN')
+                      || request()->routeIs('create_pcn')
+                      || request()->routeIs('view_pcn')
+                      || request()->routeIs('edit_pcn')
+                      ? 'active' : ''}}">
+                    <label class="nav-links">PCN</label></a>
+
+                    <a href="{{route('intends')}}"
+                     class="{{request()->routeIs('intends')
+                     ||request()->routeIs('indent_details')
+                     ||request()->routeIs('edit_intends')
+                     ||request()->routeIs('filter_indents')
+                      ? 'active' : ''}}">
+                      <label class="nav-links">Indents</label></a>
+
+                    <a href="{{route('tickets')}}"
+                    class="{{request()->routeIs('tickets')
+                    || request()->routeIs('edit-ticket')
+                    || request()->routeIs('ticket-details')
+                    || request()->routeIs('generate-ticket')
+                      ? 'active' : ''}}">
+                    <label class="nav-links" >Tickets</label></a>
+
+                    <a href="{{route('attendance')}}"
+                    class="{{request()->routeIs('attendance')
+                    ||request()->routeIs('employee-details')
+                    ||request()->routeIs('employee-history')
+                      ? 'active' : ''}}">
+                    <label class="nav-links" >Attendance</label></a>
+
+                    <a href="{{route('pettycash')}}"
+                    class="{{request()->routeIs('pettycash')
+                      ? 'active' : ''}}">
+                      <label class="nav-links" >Petty Cash</label></a>
+               </div>
+
+               @elseif(Auth::user()->role_id == 5)
 
                <a
                 href="{{route('home')}}"
