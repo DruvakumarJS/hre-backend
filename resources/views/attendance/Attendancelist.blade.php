@@ -17,9 +17,9 @@
             <a  class="btn btn-light btn-outline-secondary" href="#"></i> View Employees</a>
         </div>
  -->
-        <div id="div3" style="margin-right: 30px">
+        <!-- <div id="div3" style="margin-right: 30px">
             <button class="btn btn-light btn-outline-secondary" > Download CSV</button>
-        </div>
+        </div> -->
     </div>
 
     <label>Today's Attendance</label>

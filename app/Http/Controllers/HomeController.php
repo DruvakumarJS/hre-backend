@@ -34,7 +34,7 @@ class HomeController extends Controller
     {
          $date = date('Y-m-d');
          $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
-         $tickets = Ticket::count();
+         $tickets = Ticket::where('created_at','LIKE','%'.$date.'%')->count();
          $attendance = Attendance::where('created_at','LIKE','%'.$date.'%')->count();
          
          $Pcn = Pcn::where('status','!=','Completed')->get();

@@ -8,6 +8,7 @@ use App\Http\Controllers\api\MaterialController;
 use App\Http\Controllers\api\IndentController;
 use App\Http\Controllers\api\TicketController;
 use App\Http\Controllers\api\AttendanceController;
+use App\Http\Controllers\api\PettycashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,8 @@ Route::post('/get-employees',[UserController::class,'employees']);
 
 Route::post('/attendance',[AttendanceController::class,'attendance']);
 Route::post('/myattendance',[AttendanceController::class,'myattendance']);
+
+Route::post('/get-mypettycash',[PettycashController::class,'mypettycash']);
+Route::post('/upload-pettycash_bill',[PettycashController::class,'upload_bill']);
+Route::post('/get-pettycash_details',[PettycashController::class,'pettycash_details']);
+

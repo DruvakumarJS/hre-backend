@@ -99,6 +99,9 @@
 
                     <a href="{{route('pettycash')}}"
                     class="{{request()->routeIs('pettycash')
+                    ||request()->routeIs('edit_pettycash')
+                    ||request()->routeIs('details_pettycash')
+                    ||request()->routeIs('update_bill_status')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
                </div>
@@ -152,6 +155,9 @@
 
                     <a href="{{route('pettycash')}}"
                     class="{{request()->routeIs('pettycash')
+                    ||request()->routeIs('edit_pettycash')
+                    ||request()->routeIs('details_pettycash')
+                    ||request()->routeIs('update_bill_status')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
                </div>

@@ -27,13 +27,16 @@
      					<div class="form-group row">
                             <label for="" class="col-5 col-form-label">Employee Name*</label>
                             <div class="col-7">
-                                <select class="form-control" name="user_id" required>
-                                    <option value="">Select Employee</option>
-                                    @foreach($employee as $key => $value)
-                                    <option value="{{$value->id}}">{{$value->name}} - {{$value->roles->alias}}</option>
+                                <input name="user_name" id="user_name" type="text" class="typeahead form-control" required="required" placeholder="Search by name" >
+                            </div>
+                        </div>
 
-                                    @endforeach
-                                </select>
+                        <input type="hidden" name="user_id" id="user_id" >
+
+                        <div class="form-group row" style="display: none" >
+                            <label for="" class="col-5 col-form-label">Role* </label>
+                            <div class="col-7">
+                                <input name="role" id="role" type="text" class="typeahead form-control" required="required" readonly placeholder="Role">
                             </div>
                         </div>
 
@@ -78,6 +81,61 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+
+$( document ).ready(function() {
+  var path = "{{ route('autocomplete_employee') }}";
+   let text = "";
+    $( "#user_name" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            success: function( data ) {
+              
+               response( data );
+               //$('#user_name').val(ui.item.lable);
+              
+            }
+          });
+        },
+        select: function (event, ui) {
+            $('#user_id').val(ui.item.id);
+           
+         if(ui.item.role_id == '1')
+         {
+             $('#role').val('Super Admin');
+         }
+          
+         else if(ui.item.role_id == '2') 
+            {
+                $('#role').val('Manager');
+            }
+         else if(ui.item.role_id == '3') 
+            {
+                $('#role').val('Procurement');
+            }
+         else if(ui.item.role_id == '4') 
+            {
+                $('#role').val('Supervisor');
+            }
+        else if(ui.item.role_id == '5') 
+            {
+                $('#role').val('Finance');
+            }      
+          
+        }
+      });
+
+    
+});
+
+</script>
 
 
 

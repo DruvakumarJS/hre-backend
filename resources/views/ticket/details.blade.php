@@ -97,6 +97,7 @@
                     @if(!empty($value->filename))
                      <td>
                       <a id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"> <button class="btn btn-light">Attachment</button></a>
+                       <a download href="{{ URL::to('/') }}/ticketimages/{{$value->filename}}"><i class="fa fa-download"></i></a>
                     </td>
                     @else 
                     <td>

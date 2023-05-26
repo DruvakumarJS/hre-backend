@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 
 class PettycashController extends Controller
 {
@@ -19,13 +20,14 @@ class PettycashController extends Controller
     {
         $user = Auth::user();
 
-      if($user->role == 'admin' || $user->role == 'finance'){
-            $data = Pettycash::paginate(10);
+        if($user->role == 'admin' || $user->role == 'finance'){
+            $data = Pettycash::orderBy('id', 'DESC')->paginate(10);
         }
         else {
-            $data = Pettycash::where('user_id', $user->id )->paginate(10);
+            $data = Pettycash::where('user_id', $user->id )->orderBy('id', 'DESC')->paginate(10);
         }
-        
+         
+
          return view('pettycash/list', compact('data'));
     }
 
@@ -120,5 +122,29 @@ class PettycashController extends Controller
     public function destroy(Pettycash $pettycash)
     {
         //
+    }
+
+     function action(Request $request)
+    {
+        /* $data = DB::table('users')->select("*", DB::raw("CONCAT(users.name,' - ',users.role) AS value"))
+        ->where('name', 'LIKE', '%'. $request->get('search'). '%')->get();
+    */
+        /*$data = User::select(DB::Raw("CONCAT(name, ' - ', id) AS value"))
+                    ->where('name', 'LIKE', '%'. $request->get('search'). '%')
+                    ->get();*/
+
+                    $data = DB::table('users')
+            ->select(
+                    'users.name',
+                    'roles.alias'
+                )
+            ->select("*", DB::raw("CONCAT(users.name,' - ',roles.alias) AS value"))
+            ->leftJoin('roles', 'users.role_id', '=', 'roles.id')
+            ->where('users.name', 'LIKE', '%'. $request->get('search'). '%')->get();
+            
+
+           // print_r($data);die();
+    
+        return response()->json($data);
     }
 }

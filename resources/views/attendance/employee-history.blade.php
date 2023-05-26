@@ -6,14 +6,30 @@
     <div class="container-header">
         <label class="label-bold" id="div1">Employee History</label>
 
+
         <div id="div2" >
             <div class="mb-3 d">
+              <input type="hidden" name="id" id="id" value="{{$employee->user_id}}">
+              
                 <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
-    <span></span> <b class="caret"></b>
-</div>
+                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                    <span></span> <b class="caret"></b>
+                </div>
             </div>
         </div>
+         <form method="POST" action="{{route('export_attendance')}}">
+          @csrf
+            <input type="hidden" name="user_id" id="user_id" value="{{$employee->user_id}}">
+            <input type="hidden" name="start_date" id="start_date" value="{{$employee->user_id}}">
+            <input type="hidden" name="end_date" id="end_date" value="{{$employee->user_id}}">
+
+            <div id="div3" style="margin-right: 30px">
+                <button type="submit" class="btn btn-light btn-outline-secondary" > Download CSV</button>
+            </div>
+          
+        </form>
+
+        
 
     </div>
 
@@ -36,10 +52,7 @@
                         <p>Total Working Hours</p>
                     </div>
                    
-                    <div class="col-4 text-center">
-                        <h1>02</h1>
-                        <p>Leaves</p>
-                    </div>
+                   
                 </div>
 
             </div>
@@ -87,13 +100,20 @@ $(function() {
     var start = moment().subtract(dd, 'days');
     var end = moment();
 
+ /**/
+
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         
         var from_date = start.format('YYYY-MM-DD');
         var to_date = end.format('YYYY-MM-DD');
 
+       document.getElementById('start_date').value=from_date
+       document.getElementById('end_date').value=to_date;
+        var id = document.getElementById('id').value;
+
         var _token = $('input[name="_token"]').val();
+
 
  fetch_data(from_date, to_date);
 
@@ -103,7 +123,7 @@ $(function() {
   $.ajax({
    url:"{{ route('fetch_attendance') }}",
    method:"POST",
-   data:{from_date:from_date, to_date:to_date, _token:_token},
+   data:{from_date:from_date, to_date:to_date, _token:_token , user_id:id},
    dataType:"json",
    success:function(data)
    {
@@ -118,7 +138,7 @@ $(function() {
      output += '<td>' + data[count].date + '</td>';
      output += '<td>' + data[count].login_time + '</td>';
      output += '<td>' + data[count].logout_time + '</td>';
-     output += '<td>' + data[count].total_hours/60+'Hr : ' + data[count].total_hours%60+'Min'+ '</td></tr>';
+     output += '<td>' + data[count].total_hours + '</td></tr>';
     }
     $('tbody').html(output);
    }

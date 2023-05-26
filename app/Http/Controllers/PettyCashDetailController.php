@@ -15,7 +15,7 @@ class PettyCashDetailController extends Controller
      */
     public function index($id)
     {
-         $data = PettyCashDetail::where('pettycash_id' , $id)->get();
+         $data = PettyCashDetail::where('pettycash_id' , $id)->orderBy('id', 'DESC')->get();
          $pettycash = Pettycash::where('id', $id)->first();
         return view('pettycash/details',compact('data' , 'pettycash'));
     }

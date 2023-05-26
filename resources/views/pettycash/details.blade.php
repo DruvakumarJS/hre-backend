@@ -14,33 +14,82 @@
 
 
     <div class="form-build">
-    	<div class="row">
-    		<div class="col-md-2">
-    			<label>Employee Name</label>
-    			<h3 class="label-bold">{{$pettycash->employee->name}}</h3>
-    			
-    		</div>
-    		<div class="col-md-2">
-    			<label>Contact No</label>
-    			<h3 class="label-bold">{{$pettycash->employee->mobile}}</h3>
-    			
-    		</div>
 
-    		<div class="col-md-2">
-    			<label>Total Amount</label>
-    			<h3 class="label-bold">{{$pettycash->total}}</h3>
-    			
-    		</div>
+        <div class="row">
+            <div class="col-md-2">
+                <label>Employee Name</label>
+                <h3 class="label-bold">{{$pettycash->employee->name}}</h3>
+                
+            </div>
+            <div class="col-md-2">
+                <label>Contact No</label>
+                <h3 class="label-bold">{{$pettycash->employee->mobile}}</h3>
+                
+            </div>
 
-    		<div class="col-md-2">
-    			<label>Outsatnding Amount</label>
-    			<h3 class="label-bold">{{$pettycash->remaining}}</h3>
-    			
-    		</div>
-    		
-    	</div>
+            <div class="col-md-2">
+                <label>Total Amount</label>
+                <h3 class="label-bold">{{$pettycash->total}}</h3>
+                
+            </div>
 
-    	<div class="row div-margin">
+            <div class="col-md-2">
+                <label>Outsatnding Amount</label>
+                <h3 class="label-bold">{{$pettycash->remaining}}</h3>
+                
+            </div>
+            
+        </div>
+
+         <div class="card">
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <!-- <th>Bill No</th> -->
+                                <th>Spent Amount</th>
+                                <th>Comments</th>
+                                <th>File Name</th>
+                                <th>Staus</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                        @foreach($data as $key =>$value)
+                                <tr>
+                                    <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
+                                    <!-- <td>{{$value->billing_no}}</td> -->
+                                    <td>{{$value->spent_amount}}</td>
+                                    <td>{{$value->comments}}</td>
+                                    <td>
+                                        @if($value->filename != '')
+                                        <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-paperclip"></i></a> 
+                                        @endif
+                                    </td>
+                                    @if($value->isapproved == '0')
+                                        <td style="color: blue">Waiting for approval</td>
+                                    @elseif($value->isapproved == '1')
+                                         <td style="color: green">Accepted</td>
+                                    @else 
+                                         <td style="color: red">Rejected</td> 
+                                    @endif
+
+                                    <td>
+                                        @if( (Auth::user()->role == 'admin') || (Auth::user()->role == 'finance'))
+                                            @if($value->isapproved == '0')
+                                                <a onclick="return confirm('you are Accepting this bill ?')" href="{{route('update_bill_status',['id' => $value->id, 'status' => '1']) }}"><button class="btn btn-sm btn-outline-success">Accept</button></a>
+                                                <a onclick="return confirm('you are Rejecting this bill ?')" href="{{route('update_bill_status',['id' => $value->id, 'status' => '2'] ) }}"><button  class="btn btn-sm btn-outline-danger">Reject</button></a>
+                                            @endif
+                                            @endif  
+                                    </td> 
+                                   </tr>
+                        @endforeach
+                        </table>
+                        </div>
+
+    	 
+
+     <!--	<div class="row div-margin">
     			<div class="col-md-1">
     				<label class="label-bold " >Date</label>
     			</div>
@@ -121,7 +170,7 @@
     	</div>
     	@endforeach
 
-    </div>
+    </div> -->
 
  </div>    
 </div>

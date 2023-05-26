@@ -39,10 +39,10 @@ $yvalue=array();
                             <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$todaysIndent}}</h2>
                         </div>
                         <div  >
-                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Today's Indent</h4>
+                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Indents</h4>
                            
                         </div >
-                        <label class="card-text-label ">No. of indent created today</label>
+                        <label class="card-text-label ">Today's Indent</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -59,7 +59,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #fff; font-weight: bold; font-size: 25px">Attendance</h4>
                            
                         </div >
-                        <label class="card-text-label" style="color:#fff">Today working</label>
+                        <label class="card-text-label" style="color:#fff">Today's Headcount</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -75,7 +75,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Tickets</h4>
                            
                         </div >
-                        <label class="card-text-label ">Pending Tickets</label>
+                        <label class="card-text-label ">Today's Tickets</label>
                     </div>
                     <!--</div>-->
                 </div>

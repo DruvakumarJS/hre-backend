@@ -141,7 +141,9 @@ Route::middleware('role:procurement')->group(function () {
     Route::get('employee-history/{id}',[AttendanceController::class,'employeehistory'])->name('employee-history')
     ;
     Route::post('attendance',[AttendanceController::class,'fetch_data'])->name('fetch_attendance');
+    Route::post('export_attendance',[AttendanceController::class,'export'])->name('export_attendance');
  //petty cash
+     Route::get('autocomplete_employee',[PettycashController::class,'action'])->name('autocomplete_employee');
     Route::get('pettycash',[PettycashController::class,'index'])->name('pettycash');
     Route::get('create_new',[PettycashController::class,'create'])->name('create_new');
     Route::post('save_petty_cash',[PettycashController::class,'store'])->name('save_petty_cash');
@@ -188,7 +190,6 @@ Route::middleware('role:procurement')->group(function () {
     Route::get('procurement',[UserController::class, 'view_procurement'])->name('procurement');
     Route::get('finance',[UserController::class, 'view_finance'])->name('finance');
     Route::get('export-users/{role}',[UserController::class , 'export'])->name('export-users');
-
    
     Route::get('create_customer' ,[CustomerController::class,'create'])->name('create_customer');
     Route::post('save_customer' ,[CustomerController::class,'store'])->name('save_customer');

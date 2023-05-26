@@ -136,7 +136,7 @@ class AttendanceController extends Controller
             if(isset($request->start_date) && isset(($request->end_date))){
             $data= array();
 
-            $startDate = $request->start_date;
+            /*$startDate = $request->start_date;
             $endDate = $request->end_date;
 
             $attendance = Attendance::where('user_id',$request->user_id)->whereBetween('date',[$startDate,$endDate])->get();
@@ -152,9 +152,65 @@ class AttendanceController extends Controller
                 'working_minutes' => $value->total_hours];
 
                 array_push($data, $res);
-            }
-           
+            }*/
+             $attendance =
+             Attendance::where('user_id',$request->user_id)->whereBetween('date',[$request->start_date,$request->end_date])->get();
+            $total_hour = $attendance->sum('total_hours');
 
+          $data = array();
+          $now = strtotime($request->start_date);
+          $last = strtotime($request->end_date);
+        
+          while($now <= $last ) {
+           
+            if(Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->exists()){
+                $attendance = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->first();
+
+                $login_time = $attendance->login_time ;
+                $logout_time = $attendance->logout_time;
+                $total_hours = $attendance->total_hours;
+                $login_location = $attendance->login_location;
+                $logout_location = $attendance->logout_location;
+
+                if($logout_time == ''){
+                    $logout_time = '---';
+                }
+
+                if($total_hours != '0'){
+                    
+                    if($total_hours%60 > '0'){
+                         $total_hours = $total_hours/60 ."Hr : " . $total_hours%60 ."Min";
+                    }
+                    else {
+                        $total_hours = $total_hours/60 ."Hr";
+                    }
+                }
+                else {
+                    $total_hours = '0 Min'; 
+                }
+ 
+            }
+            else {
+                $login_time = '---' ;
+                $logout_time = '---';
+                $total_hours = '---';
+
+            }
+            $res = [
+                'date' => date('Y-m-d', $now),
+                'login'=> $login_time ,
+                'login_location' => '',
+                'logout' => $logout_time,
+                'logout_location' => '',
+                'working_minutes' => $total_hours
+
+            ];
+
+            array_push($data, $res);
+
+           $now = strtotime('+1 day', $now);
+          }
+           
             return response()->json([
                 'status' => 1,
                 'message' => 'Success',
@@ -163,7 +219,7 @@ class AttendanceController extends Controller
 
             }
 
-            else if (isset($request->date)) {
+           /* else if (isset($request->date)) {
 
             $attendance = Attendance::where('user_id',$request->user_id)->where('date','LIKE', '%'.$request->date.'%')->get();
             $total_hour = $attendance->sum('total_hours');
@@ -189,7 +245,7 @@ class AttendanceController extends Controller
                 'total_minute' => $total_hour,
                 'data' => $data]);
 
-        }
+        }*/
         else {
              return response()->json([
                 'status'=> 0,
