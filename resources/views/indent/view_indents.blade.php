@@ -107,7 +107,9 @@
                              	<td>{{$value->pending}}</td>
                              	<td>{{$value->status}}</td>
                              	<td>
-                                <a href="{{route('edit_intends' , $value->id)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
+                                <a href="{{route('edit_intends' , $value->id)}}"><button class="btn btn-light curved-text-button btn-sm">
+                                  <?php echo ((Auth::user()->role_id == '3') ||(Auth::user()->role_id == '1')) ? 'Edit' : 'View' ?></button>
+                                </a>
                              		
                              	</td>
                              </tr>

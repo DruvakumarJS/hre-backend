@@ -39,11 +39,6 @@ class RedirectIfAuthenticated
                   return redirect()->route('home');
                   break;
 
-                 case 'finance':
-                 // return '/home';
-                  return redirect()->route('home');
-                  break;  
-                  
                 case 'manager':
                   //return '/manager_home';
                    return redirect()->route('manager_home');
@@ -52,7 +47,18 @@ class RedirectIfAuthenticated
                 case 'procurement':
                  // return '/procurement_home';
                    return redirect()->route('procurement_home');
-                  break;      
+                  break; 
+
+                 case 'supervisor':
+                 // return '/home';
+                  return redirect()->route('supervisor_home');
+                  break;  
+                    
+
+                case 'finance':
+                 // return '/home';
+                  return redirect()->route('home');
+                  break;        
 
                 default:
                  // return '/login'; 

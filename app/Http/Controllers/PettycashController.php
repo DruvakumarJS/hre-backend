@@ -50,7 +50,7 @@ class PettycashController extends Controller
      */
     public function store(Request $request)
     {
-        //print_r($request->Input());die();
+       // print_r($request->Input());die();
         $craete = Pettycash::create([
             'user_id' => $request->user_id ,
             'finance_id' => $request->finance_id , 
@@ -136,10 +136,13 @@ class PettycashController extends Controller
                     $data = DB::table('users')
             ->select(
                     'users.name',
-                    'roles.alias'
+                    'roles.alias',
+                    'users.id',
+                     DB::raw("CONCAT(users.name,' - ',roles.alias) AS value") 
+                    
                 )
-            ->select("*", DB::raw("CONCAT(users.name,' - ',roles.alias) AS value"))
-            ->leftJoin('roles', 'users.role_id', '=', 'roles.id')
+          // ->select( DB::raw("CONCAT(users.name,' - ',roles.alias) AS value") )
+            ->join('roles', 'users.role_id', '=', 'roles.id')
             ->where('users.name', 'LIKE', '%'. $request->get('search'). '%')->get();
             
 

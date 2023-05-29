@@ -13,10 +13,10 @@
 
         </div>
 
-      <!--   <div id="div2" style="margin-right: 30px">
-            <a  class="btn btn-light btn-outline-secondary" href="#"></i> View Employees</a>
+        <div id="div2" style="margin-right: 30px">
+            <a  class="btn btn-light btn-outline-secondary" href="{{route('employee-details')}}"></i> View Employees</a>
         </div>
- -->
+
         <!-- <div id="div3" style="margin-right: 30px">
             <button class="btn btn-light btn-outline-secondary" > Download CSV</button>
         </div> -->
@@ -30,20 +30,20 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Date</th>
+                   
                     <th scope="col">Employee ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Role</th>
                     <th scope="col">Login </th>
                     <th scope="col">Logout</th>
-                    <th scope="col">Working hours</th>
+                    <th scope="col">Total Hours</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                     @foreach($attendance as $key=>$value)
                     <tr>
-                        <td>{{$value->date}}</td>
+                       
                         <td>{{$value->employee->employee_id}}</td>
                         <td>{{$value->employee->name}}</td>
                         <td>{{$value->user->roles->alias}}</td>
@@ -61,7 +61,7 @@
                         @endif
                         
                         <td>
-                            <a href="{{route('employee-history', $value->user_id)}}"><button type="button" class="btn btn-sm btn-light">view</button></a>
+                            <a href="{{route('employee-history', $value->user_id)}}"><button type="button" class="btn btn-sm curved-text">view</button></a>
                         </td>
                     </tr>
                    @endforeach 

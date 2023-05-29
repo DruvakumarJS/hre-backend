@@ -185,6 +185,13 @@
                       ? 'active' : ''}}"
                       ><label class="nav-links">PCN</label></a>
 
+                      <a href="{{route('intends')}}"
+                     class="{{request()->routeIs('intends')
+                     ||request()->routeIs('indent_details')
+                     ||request()->routeIs('edit_intends')
+                      ? 'active' : ''}}">
+                      <label class="nav-links">Indents</label></a>
+
                     <a href="{{route('tickets')}}"
                     class="{{request()->routeIs('tickets')
                     || request()->routeIs('edit-ticket')
@@ -193,15 +200,19 @@
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
 
-                    <!-- <a href="{{route('attendance_list')}}"
-                     class="{{request()->routeIs('attendance_list')
+                     <a href="{{route('employee-history',Auth::user()->id)}}"
+                    class="{{request()->routeIs('employee-history')
+                    
                       ? 'active' : ''}}">
-                      <label class="nav-links">Attendance</label></a> -->
+                    <label class="nav-links" >Attendance</label></a>
 
-                    <a href="{{route('petty_cash')}}"
-                     class="{{request()->routeIs('petty_cash')
+                    <a href="{{route('pettycash')}}"
+                    class="{{request()->routeIs('pettycash')
+                    ||request()->routeIs('edit_pettycash')
+                    ||request()->routeIs('details_pettycash')
+                    ||request()->routeIs('update_bill_status')
                       ? 'active' : ''}}">
-                      <label class="nav-links">Petty Cash</label></a>
+                      <label class="nav-links" >Petty Cash</label></a>
 
                </div>
 
@@ -228,7 +239,64 @@
                     || request()->routeIs('generate-ticket')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
+
+                    <a href="{{route('employee-history',Auth::user()->id)}}"
+                    class="{{request()->routeIs('employee-history')
+                    
+                      ? 'active' : ''}}">
+                    <label class="nav-links" >Attendance</label></a>
+
+                    <a href="{{route('pettycash')}}"
+                    class="{{request()->routeIs('pettycash')
+                    ||request()->routeIs('edit_pettycash')
+                    ||request()->routeIs('details_pettycash')
+                    ||request()->routeIs('update_bill_status')
+                      ? 'active' : ''}}">
+                      <label class="nav-links" >Petty Cash</label></a>
+
+                    
+                      
                </div>
+
+                @elseif(Auth::user()->role_id == 4)
+
+                <a
+                href="{{route('procurement_home')}}"
+                   >
+                  <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
+               </a>
+
+               <div class="navigation">
+                    <a href="{{route('intends')}}"
+                     class="{{request()->routeIs('intends')
+                     ||request()->routeIs('indent_details')
+                     ||request()->routeIs('edit_intends')
+                      ? 'active' : ''}}">
+                      <label class="nav-links">Indents</label></a>
+
+                    <a href="{{route('tickets')}}"
+                    class="{{request()->routeIs('tickets')
+                    || request()->routeIs('edit-ticket')
+                    || request()->routeIs('ticket-details')
+                    || request()->routeIs('generate-ticket')
+                      ? 'active' : ''}}">
+                    <label class="nav-links" >Tickets</label></a>
+
+                    <a href="{{route('employee-history',Auth::user()->id)}}"
+                    class="{{request()->routeIs('employee-history')
+                    
+                      ? 'active' : ''}}">
+                    <label class="nav-links" >Attendance</label></a>
+
+                    <a href="{{route('pettycash')}}"
+                    class="{{request()->routeIs('pettycash')
+                    ||request()->routeIs('edit_pettycash')
+                    ||request()->routeIs('details_pettycash')
+                    ||request()->routeIs('update_bill_status')
+                      ? 'active' : ''}}">
+                      <label class="nav-links" >Petty Cash</label></a>
+               </div>
+
 
                @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

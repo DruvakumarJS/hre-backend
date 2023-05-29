@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportIndents;
 use Excel;
+use Auth ;
 
 class IntendController extends Controller
 {
@@ -20,11 +21,22 @@ class IntendController extends Controller
      */
     public function index()
     { 
+
+       if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 3) {
         $indents=Intend::orderBy('id', 'DESC')->paginate(10);
         $all = Intend::count();
         $activeCount = Intend::where('status','Active')->count();
         $pendingCount = Intend::where('status','Pending')->count();
         $compltedCount = Intend::where('status','Completed')->count();
+       }
+       else {
+        $indents=Intend::where('user_id' ,Auth::user()->id)->orderBy('id', 'DESC')->paginate(10);
+        $all = Intend::where('user_id' ,Auth::user()->id)->count();
+        $activeCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Active')->count();
+        $pendingCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Pending')->count();
+        $compltedCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Completed')->count();
+       }
+        
         //print_r($pendingCount);
 
          return view('indent/list' , compact('indents' , 'all' , 'activeCount', 'pendingCount' , 'compltedCount'));

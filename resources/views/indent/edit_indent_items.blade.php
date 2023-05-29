@@ -97,6 +97,9 @@
                 </div>
                 <div class=" col-md-8 div-margin">
                     <div style="margin-left: 60px">
+
+                    @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '3' )
+                        
                         <form method="post" action="{{route('update_quantity')}}">
                             @csrf
                             <div class="form-group row">
@@ -116,6 +119,8 @@
                             </div>
 
                         </form>
+                       
+                        @endif 
 
                         @if(Session::has('message'))
                             <p id="mydiv" class="text-danger text-center div-margin">{{ Session::get('message') }}</p>

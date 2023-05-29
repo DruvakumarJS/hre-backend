@@ -5,12 +5,11 @@
      <div class="container-header">
         <label class="label-bold" id="div1">Petty Cash</label>
 
+@if(Auth::user()->role_id == '1' || Auth::user()->role_id == '5' )
         <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light btn-outline-secondary" href="{{route('create_new')}}"><i class="fa fa-plus"></i> Create New</a>
-
-
         </div>
-
+@endif
     </div>
 
      <div class="row">
@@ -24,8 +23,8 @@
                     <th scope="col">Name</th>
                     <th scope="col">Mobile</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Total Cash</th>
-                    <th scope="col">Remaining cash</th>           
+                    <th scope="col">Total Amount</th>
+                    <th scope="col">Remaining Amount</th>           
                     <th scope="col">Action</th>
                 </tr>
                 </thead>

@@ -8,18 +8,20 @@
         <label class="label-bold" id="div1">Attendance</label>
 
         <div id="div2" style="margin-right: 30px">
-            <a class="btn btn-light" href=""><i class="fa fa-plus"></i> Create Employee</a>
+            <a class="btn btn-light" href="{{route('attendance')}}"> View today's Attendance</a>
 
         </div>
 
-        <div id="div2" style="margin-right: 30px">
+        <!-- <div id="div2" style="margin-right: 30px">
             <a  class="btn btn-light" href="#"></i> View Employees</a>
         </div>
 
         <div id="div3" style="margin-right: 30px">
             <button class="btn btn-light" > Download CSV</button>
-        </div>
+        </div> -->
     </div>
+
+    <label>Current month Attendance</label>
 
     <div class="row">
         <div class="card border-white">
@@ -27,104 +29,42 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Employee No</th>
+                   
+                    <th scope="col">Employee ID</th>
                     <th scope="col">Employee Name</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Days present</th>
+                    <th scope="col">Total working Hours</th>
                     <th scope="col">Contact No</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
+                    @foreach($data as $key => $value)
                     <tr>
-                        <td>EMP0123232</td>
-                        <td>Ramesh</td>
-                        <td>Supervisor</td>
-                        <td>Bangalore</td>
-                        <td>ramesh@hre.com</td>
-                        <td>+91 92323 23234</td>
+                        
+                        <td>{{$value['employee_id']}}</td>
+                        <td>{{$value['name']}}</td>
+                        <td>{{$value['role']}}</td>
+                        <td>{{$value['days_present']}}</td>
+                        @php
+                          $minute = $value['working_hours'];
+                          $hour=  floor($minute / 60) ;
+                          $min = $minute % 60 ;
+                        @endphp
+                        @if($value['working_hours'] == '0')
+                        <td>0 Min</td>
+                        @else
+                        <td>{{$hour}}Hr : {{$min}}Min</td>
+                        @endif
+                        <td>{{$value['mobile']}}</td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-light">view</button>
+                           <a href="{{route('employee-history', $value['user_id'])}}"><button type="button" class="btn btn-sm curved-text">view Attendance</button></a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>EMP0123232</td>
-                        <td>Ramesh</td>
-                        <td>Supervisor</td>
-                        <td>Bangalore</td>
-                        <td>ramesh@hre.com</td>
-                        <td>+91 92323 23234</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-light">view</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>EMP0123232</td>
-                        <td>Ramesh</td>
-                        <td>Supervisor</td>
-                        <td>Bangalore</td>
-                        <td>ramesh@hre.com</td>
-                        <td>+91 92323 23234</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-light">view</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>EMP0123232</td>
-                        <td>Ramesh</td>
-                        <td>Supervisor</td>
-                        <td>Bangalore</td>
-                        <td>ramesh@hre.com</td>
-                        <td>+91 92323 23234</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-light">view</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>EMP0123232</td>
-                        <td>Ramesh</td>
-                        <td>Supervisor</td>
-                        <td>Bangalore</td>
-                        <td>ramesh@hre.com</td>
-                        <td>+91 92323 23234</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-light">view</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>EMP0123232</td>
-                        <td>Ramesh</td>
-                        <td>Supervisor</td>
-                        <td>Bangalore</td>
-                        <td>ramesh@hre.com</td>
-                        <td>+91 92323 23234</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-light">view</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>EMP0123232</td>
-                        <td>Ramesh</td>
-                        <td>Supervisor</td>
-                        <td>Bangalore</td>
-                        <td>ramesh@hre.com</td>
-                        <td>+91 92323 23234</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-light">view</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>EMP0123232</td>
-                        <td>Ramesh</td>
-                        <td>Supervisor</td>
-                        <td>Bangalore</td>
-                        <td>ramesh@hre.com</td>
-                        <td>+91 92323 23234</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-light">view</button>
-                        </td>
-                    </tr>
+
+                    @endforeach
+                    
                 </tbody>
             </table>
 

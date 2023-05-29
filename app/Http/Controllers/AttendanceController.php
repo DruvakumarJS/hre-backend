@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Models\Roles;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportAttendance;
@@ -92,7 +93,31 @@ class AttendanceController extends Controller
 
     public function employeedetails()
     {
-        return view('attendance/employee-details');
+        $employees = Employee::paginate(10);
+        $data = array();
+
+
+        foreach ($employees as $key => $value) {
+
+        $days_present = Attendance::where('user_id',$value->user_id)->where('date','LIKE','%'.date('Y-m').'%')->get();
+        $role = Roles::where('name',$value->role)->first();
+           
+            $result = [
+                'employee_id' => $value->employee_id,
+                'user_id' => $value->user_id,
+                'name' => $value->name ,
+                'role' => $role->alias ,
+                'days_present' => $days_present->count(),
+                'working_hours' => $days_present->sum('total_hours'),
+                'mobile' => $value->mobile ];
+
+            array_push($data,$result) ;  
+
+        }
+
+       // print_r($data);die();
+
+        return view('attendance/employee-details', compact('data') ) ;
     }
 
     public function employeehistory($id)
@@ -155,6 +180,7 @@ class AttendanceController extends Controller
           $now = strtotime($request->from_date);
           $last = strtotime($request->to_date);
          // $data= array();
+         
 
           while($now <= $last ) {
            // $arr[] = date('Y-m-d', $now);  
@@ -173,7 +199,7 @@ class AttendanceController extends Controller
                 if($total_hours != '0'){
                     
                     if($total_hours%60 > '0'){
-                         $total_hours = $total_hours/60 ."Hr : " . $total_hours%60 ."Min";
+                         $total_hours = floor($total_hours/60) ."Hr : " . $total_hours%60 ."Min";
                     }
                     else {
                         $total_hours = $total_hours/60 ."Hr";
@@ -191,7 +217,7 @@ class AttendanceController extends Controller
 
             }
             $res = [
-                'date' => date('Y-m-d', $now),
+                'date' => date('d-m-Y', $now),
                 'login_time' => $login_time,
                 'logout_time' => $logout_time,
                 'total_hours' => $total_hours

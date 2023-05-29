@@ -48,10 +48,10 @@
                             <tr>
                                 <th>Date</th>
                                 <!-- <th>Bill No</th> -->
-                                <th>Spent Amount</th>
+                                <th>Amount Spent</th>
                                 <th>Comments</th>
-                                <th>File Name</th>
-                                <th>Staus</th>
+                                <th>Attachment</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                             </thead>

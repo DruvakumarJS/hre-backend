@@ -30,6 +30,9 @@ class Role {
 
    if($user->role_id == '3')
       return redirect('/procurement_home');
+
+    if($user->role_id == '4')
+      return redirect('/supervisor_home');
   
 
 

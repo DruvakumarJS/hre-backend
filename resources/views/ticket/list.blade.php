@@ -14,7 +14,7 @@
           </div>
           <div id="div2" style="margin-right: 30px">
              <!-- <input class="form-control" type="text" name="search" placeholder="Filter "> -->
-             
+            @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '3' )
              <form method="post" action="{{route('filter')}}">
              	@csrf
              <div class="input-group mb-3">
@@ -34,6 +34,7 @@
 				  </div>
 				</div>
              </form>
+            @endif
 
           </div>       
        </div>

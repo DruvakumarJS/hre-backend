@@ -98,6 +98,7 @@ $( document ).ready(function() {
             },
             success: function( data ) {
               
+              console.log(data);
                response( data );
                //$('#user_name').val(ui.item.lable);
               
@@ -105,6 +106,7 @@ $( document ).ready(function() {
           });
         },
         select: function (event, ui) {
+           
             $('#user_id').val(ui.item.id);
            
          if(ui.item.role_id == '1')

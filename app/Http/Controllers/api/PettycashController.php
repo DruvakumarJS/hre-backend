@@ -19,6 +19,7 @@ class PettycashController extends Controller
           	foreach ($data as $key => $value) {
           		$result = [
           			'date' => $value->created_at->toDateTimeString(),
+                'pettycash_id' => $value->id,
           			'total_amount' => $value->total ,
           			'purpose' => $value->comments ,
           			'spended_cash' => $value->spend ,
@@ -131,8 +132,8 @@ class PettycashController extends Controller
      			$details[]=[
      				'date' => $value->created_at->toDateTimeString(),
      				'spent_amount' => $value->spent_amount ,
-     				'comments' => $value->comment, 
-     				'filepath' => 'https://hre.netiapps.com/ticketImages/',
+     				'comments' => $value->comments, 
+     				'filepath' => 'https://hre.netiapps.com/pettycashfiles/',
      				'filename' => $value->filename,
      				'isapproved'=> $approved
      			];
