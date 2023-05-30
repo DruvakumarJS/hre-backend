@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ManagerHomeController;
 use App\Http\Controllers\ProcurementHomeController;
 use App\Http\Controllers\SupervisorHomeController;
+use App\Http\Controllers\FinanceHomeController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\PcnController;
 use App\Http\Controllers\TicketController;
@@ -105,9 +106,11 @@ Route::middleware('role:procurement')->group(function () {
 
 	});
 Route::middleware('role:supervisor')->group(function () {
-    Route::get('/supervisor_home', [SupervisorHomeController::class, 'index'])->name('supervisor_home');
-
+   
     });
+
+Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('finance_home');
+ Route::get('/supervisor_home', [SupervisorHomeController::class, 'index'])->name('supervisor_home');
 
 //Route::get('supervisors/{id}',[UserController::class,'view_users'])->name('supervisors');
     Route::get('PCN',[PcnController::class,'index'])->name('PCN');

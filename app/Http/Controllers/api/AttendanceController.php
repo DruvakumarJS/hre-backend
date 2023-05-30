@@ -176,7 +176,7 @@ class AttendanceController extends Controller
                     $logout_time = '---';
                 }
 
-                if($total_hours != '0'){
+               /* if($total_hours != '0'){
                     
                     if($total_hours%60 > '0'){
                          $total_hours = $total_hours/60 ."Hr : " . $total_hours%60 ."Min";
@@ -187,7 +187,7 @@ class AttendanceController extends Controller
                 }
                 else {
                     $total_hours = '0 Min'; 
-                }
+                }*/
  
             }
             else {

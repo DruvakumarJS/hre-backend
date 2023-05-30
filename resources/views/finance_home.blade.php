@@ -84,6 +84,37 @@ $yvalue=array();
               
             </div>
 
+            <!-- graph -->
+            <div>
+                
+
+                <div class="row">
+                   <div class="col-sm-6 col-md-6" >
+                 
+                    <div class="card border-white" style="height: 350px">
+                        <label class="label-bold">PettyCash</label>             
+                    <div>
+                        <canvas id="pettycash" ></canvas>
+                    </div>
+                   
+                  </div>
+                  
+                          
+                 </div>
+                  <div class="col-sm-6 col-md-6 card">
+                     
+                    <canvas id="tickets_chart" ></canvas>
+                  
+                    
+                 </div>
+   
+                </div>
+
+
+                  
+            </div>
+<!-- graph -->
+
             <div>
                 <label class="label-bold">Customers</label>
 
@@ -207,36 +238,6 @@ $yvalue=array();
                             </script>
 
                            
-                 </div>
-                    
-                </div>
-
-
-                  
-            </div>
-<!-- graph -->
-            <diiv>
-                
-
-                <div class="row">
-                  <div class="col-sm-6 col-md-6 card">
-                    
-                    <canvas id="tickets_chart" ></canvas>
-                  
-                    
-                 </div>
-
-                 <div class="col-sm-6 col-md-6" >
-               
-                    <div class="card border-white" style="height: 350px">
-                        <label class="label-bold">PettyCash</label>
-                        
-                        <canvas id="pettycash" ></canvas>
-                   
-                   
-                  </div>
-                  
-                          
                  </div>
                     
                 </div>

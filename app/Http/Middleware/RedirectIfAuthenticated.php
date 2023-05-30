@@ -30,9 +30,13 @@ class RedirectIfAuthenticated
         return $next($request);
     }*/
 
+
+
     if (Auth::guard($guards)->check()) {
-     
-        $role = Auth::user()->role; 
+
+        $role = Auth::user()->role;
+
+       // echo  $role ; exit;
               switch ($role) {
                 case 'admin':
                  // return '/home';
@@ -54,9 +58,8 @@ class RedirectIfAuthenticated
                   return redirect()->route('supervisor_home');
                   break;  
                     
-
                 case 'finance':
-                 // return '/home';
+                 // return '/finance_home';
                   return redirect()->route('home');
                   break;        
 

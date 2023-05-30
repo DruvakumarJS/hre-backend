@@ -106,7 +106,7 @@
 
                                 @else
 
-                                   @if($tickets->status == 'Created')
+                                  <!--  @if($tickets->status == 'Created')
                                    <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
                                    <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
                                    @endif
@@ -118,10 +118,37 @@
                                     <option value="Pending" <?php echo ($tickets->status == 'Pending') ? 'selected' : ''; ?>  >Pending</option>
 
                                     <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
-                                   @if($tickets->status != 'Created')
+
+                                   @if($tickets->status == 'Completed' )
                                     <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
-                                    @endif
-                                 @endif   
+                                    @endif -->
+
+                                     @if($tickets->status == 'Created')
+                                   <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
+                                   <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
+
+                                   @elseif($tickets->status == 'Rejected')
+                                  
+                                   <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
+                                    <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
+
+                                    @elseif($tickets->status == 'Completed')
+                                    <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
+                                    <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
+
+                                    @elseif($tickets->status == 'Pending')
+                                     <option value="Pending" <?php echo ($tickets->status == 'Pending') ? 'selected' : ''; ?>  >Pending</option>
+                                     <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
+
+
+                                   @endif
+
+                                   @endif
+
+
+
+
+                                  
                                    
                                 </select>
                                
