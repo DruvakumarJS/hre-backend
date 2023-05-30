@@ -6,11 +6,13 @@ use App\Models\Intend;
 use App\Models\Indent_list;
 use App\Models\Indent_tracker;
 use App\Models\GRN;
+use App\Models\Material;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportIndents;
 use Excel;
 use Auth ;
+use DB;
 
 class IntendController extends Controller
 {
@@ -49,7 +51,7 @@ class IntendController extends Controller
      */
     public function create()
     {
-        //
+        return view('indent/create');
     }
 
     /**
@@ -244,5 +246,18 @@ class IntendController extends Controller
         //print_r($pendingCount);
 
          return view('indent/list' , compact('indents' , 'all' , 'activeCount', 'pendingCount' , 'compltedCount'));
+    }
+
+    public function action(Request $request){
+
+        $product = DB::table('materials')
+        ->select(DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
+        ->where('item_code' , 'LIKE', '%'.$request->search.'%')
+        ->orWhere('name' , 'LIKE', '%'.$request->search.'%')
+        ->orWhere('brand' , 'LIKE', '%'.$request->search.'%')
+        ->get();
+
+        return response()->json($product);
+
     }
 }

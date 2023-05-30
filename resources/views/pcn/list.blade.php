@@ -46,7 +46,7 @@
                               <td>{{$value->client_name}}</td>
                               <td>{{$value->customer->email}}</td>
                               <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>
-                              <td>{{$value->created_at}}</td>
+                              
                               <td ><a href="{{route('edit_pcn',$value->pcn)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
                               </td>
                             </tr>

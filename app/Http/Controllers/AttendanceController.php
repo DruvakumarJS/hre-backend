@@ -8,6 +8,7 @@ use App\Models\Roles;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportAttendance;
+use App\Exports\ExportAttendanceReport;
 use DB;
 
 use Excel;
@@ -252,6 +253,30 @@ class AttendanceController extends Controller
       
           $file_name = 'attendance.csv';
          return Excel::download(new ExportAttendance($user_id ,$start_date, $end_date ), $file_name);
+
+    }
+
+    public function month_report(){
+        
+          $month = date('m_Y');
+          $file_name = 'attendance_report_'.$month.'.csv';
+
+         return Excel::download(new ExportAttendanceReport($month), $file_name);
+
+/*
+          $att= DB::table('attendances')
+        ->select(
+            'attendances.date',
+            'attendances.login_time',
+            'attendances.logout_time',
+            'employees.employee_id',
+            'employees.name'
+            ) 
+        ->join('employees', 'attendances.user_id', '=', 'employees.user_id')
+        ->where('date','LIKE' , '%'.date('Y-m').'%' )
+        ->get();
+
+        print_r(json_encode($att));die();*/
 
     }
 

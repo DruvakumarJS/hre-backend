@@ -38,16 +38,16 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Amount (in rupees)*</label>
+                            <label for="" class="col-5 col-form-label">Alloted Amount (in rupees)*</label>
                             <div class="col-7">
                                 <input name="amount" id="amount" type="text" class="form-control" required="required" placeholder="Enter Amount" value="{{$data->total}}">
                             </div>
                         </div>
 
                          <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Comments </label>
+                            <label for="" class="col-5 col-form-label">Description*</label>
                             <div class="col-7">
-                                <input name="comment" id="comment" type="text" class="form-control" required="required" placeholder="Enter comments" value="{{$data->comments}}">
+                                <input name="comment" id="comment" type="text" class="form-control" required="required" placeholder="Enter description" value="{{$data->comments}}">
                             </div>
                         </div>
 

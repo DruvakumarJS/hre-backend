@@ -24,10 +24,10 @@
             <a class="link-dark" href="{{route('filter_indents','Completed')}}"><label style="margin-left: 20px" class="label-medium" id="div1">Completed({{$compltedCount}})</label></a>
           
          
-         <!--  <div id="div2" style="margin-right: 30px">
-            <a href="{{route('tickets')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
+          <div id="div2" style="margin-right: 30px">
+            <a href="{{route('create_indent')}}"><button class="btn btn-light btn-outline-secondary" > Create Indent</button></a>
              
-          </div> -->
+          </div>
 
           
 

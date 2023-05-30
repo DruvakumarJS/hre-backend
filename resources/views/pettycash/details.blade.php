@@ -29,13 +29,13 @@
 
             <div class="col-md-2">
                 <label>Total Amount</label>
-                <h3 class="label-bold">{{$pettycash->total}}</h3>
+                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total}}</h3>
                 
             </div>
 
             <div class="col-md-2">
-                <label>Outsatnding Amount</label>
-                <h3 class="label-bold">{{$pettycash->remaining}}</h3>
+                <label>Balance Amount</label>
+                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->remaining}}</h3>
                 
             </div>
             
@@ -47,10 +47,10 @@
                             <thead>
                             <tr>
                                 <th>Date</th>
-                                <!-- <th>Bill No</th> -->
-                                <th>Amount Spent</th>
-                                <th>Comments</th>
-                                <th>Attachment</th>
+                                <th>Transaction Ref</th>
+                                <th>Amount Utilised</th>
+                                <th>Description</th>
+                                <th>Proof of Expense</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -58,8 +58,8 @@
                         @foreach($data as $key =>$value)
                                 <tr>
                                     <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                    <!-- <td>{{$value->billing_no}}</td> -->
-                                    <td>{{$value->spent_amount}}</td>
+                                    <td>{{$value->billing_no}}</td>
+                                    <td><span>&#8377;</span>{{$value->spent_amount}}</td>
                                     <td>{{$value->comments}}</td>
                                     <td>
                                         @if($value->filename != '')

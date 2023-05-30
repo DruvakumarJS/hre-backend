@@ -131,6 +131,7 @@ class PettycashController extends Controller
 
      			$details[]=[
      				'date' => $value->created_at->toDateTimeString(),
+            'transaction_ref' => $value->billing_no,
      				'spent_amount' => $value->spent_amount ,
      				'comments' => $value->comments, 
      				'filepath' => 'https://hre.netiapps.com/pettycashfiles/',

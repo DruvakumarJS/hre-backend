@@ -33,9 +33,9 @@
                         </div>
 
                          <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Comments </label>
+                            <label for="" class="col-5 col-form-label">Description </label>
                             <div class="col-7">
-                                <input name="comment" id="comment" type="text" class="form-control" placeholder="Enter comments">
+                                <input name="comment" id="comment" type="text" class="form-control" placeholder="Enter description" required="required">
                             </div>
                         </div>
 

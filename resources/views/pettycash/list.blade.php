@@ -36,8 +36,8 @@
                 		<td>{{$value->employee->name}}</td>
                 		<td>{{$value->employee->mobile}}</td>
                 		<td>{{$value->employee->user->roles->alias}}</td>
-                		<td>{{$value->total}}</td>
-                		<td>{{$value->remaining}}</td>
+                		<td><span>&#8377;</span>{{$value->total}}</td>
+                		<td><span>&#8377;</span>{{$value->remaining}}</td>
                 		<td>
                             @if(Auth::user()->role == 'admin' || Auth::user()->role == 'finance')
                 			<a href="{{route('edit_pettycash',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>

@@ -86,20 +86,42 @@ class HomeController extends Controller
             $pc['y'][] = $value->total;
             $pc['z'][]= $value->spend;
             $pc['x'][] = date("d-m-Y", strtotime($value->created_at)) ;
+
+          
+            $total[] = [
+                'y' => intval( $value->total) - intval($value->spend),
+                'x' => intval(date("d", strtotime($value->created_at))) 
+                ];
+
+            $used[] = [
+                'y' => intval($value->spend),
+                'x' => intval(date("d", strtotime($value->created_at))) 
+                ]; 
+
+               
+
         }
 
         $total_given = json_encode($pc['y'], true);
         $total_used = json_encode($pc['z'], true);
         $date = json_encode($pc['x'], true);
 
-       // print_r( $total_given); die();
-           
+
+
+       $pc_given = json_encode($total, true);
+        // $pc_given = $total;
+
+        $pc_used = json_encode($used, true);
+
+
+     
+         
         
 
 
          $chart_pcn = Pcn::select('client_name')->groupby('client_name')->get();
 
-        return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date'));
+        return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date' , 'pc_given' , 'pc_used'));
     }
 
      public function destroy(){

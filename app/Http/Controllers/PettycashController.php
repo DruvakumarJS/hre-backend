@@ -119,6 +119,7 @@ class PettycashController extends Controller
      * @param  \App\Models\Pettycash  $pettycash
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy(Pettycash $pettycash)
     {
         //

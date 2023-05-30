@@ -7,6 +7,8 @@ $xvalue=array();
 $yvalue=array();
 @endphp
 
+<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+
 <div class="container" >
     <div class="row ">
         <div >
@@ -241,7 +243,7 @@ $yvalue=array();
                     
                 </div>
 
-
+<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
                   
             </div>
 
@@ -313,7 +315,7 @@ $yvalue=array();
 
            
             new Chart("pettycash", {
-              type: "bar",
+              type: "stackedColumn",
               axisY:{
                   minimum: <?php echo '0' ?>,
                   maximum: <?php echo '20000' ?>,
@@ -326,19 +328,10 @@ $yvalue=array();
                   label: 'Released Amount',  
                   fill: false,
                   lineTension: 0,
-                  backgroundColor: "<?php echo 'grey';  ?>",
+                  backgroundColor: "<?php echo '#FDF2DF';  ?>",
                   borderColor: "rgba(0,0,255,0.1)",
                   data: ypcValues
                 },
-                {
-                  label: 'Amount Spent',  
-                  fill: false,
-                  lineTension: 0,
-                  backgroundColor: "<?php echo 'gold';  ?>",
-                  borderColor: "rgba(0,0,255,0.1)",
-                  data: spent_yValue
-                },
-                
                
                 ]
               },
@@ -362,5 +355,70 @@ $yvalue=array();
                 }
               }
             });
-        </script>      
+        </script>  
+
+
+
+        <script>
+window.onload = function () {
+
+ 
+
+var chart = new CanvasJS.Chart("chartContainer", {
+  animationEnabled: true,
+  title:{
+    text: "Google - Consolidated Quarterly Revenue",
+    fontFamily: "arial black",
+    fontColor: "#695A42"
+  },
+ axisX: {
+    interval: 1,
+    intervalType: "day"
+  },
+  axisY:{
+    valueFormatString:"1000",
+    gridColor: "#B6B1A8",
+    tickColor: "#B6B1A8"
+  },
+  toolTip: {
+    shared: true,
+    content: toolTipContent
+  },
+  data: [{
+    type: "stackedColumn",
+    showInLegend: true,
+    color: "#696661",
+    name: "Q1",
+    dataPoints: <?php echo $pc_used;?>
+    },
+    {
+    type: "stackedColumn",
+    showInLegend: true,
+    color: "#000000",
+    name: "Q1",
+    dataPoints: <?php echo $pc_given;?>
+    },
+
+
+  ]
+});
+chart.render();
+
+function toolTipContent(e) {
+  var str = "";
+  var total = 0;
+  var str2, str3;
+  for (var i = 0; i < e.entries.length; i++){
+    var  str1 = "<span style= \"color:"+e.entries[i].dataSeries.color + "\"> "+e.entries[i].dataSeries.name+"</span>: $<strong>"+e.entries[i].dataPoint.y+"</strong>bn<br/>";
+    total = e.entries[i].dataPoint.y + total;
+    str = str.concat(str1);
+  }
+  str2 = "<span style = \"color:DodgerBlue;\"><strong>"+(e.entries[0].dataPoint.x).getFullYear()+"</strong></span><br/>";
+  total = Math.round(total * 100) / 100;
+  str3 = "<span style = \"color:Tomato\">Total:</span><strong> $"+total+"</strong>bn<br/>";
+  return (str2.concat(str)).concat(str3);
+}
+
+}
+</script>    
 @endsection
