@@ -21,7 +21,7 @@
         </div> -->
 
         <div class="container-header">
-            <label class="label-bold" id="div1">Dashboard</label>
+            <label class="label-bold" id="div1">Manager Dashboard</label>
            
         </div>
    

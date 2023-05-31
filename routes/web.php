@@ -131,7 +131,9 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');
     Route::get('filter_indents/{filter}',[IntendController::class,'filter_indents'])->name('filter_indents');
     Route::get('create_indent',[IntendController::class,'create'])->name('create_indent');
-     Route::get('products',[IntendController::class,'action'])->name('products');
+    Route::get('products',[IntendController::class,'action'])->name('products');
+    Route::post('save_indent',[IntendController::class,'store'])->name('save_indent');
+   
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');
     Route::get('generate-pdf', [HomeController::class, 'generatePDF'])->name('pdf');

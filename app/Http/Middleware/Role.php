@@ -9,67 +9,43 @@ use Illuminate\Support\Facades\Auth;
 class Role {
 
   public function handle($request, Closure $next, String $role) {
-   // echo 'Role';
-   // echo $role ; die();
-    $user = Auth::user();
-   // echo $user ; die();
-
-    if($user->role == $role)
-    {
-      return $next($request);
-    }
-  
-   if($user->role_id == '1'){
-    return redirect('/home');
-   }
-       
-   if($user->role_id == '5'){
-     return redirect('/home');
-   }
    
-  
-  if($user->role_id == '2'){
-     return redirect('/manager_home');
-  }
-     
-   if($user->role_id == '3'){
-      return redirect('/procurement_home');
-   }
+    $user = Auth::user();
 
-    if($user->role_id == '4'){
-      return redirect('/supervisor_home');
-    }
-
-   /* if (!Auth::check()) // This isnt necessary, it should be part of your 'auth' middleware
-      return redirect('/home');
-
-    $user = Auth::user();*/
-
-   /* $user = Auth::user();
+   /* echo $user->role;
+    echo $user->role_id ;
     echo $user ; die();*/
 
     /*if($user->role == $role)
     {
       return $next($request);
     }
-  
-   if($user->role_id == '1')
-   	return redirect('/home');
-      //return $next($request);
-   if($user->role_id == '5')
-    return redirect('/finance_home');
-  
-  if($user->role_id == '2')
-      return redirect('/manager_home');
-
-   if($user->role_id == '3')
-      return redirect('/procurement_home');
-
-    if($user->role_id == '4')
-      return redirect('/supervisor_home');
-  
-*/
-
-    //return redirect('/home');
-  }
+    else {*/
+      if($user->role_id == '1'){
+       // echo 'admin';
+      return redirect()->route('home');
+     }
+     else if($user->role_id == '2'){
+       //echo 'manager';
+        return redirect()->route('manager_home');
+     }
+     else if($user->role_id == '3'){
+      // echo 'procure';
+       return redirect()->route('procurement_home');
+     }
+     else if($user->role_id == '4'){
+      // echo 'supervisor';
+       return redirect()->route('supervisor_home');
+     }
+     else if($user->role_id == '5'){
+      // echo 'finance';
+       return redirect()->route('finance_home');
+     }
+     else {
+      return redirect()->route('logout');
+     }
+    }
+ 
+    
+  //}
 }

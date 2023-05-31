@@ -7,6 +7,8 @@ $xvalue=array();
 $yvalue=array();
 @endphp
 
+<script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+
 <div class="container" >
     <div class="row ">
         <div >
@@ -26,7 +28,7 @@ $yvalue=array();
         </div> -->
 
         <div class="container-header">
-            <label class="label-bold" id="div1">Dashboard</label>
+            <label class="label-bold" id="div1">Finance Dashboard</label>
           
             
         </div>
@@ -83,37 +85,6 @@ $yvalue=array();
 
               
             </div>
-
-            <!-- graph -->
-            <div>
-                
-
-                <div class="row">
-                   <div class="col-sm-6 col-md-6" >
-                 
-                    <div class="card border-white" style="height: 350px">
-                        <label class="label-bold">PettyCash</label>             
-                    <div>
-                        <canvas id="pettycash" ></canvas>
-                    </div>
-                   
-                  </div>
-                  
-                          
-                 </div>
-                  <div class="col-sm-6 col-md-6 card">
-                     
-                    <canvas id="tickets_chart" ></canvas>
-                  
-                    
-                 </div>
-   
-                </div>
-
-
-                  
-            </div>
-<!-- graph -->
 
             <div>
                 <label class="label-bold">Customers</label>
@@ -245,6 +216,27 @@ $yvalue=array();
 
                   
             </div>
+<!-- graph -->
+            <diiv>
+                
+
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 card">
+                      <canvas id="tickets_chart" ></canvas>
+                 </div>
+
+                 <div class="col-sm-6 col-md-6" >
+
+                    <div class="card border-white" style="height: 350px">                     
+                        <div id="chartContainer" style="height: 300px; width: 100%;"></div>                  
+                  </div>
+                         
+                 </div>                    
+                </div>
+
+
+
+         </div>
 
 
 
@@ -261,8 +253,13 @@ $yvalue=array();
            
             new Chart("tickets_chart", {
               type: "bar",
+              title:{
+                text:"Chart Title",
+               },
+              
               data: {
                 labels: xValues,
+
                 datasets: [
                 {
                   label: 'Tickets raised',  
@@ -287,6 +284,7 @@ $yvalue=array();
                 legend: {display: true},
                 scales: {
                   yAxes: [{
+
                     ticks: {min: 0, max:50} ,
                     scaleLabel: {
                             display: true,
@@ -294,6 +292,9 @@ $yvalue=array();
                             fontColor: '#000',   }
                         }],
                   xAxes: [{
+                    barPercentage: 1.5,
+                     gridLines: {
+                     drawOnChartArea: false },
                     ticks: {min: 0, max:31} ,
                     scaleLabel: {
                             display: true,
@@ -305,63 +306,56 @@ $yvalue=array();
             });
         </script>
 
+        <script>
+window.onload = function () {
 
-  <script>
+var chart = new CanvasJS.Chart("chartContainer", {
+  animationEnabled: true,
+  title:{
+    fontFamily: "arial black",
+    fontColor: "#000000"
+  },
+ axisX: {
+    interval: 1,
+    intervalType: "day",
+  },
+  
+  data: [{
+    type: "stackedColumn",
+    showInLegend: true,
+    color: "#66ffff",
+    name: "Utilised Amount",
+    dataPoints: <?php echo $pc_used;?>
+    },
+    {
+    type: "stackedColumn",
+    showInLegend: true,
+    color: "#ff9933",
+    name: "Total Amount",
+    dataPoints: <?php echo $pc_given;?>
+    },
 
-           var xpcValues = <?php echo $date; ?>;
-           var ypcValues = <?php echo $total_given; ?>;
-           var spent_yValue= <?php echo $total_used; ?>;
 
-           
-            new Chart("pettycash", {
-              type: "bar",
-              axisY:{
-                  minimum: <?php echo '0' ?>,
-                  maximum: <?php echo '20000' ?>,
-                  interval: <?php echo '1000' ?>,
-                },
-              data: {
-                labels: xpcValues,
-                datasets: [
-                {
-                  label: 'Released Amount',  
-                  fill: false,
-                  lineTension: 0,
-                  backgroundColor: "<?php echo 'grey';  ?>",
-                  borderColor: "rgba(0,0,255,0.1)",
-                  data: ypcValues
-                },
-                {
-                  label: 'Amount Spent',  
-                  fill: false,
-                  lineTension: 0,
-                  backgroundColor: "<?php echo 'gold';  ?>",
-                  borderColor: "rgba(0,0,255,0.1)",
-                  data: spent_yValue
-                },
-                
-               
-                ]
-              },
-              options: {
-                legend: {display: true},
-                scales: {
-                  yAxes: [{
-                    ticks: {min: 0, max:20000} ,
-                    scaleLabel: {
-                            display: true,
-                            labelString: '----- Number of Tickets -----',
-                            fontColor: '#000',   }
-                        }],
-                  xAxes: [{
-                    ticks: {min: 0, max:31} ,
-                    scaleLabel: {
-                            display: true,
-                            labelString: '----- Date ----- ',
-                            fontColor: '#000', }
-                        }],
-                }
-              }
-            });
-        </script>      
+  ]
+});
+
+chart.render();
+
+function toolTipContent(e) {
+  var str = "";
+  var total = 0;
+  var str2, str3;
+  for (var i = 0; i < e.entries.length; i++){
+    var  str1 = "<span style= \"color:"+e.entries[i].dataSeries.color + "\"> "+e.entries[i].dataSeries.name+"</span>: $<strong>"+e.entries[i].dataPoint.y+"</strong>bn<br/>";
+    total = e.entries[i].dataPoint.y + total;
+    str = str.concat(str1);
+  }
+  str2 = "<span style = \"color:DodgerBlue;\"><strong>"+(e.entries[0].dataPoint.x).getFullYear()+"</strong></span><br/>";
+  total = Math.round(total * 100) / 100;
+  str3 = "<span style = \"color:Tomato\">Total:</span><strong> $"+total+"</strong>bn<br/>";
+  return (str2.concat(str)).concat(str3);
+}
+
+}
+</script>    
 @endsection

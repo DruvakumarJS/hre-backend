@@ -3,9 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Intend;
+use App\Models\Ticket;
+use App\Models\Pcn;
+use App\Models\Pettycash;
+use App\Models\Attendance;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestEmail;
+use PDF;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class FinanceHomeController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function index()
     {
          $date = date('Y-m-d');
@@ -92,5 +117,38 @@ class FinanceHomeController extends Controller
          $chart_pcn = Pcn::select('client_name')->groupby('client_name')->get();
 
         return view('finance_home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date' , 'pc_given' , 'pc_used'));
+    }
+
+     public function destroy(){
+         auth()->logout();
+         return redirect()->route('login');
+    }
+
+    function send_email(){
+      //  print_r("here");die();
+        Mail::to('druva@netiapps.com')->send(new TestEmail());
+
+    }
+
+    function generatePDF(){
+         $data = [
+            'title' => 'Welcome to HRE',
+            'date' => date('m/d/Y')
+        ];
+
+         $filename = 'hre.pdf';
+          
+        $pdf = PDF::loadView('pdf.mypdf', $data);
+      // $dfile =  $pdf->download($filename);
+        $pdf->save(public_path('test_pdf.pdf'));
+       // echo '<pre>';
+       // print_r($dfile);
+       //$pdf->save(public_path());
+        // return $pdf->download($filename);
+
+
+
+        // Mail::to('druva@netiapps.com')->send(new TestEmail());
+
     }
 }

@@ -28,7 +28,7 @@ $yvalue=array();
         </div> -->
 
         <div class="container-header">
-            <label class="label-bold" id="div1">Dashboard</label>
+            <label class="label-bold" id="div1">Admin Dashboard</label>
           
             
         </div>
@@ -254,8 +254,8 @@ $yvalue=array();
             new Chart("tickets_chart", {
               type: "bar",
               title:{
-  text:"Chart Title",
- },
+                text:"Chart Title",
+               },
               
               data: {
                 labels: xValues,
@@ -319,8 +319,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
     interval: 1,
     intervalType: "day",
   },
-
-
+  
   data: [{
     type: "stackedColumn",
     showInLegend: true,

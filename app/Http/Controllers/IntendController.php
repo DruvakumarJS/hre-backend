@@ -6,6 +6,7 @@ use App\Models\Intend;
 use App\Models\Indent_list;
 use App\Models\Indent_tracker;
 use App\Models\GRN;
+use App\Models\Pcn;
 use App\Models\Material;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -62,7 +63,105 @@ class IntendController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      // print_r(json_encode($request->Input()));die();
+
+        if(empty($request->pcn)){
+             return redirect()->back()->withMessage('Please Select PCN ')->withInput();
+        }
+        else if (!empty($request->pcn)){
+            if(Pcn::where('pcn',$request->pcn)->exists()){
+
+
+        if(!empty($request->indent)){
+         
+        if(Intend::exists()){
+            $Indent = Intend::select('indent_no')->orderBy('id', 'DESC')->first();
+
+             $arr = explode("MI00", $Indent->indent_no);
+           
+            $ind_no = "MI00".++$arr[1];
+
+           //  print_r($indent_no);die();
+          }
+          else {
+            $ind_no = "MI001" ;
+          }
+
+          $indent_array = $request->indent ; 
+
+
+          $create_indent = Intend::create([
+                                  'indent_no' => $ind_no,
+                                  'pcn' => $request->pcn ,
+                                  'user_id' => Auth::user()->id,
+                                  'quantity' => "0",
+                                  'recieved'=> "0",
+                                  'pending'=>"0",
+                                  'status'=>'Active'
+          ]);
+
+          if($create_indent){
+            $indent_id = Intend::select('id')->where('indent_no', $ind_no)->first();
+
+            $totalQualntity = 0;
+
+            //  print_r($indent_array); die();
+
+             foreach ($indent_array as $key => $value) {
+
+                if(!isset($value['desc'])) {
+                    $desc = 'nil';
+                } 
+                else{
+                    $desc = $value['desc'] ;
+                }
+          
+             $indents = Indent_list::create([
+                                  'indent_id' => $indent_id->id,
+                                  'material_id' => $value['item_code'],
+                                  'decription' => $desc,
+                                  'quantity' => $value['quantity'],
+                                  'recieved'=> "0",
+                                  'pending'=>$value['quantity'],
+                                  'status'=>'Active']);
+
+             if($indents){
+                    if($totalQualntity=="0"){
+                      $totalQualntity = $value['quantity'] ;
+
+                    }
+                    else {
+                      $totalQualntity = intval($totalQualntity) + intval($value['quantity']);
+
+                    }
+             }
+
+             }
+
+              $update_indents = Intend::where('indent_no', $ind_no)->update([
+                                          'quantity' => $totalQualntity,
+                                          'recieved'=> "0",
+                                          'pending'=>$totalQualntity,
+                                  ]);
+
+          }
+
+          return redirect()->route('intends');
+
+
+
+
+     }
+     else {
+        return redirect()->back()->withMessage('Please Choose Materials ');
+     }
+
+     }
+            else {
+                 return redirect()->back()->withMessage('PCN does not exist');
+            }
+        }
+      
     }
 
     /**
@@ -251,7 +350,7 @@ class IntendController extends Controller
     public function action(Request $request){
 
         $product = DB::table('materials')
-        ->select(DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
+        ->select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
         ->where('item_code' , 'LIKE', '%'.$request->search.'%')
         ->orWhere('name' , 'LIKE', '%'.$request->search.'%')
         ->orWhere('brand' , 'LIKE', '%'.$request->search.'%')

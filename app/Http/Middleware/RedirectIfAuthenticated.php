@@ -34,38 +34,38 @@ class RedirectIfAuthenticated
 
     if (Auth::guard($guards)->check()) {
 
-        $role = Auth::user()->role;
+        $role = Auth::user()->role_id;
 
-       // echo  $role ; exit;
+        echo  $role ; exit;
               switch ($role) {
-                case 'admin':
+                case '1':
                  // return '/home';
                   return redirect()->route('home');
                   break;
 
-                case 'manager':
+                case '2':
                   //return '/manager_home';
                    return redirect()->route('manager_home');
                   break; 
 
-                case 'procurement':
+                case '3':
                  // return '/procurement_home';
                    return redirect()->route('procurement_home');
                   break; 
 
-                 case 'supervisor':
+                 case '4':
                  // return '/home';
                   return redirect()->route('supervisor_home');
                   break;  
                     
-                case 'finance':
+                case '5':
                  // return '/finance_home';
-                  return redirect()->route('home');
+                  return redirect()->route('finance_home');
                   break;        
 
                 default:
                  // return '/login'; 
-                   return redirect()->route('login');
+                   return redirect()->route('logout');
                 break;
               }
       }
