@@ -7,7 +7,7 @@ $xvalue=array();
 $yvalue=array();
 @endphp
 
-<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+<script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 
 <div class="container" >
     <div class="row ">
@@ -222,30 +222,21 @@ $yvalue=array();
 
                 <div class="row">
                   <div class="col-sm-6 col-md-6 card">
-                    
-                    <canvas id="tickets_chart" ></canvas>
-                  
-                    
+                      <canvas id="tickets_chart" ></canvas>
                  </div>
 
                  <div class="col-sm-6 col-md-6" >
-               
-                    <div class="card border-white" style="height: 350px">
-                        <label class="label-bold">PettyCash</label>
-                        
-                        <canvas id="pettycash" ></canvas>
-                   
-                   
+
+                    <div class="card border-white" style="height: 350px">                     
+                        <div id="chartContainer" style="height: 300px; width: 100%;"></div>                  
                   </div>
-                  
-                          
-                 </div>
-                    
+                         
+                 </div>                    
                 </div>
 
-<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
-                  
-            </div>
+
+
+         </div>
 
 
 
@@ -262,8 +253,13 @@ $yvalue=array();
            
             new Chart("tickets_chart", {
               type: "bar",
+              title:{
+  text:"Chart Title",
+ },
+              
               data: {
                 labels: xValues,
+
                 datasets: [
                 {
                   label: 'Tickets raised',  
@@ -288,6 +284,7 @@ $yvalue=array();
                 legend: {display: true},
                 scales: {
                   yAxes: [{
+
                     ticks: {min: 0, max:50} ,
                     scaleLabel: {
                             display: true,
@@ -295,6 +292,9 @@ $yvalue=array();
                             fontColor: '#000',   }
                         }],
                   xAxes: [{
+                    barPercentage: 1.5,
+                     gridLines: {
+                     drawOnChartArea: false },
                     ticks: {min: 0, max:31} ,
                     scaleLabel: {
                             display: true,
@@ -306,102 +306,40 @@ $yvalue=array();
             });
         </script>
 
-
-  <script>
-
-           var xpcValues = <?php echo $date; ?>;
-           var ypcValues = <?php echo $total_given; ?>;
-           var spent_yValue= <?php echo $total_used; ?>;
-
-           
-            new Chart("pettycash", {
-              type: "stackedColumn",
-              axisY:{
-                  minimum: <?php echo '0' ?>,
-                  maximum: <?php echo '20000' ?>,
-                  interval: <?php echo '1000' ?>,
-                },
-              data: {
-                labels: xpcValues,
-                datasets: [
-                {
-                  label: 'Released Amount',  
-                  fill: false,
-                  lineTension: 0,
-                  backgroundColor: "<?php echo '#FDF2DF';  ?>",
-                  borderColor: "rgba(0,0,255,0.1)",
-                  data: ypcValues
-                },
-               
-                ]
-              },
-              options: {
-                legend: {display: true},
-                scales: {
-                  yAxes: [{
-                    ticks: {min: 0, max:20000} ,
-                    scaleLabel: {
-                            display: true,
-                            labelString: '----- Number of Tickets -----',
-                            fontColor: '#000',   }
-                        }],
-                  xAxes: [{
-                    ticks: {min: 0, max:31} ,
-                    scaleLabel: {
-                            display: true,
-                            labelString: '----- Date ----- ',
-                            fontColor: '#000', }
-                        }],
-                }
-              }
-            });
-        </script>  
-
-
-
         <script>
 window.onload = function () {
-
- 
 
 var chart = new CanvasJS.Chart("chartContainer", {
   animationEnabled: true,
   title:{
-    text: "Google - Consolidated Quarterly Revenue",
     fontFamily: "arial black",
-    fontColor: "#695A42"
+    fontColor: "#000000"
   },
  axisX: {
     interval: 1,
-    intervalType: "day"
+    intervalType: "day",
   },
-  axisY:{
-    valueFormatString:"1000",
-    gridColor: "#B6B1A8",
-    tickColor: "#B6B1A8"
-  },
-  toolTip: {
-    shared: true,
-    content: toolTipContent
-  },
+
+
   data: [{
     type: "stackedColumn",
     showInLegend: true,
-    color: "#696661",
-    name: "Q1",
+    color: "#66ffff",
+    name: "Utilised Amount",
     dataPoints: <?php echo $pc_used;?>
     },
     {
     type: "stackedColumn",
     showInLegend: true,
-    color: "#000000",
-    name: "Q1",
+    color: "#ff9933",
+    name: "Total Amount",
     dataPoints: <?php echo $pc_given;?>
     },
 
 
   ]
 });
+
 chart.render();
 
 function toolTipContent(e) {

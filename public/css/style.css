@@ -85,4 +85,8 @@
 .div-margin{
     margin-top: 20px;
 }
+.canvasjs-chart-credit
+{
+    display: none !important;
+}
 

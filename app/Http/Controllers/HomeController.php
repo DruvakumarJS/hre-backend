@@ -89,7 +89,7 @@ class HomeController extends Controller
 
           
             $total[] = [
-                'y' => intval( $value->total) - intval($value->spend),
+                'y' => intval( $value->remaining),
                 'x' => intval(date("d", strtotime($value->created_at))) 
                 ];
 
