@@ -359,4 +359,111 @@ class IntendController extends Controller
         return response()->json($product);
 
     }
+
+    public function grn(){
+
+        $grns = GRN::where('user_id',Auth::user()->id)->get();
+        $grn_array = array();
+
+        if(sizeof($grns)>0){
+
+          foreach ($grns as $key => $value) {
+
+            $indent_list = Indent_list::where('id',$value->indent_list_id)->first();
+
+            $material = Material::where('item_code',$indent_list->material_id)->first();
+            
+            $material_detail = [
+              'material_name' => $material->name,
+              'brand' => $material->brand,
+              'information' => json_decode($material->information, true, JSON_UNESCAPED_SLASHES),
+              'quantity_raised' => $indent_list->quantity,
+              'quantity_received' => $indent_list->recieved,
+              'quantity_pending' => $indent_list->pending,
+
+            ];
+
+             $grs_data = [
+              'date' => $value->created_at,
+              'grn' => $value->grn,
+              'pcn' => $value->pcn,
+              'indent_no' => $value->indent_no,
+              'dispatched' => $value->dispatched,
+              'status'=> $value->status,
+              'indent_details' => array($material_detail)
+            ];
+
+            array_push($grn_array, $grs_data);
+          }
+
+         
+          }
+           return view('indent/grn',compact('grn_array'));
+    }
+
+    public function update_grn(Request $request){
+
+      //  print_r($request->Input());die();
+
+        $update_grn_data = GRN::where('grn',$request->grn)->update([
+                                       'approved'=> $request->approved,
+                                       'damaged' => intval($request->dispatched)-intval($request->approved),
+                                       'status' => 'Received'
+                                      ]);
+        if($update_grn_data){
+         
+           $GRNdata = GRN::select('indent_list_id', 'indent_no')->where('grn',$request->grn)->first();
+
+           $indent_list = Indent_list::where('id',$GRNdata->indent_list_id)->first();
+            
+            $pending = intval($indent_list->pending)-intval($request->approved);
+            $received = intval($indent_list->recieved)+intval($request->approved);
+
+            if($pending == '0'){
+              $status = 'Completed';
+            }
+            else {
+              $status = 'Active';
+            }
+
+            $update_indent_list = Indent_list::where('id',$GRNdata->indent_list_id)->update([
+                'pending' => $pending,
+                'recieved' => $received,
+                'status'=> $status]);
+
+            if($update_indent_list){
+
+            $indent_data = Intend::where('indent_no',$GRNdata->indent_no)->first();
+
+            $pending = intval($indent_data->pending)-intval($request->approved);
+            $received = intval($indent_data->recieved)+intval($request->approved);
+
+            if($pending == '0'){
+              $status = 'Completed';
+            }
+            else {
+              $status = 'Active';
+            }
+
+            $update_indent = Intend::where('indent_no',$GRNdata->indent_no)->update([
+                'pending' => $pending,
+                'recieved' => $received,
+                'status'=> $status ]);
+
+
+            return redirect()->route('grn');
+
+            
+               
+            }
+
+             
+
+        }
+        else {
+          return redirect()->back()->withMessage('Could not update GRN');
+
+        }
+
+    }
 }

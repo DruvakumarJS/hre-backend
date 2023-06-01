@@ -48,7 +48,7 @@
                               <td>{{$value->name}}</td>
                               <td>{{$value->brand}}</td>
                               <td>{{$value->uom}}</td>
-                              <td>Action <table>
+                              <td> <table>
                                 <tbody>
                                   @php
                                    $info = json_decode($value->information);

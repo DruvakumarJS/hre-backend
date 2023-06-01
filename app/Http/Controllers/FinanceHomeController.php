@@ -3,6 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Intend;
+use App\Models\Ticket;
+use App\Models\Pcn;
+use App\Models\Pettycash;
+use App\Models\Attendance;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestEmail;
+use PDF;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class FinanceHomeController extends Controller
 {
@@ -56,6 +66,11 @@ class FinanceHomeController extends Controller
             $tickets_closed_yValue = json_encode($tickets_closed['y'], true);
 
         $Pettycash = Pettycash::where('created_at', 'LIKE','%'.date('Y-m').'%')->get();
+        $pc['x']= array();
+        $pc['y']= array();
+        $pc['z']= array();
+        $total = array();
+        $used = array();
 
         foreach ($Pettycash as $key => $value) {
             $pc['y'][] = $value->total;

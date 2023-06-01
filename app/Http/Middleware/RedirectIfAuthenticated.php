@@ -36,7 +36,7 @@ class RedirectIfAuthenticated
 
         $role = Auth::user()->role_id;
 
-        echo  $role ; exit;
+       // echo  $role ; exit;
               switch ($role) {
                 case '1':
                  // return '/home';

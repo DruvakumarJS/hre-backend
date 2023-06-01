@@ -86,7 +86,33 @@ $yvalue=array();
               
             </div>
 
+            
+<!-- graph -->
             <div>
+                
+
+                <div class="row">
+                  <div class="col-sm-6 col-md-6 card">
+                      <canvas id="tickets_chart" ></canvas>
+                 </div>
+
+                 <div class="col-sm-6 col-md-6" >
+
+                  @if(sizeof(json_decode($pc_given)))>0)
+
+                    <div class="card border-white" style="height: 350px">                     
+                        <div id="chartContainer" style="height: 300px; width: 100%;"></div>                  
+                  </div>
+                  @endif
+                         
+                 </div>                    
+                </div>
+
+
+
+         </div>
+
+         <div>
                 <label class="label-bold">Customers</label>
 
                 <div class="row">
@@ -160,53 +186,7 @@ $yvalue=array();
                    
                   </div>
                    @endif
-                           <script>
-                            var xValues = <?php echo json_encode($xvalue); ?>;
-                            var yValues = <?php echo json_encode($yvalue); ?>;
-                           
-                            var barColors = [
-                              "#2C2C2C",
-                              "#FDF2DF",
-                              "#E31E24"
-                             
-                            ];
-
-                            new Chart("myChart", {
-                              type: "pie",
-                              data: {
-                                labels: xValues,
-                                datasets: [{
-                                  backgroundColor: getRandomColor(),
-                                  borderWidth: 0, 
-                                  data: yValues
-                                }]
-                              },
-                              options: {
-                                 legend: {
-                                    position: 'right'
-                                  },
-                                title: {
-                                  display: true
-                                 
-                                }
-                              }
-                            });
-
-                            function getRandomColor() { //generates random colours and puts them in string
-                              var colors = [];
-                              var size = <?php echo sizeof($yvalue); ?> ;
-                              for (var i = 0; i < size; i++) {
-                                var letters = '0123456789ABCDEF'.split('');
-                                var color = '#';
-                                for (var x = 0; x < 6; x++) {
-                                  color += letters[Math.floor(Math.random() * 16)];
-                                }
-                                colors.push(color);
-                              }
-                              return colors;
-                            }
-
-                            </script>
+                          
 
                            
                  </div>
@@ -216,27 +196,6 @@ $yvalue=array();
 
                   
             </div>
-<!-- graph -->
-            <diiv>
-                
-
-                <div class="row">
-                  <div class="col-sm-6 col-md-6 card">
-                      <canvas id="tickets_chart" ></canvas>
-                 </div>
-
-                 <div class="col-sm-6 col-md-6" >
-
-                    <div class="card border-white" style="height: 350px">                     
-                        <div id="chartContainer" style="height: 300px; width: 100%;"></div>                  
-                  </div>
-                         
-                 </div>                    
-                </div>
-
-
-
-         </div>
 
 
 
@@ -357,5 +316,53 @@ function toolTipContent(e) {
 }
 
 }
-</script>    
+</script>  
+
+ <script>
+                            var xValues = <?php echo json_encode($xvalue); ?>;
+                            var yValues = <?php echo json_encode($yvalue); ?>;
+                           
+                            var barColors = [
+                              "#2C2C2C",
+                              "#FDF2DF",
+                              "#E31E24"
+                             
+                            ];
+
+                            new Chart("myChart", {
+                              type: "pie",
+                              data: {
+                                labels: xValues,
+                                datasets: [{
+                                  backgroundColor: getRandomColor(),
+                                  borderWidth: 0, 
+                                  data: yValues
+                                }]
+                              },
+                              options: {
+                                 legend: {
+                                    position: 'right'
+                                  },
+                                title: {
+                                  display: true
+                                 
+                                }
+                              }
+                            });
+
+                            function getRandomColor() { //generates random colours and puts them in string
+                              var colors = [];
+                              var size = <?php echo sizeof($yvalue); ?> ;
+                              for (var i = 0; i < size; i++) {
+                                var letters = '0123456789ABCDEF'.split('');
+                                var color = '#';
+                                for (var x = 0; x < 6; x++) {
+                                  color += letters[Math.floor(Math.random() * 16)];
+                                }
+                                colors.push(color);
+                              }
+                              return colors;
+                            }
+
+                            </script>  
 @endsection

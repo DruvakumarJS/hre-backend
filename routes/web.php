@@ -91,26 +91,33 @@ Route::get("logout",[HomeController::class,"destroy"])->name("logout");
     Route::get('settings',[SettingController::class,'index'])->name('settings');
 	});*/
 
-Route::middleware('role:manager')->group(function () {
+/*Route::middleware('role:manager')->group(function () {
 	Route::get('/manager_home', [ManagerHomeController::class, 'index'])->name('manager_home');
 	Route::get('employee',[EmployeeController::class,'index'])->name('employee_list');
   
 	Route::get('attendance_list',[AttendanceController::class,'index'])->name('attendance_list');
     Route::get('PettyCash',[PettycashController::class,'index'])->name('petty_cash');
 
-	});
+	});*/
 
 
-Route::middleware('role:procurement')->group(function () {
+/*Route::middleware('role:procurement')->group(function () {
 	Route::get('/procurement_home', [ProcurementHomeController::class, 'index'])->name('procurement_home');
 
 	});
 Route::middleware('role:supervisor')->group(function () {
    
-    });
+    });*/
 
 Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('finance_home');
  Route::get('/supervisor_home', [SupervisorHomeController::class, 'index'])->name('supervisor_home');
+
+ Route::get('/manager_home', [ManagerHomeController::class, 'index'])->name('manager_home');
+    Route::get('employee',[EmployeeController::class,'index'])->name('employee_list');
+
+ Route::get('/procurement_home', [ProcurementHomeController::class, 'index'])->name('procurement_home');
+   
+  
 
 //Route::get('supervisors/{id}',[UserController::class,'view_users'])->name('supervisors');
     Route::get('PCN',[PcnController::class,'index'])->name('PCN');
@@ -133,6 +140,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('create_indent',[IntendController::class,'create'])->name('create_indent');
     Route::get('products',[IntendController::class,'action'])->name('products');
     Route::post('save_indent',[IntendController::class,'store'])->name('save_indent');
+    Route::get('grn',[IntendController::class,'grn'])->name('grn');
+    Route::post('update-grn', [IntendController::class,'update_grn'])->name('update-grn');
    
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');

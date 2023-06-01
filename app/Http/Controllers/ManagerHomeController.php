@@ -22,7 +22,7 @@ class ManagerHomeController extends Controller
      */
     public function index()
     {
-       
+        
         $date = date('Y-m-d');
         $indents = Intend::orderby('id','DESC')->paginate(10);
         $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();

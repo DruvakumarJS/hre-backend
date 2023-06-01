@@ -81,6 +81,12 @@ class HomeController extends Controller
             $tickets_closed_yValue = json_encode($tickets_closed['y'], true);
 
         $Pettycash = Pettycash::where('created_at', 'LIKE','%'.date('Y-m').'%')->get();
+        $pc['x']= array();
+        $pc['y']= array();
+        $pc['z']= array();
+        $total = array();
+        $used = array();
+
 
         foreach ($Pettycash as $key => $value) {
             $pc['y'][] = $value->total;

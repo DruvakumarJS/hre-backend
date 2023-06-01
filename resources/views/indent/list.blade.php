@@ -29,6 +29,11 @@
              
           </div>
 
+          <div id="div2" style="margin-right: 30px">
+            <a href="{{route('grn')}}"><button class="btn btn-light btn-outline-secondary" > GRN</button></a>
+             
+          </div>
+
           
 
           
