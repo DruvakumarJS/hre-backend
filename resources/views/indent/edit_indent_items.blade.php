@@ -105,8 +105,8 @@
                             <div class="form-group row">
                                 <label for="text" class="col-4 col-form-label">Quantity Dispatched</label>
                                 <div class="col-4">
-                                    <input id="text" type="text" class="form-control" placeholder="Enter numbers"
-                                           name="quantity" required="required" value="{{old('quantity')}}">
+                                    <input id="text" type="Number" class="form-control" placeholder="Enter numbers"
+                                           name="quantity" required="required" min="1" max="{{$indend_data->pending}}" value="{{old('quantity')}}">
 
                                 </div>
                                 <input type="hidden" name="indent_no" value="{{$indend_data->indent->indent_no}}">

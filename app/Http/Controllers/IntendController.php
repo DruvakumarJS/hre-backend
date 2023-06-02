@@ -66,7 +66,7 @@ class IntendController extends Controller
       // print_r(json_encode($request->Input()));die();
 
         if(empty($request->pcn)){
-             return redirect()->back()->withMessage('Please Select PCN ')->withInput();
+             return redirect()->back()->withMessage('PCN does not exist ')->withInput();
         }
         else if (!empty($request->pcn)){
             if(Pcn::where('pcn',$request->pcn)->exists()){
@@ -369,7 +369,7 @@ class IntendController extends Controller
 
           foreach ($grns as $key => $value) {
 
-            $indent_list = Indent_list::where('id',$value->indent_list_id)->first();
+            $indent_list = Indent_list::where('id',$value->indent_list_id)->orderBy('id', 'DESC')->first();
 
             $material = Material::where('item_code',$indent_list->material_id)->first();
             
@@ -408,6 +408,7 @@ class IntendController extends Controller
         $update_grn_data = GRN::where('grn',$request->grn)->update([
                                        'approved'=> $request->approved,
                                        'damaged' => intval($request->dispatched)-intval($request->approved),
+                                       'comment' => $request->comment,
                                        'status' => 'Received'
                                       ]);
         if($update_grn_data){

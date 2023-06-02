@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<style type="text/css">
-    
+<style>
+
 </style>
 
 
@@ -16,19 +16,19 @@
         </div>
 
         <div id="div2" style="margin-right: 30px">
-            <a  class="btn btn-light btn-outline-secondary" href="{{route('employee-details')}}"></i> View Employees</a>
+            <a  class="btn btn-light btn-outline-secondary" href="{{route('employee-details')}}"> View Employees</a>
         </div>
+
         <div id="div2" style="margin-right: 30px">
-            <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"></i> Download</a>
+            <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"> Download</a>
         </div>
 
-       
-
+        
        
     </div>
 
     <label>Today's Attendance</label>
-
+   
     <div class="row">
         <div class="card border-white">
 
@@ -143,4 +143,8 @@ $(document.body).on('mousemove touchmove', function(event){
   slider.css({'left': relativeMouse - 10});
 });
 </script>
+
+
+
+
 @endsection

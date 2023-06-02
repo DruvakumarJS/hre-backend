@@ -11,13 +11,14 @@ class GRN extends Model
 
      protected $fillable =[
      	'grn',
-        'user_id',
+      'user_id',
     	'indent_list_id',
     	'indent_no',
     	'pcn',
     	'dispatched',
-        'approved',
+      'approved',
     	'damaged',
+      'comment',
     	'status',
     	];
 

@@ -382,6 +382,7 @@ class IndentController extends Controller
         $update_grn_data = GRN::where('grn',$request->grn)->update([
                                        'approved'=> $approved,
                                        'damaged' => $request->rejected,
+                                       'comment' => $request->comment,
                                        'status' => 'Received'
                                       ]);
         if($update_grn_data){

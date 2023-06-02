@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\Roles;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportAttendance;
 use App\Exports\ExportAttendanceReport;
 use DB;
-
+use Auth;
 use Excel;
 
 class AttendanceController extends Controller
@@ -44,7 +45,103 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $msg = 'Nill';
+         if(isset($request->action) && $request->action == 'login')
+            {
+               
+                if(Attendance::where('user_id' , Auth::user()->id)->where('date' , date('Y-m-d'))->orderby('id' ,'DESC')->exists())
+                {
+                    $updateUser = User::where('id' , Auth::user()->id)->update([
+                            'isloggedin' => '1' 
+                        ]);
+                    $msg = 'Already Loggedin';
+                }
+                else
+                 {
+                      $create = Attendance::create([
+                        'date' => date('Y-m-d'),
+                        'user_id' => Auth::user()->id ,
+                        'login_time' => date('H:i') ,
+                        'login_lat' => $request->lattitude ,
+                        'login_long' => $request->longitude ,
+                        'login_location' => 'Bangalore'
+                      ]);
+
+                      if($create){
+                        
+                        $msg = 'Login successfull';
+                        $updateUser = User::where('id' , Auth::user()->id)->update([
+                            'isloggedin' => '1' 
+                        ]);
+
+     
+
+                      }
+                      else {
+                      
+                       $msg = 'Something went wrong';
+
+                      }
+
+             }
+
+            }
+            else if(isset($request->action) && $request->action == 'logout')
+            {
+               if(Attendance::where('user_id' , Auth::user()->id)->where('date' , date('Y-m-d'))->orderBy('id' ,'DESC')->exists()){
+
+                    $login = Attendance::where('user_id' , Auth::user()->id)->where('date' , date('Y-m-d'))->orderBy('id' ,'DESC')->first();
+
+                    $l_in = $login->date." ".$login->login_time;
+
+                    $l_out = date('Y-m-d')." ".date('H:i');
+
+                    $logintime = strtotime($l_in) ;
+                    $logouttime = strtotime($l_out);
+
+                    $total_hour = $logouttime - $logintime ; 
+                   /* print_r($l_in);print_r('<br>');
+                    print_r($l_out);print_r('<br>');
+                    print_r($total_hour / 60);die();*/
+
+                    $LOGOUT = Attendance::where('id',$login->id)->update([
+                        'logout_time' =>  date('H:i') ,
+                        'logout_lat' => $request->lattitude ,
+                        'logout_long' => $request->longitude ,
+                        'logout_location' => 'Bangalore',
+                        'total_hours' => $total_hour/60
+                      ]);   
+
+                if($LOGOUT){
+                
+                 $msg = 'Logout successfull';
+                  $updateUser = User::where('id' , Auth::user()->id)->update([
+                            'isloggedin' => '0' 
+                        ]);
+
+              }
+              else {
+                
+                 $msg = 'Something went wrong .Retry... ';
+
+              }
+
+                }
+
+                else {
+                    
+                    $msg = 'Login data not found';
+
+                }
+
+            }
+            $data =[
+                'status'=> 1,
+                'message'=> $msg];
+
+            echo json_encode($data) ;
+
+           // echo json_encode($request->Input());
     }
 
     /**

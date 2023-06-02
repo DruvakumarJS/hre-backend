@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+use App\Models\User ;
 
 class AttendanceController extends Controller
 {
@@ -18,6 +19,9 @@ class AttendanceController extends Controller
               
     			if(Attendance::where('user_id' , $request->user_id)->where('date' , date('Y-m-d'))->orderby('id' ,'DESC')->exists())
     			{
+                    $updateUser = User::where('id' , Auth::user()->id)->update([
+                            'isloggedin' => '1' 
+                        ]);
     				return response()->json([
 					    			'status'=> 1,
 					    			'message' => 'Already loggedIn'
@@ -35,6 +39,9 @@ class AttendanceController extends Controller
 		              ]);
 
 		              if($create){
+                        $updateUser = User::where('id' , Auth::user()->id)->update([
+                            'isloggedin' => '1' 
+                        ]);
 		              	return response()->json([
 					    			'status'=> 1,
 					    			'message' => 'Login Successfull'
@@ -82,6 +89,9 @@ class AttendanceController extends Controller
 		              ]);	
 
     			if($LOGOUT){
+                    $updateUser = User::where('id' , Auth::user()->id)->update([
+                            'isloggedin' => '0' 
+                        ]);
               	return response()->json([
 			    			'status'=> 1,
 			    			'message' => 'Logout Successfull'
@@ -267,5 +277,43 @@ class AttendanceController extends Controller
         }
 
 
+    }
+
+    function get_attendance_status(Request $request){
+
+        if(isset($request->user_id)){
+
+            $user = User::select('isloggedin')->where('id',$request->user_id)->first();
+
+         if($user->isloggedin == '1'){
+           
+            return response()->json([
+                'status'=> 1,
+                'message' => 'true'
+            ]);
+
+         }
+         else {
+           
+            return response()->json([
+                'status'=> 0,
+                'message' => 'false'
+            ]);
+
+         }
+
+        }
+        
+        else {
+             return response()->json([
+                'status'=> 0,
+                'message' => 'UnAuthorized'
+            ]);
+
+        }
+
+         
+
+        
     }
 }

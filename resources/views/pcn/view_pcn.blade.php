@@ -27,17 +27,17 @@
                             <table class="table  table-lg table-hover">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Sl.no</th>
+                                   
                                     <th scope="col">Project Code</th>
-                                    <th scope="col">Client Name / Billing Name</th>
+                                    <th scope="col">Client Name </th>
                                     <th scope="col">Brand Name</th>
                                     <th scope="col">Type of Work</th>
                                     <th scope="col">Location</th>
                                     <th scope="col">City</th>
                                     <th scope="col">State</th>
-                                    <th scope="col">Proposed Start Date</th>
+                                   <!--  <th scope="col">Proposed Start Date</th>
                                     <th scope="col">Proposed End Date</th>
-                                    <th scope="col">Approve Holidays</th>
+                                    <th scope="col">Approve Holidays</th> -->
                                     <th scope="col">Targeted Days</th>
                                     <th scope="col">Actual Start Date</th>
                                     <th scope="col">Actual Completed Date</th>
@@ -52,7 +52,7 @@
 
                                     @foreach($pcns as $key => $value)
                                 <tr>
-                                    <td>{{$key + $pcns->firstItem()}}</td>
+                                    
                                     <td>{{$value->pcn}}</td>
                                     <td>{{$value->client_name}}</td>
 
@@ -61,12 +61,12 @@
                                     <td>{{$value->area}}</td>
                                     <td>{{$value->city}}</td>
                                     <td>{{$value->state}}</td>
-                                    <td>{{$value->proposed_start_date}}</td>
+                                    <!-- <td>{{$value->proposed_start_date}}</td>
                                     <td>{{$value->proposed_end_date}}</td>
-                                    <td>{{$value->approve_holidays}}</td>
+                                    <td>{{$value->approve_holidays}}</td> -->
                                     <td>{{$value->targeted_days}}</td>
-                                    <td>{{$value->actual_start_date}}</td>
-                                    <td>{{$value->actual_completed_date}}</td>
+                                    <td>{{date("d-m-Y", strtotime($value->actual_start_date))}}</td>
+                                    <td>{{date("d-m-Y", strtotime($value->actual_completed_date))}}</td>
                                     <td>{{$value->hold_days}}</td>
                                     <td>{{$value->days_acheived}}</td>
                                     <td>{{$value->status}}</td>

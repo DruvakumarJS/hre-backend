@@ -204,6 +204,7 @@ class PcnController extends Controller
 
         $data = Pcn::select("pcn as value")
                     ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
+                    ->where('status' , 'Active')
                     ->get();
     
         return response()->json($data);

@@ -23,6 +23,7 @@ class CreateGRNSTable extends Migration
             $table->string('dispatched');
             $table->string('approved')->nullable();
             $table->string('damaged')->nullable();
+            $table->string('comment')->nullable();
             $table->string('status');
             $table->timestamps();
         });

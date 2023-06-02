@@ -18,9 +18,9 @@ class TestEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($indent_details)
+    public function __construct()
     {
-        $this->indent_details = $indent_details;
+       // $this->indent_details = $indent_details;
     }
 
     /**

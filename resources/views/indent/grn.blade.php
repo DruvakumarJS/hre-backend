@@ -101,12 +101,17 @@
 
                                          <div class="mb-3">
                                           <label for="message-text" class="col-form-label">Dispatched Quantity</label>
-                                           <input type="number" class="form-control" name="dispatched"  value="{{$value['dispatched']}}"placeholder="Category Code"  required readonly>
+                                           <input type="number" class="form-control" name="dispatched"  value="{{$value['dispatched']}}"placeholder="Dispatched quantity"  required readonly>
                                         </div>
 
-                                         <div class="mb-3">
-                                          <label for="message-text" class="col-form-label">Approvable Quantity</label>
-                                           <input type="number" max="{{$value['dispatched']}}" class="form-control" id="approved" name="approved" placeholder="Category Code"  required>
+                                        <div class="mb-3">
+                                          <label for="message-text" class="col-form-label">Approved Quantity</label>
+                                           <input type="number" max="{{$value['dispatched']}}" class="form-control" id="approved" name="approved" placeholder="Enter Quantity" max="{{$value['dispatched']}}" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                          <label for="message-text" class="col-form-label">Comment</label>
+                                           <input type="text" class="form-control" id="comment" name="comment" placeholder="Enter Comments here" >
                                         </div>
                                        
 

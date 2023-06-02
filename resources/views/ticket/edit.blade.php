@@ -126,6 +126,7 @@
                                      @if($tickets->status == 'Created')
                                    <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
                                    <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
+                                   <option value="Pending" <?php echo ($tickets->status == 'Pending') ? 'selected' : ''; ?>  >Pending</option>
 
                                    @elseif($tickets->status == 'Rejected')
                                   
@@ -145,10 +146,7 @@
 
                                    @endif
 
-
-
-
-                                  
+   
                                    
                                 </select>
                                

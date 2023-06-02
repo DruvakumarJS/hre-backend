@@ -80,6 +80,7 @@
                      ||request()->routeIs('indent_details')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('filter_indents')
+                     ||request()->routeIs('grn')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -136,6 +137,7 @@
                      ||request()->routeIs('indent_details')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('filter_indents')
+                     ||request()->routeIs('grn')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -190,6 +192,7 @@
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
                      ||request()->routeIs('edit_intends')
+                     ||request()->routeIs('grn')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -230,6 +233,7 @@
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
                      ||request()->routeIs('edit_intends')
+                     ||request()->routeIs('grn')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -272,6 +276,7 @@
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
                      ||request()->routeIs('edit_intends')
+                     ||request()->routeIs('grn')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -327,6 +332,15 @@
                             @endif
                         @else
 
+                             <div id="div2" style="margin-right: 20px">
+                              <input type="hidden" id="loggedin" value="{{Auth::user()->isloggedin}}">
+                                <label class="switch">
+                                  <input class="switch-input" type="checkbox" id="togBtn" value="false"  />
+                                  <span class="switch-label" data-on="logout" data-off="login"></span> 
+                                  <span class="switch-handle"></span> 
+                                </label>
+                              </div>
+
                              <a href=""> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a>
 
                              <a href=""> <img class="circle" src="{{asset('images/mail.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
@@ -381,4 +395,78 @@
         </main>
     </div>
 </body>
+
+<script type="text/javascript">
+ var switchStatus = false;
+ var x = document.getElementById("demo");
+ var lat = '';
+ var long = '';
+ var action = '';
+
+ var isloggedin = $('#loggedin').val()
+ //alert(isloggedin);
+
+ if(isloggedin == '0'){
+  $("#togBtn").attr("checked", false);
+ }
+ else {
+  $("#togBtn").attr("checked", true);
+ }
+
+  //$("#togBtn").attr("checked", true);
+
+$("#togBtn").on('change', function() {
+
+    if ($(this).is(':checked')) {
+        switchStatus = $(this).is(':checked');
+      //  alert(switchStatus);// To verify
+     
+        action = 'login';
+
+       if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(showPosition );
+      } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+
+             
+    }
+    else {
+       switchStatus = $(this).is(':checked');
+       //alert(switchStatus);// To verify
+       action = 'logout';
+
+         if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(showPosition );
+      } else { 
+       // x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+
+        
+    }
+});
+
+function showPosition(position ) {
+ 
+  lat = position.coords.latitude ;
+  long =  position.coords.longitude ;
+
+  //alert(action);
+
+  var path = "{{ route('add_attendance') }}";
+   
+         $.ajax({
+           url:"{{ route('add_attendance') }}",
+           method:"POST",
+           data:{action:action , lattitude:lat , longitude:long , _token: '{{csrf_token()}}' },
+           dataType:"json",
+           success:function(data)
+           {
+             
+            console.log(data);
+            
+           }
+          })
+}
+</script>
 </html>

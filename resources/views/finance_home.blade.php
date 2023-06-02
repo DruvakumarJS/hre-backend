@@ -7,6 +7,10 @@ $xvalue=array();
 $yvalue=array();
 @endphp
 
+<style type="text/css">
+  
+</style>
+
 <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 
 <div class="container" >
@@ -98,11 +102,12 @@ $yvalue=array();
 
                  <div class="col-sm-6 col-md-6" >
 
-                  @if(sizeof(json_decode($pc_given)))>0)
+                  @if(sizeof(json_decode($pc_given))>0)
 
-                    <div class="card border-white" style="height: 350px">                     
-                        <div id="chartContainer" style="height: 300px; width: 100%;"></div>                  
+                  <div class="wrapper card border-white" style="height: 350px">
+                    <canvas id="myChart4" ></canvas>
                   </div>
+
                   @endif
                          
                  </div>                    
@@ -198,171 +203,181 @@ $yvalue=array();
             </div>
 
 
-
     </div>
 </div>
 </div>
 
+<!-- Tickets -->
 <script>
 
-           var xValues = <?php echo $tickets_xValue; ?>;
-           var yValues = <?php echo $tickets_yValue; ?>;
-           var tickets_closed_yValue= <?php echo $tickets_closed_yValue; ?>;
-           
-           
-            new Chart("tickets_chart", {
-              type: "bar",
-              title:{
-                text:"Chart Title",
-               },
-              
-              data: {
-                labels: xValues,
+   var xValues = <?php echo $tickets_xValue; ?>;
+   var yValues = <?php echo $tickets_yValue; ?>;
+   var tickets_closed_yValue= <?php echo $tickets_closed_yValue; ?>;
+   
+   
+    new Chart("tickets_chart", {
+      type: "bar",
+      title:{
+        text:"Chart Title",
+       },
+      
+      data: {
+        labels: xValues,
 
-                datasets: [
-                {
-                  label: 'Tickets raised',  
-                  fill: false,
-                  lineTension: 0,
-                  backgroundColor: "<?php echo 'red';  ?>",
-                  borderColor: "rgba(0,0,255,0.1)",
-                  data: yValues
-                },
-                {
-                  label: 'Tickets Closed',  
-                  fill: false,
-                  lineTension: 0,
-                  backgroundColor: "<?php echo 'green';  ?>",
-                  borderColor: "rgba(0,0,255,0.1)",
-                  data: tickets_closed_yValue
-                },
-               
-                ]
-              },
-              options: {
-                legend: {display: true},
-                scales: {
-                  yAxes: [{
+        datasets: [
+        {
+          label: 'Tickets raised',  
+          fill: false,
+          lineTension: 0,
+          backgroundColor: "<?php echo 'red';  ?>",
+          borderColor: "rgba(0,0,255,0.1)",
+          data: yValues
+        },
+        {
+          label: 'Tickets Closed',  
+          fill: false,
+          lineTension: 0,
+          backgroundColor: "<?php echo 'green';  ?>",
+          borderColor: "rgba(0,0,255,0.1)",
+          data: tickets_closed_yValue
+        },
+       
+        ]
+      },
+      options: {
+        legend: {display: true},
+        scales: {
+          yAxes: [{
+            gridLines: {
+             drawOnChartArea: false },
 
-                    ticks: {min: 0, max:50} ,
-                    scaleLabel: {
-                            display: true,
-                            labelString: '----- Number of Tickets -----',
-                            fontColor: '#000',   }
-                        }],
-                  xAxes: [{
-                    barPercentage: 1.5,
-                     gridLines: {
-                     drawOnChartArea: false },
-                    ticks: {min: 0, max:31} ,
-                    scaleLabel: {
-                            display: true,
-                            labelString: '----- Date ----- ',
-                            fontColor: '#000', }
-                        }],
-                }
-              }
-            });
-        </script>
-
-        <script>
-window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-  animationEnabled: true,
-  title:{
-    fontFamily: "arial black",
-    fontColor: "#000000"
-  },
- axisX: {
-    interval: 1,
-    intervalType: "day",
-  },
-  
-  data: [{
-    type: "stackedColumn",
-    showInLegend: true,
-    color: "#66ffff",
-    name: "Utilised Amount",
-    dataPoints: <?php echo $pc_used;?>
-    },
-    {
-    type: "stackedColumn",
-    showInLegend: true,
-    color: "#ff9933",
-    name: "Total Amount",
-    dataPoints: <?php echo $pc_given;?>
-    },
+            ticks: {min: 0, max:10} ,
+            scaleLabel: {
+                    display: true,
+                    labelString: '----- Number of Tickets -----',
+                    fontColor: '#000',   }
+                }],
+          xAxes: [{
+            barPercentage: 1.5,
+             gridLines: {
+             drawOnChartArea: false },
+            ticks: {min: 0, max:31} ,
+            scaleLabel: {
+                    display: true,
+                    labelString: '----- Date ----- ',
+                    fontColor: '#000', }
+                }],
+        }
+      }
+    });
+</script>
 
 
-  ]
-});
 
-chart.render();
-
-function toolTipContent(e) {
-  var str = "";
-  var total = 0;
-  var str2, str3;
-  for (var i = 0; i < e.entries.length; i++){
-    var  str1 = "<span style= \"color:"+e.entries[i].dataSeries.color + "\"> "+e.entries[i].dataSeries.name+"</span>: $<strong>"+e.entries[i].dataPoint.y+"</strong>bn<br/>";
-    total = e.entries[i].dataPoint.y + total;
-    str = str.concat(str1);
-  }
-  str2 = "<span style = \"color:DodgerBlue;\"><strong>"+(e.entries[0].dataPoint.x).getFullYear()+"</strong></span><br/>";
-  total = Math.round(total * 100) / 100;
-  str3 = "<span style = \"color:Tomato\">Total:</span><strong> $"+total+"</strong>bn<br/>";
-  return (str2.concat(str)).concat(str3);
-}
-
-}
-</script>  
+<!-- PIE CHART --> 
 
  <script>
-                            var xValues = <?php echo json_encode($xvalue); ?>;
-                            var yValues = <?php echo json_encode($yvalue); ?>;
-                           
-                            var barColors = [
-                              "#2C2C2C",
-                              "#FDF2DF",
-                              "#E31E24"
-                             
-                            ];
+    var xValues = <?php echo json_encode($xvalue); ?>;
+    var yValues = <?php echo json_encode($yvalue); ?>;
+   
+    var barColors = [
+      "#2C2C2C",
+      "#FDF2DF",
+      "#E31E24"
+     
+    ];
 
-                            new Chart("myChart", {
-                              type: "pie",
-                              data: {
-                                labels: xValues,
-                                datasets: [{
-                                  backgroundColor: getRandomColor(),
-                                  borderWidth: 0, 
-                                  data: yValues
-                                }]
-                              },
-                              options: {
-                                 legend: {
-                                    position: 'right'
-                                  },
-                                title: {
-                                  display: true
-                                 
-                                }
-                              }
-                            });
+    new Chart("myChart", {
+      type: "pie",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: getRandomColor(),
+          borderWidth: 0, 
+          data: yValues
+        }]
+      },
+      options: {
+         legend: {
+            position: 'right'
+          },
+        title: {
+          display: true
+         
+        }
+      }
+    });
 
-                            function getRandomColor() { //generates random colours and puts them in string
-                              var colors = [];
-                              var size = <?php echo sizeof($yvalue); ?> ;
-                              for (var i = 0; i < size; i++) {
-                                var letters = '0123456789ABCDEF'.split('');
-                                var color = '#';
-                                for (var x = 0; x < 6; x++) {
-                                  color += letters[Math.floor(Math.random() * 16)];
-                                }
-                                colors.push(color);
-                              }
-                              return colors;
-                            }
+    function getRandomColor() { //generates random colours and puts them in string
+      var colors = [];
+      var size = <?php echo sizeof($yvalue); ?> ;
+      for (var i = 0; i < size; i++) {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var x = 0; x < 6; x++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        colors.push(color);
+      }
+      return colors;
+    }
 
-                            </script>  
+    </script>  
+
+    <script type="text/javascript">
+      
+      var ctx = document.getElementById("myChart4").getContext('2d');
+
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+   // labels: ["<  1","1 - 2","3 - 4","5 - 9","10 - 14","15 - 19","20 - 24","25 - 29","> - 29"],
+    labels: <?php echo $date; ?>,
+    datasets: [{
+      label: 'Utilised Amount',
+      backgroundColor: "#66ffff",
+      data: <?php echo $pc_given  ?>,
+     
+
+    }, {
+      
+       label: 'Remaining Amount',
+      backgroundColor: "#ff9933",
+      //data: [12, 59, 5, 56, 58,12, 59, 87, 45],
+      
+        data: <?php echo $pc_used  ?>,
+    }],
+  },
+options: {
+    tooltips: {
+      displayColors: true,
+      callbacks:{
+        mode: 'x',
+      },
+    },
+    scales: {
+      xAxes: [{
+        stacked: true,
+        gridLines: {
+          display: false,
+        },
+          barPercentage: 0.2,
+      }],
+      yAxes: [{
+        stacked: true,
+        gridLines: {
+          display: false,
+        },
+        ticks: {
+          beginAtZero: true,
+        },
+        type: 'linear',
+      }]
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    legend: { position: 'top' },
+  }
+});
+    </script>
 @endsection
