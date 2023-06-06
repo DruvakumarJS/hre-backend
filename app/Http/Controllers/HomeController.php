@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Intend;
 use App\Models\Ticket;
 use App\Models\Pcn;
+use App\Models\User;
 use App\Models\Pettycash;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Mail;
@@ -55,6 +56,7 @@ class HomeController extends Controller
         $montharray=array();
         $month = date("t", strtotime('2021-10-18'));
         $alldatethismonth = range(1, $month);
+        $count = 0;
         foreach($alldatethismonth as $date){
            
            if(strlen($date)==1){
@@ -69,10 +71,20 @@ class HomeController extends Controller
             $results['y'][]=$ticket_count->count();
             $results['x'][]=$date;
 
+            if($ticket_count->count() > 0){
+                $count++;
+                
+            }
+          
              $tckets_closed_count=Ticket::where('updated_at','LIKE','%'.$today.'%')
             ->where('status', 'Completed')->get();
 
              $tickets_closed['y'][]=$tckets_closed_count->count();
+
+             if($tckets_closed_count->count() > 0){
+                $count++;
+                
+            }
     
         }
 
@@ -80,18 +92,24 @@ class HomeController extends Controller
             $tickets_yValue = json_encode($results['y'], true);
             $tickets_closed_yValue = json_encode($tickets_closed['y'], true);
 
+          //  print_r($counts);die();
+
         $Pettycash = Pettycash::where('created_at', 'LIKE','%'.date('Y-m').'%')->get();
         $pc['x']= array();
         $pc['y']= array();
         $pc['z']= array();
         $total = array();
         $used = array();
+        $name = array();
 
 
         foreach ($Pettycash as $key => $value) {
             $pc['y'][] = $value->total;
             $pc['z'][]= $value->spend;
-            $pc['x'][] = date("d-m-Y", strtotime($value->created_at)) ;
+            $pc['d'][] = date("d-m-Y", strtotime($value->created_at)) ;
+
+            $name = User::where('id',$value->user_id)->first();
+             $pc['x'][] = $name->name;
 
           
             $total[] = [
@@ -102,7 +120,8 @@ class HomeController extends Controller
             $used[] = [
                 'y' => intval($value->spend),
                 'x' => intval(date("d", strtotime($value->created_at))) 
-                ]; 
+                ];
+   
 
                
 
@@ -110,7 +129,8 @@ class HomeController extends Controller
 
         $total_given = json_encode($pc['y'], true);
         $total_used = json_encode($pc['z'], true);
-        $date = json_encode($pc['x'], true);
+        $date = json_encode($pc['d'], true);
+        $names = json_encode($pc['x'], true);
 
 
 
@@ -118,6 +138,7 @@ class HomeController extends Controller
         // $pc_given = $total;
 
         $pc_used = json_encode($used, true);
+        $pc_names = json_encode($name, true);
 
 
      
@@ -127,7 +148,7 @@ class HomeController extends Controller
 
          $chart_pcn = Pcn::select('client_name')->groupby('client_name')->get();
 
-        return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date' , 'pc_given' , 'pc_used'));
+        return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date' , 'pc_given' , 'pc_used' , 'pc_names','count', 'names' ));
     }
 
      public function destroy(){

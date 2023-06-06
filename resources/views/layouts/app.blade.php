@@ -111,7 +111,7 @@
                @elseif(Auth::user()->role_id == 5)
 
                <a
-                href="{{route('home')}}"
+                href="{{route('finance_home')}}"
                    >
                   <img class="logo" src="{{asset('images/logo.svg')}}">
                </a>

@@ -96,17 +96,22 @@ $yvalue=array();
                 
 
                 <div class="row">
+                  @if($count > 0)
                   <div class="col-sm-6 col-md-6 card">
+                    <label>Tickets</label>
                       <canvas id="tickets_chart" ></canvas>
                  </div>
+                  @endif
 
                  <div class="col-sm-6 col-md-6" >
 
                   @if(sizeof(json_decode($pc_given))>0)
 
-                  <div class="wrapper card border-white" style="height: 350px">
+                  <div class="wrapper card border-white" style="height: 370px">
+                    <label>PettyCash</label>
                     <canvas id="myChart4" ></canvas>
                   </div>
+
 
                   @endif
                          
@@ -118,6 +123,7 @@ $yvalue=array();
          </div>
 
          <div>
+          @if(sizeof($result)>0)  
                 <label class="label-bold">Customers</label>
 
                 <div class="row">
@@ -181,7 +187,7 @@ $yvalue=array();
 
                  <div class="col-sm-6 col-md-6" >
                   @if(sizeof($yvalue)>0)  
-                    <div class="card border-white" style="height: 350px">
+                    <div class="card border-white" style="height: 370px">
                         <label>Pending Intends</label>
                         
                       
@@ -201,6 +207,7 @@ $yvalue=array();
 
                   
             </div>
+            @endif
 
 
     </div>
@@ -246,10 +253,13 @@ $yvalue=array();
       },
       options: {
         legend: {display: true},
+        tooltips: {
+                  mode: 'index'
+                },
         scales: {
           yAxes: [{
             gridLines: {
-             drawOnChartArea: false },
+             drawOnChartArea: true },
 
             ticks: {min: 0, max:10} ,
             scaleLabel: {
@@ -333,19 +343,20 @@ var myChart = new Chart(ctx, {
   data: {
    // labels: ["<  1","1 - 2","3 - 4","5 - 9","10 - 14","15 - 19","20 - 24","25 - 29","> - 29"],
     labels: <?php echo $date; ?>,
-    datasets: [{
-      label: 'Utilised Amount',
-      backgroundColor: "#66ffff",
-      data: <?php echo $pc_given  ?>,
-     
-
-    }, {
+    datasets: [
+     {
       
-       label: 'Remaining Amount',
+       label: 'Utilised Amount',
       backgroundColor: "#ff9933",
       //data: [12, 59, 5, 56, 58,12, 59, 87, 45],
       
         data: <?php echo $pc_used  ?>,
+    },{
+      label: 'Remaining Amount',
+      backgroundColor: "#66ffff",
+      data: <?php echo $pc_given?>,
+     
+
     }],
   },
 options: {
@@ -362,16 +373,26 @@ options: {
           display: false,
         },
           barPercentage: 0.2,
+
+          scaleLabel: {
+                    display: true,
+                    labelString: '----- Date ----- ',
+                    fontColor: '#000', }
       }],
       yAxes: [{
         stacked: true,
         gridLines: {
-          display: false,
+          display: true,
         },
         ticks: {
           beginAtZero: true,
         },
+
         type: 'linear',
+        scaleLabel: {
+                    display: true,
+                    labelString: '----- Amount in Rs ----- ',
+                    fontColor: '#000', }
       }]
     },
     responsive: true,

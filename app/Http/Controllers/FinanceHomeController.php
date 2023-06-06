@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Intend;
 use App\Models\Ticket;
 use App\Models\Pcn;
+use App\Models\User;
 use App\Models\Pettycash;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Mail;
@@ -46,6 +47,7 @@ class FinanceHomeController extends Controller
         $montharray=array();
         $month = date("t", strtotime('2021-10-18'));
         $alldatethismonth = range(1, $month);
+         $count = 0;
         foreach($alldatethismonth as $date){
            
            if(strlen($date)==1){
@@ -60,10 +62,20 @@ class FinanceHomeController extends Controller
             $results['y'][]=$ticket_count->count();
             $results['x'][]=$date;
 
+            if($ticket_count->count() > 0){
+                $count++;
+                
+            }
+
              $tckets_closed_count=Ticket::where('updated_at','LIKE','%'.$today.'%')
             ->where('status', 'Completed')->get();
 
              $tickets_closed['y'][]=$tckets_closed_count->count();
+
+             if($tckets_closed_count->count() > 0){
+                $count++;
+                
+            }
     
         }
 
@@ -77,11 +89,15 @@ class FinanceHomeController extends Controller
         $pc['z']= array();
         $total = array();
         $used = array();
+         $name = array();
 
         foreach ($Pettycash as $key => $value) {
             $pc['y'][] = $value->total;
             $pc['z'][]= $value->spend;
-            $pc['x'][] = date("d-m-Y", strtotime($value->created_at)) ;
+            $pc['d'][] = date("d-m-Y", strtotime($value->created_at)) ;
+
+            $name = User::where('id',$value->user_id)->first();
+             $pc['x'][] = $name->name;
 
           
             $total[] = [
@@ -100,7 +116,8 @@ class FinanceHomeController extends Controller
 
         $total_given = json_encode($pc['y'], true);
         $total_used = json_encode($pc['z'], true);
-        $date = json_encode($pc['x'], true);
+        $date = json_encode($pc['d'], true);
+        $names = json_encode($pc['x'], true);
 
 
 
@@ -112,6 +129,6 @@ class FinanceHomeController extends Controller
 
          $chart_pcn = Pcn::select('client_name')->groupby('client_name')->get();
 
-        return view('finance_home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date' , 'pc_given' , 'pc_used'));
+        return view('finance_home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date' , 'pc_given' , 'pc_used' , 'count' ,  'names'));
     }
 }
