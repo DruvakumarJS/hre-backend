@@ -98,6 +98,7 @@ class HomeController extends Controller
         $pc['x']= array();
         $pc['y']= array();
         $pc['z']= array();
+        $pc['d']= array();
         $total = array();
         $used = array();
         $name = array();
