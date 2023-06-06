@@ -23,8 +23,8 @@
                     <th scope="col">Name</th>
                     <th scope="col">Mobile</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Total Amount</th>
-                    <th scope="col">Remaining Amount</th>           
+                    <th scope="col">Alloted Amount</th>
+                    <th scope="col">Balance Amount</th>           
                     <th scope="col">Action</th>
                 </tr>
                 </thead>

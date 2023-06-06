@@ -28,15 +28,16 @@
                     </div>
                     <div class="col">
                         <label>Dispatched</label>
-                        <h3 class="label-bold">{{$dispatched}}</h3>
+                        <h3 class="label-bold">{{$dispatched}} {{$indend_data->materials->uom}}</h3>
+                        <label></label>
                     </div>
                     <div class="col">
                         <label>Pending</label>
-                        <h3 class="label-bold">{{$indend_data->pending}}</h3>
+                        <h3 class="label-bold">{{$indend_data->pending}} {{$indend_data->materials->uom}}</h3>
                     </div>
                     <div class="col">
                         <label>Accepted</label>
-                        <h3 class="label-bold">{{$indend_data->recieved}}</h3>
+                        <h3 class="label-bold">{{$indend_data->recieved}} {{$indend_data->materials->uom}}</h3>
                     </div>
                 </div>
             </div>
@@ -96,7 +97,7 @@
 
                 </div>
                 <div class=" col-md-8 div-margin">
-                    <div style="margin-left: 60px">
+                    <div style="margin-left: 20px">
 
                     @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '3' )
                         
@@ -139,6 +140,7 @@
                                 <th>GRN Status</th>
                                 <th>Accepted</th>
                                 <th>Rejected</th>
+                                <th>Comments</th>
                                 <th>Dispatched Date</th>
                             </tr>
                             </thead>
@@ -147,8 +149,9 @@
                                     <td>{{$value->grn}}</td>
                                     <td>{{$value->dispatched}}</td>
                                     <td>{{$value->status}}</td>
-                                    <td>{{$value->approved}}</td>
-                                    <td>{{$value->damaged}}</td>
+                                    <td>{{$value->approved}} </td>
+                                    <td>{{$value->damaged}} </td>
+                                    <td>{{$value->comments}}</td>
                                     <td>{{$value->created_at}}</td>
                                 </tr>
                         @endforeach

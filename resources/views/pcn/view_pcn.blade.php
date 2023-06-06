@@ -28,9 +28,9 @@
                                 <thead>
                                 <tr>
                                    
-                                    <th scope="col">Project Code</th>
+                                    <th scope="col">PCN</th>
                                     <th scope="col">Client Name </th>
-                                    <th scope="col">Brand Name</th>
+                                    <th scope="col">Brand</th>
                                     <th scope="col">Type of Work</th>
                                     <th scope="col">Location</th>
                                     <th scope="col">City</th>

@@ -28,7 +28,7 @@
             </div>
 
             <div class="col-md-2">
-                <label>Total Amount</label>
+                <label>Alloted Amount</label>
                 <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total}}</h3>
                 
             </div>
@@ -63,7 +63,7 @@
                                     <td>{{$value->comments}}</td>
                                     <td>
                                         @if($value->filename != '')
-                                        <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-paperclip"></i></a> 
+                                        <a target="_blank" href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-paperclip"></i></a> 
                                         @endif
                                     </td>
                                     @if($value->isapproved == '0')

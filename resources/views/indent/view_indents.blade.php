@@ -102,9 +102,9 @@
                               </table>
                               </td>
                              	<td>{{$value->decription}}</td>
-                             	<td>{{$value->quantity}}</td>
-                             	<td>{{$value->recieved}}</td>
-                             	<td>{{$value->pending}}</td>
+                             	<td>{{$value->quantity}} {{$value->materials->uom}}</td>
+                             	<td>{{$value->recieved}} {{$value->materials->uom}}</td>
+                             	<td>{{$value->pending}} {{$value->materials->uom}}</td>
                              	<td>{{$value->status}}</td>
                              	<td>
                                 <a href="{{route('edit_intends' , $value->id)}}"><button class="btn btn-light curved-text-button btn-sm">

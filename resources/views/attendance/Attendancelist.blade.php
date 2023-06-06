@@ -23,6 +23,16 @@
             <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"> Download</a>
         </div>
 
+         <div id="div2" style="margin-right: 20px">
+                              <input type="hidden" id="loggedin" value="{{Auth::user()->isloggedin}}">
+                                <label class="switch">
+                                  <input class="switch-input" type="checkbox" id="togBtn" value="false"  />
+                                  <span class="switch-label" data-on="logout" data-off="login"></span> 
+                                  <span class="switch-handle"></span> 
+                                </label>
+                              </div>
+
+
         
        
     </div>
@@ -84,66 +94,78 @@
 </div>
 
 <script type="text/javascript">
- var initialMouse = 0;
-var slideMovementTotal = 0;
-var mouseIsDown = false;
-var slider = $('#slider');
+ var switchStatus = false;
+ var x = document.getElementById("demo");
+ var lat = '';
+ var long = '';
+ var action = '';
 
-slider.on('mousedown touchstart', function(event){
-  mouseIsDown = true;
-  slideMovementTotal = $('#button-background').width() - $(this).width() + 10;
-  initialMouse = event.clientX || event.originalEvent.touches[0].pageX;
+ var isloggedin = $('#loggedin').val()
+ //alert(isloggedin);
+
+ if(isloggedin == '0'){
+  $("#togBtn").attr("checked", false);
+ }
+ else {
+  $("#togBtn").attr("checked", true);
+ }
+
+  //$("#togBtn").attr("checked", true);
+
+$("#togBtn").on('change', function() {
+
+    if ($(this).is(':checked')) {
+        switchStatus = $(this).is(':checked');
+      //  alert(switchStatus);// To verify
+     
+        action = 'login';
+
+       if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(showPosition );
+      } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+
+             
+    }
+    else {
+       switchStatus = $(this).is(':checked');
+       //alert(switchStatus);// To verify
+       action = 'logout';
+
+         if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(showPosition );
+      } else { 
+       // x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+
+        
+    }
 });
 
-$(document.body, '#slider').on('mouseup touchend', function (event) {
-  if (!mouseIsDown)
-    return;
-  mouseIsDown = false;
-  var currentMouse = event.clientX || event.changedTouches[0].pageX;
-  var relativeMouse = currentMouse - initialMouse;
+function showPosition(position ) {
+ 
+  lat = position.coords.latitude ;
+  long =  position.coords.longitude ;
 
-  if (relativeMouse < slideMovementTotal) {
-    $('.slide-text').fadeTo(300, 1);
-    slider.animate({
-      left: "-10px"
-    }, 300);
-    return;
-  }
-  slider.addClass('unlocked');
-  $('#locker').text('lock_outline');
-  setTimeout(function(){
-    slider.on('click tap', function(event){
-      if (!slider.hasClass('unlocked'))
-        return;
-      slider.removeClass('unlocked');
-      $('#locker').text('lock_open');
-      slider.off('click tap');
-    });
-  }, 0);
-});
+  //alert(action);
 
-$(document.body).on('mousemove touchmove', function(event){
-  if (!mouseIsDown)
-    return;
-
-  var currentMouse = event.clientX || event.originalEvent.touches[0].pageX;
-  var relativeMouse = currentMouse - initialMouse;
-  var slidePercent = 1 - (relativeMouse / slideMovementTotal);
-  
-  $('.slide-text').fadeTo(0, slidePercent);
-
-  if (relativeMouse <= 0) {
-    slider.css({'left': '-10px'});
-    return;
-  }
-  if (relativeMouse >= slideMovementTotal + 10) {
-    slider.css({'left': slideMovementTotal + 'px'});
-    return;
-  }
-  slider.css({'left': relativeMouse - 10});
-});
+  var path = "{{ route('add_attendance') }}";
+   
+         $.ajax({
+           url:"{{ route('add_attendance') }}",
+           method:"POST",
+           data:{action:action , lattitude:lat , longitude:long , _token: '{{csrf_token()}}' },
+           dataType:"json",
+           success:function(data)
+           {
+             
+            console.log(data);
+            
+           }
+          })
+}
 </script>
-
 
 
 

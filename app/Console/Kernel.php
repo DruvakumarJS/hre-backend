@@ -56,7 +56,7 @@ class Kernel extends ConsoleKernel
                
             }
  
-        })->everyMinute()
+        })->dailyAt('23:45')
       //  $schedule->command('inspire')->everyMinute()
 
           ->before(function () {

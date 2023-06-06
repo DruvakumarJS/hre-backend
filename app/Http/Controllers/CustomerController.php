@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+
 class CustomerController extends Controller
 {
     /**
@@ -16,6 +17,12 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $customers = Customer::with('address')->orderBy('id', 'DESC')->paginate(10);

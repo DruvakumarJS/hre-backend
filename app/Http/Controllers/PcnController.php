@@ -18,6 +18,12 @@ class PcnController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $pcns = Pcn::where('status','Active')->orderBy('id','DESC')->paginate(20); 

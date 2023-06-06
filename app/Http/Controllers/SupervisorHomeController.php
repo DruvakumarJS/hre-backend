@@ -10,6 +10,13 @@ use Auth ;
 
 class SupervisorHomeController extends Controller
 {
+
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index(){
     	$date = date('Y-m');
     	$indents = Intend::where('user_id', Auth::user()->id)->where('created_at', 'LIKE','%'.$date.'%')->count();

@@ -15,6 +15,13 @@ class TicketConversationController extends Controller
      *
      * @return \Illuminate\Http\Responses
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index($id)
     {
         $ticket = Ticket::where('ticket_no', $id)->first();
