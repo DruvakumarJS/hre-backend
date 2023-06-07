@@ -11,7 +11,7 @@
         <label class="label-bold" id="div1">Attendance</label>
 
         <div id="div2" style="margin-right: 30px">
-            <a class="btn btn-light btn-outline-secondary" href=""><i class="fa fa-plus"></i> Create Employee</a>
+            <a class="btn btn-light btn-outline-secondary" href="{{route('users')}}"><i class="fa fa-plus"></i> Create Employee</a>
 
         </div>
 

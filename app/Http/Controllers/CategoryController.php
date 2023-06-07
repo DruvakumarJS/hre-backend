@@ -152,6 +152,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+       
 
         $Materials = Material::where('category_id',$id)->get();
 

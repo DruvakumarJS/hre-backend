@@ -332,6 +332,16 @@
                             @endif
                         @else
 
+                             <div class="dropdown">
+
+                                    <a data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/help.svg')}}" style="width: 20px;height: 20px;margin-right: 20px"> </a>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        
+                                        <li><a class="dropdown-item" download href="{{asset('pdf/HRE.pdf')}}">Download Android App</a></li>
+                                     
+                                    </ul>
+                                </div>
+
                             
                              <a href=""> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a>
 
@@ -344,7 +354,17 @@
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item" href="{{route('users')}}">User Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('materials_master')}}">Material Master</a></li>
-                                        <li><a class="dropdown-item" href="">Recycle & Restore</a></li>
+                                      
+                                        <li>
+                                          <a class="dropdown-item" href="#">Recycle & Restore </a>
+                                          <ul class="dropdown-menu dropdown-submenu">
+                                            <li><a class="dropdown-item" href="{{route('restore-users')}}">Users</a></li>
+                                            <li><a class="dropdown-item" href="{{route('restore-customers')}}">Customers</a></li>
+                                            <li><a class="dropdown-item" href="{{route('restore-category')}}">Categories</a></li>
+                                            <li><a class="dropdown-item" href="{{route('restore-material')}}">Materials</a></li>
+                                          </ul>  
+                                        </li> 
+
                                     </ul>
                                 </div>
                              @endif

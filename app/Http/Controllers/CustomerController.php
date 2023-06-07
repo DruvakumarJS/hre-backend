@@ -235,11 +235,22 @@ class CustomerController extends Controller
     public function delete_customer($id){
        
         if(Pcn::where('customer_id', $id)->exists()){
-            return redirect()->route('view_customers')->withmessage('The Customer is PCN data, You cannot delete the Customer');
+            return redirect()->route('view_customers')->withmessage('The Customer has PCN data, You cannot delete the Customer');
 
         }
         else {
-            $deleteCustomerAddress = Address::where('customer_id', $id)->delete();
+
+             $deleteCustomer = Customer::find($id)->delete();
+
+                if($deleteCustomer){
+                    return redirect()->route('view_customers')->withmessage('Sucessfully Deleted ');
+                }
+                else{
+                    return redirect()->route('view_customers')->withmessage('Something went wrong');
+
+
+                }
+            /*$deleteCustomerAddress = Address::where('customer_id', $id)->delete();
             if($deleteCustomerAddress){
                 $deleteCustomer = Customer::where('id', $id)->delete();
 
@@ -255,7 +266,7 @@ class CustomerController extends Controller
             else {
                 return redirect()->route('view_customers')->withmessage('Could not delete address');
 
-            }
+            }*/
 
         }
 

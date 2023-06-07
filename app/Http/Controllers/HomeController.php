@@ -101,7 +101,7 @@ class HomeController extends Controller
         $pc['d']= array();
         $total = array();
         $used = array();
-        $name = array();
+        
 
 
         foreach ($Pettycash as $key => $value) {
@@ -110,7 +110,7 @@ class HomeController extends Controller
             $pc['d'][] = date("d-m-Y", strtotime($value->created_at)) ;
 
             $name = User::where('id',$value->user_id)->first();
-             $pc['x'][] = $name->name;
+            // $pc['x'][] = $name->name;
 
           
             $total[] = [
@@ -131,7 +131,7 @@ class HomeController extends Controller
         $total_given = json_encode($pc['y'], true);
         $total_used = json_encode($pc['z'], true);
         $date = json_encode($pc['d'], true);
-        $names = json_encode($pc['x'], true);
+       
 
 
 
@@ -149,7 +149,7 @@ class HomeController extends Controller
 
          $chart_pcn = Pcn::select('client_name')->groupby('client_name')->get();
 
-        return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date' , 'pc_given' , 'pc_used' , 'pc_names','count', 'names' ));
+        return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date' , 'pc_given' , 'pc_used' , 'pc_names','count' ));
     }
 
      public function destroy(){

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 Use App\Models\User ; 
 Use App\Models\Roles ; 
 Use App\Models\Employee ; 
+Use App\Models\Pettycash ; 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 Use App\Exports\ExportUsers;
@@ -266,12 +267,27 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $delete = User::where('id',$id)->delete();
+        if(Pettycash::where('user_id', $id)->where('remaining','!=' ,'0')->exists()){
+             return redirect()->back()->withMessage('User has unspent Pettycash. so,Cannot delete the user ');
+        }
+        else {
+            $destroy = User::find($id)->delete();
 
-        if($delete){
+        if($destroy){
+            $deleteEmpl = Employee::where('user_id',$id)->delete();
+            if($deleteEmpl){
+                return redirect()->back();
+            }
+         
+        }
+
+        }
+        
+
+        /*if($delete){
             $delete = Employee::where('user_id',$id)->delete();
             return redirect()->back();
-        }
+        }*/
     }
 
     public  function view_superadmins(){

@@ -4,34 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-            <label class="label-bold" id="div1">Users Master / {{$role}}</label>
+            <label class="label-bold" id="div1">Users</label>
+          <div id="div2">
 
-              <div id="div2" style="margin-right: 30px" >
-            <a class="btn btn-light btn-outline-secondary" href="{{route('users')}}"> 
-             <label id="modal">User Master</label>
-           </a>
-          </div>
-
-              <div id="div2" style="margin-right: 30px" >
-            <a class="btn btn-light btn-outline-secondary" href="{{route('create_user',$role_name)}}"><i class="fa fa-plus"></i> 
-             <label id="modal">Add User</label>
-           </a>
-          </div>
-
-        
-
-           <div id="div3" style="margin-right: 30px">
-             <a href="{{route('export-users',$role_name)}}"> <button class="btn btn-light btn-outline-secondary" > Download CSV</button> </a>
-          </div>
-       
-
+        </div>
     </div>
-
-    
-            @if(Session::has('message'))
-            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
-        @endif
-
     <div class="page-container">
        <div class="row">
            <div class="col-md-12">
@@ -52,7 +29,7 @@
                            </tr>
                            </thead>
                            <tbody>
-                            @foreach($users as $key => $value)
+                            @foreach($data as $key => $value)
                                <tr>
                                    <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                                    <td>{{$value->employee_id}}</td>
@@ -62,17 +39,17 @@
                                    <td>{{$value->role}}</td>                                  
                                    
                                    <td>
-                                    <a href="{{route('edit_user',$value->user_id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
-                                    <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_user',$value->user_id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></i></a></td>
+                                    <a onclick="return confirm('Are you sure to restore?')" href="{{route('restore_user',$value->user_id)}}"><button class="btn btn-light btn-sm btn-outline-success">Restore</button></a>
+                                    <a onclick="return confirm('Are you sure to delete?')" href="{{route('trash_user',$value->user_id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a></td>
                                </tr>
                             @endforeach   
 
                            </tbody>
                        </table>
-                       <label>Showing {{ $users->firstItem() }} to {{ $users->lastItem() }}
-                                    of {{$users->total()}} results</label>
+                       <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
+                                    of {{$data->total()}} results</label>
 
-                                {!! $users->links('pagination::bootstrap-4') !!}
+                                {!! $data->links('pagination::bootstrap-4') !!}
                    </div>
 
                </div>

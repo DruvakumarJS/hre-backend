@@ -98,8 +98,9 @@ $( document ).ready(function() {
            var name = ui.item.name;
            var brand = ui.item.brand;
            var desc = ui.item.information;
+           var uom = ui.item.uom;
 
-           populateinputs(item_code , name , brand , desc );
+           populateinputs(item_code , name , brand , desc , uom);
            
          
         }
@@ -108,7 +109,7 @@ $( document ).ready(function() {
 });
 
  $(document).on('click', '.remove-input-field', function () {
- // alert(i);
+//  alert(i);
   //document.getElementById("row").remove();
   Swal.fire({
   title: 'Are you sure to remove this material?',
@@ -117,11 +118,12 @@ $( document ).ready(function() {
   showCancelButton: true,
   confirmButtonColor: '#3085d6',
   cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
+  confirmButtonText: 'Yes, remove it!'
 }).then((result) => {
   if (result.isConfirmed) {
-    document.getElementById("row").remove();
-    clearInput();
+   // document.getElementById("row").remove();
+   $(this).parents('tr').remove();
+   // clearInput();
    /* Swal.fire(
       'Deleted!',
       'Your file has been deleted.',
@@ -132,7 +134,7 @@ $( document ).ready(function() {
   
     });
 
-function populateinputs(item_code , name ,  brand , desc){
+function populateinputs(item_code , name ,  brand , desc , uom){
    var x = document.getElementById("dynamic_form");
    if (x.style.display === "none") {
     x.style.display = "block";
@@ -141,9 +143,9 @@ function populateinputs(item_code , name ,  brand , desc){
    var description = desc ;
   // alert(description);
 
-  $('#container').append('<div class="row" id="row"> <div class="col-md-2"><label>Product Code</label><input class="form-control" type="text" name="indent[' + i + '][item_code]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><label>Product Name</label><input class="form-control" type="text" name="indent[' + i + '][name]" value="'+ name +'" readonly></div><div class="col-md-2"><label>Brand</label><input class="form-control" type="text" name="indent[' + i + '][brand]"  value="'+ brand +'" readonly></div><div class="col-md-3"><label>Description</label><input class="form-control" type="text" name="indent[' + i + '][desc]" placeholder="Add additional comments" ></div><div class="col-md-1"><label>Quantity*</label><input class="form-control" type="number" name="indent[' + i + '][quantity]" id="quantity" min="1" required></div><div class="col-md-1"><i class="fa fa-close remove-input-field"></i></div> </div>');    
+  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-2"><label>Product Code</label><input class="form-control" type="text" name="indent[' + i + '][item_code]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><label>Product Name</label><input class="form-control" type="text" name="indent[' + i + '][name]" value="'+ name +'" readonly></div><div class="col-md-2"><label>Brand</label><input class="form-control" type="text" name="indent[' + i + '][brand]"  value="'+ brand +'" readonly></div><div class="col-md-3"><label>Description</label><input class="form-control" type="text" name="indent[' + i + '][desc]" placeholder="Add additional comments" ></div><div class="col-md-1"><label>Quantity*</label><input class="form-control" type="number" name="indent[' + i + '][quantity]" id="quantity" min="1" required></div>  <div class="col-md-1"><label>UOM*</label><input class="form-control"  name="indent[' + i + '][uom]" value="'+ uom +'" required></div>  <div class="col-md-1"><i class="fa fa-close remove-input-field"></i></div> </div></td></tr>');    
     ++i;
-
+  
 
         }
 
@@ -151,6 +153,7 @@ function populateinputs(item_code , name ,  brand , desc){
 </script>
 <script type="text/javascript">
   function clearInput(){
+    //alert("ll");
       var getValue= document.getElementById("product");
         if (getValue.value !="") {
             getValue.value = "";

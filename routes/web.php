@@ -19,6 +19,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TicketConversationController;
 use App\Http\Controllers\PettyCashDetailController;
+use App\Http\Controllers\RestoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -228,6 +229,26 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
 
 
     Route::get('settings',[SettingController::class,'index'])->name('settings');
+
+    // Restore and Rescycle
+    Route::get('restore-recycle',[RestoreController::class,'index'])->name('restore');
+    Route::get('restore_recycle/customer',[RestoreController::class,'customer_list'])->name('restore-customers');
+    Route::get('restore_customer/{id}',[RestoreController::class,'restore_customer'])->name('restore_customer');
+    Route::get('trash_customer/{id}',[RestoreController::class,'trash_customer'])->name('trash_customer');
+
+    Route::get('restore_recycle/user',[RestoreController::class,'users_list'])->name('restore-users');
+    Route::get('restore_user/{id}',[RestoreController::class,'restore_user'])->name('restore_user');
+    Route::get('trash_user/{id}',[RestoreController::class,'trash_user'])->name('trash_user');
+
+    Route::get('restore_recycle/category',[RestoreController::class,'category_list'])->name('restore-category');
+    Route::get('restore_category/{id}',[RestoreController::class,'restore_category'])->name('restore_category');
+    Route::get('trash_category/{id}',[RestoreController::class,'trash_category'])->name('trash_category');
+
+    Route::get('restore_recycle/material',[RestoreController::class,'material_list'])->name('restore-material');
+    Route::get('restore_materialr/{id}',[RestoreController::class,'restore_material'])->name('restore_material');
+    Route::get('trash_material/{id}',[RestoreController::class,'trash_material'])->name('trash_material');
+
+
 
 
 
