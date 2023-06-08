@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 
 class SplashScreenController extends Controller
-{
+{ 
     public function index(Request $request){
 
     	if(isset($request->user_id)){

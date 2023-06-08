@@ -9,7 +9,7 @@ use App\Http\Controllers\api\IndentController;
 use App\Http\Controllers\api\TicketController;
 use App\Http\Controllers\api\AttendanceController;
 use App\Http\Controllers\api\PettycashController;
-use App\http\Controllers\api\SplashScreenController ;
+use App\http\Controllers\api\SplashScreenController;
 
 /*
 |--------------------------------------------------------------------------
