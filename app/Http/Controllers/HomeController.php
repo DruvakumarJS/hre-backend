@@ -121,10 +121,7 @@ class HomeController extends Controller
             $used[] = [
                 'y' => intval($value->spend),
                 'x' => intval(date("d", strtotime($value->created_at))) 
-                ];
-   
-
-               
+                ];     
 
         }
 
@@ -134,22 +131,15 @@ class HomeController extends Controller
        
 
 
-
        $pc_given = json_encode($total, true);
         // $pc_given = $total;
 
         $pc_used = json_encode($used, true);
-        $pc_names = json_encode($name, true);
-
-
-     
-         
-        
-
+      
 
          $chart_pcn = Pcn::select('client_name')->groupby('client_name')->get();
 
-        return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date' , 'pc_given' , 'pc_used' , 'pc_names','count' ));
+        return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date' , 'pc_given' , 'pc_used' , 'count' ));
     }
 
      public function destroy(){
