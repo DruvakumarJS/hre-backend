@@ -14,9 +14,11 @@
             <a data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-light btn-outline-secondary" href=""><i class="fa fa-plus"></i> 
              <label id="modal">Create Category</label>
            </a>
-
-    
           </div>
+
+          <div id="div2" style="margin-right: 30px" >
+            <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import</label></a>
+        </div>
 
            <div id="div3" style="margin-right: 30px">
              <a href="{{route('export-categories')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
@@ -63,6 +65,34 @@
           </div>
         </div>
 <!-- Modal -->
+
+
+<!-- Import Modal -->
+        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Import Categories from Excel Sheet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="{{ route('import_user') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group mb-4">
+                        <div class="custom-file text-left">
+                            <input type="file" name="file" class="custom-file-input" id="customFile">
+                           
+                        </div>
+                    </div>
+                    <button class="btn btn-primary">Import</button>
+                    
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!--Import Modal -->
 
         @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>

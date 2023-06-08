@@ -12,7 +12,7 @@
         <h2 class="mb-4">
             Laravel 8 Import Export Excel & CSV File - <a href="https://techvblogs.com/blog/laravel-import-export-excel-csv-file?ref=repo" target="_blank">TechvBlogs</a>
         </h2>
-        <form action="{{ route('import_user') }}" method="GET" enctype="multipart/form-data">
+        <form action="{{ route('import_user') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group mb-4">
                 <div class="custom-file text-left">

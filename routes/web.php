@@ -250,7 +250,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('restore_materialr/{id}',[RestoreController::class,'restore_material'])->name('restore_material');
     Route::get('trash_material/{id}',[RestoreController::class,'trash_material'])->name('trash_material');
 
-    Route::get('import_user',[ImportController::class,'importuser'])->name('import_user');
+    Route::post('import_user',[ImportController::class,'importuser'])->name('import_user');
 
 
 
