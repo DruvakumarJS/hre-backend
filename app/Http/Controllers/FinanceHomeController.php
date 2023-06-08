@@ -83,7 +83,7 @@ class FinanceHomeController extends Controller
             $tickets_yValue = json_encode($results['y'], true);
             $tickets_closed_yValue = json_encode($tickets_closed['y'], true);
 
-        $Pettycash = Pettycash::where('created_at', 'LIKE','%'.date('Y-m').'%')->get();
+        $Pettycash = Pettycash::where('created_at', 'LIKE','%'.date('Y-m').'%')->orderBy('id', 'DESC')->get();
         $pc['x']= array();
         $pc['y']= array();
         $pc['z']= array();

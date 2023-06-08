@@ -70,11 +70,7 @@
 	                	<td>{{$value->pcn}}</td>
 	                	<td>{{$value->category}}</td>
 	                	<td>{{$value->issue}}</td>
-	                	<!-- @if($value->creator == Auth::user()->id)
-	                	<td>Self</td>
-	                	@else
-                        <td>{{$value->user->name}}</td>
-	                	@endif  -->   
+	                	 
                        @php
 	                	if($value->priority == 'High'){
 	                	  $colors = 'red' ;

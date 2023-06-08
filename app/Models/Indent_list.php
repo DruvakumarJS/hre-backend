@@ -27,7 +27,7 @@ class Indent_list extends Model
 
      function materials()
           {
-             return $this->belongsTo(Material::class,'material_id','item_code');
+             return $this->belongsTo(Material::class,'material_id','item_code')->withTrashed();
 
           } 
 

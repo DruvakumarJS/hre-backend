@@ -37,11 +37,11 @@ class Ticket extends Model
 
     function user()
      {
-          return $this->belongsTo(User::class,'creator', 'id');
+          return $this->belongsTo(User::class,'creator', 'id')->withTrashed();
      }  
 
      function employee()
      {
-          return $this->belongsTo(User::class,'assigned_to', 'id');
+          return $this->belongsTo(User::class,'assigned_to', 'id')->withTrashed();
       }  	
 }

@@ -94,7 +94,7 @@ class HomeController extends Controller
 
           //  print_r($counts);die();
 
-        $Pettycash = Pettycash::where('created_at', 'LIKE','%'.date('Y-m').'%')->get();
+        $Pettycash = Pettycash::where('created_at', 'LIKE','%'.date('Y-m').'%')->orderBy('id', 'DESC')->get();
         $pc['x']= array();
         $pc['y']= array();
         $pc['z']= array();

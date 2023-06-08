@@ -17,7 +17,7 @@ class Roles extends Model
 
 	 public function Users()
 	  {
-	     return $this->hasMany(User::class,'id','role_id');
+	     return $this->hasMany(User::class,'id','role_id')->withTrashed();
 
 	  }
 }

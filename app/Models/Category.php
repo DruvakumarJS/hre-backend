@@ -19,6 +19,6 @@ class Category extends Model
     ];
 
     function materials(){
-            return $this->hasMany(materials::class,'code', 'category_id');
+            return $this->hasMany(materials::class,'code', 'category_id')->withTrashed();
         }
 }

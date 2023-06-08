@@ -20,14 +20,14 @@ class TicketConversation extends Model
     ];
 
     function ticket(){
-    	return $this->belongsTo(User::class,'ticket_no', 'ticket_no');
+    	return $this->belongsTo(User::class,'ticket_no', 'ticket_no')->withTrashed();
     }
 
     function mailsender(){
-        return $this->belongsTo(User::class,'sender', 'id');
+        return $this->belongsTo(User::class,'sender', 'id')->withTrashed();
     }
 
     function mailrecipient(){
-        return $this->belongsTo(User::class,'recipient', 'id');
+        return $this->belongsTo(User::class,'recipient', 'id')->withTrashed();
     }
 }

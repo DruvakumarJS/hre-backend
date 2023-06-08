@@ -32,19 +32,19 @@ class Pcn extends Model
 
         public function customer()
           {
-             return $this->belongsTo(Customer::class,'customer_id','id');
+             return $this->belongsTo(Customer::class,'customer_id','id')->withTrashed();
 
           } 
 
         public function employee()
           {
-             return $this->belongsTo(Employee::class,'assigned_to','user_id');
+             return $this->belongsTo(Employee::class,'assigned_to','user_id')->withTrashed();
 
           }  
 
          public function user()
           {
-             return $this->belongsTo(Employee::class,'assigned_to','user_id');
+             return $this->belongsTo(Employee::class,'assigned_to','user_id')->withTrashed();
 
           }    
 

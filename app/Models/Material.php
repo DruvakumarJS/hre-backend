@@ -23,7 +23,7 @@ class Material extends Model
 
       public function Category()
           {
-             return $this->belongsTo(Category::class,'category_id','code');
+             return $this->belongsTo(Category::class,'category_id','code')->withTrashed();
 
           }
 

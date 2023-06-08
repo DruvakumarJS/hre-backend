@@ -21,13 +21,13 @@ class Intend extends Model
 
      function employee()
           {
-             return $this->belongsTo(Employee::class,'user_id','user_id');
+             return $this->belongsTo(Employee::class,'user_id','user_id')->withTrashed();
 
           }
 
      function user()
           {
-             return $this->belongsTo(User::class,'user_id','id');
+             return $this->belongsTo(User::class,'user_id','id')->withTrashed();
 
           }     
 
