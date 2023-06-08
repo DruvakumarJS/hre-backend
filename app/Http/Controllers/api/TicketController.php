@@ -1,7 +1,5 @@
-    <?php
-
+<?php
 namespace App\Http\Controllers\api;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
@@ -19,6 +17,8 @@ class TicketController extends Controller
      	if(Ticket::where('creator' , $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->exists()){
 
      		$tickets = Ticket::where('creator' , $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->get();
+
+            $ticketarray= array();
 
             foreach ($tickets as $key => $value) {
             	$ticketarray[]=[

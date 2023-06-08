@@ -277,7 +277,7 @@ class IndentController extends Controller
      if(isset($request->user_id))
      {
       $Pcns = Pcn::where('status','Active')->get();
-
+      $pcn_array= array();
       foreach ($Pcns as $key => $value) {
       $pcn_array[] = [
         'pcn'=> $value->pcn,

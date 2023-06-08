@@ -32,7 +32,7 @@ $yvalue=array();
         </div> -->
 
         <div class="container-header">
-            <label class="label-bold" id="div1">Finance Dashboard</label>
+            <label class="label-bold" id="div1">Dashboard</label>
           
             
         </div>

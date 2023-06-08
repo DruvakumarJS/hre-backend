@@ -9,7 +9,7 @@ use App\Http\Controllers\api\IndentController;
 use App\Http\Controllers\api\TicketController;
 use App\Http\Controllers\api\AttendanceController;
 use App\Http\Controllers\api\PettycashController;
-use App\http\Controllers\api\SplashScreenController;
+use App\http\Controllers\api\AppdataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,5 +52,5 @@ Route::post('/get-mypettycash',[PettycashController::class,'mypettycash']);
 Route::post('/upload-pettycash_bill',[PettycashController::class,'upload_bill']);
 Route::post('/get-pettycash_details',[PettycashController::class,'pettycash_details']);
 
-Route::post('/get-app-data',[SplashScreenController::class,'index']);
+Route::post('/get-app-data',[AppdataController::class,'index']);
 

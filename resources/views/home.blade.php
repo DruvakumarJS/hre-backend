@@ -15,7 +15,7 @@ $yvalue=array();
            
 
         <div class="container-header">
-            <label class="label-bold" id="div1">Admin Dashboard</label>
+            <label class="label-bold" id="div1">Dashboard</label>
           
             
         </div>
