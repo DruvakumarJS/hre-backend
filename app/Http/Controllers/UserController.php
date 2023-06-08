@@ -63,7 +63,7 @@ class UserController extends Controller
        $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
             'employee_id' => 'required|unique:employees',
-            'mobile' => 'required|min:10|unique:employees',
+            'mobile' => 'required|min:10|max:10|unique:employees',
             'email' => 'required|email|unique:employees',    
         ]);
 
@@ -119,7 +119,7 @@ class UserController extends Controller
 
                    }
                    else if($request->role == 'admin') {
-                    return redirect()->route('superadmin');
+                    return redirect()->route('admin');
 
                    }
                    else if($request->role == 'manager') {
@@ -190,7 +190,7 @@ class UserController extends Controller
 
          $validator = Validator::make($request->all(), [
             'employee_id' => 'required|unique:employees,employee_id,'.$request->row_id,
-            'mobile' => 'required|min:10|unique:employees,mobile,'.$request->row_id,
+            'mobile' => 'required|min:10|max:10|unique:employees,mobile,'.$request->row_id,
             'email' => 'required|email|unique:employees,email,'.$request->row_id,    
         ]);
 

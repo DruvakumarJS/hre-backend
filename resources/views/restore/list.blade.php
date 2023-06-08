@@ -8,30 +8,21 @@
 
     <div class="justify-content-center div-margin">
 
-      <div class="row">
-        <div class="col-md-3">
-          <a href="{{route('restore-users')}}"><button class="btn btn-sm btn-light btn-outline-secondary">Users</button></a>
-          
-        </div>
-        <div class="col-md-3">
-          <a href="{{route('restore-customers')}}"><button class="btn btn-sm btn-light btn-outline-secondary">Customers</button></a>
-          
-        </div>
-
-         <div class="col-md-3">
-          <a href="{{route('restore-category')}}"><button class="btn btn-sm btn-light btn-outline-secondary">Categories</button></a>
-          
-        </div>
-
-         <div class="col-md-3">
-          <a href="{{route('restore-material')}}"><button class="btn btn-sm btn-light btn-outline-secondary">Materials</button></a>
-          
-        </div>
-        
-      </div>
-
-
-      
+      <div class="container mt-5 text-center">
+        <h2 class="mb-4">
+            Laravel 8 Import Export Excel & CSV File - <a href="https://techvblogs.com/blog/laravel-import-export-excel-csv-file?ref=repo" target="_blank">TechvBlogs</a>
+        </h2>
+        <form action="{{ route('import_user') }}" method="GET" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group mb-4">
+                <div class="custom-file text-left">
+                    <input type="file" name="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+            </div>
+            <button class="btn btn-primary">Import Users</button>
+            <a class="btn btn-success" href="">Export Users</a>
+        </form>
     </div>
 
     
