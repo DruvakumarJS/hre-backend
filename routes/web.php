@@ -179,7 +179,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('pettycash_details/{id}',[PettyCashDetailController::class,'index'])->name('details_pettycash');
     Route::get('pettycash_expenses/{id}',[PettyCashDetailController::class,'create'])->name('pettycash_expenses');
     Route::post('upload_bills/{id}',[PettyCashDetailController::class,'store'])->name('upload_bills');
-    Route::get('update_bill_status/{id}/{status}',[PettyCashDetailController::class,'update'])->name('update_bill_status');
+    Route::get('update_bill_status',[PettyCashDetailController::class,'update'])->name('update_bill_status');
 
 
 
@@ -251,6 +251,9 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('trash_material/{id}',[RestoreController::class,'trash_material'])->name('trash_material');
 
     Route::post('import_user',[ImportController::class,'importuser'])->name('import_user');
+    Route::post('import_customer',[ImportController::class,'importcustomer'])->name('import_customer');
+    Route::post('import_category',[ImportController::class,'importcategory'])->name('import_category');
+    Route::post('import_material',[ImportController::class,'importmaterial'])->name('import_material');
 
 
 

@@ -15,7 +15,9 @@ class Pettycash extends Model
     	'comments',
     	'spend',
     	'remaining',
-    	'finance_id'
+    	'finance_id',
+        'mode',
+        'reference_number'
     ];
 
     function employee(){

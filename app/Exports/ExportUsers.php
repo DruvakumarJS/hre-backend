@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Models\Employee;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use DB;
 
 class ExportUsers implements FromCollection , WithHeadings
 {
@@ -21,10 +22,16 @@ class ExportUsers implements FromCollection , WithHeadings
 
     public function collection()
     {
-        return Employee::select('employee_id' , 'name' , 'mobile' , 'email')->where('role',$this->role)->get();
+        if($this->role == 'All_users'){
+            return Employee::select( DB::raw("DATE_FORMAT(`created_at`, '%Y-%m-%d') as date") , 'employee_id' , 'name' , 'email' , 'mobile' )->get();
+        }
+        else{
+            return Employee::select( DB::raw("DATE_FORMAT(`created_at`, '%Y-%m-%d') as date") , 'employee_id' , 'name' , 'email' , 'mobile' )->where('role',$this->role)->get();
+        }
+        
     }
 
     public function headings():array {
-    	return ['Employee ID' , 'Name' , 'Mobile' , 'Email ID'];
+    	return ['Date' , 'Employee ID' , 'Name'  , 'Email ID' , 'Mobile'];
     }
 }

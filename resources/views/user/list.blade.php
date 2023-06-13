@@ -4,10 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-            <label class="label-bold" id="div1">Users Master</label>
+            <label class="label-bold" id="div1">User Masters</label>
          
            <div id="div3" style="margin-right: 30px">
-             <button class="btn btn-light btn-outline-secondary" > Download CSV</button>
+           <a href="{{route('export-users','All_users')}}"> <button class="btn btn-light btn-outline-secondary" > Download CSV</button> </a>
+             
           </div>
 
          <div id="div2" style="margin-right: 30px" >

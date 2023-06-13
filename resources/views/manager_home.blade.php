@@ -74,7 +74,7 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Sl.no</th>
+                             
                               <th scope="col">Indend Number</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Indent Owner</th>
@@ -86,7 +86,7 @@
                           <tbody>
                             @foreach($indents as $key =>$value)
                             <tr>  
-                               <td>{{$key + $indents->firstItem()}}</td> 
+                             
                                 <td>{{$value->indent_no}}</td> 
                                 <td>{{$value->pcn}}</td>  
                                 <td>{{$value->user->name}}</td>  

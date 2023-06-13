@@ -36,7 +36,7 @@
                           <thead>
                             <tr>
                               <th scope="col">Date</th>
-                              <th scope="col">Customer Name</th>
+                              <th scope="col">Billing Name</th>
                               <th scope="col">Brand</th>
                               <th scope="col">Email</th>
                               <th scope="col">Mobile</th>
@@ -92,7 +92,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form action="{{ route('import_user') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('import_customer') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group mb-4">
                         <div class="custom-file text-left">

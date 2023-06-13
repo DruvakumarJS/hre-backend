@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-            <label class="label-bold" id="div1">Users Master / {{$role}}</label>
+            <label class="label-bold" id="div1">{{$role}}</label>
 
               <div id="div2" style="margin-right: 30px" >
             <a class="btn btn-light btn-outline-secondary" href="{{route('users')}}"> 
@@ -18,8 +18,7 @@
            </a>
           </div>
 
-        
-
+      
            <div id="div3" style="margin-right: 30px">
              <a href="{{route('export-users',$role_name)}}"> <button class="btn btn-light btn-outline-secondary" > Download CSV</button> </a>
           </div>

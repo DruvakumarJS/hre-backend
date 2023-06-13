@@ -1,0 +1,5 @@
+Category Code ,Name,Brand,uom,specification
+CT,Ply Wood,Green,Nos,"{""size"":""1800*900"",""thickness"":""6"",""grade"":""MR""}"
+CT,Laminate,Merino Lam,Nos,"{""size"":""1800 * 1200"",""thickness"":""0.8 mm"",""grade"":""Glossy""}"
+FS,Spring,n/a,Nos,"{""size"":""150mm"",""thickness"":""4 mm"",""grade"":""Heavy""}"
+CA,Red Bricks,Locally Sourced,Nos,"{""size"":""75mm x 100mm x 225mm"",""thickness"":""100 mm""}"

@@ -63,7 +63,9 @@ class PettycashController extends Controller
             'total' => $request->amount,
             'comments' => $request->comment,
             'remaining' => $request->amount ,
-            'spend' => '0'
+            'spend' => '0',
+            'mode'=>$request->mode,
+            'reference_number' => $request->refernce
         ]);
 
         if($craete){
@@ -145,12 +147,15 @@ class PettycashController extends Controller
                     'users.name',
                     'roles.alias',
                     'users.id',
-                     DB::raw("CONCAT(users.name,' - ',roles.alias) AS value") 
+                    'employees.employee_id',
+                     DB::raw("CONCAT(users.name,' - ',employees.employee_id,' - ',roles.alias) AS value") 
                     
                 )
           // ->select( DB::raw("CONCAT(users.name,' - ',roles.alias) AS value") )
             ->join('roles', 'users.role_id', '=', 'roles.id')
-            ->where('users.name', 'LIKE', '%'. $request->get('search'). '%')->get();
+            ->join('employees', 'users.id', '=', 'employees.user_id')
+            ->where('users.name', 'LIKE', '%'. $request->get('search'). '%')
+            ->orWhere('employees.employee_id', 'LIKE', '%'. $request->get('search'). '%')->get();
             
 
            // print_r($data);die();

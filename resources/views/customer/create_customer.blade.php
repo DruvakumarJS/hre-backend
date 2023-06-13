@@ -18,8 +18,8 @@
        <div class="row">
            
            <div class="col-md-4">
-                <label>Customer name / Billing Name *</label>
-                <input class="form-control" type="input" name="name" required="" placeholder="Enter Customer Name" value="{{old('name')}}">
+                <label>Billing Name *</label>
+                <input class="form-control" type="input" name="name" required="" placeholder="Enter Billing Name" value="{{old('name')}}">
                  @error('name')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -124,7 +124,7 @@
                  
                 
           </table>
-       <div class="row">
+      <!--  <div class="row">
 
         <div class="col-md-1">
           <button class="btn btn-primary div-margin" type="submit" value="submit">SUBMIT</button>
@@ -138,7 +138,14 @@
 
         
 
-      </div>   
+      </div>   -->
+
+       <div class="row">
+          <div class="col-7">
+              <button class="btn btn-primary div-margin" type="submit" value="submit">SUBMIT</button>
+              <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-success div-margin">Add Location </button>
+          </div>
+      </div> 
 
        
 

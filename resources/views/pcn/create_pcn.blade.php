@@ -30,7 +30,7 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label for="text" class="col-5 col-form-label">Project Code *</label>
                             <div class="col-7">
-                                <input id="text" name="pcn" type="text" class="form-control" required="required" value="{{old('pcn')}}" placeholder="Enter PCN">
+                                <input id="text" name="pcn" type="number" class="form-control" required="required" value="{{old('pcn')}}" placeholder="Enter PCN">
                                      @error('pcn')
                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                  @enderror
@@ -50,13 +50,15 @@ $date = date('dd-mm-yyyy');
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Type of Work *</label>
+
                             <div class="col-7">
-                                <select id="" name="work" class="custom-select form-control form-select" required="required">
+                              <input  class="form-control" type="text" name="work" required>
+                               <!--  <select id="" name="work" class="custom-select form-control form-select" required="required">
                                     <option value="">Select type of work</option>
                                     <option value="Re-furbishment">Re-furbishment</option>
                                     <option value="Furniture Supply">Furniture Supply</option>
                                     <option value="New Project">New Project</option>
-                                </select>
+                                </select> -->
                             </div>
                         </div>
 
@@ -100,14 +102,14 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
-                                <input id="start_date" name="start_date" type="text" class="form-control" placeholder="YYYY-MM-DD">
+                                <input id="start_date" name="start_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off">
                                 
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project End Date</label>
                             <div class="col-7">
-                                <input id="end_date" name="end_date" type="text" class="form-control"placeholder="YYYY-MM-DD" >
+                                <input id="end_date" name="end_date" type="text" class="form-control"placeholder="YYYY-MM-DD" autocomplete="off">
                                
                         </div>
                          </div>
@@ -117,10 +119,11 @@ $date = date('dd-mm-yyyy');
                                 <input id="" name="target_date" type="text" class="form-control">
                             </div>
                         </div>
+                        
                         <div class="form-group row">
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">
-                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" placeholder="YYYY-MM-DD">
+                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off">
                                
                             </div>
                              
@@ -128,14 +131,14 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Completed Date</label>
                             <div class="col-7">
-                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" placeholder="YYYY-MM-DD" >
+                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off">
                                
                         </div>
                          </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Hold Days</label>
                             <div class="col-7">
-                                <input id="" name="hold_days" type="text" class="form-control">
+                                <input id="" name="hold_days" type="number" class="form-control" value = '0'>
                             </div>
                         </div>
                         <div class="form-group row">

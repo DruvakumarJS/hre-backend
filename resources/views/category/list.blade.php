@@ -76,7 +76,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form action="{{ route('import_user') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('import_category') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group mb-4">
                         <div class="custom-file text-left">
@@ -99,7 +99,7 @@
         @endif       
        
         <div>
-        	<label class="label-bold" style="margin-left: 20px" >Material Category</label>
+        	<label class="label-bold" style="margin-left: 20px" >Material Master</label>
 
         	<div class="card border-white">
 

@@ -90,7 +90,9 @@
 	                	
 	                	<td>
 	                		@if($value->filename != '')
-	                		<a href="#" id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"><i class="fa fa-image" style="color:black"></i></a>
+	                		<a href="#" id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"><i class="fa fa-eye" style="color:black"></i></a>
+
+                            <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> 
 	                		@endif
 	                	</td>
 	                	

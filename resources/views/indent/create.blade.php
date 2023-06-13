@@ -20,6 +20,7 @@
       <div class="col-md-4 div-margin">
         <label>Project Code Number</label>
         <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Search PCN " value="{{old('pcn')}}">
+        <span class="label-bold" id="pcn_detail"></span>
 
       </div>
 
@@ -31,12 +32,14 @@
 
       <div class="col-md-1 div-margin">
         <label></label>
-        <input class="btn btn-outline-secondary form-control" type= "button" value= "clear" onclick= "clearInput()">
+        <input class="btn btn-outline-secondary form-control" type= "button" value= "Add" onclick= "clearInput()">
         
       </div>
      	
      	
      </div>
+
+     
      </div> 
   
      <div >
@@ -174,6 +177,7 @@ function populateinputs(item_code , name ,  brand , desc , uom){
                search: request.term
             },
             success: function( data ) {
+             // console.log(data);
                response( data );
               
             }
@@ -182,6 +186,11 @@ function populateinputs(item_code , name ,  brand , desc , uom){
         select: function (event, ui) {
            $('#pcn').val(ui.item.label);
            $('#pcns').val(ui.item.label);
+
+           var address = ui.item.client_name +' , '+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+          
+          // $('#pcn_detail').val(address);
+           document.getElementById("pcn_detail").innerHTML=address;
         
         }
       });

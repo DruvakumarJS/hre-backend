@@ -17,10 +17,14 @@ class CreatePettyCashDetailsTable extends Migration
             $table->id();
             $table->string('pettycash_id');
             $table->string('billing_no');
+            $table->string('bill_date');
             $table->string('spent_amount');
+            $table->string('purpose');
+            $table->string('pcn')->nullable();
             $table->string('comments')->nullable();
             $table->string('filename');
             $table->string('isapproved')->default('0');
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +34,7 @@ class CreatePettyCashDetailsTable extends Migration
      *
      * @return void
      */
+
     public function down()
     {
         Schema::dropIfExists('petty_cash_details');

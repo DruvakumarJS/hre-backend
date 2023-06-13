@@ -21,6 +21,8 @@ class CreatePettycashesTable extends Migration
             $table->string('spend');
             $table->string('remaining');
             $table->string('finance_id');
+            $table->string('mode');
+            $table->string('reference_number')->nullable();
            
             $table->timestamps();
         });

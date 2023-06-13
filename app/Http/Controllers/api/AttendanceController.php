@@ -19,7 +19,7 @@ class AttendanceController extends Controller
               
     			if(Attendance::where('user_id' , $request->user_id)->where('date' , date('Y-m-d'))->orderby('id' ,'DESC')->exists())
     			{
-                    $updateUser = User::where('id' , Auth::user()->id)->update([
+                    $updateUser = User::where('id' , $request->user_id)->update([
                             'isloggedin' => '1' 
                         ]);
     				return response()->json([
@@ -39,7 +39,7 @@ class AttendanceController extends Controller
 		              ]);
 
 		              if($create){
-                        $updateUser = User::where('id' , Auth::user()->id)->update([
+                        $updateUser = User::where('id' , $request->user_id)->update([
                             'isloggedin' => '1' 
                         ]);
 		              	return response()->json([
@@ -89,7 +89,7 @@ class AttendanceController extends Controller
 		              ]);	
 
     			if($LOGOUT){
-                    $updateUser = User::where('id' , Auth::user()->id)->update([
+                    $updateUser = User::where('id' , $request->user_id)->update([
                             'isloggedin' => '0' 
                         ]);
               	return response()->json([

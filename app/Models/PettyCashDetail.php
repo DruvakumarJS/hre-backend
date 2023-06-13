@@ -12,10 +12,14 @@ class PettyCashDetail extends Model
     protected $fillable =[
     	'pettycash_id',
     	'billing_no',
+        'bill_date',
     	'spent_amount',
+        'purpose',
+        'pcn',
     	'comments',
     	'filename',
-    	'isapproved'
+    	'isapproved',
+        'remarks'
     ];
 
      function pettycash(){

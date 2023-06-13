@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Exports\ExportPcn;
 use Excel;
-
+use Auth ;
 class PcnController extends Controller
 {
     /**
@@ -26,7 +26,13 @@ class PcnController extends Controller
 
     public function index()
     {
-        $pcns = Pcn::where('status','Active')->orderBy('id','DESC')->paginate(20); 
+        if(Auth::user()->id == '1'){
+           $pcns = Pcn::orderBy('id','DESC')->paginate(20); 
+        }
+        else {
+             $pcns = Pcn::where('status','Active')->orderBy('id','DESC')->paginate(20); 
+        }
+       
        return view('pcn/list', compact('pcns'));
     }
 
@@ -50,7 +56,20 @@ class PcnController extends Controller
      */
     public function store(Request $request)
     {
-      // print_r($request->Input());die();
+
+        if($request->start_date == ''){
+            $start_date = date('Y-m-d');
+        }
+        else{
+            $start_date = $request->start_date ;
+        }
+
+         if($request->actual_start_date == ''){
+            $actual_start_date = date('Y-m-d');
+        }
+        else{
+            $actual_start_date = $request->actual_start_date ;
+        }
 
        $validator = Validator::make($request->all(), [
              'pcn' => 'required|unique:pcns',
@@ -68,7 +87,7 @@ class PcnController extends Controller
 
 
             $createPCN = Pcn::create([
-                'pcn'=>$request->pcn ,
+                'pcn'=>'PCN_'.$request->pcn ,
                 'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,
                 'brand' => $request->brand ,
@@ -76,11 +95,11 @@ class PcnController extends Controller
                 'area' => $request->area,
                 'city' => $request->city,
                 'state' => $request->state,
-                'proposed_start_date' => $request->start_date,
+                'proposed_start_date' => $start_date,
                 'proposed_end_date' => $request->end_date,
                 'approve_holidays' => "",
                 'targeted_days' => $request->target_date,
-                'actual_start_date' => $request->actual_start_date,
+                'actual_start_date' => $actual_start_date,
                 'actual_completed_date' => $request->actual_end_date,
                 'hold_days' => $request->hold_days,
                 'days_acheived' => $request->days_achieved,
@@ -141,6 +160,23 @@ class PcnController extends Controller
     {
        // print_r($request->Input());die();
 
+        $achieved_days = '';
+        $holdDays = '';
+
+
+
+        if($request->actual_end_date != ''){
+            $end = strtotime($request->actual_end_date);
+            $start = strtotime($request->actual_start_date);
+            $days = $end - $start ; 
+
+            $total_days = round($days / (60 * 60 * 24)); 
+            $achieved_days = $total_days - $request->hold_days ;
+
+        }
+
+    
+
             $updatePCN = Pcn::where('pcn' ,$request->pcn)->update([
                 'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,
@@ -156,16 +192,16 @@ class PcnController extends Controller
                 'actual_start_date' => $request->actual_start_date,
                 'actual_completed_date' => $request->actual_end_date,
                 'hold_days' => $request->hold_days,
-                'days_acheived'=> $request->days_achieved,
+                'days_acheived'=> $achieved_days,
                 'status' => $request->status
                 
         ]);
 
             if($updatePCN){
-                return redirect()->route('PCN');
+                return redirect()->route('view_pcn');
             }
             else{
-                 return redirect()->route('create_pcn')->withMessage('Something went wrong')->withInput(); ;
+                 return redirect()->back()->withMessage('Something went wrong')->withInput(); ;
             }
 
 
@@ -190,7 +226,7 @@ class PcnController extends Controller
 
     public function view_pcn()
     {
-        $pcns = Pcn::paginate(20);
+        $pcns = Pcn::orderBy('id', 'DESC')->paginate(20);
         return view('pcn/view_pcn' , compact('pcns'));
     }
 
@@ -208,7 +244,7 @@ class PcnController extends Controller
 
     public function autocomplete_pcn(Request $request){
 
-        $data = Pcn::select("pcn as value")
+        $data = Pcn::select("pcn as value" , 'client_name' , 'area' , 'city' , 'state')
                     ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
                     ->where('status' , 'Active')
                     ->get();

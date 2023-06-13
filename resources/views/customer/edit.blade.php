@@ -25,7 +25,7 @@
        <div class="row">
            
            <div class="col-md-4">
-                <label>Customer name / Billing Name</label>
+                <label>Billing Name</label>
                 <input class="form-control" type="input" name="name" required="" value="{{$customer->name}}">
                 
                 

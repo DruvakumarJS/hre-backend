@@ -28,14 +28,42 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Amount (in rupees)*</label>
                             <div class="col-7">
-                                <input name="amount" id="amount" type="text" class="form-control" required="required" placeholder="Enter Amount">
+                                <input name="amount" id="amount" type="number" class="form-control" required="required" placeholder="Enter Amount">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Date of Bill*</label>
+                            <div class="col-7">
+                                <input name="bill_date" id="bill_date" type="date" class="form-control" required="required" >
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-5 col-form-label">Purpose*</label>
+                            <div class="col-7">
+                                <select name="purpose" class="form-control" required="required">
+                                    <option value="">Select purpose</option>
+                                    <option value="Personal">Personal</option>
+                                    <option value="Purchase">Purchase</option>
+                                </select>
                             </div>
                         </div>
 
                          <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Description </label>
+                            <label for="" class="col-5 col-form-label" id="pcn_lable" style="display: none">PCN*</label>
                             <div class="col-7">
-                                <input name="comment" id="comment" type="text" class="form-control" placeholder="Enter description" required="required">
+                                <input name="pcn" id="pcn" type="text" class="form-control" placeholder="Enter PCN" style="display: none" >
+                                <span class="label-bold" id="pcn_detail"></span>
+                            </div>
+                               
+                        </div>
+
+
+                         <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Description* </label>
+                            <div class="col-7">
+                                <input name="comment" id="comment" type="text" class="form-control" placeholder="Enter description" required="required" >
                             </div>
                         </div>
 
@@ -76,4 +104,57 @@
 
   </div>   
 </div>
+
+<script type="text/javascript">
+    $('select').on('change', function() {
+
+         if(this.value == "Purchase"){
+            document.getElementById("pcn_lable").style.display= "block" ;
+            document.getElementById("pcn").style.display= "block" ;
+            document.getElementById("pcn").required = true;
+
+         }
+         else {
+            document.getElementById("pcn_lable").style.display= "none" ;
+            document.getElementById("pcn").style.display= "none" ;
+            document.getElementById("pcn").required = false;
+         }
+   
+     });
+</script>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+  var path = "{{ route('autocomplete_pcn') }}";
+   let text = "";
+    $( "#pcn" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            success: function( data ) {
+             // console.log(data);
+               response( data );
+              
+            }
+          });
+        },
+        select: function (event, ui) {
+           $('#pcn').val(ui.item.label);
+           $('#pcns').val(ui.item.label);
+
+           var address = ui.item.client_name +' , '+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+          
+          // $('#pcn_detail').val(address);
+           document.getElementById("pcn_detail").innerHTML=address;
+        
+        }
+      });
+ 
+});
+</script>
 @endsection

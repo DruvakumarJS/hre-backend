@@ -29,20 +29,17 @@
                                 <tr>
                                    
                                     <th scope="col">PCN</th>
-                                    <th scope="col">Client Name </th>
                                     <th scope="col">Brand</th>
-                                    <th scope="col">Type of Work</th>
                                     <th scope="col">Location</th>
                                     <th scope="col">City</th>
-                                    <th scope="col">State</th>
-                                   <!--  <th scope="col">Proposed Start Date</th>
-                                    <th scope="col">Proposed End Date</th>
-                                    <th scope="col">Approve Holidays</th> -->
+                                    <th scope="col">P_SD</th>
+                                    <th scope="col">P_ED</th>
+                                   
                                     <th scope="col">Targeted Days</th>
-                                    <th scope="col">Actual Start Date</th>
-                                    <th scope="col">Actual Completed Date</th>
-                                    <th scope="col">Project Hold Days</th>
-                                    <th scope="col">Actual Days Achieved</th>
+                                    <th scope="col">A_SD</th>
+                                    <th scope="col">A_CD</th>
+                                    <th scope="col">P_HD</th>
+                                    <th scope="col">Days Achieved</th>
                                     <th scope="col">Status</th>
                                     <th></th>
                                 </tr>
@@ -54,21 +51,19 @@
                                 <tr>
                                     
                                     <td>{{$value->pcn}}</td>
-                                    <td>{{$value->client_name}}</td>
-
                                     <td>{{$value->brand}}</td>
-                                    <td>{{$value->work}}</td>
                                     <td>{{$value->area}}</td>
                                     <td>{{$value->city}}</td>
-                                    <td>{{$value->state}}</td>
-                                    <!-- <td>{{$value->proposed_start_date}}</td>
-                                    <td>{{$value->proposed_end_date}}</td>
-                                    <td>{{$value->approve_holidays}}</td> -->
-                                    <td>{{$value->targeted_days}}</td>
-                                    <td>{{date("d-m-Y", strtotime($value->actual_start_date))}}</td>
-                                    <td>{{date("d-m-Y", strtotime($value->actual_completed_date))}}</td>
-                                    <td>{{$value->hold_days}}</td>
-                                    <td>{{$value->days_acheived}}</td>
+                                    
+                                    <td><?php echo ($value->proposed_start_date) !='' ? date("d-m-Y", strtotime($value->proposed_start_date)):'' ; ?> </td>
+
+                                    <td><?php echo ($value->proposed_end_date) !='' ? date("d-m-Y", strtotime($value->proposed_end_date)):'' ; ?></td>
+                                    
+                                    <td style="text-align: center; ">{{$value->targeted_days}}</td>
+                                    <td><?php echo ($value->actual_start_date) !='' ? date("d-m-Y", strtotime($value->actual_start_date)):'' ; ?></td>
+                                    <td><?php echo ($value->actual_completed_date) !='' ? date("d-m-Y", strtotime($value->actual_completed_date)):'' ; ?></td>
+                                    <td style="text-align: center; ">{{$value->hold_days}}</td>
+                                    <td style="text-align: center; ">{{$value->days_acheived}}</td>
                                     <td>{{$value->status}}</td>
                                     <td>
                                         <a href="{{route('edit_pcn',$value->pcn)}}"><i class="fa fa-edit"></i></a>

@@ -8,7 +8,7 @@
 
 <div class="container">
     <div class="container-header">
-        <label class="label-bold" id="div1">Attendance</label>
+        <label class="label-bold" id="div1">Today's Attendance</label>
 
         <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light btn-outline-secondary" href="{{route('users')}}"><i class="fa fa-plus"></i> Create Employee</a>
@@ -23,21 +23,21 @@
             <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"> Download</a>
         </div>
 
-         <div id="div2" style="margin-right: 20px">
-                              <input type="hidden" id="loggedin" value="{{Auth::user()->isloggedin}}">
-                                <label class="switch">
-                                  <input class="switch-input" type="checkbox" id="togBtn" value="false"  />
-                                  <span class="switch-label" data-on="logout" data-off="login"></span> 
-                                  <span class="switch-handle"></span> 
-                                </label>
-                              </div>
+         <!-- <div id="div2" style="margin-right: 20px">
+          <input type="hidden" id="loggedin" value="{{Auth::user()->isloggedin}}">
+            <label class="switch">
+              <input class="switch-input" type="checkbox" id="togBtn" value="false"  />
+              <span class="switch-label" data-on="logout" data-off="login"></span> 
+              <span class="switch-handle"></span> 
+            </label>
+          </div> -->
 
 
         
        
     </div>
 
-    <label>Today's Attendance</label>
+    
    
     <div class="row">
         <div class="card border-white">

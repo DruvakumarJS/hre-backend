@@ -30,9 +30,12 @@
                             <tr>
                               <th scope="col">Date</th>
                               <th scope="col">PCN</th>
-                              <th scope="col">Customer Name</th>
+                              <th scope="col">Billing Name</th>
                               <th scope="col">Customer Email</th>
                               <th scope="col">Address</th>
+                              @if(Auth::user()->id == '1')
+                              <th scope="col">Status</th>
+                              @endif
                               <th scope="col">Action</th>
                              
                             </tr>
@@ -45,7 +48,9 @@
                               <td>{{$value->client_name}}</td>
                               <td>{{$value->customer->email}}</td>
                               <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>
-                              
+                              @if(Auth::user()->id == '1')
+                              <td>{{$value->status}}</td>
+                              @endif
                               <td ><a href="{{route('edit_pcn',$value->pcn)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
                               </td>
                             </tr>

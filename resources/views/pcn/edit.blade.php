@@ -9,8 +9,8 @@
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
-            <label class="label" id="div1">Edit PCN : </label>
-             <label class="label-bold" id="div1"> {{$id}}</label>
+            <label class="label-bold" id="div1">Edit PCN  </label>
+             
            
        </div>
                   
@@ -100,22 +100,14 @@
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
                                 <input id="start_date" name="start_date" type="text" class="form-control" value="{{$pcn_data->proposed_start_date}}" placeholder="YYYY-MM-DD" >
-                                <script language="javascript">
-                                   $( function() {
-                                      $( "#start_date" ).datepicker({
-                                       minDate:document.getElementById('created_date').value,
-                                        dateFormat: 'yy-mm-dd'
-                                      });
-                                    });
-
-                                </script>
+                                
                             </div>
 
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project End Date</label>
                             <div class="col-7"  >
-                                <input id="end_date" name="end_date" type="text" class="form-control" value="{{$pcn_data->proposed_end_date}}" placeholder="YYYY-MM-DD" onclick="getstartdate()">
+                                <input id="end_date" name="end_date" type="text" class="form-control" value="{{$pcn_data->proposed_end_date}}" placeholder="YYYY-MM-DD" onclick="set_enddate()" >
                                 
                             </div>
                         </div>
@@ -131,7 +123,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Target Days</label>
+                            <label for="" class="col-5 col-form-label">Targeted Days</label>
                             <div class="col-7">
                                 <input id="" name="target_date" type="text" class="form-control" value="{{$pcn_data->targeted_days}}">
                             </div>
@@ -140,36 +132,28 @@
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">
                                 <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" value="{{$pcn_data->actual_start_date}}" placeholder="YYYY-MM-DD">
-                                 <script language="javascript">
-                                   $( function() {
-                                      $( "#actual_start_date" ).datepicker({
-                                       minDate:document.getElementById('created_date').value,
-                                        dateFormat: 'yy-mm-dd'
-                                      });
-                                    });
-
-                                </script>
+                                
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Completed Date</label>
                             <div class="col-7">
-                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" value="{{$pcn_data->actual_completed_date}}" placeholder="YYYY-MM-DD" onclick="getActualstartdate()">
+                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" value="{{$pcn_data->actual_completed_date}}" placeholder="YYYY-MM-DD" onclick="set_actual_enddate()">
                                  
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Hold Days</label>
                             <div class="col-7">
-                                <input id="" name="hold_days" type="text" class="form-control" value="{{$pcn_data->hold_days}}">
+                                <input id="" name="hold_days" type="number" class="form-control" value="{{$pcn_data->hold_days}}">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label for="text2" class="col-5 col-form-label">Actual Days Achived</label>
                             <div class="col-7">
                                 <input id="text2" name="days_achieved" type="text" class="form-control" value="{{$pcn_data->days_acheived}}">
                             </div>
-                        </div>
+                        </div> -->
 
                          <div class="form-group row">
                             <label for="text2" class="col-5 col-form-label">Status</label>
@@ -177,7 +161,7 @@
                                 <select class="form-control form-select" required="required" name="status">
                                   <option value="">Select Status</option>
                                    <option value="Active"  <?php echo ($pcn_data->status == 'Active') ? 'selected' : ''; ?> >Active</option>
-                                  <option value="Pending"  <?php echo ($pcn_data->status == 'Pending') ? 'selected' : ''; ?> >Pending</option>
+                                  
                                   <option value="Completed"  <?php echo ($pcn_data->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
                                 </select>
                             </div>
@@ -274,7 +258,7 @@ $( document ).ready(function() {
   </script>
 
  
-  <script type="text/javascript">
+  <!-- <script type="text/javascript">
   
      function getstartdate(){
          $("#end_date" ).datepicker({
@@ -293,7 +277,83 @@ $( document ).ready(function() {
        
 
      }
+
+     $( function() {
+      $( "#actual_start_date" ).datepicker({
+       minDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+        //  alert(dateText);
+          setactualenddate(dateText);
+
+
+        }
+      });
+    });
+
+
+     function setactualenddate(dateText){
+         $("#actual_end_date" ).datepicker({
+           minDate:dateText,
+            dateFormat: 'yy-mm-dd'
+          });
+      
+     }
+
    
+  </script> -->
+
+  <script language="javascript">
+
+    $( function() {
+      $( "#start_date" ).datepicker({
+       minDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+         // alert(dateText);
+          setenddate(dateText);
+          
+        }
+      });
+    });
+
+  
+ $( function() {
+      $( "#actual_start_date" ).datepicker({
+       minDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+        //  alert(dateText);
+          setactualenddate(dateText);
+
+
+        }
+      });
+    });
+  
+     function set_enddate(){
+
+         $("#end_date" ).datepicker({
+           minDate:document.getElementById('start_date').value,
+            dateFormat: 'yy-mm-dd'
+          });
+       
+          
+     }
+
+      function set_actual_enddate(){
+      
+         $("#actual_end_date" ).datepicker({
+           minDate:document.getElementById('actual_start_date').value,
+            dateFormat: 'yy-mm-dd'
+          });
+       
+          
+     }
+  </script>
+  <script type="text/javascript">
+    
+    
   </script>
 
 

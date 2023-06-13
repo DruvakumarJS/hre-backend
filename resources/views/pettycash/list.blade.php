@@ -23,8 +23,9 @@
                     <th scope="col">Name</th>
                     <th scope="col">Mobile</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Alloted Amount</th>
-                    <th scope="col">Balance Amount</th>           
+                    <th scope="col">Issued Amount</th>
+                    <th scope="col">Balance Amount</th>   
+                    <th scope="col">Payment Mode</th>           
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
@@ -38,6 +39,7 @@
                 		<td>{{$value->employee->user->roles->alias}}</td>
                 		<td><span>&#8377;</span>{{$value->total}}</td>
                 		<td><span>&#8377;</span>{{$value->remaining}}</td>
+                        <td>{{$value->mode}}</td>
                 		<td>
                             @if(Auth::user()->role == 'admin' || Auth::user()->role == 'finance')
                 			<a href="{{route('edit_pettycash',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>

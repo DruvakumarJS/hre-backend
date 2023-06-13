@@ -336,7 +336,22 @@ class UserController extends Controller
     }
 
     public function export($role){
+
+        if($role == 'All_users'){
+            if(Employee::exists()){
+                 return Excel::download(new ExportUsers($role) , $role."s.csv");
+            }
+            else {
+                return redirect()->back();
+            }
+        }
+
+        else if(Employee::where('role',$role)->exists()){
           return Excel::download(new ExportUsers($role) , $role."s.csv");
+        }
+        else {
+            return redirect()->back();
+        }
     }
 
     public function back(){

@@ -337,7 +337,7 @@
                                     <a data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/help.svg')}}" style="width: 20px;height: 20px;margin-right: 20px"> </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         
-                                        <li><a class="dropdown-item" download href="{{asset('pdf/HRE.pdf')}}">Download Android App</a></li>
+                                        <li><a class="dropdown-item" download href="{{asset('apk/HRETest.apk')}}">Download Android App</a></li>
                                      
                                     </ul>
                                 </div>

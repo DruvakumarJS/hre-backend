@@ -27,7 +27,7 @@
      					<div class="form-group row">
                             <label for="" class="col-5 col-form-label">Employee Name*</label>
                             <div class="col-7">
-                                <input name="user_name" id="user_name" type="text" class="typeahead form-control" required="required" placeholder="Search by name" >
+                                <input name="user_name" id="user_name" type="text" class="typeahead form-control" required="required" placeholder="Search by name / ID" >
                             </div>
                         </div>
 
@@ -41,9 +41,9 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Alloted Amount (in rupees)*</label>
+                            <label for="" class="col-5 col-form-label">Issued Amount (in rupees)*</label>
                             <div class="col-7">
-                                <input name="amount" id="amount" type="text" class="form-control" required="required" placeholder="Enter Amount">
+                                <input name="amount" id="amount" type="Number" class="form-control" required="required" placeholder="Enter Amount">
                             </div>
                         </div>
 
@@ -51,6 +51,24 @@
                             <label for="" class="col-5 col-form-label">Description* </label>
                             <div class="col-7">
                                 <input name="comment" id="comment" type="text" class="form-control" required="required" placeholder="Enter description">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Mode of Payment* </label>
+                            <div class="col-7">
+                               <select class="form-control"name='mode' id='mode' required="required">
+                                   <option value="">Select Mode</option>
+                                   <option value="Cash">Cash</option>
+                                   <option value="Online">Online</option>
+                               </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" >
+                            <label id="ref_lable" class="col-5 col-form-label" style="display: none">Reference Number* </label>
+                            <div class="col-7">
+                                <input name="refernce" id="refernce" type="text" class="form-control" required="required" placeholder="Enter description" id="refernce" style="display: none">
                             </div>
                         </div>
 
@@ -134,6 +152,26 @@ $( document ).ready(function() {
         }
       });
 
+
+     var mode = document.getElementById("mode").value;
+
+     $('select').on('change', function() {
+
+         if(this.value == "Online"){
+            document.getElementById("refernce").style.display= "block" ;
+            document.getElementById("ref_lable").style.display= "block" ;
+            document.getElementById("refernce").required = true;
+
+         }
+         else {
+            document.getElementById("refernce").style.display= "none" ;
+            document.getElementById("ref_lable").style.display= "none" ;
+            document.getElementById("refernce").required = false;
+         }
+   
+     });
+
+     
     
 });
 
