@@ -67,7 +67,7 @@
      
      <div>
      	<h4 class="label-bold">CATEGORY : {{$ticket->category}}</h4>
-     	<label>{{$ticket->issue}}</label>
+     	<label>Description : {{$ticket->issue}}</label>
 
 
      	 <div id="div2">

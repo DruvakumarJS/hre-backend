@@ -21,7 +21,6 @@ class UserController extends Controller
             $search = Employee::where('email',$request->email)
                     ->first();
       
-
             if(!empty($search)){
                 $userdata = [
                     'user_id' => $search->user_id,
@@ -34,7 +33,7 @@ class UserController extends Controller
                  return response()->json([
                     'status' => 1,
                     'message' => 'success',
-                    'data' => $userdata]
+                    'data' => array($userdata)]
                     ,200);
             }
 

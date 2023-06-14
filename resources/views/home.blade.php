@@ -7,27 +7,17 @@ $xvalue=array();
 $yvalue=array();
 @endphp
 
-<script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
-
 <div class="container" >
     <div class="row ">
-        <div >
-           
-
-        <div class="container-header">
-            <label class="label-bold" id="div1">Dashboard</label>
-          
+       <div class="container-header">
+            <label class="label-bold" id="div1">Dashboard</label>      
           <div id="div2">
-            <a class="btn border border-secondary label-bold" href="{{route('users')}}"> {{date('d M Y')}}</a>
-
-        </div>   
+            <a style="margin-right: 30px" class="btn border border-secondary label-bold" href="{{route('users')}}"> {{date('d M Y')}}</a>
+          </div>   
         </div>
-
-       
-   
        <div class="row">
                 <div class="col-sm-6 col-md-4 ">
-                    <div class="card border-white">
+                    <div class="card border-white card_shadow" >
                         <div class="card-body">
                             <img src="{{ asset('images/indent.svg') }}" alt="intend" style="width:30px;height: 30px;">
                             <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$todaysIndent}}</h2>
@@ -44,7 +34,7 @@ $yvalue=array();
 
 
                  <div class="col-sm-6 col-md-4" >
-                    <div class="card border-black" style="background-color: #242424">
+                    <div class="card border-black card_shadow" style="background-color: #242424">
                         <div class="card-body" >
                             <img src="{{ asset('images/attendance.svg') }}" alt="attendance" style="width:30px;height: 30px;">
                             <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">{{$attendance}}</h2>
@@ -60,7 +50,7 @@ $yvalue=array();
 
 
                  <div class="col-sm-6 col-md-4 ">
-                    <div class="card border-white">
+                    <div class="card border-white card_shadow">
                         <div class="card-body">
                             <img src="{{ asset('images/tickets.svg') }}" alt="ticket" style="width:30px;height: 30px;">
                             <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$tickets}}</h2>
@@ -73,18 +63,13 @@ $yvalue=array();
                     </div>
                     <!--</div>-->
                 </div>
-
-
-              
-            </div>
-
-            <div>
-                
-                @if(sizeof($result)>0)  
-                <label class="label-bold">Customers</label>
-                <div class="row">
-                  <div class="col-sm-6 col-md-6">
-                    <div class="card border-white" style="height: 350px">
+      
+      </div>
+ 
+ <!-- PCN & Pie chart -->
+      <div class="row justify-content-between">
+        <div class="col-md-6 col-sm-6">
+          <div class="card border-white" style="height: 350px">
 
                         <table class="table">
                           <thead>
@@ -138,210 +123,197 @@ $yvalue=array();
                           </tbody>
                         </table>
                     </div>
-                    
-                 </div>
+          
+        </div>
 
-                 <div class="col-sm-6 col-md-6" >
-                 
-                    <div class="card border-white" style="height: 350px">
-                        <label>Pending Intends</label>
+        <div class="col-md-6 col-sm-6">
+          <div class="card border-white" style="height: 350px">
+               <label>Pending Intends</label>
                          
-                    <div>
-                        <canvas id="myChart" ></canvas>
-                    </div>
+               <div>
+                 <canvas id="myChart" ></canvas>
+               </div>
                    
+          </div>
+          
+        </div>
+        
+      </div>
+<!-- Ticket & Pettycash data -->
+      <div class="row justify-content-between">
+        <div class="col-md-6 col-sm-6">
+
+           <div class="row">
+              <div class="col-sm-6">
+                <div class="card border-primary mb-3 card_shadow" style="max-width: 18rem;">
+                  <div class="card-header label-bold">Over All Tickets</div>
+                  <div class="card-body text-black">
+                    <div class="form-group">            
+                      <div class="col-sm-9">
+                        <div class="row mx-md-n5">
+                          <div class="col">
+                            <label style="color: red">Raised : </label>
+                            <label class="label-bold">{{$counts_array['o_tickets']}}</label>
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="form-group">            
+                      <div class="col-sm-9">
+                        <div class="row mx-md-n5">
+                          <div class="col">
+                            <label style="color: #ffe6e6">Closed : </label>
+                            <label class="label-bold">{{$counts_array['o_closed']}}</label>
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    </div>
                   </div>
-                 
-                          
-                           
-                 </div>
-                    
                 </div>
-             @endif
-
-                  
-            </div>
-<!-- graph -->
-            <div>
-
-              <div class="row">
-
-                <div class="col-sm-6 col-md-6">
-
-                      <div class="row">
-                        <div class="col-sm-6 col-md-5 ">
-                             <div class="form-group">
-                                <label  class="col-sm-6 control-label text-right label-bold">Over All Tickets </label>
-                                <div class="col-sm-9">
-                                  <div class="row mx-md-n5">
-                                    <div class="col">
-                                      <label >Raised : </label>
-                                      <label class="label-bold">{{$counts_array['o_tickets']}}</label>
-                                    </div>
-                                    
-                                  </div>
-
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <div class="col-sm-offset-6 col-sm-9">
-                                <div class="row">
-                                    <div class="col-md-6">
-
-                                      <label >Closed : </label>
-                                      <label class="label-bold">{{$counts_array['o_closed']}}</label>
-                                    </div>
-                                    
-                                  </div>
-                                </div>
-                              </div>
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                          
-                        </div>
-
-
-                        <div class="col-sm-6 col-md-5 ">
-                             <div class="form-group">
-                                <label  class="control-label text-right label-bold">Current Month Tickets </label>
-                                <div class="col-sm-9">
-                                  <div class="row mx-md-n5">
-                                    <div class="col">
-                                      <label >Raised : </label>
-                                      <label class="label-bold">{{$counts_array['m_tickets']}}</label>
-                                    </div>
-                                    
-                                  </div>
-
-                                </div>
-                              </div>
-
-                              <div class="form-group">
-                                <div class="col-sm-offset-6 col-sm-9">
-                                <div class="row">
-                                    <div class="col-md-6">
-
-                                      <label >Closed : </label>
-                                      <label class="label-bold">{{$counts_array['m_closed']}}</label>
-                                    </div>
-                                    
-                                  </div>
-                                </div>
-                              </div>
-                        </div>
-
-                      
-                    </div>
-
-                </div>
-
-                <div class="col-sm-6 col-md-6">
-
-                  <div class="row">
-                        <div class="col-sm-6 col-md-5 " >
-                             <div class="form-group">
-                                <label  class="col-sm-6 control-label text-right label-bold">Total PettyCash </label>
-                                <div class="col-sm-9">
-                                  <div class="row mx-md-n5">
-                                    <div class="col">
-                                      <label >Issued : </label>
-                                      <label class="label-bold">{{$counts_array['o_alloted']}}</label>
-                                    </div>
-                                    
-                                  </div>
-
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <div class="col-sm-offset-6 col-sm-9">
-                                <div class="row">
-                                    <div class="col">
-
-                                      <label >Utilized : </label>
-                                      <label class="label-bold">{{$counts_array['o_used']}}</label>
-                                    </div>
-                                    
-                                  </div>
-                                </div>
-                              </div>
-                        </div>
-
-                         <div class="col-sm-6 col-md-2">
-                          
-                        </div>
-
-
-                        <div class="col-sm-6 col-md-5 " >
-                             <div class="form-group">
-                                <label  class="control-label text-right label-bold">Current Month PettyCash </label>
-                                <div class="col-sm-9">
-                                  <div class="row mx-md-n5">
-                                    <div class="col">
-                                      <label >Issued : </label>
-                                      <label class="label-bold">{{$counts_array['m_alloted']}}</label>
-                                    </div>
-                                    
-                                  </div>
-
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <div class="col-sm-offset-6 col-sm-9">
-                                <div class="row">
-                                    <div class="col">
-
-                                      <label >Utilized : </label>
-                                      <label class="label-bold">{{$counts_array['m_used']}}</label>
-                                    </div>
-                                    
-                                  </div>
-                                </div>
-                              </div>
-                        </div>
-
-                      
-                    </div>
- 
-                 
-                  
-                </div>
-                
               </div>
 
+              <div class="col-sm-6">
+                <div class="card text-white bg-white mb-3" style="max-width: 18rem;">
+                  <div class="card-header bg-danger label-bold">Current Month Tickets</div>
+                  <div class="card-body text-black">
+                    <div class="form-group">            
+                      <div class="col-sm-9">
+                        <div class="row mx-md-n5">
+                          <div class="col">
+                            <label style="color: red">Raised : </label>
+                            <label class="label-bold">{{$counts_array['m_tickets']}}</label>
+                          </div>
+                          
+                        </div>
 
+                      </div>
+                    </div>
 
-                <div class="row">
-                 
-                  <div class="col-sm-6 col-md-6 card">
-                     <label style="color: black;font-weight: bold;"> {{date('M  Y')}} Tickets </label>
+                    <div class="form-group">            
+                      <div class="col-sm-9">
+                        <div class="row mx-md-n5">
+                          <div class="col">
+                            <label style="color: #ffe6e6">Closed : </label>
+                            <label class="label-bold">{{$counts_array['m_closed']}}</label>
+                          </div>
+                          
+                        </div>
 
-
-                      <canvas id="tickets_chart" ></canvas>
-                 </div>
-                 
-
-                 <div class="col-sm-6 col-md-6" >
-
-                  
-
-                  <div class="wrapper card border-white" style="height: 370px">
-                    <label style="color: black;font-weight: bold;">{{date('M  Y')}} PettyCash</label>
-
-                    <canvas id="pettycash_chart" ></canvas>
+                      </div>
+                    </div>
                   </div>
-
-                         
-                 </div>                    
                 </div>
+              </div>
+
+            </div>
+          
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+
+          <div class="row">
+              <div class="col-sm-6">
+                <div class="card border-primary mb-3 card_shadow" style="max-width: 18rem;">
+                  <div class="card-header label-bold">Total PettyCash </div>
+                  <div class="card-body text-black">
+                    <div class="form-group">            
+                      <div class="col-sm-9">
+                        <div class="row mx-md-n5">
+                          <div class="col">
+                            <label style="color: #00aaff">Balance  : </label>
+                            <label class="label-bold">{{$counts_array['o_alloted']}}</label>
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="form-group">            
+                      <div class="col-sm-9">
+                        <div class="row mx-md-n5">
+                          <div class="col">
+                            <label style="color: #cceeff">Utilized : </label>
+                            <label class="label-bold">{{$counts_array['o_used']}}</label>
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header bg-info label-bold">Current Month PettyCash</div>
+                  <div class="card-body text-black">
+                    <div class="form-group">            
+                      <div class="col-sm-9">
+                        <div class="row mx-md-n5">
+                          <div class="col">
+                            <label style="color: #00aaff">Balance  : </label>
+                            <label class="label-bold">{{$counts_array['m_alloted']}}</label>
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="form-group">            
+                      <div class="col-sm-9">
+                        <div class="row mx-md-n5">
+                          <div class="col">
+                            <label style="color: #cceeff">Utilized : </label>
+                            <label class="label-bold">{{$counts_array['m_used']}}</label>
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          
+        </div>
+        
+      </div>
+
+<!-- Ticket & Pettycash Graph -->
+      <div class="row justify-content-between">
+        <div class="col-md-6 col-sm-6 card" >
+             <label style="color: black;font-weight: bold;"> {{date('M  Y')}} Tickets </label>
+             <canvas id="tickets_chart" ></canvas>
+ 
+        </div>
+
+        <div class="col-md-6 col-sm-6 card">
+          <div class="wrapper " style="height: 300px">
+            <label style="color: black;font-weight: bold;">{{date('M  Y')}} PettyCash</label>
+
+            <canvas id="pettycash_chart" ></canvas>
+          </div>
+          
+        </div>
+        
+      </div>
+
+ 
 
 
 
-         </div>
-
-
-
-    </div>
-</div>
+   
+  </div>
 </div>
 
 <!-- PIE CHART -->
@@ -423,7 +395,7 @@ function getRandomColor() { //generates random colours and puts them in string
           label: 'Tickets Closed',  
           fill: false,
           lineTension: 0,
-          backgroundColor: "<?php echo 'green';  ?>",
+          backgroundColor: "<?php echo '#ffe6e6';  ?>",
           borderColor: "rgba(0,0,255,0.1)",
           data: tickets_closed_yValue
         },
@@ -471,12 +443,12 @@ var myChart = new Chart(ctx, {
     labels:  <?php echo $ticketArry['tickets_xValue']; ?>,
     datasets: [{
       label: 'Balance Amount',
-      backgroundColor: "#66ffff",
+      backgroundColor: "#00aaff",
       lineTension: 0,
      data: <?php echo $pettycashArry['pc_balance'];  ?>,
     }, {
       label: 'Utilized Amount',
-      backgroundColor: "#ff9933",
+      backgroundColor: "#cceeff",
       data: <?php echo $pettycashArry['pc_used'] ; ?>,
     }],
   },
