@@ -27,7 +27,7 @@
      					<div class="form-group row">
                             <label for="" class="col-5 col-form-label">Employee Name*</label>
                             <div class="col-7">
-                                <input name="user_name" id="user_name" type="text" class="typeahead form-control" required="required" placeholder="Search by name / ID" >
+                                <input name="user_name" id="user_name" type="text" class="typeahead form-control" required="required" placeholder="Search by Name / ID" >
                             </div>
                         </div>
 
@@ -50,7 +50,7 @@
                          <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Description* </label>
                             <div class="col-7">
-                                <input name="comment" id="comment" type="text" class="form-control" required="required" placeholder="Enter description">
+                                <input name="comment" id="comment" type="text" class="form-control" required="required" placeholder="Enter Description">
                             </div>
                         </div>
 
@@ -68,7 +68,7 @@
                         <div class="form-group row" >
                             <label id="ref_lable" class="col-5 col-form-label" style="display: none">Reference Number* </label>
                             <div class="col-7">
-                                <input name="refernce" id="refernce" type="text" class="form-control" required="required" placeholder="Enter description" id="refernce" style="display: none">
+                                <input name="refernce" id="refernce" type="text" class="form-control" required="required" placeholder="Enter Reference Number" id="refernce" style="display: none">
                             </div>
                         </div>
 

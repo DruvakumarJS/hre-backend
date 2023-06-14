@@ -17,8 +17,13 @@ $yvalue=array();
         <div class="container-header">
             <label class="label-bold" id="div1">Dashboard</label>
           
-            
+          <div id="div2">
+            <a class="btn border border-secondary label-bold" href="{{route('users')}}"> {{date('d M Y')}}</a>
+
+        </div>   
         </div>
+
+       
    
        <div class="row">
                 <div class="col-sm-6 col-md-4 ">
@@ -31,7 +36,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Indents</h4>
                            
                         </div >
-                        <label class="card-text-label ">{{date('d M Y')}} 's  Indent</label>
+                        <label class="card-text-label ">Today's Indent</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -48,7 +53,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #fff; font-weight: bold; font-size: 25px">Attendance</h4>
                            
                         </div >
-                        <label class="card-text-label" style="color:#fff">{{date('d M Y')}} 's Headcount</label>
+                        <label class="card-text-label" style="color:#fff">Today's Headcount</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -64,7 +69,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Tickets</h4>
                            
                         </div >
-                        <label class="card-text-label ">{{date('d M Y')}} 's  Tickets</label>
+                        <label class="card-text-label ">Today's Tickets</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -161,10 +166,10 @@ $yvalue=array();
 
               <div class="row">
 
-                <div class="col-sm-6 col-md-6 ">
+                <div class="col-sm-6 col-md-6">
 
                       <div class="row">
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-6 col-md-5 ">
                              <div class="form-group">
                                 <label  class="col-sm-6 control-label text-right label-bold">Over All Tickets </label>
                                 <div class="col-sm-9">
@@ -191,10 +196,12 @@ $yvalue=array();
                                 </div>
                               </div>
                         </div>
+                        <div class="col-sm-6 col-md-2">
+                          
+                        </div>
 
 
-
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-6 col-md-5 ">
                              <div class="form-group">
                                 <label  class="control-label text-right label-bold">Current Month Tickets </label>
                                 <div class="col-sm-9">
@@ -208,6 +215,7 @@ $yvalue=array();
 
                                 </div>
                               </div>
+
                               <div class="form-group">
                                 <div class="col-sm-offset-6 col-sm-9">
                                 <div class="row">
@@ -227,10 +235,10 @@ $yvalue=array();
 
                 </div>
 
-                <div class="col-sm-6 col-md-6 ">
+                <div class="col-sm-6 col-md-6">
 
                   <div class="row">
-                        <div class="col-sm-6 col-md-6 " >
+                        <div class="col-sm-6 col-md-5 " >
                              <div class="form-group">
                                 <label  class="col-sm-6 control-label text-right label-bold">Total PettyCash </label>
                                 <div class="col-sm-9">
@@ -258,9 +266,12 @@ $yvalue=array();
                               </div>
                         </div>
 
+                         <div class="col-sm-6 col-md-2">
+                          
+                        </div>
 
 
-                        <div class="col-sm-6 col-md-6 " >
+                        <div class="col-sm-6 col-md-5 " >
                              <div class="form-group">
                                 <label  class="control-label text-right label-bold">Current Month PettyCash </label>
                                 <div class="col-sm-9">
@@ -427,7 +438,7 @@ function getRandomColor() { //generates random colours and puts them in string
         scales: {
           yAxes: [{
             gridLines: {
-             drawOnChartArea: true },
+             drawOnChartArea: false },
 
             ticks: {min: 0, max:10} ,
             scaleLabel: {
@@ -461,6 +472,7 @@ var myChart = new Chart(ctx, {
     datasets: [{
       label: 'Balance Amount',
       backgroundColor: "#66ffff",
+      lineTension: 0,
      data: <?php echo $pettycashArry['pc_balance'];  ?>,
     }, {
       label: 'Utilized Amount',
@@ -478,6 +490,9 @@ options: {
     scales: {
       xAxes: [{
         stacked: true,
+        ticks: {
+          autoSkip: false,
+        },
         gridLines: {
           display: false,
         },
@@ -489,7 +504,11 @@ options: {
       yAxes: [{
         stacked: true,
         ticks: {
-          beginAtZero: true,
+          beginAtZero: false,
+           autoSkip: true,
+        },
+        gridLines: {
+          display: false,
         },
         scaleLabel: {
                     display: true,

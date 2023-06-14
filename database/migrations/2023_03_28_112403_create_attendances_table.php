@@ -26,6 +26,7 @@ class CreateAttendancesTable extends Migration
             $table->string('logout_long')->nullable();
             $table->string('logout_location')->nullable();
             $table->string('overtime')->default('No');
+            $table->string('out_of_work')->default('0');
             $table->string('total_hours')->default('0');
             $table->string('proof')->nullable();
             $table->timestamps();

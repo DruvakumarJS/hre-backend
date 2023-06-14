@@ -168,6 +168,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('attendance',[AttendanceController::class,'fetch_data'])->name('fetch_attendance');
     Route::post('export_attendance',[AttendanceController::class,'export'])->name('export_attendance');
     Route::get('download_attendance',[AttendanceController::class,'month_report'])->name('download_monthly_attendance');
+    Route::post('update_attendance',[AttendanceController::class,'update'])->name('update_attendance');
 
  //petty cash
      Route::get('autocomplete_employee',[PettycashController::class,'action'])->name('autocomplete_employee');

@@ -40,7 +40,7 @@ class PettycashController extends Controller
           	return response()->json([
           		'status' => 0,
           		'message' => 'UnAuthorized',
-          		'data' => '']);
+          		'data' => $casharray]);
           }
      }
 
@@ -153,7 +153,7 @@ class PettycashController extends Controller
      		return response()->json([
           		'status' => 0,
           		'message' => 'UnAuthorized / Insufficient Input',
-          		'data' => ''
+          		'data' => $details
           		]);
 
      	}

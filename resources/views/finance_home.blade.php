@@ -7,35 +7,23 @@ $xvalue=array();
 $yvalue=array();
 @endphp
 
-<style type="text/css">
-  
-</style>
-
 <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 
 <div class="container" >
     <div class="row ">
         <div >
-            <!-- <div class="c ard">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div> -->
+           
 
         <div class="container-header">
             <label class="label-bold" id="div1">Dashboard</label>
           
-            
+          <div id="div2">
+            <a class="btn border border-secondary label-bold" href="{{route('users')}}"> {{date('d M Y')}}</a>
+
+        </div>   
         </div>
+
+       
    
        <div class="row">
                 <div class="col-sm-6 col-md-4 ">
@@ -48,7 +36,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Indents</h4>
                            
                         </div >
-                        <label class="card-text-label ">{{date('d M Y')}} 's  Indent</label>
+                        <label class="card-text-label ">Today's Indent</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -65,7 +53,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #fff; font-weight: bold; font-size: 25px">Attendance</h4>
                            
                         </div >
-                        <label class="card-text-label" style="color:#fff">{{date('d M Y')}} 's Headcount</label>
+                        <label class="card-text-label" style="color:#fff">Today's Headcount</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -81,7 +69,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Tickets</h4>
                            
                         </div >
-                        <label class="card-text-label ">{{date('d M Y')}} 's  Tickets</label>
+                        <label class="card-text-label ">Today's Tickets</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -93,27 +81,167 @@ $yvalue=array();
             
 <!-- graph -->
             <div>
+
+              <div class="row">
+
+                <div class="col-sm-6 col-md-6 ">
+
+                      <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                             <div class="form-group">
+                                <label  class="col-sm-6 control-label text-right label-bold">Over All Tickets </label>
+                                <div class="col-sm-9">
+                                  <div class="row mx-md-n5">
+                                    <div class="col">
+                                      <label >Raised : </label>
+                                      <label class="label-bold">{{$counts_array['o_tickets']}}</label>
+                                    </div>
+                                    
+                                  </div>
+
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="col-sm-offset-6 col-sm-9">
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                      <label >Closed : </label>
+                                      <label class="label-bold">{{$counts_array['o_closed']}}</label>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+
+
+
+                        <div class="col-sm-6 col-md-6">
+                             <div class="form-group">
+                                <label  class="control-label text-right label-bold">Current Month Tickets </label>
+                                <div class="col-sm-9">
+                                  <div class="row mx-md-n5">
+                                    <div class="col">
+                                      <label >Raised : </label>
+                                      <label class="label-bold">{{$counts_array['m_tickets']}}</label>
+                                    </div>
+                                    
+                                  </div>
+
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="col-sm-offset-6 col-sm-9">
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                      <label >Closed : </label>
+                                      <label class="label-bold">{{$counts_array['m_closed']}}</label>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+
+                      
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 col-md-6 ">
+
+                  <div class="row">
+                        <div class="col-sm-6 col-md-6 " >
+                             <div class="form-group">
+                                <label  class="col-sm-6 control-label text-right label-bold">Total PettyCash </label>
+                                <div class="col-sm-9">
+                                  <div class="row mx-md-n5">
+                                    <div class="col">
+                                      <label >Issued : </label>
+                                      <label class="label-bold">{{$counts_array['o_alloted']}}</label>
+                                    </div>
+                                    
+                                  </div>
+
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="col-sm-offset-6 col-sm-9">
+                                <div class="row">
+                                    <div class="col">
+
+                                      <label >Utilized : </label>
+                                      <label class="label-bold">{{$counts_array['o_used']}}</label>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+
+
+
+                        <div class="col-sm-6 col-md-6 " >
+                             <div class="form-group">
+                                <label  class="control-label text-right label-bold">Current Month PettyCash </label>
+                                <div class="col-sm-9">
+                                  <div class="row mx-md-n5">
+                                    <div class="col">
+                                      <label >Issued : </label>
+                                      <label class="label-bold">{{$counts_array['m_alloted']}}</label>
+                                    </div>
+                                    
+                                  </div>
+
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="col-sm-offset-6 col-sm-9">
+                                <div class="row">
+                                    <div class="col">
+
+                                      <label >Utilized : </label>
+                                      <label class="label-bold">{{$counts_array['m_used']}}</label>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+
+                      
+                    </div>
+ 
+                 
+                  
+                </div>
                 
+              </div>
+
+
 
                 <div class="row">
-                  @if($count > 0)
+                 
                   <div class="col-sm-6 col-md-6 card">
-                    <label>Tickets</label>
+                     <label style="color: black;font-weight: bold;"> {{date('M  Y')}} Tickets </label>
+
+
                       <canvas id="tickets_chart" ></canvas>
                  </div>
-                  @endif
+                 
 
                  <div class="col-sm-6 col-md-6" >
 
-                  @if(sizeof(json_decode($pc_given))>0)
+                  
 
                   <div class="wrapper card border-white" style="height: 370px">
-                    <label>PettyCash</label>
-                    <canvas id="myChart4" ></canvas>
+                    <label style="color: black;font-weight: bold;">{{date('M  Y')}} PettyCash</label>
+
+                    <canvas id="pettycash_chart" ></canvas>
                   </div>
 
-
-                  @endif
                          
                  </div>                    
                 </div>
@@ -122,10 +250,13 @@ $yvalue=array();
 
          </div>
 
-         <div>
-          @if(sizeof($result)>0)  
-                <label class="label-bold">Customers</label>
 
+
+
+         <div>
+                
+                @if(sizeof($result)>0)  
+                <label class="label-bold">Customers</label>
                 <div class="row">
                   <div class="col-sm-6 col-md-6">
                     <div class="card border-white" style="height: 350px">
@@ -186,40 +317,87 @@ $yvalue=array();
                  </div>
 
                  <div class="col-sm-6 col-md-6" >
-                  @if(sizeof($yvalue)>0)  
-                    <div class="card border-white" style="height: 370px">
+                 
+                    <div class="card border-white" style="height: 350px">
                         <label>Pending Intends</label>
-                        
-                      
+                         
                     <div>
                         <canvas id="myChart" ></canvas>
                     </div>
                    
                   </div>
-                   @endif
+                 
                           
-
                            
                  </div>
                     
                 </div>
-
+             @endif
 
                   
             </div>
-            @endif
+
 
 
     </div>
 </div>
 </div>
 
+<!-- PIE CHART -->
+ <script>
+var xValues = <?php echo json_encode($xvalue); ?>;
+var yValues = <?php echo json_encode($yvalue); ?>;
+
+var barColors = [
+  "#2C2C2C",
+  "#FDF2DF",
+  "#E31E24"
+ 
+];
+
+new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: getRandomColor(),
+      borderWidth: 0, 
+      data: yValues
+    }]
+  },
+  options: {
+     legend: {
+        position: 'right'
+      },
+    title: {
+      display: true
+     
+    }
+  }
+});
+
+function getRandomColor() { //generates random colours and puts them in string
+  var colors = [];
+  var size = <?php echo sizeof($yvalue); ?> ;
+  for (var i = 0; i < size; i++) {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var x = 0; x < 6; x++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    colors.push(color);
+  }
+  return colors;
+}
+
+</script>
+
 <!-- Tickets -->
 <script>
 
-   var xValues = <?php echo $tickets_xValue; ?>;
-   var yValues = <?php echo $tickets_yValue; ?>;
-   var tickets_closed_yValue= <?php echo $tickets_closed_yValue; ?>;
+   var xValues = <?php echo $ticketArry['tickets_xValue']; ?>;
+   var yValues = <?php echo $ticketArry['tickets_yValue']; ?>;
+   var tickets_closed_yValue= <?php echo $ticketArry['tickets_closed_yValue']; ?>;
    
    
     new Chart("tickets_chart", {
@@ -252,14 +430,14 @@ $yvalue=array();
         ]
       },
       options: {
-        legend: {display: true},
-        tooltips: {
+         tooltips: {
                   mode: 'index'
                 },
+        legend: {display: true},
         scales: {
           yAxes: [{
             gridLines: {
-             drawOnChartArea: true },
+             drawOnChartArea: false },
 
             ticks: {min: 0, max:10} ,
             scaleLabel: {
@@ -282,81 +460,23 @@ $yvalue=array();
     });
 </script>
 
+<!-- Pettycash -->
+<script type="text/javascript">
 
-
-<!-- PIE CHART --> 
-
- <script>
-    var xValues = <?php echo json_encode($xvalue); ?>;
-    var yValues = <?php echo json_encode($yvalue); ?>;
-   
-    var barColors = [
-      "#2C2C2C",
-      "#FDF2DF",
-      "#E31E24"
-     
-    ];
-
-    new Chart("myChart", {
-      type: "pie",
-      data: {
-        labels: xValues,
-        datasets: [{
-          backgroundColor: getRandomColor(),
-          borderWidth: 0, 
-          data: yValues
-        }]
-      },
-      options: {
-         legend: {
-            position: 'right'
-          },
-        title: {
-          display: true
-         
-        }
-      }
-    });
-
-    function getRandomColor() { //generates random colours and puts them in string
-      var colors = [];
-      var size = <?php echo sizeof($yvalue); ?> ;
-      for (var i = 0; i < size; i++) {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        for (var x = 0; x < 6; x++) {
-          color += letters[Math.floor(Math.random() * 16)];
-        }
-        colors.push(color);
-      }
-      return colors;
-    }
-
-    </script>  
-
-    <script type="text/javascript">
-      
-      var ctx = document.getElementById("myChart4").getContext('2d');
-
+  var ctx = document.getElementById("pettycash_chart").getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
-   // labels: ["<  1","1 - 2","3 - 4","5 - 9","10 - 14","15 - 19","20 - 24","25 - 29","> - 29"],
-    labels: <?php echo $date; ?>,
-    datasets: [
-     {
-      
-       label: 'Utilised Amount',
-      backgroundColor: "#ff9933",
-      //data: [12, 59, 5, 56, 58,12, 59, 87, 45],
-      
-        data: <?php echo $pc_used  ?>,
-    },{
-      label: 'Remaining Amount',
+    labels:  <?php echo $ticketArry['tickets_xValue']; ?>,
+    datasets: [{
+      label: 'Balance Amount',
       backgroundColor: "#66ffff",
-      data: <?php echo $pc_given?>,
-     
-
+      lineTension: 0,
+     data: <?php echo $pettycashArry['pc_balance'];  ?>,
+    }, {
+      label: 'Utilized Amount',
+      backgroundColor: "#ff9933",
+      data: <?php echo $pettycashArry['pc_used'] ; ?>,
     }],
   },
 options: {
@@ -372,27 +492,24 @@ options: {
         gridLines: {
           display: false,
         },
-          barPercentage: 0.2,
-
-          scaleLabel: {
+        scaleLabel: {
                     display: true,
                     labelString: '----- Date ----- ',
                     fontColor: '#000', }
       }],
       yAxes: [{
         stacked: true,
-        gridLines: {
-          display: true,
-        },
         ticks: {
           beginAtZero: true,
         },
-
-        type: 'linear',
+        gridLines: {
+          display: false,
+        },
         scaleLabel: {
                     display: true,
                     labelString: '----- Amount in Rs ----- ',
-                    fontColor: '#000', }
+                    fontColor: '#000', },
+        type: 'linear',
       }]
     },
     responsive: true,
@@ -400,5 +517,8 @@ options: {
     legend: { position: 'top' },
   }
 });
-    </script>
+
+</script>
+
+
 @endsection

@@ -204,9 +204,10 @@
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
 
-                     <a href="{{route('employee-history',Auth::user()->id)}}"
-                    class="{{request()->routeIs('employee-history')
-                    
+                     <a href="{{route('attendance')}}"
+                    class="{{request()->routeIs('attendance')
+                    ||request()->routeIs('employee-details')
+                    ||request()->routeIs('employee-history')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Attendance</label></a>
 

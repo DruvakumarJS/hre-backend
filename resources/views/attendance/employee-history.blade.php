@@ -68,7 +68,9 @@
                     <th scope="col">Date</th>
                     <th scope="col">Login Time</th>
                     <th scope="col">Logout Time</th>
+                    <th scope="col">Out Of Work</th>
                     <th scope="col">Working Hours</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -78,6 +80,53 @@
 
         </div>
     </div>
+
+   <!-- Modal -->
+
+            <div class="modal" id="modal" >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Attendance</h5>
+                     
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                   
+                   
+                          <form action="{{ route('update_attendance') }}" method="POST" >
+                              @csrf
+                              <label>Employee ID : </label><label class="label-bold">{{$employee->employee_id}}</label>
+                              <div>
+                                 <label>Date : </label> <label  class="label-bold" id="edidate"></label>
+                              </div>
+                             
+                              <div class="row div-margin" >  
+                                  <div class="col-md-6">
+                                    <label>Logout Time</label>
+                                    <input class="form-control" type="datetime-local" name="logout_time">
+                                  </div>
+                              </div>
+
+                              <div class="row div-margin" >  
+                                  <div class="col-md-6">
+                                    <label>Out of Work (Hours)</label>
+                                    <input class="form-control" type="number" name="break" placeholder="Enter Out of work hours">
+                                  </div>
+                              </div>
+                               <input type="hidden" name="date" id="date">
+                              <input type="hidden" name="id" value="{{$employee->user_id}}">
+
+                              
+                              <button class="btn btn-primary" style="margin-top: 20px">Update</button>
+                              
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+<!--  end Modal -->
 
 </div>
 
@@ -133,12 +182,17 @@ $(function() {
     $('#total_records').text(data.length);
     for(var count = 0; count < data.length; count++)
     {
-         
+      var dates = data[count].date ;
+
      output += '<tr>';
      output += '<td>' + data[count].date + '</td>';
      output += '<td>' + data[count].login_time + '</td>';
      output += '<td>' + data[count].logout_time + '</td>';
-     output += '<td>' + data[count].total_hours + '</td></tr>';
+     output += '<td>' + data[count].out_of_work + '</td>';
+     output += '<td>' + data[count].total_hours + '</td>';
+    
+     output += '<td>' + '@if(Auth::user()->role_id == 2)<button type="button" value='+data[count].date+' id="editdate'+count+'" data-date="'+dates+'" class="btn btn-sm btn-light btn-outline-secondary" onclick="edit('+count+')">Edit</button>@endif'+'</td></tr>';
+   
     }
     $('tbody').html(output);
    }
@@ -163,6 +217,16 @@ $(function() {
     cb(start, end);
     
 });
+
+function edit(cnt){
+  var date = document.getElementById('editdate'+cnt).value;
+ // alert(date);
+ document.getElementById('date').value=date;
+    $(".modal-body #edidate").text(date);
+    $('#modal').modal('show');
+  
+}
+ 
 </script>
 
 

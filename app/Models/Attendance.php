@@ -21,6 +21,7 @@ class Attendance extends Model
     	'logout_long',
     	'logout_location',
     	'overtime',
+        'out_of_work',
         'total_hours',
         'proof'
     	];

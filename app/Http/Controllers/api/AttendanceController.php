@@ -63,10 +63,9 @@ class AttendanceController extends Controller
     		else if(isset($request->action) && $request->action == 'logout')
     		{
     			
+    			if(Attendance::where('user_id' , $request->user_id)->exists()){
 
-    			if(Attendance::where('user_id' , $request->user_id)->where('date' , date('Y-m-d'))->orderBy('id' ,'DESC')->exists()){
-
-    				$login = Attendance::where('user_id' , $request->user_id)->where('date' , date('Y-m-d'))->orderBy('id' ,'DESC')->first();
+    				$login = Attendance::where('user_id' , $request->user_id)->orderBy('id' ,'DESC')->first();
 
     				$l_in = $login->date." ".$login->login_time;
 

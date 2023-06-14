@@ -89,7 +89,7 @@
                                     @if($value->isapproved == '0')
                                         <td style="color: blue">Waiting for approval</td>
                                     @elseif($value->isapproved == '1')
-                                         <td style="color: green">Accepted</td>
+                                         <td style="color: green">Approved</td>
                                     @else 
                                          <td style="color: red">Rejected</td> 
                                     @endif
@@ -98,7 +98,7 @@
                                     <td>
                                         @if( (Auth::user()->role == 'admin') || (Auth::user()->role == 'finance'))
                                             @if($value->isapproved == '0')
-                                                <a data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-warning">Accept/Reject</button></a>
+                                                <a data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-warning">Approve/Reject</button></a>
                                                 <!-- <a onclick="return confirm('you are Accepting this bill ?')" href="{{route('update_bill_status',['id' => $value->id, 'status' => '1']) }}"><button class="btn btn-sm btn-outline-success">Accept</button></a>
                                                 <a onclick="return confirm('you are Rejecting this bill ?')" href="{{route('update_bill_status',['id' => $value->id, 'status' => '2'] ) }}"><button  class="btn btn-sm btn-outline-danger">Reject</button></a>-->
                                             @endif
@@ -125,7 +125,7 @@
                        
                     </div>
                     <input type="hidden" name="id" value="{{$value->id}}">
-                    <button class="btn btn-outline-success" name="status" value="1">Accept</button>
+                    <button class="btn btn-outline-success" name="status" value="1">Approve</button>
                     <button class="btn btn-outline-danger" name="status" value="2">Reject</button>
                     
                 </form>

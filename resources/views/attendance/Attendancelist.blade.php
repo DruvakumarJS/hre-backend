@@ -51,6 +51,7 @@
                     <th scope="col">Role</th>
                     <th scope="col">Login </th>
                     <th scope="col">Logout</th>
+                    <th scope="col">Out Of Work</th>
                     <th scope="col">Total Hours</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -65,6 +66,18 @@
                         <td>{{$value->login_time}}</td>
                         <td>{{$value->logout_time}}</td>
                         @php
+                          $minute1 = $value->out_of_work;
+                          $hour1=  floor($minute1 / 60) ;
+                          $min1 = $minute1 % 60 ;
+                        @endphp
+                        @if($value->total_hours == '0')
+                        <td></td>
+                        @else
+                        <td>{{$hour1}}Hr : {{$min1}}Min</td>
+                        @endif
+
+
+                        @php
                           $minute = $value->total_hours;
                           $hour=  floor($minute / 60) ;
                           $min = $minute % 60 ;
@@ -77,9 +90,58 @@
                         
                         <td>
                             <a href="{{route('employee-history', $value->user_id)}}"><button type="button" class="btn btn-sm curved-text">view</button></a>
+                            
                         </td>
                     </tr>
+<!-- Modal -->
+
+            <div class="modal" id="modal_{{$key}}" >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Attendance</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="{{ route('update_attendance') }}" method="POST" >
+                    @csrf
+                    <label>Employee ID : </label>
+                    <label class="label-bold">{{$value->employee->employee_id}}</label>
+                    <div class="row div-margin" >  
+                        <div class="col-md-6">
+                          <label>Logout Time</label>
+                          <input class="form-control" type="time" name="logout_time">
+                        </div>
+                    </div>
+
+                    <div class="row div-margin" >  
+                        <div class="col-md-6">
+                          <label>Out of Work (Hours)</label>
+                          <input class="form-control" type="number" name="break" placeholder="Enter Out of work hours">
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="id" value="{{$value->id}}">
+                    <button class="btn btn-primary" style="margin-top: 20px">Update</button>
+                    
+                </form>
+                                    </div>
+                    </div>
+                  </div>
+                </div>
+
+<!--  end Modal -->
+
+ <script>
+$(document).ready(function(){
+  $('#MybtnModal_{{$key}}').click(function(){
+    $('#modal_{{$key}}').modal('show');
+  });
+});  
+</script>
                    @endforeach 
+
+    
                 </tbody>
             </table>
 

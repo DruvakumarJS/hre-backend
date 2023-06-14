@@ -15,6 +15,7 @@ class UserController extends Controller
     public function validate_login(Request $request){
 
          $credentials = $request->only('email', 'password');
+          $userdata= array();
         if (Auth::attempt($credentials)) {
 
             $search = Employee::where('email',$request->email)
@@ -41,7 +42,7 @@ class UserController extends Controller
                  return response()->json([
                         'status '=> 0,
                         'message' => 'Invalid credentials',
-                        'data' => ''
+                        'data' => $userdata
                         
                 ],200);
 
@@ -53,7 +54,7 @@ class UserController extends Controller
             return response()->json([
             'status' => 0,
             'message' => 'Invalid credentials',
-            'data' => ''
+            'data' => $userdata
             
         ],200);
 

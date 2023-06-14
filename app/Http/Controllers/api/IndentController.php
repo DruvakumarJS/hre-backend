@@ -196,16 +196,17 @@ class IndentController extends Controller
    }
 
    function indents(Request $request){
+    $indentarray=array();
       if(!isset($request->user_id)){
         return response()->json([
               'status' => 0 ,
               'message' => 'UnAuthorized' ,
-              'data' => ''
+              'data' => $indentarray
               ]);
       }
       else {
         $indents = Intend::where('user_id',$request->user_id)->where('status','!=','Completed')->get();
-        $indentarray=array();
+        
 
         foreach ($indents as $key => $value) {
           $indentarray[] = [
@@ -231,17 +232,17 @@ class IndentController extends Controller
 
    function indent_details(Request $request){
 
-   
+   $indentarray=array();
       if(!isset($request->user_id) || !isset($request->indent_id) ){
         return response()->json([
               'status' => 0 ,
               'message' => 'UnAuthorized' ,
-              'data' => ''
+              'data' => $indentarray
               ]);
       }
       else {
         $indents_list = Indent_list::where('indent_id',$request->indent_id)->get();
-        $indentarray=array();
+        
 
         foreach ($indents_list as $key => $value) {
           $indentarray[] = [
@@ -274,10 +275,11 @@ class IndentController extends Controller
 
    function pcn_list(Request $request){
 
+$pcn_array= array();
      if(isset($request->user_id))
      {
       $Pcns = Pcn::where('status','Active')->get();
-      $pcn_array= array();
+      
       foreach ($Pcns as $key => $value) {
       $pcn_array[] = [
         'pcn'=> $value->pcn,
@@ -299,13 +301,15 @@ class IndentController extends Controller
       return response()->json([
                     'status' => 0 ,
                     'message' => 'UnAuthorized',
-                    'data'=> ""]);
+                    'data'=>$pcn_array ]);
      }
 
 
    }
 
    function grn_list(Request $request){
+
+         $grn_array = array();
 
         if(isset($request->user_id))
         {
@@ -315,7 +319,7 @@ class IndentController extends Controller
 
           if(sizeof($grns)>0){
 
-            $grn_array = array();
+           
 
           foreach ($grns as $key => $value) {
 
@@ -355,7 +359,7 @@ class IndentController extends Controller
             return response()->json([
                         'status' => 1 ,
                         'message' => 'No active GRN available',
-                        'data'=> ""]);
+                        'data'=> $grn_array ]);
 
           }
 
@@ -367,7 +371,7 @@ class IndentController extends Controller
            return response()->json([
                         'status' => 0 ,
                         'message' => 'UnAuthorized',
-                        'data'=> ""]);
+                        'data'=> $grn_array ]);
         }
 
         
@@ -463,6 +467,7 @@ class IndentController extends Controller
 
    function getdepartments(Request $request){
 
+    $data= array();
     if(isset($request->user_id)){
         $data = Category::select('category')->get();
 
@@ -477,7 +482,7 @@ class IndentController extends Controller
       return response()->json([
                   'status' => 0 ,
                   'message' => 'UnAuthorized/Insufficient data',
-                  'data' => ''
+                  'data' => $data
                   ]);
     }
 

@@ -37,9 +37,9 @@ $date = date('dd-mm-yyyy');
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Client Name / Billing Name *</label>
+                            <label for="" class="col-5 col-form-label">Billing Name *</label>
                             <div class="col-7">
-                                <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" placeholder="Search by Client name">
+                                <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" placeholder="Search by Billing name">
                             </div>
                         </div>
                         <div class="form-group row">
