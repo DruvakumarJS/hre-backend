@@ -51,7 +51,7 @@ class UserController extends Controller
 
         else {
             return response()->json([
-            'status' => 0,
+            'status' => "FALSE",
             'message' => 'Invalid credentials',
             'data' => $userdata
             
