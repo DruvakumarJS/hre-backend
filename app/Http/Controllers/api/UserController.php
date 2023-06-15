@@ -34,7 +34,7 @@ class UserController extends Controller
                     'status' => "TRUE",
                     'message' => 'success',
                     'data' => array($userdata)]
-                    ,200);
+                    );
             }
 
             else {
@@ -43,7 +43,7 @@ class UserController extends Controller
                         'message' => 'Invalid credentials',
                         'data' => $userdata
                         
-                ],200);
+                ]);
 
             }     
            
@@ -55,7 +55,7 @@ class UserController extends Controller
             'message' => 'Invalid credentials',
             'data' => $userdata
             
-        ],200);
+        ]);
 
         }
       
