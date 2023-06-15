@@ -31,7 +31,7 @@ class UserController extends Controller
                      ];
 
                  return response()->json([
-                    'status' => "1",
+                    'status' => "TRUE",
                     'message' => 'success',
                     'data' => array($userdata)]
                     ,200);
@@ -39,7 +39,7 @@ class UserController extends Controller
 
             else {
                  return response()->json([
-                        'status '=> "0",
+                        'status '=> "FALSE",
                         'message' => 'Invalid credentials',
                         'data' => $userdata
                         
