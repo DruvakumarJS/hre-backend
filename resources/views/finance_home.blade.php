@@ -234,12 +234,81 @@ $yvalue=array();
         </div>
         
       </div>
+<!-- PCN & Pie chart -->
+ @if(sizeof($result)>0)  
+      <div class="row justify-content-between">
+        <div class="col-md-6 col-sm-6">
+          <div class="card border-white" style="height: 350px">
 
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">Customer Name</th>
+                              <th scope="col">PCN</th>
+                              <th scope="col">Pending Indent</th>
+                             
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($result as $key =>$value)
+                              @php
+                                 
+                                  $sum = 0;
+                              @endphp
+                           
+                            <tr>  
+                              <td>{{$key}}</td>
+                            
+                            <td>
+                              <table>
+                              @foreach($value as $kk => $val)
+                              <tr> 
+                                  <td>  {{ $kk }} </td>
+                              </tr>
+                              @endforeach
+                            </table>
+                             </td>
+                             <td>
+                              <table>
+                              @foreach($value as $kk => $val)
+                              @php 
+                                 $sum += $val['0'];
+                              @endphp
+                              <tr> 
+                                  <td>  {{ $val['0'] }} </td>
+                              </tr>
+                              @endforeach
+                              @php 
+                                if($sum > 0){
+                                 $xvalue[] = $key;
+                                 $yvalue[] = $sum;
+                                }
+                              @endphp
+                            </table>
+                             </td>
+                            
+                           @endforeach 
 
+                          </tbody>
+                        </table>
+                    </div>
+          
+        </div>
 
- 
-
-
+        <div class="col-md-6 col-sm-6">
+          <div class="card border-white" style="height: 350px">
+               <label>Pending Intends</label>
+                         
+               <div>
+                 <canvas id="myChart" ></canvas>
+               </div>
+                   
+          </div>
+          
+        </div>
+        
+      </div>
+ @endif  
 
    
   </div>

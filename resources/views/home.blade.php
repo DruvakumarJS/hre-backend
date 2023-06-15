@@ -67,6 +67,7 @@ $yvalue=array();
       </div>
  
  <!-- PCN & Pie chart -->
+ @if(sizeof($result)>0)  
       <div class="row justify-content-between">
         <div class="col-md-6 col-sm-6">
           <div class="card border-white" style="height: 350px">
@@ -139,6 +140,7 @@ $yvalue=array();
         </div>
         
       </div>
+ @endif     
 <!-- Ticket & Pettycash data -->
       <div class="row justify-content-between">
         <div class="col-md-6 col-sm-6">
