@@ -73,7 +73,10 @@ class PettycashController extends Controller
           $createData = PettyCashDetail::create([
                 'pettycash_id' => $request->pettycash_id,
                 'billing_no' => $bill_no ,
+                'bill_date' => $request->bill_date ,
                 'spent_amount' => $request->spent_amount ,
+                'purpose' => $request->purpose ,
+                'pcn' => $request->pcn,
                 'comments' => $request->comment,
                 'filename' => $fileName,
                 'isapproved' => '0'
@@ -132,11 +135,15 @@ class PettycashController extends Controller
      			$details[]=[
      				'date' => $value->created_at->toDateTimeString(),
             'transaction_ref' => $value->billing_no,
+            'bill_date' => $value->bill_date,
      				'spent_amount' => $value->spent_amount ,
+            'purpose' => $value->purpose,
+            'pcn' => $value->pcn,
      				'comments' => $value->comments, 
      				'filepath' => 'https://hre.netiapps.com/pettycashfiles/',
      				'filename' => $value->filename,
-     				'isapproved'=> $approved
+     				'isapproved'=> $approved,
+            'remarks' => $value->remarks
      			];
      		}
 

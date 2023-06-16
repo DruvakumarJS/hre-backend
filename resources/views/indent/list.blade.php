@@ -49,6 +49,7 @@
                               <th scope="col">Date</th>
                               <th scope="col">Indent Number</th>
                               <th scope="col">PCN</th>
+                              <th scope="col">Billing Details </th>
                               <th scope="col">Indent Owner</th>
                               <th scope="col">Status</th>
                              
@@ -61,11 +62,16 @@
                               <tr> 
                                 <td>{{date("d-m-Y", strtotime($value->created_at))}}</td> 
                                 <td>{{$value->indent_no}}</td> 
-                                <td>{{$value->pcn}}</td>  
+                                <td>{{$value->pcn}}</td> 
+                                <td >{{$value->pcns->client_name}} , {{$value->pcns->area}} , {{$value->pcns->city}}</td> 
                                 <td>{{$value->user->name}}</td>  
                                 <td>{{$value->status}}</td>
                                 
-                                <td> <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button btn-sm">View</button></a></td>
+                                <td> 
+                                  <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button btn-sm">View</button></a>
+
+                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('export_indent',$value->id)}}" style="margin-left: 10px"><i class='fa fa-download'></i></a>
+                                </td>
                                 
                               </tr>
                           @endforeach

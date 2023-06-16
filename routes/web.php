@@ -21,6 +21,7 @@ use App\Http\Controllers\TicketConversationController;
 use App\Http\Controllers\PettyCashDetailController;
 use App\Http\Controllers\RestoreController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ExportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -255,6 +256,11 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('import_customer',[ImportController::class,'importcustomer'])->name('import_customer');
     Route::post('import_category',[ImportController::class,'importcategory'])->name('import_category');
     Route::post('import_material',[ImportController::class,'importmaterial'])->name('import_material');
+
+    Route::get('export_customer',[ExportController::class,'customer'])->name('export_customer');
+    Route::get('export_indent/{id}',[ExportController::class,'indent'])->name('export_indent');
+    Route::get('export_tickets/{filter}',[ExportController::class,'ticket'])->name('export_tickets');
+    Route::get('export_pettycash',[ExportController::class,'pettycash'])->name('export_pettycash');
 
 
 

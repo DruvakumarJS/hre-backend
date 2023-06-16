@@ -26,7 +26,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Indents</h4>
                            
                         </div >
-                        <label class="card-text-label ">Today's Indent</label>
+                        <label class="card-text-label "></label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -43,7 +43,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #fff; font-weight: bold; font-size: 25px">Attendance</h4>
                            
                         </div >
-                        <label class="card-text-label" style="color:#fff">Today's Headcount</label>
+                        <label class="card-text-label" style="color:#fff"></label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -59,7 +59,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Tickets</h4>
                            
                         </div >
-                        <label class="card-text-label ">Today's Tickets</label>
+                        <label class="card-text-label "></label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -71,16 +71,16 @@ $yvalue=array();
         <div class="col-md-6 col-sm-6">
 
            <div class="row">
-              <div class="col-sm-6">
-                <div class="card border-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header label-bold">Over All Tickets</div>
+              <div class="col-sm-5">
+                <div class="card border-primary mb-3 card_shadow" style="max-width: 18rem;">
+                  <div class="card-header bg-danger text-white">Over All Tickets</div>
                   <div class="card-body text-black">
                     <div class="form-group">            
                       <div class="col-sm-9">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label style="color: red">Raised : </label>
-                            <label class="label-bold">{{$counts_array['o_tickets']}}</label>
+                            <label class="label-bold">Raised : </label>
+                            <label >{{$counts_array['o_tickets']}}</label>
                           </div>
                           
                         </div>
@@ -92,8 +92,8 @@ $yvalue=array();
                       <div class="col-sm-9">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label style="color: #ffe6e6">Closed : </label>
-                            <label class="label-bold">{{$counts_array['o_closed']}}</label>
+                            <label class="label-bold">Closed : </label>
+                            <label >{{$counts_array['o_closed']}}</label>
                           </div>
                           
                         </div>
@@ -104,16 +104,16 @@ $yvalue=array();
                 </div>
               </div>
 
-              <div class="col-sm-6">
-                <div class="card text-white bg-white mb-3 card_shadow" style="max-width: 18rem;">
-                  <div class="card-header bg-danger label-bold">Current Month Tickets</div>
+              <div class="col-sm-5">
+                <div class="card text-white bg-white mb-3" style="max-width: 18rem;">
+                  <div class="card-header bg-danger ">Current Month Tickets</div>
                   <div class="card-body text-black">
                     <div class="form-group">            
                       <div class="col-sm-9">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label style="color: red">Raised : </label>
-                            <label class="label-bold">{{$counts_array['m_tickets']}}</label>
+                            <label class="label-bold">Raised : </label>
+                            <label >{{$counts_array['m_tickets']}}</label>
                           </div>
                           
                         </div>
@@ -125,8 +125,8 @@ $yvalue=array();
                       <div class="col-sm-9">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label style="color: #ffe6e6">Closed : </label>
-                            <label class="label-bold">{{$counts_array['m_closed']}}</label>
+                            <label class="label-bold">Closed : </label>
+                            <label >{{$counts_array['m_closed']}}</label>
                           </div>
                           
                         </div>
@@ -144,16 +144,16 @@ $yvalue=array();
         <div class="col-md-6 col-sm-6">
 
           <div class="row">
-              <div class="col-sm-6">
-                <div class="card border-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header label-bold">Total PettyCash </div>
+              <div class="col-sm-5">
+                <div class="card border-primary mb-3 card_shadow" style="max-width: 18rem;">
+                  <div class="card-header bg-info ">Total PettyCash </div>
                   <div class="card-body text-black">
                     <div class="form-group">            
                       <div class="col-sm-9">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label style="color: #00aaff">Balance  : </label>
-                            <label class="label-bold">{{$counts_array['o_alloted']}}</label>
+                            <label class="label-bold">Balance  : </label>
+                            <label >{{$counts_array['o_alloted']}}</label>
                           </div>
                           
                         </div>
@@ -165,8 +165,8 @@ $yvalue=array();
                       <div class="col-sm-9">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label style="color: #cceeff">Utilized : </label>
-                            <label class="label-bold">{{$counts_array['o_used']}}</label>
+                            <label class="label-bold">Utilized : </label>
+                            <label >{{$counts_array['o_used']}}</label>
                           </div>
                           
                         </div>
@@ -177,16 +177,16 @@ $yvalue=array();
                 </div>
               </div>
 
-              <div class="col-sm-6">
-                <div class="card border-primary mb-3 card_shadow" style="max-width: 18rem;">
-                  <div class="card-header bg-info label-bold">Current Month PettyCash</div>
+              <div class="col-sm-5">
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header bg-info">Current Month PettyCash</div>
                   <div class="card-body text-black">
                     <div class="form-group">            
                       <div class="col-sm-9">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label style="color: #00aaff">Balance  : </label>
-                            <label class="label-bold">{{$counts_array['m_alloted']}}</label>
+                            <label class="label-bold">Balance  : </label>
+                            <label >{{$counts_array['m_alloted']}}</label>
                           </div>
                           
                         </div>
@@ -198,8 +198,8 @@ $yvalue=array();
                       <div class="col-sm-9">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label style="color: #cceeff">Utilized : </label>
-                            <label class="label-bold">{{$counts_array['m_used']}}</label>
+                            <label class="label-bold" >Utilized : </label>
+                            <label >{{$counts_array['m_used']}}</label>
                           </div>
                           
                         </div>
@@ -219,14 +219,14 @@ $yvalue=array();
 <!-- Ticket & Pettycash Graph -->
       <div class="row justify-content-between">
         <div class="col-md-6 col-sm-6 card">
-             <label style="color: black;font-weight: bold;"> {{date('M  Y')}} Tickets </label>
+             <label style="color: black;font-weight: bold;">  Tickets </label>
              <canvas id="tickets_chart" ></canvas>
  
         </div>
 
         <div class="col-md-6 col-sm-6 card">
           <div class="wrapper " style="height: 300px">
-            <label style="color: black;font-weight: bold;">{{date('M  Y')}} PettyCash</label>
+            <label style="color: black;font-weight: bold;"> PettyCash</label>
 
             <canvas id="pettycash_chart" ></canvas>
           </div>
@@ -423,7 +423,7 @@ function getRandomColor() { //generates random colours and puts them in string
             ticks: {min: 0, max:31} ,
             scaleLabel: {
                     display: true,
-                    labelString: '----- Date ----- ',
+                    labelString: '----- <?php echo date('M  Y');?> ----- ',
                     fontColor: '#000', }
                 }],
         }
@@ -441,12 +441,12 @@ var myChart = new Chart(ctx, {
     labels:  <?php echo $ticketArry['tickets_xValue']; ?>,
     datasets: [{
       label: 'Balance Amount',
-      backgroundColor: "#00aaff",
+      backgroundColor: "#1cc8e3",
       lineTension: 0,
      data: <?php echo $pettycashArry['pc_balance'];  ?>,
     }, {
       label: 'Utilized Amount',
-      backgroundColor: "#cceeff",
+      backgroundColor: "#a4e9f4",
       data: <?php echo $pettycashArry['pc_used'] ; ?>,
     }],
   },
@@ -468,7 +468,7 @@ options: {
         },
         scaleLabel: {
                     display: true,
-                    labelString: '----- Date ----- ',
+                    labelString: '----- <?php echo date('M  Y');?> ----- ',
                     fontColor: '#000', }
       }],
       yAxes: [{

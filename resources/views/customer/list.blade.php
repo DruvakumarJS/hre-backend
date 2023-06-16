@@ -17,6 +17,10 @@
             <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import</label></a>
           </div>
 
+          <div id="div2" style="margin-right: 30px" >
+            <a href="{{route('export_customer')}}" class="btn btn-light btn-outline-secondary" href=""><label id="modal">Download CSV</label></a>
+          </div>
+
         @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
         @endif

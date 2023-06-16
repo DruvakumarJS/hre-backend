@@ -8,8 +8,12 @@
         <label class="label-bold" id="div1">Current month Attendance</label>
 
         <div id="div2" style="margin-right: 30px">
-            <a class="btn btn-light" href="{{route('attendance')}}"> View Today's Attendance</a>
+            <a class="btn btn-light btn-outline-secondary" href="{{route('attendance')}}"> View Today's Attendance</a>
 
+        </div>
+
+        <div id="div2" style="margin-right: 30px">
+            <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"> Download</a>
         </div>
 
         <!-- <div id="div2" style="margin-right: 30px">

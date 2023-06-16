@@ -5,17 +5,13 @@ namespace App\Exports;
 use App\Models\Category;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-
+use DB; 
 class ExportCategory implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-     private $id;
-     private $code;
-     private $category;
-     private $material_category;
-
+    
     /* public function __construct($id, $code, $category , $material_category) 
     {
         $this->id = $id;
@@ -26,13 +22,14 @@ class ExportCategory implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return Category::select('category', 'material_category')->get();
+        $cat= DB::table('categories')->select('created_at','category', 'material_category')->get();
+        return $cat ;
     }
 
      public function headings(): array
      {       
        return [
-         'Category','Category code' 
+         'Date','Category','Category code' 
        ];
      }
 }

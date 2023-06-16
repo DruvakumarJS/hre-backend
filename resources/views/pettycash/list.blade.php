@@ -9,6 +9,10 @@
         <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light btn-outline-secondary" href="{{route('create_new')}}"><i class="fa fa-plus"></i> Create New</a>
         </div>
+
+        <div id="div2" style="margin-right: 30px">
+            <a class="btn btn-light btn-outline-secondary" href="{{route('export_pettycash')}}"> Download CSV</a>
+        </div>
 @endif
     </div>
 

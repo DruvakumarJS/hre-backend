@@ -10,7 +10,6 @@
            <div id="div2">
             <a class="btn btn-light btn-outline-secondary" href="{{route('generate-ticket')}}">
              <label id="modal">Generate Ticket </label> </a>
-          
           </div>
           <div id="div2" style="margin-right: 30px">
              <!-- <input class="form-control" type="text" name="search" placeholder="Filter "> -->
@@ -36,7 +35,12 @@
              </form>
             @endif
 
-          </div>       
+          </div> 
+
+          <div id="div2" style="margin-right: 30px">
+            <a class="btn btn-light btn-outline-secondary" href="{{route('export_tickets',$filter)}}">
+             <label id="modal">Download CSV</label> </a>
+          </div>      
        </div>
 
     <div class="page-container"> 
@@ -49,6 +53,7 @@
 	                  <th scope="col">Date</th>
 	                  <th scope="col">Ticket No</th>
 	                  <th scope="col">PCN</th>
+	                  <th scope="col">Billing details</th>
 	                  <th scope="col" width="150px">Department</th>
 	                  <th scope="col" width="150px">Description</th>
 	                 <!--  <th scope="col">Creator</th>  -->
@@ -68,6 +73,7 @@
 	                	<td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
+	                	<td>{{$value->pcns->client_name}} @php echo'<br/>'; @endphp {{$value->pcns->area}},{{$value->pcns->city}}</td>
 	                	<td>{{$value->category}}</td>
 	                	<td>{{$value->issue}}</td>
 	                	 

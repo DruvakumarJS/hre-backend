@@ -8,6 +8,8 @@ use App\Models\Pcn;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Exports\ExportCustomer;
+use Excel;
 
 
 class CustomerController extends Controller
@@ -272,4 +274,6 @@ class CustomerController extends Controller
 
 
     }
+
+   
 }

@@ -171,7 +171,7 @@ class CategoryController extends Controller
 
     public function export(){
       
-          $file_name = 'category.csv';
+         $file_name = 'category.csv';
          return Excel::download(new ExportCategory(), $file_name);
 
     }

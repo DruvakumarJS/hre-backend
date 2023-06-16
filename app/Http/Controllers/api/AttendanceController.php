@@ -180,6 +180,7 @@ class AttendanceController extends Controller
                 $total_hours = $attendance->total_hours;
                 $login_location = $attendance->login_location;
                 $logout_location = $attendance->logout_location;
+                $out_of_work = $attendance->out_of_work;
 
                 if($logout_time == ''){
                     $logout_time = '---';
@@ -203,6 +204,7 @@ class AttendanceController extends Controller
                 $login_time = '---' ;
                 $logout_time = '---';
                 $total_hours = '---';
+                $out_of_work = '---';
 
             }
             $res = [
@@ -211,6 +213,7 @@ class AttendanceController extends Controller
                 'login_location' => '',
                 'logout' => $logout_time,
                 'logout_location' => '',
+                'out_of_work' => $out_of_work,
                 'working_minutes' => $total_hours
 
             ];

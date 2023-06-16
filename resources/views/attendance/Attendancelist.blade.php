@@ -19,9 +19,7 @@
             <a  class="btn btn-light btn-outline-secondary" href="{{route('employee-details')}}"> View Employees</a>
         </div>
 
-        <div id="div2" style="margin-right: 30px">
-            <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"> Download</a>
-        </div>
+        
 
          <!-- <div id="div2" style="margin-right: 20px">
           <input type="hidden" id="loggedin" value="{{Auth::user()->isloggedin}}">
