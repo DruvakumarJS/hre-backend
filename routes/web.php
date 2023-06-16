@@ -139,6 +139,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('edit_intends/{id}',[IntendController::class,'edit'])->name('edit_intends');
     Route::post('update_quantity',[IntendController::class,'update_dispatches'])->name('update_quantity');
     Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');
+    
     Route::get('filter_indents/{filter}',[IntendController::class,'filter_indents'])->name('filter_indents');
     Route::get('create_indent',[IntendController::class,'create'])->name('create_indent');
     Route::get('products',[IntendController::class,'action'])->name('products');

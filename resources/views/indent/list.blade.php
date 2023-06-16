@@ -5,23 +5,36 @@
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Indent</label>
+
+            <!-- <a href="{{route('filter_indents','Active')}}"
+                class="{{request()->routeIs('filter_indents')? 'link-dark active' : ''}}" >
+                <label id="div1" style="margin-left: 50px" class="nav-links">Active11({{$activeCount}})</label></a>
+            -->
+
             
-            <a class="link-dark" href="{{route('filter_indents','all')}}"><label style="margin-left: 50px" class="label-medium" id="div1">All({{$all}})</label></a>
+            <a class="{{request()->routeIs('filter_indents')
+                      ? 'active' : ''}}"
+                       href="{{route('filter_indents','all')}}" > <button class="btn" id="div1" style="margin-left: 50px">All({{$all}})</button> </a>
+
+            <label  style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
+            
+            <a class="{{request()->routeIs('filter_indents')
+                      ? 'active' : ''}}" href="{{route('filter_indents','Active')}}"><button class="btn" id="div1" style="margin-left: 20px">Active({{$activeCount}})</button></a>
+
+
+            <label style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
+            
+             <a class="{{request()->routeIs('filter_indents')
+                      ? 'active' : ''}}" href="{{route('filter_indents','Pending')}}"><button class="btn" id="div1" style="margin-left: 20px;">Pending({{$pendingCount}})</button>
+             </a>
             
 
-            <label  style="margin-left: 20px" class="label-medium" id="div1">|</label>
-            
-            <a class="link-dark" href="{{route('filter_indents','Active')}}"><label style="margin-left: 20px" class="label-medium" id="div1">Active({{$activeCount}})</label></a>
-            
-
-            <label  style="margin-left: 20px" class="label-medium" id="div1">|</label>
-            
-             <a class="link-dark" href="{{route('filter_indents','Pending')}}"><label style="margin-left: 20px" class="label-medium" id="div1">Pending({{$pendingCount}})</label></a>
-            
-
-            <label  style="margin-left: 20px" class="label-medium" id="div1">|</label>
+            <label  style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
           
-            <a class="link-dark" href="{{route('filter_indents','Completed')}}"><label style="margin-left: 20px" class="label-medium" id="div1">Completed({{$compltedCount}})</label></a>
+            <a class="{{request()->routeIs('filter_indents')
+                      ? 'active' : ''}}" href="{{route('filter_indents','Completed')}}">
+              <button class="btn" id="div1" style="margin-left: 20px">Completed({{$compltedCount}})</button>
+              </a>
           
          
           <div id="div2" style="margin-right: 30px">

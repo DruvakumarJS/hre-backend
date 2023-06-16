@@ -17,6 +17,17 @@
         padding-left: 20px;
         font-weight: 600;
         cursor: pointer;
+       
+    }
+}
+
+
+
+.nav-links{
+ padding: 8px;
+    &:hover{
+    background: #f10909;
+
     }
 }
 .userLogin{
@@ -32,15 +43,29 @@
 }
 
 .navbar {
-    background: #fdf2df;
+    background: #000000;
     border-bottom: 1px solid #ffffff;
+
+    .active{
+    .nav-links{
+    background: #f10909;
+    }
+}
+
+    .nav-link{
+        color: #fff;
+    }
+    
     a{
         label{
+            color: #fff;
             cursor: pointer;
             width: fit-content;
         }
     }
 }
+
+
 
 .active{
     label{
@@ -104,3 +129,16 @@
         font-size: 26px;
     }
 }
+
+.circle{
+        filter: invert(1);
+    }
+.userLogin{
+    color: #fff;
+}
+
+
+
+
+
+

@@ -16,8 +16,8 @@ $yvalue=array();
           </div>   
         </div>
        <div class="row">
-                <div class="col-sm-6 col-md-4">
-                    <div class="card border-white card_shadow">
+                <div class="col-sm-6 col-md-4 ">
+                    <div class="card border-white card_shadow" >
                         <div class="card-body">
                             <img src="{{ asset('images/indent.svg') }}" alt="intend" style="width:30px;height: 30px;">
                             <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$todaysIndent}}</h2>
@@ -66,14 +66,15 @@ $yvalue=array();
       
       </div>
  
+     
 <!-- Ticket & Pettycash data -->
       <div class="row justify-content-between">
         <div class="col-md-6 col-sm-6">
 
            <div class="row">
-              <div class="col-sm-5">
+              <div class="col-sm-6">
                 <div class="card border-primary mb-3 card_shadow" style="max-width: 18rem;">
-                  <div class="card-header bg-danger text-white">Over All Tickets</div>
+                  <div class="card-header text-white" style="background-color: #f10909">Over All Tickets</div>
                   <div class="card-body text-black">
                     <div class="form-group">            
                       <div class="col-sm-9">
@@ -104,9 +105,9 @@ $yvalue=array();
                 </div>
               </div>
 
-              <div class="col-sm-5">
+              <div class="col-sm-6">
                 <div class="card text-white bg-white mb-3" style="max-width: 18rem;">
-                  <div class="card-header bg-danger ">Current Month Tickets</div>
+                  <div class="card-header" style="background-color: #f10909">Current Month Tickets</div>
                   <div class="card-body text-black">
                     <div class="form-group">            
                       <div class="col-sm-9">
@@ -144,9 +145,9 @@ $yvalue=array();
         <div class="col-md-6 col-sm-6">
 
           <div class="row">
-              <div class="col-sm-5">
-                <div class="card border-primary mb-3 card_shadow" style="max-width: 18rem;">
-                  <div class="card-header bg-info ">Total PettyCash </div>
+              <div class="col-sm-6">
+                <div class="card text-white border-primary mb-3 card_shadow" style="max-width: 18rem;">
+                  <div class="card-header" style="background-color: #22A699">Total PettyCash </div>
                   <div class="card-body text-black">
                     <div class="form-group">            
                       <div class="col-sm-9">
@@ -177,9 +178,9 @@ $yvalue=array();
                 </div>
               </div>
 
-              <div class="col-sm-5">
-                <div class="card border-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header bg-info">Current Month PettyCash</div>
+              <div class="col-sm-6">
+                <div class="card text-white border-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header" style="background-color: #22A699">Current Month PettyCash</div>
                   <div class="card-body text-black">
                     <div class="form-group">            
                       <div class="col-sm-9">
@@ -218,25 +219,29 @@ $yvalue=array();
 
 <!-- Ticket & Pettycash Graph -->
       <div class="row justify-content-between">
-        <div class="col-md-6 col-sm-6 card">
-             <label style="color: black;font-weight: bold;">  Tickets </label>
+        <div class="col-md-6 col-sm-6" >
+          <div class="card h-100">
+             <label style="color: black;font-weight: bold;"> Tickets </label>
              <canvas id="tickets_chart" ></canvas>
- 
+          </div>
         </div>
 
-        <div class="col-md-6 col-sm-6 card">
+        <div class="col-md-6 col-sm-6">
+          <div class="card h-100">
           <div class="wrapper " style="height: 300px">
             <label style="color: black;font-weight: bold;"> PettyCash</label>
 
             <canvas id="pettycash_chart" ></canvas>
           </div>
+        </div>
           
         </div>
         
       </div>
-<!-- PCN & Pie chart -->
+
+      <!-- PCN & Pie chart -->
  @if(sizeof($result)>0)  
-      <div class="row justify-content-between">
+      <div class="row justify-content-between div-margin">
         <div class="col-md-6 col-sm-6">
           <div class="card border-white" style="height: 350px">
 
@@ -308,7 +313,11 @@ $yvalue=array();
         </div>
         
       </div>
- @endif  
+ @endif 
+
+ 
+
+
 
    
   </div>
@@ -385,7 +394,7 @@ function getRandomColor() { //generates random colours and puts them in string
           label: 'Tickets raised',  
           fill: false,
           lineTension: 0,
-          backgroundColor: "<?php echo 'red';  ?>",
+          backgroundColor: "<?php echo '#f10909';  ?>",
           borderColor: "rgba(0,0,255,0.1)",
           data: yValues
         },
@@ -441,7 +450,7 @@ var myChart = new Chart(ctx, {
     labels:  <?php echo $ticketArry['tickets_xValue']; ?>,
     datasets: [{
       label: 'Balance Amount',
-      backgroundColor: "#1cc8e3",
+      backgroundColor: "#22A699",
       lineTension: 0,
      data: <?php echo $pettycashArry['pc_balance'];  ?>,
     }, {
