@@ -256,10 +256,6 @@ class MaterialController extends Controller
          return redirect()->route('materials');
     }
 
-    public function export($filter){
-       
-        return Excel::download(new ExportMaterial($filter) ,'Materials.csv' );
-    }
 
     function action(Request $request)
     {

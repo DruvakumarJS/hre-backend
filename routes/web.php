@@ -131,7 +131,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('save_pcn',[PcnController::class,'store'])->name('save_pcn');
     Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
     Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');
-    Route::get('export-pcn',[PcnController::class,'export'])->name('export-pcn');
+   
 
 
     Route::get('indents',[IntendController::class,'index'])->name('intends');
@@ -168,8 +168,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
 
     Route::post('add_attendance',[AttendanceController::class,'store'])->name('add_attendance');
     Route::post('attendance',[AttendanceController::class,'fetch_data'])->name('fetch_attendance');
-    Route::post('export_attendance',[AttendanceController::class,'export'])->name('export_attendance');
-    Route::get('download_attendance',[AttendanceController::class,'month_report'])->name('download_monthly_attendance');
+    
     Route::post('update_attendance',[AttendanceController::class,'update'])->name('update_attendance');
 
  //petty cash
@@ -205,21 +204,19 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('delete_product/{id}',[MaterialController::class,'destroy'])->name('delete_product');
     Route::get('edit_product/{id}',[MaterialController::class,'edit'])->name('edit_product');
     Route::post('update_product',[MaterialController::class,'update'])->name('update_product');
-    Route::get('export-material/{filter}',[MaterialController::class,'export'])->name('export-materials');
     Route::get('uoms',[MaterialController::class,'action'])->name('uoms');
 
     Route::get('settings/Material-master',[CategoryController::class, 'index'])->name('materials_master');
     Route::post('create_category',[CategoryController::class, 'create'])->name('create-category');
     Route::get('delete_category/{id}',[CategoryController::class, 'destroy'])->name('delete_category');
     Route::post('update-category',[CategoryController::class, 'update'])->name('update-category');
-    Route::get('export',[CategoryController::class , 'export'])->name('export-categories');
+    
 
     Route::get('superadmins',[UserController::class, 'view_superadmins'])->name('admin');
     Route::get('managers',[UserController::class, 'view_managers'])->name('manager');
     Route::get('supervisors',[UserController::class, 'view_supervisors'])->name('supervisor');
     Route::get('procurement',[UserController::class, 'view_procurement'])->name('procurement');
     Route::get('finance',[UserController::class, 'view_finance'])->name('finance');
-    Route::get('export-users/{role}',[UserController::class , 'export'])->name('export-users');
    
     Route::get('create_customer' ,[CustomerController::class,'create'])->name('create_customer');
     Route::post('save_customer' ,[CustomerController::class,'store'])->name('save_customer');
@@ -259,9 +256,18 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('import_material',[ImportController::class,'importmaterial'])->name('import_material');
 
     Route::get('export_customer',[ExportController::class,'customer'])->name('export_customer');
+    Route::get('export-pcn',[ExportController::class,'pcn'])->name('export-pcn');
     Route::get('export_indent/{id}',[ExportController::class,'indent'])->name('export_indent');
     Route::get('export_tickets/{filter}',[ExportController::class,'ticket'])->name('export_tickets');
     Route::get('export_pettycash',[ExportController::class,'pettycash'])->name('export_pettycash');
+    Route::post('export_attendance',[ExportController::class,'attendance'])->name('export_attendance');
+    Route::get('download_attendance',[ExportController::class,'month_report'])->name('download_monthly_attendance');
+    Route::get('export-users/{role}',[ExportController::class , 'users'])->name('export-users');
+    Route::get('export',[ExportController::class , 'category'])->name('export-categories');
+    Route::get('export-material/{filter}',[ExportController::class,'material'])->name('export-materials');
+
+
+
 
 
 

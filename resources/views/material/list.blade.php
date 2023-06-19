@@ -114,7 +114,7 @@
                            
                         </div>
                     </div>
-                    <button class="btn btn-primary">Import</button>
+                    <button class="btn btn-danger">Import</button>
                     
                 </form>
               </div>

@@ -76,7 +76,7 @@ $yvalue=array();
 
           <div class="row justify-content-between m-2" >
             <div class="col-md-5 div-margin " style="border:2px solid purple; ">
-              <div class="text-black label-bold align-items-center d-flex justify-content-center">OverAll</div>
+              <div class="text-black label-bold align-items-center d-flex justify-content-center">Overall</div>
 
               <div class="card-body text-black">
                     <div class="form-group">            
@@ -118,7 +118,7 @@ $yvalue=array();
                       <div class="col-sm-9">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label class="label-bold">Raised : </label>
+                            <label class="label-bold">Raised  </label>
                              <label style="margin-left: 10px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['m_tickets']}}</label>
                           </div>
@@ -132,7 +132,7 @@ $yvalue=array();
                       <div class="col-sm-9">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label class="label-bold">Closed : </label>
+                            <label class="label-bold">Closed  </label>
                              <label style="margin-left: 10px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['m_closed']}}</label>
                           </div>
@@ -158,14 +158,14 @@ $yvalue=array();
           <div class="row justify-content-between m-2" >
             <div class="col-md-5 div-margin"  style="border:2px solid #22A699; ">
              
-               <div class="text-black label-bold align-items-center d-flex justify-content-center">OverAll</div>
+               <div class="text-black label-bold align-items-center d-flex justify-content-center">Overall</div>
              
               <div class="card-body text-black">
                     <div class="form-group">            
                       <div class="col-sm-12">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label class="label-bold">Balance  : </label>
+                            <label class="label-bold">Balance  </label>
                              <label style="margin-left: 10px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['o_alloted']}}</label>
                           </div>
@@ -179,7 +179,7 @@ $yvalue=array();
                       <div class="col-sm-12">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label class="label-bold">Utilized : </label>
+                            <label class="label-bold">Utilized  </label>
                              <label style="margin-left: 10px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['o_used']}}</label>
                           </div>
@@ -201,8 +201,9 @@ $yvalue=array();
                       <div class="col-sm-12">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label class="label-bold">Balance  : </label>
-                            <label >{{$counts_array['m_alloted']}}</label>
+                            <label class="label-bold">Balance   </label>
+                            <label style="margin-left: 10px"> : </label>
+                            <label style="margin-left: 10px">{{$counts_array['m_alloted']}}</label>
                           </div>
                           
                         </div>
@@ -214,8 +215,9 @@ $yvalue=array();
                       <div class="col-sm-12">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label class="label-bold" >Utilized : </label>
-                            <label >{{$counts_array['m_used']}}</label>
+                            <label class="label-bold" >Utilized </label>
+                            <label style="margin-left: 10px"> : </label>
+                            <label style="margin-left: 10px">{{$counts_array['m_used']}}</label>
                           </div>
                           
                         </div>

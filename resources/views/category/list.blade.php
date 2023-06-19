@@ -56,7 +56,7 @@
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">SAVE</button>
+                    <button type="submit" class="btn btn-danger">SAVE</button>
                   </div>
                 </form>
               </div>
@@ -84,7 +84,7 @@
                            
                         </div>
                     </div>
-                    <button class="btn btn-primary">Import</button>
+                    <button class="btn btn-danger">Import</button>
                     
                 </form>
               </div>
@@ -172,7 +172,7 @@
 
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                          <button type="submit" class="btn btn-primary">Update</button>
+                                          <button type="submit" class="btn btn-danger">Update</button>
                                         </div>
                                       </form>
                                     </div>
@@ -224,7 +224,7 @@ $(document).ready(function(){
 
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                          <button type="submit" class="btn btn-primary">SAVE</button>
+                                          <button type="submit" class="btn btn-danger">SAVE</button>
                                         </div>
                                       </form>
                                     </div>

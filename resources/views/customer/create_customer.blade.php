@@ -142,7 +142,7 @@
 
        <div class="row">
           <div class="col-7">
-              <button class="btn btn-primary div-margin" type="submit" value="submit">SUBMIT</button>
+              <button class="btn btn-danger div-margin" type="submit" value="submit">SUBMIT</button>
               <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-success div-margin">Add Location </button>
           </div>
       </div> 
