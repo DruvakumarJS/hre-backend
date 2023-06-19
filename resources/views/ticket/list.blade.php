@@ -13,7 +13,7 @@
           </div>
           <div id="div2" style="margin-right: 30px">
              <!-- <input class="form-control" type="text" name="search" placeholder="Filter "> -->
-            @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '3' )
+            @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' )
              <form method="post" action="{{route('filter')}}">
              	@csrf
              <div class="input-group mb-3">
@@ -94,11 +94,10 @@
 	                	
 	                	<td>{{$value->status}} <?php echo '<br>';echo($value->reopened == '1') ? 'Re-Opened':'' ?></td>
 	                	
-	                	<td>
+	                	<td style="text-align: center; ">
 	                		@if($value->filename != '')
 	                		<a href="#" id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"><i class="fa fa-eye" style="color:black"></i></a>
 
-                            <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> 
 	                		@endif
 	                	</td>
 	                	
@@ -125,23 +124,27 @@
 	                	</td>
 	                </tr>
 
-	                <!-- Modal -->
+        <!-- Modal -->
 
-                              <div class="modal" id="modal_{{$key}}" >
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel">Attachment</h5>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
+                  <div class="modal" id="modal_{{$key}}" >
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Attachment</h5>
+                          @if($value->filename != '')
+        		
+                <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> 
+        		@endif
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
 
-                                       <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value->filename}}" alt="ticketimage" style="width: 400px;height: 250px" />
-                                      
-                                    </div>
-                    </div>
-                  </div>
-                </div>
+                           <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value->filename}}" alt="ticketimage" style="width: 400px;height: 250px" />
+                          
+                        </div>
+        </div>
+      </div>
+    </div>
 
 <!--  end Modal -->
 

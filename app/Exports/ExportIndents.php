@@ -27,7 +27,7 @@ class ExportIndents implements FromCollection , WithHeadings
     { 
        $att= DB::table('indent_lists')
         ->select(
-            'intends.created_at',
+            DB::raw("DATE_FORMAT(indent_lists.created_at, '%d-%m-%Y') as formatted_dob"),
             'intends.indent_no',
             'intends.pcn',
             'pcns.client_name',

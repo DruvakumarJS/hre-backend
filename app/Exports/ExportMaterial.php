@@ -22,7 +22,7 @@ class ExportMaterial implements FromCollection , WithHeadings
     public function collection()
     {
         if($this->filter=="all"){
-            $material =  DB::table('materials')->select('created_at','item_code', 'category_id' , 'name' , 'brand' , 'uom' , 'information')->get();
+            $material =  DB::table('materials')->select(DB::raw("DATE_FORMAT(`created_at`, '%d-%m-%Y') as date"),'item_code', 'category_id' , 'name' , 'brand' , 'uom' , 'information')->get();
 
         }
         else{

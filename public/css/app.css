@@ -38,7 +38,7 @@
 }
 
 .navbar {
-  background: #000000;
+  background: #373435;
   border-bottom: 1px solid #ffffff;
 }
 .navbar .active .nav-links {
@@ -109,7 +109,7 @@
 }
 
 .circle {
-  filter: invert(1);
+  filter: invert(1) brightness(1);
 }
 
 .userLogin {

@@ -81,9 +81,9 @@
                                     <td>{{date("d-m-Y", strtotime($value->bill_date))}}</td>
                                     <td>
                                         @if($value->filename != '')
-                                        <a target="_blank" href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-eye"></i></a> 
+                                        <a target="_blank" href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-eye" style="color: black"></i></a> 
 
-                                        <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> 
+                                        <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px;color: black"></i></a> 
                                         @endif
                                     </td>
                                     @if($value->isapproved == '0')

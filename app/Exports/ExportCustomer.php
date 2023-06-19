@@ -14,7 +14,7 @@ class ExportCustomer implements FromCollection, WithHeadings
     */
     public function collection()
     {
-         $customer =  DB::table('customers')->select('created_at','name', 'brand' , 'email' ,'mobile' ,'telephone')->get();
+         $customer =  DB::table('customers')->select(DB::raw("DATE_FORMAT(`created_at`, '%d-%m-%Y') as date"),'name', 'brand' , 'email' ,'mobile' ,'telephone')->get();
 
          return $customer;
 

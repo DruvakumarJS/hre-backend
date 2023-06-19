@@ -26,8 +26,9 @@ class ExportUsers implements FromCollection , WithHeadings
             $Emp = Employee::select( DB::raw("DATE_FORMAT(`created_at`, '%Y-%m-%d') as date") , 'employee_id' , 'name' , 'email' , 'mobile' )->get();
         }
         else{
-            return Employee::select( DB::raw("DATE_FORMAT(`created_at`, '%Y-%m-%d') as date") , 'employee_id' , 'name' , 'email' , 'mobile' )->where('role',$this->role)->get();
+            $Emp = Employee::select( DB::raw("DATE_FORMAT(`created_at`, '%Y-%m-%d') as date") , 'employee_id' , 'name' , 'email' , 'mobile' )->where('role',$this->role)->get();
         }
+        return $Emp;
         
     }
 

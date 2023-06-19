@@ -103,6 +103,7 @@
                     <a href="{{route('pettycash')}}"
                     class="{{request()->routeIs('pettycash')
                     ||request()->routeIs('edit_pettycash')
+                    ||request()->routeIs('create_new')
                     ||request()->routeIs('details_pettycash')
                     ||request()->routeIs('update_bill_status')
                       ? 'active' : ''}}">
@@ -334,9 +335,9 @@
                             @endif
                         @else
 
-                             <div class="dropdown">
+                                <!-- <div class="dropdown">
 
-                                    <a data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/help.svg')}}" style="width: 20px;height: 20px;margin-right: 20px"> </a>
+                                  
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         
                                         <li><a class="dropdown-item" download href="{{asset('apk/HRETest.apk')}}">Download Android App</a></li>
@@ -345,9 +346,9 @@
                                 </div>
 
                             
-                             <a href=""> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a>
+                          <a href=""> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a>
 
-                             <a href=""> <img class="circle" src="{{asset('images/mail.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
+                             <a href=""> <img class="circle" src="{{asset('images/mail.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a> -->
 
                              @if(Auth::user()->role_id == 1)
                                 <div class="dropdown">
@@ -371,7 +372,7 @@
                                 </div>
                              @endif
 
-                             <a href=""> <img class="circle" src="{{asset('images/person.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
+                             <a href=""> <img class="circle" src="{{asset('images/persons.svg')}}" style="width: 20px;height: 20px;margin-left: 30px;"> </a>
 
                             <div class="userLogin">
                                 <h4> {{ Auth::user()->name }}</h4>

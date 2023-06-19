@@ -15,7 +15,7 @@ class ExportPettycash implements FromCollection, WithHeadings
     public function collection()
     {
         $att= DB::table('pettycashes')
-        ->select('pettycashes.created_at',
+        ->select(DB::raw("DATE_FORMAT(pettycashes.created_at, '%d-%m-%Y') as formatted_dob"),
         	     'users.name',
         	     'pettycashes.total',
         	     'pettycashes.comments',

@@ -4,6 +4,10 @@
 <div class="container">
 	<div class="container-header">
             <label class="label-bold" id="div1">Dashboard</label>
+
+            <div id="div2">
+            <a  class="btn border border-secondary label-bold" > {{date('d M Y')}}</a>
+          </div> 
                  
         </div>
 
@@ -26,7 +30,7 @@
 
 
                  <div class="col-sm-6 col-md-4" >
-                    <div class="card border-black" style="background-color: #242424">
+                    <div class="card border-black" style="background-color: #373435">
                         <div class="card-body" >
                             <img src="{{ asset('images/attendance.svg') }}" alt="attendance" style="width:30px;height: 30px;">
                             <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">{{$attendance}}</h2>

@@ -26,6 +26,7 @@ class ExportTicket implements FromCollection, WithHeadings
         if($this->filter == 'all'){
         	 $att= DB::table('tickets')
            ->select(
+             DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
             'tickets.created_at',
         		'tickets.ticket_no' ,
         		'tickets.pcn' ,
