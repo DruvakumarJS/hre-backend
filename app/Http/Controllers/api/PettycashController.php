@@ -114,7 +114,7 @@ class PettycashController extends Controller
      	if(isset($request->user_id) && isset($request->pettycash_id)){
 
      		$data = PettyCashDetail::where('pettycash_id' , $request->pettycash_id)->orderBy('id', 'DESC')->get();
-
+        $myspent = PettyCashDetail::where('pettycash_id' , $request->pettycash_id)->where('isapproved','!=' , '2')->sum('spent_amount');
      		$details=array();
 
      		foreach ($data as $key => $value) {
@@ -137,6 +137,7 @@ class PettycashController extends Controller
             'transaction_ref' => $value->billing_no,
             'bill_date' => $value->bill_date,
      				'spent_amount' => $value->spent_amount ,
+            'my_spend' => $myspent ,
             'purpose' => $value->purpose,
             'pcn' => $value->pcn,
      				'comments' => $value->comments, 

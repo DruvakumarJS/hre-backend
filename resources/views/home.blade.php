@@ -129,7 +129,7 @@ $yvalue=array();
 
         <div class="col-md-6 col-sm-6">
           <div class="card border-white" style="height: 350px">
-               <label>Pending Intends</label>
+               <label class="label-bold">Pending Intends</label>
                          
                <div>
                  <canvas id="myChart" ></canvas>
@@ -397,7 +397,8 @@ function getRandomColor() { //generates random colours and puts them in string
    var xValues = <?php echo $ticketArry['tickets_xValue']; ?>;
    var yValues = <?php echo $ticketArry['tickets_yValue']; ?>;
    var tickets_closed_yValue= <?php echo $ticketArry['tickets_closed_yValue']; ?>;
-   
+   Chart.defaults.global.defaultFontStyle = 'bold';
+
    
     new Chart("tickets_chart", {
       type: "bar",
@@ -434,11 +435,14 @@ function getRandomColor() { //generates random colours and puts them in string
                 },
         legend: {display: true},
         scales: {
+          pointLabels :{
+           fontStyle: "bold",
+            },
           yAxes: [{
             gridLines: {
              drawOnChartArea: false },
 
-            ticks: {min: 0, max:10} ,
+            ticks: {min: 0} ,
             scaleLabel: {
                     display: true,
                     labelString: 'Number of Tickets',
@@ -502,7 +506,7 @@ options: {
       yAxes: [{
         stacked: true,
         ticks: {
-          beginAtZero: false,
+          beginAtZero: true,
            autoSkip: true,
         },
         gridLines: {

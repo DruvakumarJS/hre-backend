@@ -30,10 +30,17 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label for="text" class="col-5 col-form-label">Project Code *</label>
                             <div class="col-7">
-                                <input id="text" name="pcn" type="number" class="form-control" required="required" value="{{old('pcn')}}" placeholder="Enter PCN">
+                               <!--  <input id="text" name="pcn" type="number" class="form-control" required="required" value="{{old('pcn')}}" placeholder="Enter PCN">
                                      @error('pcn')
                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                 @enderror
+                                 @enderror -->
+                                 <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1">PCN_</span>
+                                    </div>
+                                    <input id="text" name="pcn" type="number" class="form-control" required="required" placeholder="Enter PCN">
+                                    
+                                  </div>
                             </div>
                         </div>
                         <div class="form-group row">

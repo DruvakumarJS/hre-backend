@@ -29,10 +29,13 @@
                         <div class="form-group row">
                             <label for="text" class="col-5 col-form-label">Project Code</label>
                             <div class="col-7">
+                             
                                 <input id="text" name="pcn" type="text" class="form-control" required="required" value="{{$pcn_data->pcn}}" readonly="readonly">
                                      @error('pcn')
                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                  @enderror
+
+                                 
                             </div>
                         </div>
                         <div class="form-group row">
@@ -99,7 +102,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
-                                <input id="start_date" name="start_date" type="text" class="form-control" value="{{$pcn_data->proposed_start_date}}" placeholder="YYYY-MM-DD" >
+                                <input id="start_date" name="start_date" type="text" class="form-control" value="{{$pcn_data->proposed_start_date}}" placeholder="YYYY-MM-DD" autocomplete="off">
                                 
                             </div>
 
@@ -107,7 +110,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project End Date</label>
                             <div class="col-7"  >
-                                <input id="end_date" name="end_date" type="text" class="form-control" value="{{$pcn_data->proposed_end_date}}" placeholder="YYYY-MM-DD" onclick="set_enddate()" >
+                                <input id="end_date" name="end_date" type="text" class="form-control" value="{{$pcn_data->proposed_end_date}}" placeholder="YYYY-MM-DD" onclick="set_enddate()" autocomplete="off">
                                 
                             </div>
                         </div>
@@ -125,20 +128,20 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Targeted Days</label>
                             <div class="col-7">
-                                <input id="" name="target_date" type="text" class="form-control" value="{{$pcn_data->targeted_days}}">
+                                <input id="" name="target_date" type="text" class="form-control" value="{{$pcn_data->targeted_days}}" placeholder="Targeted Days">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">
-                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" value="{{$pcn_data->actual_start_date}}" placeholder="YYYY-MM-DD">
+                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" value="{{$pcn_data->actual_start_date}}" placeholder="YYYY-MM-DD" autocomplete="off">
                                 
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Completed Date</label>
                             <div class="col-7">
-                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" value="{{$pcn_data->actual_completed_date}}" placeholder="YYYY-MM-DD" onclick="set_actual_enddate()">
+                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" value="{{$pcn_data->actual_completed_date}}" placeholder="YYYY-MM-DD" onclick="set_actual_enddate()" autocomplete="off">
                                  
                             </div>
                         </div>
@@ -231,6 +234,24 @@ $( document ).ready(function() {
 
 });
 
+        var s_date = document.getElementById('start_date').value;
+        if(s_date!=''){
+           $("#end_date" ).datepicker({
+           minDate:document.getElementById('start_date').value,
+            dateFormat: 'yy-mm-dd'
+          });
+        }
+
+
+         var s_date = document.getElementById('start_date').value;
+        if(s_date!=''){
+           $("#actual_end_date" ).datepicker({
+           minDate:document.getElementById('actual_start_date').value,
+            dateFormat: 'yy-mm-dd'
+          });
+        }
+        
+
   
 });
 
@@ -306,16 +327,25 @@ $( document ).ready(function() {
   <script language="javascript">
 
     $( function() {
-      $( "#start_date" ).datepicker({
+      $("#start_date").datepicker({
        minDate:0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText, $el) {
-         // alert(dateText);
+         
           setenddate(dateText);
           
         }
       });
     });
+
+    function setenddate(dateText){
+     
+         $("#end_date").datepicker({
+           minDate:'2023-06-30',
+            dateFormat: 'yy-mm-dd'
+          });
+      
+     }
 
   
  $( function() {
@@ -330,6 +360,16 @@ $( document ).ready(function() {
         }
       });
     });
+
+ function setactualenddate(dateText){
+         $("#actual_end_date" ).datepicker({
+           minDate:dateText,
+            dateFormat: 'yy-mm-dd'
+          });
+      
+     }
+
+
   
      function set_enddate(){
 

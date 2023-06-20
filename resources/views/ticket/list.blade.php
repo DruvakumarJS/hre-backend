@@ -112,7 +112,7 @@
                             @endif
 
 	                		 @if($value->status == 'Created')
-	                		 <a href=""><button class="btn btn-light btn-outline-grey btn-sm" disabled="" >More Info</button></a>
+	                		 <a href=""><button class="btn-light btn-outline-grey btn-sm" disabled="" >More Info</button></a>
 
 	                		 @else
 	                		 <a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm" >More Info</button></a>
