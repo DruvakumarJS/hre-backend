@@ -120,7 +120,7 @@
 
                     <div class="form-group ">
                             <label class="label-bold">Bill Date :</label> <label>{{date("d-m-Y", strtotime($value->bill_date))}}</label>
-                            <textarea name="remarks" placeholder="Enter Remarks here" style="width: 100%;padding: 10px"></textarea> 
+                            <textarea name="remarks" placeholder="Enter Remarks here" style="width: 100%;padding: 10px" required></textarea> 
                            
                        
                     </div>

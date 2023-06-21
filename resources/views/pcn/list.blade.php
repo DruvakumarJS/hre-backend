@@ -31,7 +31,7 @@
                               <th scope="col">Date</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Billing Name</th>
-                              <th scope="col">Customer Email</th>
+                              <th scope="col">Email</th>
                               <th scope="col">Address</th>
                               @if(Auth::user()->id == '1')
                               <th scope="col">Status</th>

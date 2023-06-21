@@ -12,7 +12,7 @@ $yvalue=array();
        <div class="container-header">
             <label class="label-bold" id="div1">Dashboard</label>      
           <div id="div2">
-            <a style="margin-right: 30px" class="btn border border-secondary label-bold" > {{date('d M Y')}}</a>
+            <span class="badge badge-danger border border-secondary label-bold" style="color: black;margin-right: 30px">{{date('d M Y')}}</span>
           </div>   
         </div>
        <div class="row">

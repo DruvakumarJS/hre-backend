@@ -53,7 +53,7 @@
 	                  <th scope="col">Date</th>
 	                  <th scope="col">Ticket No</th>
 	                  <th scope="col">PCN</th>
-	                  <th scope="col">Billing details</th>
+	                  <th scope="col">Billing Details</th>
 	                  <th scope="col" width="150px">Department</th>
 	                  <th scope="col" width="150px">Description</th>
 	                 <!--  <th scope="col">Creator</th>  -->

@@ -27,4 +27,8 @@ class Pettycash extends Model
     function pettycsah_details(){
         return $this->hasMany(PettyCashDetail::class,'id', 'pettycash_id');
     }
+
+    function details(){
+        return $this->hasMany(PettyCashDetail::class, 'pettycash_id' , 'id');
+    }
 }

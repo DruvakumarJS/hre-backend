@@ -34,29 +34,35 @@
                 </tr>
                 </thead>
                 <tbody>
-                	@foreach($data as $key=>$value)
-                	<tr>
-                		<td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                		<td>{{$value->employee->employee_id}}</td>
-                		<td>{{$value->employee->name}}</td>
-                		<td>{{$value->employee->mobile}}</td>
-                		<td>{{$value->employee->user->roles->alias}}</td>
-                		<td><span>&#8377;</span>{{$value->total}}</td>
-                		<td><span>&#8377;</span>{{$value->remaining}}</td>
+                    @foreach($data as $key=>$value)
+                    <tr>
+                        <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
+                        <td>{{$value->employee->employee_id}}</td>
+                        <td>{{$value->employee->name}}</td>
+                        <td>{{$value->employee->mobile}}</td>
+                        <td>{{$value->employee->user->roles->alias}}</td>
+                        <td><span>&#8377;</span>{{$value->total}}</td>
+                        <td><span>&#8377;</span>{{$value->remaining}}</td>
                         <td>{{$value->mode}}</td>
-                		<td>
+                        @php
+                         $size = sizeof($value->details);
+                        @endphp
+                        <td>
                             @if(Auth::user()->role == 'admin' || Auth::user()->role == 'finance')
-                			<a href="{{route('edit_pettycash',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
+                            <a href="{{route('edit_pettycash',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
                             @else 
                             <a href="{{route('pettycash_expenses',$value->id)}}"><button class="btn btn-light btn-sm btn-outline-danger">Upload Expenses</button></a>
                             @endif
-                			<a href="{{route('details_pettycash',$value->id)}}"><button class="btn btn-light btn-sm btn-outline-success">Details</button></a>
+                            <a href="{{route('details_pettycash',$value->id)}}"><button class="btn btn-light btn-sm btn-outline-success">Details</button></a>
+                            @if($size!=0)
+                            <i class="fa fa-clock-o " style="color: red;width: 2px ; height: 2px ; margin-left: 10px"></i>
+                             @endif
 
-                			
-                		</td>
-                	</tr>
+                        </td>
+                        
+                    </tr>
 
-                	@endforeach
+                    @endforeach
 
                    
                 </tbody>

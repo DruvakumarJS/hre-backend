@@ -27,10 +27,16 @@ class PettycashController extends Controller
         $user = Auth::user();
 
         if($user->role == 'admin' || $user->role == 'finance'){
-            $data = Pettycash::orderBy('id', 'DESC')->paginate(10);
+            $data = Pettycash::with(['details' => function ($query) {
+                    $query->where('isapproved', '=', 0);
+                }])->orderBy('id', 'DESC')->paginate();
+            
+              //  print_r(json_encode($data)); die();
         }
         else {
-            $data = Pettycash::where('user_id', $user->id )->orderBy('id', 'DESC')->paginate(10);
+            $data = Pettycash::with(['details' => function ($query) {
+                    $query->where('isapproved', '=', 0);
+                }])->where('user_id', $user->id )->orderBy('id', 'DESC')->paginate(10);
         }
          
 

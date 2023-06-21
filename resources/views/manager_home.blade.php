@@ -10,7 +10,7 @@
             <label class="label-bold" id="div1">Dashboard</label>
 
              <div id="div2">
-            <a  class="btn border border-secondary label-bold" > {{date('d M Y')}}</a>
+            <span class="badge badge-danger border border-secondary label-bold" style="color: black;margin-right: 30px">{{date('d M Y')}}</span>
           </div> 
            
         </div>

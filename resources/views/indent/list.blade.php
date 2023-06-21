@@ -22,12 +22,12 @@
                       ? 'active' : ''}}" href="{{route('filter_indents','Active')}}"><button class="btn" id="div1" style="margin-left: 20px">Active({{$activeCount}})</button></a>
 
 
-            <label style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
+            <!-- <label style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
             
              <a class="{{request()->routeIs('filter_indents')
                       ? 'active' : ''}}" href="{{route('filter_indents','Pending')}}"><button class="btn" id="div1" style="margin-left: 20px;">Pending({{$pendingCount}})</button>
              </a>
-            
+             -->
 
             <label  style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
           
@@ -83,7 +83,7 @@
                                 <td> 
                                   <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button btn-sm">View</button></a>
 
-                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('export_indent',$value->id)}}" style="margin-left: 10px"><i class='fa fa-download'></i></a>
+                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('export_indent',$value->id)}}" style="margin-left: 10px; color: black"><i class='fa fa-download'></i></a>
                                 </td>
                                 
                               </tr>

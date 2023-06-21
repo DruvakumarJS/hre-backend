@@ -80,7 +80,7 @@
                         </tr>
 
                     </table>
-                    <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary div-margin">Add </button>
+                    <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-danger div-margin">Add </button>
                   </div>
                <div class="div-margin">
                 <button type="submit" class="btn btn-danger btn-sm mt-auto ">Add Material</button>
