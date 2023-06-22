@@ -10,10 +10,12 @@
              <label id="modal">View Detailed PCN </label> </a>
           
           </div>
+          @if(Auth::user()->role_id == 1)
           <div id="div2" style="margin-right: 30px">
              <a class="btn btn-light btn-outline-secondary" href="{{route('create_pcn')}}"><i class="fa fa-plus"></i> 
              <label id="modal">Create PCN</label></a>
           </div>
+          @endif
 
             
         </div>

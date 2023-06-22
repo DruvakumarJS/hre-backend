@@ -7,15 +7,16 @@
       
       <div class="container-header">
             <label class="label-bold" id="div1">Customers / Clients</label>
+          @if(Auth::user()->role_id == 1)  
          <div id="div2">
            <a class="btn btn-light btn-outline-secondary" href="{{route('create_customer')}}"><i class="fa fa-plus"></i>
-             <label id="modal">Create Customer</label></a>
-              
+             <label id="modal">Create Customer</label></a>   
          </div>
 
           <div id="div2" style="margin-right: 30px" >
             <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import</label></a>
           </div>
+          @endif
 
           <div id="div2" style="margin-right: 30px" >
             <a href="{{route('export_customer')}}" class="btn btn-light btn-outline-secondary" href=""><label id="modal">Download CSV</label></a>

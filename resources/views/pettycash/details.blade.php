@@ -64,7 +64,7 @@
                                 <th>Amount Utilised</th>
                                 <th>Purpose</th>
                                 <th width="200px">Description</th>
-                                <th>Bill date</th>
+                                <th>Bill Date</th>
                                 <th>Proof of Expense</th>
                                 <th>Status</th>
                                 <th width="200px">Remarks</th>

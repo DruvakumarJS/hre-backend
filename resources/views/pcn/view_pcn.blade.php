@@ -8,10 +8,12 @@
            <div id="div2">
             <a href="{{route('PCN')}}"><button class="btn btn-light btn-outline-secondary" >View PCN</button></a>
           </div>
+          @if(Auth::user()->role_id == 1)
           <div id="div2" style="margin-right: 30px">
             <a href="{{route('create_pcn')}}">
              <button class="btn btn-light btn-outline-secondary" ><i class="fa fa-plus"></i>  Create PCN</button> </a>
           </div>
+          @endif
 
            <div id="div3" style="margin-right: 30px">
              <a href="{{route('export-pcn')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>

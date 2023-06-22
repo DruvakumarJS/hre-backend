@@ -47,9 +47,11 @@
                    class="list-group-item  py-2 ripple {{ request()->routeIs('customer-dashboard')
                    ? 'active' : '' }}"
                    >
-                  <img  src="{{asset('images/logo.svg')}}" style="width: 100px;height: 100px;">
-               </a>
+                  <img  src="{{asset('images/logo2.svg')}}" style="width: 100px;height: 100px;margin-top: 20px; margin-left: 10px">
 
+               </a>
+               <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 15px;margin-top: -5px;transform: translateX(-19px);">One Stop Solution</span>
+               
 
 
 

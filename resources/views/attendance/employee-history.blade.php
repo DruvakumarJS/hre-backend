@@ -191,7 +191,7 @@ $(function() {
      output += '<td>' + data[count].out_of_work + '</td>';
      output += '<td>' + data[count].total_hours + '</td>';
     
-     output += '<td>' + '@if(Auth::user()->role_id == 2)<button type="button" value='+data[count].date+' id="editdate'+count+'" data-date="'+dates+'" class="btn btn-sm btn-light btn-outline-secondary" onclick="edit('+count+')">Edit</button>@endif'+'</td></tr>';
+     output += '<td>' + '@if((Auth::user()->role_id == 1)OR (Auth::user()->role_id == 5) )<button type="button" value='+data[count].date+' id="editdate'+count+'" data-date="'+dates+'" class="btn btn-sm btn-light btn-outline-secondary" onclick="edit('+count+')">Edit</button>@endif'+'</td></tr>';
    
     }
     $('tbody').html(output);

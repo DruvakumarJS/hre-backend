@@ -53,9 +53,9 @@
                 </a> -->
 
                @if(Auth::user()->role_id == 1)
-               <div class="d-flex flex-column text-center">
+               <div class="d-flex flex-column text-center" >
                    <a href="{{route('home')}}">
-                    <img class="logo" src="{{asset('images/logo.svg')}}">
+                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
                   </a>
                    <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
@@ -114,7 +114,7 @@
 
                 <div class="d-flex flex-column text-center">
                    <a href="{{route('finance_home')}}">
-                    <img class="logo" src="{{asset('images/logo.svg')}}">
+                    <img class="logo" src="{{asset('images/logo2.svg')}}">
                   </a>
                    <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
@@ -172,7 +172,7 @@
 
                 <div class="d-flex flex-column text-center">
                    <a href="{{route('manager_home')}}">
-                    <img class="logo" src="{{asset('images/logo.svg')}}">
+                    <img class="logo" src="{{asset('images/logo2.svg')}}">
                   </a>
                    <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
@@ -229,7 +229,7 @@
 
                 <div class="d-flex flex-column text-center">
                    <a href="{{route('procurement_home')}}">
-                    <img class="logo" src="{{asset('images/logo.svg')}}">
+                    <img class="logo" src="{{asset('images/logo2.svg')}}">
                   </a>
                    <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
@@ -271,7 +271,7 @@
 
                 <div class="d-flex flex-column text-center">
                    <a href="{{route('supervisor_home')}}">
-                    <img class="logo" src="{{asset('images/logo.svg')}}">
+                    <img class="logo" src="{{asset('images/logo2.svg')}}">
                   </a>
                    <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>

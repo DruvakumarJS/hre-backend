@@ -111,7 +111,7 @@ $yvalue=array();
             </div>
 
             <div class="col-md-5 div-margin"  style="border:2px solid purple; ">
-              <div class="text-black label-bold align-items-center d-flex justify-content-center">Current Month</div>
+              <div class="text-black label-bold align-items-center d-flex justify-content-center">Current Month - MTD</div>
               <div class="card-body text-black">
             
                     <div class="form-group">            
@@ -165,8 +165,8 @@ $yvalue=array();
                       <div class="col-sm-12">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label class="label-bold">Balance  </label>
-                             <label style="margin-left: 10px"> : </label>
+                            <label class="label-bold">Issued  </label>
+                             <label style="margin-left: 35px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['o_alloted']}}</label>
                           </div>
                           
@@ -179,7 +179,7 @@ $yvalue=array();
                       <div class="col-sm-12">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label class="label-bold">Utilized  </label>
+                            <label class="label-bold">Approved  </label>
                              <label style="margin-left: 13px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['o_used']}}</label>
                           </div>
@@ -194,15 +194,15 @@ $yvalue=array();
 
             <div class="col-md-5 div-margin"  style="border:2px solid #22A699; ">
               
-            <div class="text-black label-bold align-items-center d-flex justify-content-center">Current Month</div>
+            <div class="text-black label-bold align-items-center d-flex justify-content-center">Current Month - MTD</div>
              
               <div class="card-body text-black">
                     <div class="form-group">            
                       <div class="col-sm-12">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label class="label-bold">Balance   </label>
-                            <label style="margin-left: 10px"> : </label>
+                            <label class="label-bold">Issued   </label>
+                            <label style="margin-left: 35px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['m_alloted']}}</label>
                           </div>
                           
@@ -215,7 +215,7 @@ $yvalue=array();
                       <div class="col-sm-12">
                         <div class="row mx-md-n5">
                           <div class="col">
-                            <label class="label-bold" >Utilized </label>
+                            <label class="label-bold" >Approved </label>
                             <label style="margin-left: 13px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['m_used']}}</label>
                           </div>
@@ -441,7 +441,7 @@ function getRandomColor() { //generates random colours and puts them in string
             gridLines: {
              drawOnChartArea: false },
 
-            ticks: {min: 0} ,
+            ticks: {min: 0 , max:20} ,
             scaleLabel: {
                     display: true,
                     labelString: 'Number of Tickets',
