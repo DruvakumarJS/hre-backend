@@ -53,13 +53,13 @@
                 </a> -->
 
                @if(Auth::user()->role_id == 1)
-
-               <a
-                href="{{route('home')}}"
-                   >
-                  <img class="logo" src="{{asset('images/logo.svg')}}">
-               </a>
-
+               <div class="d-flex flex-column text-center">
+                   <a href="{{route('home')}}">
+                    <img class="logo" src="{{asset('images/logo.svg')}}">
+                  </a>
+                   <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               </div>
+             
                <div class="navigation">
                     <a href="{{route('view_customers')}}"
                      class="{{request()->routeIs('view_customers')
@@ -112,11 +112,12 @@
 
                @elseif(Auth::user()->role_id == 5)
 
-               <a
-                href="{{route('finance_home')}}"
-                   >
-                  <img class="logo" src="{{asset('images/logo.svg')}}">
-               </a>
+                <div class="d-flex flex-column text-center">
+                   <a href="{{route('finance_home')}}">
+                    <img class="logo" src="{{asset('images/logo.svg')}}">
+                  </a>
+                   <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               </div>
 
                <div class="navigation">
                     <a href="{{route('view_customers')}}"
@@ -169,11 +170,12 @@
 
                @elseif(Auth::user()->role_id == 2)
 
-               <a
-                href="{{route('manager_home')}}"
-                   >
-                  <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
-               </a>
+                <div class="d-flex flex-column text-center">
+                   <a href="{{route('manager_home')}}">
+                    <img class="logo" src="{{asset('images/logo.svg')}}">
+                  </a>
+                   <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               </div>
 
 
                <div class="navigation">
@@ -225,11 +227,12 @@
 
                @elseif(Auth::user()->role_id == 3)
 
-               <a
-                href="{{route('procurement_home')}}"
-                   >
-                  <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
-               </a>
+                <div class="d-flex flex-column text-center">
+                   <a href="{{route('procurement_home')}}">
+                    <img class="logo" src="{{asset('images/logo.svg')}}">
+                  </a>
+                   <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               </div>
 
                <div class="navigation">
                     <a href="{{route('intends')}}"
@@ -261,18 +264,17 @@
                     ||request()->routeIs('update_bill_status')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
-
-                    
-                      
+     
                </div>
 
                 @elseif(Auth::user()->role_id == 4)
 
-                <a
-                href="{{route('procurement_home')}}"
-                   >
-                  <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
-               </a>
+                <div class="d-flex flex-column text-center">
+                   <a href="{{route('supervisor_home')}}">
+                    <img class="logo" src="{{asset('images/logo.svg')}}">
+                  </a>
+                   <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               </div>
 
                <div class="navigation">
                     <a href="{{route('intends')}}"

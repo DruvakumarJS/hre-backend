@@ -98,7 +98,7 @@ $yvalue=array();
                         <div class="row mx-md-n5">
                           <div class="col">
                             <label class="label-bold">Closed  </label>
-                             <label style="margin-left: 10px"> : </label>
+                             <label style="margin-left: 8px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['o_closed']}}</label>
                           </div>
                           
@@ -133,7 +133,7 @@ $yvalue=array();
                         <div class="row mx-md-n5">
                           <div class="col">
                             <label class="label-bold">Closed  </label>
-                             <label style="margin-left: 10px"> : </label>
+                             <label style="margin-left: 8px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['m_closed']}}</label>
                           </div>
                           
@@ -180,7 +180,7 @@ $yvalue=array();
                         <div class="row mx-md-n5">
                           <div class="col">
                             <label class="label-bold">Utilized  </label>
-                             <label style="margin-left: 10px"> : </label>
+                             <label style="margin-left: 13px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['o_used']}}</label>
                           </div>
                           
@@ -216,7 +216,7 @@ $yvalue=array();
                         <div class="row mx-md-n5">
                           <div class="col">
                             <label class="label-bold" >Utilized </label>
-                            <label style="margin-left: 10px"> : </label>
+                            <label style="margin-left: 13px"> : </label>
                             <label style="margin-left: 10px">{{$counts_array['m_used']}}</label>
                           </div>
                           
@@ -269,7 +269,7 @@ $yvalue=array();
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Customer Name</th>
+                              <th scope="col">Billing Name</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Pending Indent</th>
                              
@@ -476,7 +476,7 @@ var myChart = new Chart(ctx, {
       lineTension: 0,
      data: <?php echo $pettycashArry['pc_balance'];  ?>,
     }, {
-      label: 'Utilized Amount',
+      label: 'Approved Amount',
       backgroundColor: "#a4e9f4",
       data: <?php echo $pettycashArry['pc_used'] ; ?>,
     }],
