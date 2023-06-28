@@ -22,6 +22,7 @@ use App\Http\Controllers\PettyCashDetailController;
 use App\Http\Controllers\RestoreController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -266,6 +267,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('export',[ExportController::class , 'category'])->name('export-categories');
     Route::get('export-material/{filter}',[ExportController::class,'material'])->name('export-materials');
 
+    Route::get('show-notification/{id}',[NotificationController::class,'index'])->name('notification');
+    Route::get('view-notification',[NotificationController::class,'show'])->name('view_notification');
 
 
 

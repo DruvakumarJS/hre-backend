@@ -74,7 +74,7 @@ class PettycashController extends Controller
             'reference_number' => $request->refernce
         ]);
 
-        if($craete){
+        if($craete){ 
             return redirect()->route('pettycash');
 
         }

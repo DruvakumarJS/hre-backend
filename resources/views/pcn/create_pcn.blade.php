@@ -49,12 +49,12 @@ $date = date('dd-mm-yyyy');
                                 <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" placeholder="Search by Billing name">
                             </div>
                         </div>
-                        <div class="form-group row">
+                       <!--  <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Brand Name *</label>
                             <div class="col-7">
                                 <input id="brand" name="brand" type="text" class="form-control" readonly="readonly" required="required">
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Type of Work *</label>
 
@@ -82,23 +82,43 @@ $date = date('dd-mm-yyyy');
 
  -->
                         <div class="form-group row">
-                             <label for="" class="col-5 col-form-label">Location *</label>
+                             <label for="" class="col-5 col-form-label">Brand *</label>
                              <div class="col-7 " id="location" >
                                  <input  class="form-control" type="text" required="required" readonly="readonly">
                              </div>
                         </div>
                        
+                       <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Location *</label>
+                            <div class="col-7">
+                                <input  class="form-control" type="text" name="loc" required >
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Building / Area *</label>
+                            <div class="col-7">
+                                <input  class="form-control" type="text" name="building" required >
+                            </div>
+                        </div>
                     
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">City *</label>
                             <div class="col-7">
-                                <input id="city" class="form-control" type="text" name="city" readonly="readonly">
+                                <input  class="form-control" type="text" name="city" required >
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">State *</label>
                             <div class="col-7">
                                <input id="state" class="form-control" type="text" name="state" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">GST *</label>
+                            <div class="col-7">
+                               <input id="gst" class="form-control" type="text" name="gst" readonly="readonly">
                             </div>
                         </div>
 
@@ -120,10 +140,22 @@ $date = date('dd-mm-yyyy');
                                
                         </div>
                          </div>
-                        <div class="form-group row">
+                       <!--  <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Targeted Days</label>
                             <div class="col-7">
                                 <input id="" name="target_date" type="text" class="form-control">
+                            </div>
+                        </div> -->
+
+                         <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Provide Holiday</label>
+                            <div class="col-7">
+                                <select class="form-control form-select"  name="holiday">
+                                  <option value="">Select </option>
+                                  <option value="Yes"  >Yes</option>
+                                  <option value="No" >No</option>
+                                  
+                                </select>
                             </div>
                         </div>
                         
@@ -143,17 +175,12 @@ $date = date('dd-mm-yyyy');
                         </div>
                          </div>
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Project Hold Days</label>
+                            <label for="" class="col-5 col-form-label">Project Hold Days / Holidays</label>
                             <div class="col-7">
                                 <input id="" name="hold_days" type="number" class="form-control" value = '0'>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="text2" class="col-5 col-form-label">Actual Days Achived</label>
-                            <div class="col-7">
-                                <input id="text2" name="days_achieved" type="text" class="form-control">
-                            </div>
-                        </div>
+                        
                         <input type="hidden" name="customer_id" id="customer_id">
                         <div class="form-group row">
                             <div class="offset-5 col-7">
@@ -191,17 +218,18 @@ $( document ).ready(function() {
         },
         select: function (event, ui) {
            $('#client_name').val(ui.item.label);
-            $('#brand').val(ui.item.brand);
+            //$('#brand').val(ui.item.brand);
             $('#customer_id').val(ui.item.id);
 
            var address = ui.item.address ;
            console.log(address); 
 
-     var location = '<select class="form-control form-select" name="area" required="required"> <option value=""> Select Area</option>'
+     var location = '<select class="form-control form-select" name="brand" required="required"> <option value=""> Select Brand</option>'
           address.forEach(function(item) {
                // console.log('III==',item)A
-               var name = item.area;
-               location +=" <option data-city="+item.city+" data-state="+item.state+" value='"+name+"'>"+ name +" </option>";
+               var name = item.brand + " " + item.state;
+               var brand = item.brand ;
+               location +=" <option data-gst="+item.gst+" data-state="+item.state+" value='"+brand+"'>"+ name +" </option>";
        });
           location += '</select>'; 
         
@@ -214,8 +242,9 @@ $( document ).ready(function() {
     
         $(document).on('change','#location select',function(){
   
-               $('#city').val($(this).find(':selected').attr('data-city'));
+              // $('#city').val($(this).find(':selected').attr('data-city'));
                $('#state').val($(this).find(':selected').attr('data-state'));
+               $('#gst').val($(this).find(':selected').attr('data-gst'));
 
 });
 

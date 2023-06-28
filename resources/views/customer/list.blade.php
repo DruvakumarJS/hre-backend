@@ -42,7 +42,6 @@
                             <tr>
                               <th scope="col">Date</th>
                               <th scope="col">Billing Name</th>
-                              <th scope="col">Brand</th>
                               <th scope="col">Email</th>
                               <th scope="col">Mobile</th>
                               <!-- <th scope="col" width="200px">Address</th> -->
@@ -57,7 +56,6 @@
                             <tr>
                               <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->name}}</td>
-                              <td>{{$value->brand}}</td>
                               <td>{{$value->email}}</td>
                               <td>{{$value->mobile}}</td>
                              <!--  <td>

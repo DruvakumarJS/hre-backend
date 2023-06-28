@@ -49,6 +49,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+       // print_r($request->Input()); die();
        
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
@@ -67,10 +68,15 @@ class CustomerController extends Controller
            
            $customer = Customer::create([
             'name' => $request->name,
-            'brand' => $request->brand,
             'mobile' => $request->mobile ,
+            'mobile1' => $request->mobile1 ,
+            'mobile2' => $request->mobile2 ,
+            'mobile3' => $request->mobile3 ,
             'email' => $request->email ,
-            'telephone' => $request->tel, 
+            'email1' => $request->email1 ,
+            'email2' => $request->email2 ,
+            'email3' => $request->email3 ,
+           
            ]);
 
            if($customer){
@@ -82,8 +88,7 @@ class CustomerController extends Controller
             foreach ($customer_address as $key => $value) {
                $addres = Address::create([
                 'customer_id'=> $customer_id->id ,
-                'area' => $value['area'] , 
-                'city' => $value['city'] , 
+                'brand' => $value['brand'] , 
                 'state' => $value['state'] ,
                 'gst' => $value['gst'] 
 
@@ -138,24 +143,28 @@ class CustomerController extends Controller
 
         $update_customer = Customer::where('id', $request->id)->update([
             'name' => $request->name,
-            'brand' => $request->brand,
             'mobile' => $request->mobile ,
+            'mobile1' => $request->mobile1 ,
+            'mobile2' => $request->mobile2 ,
+            'mobile3' => $request->mobile3 ,
             'email' => $request->email ,
-            'telephone' => $request->tel
+            'email1' => $request->email1 ,
+            'email2' => $request->email2 ,
+            'email3' => $request->email3 ,
+           
             ]);
 
         if($update_customer){
 
             foreach ($request->address as $key => $value) {
 
-                if(isset($value['area']) && isset($value['city']) && isset($value['state']) ){
+                if(isset($value['brand']) && isset($value['state']) && isset($value['gst']) ){
 
                 if(isset($value['id'])){
 
                      if(Address::where('id',$value['id'])->first()->exists()){
                   $update=Address::where('id',$value['id'])->update([
-                    'area' => $value['area'] , 
-                    'city' => $value['city'] , 
+                    'brand' => $value['brand'] ,
                     'state' => $value['state'],
                     'gst' => $value['gst']]);
                }
@@ -163,8 +172,7 @@ class CustomerController extends Controller
                
                 $addres = Address::create([
                     'customer_id'=> $request->id ,
-                    'area' => $value['area'] , 
-                    'city' => $value['city'] , 
+                    'brand' => $value['brand'] ,
                     'state' => $value['state'],
                     'gst' => $value['gst']   
 
@@ -177,8 +185,7 @@ class CustomerController extends Controller
 
                 $addres = Address::create([
                     'customer_id'=> $request->id,
-                    'area' => $value['area'] , 
-                    'city' => $value['city'] , 
+                    'brand' => $value['brand'] ,
                     'state' => $value['state'],
                     'gst' => $value['gst']  ]); 
 

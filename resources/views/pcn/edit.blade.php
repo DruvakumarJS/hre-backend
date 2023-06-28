@@ -44,12 +44,7 @@
                                 <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" value="{{$pcn_data->client_name}}" readonly="readonly">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Brand Name</label>
-                            <div class="col-7">
-                                <input id="brand" name="brand" type="text" class="form-control" readonly="readonly" required="required" value="{{$pcn_data->brand}}" readonly="readonly">
-                            </div>
-                        </div>
+                       
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Type of Work</label>
                             <div class="col-7">
@@ -75,8 +70,22 @@
                         </div>
 
  -->
-                        <div class="form-group row">
+                         <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Brand Name</label>
+                            <div class="col-7">
+                                <input id="brand" name="brand" type="text" class="form-control" readonly="readonly" required="required" value="{{$pcn_data->brand}}" readonly="readonly">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
                              <label for="" class="col-5 col-form-label">Location</label>
+                             <div class="col-7 " id="location" >
+                                 <input  class="form-control" type="text" name="location" required="required" value="{{$pcn_data->location}}" readonly="readonly">
+                             </div>
+                        </div>
+
+                        <div class="form-group row">
+                             <label for="" class="col-5 col-form-label">Building / Area</label>
                              <div class="col-7 " id="location" >
                                  <input  class="form-control" type="text" name="area" required="required" value="{{$pcn_data->area}}" readonly="readonly">
                              </div>
@@ -93,6 +102,13 @@
                             <label for="" class="col-5 col-form-label">State</label>
                             <div class="col-7">
                                <input id="state" class="form-control" type="text" name="state" value="{{$pcn_data->state}}" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">GST</label>
+                            <div class="col-7">
+                               <input id="state" class="form-control" type="text" name="gst" value="{{$pcn_data->gst}}" readonly="readonly">
                             </div>
                         </div>
 
@@ -125,12 +141,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Targeted Days</label>
-                            <div class="col-7">
-                                <input id="" name="target_date" type="text" class="form-control" value="{{$pcn_data->targeted_days}}" placeholder="Targeted Days">
-                            </div>
-                        </div>
+                        
                         <div class="form-group row">
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">

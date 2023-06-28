@@ -13,7 +13,11 @@ $yvalue=array();
             <label class="label-bold" id="div1">Dashboard</label>      
           <div id="div2">
            
-           <span class="badge badge-danger border border-secondary label-bold" style="color: black;margin-right: 30px">{{date('d M Y')}}</span>
+          <!--  <span id="timestamp"  class="badge badge-danger border border-secondary label-bold" style="color: black;margin-right: 30px"></span> -->
+           <div  class="badge badge-danger border border-secondary label-bold" style="margin-right: 30px">
+             <span style="color: black;">{{date('d M Y')}}</span>
+           <span id="current-time-now" data-start="<?php echo time() ?>" style="color: black;"></span>
+           </div>
 
           </div>   
         </div>
@@ -21,14 +25,13 @@ $yvalue=array();
                 <div class="col-sm-6 col-md-4 ">
                     <div class="card border-white card_shadow" >
                         <div class="card-body">
-                            <img src="{{ asset('images/indent.svg') }}" alt="intend" style="width:30px;height: 30px;">
+                            <img src="{{ asset('images/indent.png') }}" alt="intend" style="width:30px;height: 30px;">
                             <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$todaysIndent}}</h2>
                         </div>
                         <div  >
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Indents</h4>
-                           
                         </div >
-                        <label class="card-text-label "></label>
+                        <label class="card-text-label ">Today's Indent</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -36,7 +39,7 @@ $yvalue=array();
 
 
                  <div class="col-sm-6 col-md-4" >
-                    <div class="card border-black card_shadow" style="background-color: #373435">
+                    <div class="card border-black card_shadow" style="background-color: #5A5A5A">
                         <div class="card-body" >
                             <img src="{{ asset('images/attendance.svg') }}" alt="attendance" style="width:30px;height: 30px;">
                             <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">{{$attendance}}</h2>
@@ -45,7 +48,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #fff; font-weight: bold; font-size: 25px">Attendance</h4>
                            
                         </div >
-                        <label class="card-text-label" style="color:#fff"></label>
+                        <label class="card-text-label" style="color:#fff">Today's Head Count</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -61,7 +64,7 @@ $yvalue=array();
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Tickets</h4>
                            
                         </div >
-                        <label class="card-text-label "></label>
+                        <label class="card-text-label ">Today's Ticket</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -148,7 +151,7 @@ $yvalue=array();
       <div class="row justify-content-between">
         <div class="col-md-6 col-sm-6">
           <div class="card border border-black card_shadow">
-          <div class="card-header text-white label-bold  align-items-center d-flex justify-content-center" style="background-color: purple;">Tickets</div>
+          <div class="card-header text-white label-bold  align-items-center d-flex justify-content-center" style="background-color: #f10909;">Tickets</div>
 
           <div class="row justify-content-between m-2" >
             <div class="col-md-5 div-margin " style="border:2px solid purple; ">
@@ -229,7 +232,7 @@ $yvalue=array();
         <div class="col-md-6 col-sm-6">
            <div class="card border border-black card_shadow">
 
-          <div class="card-header text-white label-bold align-items-center d-flex justify-content-center" style="background-color: #22A699">Petty Cash</div>
+          <div class="card-header text-white label-bold align-items-center d-flex justify-content-center" style="background-color: #5A5A5A">Petty Cash</div>
 
           <div class="row justify-content-between m-2" >
             <div class="col-md-5 div-margin"  style="border:2px solid #22A699; ">
@@ -416,7 +419,7 @@ function getRandomColor() { //generates random colours and puts them in string
           label: 'Tickets raised',  
           fill: false,
           lineTension: 0,
-          backgroundColor: "<?php echo 'purple' ;  ?>",
+          backgroundColor: "<?php echo '#f10909' ;  ?>",
           borderColor: "rgba(0,0,255,0.1)",
           data: yValues
         },
@@ -424,7 +427,7 @@ function getRandomColor() { //generates random colours and puts them in string
           label: 'Tickets Closed',  
           fill: false,
           lineTension: 0,
-          backgroundColor: "<?php echo '#D7A1f9';  ?>",
+          backgroundColor: "<?php echo '#f0c6c3';  ?>",
           borderColor: "rgba(0,0,255,0.1)",
           data: tickets_closed_yValue
         },
@@ -475,12 +478,12 @@ var myChart = new Chart(ctx, {
     labels:  <?php echo $ticketArry['tickets_xValue']; ?>,
     datasets: [{
       label: 'Balance Amount',
-      backgroundColor: "#22A699",
+      backgroundColor: "#5A5A5A",
       lineTension: 0,
      data: <?php echo $pettycashArry['pc_balance'];  ?>,
     }, {
       label: 'Approved Amount',
-      backgroundColor: "#a4e9f4",
+      backgroundColor: "#eeeeee",
       data: <?php echo $pettycashArry['pc_used'] ; ?>,
     }],
   },
@@ -526,6 +529,24 @@ options: {
     legend: { position: 'top' },
   }
 });
+
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var freshTime = new Date(parseInt($("#current-time-now").attr("data-start"))*1000);
+    //loop to tick clock every second
+    var func = function myFunc() {
+        //set text of clock to show current time
+        $("#current-time-now").text(freshTime.toLocaleTimeString());
+        //add a second to freshtime var
+        freshTime.setSeconds(freshTime.getSeconds() + 1);
+        //wait for 1 second and go again
+        setTimeout(myFunc, 1000);
+    };
+    func();
+});
+
 
 </script>
 

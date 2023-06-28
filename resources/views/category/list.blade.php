@@ -109,6 +109,7 @@
                               <th>Date</th>
                               <th scope="col">Category</th>
                               <th scope="col">Category Code</th>
+                              <th scope="col">Description</th>
                               <th scope="col">Products</th>
                               <th >Action</th>
                             
@@ -121,7 +122,7 @@
                               <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->category}}</td>
                               <td>{{$value->material_category}}</td>
-                              
+                              <td>{{$value->description}}</td>
                               <td>
                                 <a href="{{route('add_product',$value->code)}}"><label class="btn btn-light btn-outline-secondary  btn-sm">Add Product</label></a>
                                 <a href="{{route('view_products',$value->code)}}"><label class="btn btn-light btn-outline-secondary btn-sm">View Product</label></a>   
@@ -166,7 +167,7 @@
                                         
                                         <div class="mb-3">
                                           <label for="message-text" class="col-form-label">Description (optional)</label>
-                                          <textarea class="form-control" id="desc" name="desc" ></textarea>
+                                          <textarea class="form-control" id="desc" name="desc" >{{$value->description}}</textarea>
                                         </div>
                                         <input type="hidden" name="id" value="{{$value->id}}">
 

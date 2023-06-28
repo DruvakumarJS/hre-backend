@@ -19,7 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('category');
             $table->string('material_category');
             $table->string('description')->nullable();
-            
+            $table->softDeletes();
             $table->timestamps();
         });
     }

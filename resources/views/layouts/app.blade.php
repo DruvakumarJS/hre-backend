@@ -38,9 +38,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-
-  
-
 </head>
 
 <body class="body-background">
@@ -54,11 +51,17 @@
 
                @if(Auth::user()->role_id == 1)
                <div class="d-flex flex-column text-center" >
-                   <a href="{{route('home')}}">
+                   
                     <img class="logo" src="{{asset('images/logo2.svg')}}" >
-                  </a>
-                   <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+                 
+                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
+
+               <a href="{{route('home')}}"
+                     class="{{request()->routeIs('home')
+                      ? 'active' : ''}}"
+                    >
+                      <label class="nav-links">Home</label></a>
              
                <div class="navigation">
                     <a href="{{route('view_customers')}}"
@@ -112,12 +115,18 @@
 
                @elseif(Auth::user()->role_id == 5)
 
-                <div class="d-flex flex-column text-center">
-                   <a href="{{route('finance_home')}}">
-                    <img class="logo" src="{{asset('images/logo2.svg')}}">
-                  </a>
-                   <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+                <div class="d-flex flex-column text-center" >
+                   
+                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
+                 
+                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
+
+               <a href="{{route('finance_home')}}"
+                     class="{{request()->routeIs('finance_home')
+                      ? 'active' : ''}}"
+                    >
+                      <label class="nav-links">Home</label></a>
 
                <div class="navigation">
                     <a href="{{route('view_customers')}}"
@@ -170,12 +179,18 @@
 
                @elseif(Auth::user()->role_id == 2)
 
-                <div class="d-flex flex-column text-center">
-                   <a href="{{route('manager_home')}}">
-                    <img class="logo" src="{{asset('images/logo2.svg')}}">
-                  </a>
-                   <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               <div class="d-flex flex-column text-center" >
+                   
+                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
+                 
+                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
+
+               <a href="{{route('manager_home')}}"
+                     class="{{request()->routeIs('manager_home')
+                      ? 'active' : ''}}"
+                    >
+                      <label class="nav-links">Home</label></a>
 
 
                <div class="navigation">
@@ -227,12 +242,18 @@
 
                @elseif(Auth::user()->role_id == 3)
 
-                <div class="d-flex flex-column text-center">
-                   <a href="{{route('procurement_home')}}">
-                    <img class="logo" src="{{asset('images/logo2.svg')}}">
-                  </a>
-                   <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               <div class="d-flex flex-column text-center" >
+                   
+                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
+                 
+                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
+
+               <a href="{{route('procurement_home')}}"
+                     class="{{request()->routeIs('procurement_home')
+                      ? 'active' : ''}}"
+                    >
+                      <label class="nav-links">Home</label></a>
 
                <div class="navigation">
                     <a href="{{route('intends')}}"
@@ -269,12 +290,18 @@
 
                 @elseif(Auth::user()->role_id == 4)
 
-                <div class="d-flex flex-column text-center">
-                   <a href="{{route('supervisor_home')}}">
-                    <img class="logo" src="{{asset('images/logo2.svg')}}">
-                  </a>
-                   <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               <div class="d-flex flex-column text-center" >
+                   
+                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
+                 
+                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
+
+               <a href="{{route('supervisor_home')}}"
+                     class="{{request()->routeIs('supervisor_home')
+                      ? 'active' : ''}}"
+                    >
+                      <label class="nav-links">Home</label></a>
 
                <div class="navigation">
                     <a href="{{route('intends')}}"
@@ -336,21 +363,10 @@
                                 </li>
                             @endif
                         @else
+                           
+                          
+                            <!--  <a href="{{route('notification', Auth::user()->id)}}" class="notification"> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a> -->
 
-                                <!-- <div class="dropdown">
-
-                                  
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        
-                                        <li><a class="dropdown-item" download href="{{asset('apk/HRETest.apk')}}">Download Android App</a></li>
-                                     
-                                    </ul>
-                                </div>
-
-                            
-                          <a href=""> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a>
-
-                             <a href=""> <img class="circle" src="{{asset('images/mail.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a> -->
 
                              @if(Auth::user()->role_id == 1)
                                 <div class="dropdown">
@@ -369,6 +385,7 @@
                                             <li><a class="dropdown-item" href="{{route('restore-material')}}">Materials</a></li>
                                           </ul>  
                                         </li> 
+                                       
 
                                     </ul>
                                 </div>

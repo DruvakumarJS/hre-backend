@@ -212,6 +212,9 @@ class TicketController extends Controller
                     'reopened' => '1'
                      ]);
 
+              $ticket = Ticket::where('id',$request->id)->first();
+
+             
         }
         else {
            
@@ -224,6 +227,16 @@ class TicketController extends Controller
                     'priority' => $request->priority,
                     'tat' => $request->tat
                      ]);
+
+             $ticket = Ticket::where('id',$request->id)->first();
+             
+             if($request->status == 'Pending'){
+                   $msg = 'Ticket no '.$ticket->ticket_no .' is assigned to you';
+             }
+             else if($request->status == 'Completed'){
+                 $msg = 'Ticket no '.$ticket->ticket_no .' is Completed and closed';
+             }
+            
 
         }
 /*

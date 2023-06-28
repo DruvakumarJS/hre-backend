@@ -156,7 +156,6 @@ class IntendController extends Controller
 
 
 
-
      }
      else {
         return redirect()->back()->withMessage('Please Choose Materials ');
@@ -304,7 +303,6 @@ class IntendController extends Controller
                 'dispatched' => $request->quantity,
                 'status' => "Awaiting for Confirmation"
             ]);
-
 
             return redirect()->route('edit_intends',$request->id)
                             ->withmessage('GRN created successfully');

@@ -56,7 +56,8 @@ class PcnController extends Controller
      */
     public function store(Request $request)
     {
-
+     // print_r($request->Input()); die();
+       
         if($request->start_date == ''){
             $start_date = date('Y-m-d');
         }
@@ -84,6 +85,17 @@ class PcnController extends Controller
                      
         }
         else {
+            $targeted_days='';
+
+            if($request->end_date != ""){
+                 $end = strtotime($request->end_date);
+                $start = strtotime($request->start_date);
+                $days = $end - $start ; 
+
+                $total_days = round($days / (60 * 60 * 24)); 
+                $targeted_days = $total_days - $request->hold_days ;
+
+            }
 
 
             $createPCN = Pcn::create([
@@ -92,17 +104,18 @@ class PcnController extends Controller
                 'client_name' => $request->client_name,
                 'brand' => $request->brand ,
                 'work' => $request->work,
-                'area' => $request->area,
+                'location' => $request->loc,
+                'area' => $request->building,
                 'city' => $request->city,
                 'state' => $request->state,
+                'gst' => $request->gst ,
                 'proposed_start_date' => $start_date,
                 'proposed_end_date' => $request->end_date,
-                'approve_holidays' => "",
-                'targeted_days' => $request->target_date,
+                'approve_holidays' => $request->holiday,
+                'targeted_days' => $targeted_days,
                 'actual_start_date' => $actual_start_date,
                 'actual_completed_date' => $request->actual_end_date,
                 'hold_days' => $request->hold_days,
-                'days_acheived' => $request->days_achieved,
                 'assigned_to' => $request->user_id,
                 'status' => "Active",
                 'owner' => $request->user_id,
@@ -175,6 +188,17 @@ class PcnController extends Controller
 
         }
 
+         if($request->end_date != ""){
+                $end = strtotime($request->end_date);
+                $start = strtotime($request->start_date);
+                $days = $end - $start ; 
+
+                $total_days = round($days / (60 * 60 * 24)); 
+                $targeted_days = $total_days - $request->hold_days ;
+
+            }
+
+
     
 
             $updatePCN = Pcn::where('pcn' ,$request->pcn)->update([
@@ -188,7 +212,7 @@ class PcnController extends Controller
                 'proposed_start_date' => $request->start_date,
                 'proposed_end_date' => $request->end_date,
                 'approve_holidays' => $request->holiday,
-                'targeted_days' => $request->target_date,
+                'targeted_days' => $targeted_days,
                 'actual_start_date' => $request->actual_start_date,
                 'actual_completed_date' => $request->actual_end_date,
                 'hold_days' => $request->hold_days,
@@ -234,7 +258,7 @@ class PcnController extends Controller
     function action(Request $request)
     {
     
-        $data = Customer::select("name as value", "id" , "brand")
+        $data = Customer::select("name as value", "id" )
                     ->with("address")
                     ->where('name', 'LIKE', '%'. $request->get('search'). '%')
                     ->get();
