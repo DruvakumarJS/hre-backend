@@ -16,10 +16,7 @@ $date = date('dd-mm-yyyy');
 
           </div>
          
-         @if(Session::has('message'))
-            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
-          @endif 
-
+         
         </div>
         <div class="form-build">
             <div class="row">
@@ -38,9 +35,13 @@ $date = date('dd-mm-yyyy');
                                     <div class="input-group-prepend">
                                       <span class="input-group-text" id="basic-addon1">PCN_</span>
                                     </div>
-                                    <input id="text" name="pcn" type="number" class="form-control" required="required" placeholder="Enter PCN">
-                                    
+                                    <input id="text" name="pcn" type="number" class="form-control" required="required" placeholder="Enter PCN" value="{{old('pcn')}}">
+                                   
                                   </div>
+                                  @if(Session::has('message'))
+                                   <div class="alert alert-danger mt-1 mb-1">{{ Session::get('message') }}</div>
+                                 @endif
+
                             </div>
                         </div>
                         <div class="form-group row">
@@ -150,12 +151,19 @@ $date = date('dd-mm-yyyy');
                          <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Provide Holiday</label>
                             <div class="col-7">
-                                <select class="form-control form-select"  name="holiday">
+                                <select class="form-control form-select" id="holiday" name="holiday" >
                                   <option value="">Select </option>
-                                  <option value="Yes"  >Yes</option>
+                                  <option value="Yes">Yes</option>
                                   <option value="No" >No</option>
                                   
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label id="lbl_approve" for="" class="col-5 col-form-label" style="display: none">Approved Holidays</label>
+                            <div class="col-7" id="">
+                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value = '0' style="display: none">
                             </div>
                         </div>
                         
@@ -175,7 +183,7 @@ $date = date('dd-mm-yyyy');
                         </div>
                          </div>
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Project Hold Days / Holidays</label>
+                            <label for="" class="col-5 col-form-label">Actual Hold Days , Holidays</label>
                             <div class="col-7">
                                 <input id="" name="hold_days" type="number" class="form-control" value = '0'>
                             </div>
@@ -227,7 +235,7 @@ $( document ).ready(function() {
      var location = '<select class="form-control form-select" name="brand" required="required"> <option value=""> Select Brand</option>'
           address.forEach(function(item) {
                // console.log('III==',item)A
-               var name = item.brand + " " + item.state;
+               var name = item.brand + " , " + item.state;
                var brand = item.brand ;
                location +=" <option data-gst="+item.gst+" data-state="+item.state+" value='"+brand+"'>"+ name +" </option>";
        });
@@ -247,6 +255,28 @@ $( document ).ready(function() {
                $('#gst').val($(this).find(':selected').attr('data-gst'));
 
 });
+
+
+
+
+      var mode = document.getElementById("holiday").value;
+
+     $('select').on('change', function() {
+
+         if(this.value == "Yes"){
+            document.getElementById("lbl_approve").style.display= "block" ;
+            document.getElementById("inp_approve").style.display= "block" ;
+            document.getElementById("inp_approve").required = true;
+
+         }
+         else {
+            document.getElementById("lbl_approve").style.display= "none" ;
+            document.getElementById("inp_approve").style.display= "none" ;
+            document.getElementById("inp_approve").required = false;
+         }
+   
+     });
+
 
   
 });

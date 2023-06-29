@@ -75,9 +75,9 @@ $yvalue=array();
  @if(sizeof($result)>0)  
       <div class="row justify-content-between">
         <div class="col-md-6 col-sm-6">
-          <div class="card border-white" style="height: 350px">
+          <div class="card overflow-auto border-white" style="height: 350px">
 
-                        <table class="table">
+                        <table class="table" >
                           <thead>
                             <tr>
                               <th scope="col">Billing Name</th>
@@ -371,7 +371,10 @@ new Chart("myChart", {
   },
   options: {
      legend: {
-        position: 'right'
+        position: 'right',
+        labels: {
+              fontSize: 8
+        },
       },
     title: {
       display: true

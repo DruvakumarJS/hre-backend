@@ -41,7 +41,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Client Name / Billing Name</label>
                             <div class="col-7">
-                                <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" value="{{$pcn_data->client_name}}" readonly="readonly">
+                                <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" value="{{$pcn_data->client_name}}" >
                             </div>
                         </div>
                        
@@ -54,7 +54,7 @@
                                     <option value="Furniture Supply">Furniture Supply</option>
                                     <option value="New Project">New Project</option>
                                 </select> -->
-                                <input class="form-control" type="text" name="work" value="{{$pcn_data->work}}" readonly="readonly">
+                                <input class="form-control" type="text" name="work" value="{{$pcn_data->work}}" >
                             </div>
                         </div>
 
@@ -70,24 +70,24 @@
                         </div>
 
  -->
-                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Brand Name</label>
-                            <div class="col-7">
-                                <input id="brand" name="brand" type="text" class="form-control" readonly="readonly" required="required" value="{{$pcn_data->brand}}" readonly="readonly">
-                            </div>
+                          <div class="form-group row">
+                             <label for="" class="col-5 col-form-label">Brand *</label>
+                             <div class="col-7 " id="location" >
+                                 <input  class="form-control" type="text" name="brand" required="required" value="{{$pcn_data->brand}}" readonly="readonly">
+                             </div>
                         </div>
 
                          <div class="form-group row">
-                             <label for="" class="col-5 col-form-label">Location</label>
-                             <div class="col-7 " id="location" >
-                                 <input  class="form-control" type="text" name="location" required="required" value="{{$pcn_data->location}}" readonly="readonly">
-                             </div>
+                            <label for="" class="col-5 col-form-label">Location *</label>
+                            <div class="col-7">
+                                <input  class="form-control" type="text" name="loc" value="{{$pcn_data->location}}" required >
+                            </div>
                         </div>
 
                         <div class="form-group row">
                              <label for="" class="col-5 col-form-label">Building / Area</label>
-                             <div class="col-7 " id="location" >
-                                 <input  class="form-control" type="text" name="area" required="required" value="{{$pcn_data->area}}" readonly="readonly">
+                             <div class="col-7 " >
+                                 <input  class="form-control" type="text" name="area" required="required" value="{{$pcn_data->area}}" >
                              </div>
                         </div>
                        
@@ -95,7 +95,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">City</label>
                             <div class="col-7">
-                                <input id="city" class="form-control" type="text" name="city" value="{{$pcn_data->city}}" readonly="readonly">
+                                <input id="city" class="form-control" type="text" name="city" value="{{$pcn_data->city}}" >
                             </div>
                         </div>
                         <div class="form-group row">
@@ -108,7 +108,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">GST</label>
                             <div class="col-7">
-                               <input id="state" class="form-control" type="text" name="gst" value="{{$pcn_data->gst}}" readonly="readonly">
+                               <input id="gst" class="form-control" type="text" name="gst" value="{{$pcn_data->gst}}" readonly="readonly">
                             </div>
                         </div>
 
@@ -133,12 +133,19 @@
                          <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Provide Holiday</label>
                             <div class="col-7">
-                                <select class="form-control form-select" required="required" name="holiday">
+                                <select class="form-control form-select"  name="holiday">
                                   <option value="">Select </option>
                                   <option value="Yes" <?php echo ($pcn_data->approve_holidays == 'Yes') ? 'selected' : ''; ?> >Yes</option>
                                   <option value="No" <?php echo ($pcn_data->approve_holidays == 'No') ? 'selected' : ''; ?> >No</option>
                                   
                                 </select>
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label id="lbl_approve" for="" class="col-5 col-form-label" style="display: <?php echo ($pcn_data->approve_holidays == 'Yes') ? 'block' : 'none'; ?>">Approved Holidays</label>
+                            <div class="col-7" id="">
+                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value ="{{$pcn_data->approved_days}}" style="display: <?php echo ($pcn_data->approve_holidays == 'Yes') ? 'block' : 'none'; ?>">
                             </div>
                         </div>
                         
@@ -157,7 +164,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Project Hold Days</label>
+                            <label for="" class="col-5 col-form-label">Actual Hold Days / Holidays</label>
                             <div class="col-7">
                                 <input id="" name="hold_days" type="number" class="form-control" value="{{$pcn_data->hold_days}}">
                             </div>
@@ -198,7 +205,7 @@
 <script type="text/javascript">
 
 $( document ).ready(function() {
-    var path = "{{ route('autocomplete') }}";
+   var path = "{{ route('autocomplete') }}";
    let text = "";
     $( "#client_name" ).autocomplete({
         source: function( request, response ) {
@@ -217,17 +224,18 @@ $( document ).ready(function() {
         },
         select: function (event, ui) {
            $('#client_name').val(ui.item.label);
-            $('#brand').val(ui.item.brand);
+            //$('#brand').val(ui.item.brand);
             $('#customer_id').val(ui.item.id);
 
            var address = ui.item.address ;
            console.log(address); 
 
-     var location = '<select class="form-control form-select" name="area" required="required"> <option value=""> Select Area</option>'
+     var location = '<select class="form-control form-select" name="brand" required="required"> <option value=""> Select Brand</option>'
           address.forEach(function(item) {
                // console.log('III==',item)A
-               var name = item.area;
-               location +=" <option data-city="+item.city+" data-state="+item.state+" value='"+name+"'>"+ name +" </option>";
+               var name = item.brand + " , " + item.state;
+               var brand = item.brand ;
+               location +=" <option data-gst="+item.gst+" data-state="+item.state+" value='"+brand+"'>"+ name +" </option>";
        });
           location += '</select>'; 
         
@@ -240,8 +248,17 @@ $( document ).ready(function() {
     
         $(document).on('change','#location select',function(){
   
-               $('#city').val($(this).find(':selected').attr('data-city'));
+              // $('#city').val($(this).find(':selected').attr('data-city'));
                $('#state').val($(this).find(':selected').attr('data-state'));
+               $('#gst').val($(this).find(':selected').attr('data-gst'));
+
+});
+
+    
+        $(document).on('change','#location select',function(){
+  
+                $('#state').val($(this).find(':selected').attr('data-state'));
+               $('#gst').val($(this).find(':selected').attr('data-gst'));
 
 });
 
@@ -262,6 +279,22 @@ $( document ).ready(function() {
           });
         }
         
+
+     $('select').on('change', function() {
+
+         if(this.value == "Yes"){
+            document.getElementById("lbl_approve").style.display= "block" ;
+            document.getElementById("inp_approve").style.display= "block" ;
+            document.getElementById("inp_approve").required = true;
+
+         }
+         else {
+            document.getElementById("lbl_approve").style.display= "none" ;
+            document.getElementById("inp_approve").style.display= "none" ;
+            document.getElementById("inp_approve").required = false;
+         }
+   
+     });
 
   
 });

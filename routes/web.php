@@ -22,7 +22,7 @@ use App\Http\Controllers\PettyCashDetailController;
 use App\Http\Controllers\RestoreController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ExportController;
-use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\VaultController;
 
 /*
 |--------------------------------------------------------------------------
@@ -269,6 +269,11 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
 
     Route::get('show-notification/{id}',[NotificationController::class,'index'])->name('notification');
     Route::get('view-notification',[NotificationController::class,'show'])->name('view_notification');
+
+    Route::get('my-vault',[VaultController::class,'index'])->name('vault_master');
+    Route::post('save_document',[VaultController::class,'store'])->name('save_document');
+    Route::post('update-doc',[VaultController::class,'update'])->name('update-doc');
+    Route::get('delete_doc/{id}',[VaultController::class,'destroy'])->name('delete_doc');
 
 
 

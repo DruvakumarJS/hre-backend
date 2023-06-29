@@ -62,8 +62,10 @@
                                    
                                    <td>
                                     <a href="{{route('edit_user',$value->user_id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
-
+                                   
+                                   @if($value->user_id != 1)
                                     <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_user',$value->user_id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>
+                                    @endif
                                   </td>
                                </tr>
                             @endforeach   

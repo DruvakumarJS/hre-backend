@@ -36,11 +36,11 @@
                                     <th scope="col">City</th>
                                     <th scope="col">P_SD</th>
                                     <th scope="col">P_ED</th>
-                                   
+                                    <th scope="col">P_HD</th>
                                     <th scope="col">Targeted Days</th>
                                     <th scope="col">A_SD</th>
                                     <th scope="col">A_CD</th>
-                                    <th scope="col">P_HD</th>
+                                    <th scope="col">A_HD</th>
                                     <th scope="col">Days Achieved</th>
                                     <th scope="col">Status</th>
                                     <th></th>
@@ -58,8 +58,9 @@
                                     <td>{{$value->city}}</td>
                                     
                                     <td><?php echo ($value->proposed_start_date) !='' ? date("d-m-Y", strtotime($value->proposed_start_date)):'' ; ?> </td>
-
+                      
                                     <td><?php echo ($value->proposed_end_date) !='' ? date("d-m-Y", strtotime($value->proposed_end_date)):'' ; ?></td>
+                                    <td>{{$value->approved_days}}</td>
                                     
                                     <td style="text-align: center; ">{{$value->targeted_days}}</td>
                                     <td><?php echo ($value->actual_start_date) !='' ? date("d-m-Y", strtotime($value->actual_start_date)):'' ; ?></td>

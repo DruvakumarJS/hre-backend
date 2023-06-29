@@ -23,6 +23,7 @@ class Pcn extends Model
     	'proposed_start_date',
     	'proposed_end_date',
     	'approve_holidays',
+      'approved_days',
     	'targeted_days',
     	'actual_start_date',
     	'actual_completed_date',

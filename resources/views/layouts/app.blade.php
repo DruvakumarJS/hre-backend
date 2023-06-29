@@ -57,13 +57,15 @@
                    <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
 
-               <a href="{{route('home')}}"
-                     class="{{request()->routeIs('home')
-                      ? 'active' : ''}}"
-                    >
-                      <label class="nav-links">Home</label></a>
+               
              
                <div class="navigation">
+                    <a href="{{route('home')}}"
+                     class="{{request()->routeIs('home')
+                      ? 'active' : ''}}"
+                      >
+                      <label class="nav-links">Home</label></a>
+
                     <a href="{{route('view_customers')}}"
                      class="{{request()->routeIs('view_customers')
                         || request()->routeIs('create_customer')
@@ -122,13 +124,15 @@
                    <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
 
-               <a href="{{route('finance_home')}}"
+              
+
+               <div class="navigation">
+                 <a href="{{route('finance_home')}}"
                      class="{{request()->routeIs('finance_home')
                       ? 'active' : ''}}"
                     >
                       <label class="nav-links">Home</label></a>
 
-               <div class="navigation">
                     <a href="{{route('view_customers')}}"
                      class="{{request()->routeIs('view_customers')
                         || request()->routeIs('create_customer')
@@ -186,18 +190,15 @@
                    <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
 
-               <a href="{{route('manager_home')}}"
+               
+
+               <div class="navigation">
+                   <a href="{{route('manager_home')}}"
                      class="{{request()->routeIs('manager_home')
                       ? 'active' : ''}}"
                     >
                       <label class="nav-links">Home</label></a>
 
-
-               <div class="navigation">
-                    <!-- <a href="{{route('employee_list')}}"
-                     class="{{request()->routeIs('employee_list')
-                      ? 'active' : ''}}"
-                    ><label class="nav-links">Employee</label></a> -->
 
                     <a href="{{route('PCN')}}"
                      class="{{request()->routeIs('PCN')
@@ -249,13 +250,16 @@
                    <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
 
-               <a href="{{route('procurement_home')}}"
+              
+               <div class="navigation">
+
+                 <a href="{{route('procurement_home')}}"
                      class="{{request()->routeIs('procurement_home')
                       ? 'active' : ''}}"
                     >
                       <label class="nav-links">Home</label></a>
 
-               <div class="navigation">
+
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
@@ -297,13 +301,17 @@
                    <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
                </div>
 
-               <a href="{{route('supervisor_home')}}"
+               
+
+               <div class="navigation">
+
+                <a href="{{route('supervisor_home')}}"
                      class="{{request()->routeIs('supervisor_home')
                       ? 'active' : ''}}"
                     >
                       <label class="nav-links">Home</label></a>
 
-               <div class="navigation">
+                      
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
@@ -385,7 +393,7 @@
                                             <li><a class="dropdown-item" href="{{route('restore-material')}}">Materials</a></li>
                                           </ul>  
                                         </li> 
-                                       
+                                        <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li>
 
                                     </ul>
                                 </div>

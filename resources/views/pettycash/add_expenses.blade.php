@@ -147,7 +147,8 @@
            $('#pcn').val(ui.item.label);
            $('#pcns').val(ui.item.label);
 
-           var address = ui.item.client_name +' , '+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+           var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+          
           
           // $('#pcn_detail').val(address);
            document.getElementById("pcn_detail").innerHTML=address;

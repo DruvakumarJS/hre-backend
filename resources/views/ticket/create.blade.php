@@ -135,7 +135,8 @@ $( document ).ready(function() {
         },
         select: function (event, ui) {
            $('#pcn').val(ui.item.label);
-           var address = ui.item.client_name +' , '+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+           var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+          
          
            document.getElementById("pcn_detail").innerHTML=address;
         

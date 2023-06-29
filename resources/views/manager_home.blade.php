@@ -26,6 +26,7 @@
                             <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;">Received Indent</h4>
                             
                         </div>
+                        <label class="card-text-label ">Today's Indent</label>
                        
                     </div>
                     <!--</div>-->
@@ -43,6 +44,7 @@
                             <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;color: #fff">Attendance</h4>
                            
                         </div>
+                         <label class="card-text-label" style="color:#fff">Today's Head Count</label>
                         
                     </div>
                     <!--</div>-->
