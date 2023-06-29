@@ -28,11 +28,11 @@ class CreatePcnsTable extends Migration
             $table->string('proposed_start_date')->nullable();
             $table->string('proposed_end_date')->nullable();
             $table->string('approve_holidays')->nullable();
-            $table->string('approved_days')->default('0');
+            $table->string('approved_days')->nullable();
             $table->string('targeted_days')->nullable();
             $table->string('actual_start_date')->nullable();
             $table->string('actual_completed_date')->nullable();
-            $table->string('hold_days')->default('0');
+            $table->string('hold_days')->nullable();
             $table->string('days_acheived')->nullable();
             $table->string('status');
             $table->string('assigned_to')->nullable();
