@@ -47,7 +47,7 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Billing Name *</label>
                             <div class="col-7">
-                                <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" placeholder="Search by Billing name">
+                                <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" value="{{old('client_name')}}" placeholder="Search by Billing name">
                             </div>
                         </div>
                        <!--  <div class="form-group row">
@@ -60,7 +60,8 @@ $date = date('dd-mm-yyyy');
                             <label for="" class="col-5 col-form-label">Type of Work *</label>
 
                             <div class="col-7">
-                              <input  class="form-control" type="text" name="work" required>
+                              <input  class="form-control" type="text" value="{{old('work')}}" name="work" 
+                              placeholder="Enter type of work" required>
                                <!--  <select id="" name="work" class="custom-select form-control form-select" required="required">
                                     <option value="">Select type of work</option>
                                     <option value="Re-furbishment">Re-furbishment</option>
@@ -85,41 +86,41 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                              <label for="" class="col-5 col-form-label">Brand *</label>
                              <div class="col-7 " id="location" >
-                                 <input  class="form-control" type="text" required="required" readonly="readonly">
+                                 <input  class="form-control" type="text" name="brand" required="required" value="{{old('brand')}}" readonly="readonly">
                              </div>
                         </div>
                        
                        <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Location *</label>
                             <div class="col-7">
-                                <input  class="form-control" type="text" name="loc" required >
+                                <input  class="form-control" type="text" name="loc" value="{{old('loc')}}" required >
                             </div>
                         </div>
 
                          <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Building / Area *</label>
                             <div class="col-7">
-                                <input  class="form-control" type="text" name="building" required >
+                                <input  class="form-control" type="text" name="building" value="{{old('building')}}" required >
                             </div>
                         </div>
                     
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">City *</label>
                             <div class="col-7">
-                                <input  class="form-control" type="text" name="city" required >
+                                <input  class="form-control" type="text" name="city" value="{{old('city')}}" required >
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">State *</label>
                             <div class="col-7">
-                               <input id="state" class="form-control" type="text" name="state" readonly="readonly">
+                               <input id="state" class="form-control" type="text" name="state" value="{{old('state')}}" readonly="readonly">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">GST *</label>
+                            <label for="" class="col-5 col-form-label">GST No.*</label>
                             <div class="col-7">
-                               <input id="gst" class="form-control" type="text" name="gst" readonly="readonly">
+                               <input id="gst" class="form-control" type="text" name="gst" value="{{old('gst')}}" readonly="readonly">
                             </div>
                         </div>
 
@@ -130,14 +131,14 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
-                                <input id="start_date" name="start_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off">
+                                <input id="start_date" name="start_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off" value="{{old('start_date')}}">
                                 
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project End Date</label>
                             <div class="col-7">
-                                <input id="end_date" name="end_date" type="text" class="form-control"placeholder="YYYY-MM-DD" autocomplete="off">
+                                <input id="end_date" name="end_date" type="text" class="form-control"placeholder="YYYY-MM-DD" autocomplete="off" value="{{old('end_date')}}">
                                
                         </div>
                          </div>
@@ -151,7 +152,7 @@ $date = date('dd-mm-yyyy');
                          <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Provide Holiday</label>
                             <div class="col-7">
-                                <select class="form-control form-select" id="holiday" name="holiday" >
+                                <select class="form-control form-select" id="holiday" name="holiday" value="{{old('holiday')}}" >
                                   <option value="">Select </option>
                                   <option value="Yes">Yes</option>
                                   <option value="No" >No</option>
@@ -163,14 +164,14 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label id="lbl_approve" for="" class="col-5 col-form-label" style="display: none">Approved Holidays</label>
                             <div class="col-7" id="">
-                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value = '0' style="display: none">
+                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value="{{old('approved_holidays')}}" style="display: none">
                             </div>
                         </div>
                         
                         <div class="form-group row">
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">
-                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off">
+                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off" value="{{old('actual_start_date')}}">
                                
                             </div>
                              
@@ -178,18 +179,18 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Completed Date</label>
                             <div class="col-7">
-                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off">
+                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off" value="{{old('actual_end_date')}}">
                                
                         </div>
                          </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Hold Days , Holidays</label>
                             <div class="col-7">
-                                <input id="" name="hold_days" type="number" class="form-control" value = '0'>
+                                <input id="" name="hold_days" type="number" class="form-control"  value="{{old('hold_days')}}">
                             </div>
                         </div>
                         
-                        <input type="hidden" name="customer_id" id="customer_id">
+                        <input type="hidden" name="customer_id" id="customer_id" value="{{old('customer_id')}}">
                         <div class="form-group row">
                             <div class="offset-5 col-7">
                                 <button name="submit" type="submit" class="btn btn-danger">Submit</button>
@@ -232,7 +233,7 @@ $( document ).ready(function() {
            var address = ui.item.address ;
            console.log(address); 
 
-     var location = '<select class="form-control form-select" name="brand" required="required"> <option value=""> Select Brand</option>'
+     var location = '<select class="form-control form-select" name="brand" value="{{old('brand')}}" required="required"> <option value=""> Select Brand</option>'
           address.forEach(function(item) {
                // console.log('III==',item)A
                var name = item.brand + " , " + item.state;

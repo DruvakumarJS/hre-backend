@@ -48,7 +48,9 @@
                     <th scope="col">Name</th>
                     <th scope="col">Role</th>
                     <th scope="col">Login </th>
+                    <th scope="col">Login Location</th>
                     <th scope="col">Logout</th>
+                    <th scope="col">Logout Location </th>
                     <th scope="col">Out Of Work</th>
                     <th scope="col">Total Hours</th>
                     <th scope="col">Action</th>
@@ -62,7 +64,9 @@
                         <td>{{$value->employee->name}}</td>
                         <td>{{$value->user->roles->alias}}</td>
                         <td>{{$value->login_time}}</td>
+                        <td width="200px">{{$value->login_location}}</td>
                         <td>{{$value->logout_time}}</td>
+                         <td width="200px">{{$value->logout_location}}</td>
                         @php
                           $minute1 = $value->out_of_work;
                           $hour1=  floor($minute1 / 60) ;

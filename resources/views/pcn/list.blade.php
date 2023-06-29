@@ -32,12 +32,14 @@
                               <th scope="col">Date</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Billing Name</th>
+                              <th scope="col">Brand</th>
                               <th scope="col">Email</th>
                               <th scope="col">Address</th>
                               @if(Auth::user()->id == '1')
                               <th scope="col">Status</th>
-                              @endif
+                              
                               <th scope="col">Action</th>
+                             @endif
                              
                             </tr>
                           </thead>
@@ -47,13 +49,15 @@
                               <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->pcn}}</td>
                               <td>{{$value->client_name}}</td>
+                               <td>{{$value->brand}}</td>
                               <td>{{$value->customer->email}}</td>
                               <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>
-                              @if(Auth::user()->id == '1')
+                              @if(Auth::user()->role_id == '1')
                               <td>{{$value->status}}</td>
-                              @endif
+                              
                               <td ><a href="{{route('edit_pcn',$value->pcn)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
                               </td>
+                              @endif
                             </tr>
                           @endforeach
                              

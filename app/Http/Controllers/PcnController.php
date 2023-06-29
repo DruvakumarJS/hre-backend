@@ -56,7 +56,7 @@ class PcnController extends Controller
      */
     public function store(Request $request)
     {
-     // print_r($request->Input()); die();
+      //print_r($request->Input()); die();
        
         $pcn = 'PCN_'.$request->pcn;
        if (Pcn::where('pcn',$pcn)->exists()) {

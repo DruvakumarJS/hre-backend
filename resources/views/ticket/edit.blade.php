@@ -179,9 +179,11 @@
      				</form>
      				
      			</div>
-     		<div class="col-6">
-                     <img class="serverimage" id="serverimage"  src="{{ URL::to('/') }}/ticketimages/{{$tickets->filename}}" style="width: 200px;height: 200px" />
 
+     		<div class="col-6">
+                @if($tickets->filename != "")
+                     <img class="serverimage" id="serverimage"  src="{{ URL::to('/') }}/ticketimages/{{$tickets->filename}}" style="width: 200px;height: 200px" />
+                @endif
                      <img class="imagen" id="blah" src="" alt="ticketimage" style="width: 200px;height: 200px" />
                 </div>
 
@@ -282,7 +284,7 @@
    var image = document.getElementById('serverimage');
 image.onerror = function () {
  // alert('error loading ' + this.src);
-  this.src = 'error.png'; // place your error.png image instead
+ // this.src = 'error.png'; // place your error.png image instead
 };
 
 

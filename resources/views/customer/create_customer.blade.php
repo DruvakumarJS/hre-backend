@@ -138,7 +138,7 @@
                     </div>
 
                     <div class="col-md-2">
-                      <label>GST no. *</label>
+                      <label>GST No. *</label>
                       <input class="form-control" type="text" name="address[0][gst]" required="required">
                     </div>
 
@@ -183,7 +183,7 @@
     var j = 'n';
     $("#dynamic-ar").click(function () {
         ++i;
-         $("#dynamicAddRemove").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><label>Brand name</label><input class="form-control" type="text" name="address[' + i + '][brand]"required=" required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-1"><label></label><i id="btnn" data-id="00" class="fa fa-close remove-input-field" style="color:red;"></i></div></div></td></tr>');
+         $("#dynamicAddRemove").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><label>Brand name</label><input class="form-control" type="text" name="address[' + i + '][brand]"required=" required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST No.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-1"><label></label><i id="btnn" data-id="00" class="fa fa-close remove-input-field" style="color:red;"></i></div></div></td></tr>');
         
 
         document.getElementById("btnn").style.display="block";

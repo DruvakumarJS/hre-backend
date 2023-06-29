@@ -106,7 +106,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">GST</label>
+                            <label for="" class="col-5 col-form-label">GST No.</label>
                             <div class="col-7">
                                <input id="gst" class="form-control" type="text" name="gst" value="{{$pcn_data->gst}}" readonly="readonly">
                             </div>

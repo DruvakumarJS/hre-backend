@@ -205,6 +205,7 @@
                      || request()->route('edit_pcn')
                      || request()->routeIs('create_pcn')
                      || request()->routeIs('edit_pcn')
+                     || request()->routeIs('view_pcn')
                       ? 'active' : ''}}"
                       ><label class="nav-links">PCN</label></a>
 
@@ -259,6 +260,14 @@
                     >
                       <label class="nav-links">Home</label></a>
 
+                    <a href="{{route('PCN')}}"
+                      class="{{request()->routeIs('PCN')
+                      || request()->routeIs('create_pcn')
+                      || request()->routeIs('view_pcn')
+                      || request()->routeIs('edit_pcn')
+                      ? 'active' : ''}}">
+                    <label class="nav-links">PCN</label></a>  
+
 
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
@@ -310,6 +319,14 @@
                       ? 'active' : ''}}"
                     >
                       <label class="nav-links">Home</label></a>
+
+                    <a href="{{route('PCN')}}"
+                      class="{{request()->routeIs('PCN')
+                      || request()->routeIs('create_pcn')
+                      || request()->routeIs('view_pcn')
+                      || request()->routeIs('edit_pcn')
+                      ? 'active' : ''}}">
+                    <label class="nav-links">PCN</label></a>  
 
                       
                     <a href="{{route('intends')}}"

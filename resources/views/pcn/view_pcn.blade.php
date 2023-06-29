@@ -68,9 +68,11 @@
                                     <td style="text-align: center; ">{{$value->hold_days}}</td>
                                     <td style="text-align: center; ">{{$value->days_acheived}}</td>
                                     <td>{{$value->status}}</td>
+                                    @if(Auth::user()->role_id == 1)
                                     <td>
                                         <a href="{{route('edit_pcn',$value->pcn)}}"><i class="fa fa-edit"></i></a>
                                     </td>
+                                    @endif
                                 </tr>
                                @endforeach
 

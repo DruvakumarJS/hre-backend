@@ -37,7 +37,7 @@ class TicketController extends Controller
         $user = Auth::user();
         $filter="all";
 
-      if($user->role == 'admin' || $user->role == 'manager' || $user->role == 'finance'){
+      if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '5'){
          $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
       }
       else {

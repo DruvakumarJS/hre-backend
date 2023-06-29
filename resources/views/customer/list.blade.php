@@ -45,7 +45,7 @@
                               <th scope="col">Email</th>
                               <th scope="col">Mobile</th>
                               <!-- <th scope="col" width="200px">Address</th> -->
-                              <th scope="col">Action</th>
+                              <th scope="col"></th>
                              
                             </tr>
                           </thead>
@@ -63,10 +63,12 @@
                                      {{$key1+1}} : {{ $value1->area }} ,{{ $value1->city }} , {{ $value1->state }} <br>
                                   @endforeach
                                 </td> -->
-                              <td>
-                              	 <a href="{{route('edit_customer',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
-                                <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_customer', $value->id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>  
-                              </td>
+                              @if(Auth::user()->role_id == '1')
+                                <td>
+                                	 <a href="{{route('edit_customer',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
+                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_customer', $value->id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>  
+                                </td>
+                              @endif
                             </tr>
                             @endforeach
                             
