@@ -10,7 +10,7 @@
             <label class="label-bold" id="div1">Dashboard</label>
 
             <div id="div2">
-             <div class="badge badge-danger border border-secondary label-bold" style="margin-right: 30px">
+             <div class="badge badge-danger border border-secondary label-bold" >
              <span style="color: black;">{{date('d M Y')}}</span>
            <span id="current-time-now" data-start="<?php echo time() ?>" style="color: black;"></span>
            </div>
@@ -76,26 +76,84 @@
             </div>
 
             <!-- Ticket & Pettycash Graph -->
-    <!--   <div class="row justify-content-between">
+      <div class="row justify-content-between" >
         <div class="col-md-6 col-sm-6" >
-          <div class="card h-90">
+          <div class="card">
              <label style="color: black;font-weight: bold;"> Tickets </label>
              <canvas id="tickets_chart" ></canvas>
           </div>
         </div>
 
         <div class="col-md-6 col-sm-6">
-          <div class="row h-100">
-            <div class="col-md-6 col-sm-6">
-          <div class="">
+          <div class="card overflow-auto border-white" style="height: 350px">
+
+                        <table class="table" >
+                          <thead>
+                            <tr>
+                              <th scope="col">Billing Name</th>
+                              <th scope="col">PCN</th>
+                              <th scope="col">Pending Indent</th>
+                             
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($result as $key =>$value)
+                              @php
+                                 
+                                  $sum = 0;
+                              @endphp
+                           
+                            <tr>  
+                              <td>{{$key}}</td>
+                            
+                            <td>
+                              <table>
+                              @foreach($value as $kk => $val)
+                              <tr> 
+                                  <td>  {{ $kk }} </td>
+                              </tr>
+                              @endforeach
+                            </table>
+                             </td>
+                             <td>
+                              <table>
+                              @foreach($value as $kk => $val)
+                              @php 
+                                 $sum += $val['0'];
+                              @endphp
+                              <tr> 
+                                  <td>  {{ $val['0'] }} </td>
+                              </tr>
+                              @endforeach
+                              @php 
+                                if($sum > 0){
+                                 $xvalue[] = $key;
+                                 $yvalue[] = $sum;
+                                }
+                              @endphp
+                            </table>
+                             </td>
+                            
+                           @endforeach 
+
+                          </tbody>
+                        </table>
+                    </div>
+          
+        </div>
+
+       <!--  <div class="col-md-6 col-sm-6">
+          <div class="col-md-12 col-sm-6">
+          <div class="card border border-black card_shadow">
           
 
-          <div class=" justify-content-between m-2" >
-            <div class="card border border-black card_shadow">
-               <div class="card-header text-white label-bold  align-items-center d-flex justify-content-center" style="background-color: #f10909;">Overall Tickets</div>
-            <div class="" >
-              
+          <div class="row justify-content-between m-2" >
+             <div class="card-header text-black label-bold  align-items-center d-flex justify-content-center" >Tickets</div>
+            <div class="card col-md-5 div-margin ">
+              <div class="card-header text-white label-bold  align-items-center d-flex justify-content-center" style="background-color: #f10909;">Over All </div>
+
               <div class="card-body text-black">
+               
                     <div class="form-group">            
                       <div class="col-sm-9">
                         <div class="row mx-md-n5">
@@ -123,57 +181,54 @@
 
                       </div>
                     </div>
-              </div>
+                  </div>
               
             </div>
-            </div>
-            <div class="card border border-black card_shadow">
-               <div class="card-header text-white label-bold  align-items-center d-flex justify-content-center" style="background-color: #f10909;">Current Month-MTD Tickets</div>
-               <div class="" >
-              
+
+            <div class="card col-md-5 div-margin" >
+              <div class="card-header text-white label-bold  align-items-center d-flex justify-content-center" style="background-color: #f10909;">Current month </div>
               <div class="card-body text-black">
-                    <div class="form-group">            
-                      <div class="col-sm-9">
-                        <div class="row mx-md-n5">
-                          <div class="col">
-                            <label class="label-bold">Raised </label>
-                            <label style="margin-left: 10px"> : </label>
-                            <label style="margin-left: 10px">{{$counts_array['o_tickets']}}</label>
-                          </div>
-                          
-                        </div>
-
-                      </div>
-                    </div>
-
-                    <div class="form-group">            
-                      <div class="col-sm-9">
-                        <div class="row mx-md-n5">
-                          <div class="col">
-                            <label class="label-bold">Closed  </label>
-                             <label style="margin-left: 8px"> : </label>
-                            <label style="margin-left: 10px">{{$counts_array['o_closed']}}</label>
-                          </div>
-                          
-                        </div>
-
-                      </div>
-                    </div>
-              </div>
-            </div>
-
-          
-
             
-          </div></div>
-          
+                    <div class="form-group">            
+                      <div class="col-sm-9">
+                        <div class="row mx-md-n5">
+                          <div class="col">
+                            <label class="label-bold">Raised</label>
+                             <label style="margin-left: 10px"> : </label>
+                            <label style="margin-left: 10px">{{$counts_array['m_tickets']}}</label>
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="form-group">            
+                      <div class="col-sm-9">
+                        <div class="row mx-md-n5">
+                          <div class="col">
+                            <label class="label-bold">Closed </label>
+                             <label style="margin-left: 8px"> : </label>
+                            <label style="margin-left: 10px">{{$counts_array['m_closed']}}</label>
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+              
+            </div>
+
+        
+        </div> -->
+
+         
         </div>
-        </div>
-          
         </div>
         
       </div>
- -->
+
             <div>
                 <label class="label-bold">Recent Indent</label>
 

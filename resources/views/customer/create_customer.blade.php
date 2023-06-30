@@ -35,7 +35,7 @@
            
            <div class="col-md-3">
                 <label>Mobile Number *</label>
-                <input class="form-control" type="input" name="mobile" placeholder="Enter Mobile Number" required=""value="{{old('mobile')}}">
+                <input class="form-control" type="input" name="mobile" placeholder="Enter Mobile Number" required=""value="{{old('mobile')}}"  onkeypress='validate(event)'>
                  @error('mobile')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -44,7 +44,7 @@
 
           <div class="col-md-3">
                 <label>Mobile Number 1 </label>
-                <input class="form-control" type="input" name="mobile1" placeholder="Enter Mobile Number (optional)" value="{{old('mobile1')}}">
+                <input class="form-control" type="input" name="mobile1" placeholder="Enter Mobile Number (optional)" value="{{old('mobile1')}}" onkeypress='validate(event)'>
                  @error('mobile')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -53,7 +53,7 @@
 
            <div class="col-md-3">
                 <label>Mobile Number 2 </label>
-                <input class="form-control" type="input" name="mobile2" placeholder="Enter Mobile Number (optional)" value="{{old('mobile3')}}">
+                <input class="form-control" type="input" name="mobile2" placeholder="Enter Mobile Number (optional)" value="{{old('mobile3')}}"  onkeypress='validate(event)'>
                  @error('mobile')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -62,7 +62,7 @@
 
            <div class="col-md-3">
                 <label>Mobile Number 3 </label>
-                <input class="form-control" type="input" name="mobile3" placeholder="Enter Mobile Number (optional)" value="{{old('mobile3')}}">
+                <input class="form-control" type="input" name="mobile3" placeholder="Enter Mobile Number (optional)" value="{{old('mobile3')}}"  onkeypress='validate(event)'>
                  @error('mobile')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -216,4 +216,25 @@
     });
       
 </script>
+
+ <script type="text/javascript">
+      
+  function validate(evt) {
+  var theEvent = evt || window.event;
+
+  // Handle paste
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+  // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
+    </script>
 @endsection

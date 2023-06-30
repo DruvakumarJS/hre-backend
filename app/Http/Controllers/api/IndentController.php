@@ -275,7 +275,7 @@ class IndentController extends Controller
 
    function pcn_list(Request $request){
 
-$pcn_array= array();
+   $pcn_array= array();
      if(isset($request->user_id))
      {
       $Pcns = Pcn::where('status','Active')->get();
@@ -284,10 +284,10 @@ $pcn_array= array();
       $pcn_array[] = [
         'pcn'=> $value->pcn,
         'client_name'=>$value->client_name,
-        'type_of_work' => $value->work,
+        'brand' => $value->brand,
+        'location' => $value->location,
         'area' => $value->area,
-        'city' => $value->city,
-        'state' => $value->state
+        'city' => $value->city
          ];
 
       }

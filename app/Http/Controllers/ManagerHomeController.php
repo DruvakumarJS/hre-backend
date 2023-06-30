@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Intend;
 use App\Models\Ticket;
+use App\Models\Pcn;
 use App\Models\Attendance;
 
 class ManagerHomeController extends Controller
@@ -36,6 +37,19 @@ class ManagerHomeController extends Controller
          
 
          $counts_array = array('o_tickets' => $overallticket , 'o_closed' => $overall_closed , 'm_tickets' => $month_ticket , 'm_closed' => $month_closed );
+
+         $Pcn = Pcn::where('status','!=','Completed')->get();
+         $result=array();
+
+         foreach ($Pcn as $key => $value) {
+            
+             $Indents = Intend::where('pcn',$value->pcn)->count();
+
+             if($Indents > 0){
+                 $result[$value->client_name][$value->pcn][] = $Indents; 
+             }
+
+         }
            
 
         // Tickets chart
@@ -82,6 +96,6 @@ class ManagerHomeController extends Controller
 
            /*tickets end */
 
-        return view('manager_home', compact('indents' , 'todaysIndent' , 'attendance' , 'tickets' , 'ticketArry' , 'counts_array'));
+        return view('manager_home', compact('indents' , 'todaysIndent' , 'attendance' , 'tickets' , 'ticketArry' , 'result','counts_array' ));
     }
 }

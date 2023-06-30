@@ -73,7 +73,7 @@
 	                	<td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
-	                	<td>{{$value->pcns->client_name}} @php echo'<br/>'; @endphp {{$value->pcns->area}},{{$value->pcns->city}}</td>
+	                	<td width="200px">{{$value->pcns->client_name}} @php echo'<br/>'; @endphp {{$value->pcns->area}},{{$value->pcns->city}}</td>
 	                	<td>{{$value->category}}</td>
 	                	<td>{{$value->issue}}</td>
 	                	 

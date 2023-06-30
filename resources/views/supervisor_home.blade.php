@@ -26,7 +26,7 @@
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Indents</h4>
                            
                         </div >
-                        <label class="card-text-label ">Today's My Indent</label>
+                        <label class="card-text-label ">My Indents in this Month</label>
                         
                     </div>
                     <!--</div>-->
@@ -44,7 +44,7 @@
                             <h4 class="card-text-black" style="color: #fff; font-weight: bold; font-size: 25px">Attendance</h4>
                            
                         </div >
-                       <label class="card-text-label " style="color: #fff;">Today's My Attendance</label>
+                       <label class="card-text-label " style="color: #fff;">Today's Attendance</label>
                     </div>
                     <!--</div>-->
                 </div>
@@ -60,7 +60,7 @@
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Tickets</h4>
                            
                         </div >
-                        <label class="card-text-label  ">Today's My Ticket</label>
+                        <label class="card-text-label  ">My Tickets in this Month</label>
                       
                     </div>
                     <!--</div>-->
