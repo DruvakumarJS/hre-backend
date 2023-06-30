@@ -154,8 +154,8 @@ $date = date('dd-mm-yyyy');
                             <div class="col-7">
                                 <select class="form-control form-select" id="holiday" name="holiday" value="{{old('holiday')}}" >
                                   <option value="">Select </option>
-                                  <option value="Yes">Yes</option>
-                                  <option value="No" >No</option>
+                                  <option value="Yes" {{(old('holiday')=='Yes')? 'selected':''}}>Yes</option>
+                                  <option value="No" {{(old('holiday')=='No')? 'selected':''}}>No</option>
                                   
                                 </select>
                             </div>
@@ -184,7 +184,7 @@ $date = date('dd-mm-yyyy');
                         </div>
                          </div>
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Actual Hold Days , Holidays</label>
+                            <label for="" class="col-5 col-form-label">Actual Hold Days/Holidays</label>
                             <div class="col-7">
                                 <input id="" name="hold_days" type="number" class="form-control"  value="{{old('hold_days')}}">
                             </div>
@@ -262,6 +262,20 @@ $( document ).ready(function() {
 
       var mode = document.getElementById("holiday").value;
 
+      if(mode == "Yes"){
+            document.getElementById("lbl_approve").style.display= "block" ;
+            document.getElementById("inp_approve").style.display= "block" ;
+            document.getElementById("inp_approve").required = true;
+
+         }
+         else {
+            document.getElementById('inp_approve').value='';
+            document.getElementById("lbl_approve").style.display= "none" ;
+            document.getElementById("inp_approve").style.display= "none" ;
+            document.getElementById("inp_approve").required = false;
+         }
+   
+
      $('select').on('change', function() {
 
          if(this.value == "Yes"){
@@ -271,6 +285,7 @@ $( document ).ready(function() {
 
          }
          else {
+           document.getElementById('inp_approve').value='';
             document.getElementById("lbl_approve").style.display= "none" ;
             document.getElementById("inp_approve").style.display= "none" ;
             document.getElementById("inp_approve").required = false;

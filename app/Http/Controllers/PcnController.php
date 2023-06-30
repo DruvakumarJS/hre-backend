@@ -85,13 +85,20 @@ class PcnController extends Controller
 
             $targeted_days='';
 
+            if($request->holiday == 'No' || $request->holiday == ''){
+                $approved_days = '0';
+            }
+            else {
+                $approved_days = $request->approved_holidays;
+            }
+
             if($request->end_date != ""){
                  $end = strtotime($request->end_date);
                 $start = strtotime($request->start_date);
                 $days = $end - $start ; 
 
                 $total_days = round($days / (60 * 60 * 24)); 
-                $targeted_days = $total_days - $request->approved_holidays +1;
+                $targeted_days = $total_days - $approved_days +1;
 
             }
 
@@ -110,7 +117,7 @@ class PcnController extends Controller
                 'proposed_start_date' => $start_date,
                 'proposed_end_date' => $request->end_date,
                 'approve_holidays' => $request->holiday,
-                'approved_days' => $request->approved_holidays,
+                'approved_days' => $approved_days,
                 'targeted_days' => $targeted_days,
                 'actual_start_date' => $actual_start_date,
                 'actual_completed_date' => $request->actual_end_date,
@@ -186,7 +193,18 @@ class PcnController extends Controller
             $total_days = round($days / (60 * 60 * 24)); 
             $achieved_days = $total_days - $request->hold_days + 1;
 
+            if($request->hold_days == ''){
+                $request->hold_days = '0';
+            }
+
         }
+         if($request->holiday == 'No' || $request->holiday == ''){
+                $approved_days = '0';
+            }
+            else {
+                $approved_days = $request->approved_holidays;
+            }
+
 
          if($request->end_date != ""){
                 $end = strtotime($request->end_date);
@@ -194,12 +212,9 @@ class PcnController extends Controller
                 $days = $end - $start ; 
 
                 $total_days = round($days / (60 * 60 * 24)); 
-                $targeted_days = $total_days - $request->approved_holidays + 1;
+                $targeted_days = $total_days - intval($approved_days) + 1;
 
             }
-
-
-    
 
             $updatePCN = Pcn::where('pcn' ,$request->pcn)->update([
                 'customer_id' => $request->customer_id ,
@@ -213,7 +228,7 @@ class PcnController extends Controller
                 'proposed_start_date' => $request->start_date,
                 'proposed_end_date' => $request->end_date,
                 'approve_holidays' => $request->holiday,
-                'approved_days' => $request->approved_holidays,
+                'approved_days' => $approved_days,
                 'targeted_days' => $targeted_days,
                 'actual_start_date' => $request->actual_start_date,
                 'actual_completed_date' => $request->actual_end_date,
