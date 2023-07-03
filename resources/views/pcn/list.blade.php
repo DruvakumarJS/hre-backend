@@ -10,12 +10,13 @@
              <label id="modal">View Detailed PCN </label> </a>
           
           </div>
+          @if(Auth::user()->role_id == 1)
           <div id="div2" style="margin-right: 30px">
              <a class="btn btn-light btn-outline-secondary" href="{{route('create_pcn')}}"><i class="fa fa-plus"></i> 
              <label id="modal">Create PCN</label></a>
           </div>
+          @endif
 
-          
             
         </div>
 
@@ -30,10 +31,15 @@
                             <tr>
                               <th scope="col">Date</th>
                               <th scope="col">PCN</th>
-                              <th scope="col">Customer Name</th>
-                              <th scope="col">Customer Email</th>
+                              <th scope="col">Billing Name</th>
+                              <th scope="col">Brand</th>
+                              <th scope="col">Email</th>
                               <th scope="col">Address</th>
+                              @if(Auth::user()->id == '1')
+                              <th scope="col">Status</th>
+                              
                               <th scope="col">Action</th>
+                             @endif
                              
                             </tr>
                           </thead>
@@ -43,11 +49,15 @@
                               <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->pcn}}</td>
                               <td>{{$value->client_name}}</td>
+                               <td>{{$value->brand}}</td>
                               <td>{{$value->customer->email}}</td>
                               <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>
+                              @if(Auth::user()->role_id == '1')
+                              <td>{{$value->status}}</td>
                               
                               <td ><a href="{{route('edit_pcn',$value->pcn)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
                               </td>
+                              @endif
                             </tr>
                           @endforeach
                              

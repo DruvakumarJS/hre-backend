@@ -24,7 +24,7 @@ class Ticket extends Model
       'comments',
       'filename'];
 
-   function pcn()
+   function pcns()
     {
           return $this->belongsTo(Pcn::class,'pcn', 'pcn');
     }

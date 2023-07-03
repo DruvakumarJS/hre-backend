@@ -20,7 +20,8 @@ class CreateEmployeesTable extends Migration
             $table->String('name');
             $table->String('mobile')->unique();
             $table->String('email')->unique();
-            $table->String('role');          
+            $table->String('role'); 
+            $table->softDeletes();         
             $table->timestamps();
         });
     }

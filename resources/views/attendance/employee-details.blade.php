@@ -5,11 +5,15 @@
 
 <div class="container">
     <div class="container-header">
-        <label class="label-bold" id="div1">Attendance</label>
+        <label class="label-bold" id="div1">Current month Attendance</label>
 
         <div id="div2" style="margin-right: 30px">
-            <a class="btn btn-light" href="{{route('attendance')}}"> View today's Attendance</a>
+            <a class="btn btn-light btn-outline-secondary" href="{{route('attendance')}}"> View Today's Attendance</a>
 
+        </div>
+
+        <div id="div2" style="margin-right: 30px">
+            <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"> Download</a>
         </div>
 
         <!-- <div id="div2" style="margin-right: 30px">
@@ -21,7 +25,7 @@
         </div> -->
     </div>
 
-    <label>Current month Attendance</label>
+    
 
     <div class="row">
         <div class="card border-white">
@@ -33,8 +37,8 @@
                     <th scope="col">Employee ID</th>
                     <th scope="col">Employee Name</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Days present</th>
-                    <th scope="col">Total working Hours</th>
+                    <th scope="col">Days Present</th>
+                    <th scope="col">Total Working Hours</th>
                     <th scope="col">Contact No</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -59,11 +63,13 @@
                         @endif
                         <td>{{$value['mobile']}}</td>
                         <td>
-                           <a href="{{route('employee-history', $value['user_id'])}}"><button type="button" class="btn btn-sm curved-text">view Attendance</button></a>
+                           <a href="{{route('employee-history', $value['user_id'])}}"><button type="button" class="btn btn-sm curved-text">View Attendance</button></a>
                         </td>
                     </tr>
 
                     @endforeach
+
+
                     
                 </tbody>
             </table>

@@ -45,7 +45,7 @@ class TicketController extends Controller
 	     		return response()->json([
 	     			'status'=> 1,
 	     			'message' => 'No tickets available' ,
-	     			'data' => '']);
+	     			'data' => $ticketarray]);
 	     	}
 
 	     }
@@ -54,7 +54,7 @@ class TicketController extends Controller
      	return response()->json([
      			'status'=> 0,
      			'message' => 'UnAuthorized' ,
-     			'data' => '']);
+     			'data' => $ticketarray]);
      }	
 
      }
@@ -240,7 +240,7 @@ class TicketController extends Controller
             return response()->json([
                 'status' => 0 ,
                 'message' => 'Insufficient inputs',
-                'data'=> ''
+                'data'=> $data
              ]);
 
         }
@@ -298,8 +298,6 @@ class TicketController extends Controller
             ]);
 
             }
-
-    
 
         }
         else {

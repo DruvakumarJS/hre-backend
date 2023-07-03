@@ -29,6 +29,22 @@ class FinanceHomeController extends Controller
          $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
          $tickets = Ticket::where('created_at','LIKE','%'.$date.'%')->count();
          $attendance = Attendance::where('created_at','LIKE','%'.$date.'%')->count();
+
+         $overallticket  = Ticket::count();
+         $overall_closed = Ticket::where('status', 'Completed')->count();
+         $overall_alloted = Pettycash::get()->sum('total');
+         $overall_used = Pettycash::get()->sum('spend');
+
+
+         $month_ticket  = Ticket::where('created_at','LIKE','%'.date('Y-m').'%')->count();
+         $month_closed = Ticket::where('status', 'Completed')->where('created_at','LIKE','%'.date('Y-m').'%')->count();
+         $month_alloted = Pettycash::where('created_at','LIKE','%'.date('Y-m').'%')->get()->sum('total');
+         $month_used = Pettycash::where('created_at','LIKE','%'.date('Y-m').'%')->get()->sum('spend');
+
+         $counts_array = array('o_tickets' => $overallticket , 'o_closed' => $overall_closed , 'o_alloted' => $overall_alloted , 'o_used'=>$overall_used ,  'm_tickets' => $month_ticket , 'm_closed' => $month_closed , 'm_alloted' => $month_alloted , 'm_used'=>$month_used );
+           
+
+
          
          $Pcn = Pcn::where('status','!=','Completed')->get();
          $result=array();
@@ -47,7 +63,7 @@ class FinanceHomeController extends Controller
         $montharray=array();
         $month = date("t", strtotime('2021-10-18'));
         $alldatethismonth = range(1, $month);
-         $count = 0;
+        $count = 0;
         foreach($alldatethismonth as $date){
            
            if(strlen($date)==1){
@@ -66,7 +82,7 @@ class FinanceHomeController extends Controller
                 $count++;
                 
             }
-
+          
              $tckets_closed_count=Ticket::where('updated_at','LIKE','%'.$today.'%')
             ->where('status', 'Completed')->get();
 
@@ -83,50 +99,55 @@ class FinanceHomeController extends Controller
             $tickets_yValue = json_encode($results['y'], true);
             $tickets_closed_yValue = json_encode($tickets_closed['y'], true);
 
-        $Pettycash = Pettycash::where('created_at', 'LIKE','%'.date('Y-m').'%')->orderBy('id', 'DESC')->get();
-        $pc['x']= array();
-        $pc['y']= array();
-        $pc['z']= array();
-        $pc['d']= array();
-        $total = array();
-        $used = array();
-         
+            $ticketArry = array('tickets_xValue' => $tickets_xValue, 'tickets_yValue'=>$tickets_yValue ,  'tickets_closed_yValue' => $tickets_closed_yValue);
 
-        foreach ($Pettycash as $key => $value) {
-            $pc['y'][] = $value->total;
-            $pc['z'][]= $value->spend;
-            $pc['d'][] = date("d-m-Y", strtotime($value->created_at)) ;
+           /*tickets end */
 
-          
-            $total[] = [
-                'y' => intval( $value->remaining),
-                'x' => intval(date("d", strtotime($value->created_at))) 
+           /*PettyCash*/
+
+
+           /*Pettycash*/
+
+        $montharray=array();
+        $month = date("t", strtotime('2021-10-18'));
+        $alldatethismonth = range(1, $month);
+        $count = 0;
+        foreach($alldatethismonth as $date){
+           
+           if(strlen($date)==1){
+             $today=date("Y-m-").'0'.$date;
+           }
+           else
+           {
+            $today=date("Y-m-").$date;
+           }
+
+        $pettycash_balance  = Pettycash::where('created_at', 'LIKE','%'.$today.'%')->orderBy('id', 'DESC')->sum('remaining');
+
+        $balance[] = [
+                'y' => intval($pettycash_balance),
                 ];
 
-            $used[] = [
-                'y' => intval($value->spend),
-                'x' => intval(date("d", strtotime($value->created_at))) 
+
+        $pettycash_used  = Pettycash::where('created_at', 'LIKE','%'.$today.'%')->orderBy('id', 'DESC')->sum('spend');
+        
+
+        $used[] = [
+                'y' => intval($pettycash_used),
+                'x' => intval($date) 
                 ]; 
-
-               
-
+                             
         }
-
-        $total_given = json_encode($pc['y'], true);
-        $total_used = json_encode($pc['z'], true);
-        $date = json_encode($pc['d'], true);
-       
+         $pc_balance = json_encode($balance, true);
+    
+         $pc_used = json_encode($used, true);
 
 
-
-       $pc_given = json_encode($total, true);
-        // $pc_given = $total;
-
-        $pc_used = json_encode($used, true);
-
+         $pettycashArry = array('pc_balance' => $pc_balance, 'pc_used'=>$pc_used );
+      
 
          $chart_pcn = Pcn::select('client_name')->groupby('client_name')->get();
 
-        return view('finance_home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' , 'tickets_xValue' , 'tickets_yValue', 'tickets_closed_yValue' , 'total_given' , 'total_used' , 'date' , 'pc_given' , 'pc_used' , 'count'));
+        return view('finance_home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' ,'ticketArry', 'date' , 'count' , 'counts_array' , 'pettycashArry'));
     }
 }

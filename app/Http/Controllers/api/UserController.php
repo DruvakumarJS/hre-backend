@@ -15,12 +15,12 @@ class UserController extends Controller
     public function validate_login(Request $request){
 
          $credentials = $request->only('email', 'password');
+          $userdata= array();
         if (Auth::attempt($credentials)) {
 
             $search = Employee::where('email',$request->email)
                     ->first();
       
-
             if(!empty($search)){
                 $userdata = [
                     'user_id' => $search->user_id,
@@ -31,19 +31,19 @@ class UserController extends Controller
                      ];
 
                  return response()->json([
-                    'status' => 1,
+                    'status' => "TRUE",
                     'message' => 'success',
-                    'data' => $userdata]
-                    ,200);
+                    'data' => array($userdata)]
+                    );
             }
 
             else {
                  return response()->json([
-                        'status '=> 0,
+                        'status '=> "FALSE",
                         'message' => 'Invalid credentials',
-                        'data' => ''
+                        'data' => $userdata
                         
-                ],200);
+                ]);
 
             }     
            
@@ -51,11 +51,11 @@ class UserController extends Controller
 
         else {
             return response()->json([
-            'status' => 0,
+            'status' => "FALSE",
             'message' => 'Invalid credentials',
-            'data' => ''
+            'data' => $userdata
             
-        ],200);
+        ]);
 
         }
       

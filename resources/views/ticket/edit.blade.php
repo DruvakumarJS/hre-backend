@@ -106,23 +106,6 @@
 
                                 @else
 
-                                  <!--  @if($tickets->status == 'Created')
-                                   <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
-                                   <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
-                                   @endif
-
-                                   @if($tickets->status == 'Rejected')
-                                   <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
-                                   @endif
-
-                                    <option value="Pending" <?php echo ($tickets->status == 'Pending') ? 'selected' : ''; ?>  >Pending</option>
-
-                                    <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
-
-                                   @if($tickets->status == 'Completed' )
-                                    <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
-                                    @endif -->
-
                                      @if($tickets->status == 'Created')
                                    <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
                                    <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
@@ -177,7 +160,7 @@
                        <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Attach image </label>
                             <div class="col-7">
-                                <input type="file" class="form-control form-control-sm" name="image" id="imgInp" >
+                                <input type="file" class="form-control form-control-sm" name="image" id="imgInp" accept="image/*" >
                 
                             </div>
                         </div>
@@ -196,9 +179,11 @@
      				</form>
      				
      			</div>
-     		<div class="col-6">
-                     <img class="serverimage" id="serverimage"  src="{{ URL::to('/') }}/ticketimages/{{$tickets->filename}}" style="width: 200px;height: 200px" />
 
+     		<div class="col-6">
+                @if($tickets->filename != "")
+                     <img class="serverimage" id="serverimage"  src="{{ URL::to('/') }}/ticketimages/{{$tickets->filename}}" style="width: 200px;height: 200px" />
+                @endif
                      <img class="imagen" id="blah" src="" alt="ticketimage" style="width: 200px;height: 200px" />
                 </div>
 
@@ -299,7 +284,7 @@
    var image = document.getElementById('serverimage');
 image.onerror = function () {
  // alert('error loading ' + this.src);
-  this.src = 'error.png'; // place your error.png image instead
+ // this.src = 'error.png'; // place your error.png image instead
 };
 
 

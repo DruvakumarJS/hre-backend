@@ -21,6 +21,7 @@ class CreateMaterialsTable extends Migration
             $table->string('brand')->nullable();
             $table->string('uom')->nullable();
             $table->json('information')->nullable(); 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

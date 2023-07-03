@@ -32,13 +32,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    
+    <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+  
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
-
-  
 
 </head>
 
@@ -52,14 +50,22 @@
                 </a> -->
 
                @if(Auth::user()->role_id == 1)
+               <div class="d-flex flex-column text-center" >
+                   
+                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
+                 
+                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               </div>
 
-               <a
-                href="{{route('home')}}"
-                   >
-                  <img class="logo" src="{{asset('images/logo.svg')}}">
-               </a>
-
+               
+             
                <div class="navigation">
+                    <a href="{{route('home')}}"
+                     class="{{request()->routeIs('home')
+                      ? 'active' : ''}}"
+                      >
+                      <label class="nav-links">Home</label></a>
+
                     <a href="{{route('view_customers')}}"
                      class="{{request()->routeIs('view_customers')
                         || request()->routeIs('create_customer')
@@ -102,6 +108,7 @@
                     <a href="{{route('pettycash')}}"
                     class="{{request()->routeIs('pettycash')
                     ||request()->routeIs('edit_pettycash')
+                    ||request()->routeIs('create_new')
                     ||request()->routeIs('details_pettycash')
                     ||request()->routeIs('update_bill_status')
                       ? 'active' : ''}}">
@@ -110,13 +117,22 @@
 
                @elseif(Auth::user()->role_id == 5)
 
-               <a
-                href="{{route('finance_home')}}"
-                   >
-                  <img class="logo" src="{{asset('images/logo.svg')}}">
-               </a>
+                <div class="d-flex flex-column text-center" >
+                   
+                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
+                 
+                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               </div>
+
+              
 
                <div class="navigation">
+                 <a href="{{route('finance_home')}}"
+                     class="{{request()->routeIs('finance_home')
+                      ? 'active' : ''}}"
+                    >
+                      <label class="nav-links">Home</label></a>
+
                     <a href="{{route('view_customers')}}"
                      class="{{request()->routeIs('view_customers')
                         || request()->routeIs('create_customer')
@@ -167,24 +183,29 @@
 
                @elseif(Auth::user()->role_id == 2)
 
-               <a
-                href="{{route('manager_home')}}"
-                   >
-                  <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
-               </a>
+               <div class="d-flex flex-column text-center" >
+                   
+                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
+                 
+                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               </div>
 
+               
 
                <div class="navigation">
-                    <!-- <a href="{{route('employee_list')}}"
-                     class="{{request()->routeIs('employee_list')
+                   <a href="{{route('manager_home')}}"
+                     class="{{request()->routeIs('manager_home')
                       ? 'active' : ''}}"
-                    ><label class="nav-links">Employee</label></a> -->
+                    >
+                      <label class="nav-links">Home</label></a>
+
 
                     <a href="{{route('PCN')}}"
                      class="{{request()->routeIs('PCN')
                      || request()->route('edit_pcn')
                      || request()->routeIs('create_pcn')
                      || request()->routeIs('edit_pcn')
+                     || request()->routeIs('view_pcn')
                       ? 'active' : ''}}"
                       ><label class="nav-links">PCN</label></a>
 
@@ -204,9 +225,10 @@
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
 
-                     <a href="{{route('employee-history',Auth::user()->id)}}"
-                    class="{{request()->routeIs('employee-history')
-                    
+                     <a href="{{route('attendance')}}"
+                    class="{{request()->routeIs('attendance')
+                    ||request()->routeIs('employee-details')
+                    ||request()->routeIs('employee-history')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Attendance</label></a>
 
@@ -222,13 +244,31 @@
 
                @elseif(Auth::user()->role_id == 3)
 
-               <a
-                href="{{route('procurement_home')}}"
-                   >
-                  <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
-               </a>
+               <div class="d-flex flex-column text-center" >
+                   
+                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
+                 
+                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               </div>
 
+              
                <div class="navigation">
+
+                 <a href="{{route('procurement_home')}}"
+                     class="{{request()->routeIs('procurement_home')
+                      ? 'active' : ''}}"
+                    >
+                      <label class="nav-links">Home</label></a>
+
+                    <a href="{{route('PCN')}}"
+                      class="{{request()->routeIs('PCN')
+                      || request()->routeIs('create_pcn')
+                      || request()->routeIs('view_pcn')
+                      || request()->routeIs('edit_pcn')
+                      ? 'active' : ''}}">
+                    <label class="nav-links">PCN</label></a>  
+
+
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
@@ -258,20 +298,37 @@
                     ||request()->routeIs('update_bill_status')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
-
-                    
-                      
+     
                </div>
 
                 @elseif(Auth::user()->role_id == 4)
 
-                <a
-                href="{{route('procurement_home')}}"
-                   >
-                  <img class="customization_text " src="{{asset('images/logo.svg')}}" style="width: 40px;height: 40px;">
-               </a>
+               <div class="d-flex flex-column text-center" >
+                   
+                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
+                 
+                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+               </div>
+
+               
 
                <div class="navigation">
+
+                <a href="{{route('supervisor_home')}}"
+                     class="{{request()->routeIs('supervisor_home')
+                      ? 'active' : ''}}"
+                    >
+                      <label class="nav-links">Home</label></a>
+
+                    <a href="{{route('PCN')}}"
+                      class="{{request()->routeIs('PCN')
+                      || request()->routeIs('create_pcn')
+                      || request()->routeIs('view_pcn')
+                      || request()->routeIs('edit_pcn')
+                      ? 'active' : ''}}">
+                    <label class="nav-links">PCN</label></a>  
+
+                      
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
@@ -331,21 +388,10 @@
                                 </li>
                             @endif
                         @else
+                           
+                          
+                            <!--  <a href="{{route('notification', Auth::user()->id)}}" class="notification"> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a> -->
 
-                             <div class="dropdown">
-
-                                    <a data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/help.svg')}}" style="width: 20px;height: 20px;margin-right: 20px"> </a>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        
-                                        <li><a class="dropdown-item" download href="{{asset('pdf/HRE.pdf')}}">Download Android App</a></li>
-                                     
-                                    </ul>
-                                </div>
-
-                            
-                             <a href=""> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a>
-
-                             <a href=""> <img class="circle" src="{{asset('images/mail.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
 
                              @if(Auth::user()->role_id == 1)
                                 <div class="dropdown">
@@ -364,12 +410,13 @@
                                             <li><a class="dropdown-item" href="{{route('restore-material')}}">Materials</a></li>
                                           </ul>  
                                         </li> 
+                                        <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li>
 
                                     </ul>
                                 </div>
                              @endif
 
-                             <a href=""> <img class="circle" src="{{asset('images/person.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
+                             <a href=""> <img class="circle" src="{{asset('images/persons.svg')}}" style="width: 20px;height: 20px;margin-left: 30px;"> </a>
 
                             <div class="userLogin">
                                 <h4> {{ Auth::user()->name }}</h4>

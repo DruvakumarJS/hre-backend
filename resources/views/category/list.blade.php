@@ -14,9 +14,11 @@
             <a data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-light btn-outline-secondary" href=""><i class="fa fa-plus"></i> 
              <label id="modal">Create Category</label>
            </a>
-
-    
           </div>
+
+          <div id="div2" style="margin-right: 30px" >
+            <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import</label></a>
+        </div>
 
            <div id="div3" style="margin-right: 30px">
              <a href="{{route('export-categories')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
@@ -54,7 +56,7 @@
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">SAVE</button>
+                    <button type="submit" class="btn btn-danger">SAVE</button>
                   </div>
                 </form>
               </div>
@@ -64,12 +66,40 @@
         </div>
 <!-- Modal -->
 
+
+<!-- Import Modal -->
+        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Import Categories from Excel Sheet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="{{ route('import_category') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group mb-4">
+                        <div class="custom-file text-left">
+                            <input type="file" name="file" class="custom-file-input" id="customFile">
+                           
+                        </div>
+                    </div>
+                    <button class="btn btn-danger">Import</button>
+                    
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!--Import Modal -->
+
         @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
         @endif       
        
         <div>
-        	<label class="label-bold" style="margin-left: 20px" >Material Category</label>
+        	<label class="label-bold" style="margin-left: 20px" >Material Master</label>
 
         	<div class="card border-white">
 
@@ -79,6 +109,7 @@
                               <th>Date</th>
                               <th scope="col">Category</th>
                               <th scope="col">Category Code</th>
+                              <th scope="col">Description</th>
                               <th scope="col">Products</th>
                               <th >Action</th>
                             
@@ -91,7 +122,7 @@
                               <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->category}}</td>
                               <td>{{$value->material_category}}</td>
-                              
+                              <td>{{$value->description}}</td>
                               <td>
                                 <a href="{{route('add_product',$value->code)}}"><label class="btn btn-light btn-outline-secondary  btn-sm">Add Product</label></a>
                                 <a href="{{route('view_products',$value->code)}}"><label class="btn btn-light btn-outline-secondary btn-sm">View Product</label></a>   
@@ -136,13 +167,13 @@
                                         
                                         <div class="mb-3">
                                           <label for="message-text" class="col-form-label">Description (optional)</label>
-                                          <textarea class="form-control" id="desc" name="desc" ></textarea>
+                                          <textarea class="form-control" id="desc" name="desc" >{{$value->description}}</textarea>
                                         </div>
                                         <input type="hidden" name="id" value="{{$value->id}}">
 
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                          <button type="submit" class="btn btn-primary">Update</button>
+                                          <button type="submit" class="btn btn-danger">Update</button>
                                         </div>
                                       </form>
                                     </div>
@@ -194,7 +225,7 @@ $(document).ready(function(){
 
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                          <button type="submit" class="btn btn-primary">SAVE</button>
+                                          <button type="submit" class="btn btn-danger">SAVE</button>
                                         </div>
                                       </form>
                                     </div>

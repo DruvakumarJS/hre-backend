@@ -28,6 +28,7 @@
                             <label for="" class="col-5 col-form-label">Project Code Number*</label>
                             <div class="col-7">
                                 <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Enter PCN">
+                                 <span class="label-bold" id="pcn_detail"></span>
                             </div>
                         </div>
 
@@ -77,7 +78,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Attach image </label>
                             <div class="col-7">
-                                <input type="file" class="form-control form-control-sm" name="image" id="imgInp" >
+                                <input type="file" class="form-control form-control-sm" name="image" id="imgInp" accept="image/*">
                 
                             </div>
                         </div>
@@ -134,6 +135,10 @@ $( document ).ready(function() {
         },
         select: function (event, ui) {
            $('#pcn').val(ui.item.label);
+           var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+          
+         
+           document.getElementById("pcn_detail").innerHTML=address;
         
         }
       });

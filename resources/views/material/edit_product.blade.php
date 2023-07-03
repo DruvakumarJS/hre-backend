@@ -105,7 +105,7 @@
                             <td><input type="text" name="specifications[0][value]" placeholder="Enter param Value" class="form-control" />
                             </td> -->
 
-                            <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add </button></td>
+                            <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-danger">Add </button></td>
                         </tr>
                     </table>
                   </div>

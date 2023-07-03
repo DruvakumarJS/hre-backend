@@ -11,9 +11,15 @@
             
           </div>
 
+           <div id="div2" style="margin-right: 30px" >
+            <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import</label></a>
+          </div>
+
+
            <div id="div3" style="margin-right: 30px">
              <a href="{{route('export-materials','all')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
           </div>
+
 
             
         </div>
@@ -89,4 +95,32 @@
 
    
 </div>
+
+
+<!-- Modal -->
+        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Import Materials from Excel sheet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="{{ route('import_material') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group mb-4">
+                        <div class="custom-file text-left">
+                            <input type="file" name="file" class="custom-file-input" id="customFile">
+                           
+                        </div>
+                    </div>
+                    <button class="btn btn-danger">Import</button>
+                    
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
 @endsection

@@ -35,15 +35,16 @@ class TicketController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $filter="all";
 
-      if($user->role == 'admin' || $user->role == 'manager' || $user->role == 'finance'){
+      if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '5'){
          $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
       }
       else {
          $tickets = Ticket::where('creator' , $user->id)->orWhere('assigned_to', $user->id )->orderby('id' , 'DESC')->paginate(10);
       }
         
-         return view('ticket/list' ,  compact('tickets'));
+         return view('ticket/list' ,  compact('tickets','filter'));
     }
 
     /**
@@ -211,6 +212,9 @@ class TicketController extends Controller
                     'reopened' => '1'
                      ]);
 
+              $ticket = Ticket::where('id',$request->id)->first();
+
+             
         }
         else {
            
@@ -223,6 +227,16 @@ class TicketController extends Controller
                     'priority' => $request->priority,
                     'tat' => $request->tat
                      ]);
+
+             $ticket = Ticket::where('id',$request->id)->first();
+             
+             if($request->status == 'Pending'){
+                   $msg = 'Ticket no '.$ticket->ticket_no .' is assigned to you';
+             }
+             else if($request->status == 'Completed'){
+                 $msg = 'Ticket no '.$ticket->ticket_no .' is Completed and closed';
+             }
+            
 
         }
 /*
@@ -305,20 +319,23 @@ class TicketController extends Controller
     public function filter(Request $request)
     {
        // print_r($request->Input());
+        $filter = $request->filter ;
+       // print_r($filter); die();
+
         if(empty($request->filter)){
           return redirect()->route('tickets');
         }
         else if($request->filter == '0'){
             $tickets = Ticket::orderby('id' , 'DESC')->paginate();
-            return view('ticket/list' ,  compact('tickets'));
+            return view('ticket/list' ,  compact('tickets','filter'));
         }
          else if($request->filter == 'Reopend'){
             $tickets = Ticket::where('reopened', '1')->orderby('id' , 'DESC')->paginate();
-            return view('ticket/list' ,  compact('tickets'));
+            return view('ticket/list' ,  compact('tickets','filter'));
         }
         else {
             $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$request->filter)->orderby('id' , 'DESC')->paginate();
-            return view('ticket/list' ,  compact('tickets'));
+            return view('ticket/list' ,  compact('tickets','filter'));
         }
     }
 }

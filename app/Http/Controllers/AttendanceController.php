@@ -179,9 +179,81 @@ class AttendanceController extends Controller
      * @param  \App\Models\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Attendance $attendance)
+    public function update(Request $request)
     {
-        //
+        //print_r($request->Input());die();
+         $date = date("Y-m-d", strtotime($request->date));
+         $logout_time = date("Y-m-d H:i", strtotime($request->logout_time));
+         $only_time = date("H:i", strtotime($request->logout_time));
+         // print_r($only_time);die();
+
+        if(isset($request->logout_time) && isset($request->break)){
+            $login = Attendance::where('user_id' , $request->id)->where('date' , $date)->first();
+
+            $l_in = $login->date." ".$login->login_time;
+
+            $l_out = $logout_time;
+
+            $logintime = strtotime($l_in) ;
+            $logouttime = strtotime($l_out);
+
+            $diffrence = $logouttime - $logintime ; 
+           /* print_r($l_in);print_r('<br>');
+            print_r($l_out);print_r('<br>');
+            print_r($total_hour / 60);die();*/
+
+            $d_hour =  $diffrence/60 ;
+            $total_hour = intval($d_hour)-intval($request->break*60) ;
+            $out_of_work = intval($login->out_of_work) + intval($request->break*60);
+
+
+            $LOGOUT = Attendance::where('user_id' , $request->id)->where('date' , $date)->update([
+                'logout_time' => $only_time ,
+                'logout_lat' => $login->login_lat ,
+                'logout_long' => $login->login_long ,
+                'logout_location' =>$login->login_location,
+                'out_of_work'=> $out_of_work,
+                'total_hours' => $total_hour
+              ]);   
+
+        }
+        else if(isset($request->logout_time)){
+             $login = Attendance::where('user_id' , $request->id)->where('date' , $date)->first();
+
+            $l_in = $login->date." ".$login->login_time;
+
+            $l_out = $logout_time;
+
+            $logintime = strtotime($l_in) ;
+            $logouttime = strtotime($l_out);
+
+            $total_hour = $logouttime - $logintime ; 
+          
+            $LOGOUT = Attendance::where('user_id' , $request->id)->where('date' , $date)->update([
+                'logout_time' =>  $only_time ,
+                'logout_lat' => $login->login_lat ,
+                'logout_long' => $login->login_long ,
+                'logout_location' =>$login->login_location,
+                'total_hours' => $total_hour/60
+              ]); 
+
+        }
+        else if(isset($request->break)){
+             $login = Attendance::where('user_id' , $request->id)->where('date' , $date)->first();
+
+             $diffrence = intval($login->total_hours) - intval($request->break*60) ; 
+             $out_of_work = intval($login->out_of_work) + intval($request->break*60);
+
+              $LOGOUT = Attendance::where('user_id' , $request->id)->where('date' , $date)->update([
+                'out_of_work'=> $out_of_work,
+                'total_hours' => $diffrence
+              ]);
+
+        }
+
+        return redirect()->back();
+        
+          
     }
 
     /**
@@ -295,6 +367,7 @@ class AttendanceController extends Controller
                 $login_time = $attendance->login_time ;
                 $logout_time = $attendance->logout_time;
                 $total_hours = $attendance->total_hours;
+                $out_of_work = $attendance->out_of_work;
 
                 if($logout_time == ''){
                     $logout_time = '---';
@@ -312,19 +385,36 @@ class AttendanceController extends Controller
                 else {
                     $total_hours = '0 Min'; 
                 }
+
+
+                 if($out_of_work != '0'){
+                    
+                    if($out_of_work%60 > '0'){
+                         $out_of_work = floor($out_of_work/60) ."Hr : " . $out_of_work%60 ."Min";
+                    }
+                    else {
+                        $out_of_work = $out_of_work/60 ."Hr";
+                    }
+                }
+                else {
+                    $out_of_work = '0 Min'; 
+                }
+ 
  
             }
             else {
                 $login_time = '---' ;
                 $logout_time = '---';
                 $total_hours = '---';
+                $out_of_work = '---';
 
             }
             $res = [
                 'date' => date('d-m-Y', $now),
                 'login_time' => $login_time,
                 'logout_time' => $logout_time,
-                'total_hours' => $total_hours
+                'total_hours' => $total_hours,
+                'out_of_work' => $out_of_work,
 
             ];
 

@@ -90,7 +90,7 @@
 
        </div>
 
-       <button class="btn btn-primary div-margin" type="submit" value="submit">SUBMIT</button>
+       <button class="btn btn-danger div-margin" type="submit" value="submit">SUBMIT</button>
 
       </form>
     </div>

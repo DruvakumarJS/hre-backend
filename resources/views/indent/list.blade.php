@@ -5,23 +5,36 @@
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Indent</label>
-            
-            <a class="link-dark" href="{{route('filter_indents','all')}}"><label style="margin-left: 50px" class="label-medium" id="div1">All({{$all}})</label></a>
-            
 
-            <label  style="margin-left: 20px" class="label-medium" id="div1">|</label>
-            
-            <a class="link-dark" href="{{route('filter_indents','Active')}}"><label style="margin-left: 20px" class="label-medium" id="div1">Active({{$activeCount}})</label></a>
-            
+            <!-- <a href="{{route('filter_indents','Active')}}"
+                class="{{request()->routeIs('filter_indents')? 'link-dark active' : ''}}" >
+                <label id="div1" style="margin-left: 50px" class="nav-links">Active11({{$activeCount}})</label></a>
+            -->
 
-            <label  style="margin-left: 20px" class="label-medium" id="div1">|</label>
             
-             <a class="link-dark" href="{{route('filter_indents','Pending')}}"><label style="margin-left: 20px" class="label-medium" id="div1">Pending({{$pendingCount}})</label></a>
-            
+            <a class="{{request()->routeIs('filter_indents')
+                      ? 'active' : ''}}"
+                       href="{{route('filter_indents','all')}}" > <button class="btn" id="div1" style="margin-left: 50px">All({{$all}})</button> </a>
 
-            <label  style="margin-left: 20px" class="label-medium" id="div1">|</label>
+            <label  style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
+            
+            <a class="{{request()->routeIs('filter_indents')
+                      ? 'active' : ''}}" href="{{route('filter_indents','Active')}}"><button class="btn" id="div1" style="margin-left: 20px">Active({{$activeCount}})</button></a>
+
+
+            <!-- <label style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
+            
+             <a class="{{request()->routeIs('filter_indents')
+                      ? 'active' : ''}}" href="{{route('filter_indents','Pending')}}"><button class="btn" id="div1" style="margin-left: 20px;">Pending({{$pendingCount}})</button>
+             </a>
+             -->
+
+            <label  style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
           
-            <a class="link-dark" href="{{route('filter_indents','Completed')}}"><label style="margin-left: 20px" class="label-medium" id="div1">Completed({{$compltedCount}})</label></a>
+            <a class="{{request()->routeIs('filter_indents')
+                      ? 'active' : ''}}" href="{{route('filter_indents','Completed')}}">
+              <button class="btn" id="div1" style="margin-left: 20px">Completed({{$compltedCount}})</button>
+              </a>
           
          
           <div id="div2" style="margin-right: 30px">
@@ -49,6 +62,7 @@
                               <th scope="col">Date</th>
                               <th scope="col">Indent Number</th>
                               <th scope="col">PCN</th>
+                              <th scope="col">Billing Details </th>
                               <th scope="col">Indent Owner</th>
                               <th scope="col">Status</th>
                              
@@ -61,11 +75,16 @@
                               <tr> 
                                 <td>{{date("d-m-Y", strtotime($value->created_at))}}</td> 
                                 <td>{{$value->indent_no}}</td> 
-                                <td>{{$value->pcn}}</td>  
+                                <td>{{$value->pcn}}</td> 
+                                <td >{{$value->pcns->client_name}} , {{$value->pcns->area}} , {{$value->pcns->city}}</td> 
                                 <td>{{$value->user->name}}</td>  
                                 <td>{{$value->status}}</td>
                                 
-                                <td> <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button btn-sm">View</button></a></td>
+                                <td> 
+                                  <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button btn-sm">View</button></a>
+
+                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('export_indent',$value->id)}}" style="margin-left: 10px; color: black"><i class='fa fa-download'></i></a>
+                                </td>
                                 
                               </tr>
                           @endforeach

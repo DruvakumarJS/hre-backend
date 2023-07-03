@@ -19,7 +19,7 @@ class AttendanceController extends Controller
               
     			if(Attendance::where('user_id' , $request->user_id)->where('date' , date('Y-m-d'))->orderby('id' ,'DESC')->exists())
     			{
-                    $updateUser = User::where('id' , Auth::user()->id)->update([
+                    $updateUser = User::where('id' , $request->user_id)->update([
                             'isloggedin' => '1' 
                         ]);
     				return response()->json([
@@ -39,7 +39,7 @@ class AttendanceController extends Controller
 		              ]);
 
 		              if($create){
-                        $updateUser = User::where('id' , Auth::user()->id)->update([
+                        $updateUser = User::where('id' , $request->user_id)->update([
                             'isloggedin' => '1' 
                         ]);
 		              	return response()->json([
@@ -63,10 +63,9 @@ class AttendanceController extends Controller
     		else if(isset($request->action) && $request->action == 'logout')
     		{
     			
+    			if(Attendance::where('user_id' , $request->user_id)->exists()){
 
-    			if(Attendance::where('user_id' , $request->user_id)->where('date' , date('Y-m-d'))->orderBy('id' ,'DESC')->exists()){
-
-    				$login = Attendance::where('user_id' , $request->user_id)->where('date' , date('Y-m-d'))->orderBy('id' ,'DESC')->first();
+    				$login = Attendance::where('user_id' , $request->user_id)->orderBy('id' ,'DESC')->first();
 
     				$l_in = $login->date." ".$login->login_time;
 
@@ -89,7 +88,7 @@ class AttendanceController extends Controller
 		              ]);	
 
     			if($LOGOUT){
-                    $updateUser = User::where('id' , Auth::user()->id)->update([
+                    $updateUser = User::where('id' , $request->user_id)->update([
                             'isloggedin' => '0' 
                         ]);
               	return response()->json([
@@ -181,6 +180,7 @@ class AttendanceController extends Controller
                 $total_hours = $attendance->total_hours;
                 $login_location = $attendance->login_location;
                 $logout_location = $attendance->logout_location;
+                $out_of_work = $attendance->out_of_work;
 
                 if($logout_time == ''){
                     $logout_time = '---';
@@ -204,6 +204,7 @@ class AttendanceController extends Controller
                 $login_time = '---' ;
                 $logout_time = '---';
                 $total_hours = '---';
+                $out_of_work = '---';
 
             }
             $res = [
@@ -212,6 +213,7 @@ class AttendanceController extends Controller
                 'login_location' => '',
                 'logout' => $logout_time,
                 'logout_location' => '',
+                'out_of_work' => $out_of_work,
                 'working_minutes' => $total_hours
 
             ];

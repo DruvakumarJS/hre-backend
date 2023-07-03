@@ -56,7 +56,7 @@
     	
 
          <div style="margin-top: 50px">
-        	<label style="margin-left: 20px">Material List</label>
+        	<label class="label-bold" style="margin-left: 20px">Material List</label>
 
         	<div class="card border-white">
 

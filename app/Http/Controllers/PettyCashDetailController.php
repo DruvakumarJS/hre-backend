@@ -22,8 +22,10 @@ class PettyCashDetailController extends Controller
     public function index($id)
     {
          $data = PettyCashDetail::where('pettycash_id' , $id)->orderBy('id', 'DESC')->get();
+         $myspent = PettyCashDetail::where('pettycash_id' , $id)->where('isapproved','!=' , '2')->sum('spent_amount');
          $pettycash = Pettycash::where('id', $id)->first();
-        return view('pettycash/details',compact('data' , 'pettycash'));
+
+        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent'));
     }
 
     /**
@@ -47,6 +49,7 @@ class PettyCashDetailController extends Controller
     public function store(Request $request)
     {
        // print_r($request->Input());die();
+
         $fileName='';
         $bill_no = 'PC00';
 
@@ -73,11 +76,16 @@ class PettyCashDetailController extends Controller
           $createData = PettyCashDetail::create([
                 'pettycash_id' => $request->id,
                 'billing_no' => $bill_no ,
+                'bill_date' => $request->bill_date ,
                 'spent_amount' => $request->amount ,
+                'purpose' => $request->purpose ,
+                'pcn' => $request->pcn,
                 'comments' => $request->comment,
                 'filename' => $fileName,
                 'isapproved' => '0'
             ]);
+
+          $finance = pettycash::select('finance_id')->where('id', $request->id)->first();
 
           return redirect()->route('pettycash');
 
@@ -113,14 +121,14 @@ class PettyCashDetailController extends Controller
      * @param  \App\Models\PettyCashDetail  $pettyCashDetail
      * @return \Illuminate\Http\Response
      */
-    public function update($id , $status)
+    public function update(Request $request)
     {
-      //  print_r($id);print_r($status); die();
+        //print_r($request->Input());die();
 
-        if($status == '1'){
-            $update = PettyCashDetail::where('id',$id)->update(['isapproved' => $status]);
+        if($request->status == '1'){
+            $update = PettyCashDetail::where('id',$request->id)->update(['isapproved' => $request->status , 'remarks' => $request->remarks]);
             if($update){
-                $Data = PettyCashDetail::where('id',$id)->first();
+                $Data = PettyCashDetail::where('id',$request->id)->first();
 
                 $PettyCash = Pettycash::where('id',$Data->pettycash_id)->first();
                  $total_amount = $PettyCash->total;
@@ -133,15 +141,26 @@ class PettyCashDetailController extends Controller
                  $updatetable = pettycash::where('id',$Data->pettycash_id)->update(['spend'=>$total_spend , 'remaining' => $outstanding]);
 
                  if($updatetable){
+
                      return redirect()->back()->withMesage('Updated');
                  }
 
             }
 
         }
-        else if($status == '2'){
-             $update = PettyCashDetail::where('id',$id)->update(['isapproved' => $status]);
+        else if($request->status == '2'){
+             $update = PettyCashDetail::where('id',$request->id)->update(['isapproved' => $request->status , 'remarks' => $request->remarks]);
             if($update){
+                $Data = PettyCashDetail::where('id',$request->id)->first();
+                $PettyCash = Pettycash::where('id',$Data->pettycash_id)->first();
+
+                 $notify = Notification::create([
+                        'module' => 'Pettycash',
+                        'message' => 'Hi..A bill of Rs '.$Data->spent_amount.' is Rejected',
+                        'user_id' => $PettyCash->user_id,
+                        'status'=> '0'
+                       ]);
+
                  return redirect()->back()->withMesage('Updated');
             }
        

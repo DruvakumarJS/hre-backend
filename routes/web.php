@@ -21,6 +21,8 @@ use App\Http\Controllers\TicketConversationController;
 use App\Http\Controllers\PettyCashDetailController;
 use App\Http\Controllers\RestoreController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\VaultController;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,7 +132,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('save_pcn',[PcnController::class,'store'])->name('save_pcn');
     Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
     Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');
-    Route::get('export-pcn',[PcnController::class,'export'])->name('export-pcn');
+   
 
 
     Route::get('indents',[IntendController::class,'index'])->name('intends');
@@ -138,6 +140,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('edit_intends/{id}',[IntendController::class,'edit'])->name('edit_intends');
     Route::post('update_quantity',[IntendController::class,'update_dispatches'])->name('update_quantity');
     Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');
+    
     Route::get('filter_indents/{filter}',[IntendController::class,'filter_indents'])->name('filter_indents');
     Route::get('create_indent',[IntendController::class,'create'])->name('create_indent');
     Route::get('products',[IntendController::class,'action'])->name('products');
@@ -166,8 +169,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
 
     Route::post('add_attendance',[AttendanceController::class,'store'])->name('add_attendance');
     Route::post('attendance',[AttendanceController::class,'fetch_data'])->name('fetch_attendance');
-    Route::post('export_attendance',[AttendanceController::class,'export'])->name('export_attendance');
-    Route::get('download_attendance',[AttendanceController::class,'month_report'])->name('download_monthly_attendance');
+    
+    Route::post('update_attendance',[AttendanceController::class,'update'])->name('update_attendance');
 
  //petty cash
      Route::get('autocomplete_employee',[PettycashController::class,'action'])->name('autocomplete_employee');
@@ -179,7 +182,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('pettycash_details/{id}',[PettyCashDetailController::class,'index'])->name('details_pettycash');
     Route::get('pettycash_expenses/{id}',[PettyCashDetailController::class,'create'])->name('pettycash_expenses');
     Route::post('upload_bills/{id}',[PettyCashDetailController::class,'store'])->name('upload_bills');
-    Route::get('update_bill_status/{id}/{status}',[PettyCashDetailController::class,'update'])->name('update_bill_status');
+    Route::get('update_bill_status',[PettyCashDetailController::class,'update'])->name('update_bill_status');
 
 
 
@@ -202,21 +205,19 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('delete_product/{id}',[MaterialController::class,'destroy'])->name('delete_product');
     Route::get('edit_product/{id}',[MaterialController::class,'edit'])->name('edit_product');
     Route::post('update_product',[MaterialController::class,'update'])->name('update_product');
-    Route::get('export-material/{filter}',[MaterialController::class,'export'])->name('export-materials');
     Route::get('uoms',[MaterialController::class,'action'])->name('uoms');
 
     Route::get('settings/Material-master',[CategoryController::class, 'index'])->name('materials_master');
     Route::post('create_category',[CategoryController::class, 'create'])->name('create-category');
     Route::get('delete_category/{id}',[CategoryController::class, 'destroy'])->name('delete_category');
     Route::post('update-category',[CategoryController::class, 'update'])->name('update-category');
-    Route::get('export',[CategoryController::class , 'export'])->name('export-categories');
+    
 
     Route::get('superadmins',[UserController::class, 'view_superadmins'])->name('admin');
     Route::get('managers',[UserController::class, 'view_managers'])->name('manager');
     Route::get('supervisors',[UserController::class, 'view_supervisors'])->name('supervisor');
     Route::get('procurement',[UserController::class, 'view_procurement'])->name('procurement');
     Route::get('finance',[UserController::class, 'view_finance'])->name('finance');
-    Route::get('export-users/{role}',[UserController::class , 'export'])->name('export-users');
    
     Route::get('create_customer' ,[CustomerController::class,'create'])->name('create_customer');
     Route::post('save_customer' ,[CustomerController::class,'store'])->name('save_customer');
@@ -250,7 +251,31 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('restore_materialr/{id}',[RestoreController::class,'restore_material'])->name('restore_material');
     Route::get('trash_material/{id}',[RestoreController::class,'trash_material'])->name('trash_material');
 
-    Route::get('import_user',[ImportController::class,'importuser'])->name('import_user');
+    Route::post('import_user',[ImportController::class,'importuser'])->name('import_user');
+    Route::post('import_customer',[ImportController::class,'importcustomer'])->name('import_customer');
+    Route::post('import_category',[ImportController::class,'importcategory'])->name('import_category');
+    Route::post('import_material',[ImportController::class,'importmaterial'])->name('import_material');
+
+    Route::get('export_customer',[ExportController::class,'customer'])->name('export_customer');
+    Route::get('export-pcn',[ExportController::class,'pcn'])->name('export-pcn');
+    Route::get('export_indent/{id}',[ExportController::class,'indent'])->name('export_indent');
+    Route::get('export_tickets/{filter}',[ExportController::class,'ticket'])->name('export_tickets');
+    Route::get('export_pettycash',[ExportController::class,'pettycash'])->name('export_pettycash');
+    Route::post('export_attendance',[ExportController::class,'attendance'])->name('export_attendance');
+    Route::get('download_attendance',[ExportController::class,'month_report'])->name('download_monthly_attendance');
+    Route::get('export-users/{role}',[ExportController::class , 'users'])->name('export-users');
+    Route::get('export',[ExportController::class , 'category'])->name('export-categories');
+    Route::get('export-material/{filter}',[ExportController::class,'material'])->name('export-materials');
+
+    Route::get('show-notification/{id}',[NotificationController::class,'index'])->name('notification');
+    Route::get('view-notification',[NotificationController::class,'show'])->name('view_notification');
+
+    Route::get('my-vault',[VaultController::class,'index'])->name('vault_master');
+    Route::post('save_document',[VaultController::class,'store'])->name('save_document');
+    Route::post('update-doc',[VaultController::class,'update'])->name('update-doc');
+    Route::get('delete_doc/{id}',[VaultController::class,'destroy'])->name('delete_doc');
+
+
 
 
 

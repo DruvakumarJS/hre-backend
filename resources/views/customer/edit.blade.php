@@ -25,48 +25,97 @@
        <div class="row">
            
            <div class="col-md-4">
-                <label>Customer name / Billing Name</label>
+                <label>Billing Name</label>
                 <input class="form-control" type="input" name="name" required="" value="{{$customer->name}}">
                 
-                
-          </div>
-
-          <div class="col-md-4">
-                <label>Brand</label>
-                <input class="form-control" type="input" name="brand"  required=""value="{{$customer->brand}}">
-                 @error('brand')
-               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-             @enderror
                 
           </div>
 
       </div>
     
 
-       <div class="row div-margin">
+        <div class="row div-margin">
            
-           <div class="col-md-4">
-                <label>Mobile Number</label>
-                <input class="form-control" type="input" name="mobile" placeholder="Enter Mobile Number" required=""value="{{$customer->mobile}}">
-                
+           <div class="col-md-3">
+                <label>Mobile Number *</label>
+                <input class="form-control" type="input" name="mobile" placeholder="Enter Mobile Number" required="" value="{{$customer->mobile}}">
+                 @error('mobile')
+               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+             @enderror
                 
           </div>
 
-          <div class="col-md-4">
-                <label>Email ID</label>
-                <input class="form-control" type="input" name="email" placeholder="Enter Email ID" required="" value="{{$customer->email}}">
+          <div class="col-md-3">
+                <label>Mobile Number 1 </label>
+                <input class="form-control" type="input" name="mobile1" placeholder="Enter Mobile Number (optional)" value="{{$customer->mobile1}}">
+                 @error('mobile')
+               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+             @enderror
                 
           </div>
+
+           <div class="col-md-3">
+                <label>Mobile Number 2 </label>
+                <input class="form-control" type="input" name="mobile2" placeholder="Enter Mobile Number (optional)" value="{{$customer->mobile2}}">
+                 @error('mobile')
+               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+             @enderror
+                
+          </div>
+
+           <div class="col-md-3">
+                <label>Mobile Number 3 </label>
+                <input class="form-control" type="input" name="mobile3" placeholder="Enter Mobile Number (optional)" value="{{$customer->mobile3}}">
+                 @error('mobile')
+               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+             @enderror
+                
+          </div>
+
+                
+          
 
        </div>
 
         <div class="row div-margin">
-           
-           <div class="col-md-4">
-                <label>Telephone</label>
-                <input class="form-control" type="input" name="tel" value="{{$customer->telephone}}">
-                
+
+           <div class="col-md-3">
+                <label>Email ID *</label>
+                <input class="form-control" type="input" name="email" placeholder="Enter Email ID" required=""value="{{$customer->email}}">
+                 @error('email')
+               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+             @enderror
+               
           </div>
+
+          <div class="col-md-3">
+                <label>Email ID 1</label>
+                <input class="form-control" type="input" name="email1" placeholder="Enter Email ID (optional)" value="{{$customer->email1}}">
+                 @error('email')
+               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+             @enderror
+               
+          </div>
+
+          <div class="col-md-3">
+                <label>Email ID 2 </label>
+                <input class="form-control" type="input" name="email2" placeholder="Enter Email ID (optional)" value="{{$customer->email2}}">
+                 @error('email')
+               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+             @enderror
+               
+          </div>
+
+          <div class="col-md-3">
+                <label>Email ID 3 </label>
+                <input class="form-control" type="input" name="email3" placeholder="Enter Email ID (optional)" value="{{$customer->email3}}">
+                 @error('email')
+               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+             @enderror
+               
+          </div>
+           
+          
 
        </div>
          <div>
@@ -90,14 +139,10 @@
                    <div class="row align-items-end"> 
 
                      <div class="col-md-2">
-                      <label>Area / Location</label>
-                      <input class="form-control" type="text" name="address[{{$key}}][area]" value="{{$value->area}}" required="required">
+                      <label>Brand</label>
+                      <input class="form-control" type="text" name="address[{{$key}}][brand]" value="{{$value->brand}}" required="required">
                     </div>
 
-                     <div class="col-md-2">
-                      <label>City</label>
-                      <input class="form-control" type="text" name="address[{{$key}}][city]" value="{{$value->city}}" required="required">
-                    </div>
 
                      <div class="col-md-2">
                       <label>State</label>
@@ -136,12 +181,12 @@
         <div class="row">
 
         <div class="col-md-2">
-           <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary div-margin">Add Location </button>
+           <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-danger div-margin">Add Location </button>
           
         </div>
 
         <div class="col-md-2">
-          <button class="btn btn-primary div-margin" type="submit" value="submit">SUBMIT</button>
+          <button class="btn btn-danger div-margin" type="submit" value="submit">SUBMIT</button>
       
         </div>
          
@@ -158,7 +203,7 @@
     
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr><td><div class="row align-items-end"><div class="col-md-2"><label>Area / Location</label><input class="form-control" type="text" name="address[' + i + '][area]" required="required"></div><div class="col-md-2"><label>City</label><input class="form-control" type="text" name="address[' + i + '][city]" required="required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST no.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-1"><label></label>  <i id="btnn" data-id="00" class="fa fa-close remove-input-field" style="color: red"></i> </div></td></tr>');
+        $("#dynamicAddRemove").append('<tr><td><div class="row align-items-end"><div class="col-md-2"><label>Brand</label><input class="form-control" type="text" name="address[' + i + '][brand]" required="required"></div><div class="col-md-2"><label>State</label><input class="form-control" type="text" name="address[' + i + '][state]" required="required"></div><div class="col-md-2"><label>GST No.</label><input class="form-control" type="text" name="address[' + i + '][gst]" required="required"></div> <div class="col-md-1"><label></label>  <i id="btnn" data-id="00" class="fa fa-close remove-input-field" style="color: red"></i> </div></td></tr>');
 
     });
 

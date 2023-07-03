@@ -40,7 +40,7 @@ class PettycashController extends Controller
           	return response()->json([
           		'status' => 0,
           		'message' => 'UnAuthorized',
-          		'data' => '']);
+          		'data' => $casharray]);
           }
      }
 
@@ -73,7 +73,10 @@ class PettycashController extends Controller
           $createData = PettyCashDetail::create([
                 'pettycash_id' => $request->pettycash_id,
                 'billing_no' => $bill_no ,
+                'bill_date' => $request->bill_date ,
                 'spent_amount' => $request->spent_amount ,
+                'purpose' => $request->purpose ,
+                'pcn' => $request->pcn,
                 'comments' => $request->comment,
                 'filename' => $fileName,
                 'isapproved' => '0'
@@ -111,7 +114,7 @@ class PettycashController extends Controller
      	if(isset($request->user_id) && isset($request->pettycash_id)){
 
      		$data = PettyCashDetail::where('pettycash_id' , $request->pettycash_id)->orderBy('id', 'DESC')->get();
-
+        $myspent = PettyCashDetail::where('pettycash_id' , $request->pettycash_id)->where('isapproved','!=' , '2')->sum('spent_amount');
      		$details=array();
 
      		foreach ($data as $key => $value) {
@@ -132,11 +135,16 @@ class PettycashController extends Controller
      			$details[]=[
      				'date' => $value->created_at->toDateTimeString(),
             'transaction_ref' => $value->billing_no,
+            'bill_date' => $value->bill_date,
      				'spent_amount' => $value->spent_amount ,
+            'my_spend' => $myspent ,
+            'purpose' => $value->purpose,
+            'pcn' => $value->pcn,
      				'comments' => $value->comments, 
      				'filepath' => 'https://hre.netiapps.com/pettycashfiles/',
      				'filename' => $value->filename,
-     				'isapproved'=> $approved
+     				'isapproved'=> $approved,
+            'remarks' => $value->remarks
      			];
      		}
 
@@ -153,7 +161,7 @@ class PettycashController extends Controller
      		return response()->json([
           		'status' => 0,
           		'message' => 'UnAuthorized / Insufficient Input',
-          		'data' => ''
+          		'data' => $details
           		]);
 
      	}

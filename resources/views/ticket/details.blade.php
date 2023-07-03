@@ -67,7 +67,7 @@
      
      <div>
      	<h4 class="label-bold">CATEGORY : {{$ticket->category}}</h4>
-     	<label>{{$ticket->issue}}</label>
+     	<label>Description : {{$ticket->issue}}</label>
 
 
      	 <div id="div2">
@@ -83,6 +83,7 @@
      				<th>Sender</th>
      				<th>Recipient</th>
      				<th>Message</th>
+            <th>Attachment</th>
      			</tr>
 
                 @foreach($conversation as $key => $value)
@@ -96,8 +97,8 @@
              				<td>{{$value->message}}</td>
                     @if(!empty($value->filename))
                      <td>
-                      <a id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"> <button class="btn btn-light">Attachment</button></a>
-                       <a target="_blank" href="{{ URL::to('/') }}/ticketimages/{{$value->filename}}"><i class="fa fa-download"></i></a>
+                      <a id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"> <i class="fa fa-eye"></i></a>
+                       <a download href="{{ URL::to('/') }}/ticketimages/{{$value->filename}}"><i class="fa fa-download"></i></a>
                     </td>
                     @else 
                     <td>
@@ -185,7 +186,7 @@
 
                   <div class="mb-3">
                     <label for="message-text" class="col-form-label">Attach Image</label>
-                      <input type="file" class="form-control form-control-sm" name="image" id="imgInp" >
+                      <input type="file" class="form-control form-control-sm" name="image" id="imgInp" accept="image/*">
                 
                   </div>
 

@@ -335,9 +335,7 @@ class UserController extends Controller
         return view('pcn/create_pcn');
     }
 
-    public function export($role){
-          return Excel::download(new ExportUsers($role) , $role."s.csv");
-    }
+    
 
     public function back(){
         return redirect()->back();

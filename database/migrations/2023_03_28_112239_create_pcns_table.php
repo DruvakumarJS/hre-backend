@@ -20,12 +20,15 @@ class CreatePcnsTable extends Migration
             $table->string('client_name');
             $table->string('brand');
             $table->string('work');
+            $table->string('location');
             $table->string('area');
             $table->string('city');
             $table->string('state');
+            $table->string('gst');
             $table->string('proposed_start_date')->nullable();
             $table->string('proposed_end_date')->nullable();
             $table->string('approve_holidays')->nullable();
+            $table->string('approved_days')->nullable();
             $table->string('targeted_days')->nullable();
             $table->string('actual_start_date')->nullable();
             $table->string('actual_completed_date')->nullable();

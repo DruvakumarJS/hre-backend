@@ -10,11 +10,10 @@
            <div id="div2">
             <a class="btn btn-light btn-outline-secondary" href="{{route('generate-ticket')}}">
              <label id="modal">Generate Ticket </label> </a>
-          
           </div>
           <div id="div2" style="margin-right: 30px">
              <!-- <input class="form-control" type="text" name="search" placeholder="Filter "> -->
-            @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '3' )
+            @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' )
              <form method="post" action="{{route('filter')}}">
              	@csrf
              <div class="input-group mb-3">
@@ -36,7 +35,12 @@
              </form>
             @endif
 
-          </div>       
+          </div> 
+
+          <div id="div2" style="margin-right: 30px">
+            <a class="btn btn-light btn-outline-secondary" href="{{route('export_tickets',$filter)}}">
+             <label id="modal">Download CSV</label> </a>
+          </div>      
        </div>
 
     <div class="page-container"> 
@@ -49,6 +53,7 @@
 	                  <th scope="col">Date</th>
 	                  <th scope="col">Ticket No</th>
 	                  <th scope="col">PCN</th>
+	                  <th scope="col">Billing Details</th>
 	                  <th scope="col" width="150px">Department</th>
 	                  <th scope="col" width="150px">Description</th>
 	                 <!--  <th scope="col">Creator</th>  -->
@@ -68,6 +73,7 @@
 	                	<td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
+	                	<td width="200px">{{$value->pcns->client_name}} @php echo'<br/>'; @endphp {{$value->pcns->area}},{{$value->pcns->city}}</td>
 	                	<td>{{$value->category}}</td>
 	                	<td>{{$value->issue}}</td>
 	                	 
@@ -88,9 +94,10 @@
 	                	
 	                	<td>{{$value->status}} <?php echo '<br>';echo($value->reopened == '1') ? 'Re-Opened':'' ?></td>
 	                	
-	                	<td>
+	                	<td style="text-align: center; ">
 	                		@if($value->filename != '')
-	                		<a href="#" id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"><i class="fa fa-image" style="color:black"></i></a>
+	                		<a href="#" id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"><i class="fa fa-eye" style="color:black"></i></a>
+
 	                		@endif
 	                	</td>
 	                	
@@ -105,7 +112,7 @@
                             @endif
 
 	                		 @if($value->status == 'Created')
-	                		 <a href=""><button class="btn btn-light btn-outline-success btn-sm" disabled="" >More Info</button></a>
+	                		 <a href=""><button class="btn-light btn-outline-grey btn-sm" disabled="" >More Info</button></a>
 
 	                		 @else
 	                		 <a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm" >More Info</button></a>
@@ -117,23 +124,27 @@
 	                	</td>
 	                </tr>
 
-	                <!-- Modal -->
+        <!-- Modal -->
 
-                              <div class="modal" id="modal_{{$key}}" >
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel">Attachment</h5>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
+                  <div class="modal" id="modal_{{$key}}" >
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Attachment</h5>
+                          @if($value->filename != '')
+        		
+                <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> 
+        		@endif
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
 
-                                       <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value->filename}}" alt="ticketimage" style="width: 400px;height: 250px" />
-                                      
-                                    </div>
-                    </div>
-                  </div>
-                </div>
+                           <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value->filename}}" alt="ticketimage" style="width: 400px;height: 250px" />
+                          
+                        </div>
+        </div>
+      </div>
+    </div>
 
 <!--  end Modal -->
 

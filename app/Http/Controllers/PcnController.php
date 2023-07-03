@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Exports\ExportPcn;
 use Excel;
-
+use Auth ;
 class PcnController extends Controller
 {
     /**
@@ -26,7 +26,13 @@ class PcnController extends Controller
 
     public function index()
     {
-        $pcns = Pcn::where('status','Active')->orderBy('id','DESC')->paginate(20); 
+        if(Auth::user()->id == '1'){
+           $pcns = Pcn::orderBy('id','DESC')->paginate(20); 
+        }
+        else {
+             $pcns = Pcn::where('status','Active')->orderBy('id','DESC')->paginate(20); 
+        }
+       
        return view('pcn/list', compact('pcns'));
     }
 
@@ -50,40 +56,72 @@ class PcnController extends Controller
      */
     public function store(Request $request)
     {
-      // print_r($request->Input());die();
+      //print_r($request->Input()); die();
+       
+        $pcn = 'PCN_'.$request->pcn;
+       if (Pcn::where('pcn',$pcn)->exists()) {
 
-       $validator = Validator::make($request->all(), [
-             'pcn' => 'required|unique:pcns',
-           
-        ]);
-
-       if ($validator->fails()) {
-
-              return redirect()->route('create_pcn')
-                        ->withErrors($validator)
+               return redirect()->back()
+                        ->withMessage('PCN already exists')
                         ->withInput();
-                     
         }
+
+    
         else {
+
+            if($request->start_date == ''){
+            $start_date = date('Y-m-d');
+        }
+        else{
+            $start_date = $request->start_date ;
+        }
+
+         if($request->actual_start_date == ''){
+            $actual_start_date = date('Y-m-d');
+        }
+        else{
+            $actual_start_date = $request->actual_start_date ;
+        }
+
+            $targeted_days='';
+
+            if($request->holiday == 'No' || $request->holiday == ''){
+                $approved_days = '0';
+            }
+            else {
+                $approved_days = $request->approved_holidays;
+            }
+
+            if($request->end_date != ""){
+                 $end = strtotime($request->end_date);
+                $start = strtotime($request->start_date);
+                $days = $end - $start ; 
+
+                $total_days = round($days / (60 * 60 * 24)); 
+                $targeted_days = $total_days - $approved_days +1;
+
+            }
 
 
             $createPCN = Pcn::create([
-                'pcn'=>$request->pcn ,
+                'pcn'=>'PCN_'.$request->pcn ,
                 'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,
                 'brand' => $request->brand ,
                 'work' => $request->work,
-                'area' => $request->area,
+                'location' => $request->loc,
+                'area' => $request->building,
                 'city' => $request->city,
                 'state' => $request->state,
-                'proposed_start_date' => $request->start_date,
+                'gst' => $request->gst ,
+                'proposed_start_date' => $start_date,
                 'proposed_end_date' => $request->end_date,
-                'approve_holidays' => "",
-                'targeted_days' => $request->target_date,
-                'actual_start_date' => $request->actual_start_date,
+                'approve_holidays' => $request->holiday,
+                'approved_days' => $approved_days,
+                'targeted_days' => $targeted_days,
+                'actual_start_date' => $actual_start_date,
                 'actual_completed_date' => $request->actual_end_date,
                 'hold_days' => $request->hold_days,
-                'days_acheived' => $request->days_achieved,
                 'assigned_to' => $request->user_id,
                 'status' => "Active",
                 'owner' => $request->user_id,
@@ -141,31 +179,70 @@ class PcnController extends Controller
     {
        // print_r($request->Input());die();
 
+        $achieved_days = '';
+        $holdDays = '';
+        $targeted_days="";
+
+
+
+        if($request->actual_end_date != ''){
+            $end = strtotime($request->actual_end_date);
+            $start = strtotime($request->actual_start_date);
+            $days = $end - $start ; 
+
+            $total_days = round($days / (60 * 60 * 24)); 
+            $achieved_days = $total_days - $request->hold_days + 1;
+
+            if($request->hold_days == ''){
+                $request->hold_days = '0';
+            }
+
+        }
+         if($request->holiday == 'No' || $request->holiday == ''){
+                $approved_days = '0';
+            }
+            else {
+                $approved_days = $request->approved_holidays;
+            }
+
+
+         if($request->end_date != ""){
+                $end = strtotime($request->end_date);
+                $start = strtotime($request->start_date);
+                $days = $end - $start ; 
+
+                $total_days = round($days / (60 * 60 * 24)); 
+                $targeted_days = $total_days - intval($approved_days) + 1;
+
+            }
+
             $updatePCN = Pcn::where('pcn' ,$request->pcn)->update([
                 'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,
                 'brand' => $request->brand ,
                 'work' => $request->work,
+                'location' => $request->loc,
                 'area' => $request->area,
                 'city' => $request->city,
                 'state' => $request->state,
                 'proposed_start_date' => $request->start_date,
                 'proposed_end_date' => $request->end_date,
                 'approve_holidays' => $request->holiday,
-                'targeted_days' => $request->target_date,
+                'approved_days' => $approved_days,
+                'targeted_days' => $targeted_days,
                 'actual_start_date' => $request->actual_start_date,
                 'actual_completed_date' => $request->actual_end_date,
                 'hold_days' => $request->hold_days,
-                'days_acheived'=> $request->days_achieved,
+                'days_acheived'=> $achieved_days,
                 'status' => $request->status
                 
         ]);
 
             if($updatePCN){
-                return redirect()->route('PCN');
+                return redirect()->route('view_pcn');
             }
             else{
-                 return redirect()->route('create_pcn')->withMessage('Something went wrong')->withInput(); ;
+                 return redirect()->back()->withMessage('Something went wrong')->withInput(); ;
             }
 
 
@@ -190,7 +267,7 @@ class PcnController extends Controller
 
     public function view_pcn()
     {
-        $pcns = Pcn::paginate(20);
+        $pcns = Pcn::orderBy('id', 'DESC')->paginate(20);
         return view('pcn/view_pcn' , compact('pcns'));
     }
 
@@ -198,7 +275,7 @@ class PcnController extends Controller
     function action(Request $request)
     {
     
-        $data = Customer::select("name as value", "id" , "brand")
+        $data = Customer::select("name as value", "id" )
                     ->with("address")
                     ->where('name', 'LIKE', '%'. $request->get('search'). '%')
                     ->get();
@@ -208,7 +285,7 @@ class PcnController extends Controller
 
     public function autocomplete_pcn(Request $request){
 
-        $data = Pcn::select("pcn as value")
+        $data = Pcn::select("pcn as value" , 'client_name' , 'brand' , 'location', 'area' , 'city' , 'state')
                     ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
                     ->where('status' , 'Active')
                     ->get();

@@ -105,7 +105,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                          <label for="message-text" class="col-form-label">Approved Quantity</label>
+                                          <label for="message-text" class="col-form-label">Accepted Quantity</label>
                                            <input type="number" max="{{$value['dispatched']}}" class="form-control" id="approved" name="approved" placeholder="Enter Quantity" max="{{$value['dispatched']}}" required>
                                         </div>
 
@@ -117,7 +117,7 @@
 
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                          <button type="submit" class="btn btn-primary">Update</button>
+                                          <button type="submit" class="btn btn-danger">Update</button>
                                         </div>
                                       </form>
                                     </div>

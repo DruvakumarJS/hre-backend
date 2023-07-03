@@ -41,7 +41,7 @@ class MaterialController extends Controller
     public function create(Request $request)
     {
 
-        //print_r($request->Input());die();
+       // print_r($request->Input());die();
        
         $data = $request->specifications ;
         $result = array();
@@ -74,7 +74,9 @@ class MaterialController extends Controller
         $validate=Material::select('item_code')->where('item_code','LIKE','%'.$code.'%')->orderBy('id', 'DESC')->first();
 
         if(!empty($validate)){
-        $itemcode = ++$validate->item_code;
+             $arr = explode($code, $validate->item_code);
+
+        $itemcode = $code.'00'.++$arr[1];
         $t = $request->thickness;
         $thickness = $t . " "."mm";
 
@@ -88,7 +90,7 @@ class MaterialController extends Controller
       ]);   
         }
         else {
-        $itemcode = $categoryData->material_category ."00001";
+        $itemcode = $categoryData->material_category ."001";
 
          $MaterialData = Material::create([
              'category_id' => $categoryData->code,
@@ -105,7 +107,7 @@ class MaterialController extends Controller
       }
       else{
 
-         $itemcode = $categoryData->material_category ."00001";
+         $itemcode = $categoryData->material_category ."001";
         
 
          $MaterialData = Material::create([
@@ -254,10 +256,6 @@ class MaterialController extends Controller
          return redirect()->route('materials');
     }
 
-    public function export($filter){
-       
-        return Excel::download(new ExportMaterial($filter) ,'Materials.csv' );
-    }
 
     function action(Request $request)
     {

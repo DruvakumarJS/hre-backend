@@ -31,7 +31,7 @@ class IntendController extends Controller
     public function index()
     { 
 
-       if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 3) {
+       if(Auth::user()->role_id != 4 ) {
         $indents=Intend::orderBy('id', 'DESC')->paginate(10);
         $all = Intend::count();
         $activeCount = Intend::where('status','Active')->count();
@@ -153,7 +153,6 @@ class IntendController extends Controller
           }
 
           return redirect()->route('intends');
-
 
 
 
@@ -304,7 +303,6 @@ class IntendController extends Controller
                 'dispatched' => $request->quantity,
                 'status' => "Awaiting for Confirmation"
             ]);
-
 
             return redirect()->route('edit_intends',$request->id)
                             ->withmessage('GRN created successfully');

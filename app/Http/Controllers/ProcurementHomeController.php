@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Intend;
 use App\Models\Ticket;
+use App\Models\GRN;
+use App\Models\Pcn;
+
 
 class ProcurementHomeController extends Controller
 {
@@ -27,9 +30,22 @@ class ProcurementHomeController extends Controller
         $indents = Intend::orderby('id','DESC')->paginate(10);
         $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
         $compltedCount = Intend::where('updated_at','LIKE','%'.$date.'%')->where('status','Completed')->count();
-        $tickets = Ticket::count();
+        $grn = GRN::where('created_at','LIKE','%'.$date.'%')->count();
+
+         $Pcn = Pcn::where('status','!=','Completed')->get();
+         $result=array();
+
+         foreach ($Pcn as $key => $value) {
+            
+             $Indents = Intend::where('pcn',$value->pcn)->count();
+
+             if($Indents > 0){
+                 $result[$value->client_name][$value->pcn][] = $Indents; 
+             }
+
+         }
         
-         return view('procurement_home',compact('indents' , 'todaysIndent' , 'compltedCount' , 'tickets'));
+         return view('procurement_home',compact('indents' , 'todaysIndent' , 'compltedCount' , 'grn' , 'result'));
     }
 
     /**
