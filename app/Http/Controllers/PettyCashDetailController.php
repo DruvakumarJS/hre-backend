@@ -154,12 +154,6 @@ class PettyCashDetailController extends Controller
                 $Data = PettyCashDetail::where('id',$request->id)->first();
                 $PettyCash = Pettycash::where('id',$Data->pettycash_id)->first();
 
-                 $notify = Notification::create([
-                        'module' => 'Pettycash',
-                        'message' => 'Hi..A bill of Rs '.$Data->spent_amount.' is Rejected',
-                        'user_id' => $PettyCash->user_id,
-                        'status'=> '0'
-                       ]);
 
                  return redirect()->back()->withMesage('Updated');
             }

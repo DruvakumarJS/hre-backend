@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Customer;
+use App\Models\Address;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use DB;
@@ -14,7 +15,24 @@ class ExportCustomer implements FromCollection, WithHeadings
     */
     public function collection()
     {
-         $customer =  DB::table('customers')->select(DB::raw("DATE_FORMAT(`created_at`, '%d-%m-%Y') as date"),'name', 'brand' , 'email' ,'mobile' ,'telephone')->get();
+         $customer =  DB::table('addresses')
+         ->select(DB::raw(
+            "DATE_FORMAT(addresses.created_at, '%d-%m-%Y') as date"),
+            'customers.name' , 
+            'addresses.brand',
+            'addresses.state',
+            'addresses.gst',
+            'customers.mobile',
+            'customers.mobile1',
+            'customers.mobile2',
+            'customers.mobile3',
+            'customers.email',
+            'customers.email1',
+            'customers.email2',
+            'customers.email3' 
+            )
+         ->join('customers', 'addresses.customer_id' , '=','customers.id')
+         ->get();
 
          return $customer;
 
@@ -40,7 +58,8 @@ class ExportCustomer implements FromCollection, WithHeadings
     public function headings(): array
      {       
        return [
-         'Date','Name','Brand', 'Email' , 'Mobile' ,'Telephone' 
+         'Date','Name', 'Brand' , 'State' , 'GST No.' , 'Mobile' , 'Mobile 1' , 'Mobile 2' , 'Mobile 3' ,
+         'Email' , 'Email 1', 'Email 2', 'Email 3' 
        ];
      }
 }

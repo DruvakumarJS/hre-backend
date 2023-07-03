@@ -12,6 +12,7 @@ class Pettycash extends Model
     protected $fillable = [
     	'user_id',
     	'total',
+        'issued_on',
     	'comments',
     	'spend',
     	'remaining',

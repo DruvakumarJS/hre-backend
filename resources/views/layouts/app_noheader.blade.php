@@ -24,7 +24,7 @@
 .body-background1
 {
  margin: 0;
-  background: linear-gradient(to right, #000000 30%, #f2f2f2 0%);
+  background: linear-gradient(to right, #5A5A5A 30%, #f2f2f2 0%);
   height:100vh;
   color:#000;
 
@@ -50,7 +50,7 @@
                   <img  src="{{asset('images/logo2.svg')}}" style="width: 100px;height: 100px;margin-top: 20px; margin-left: 10px">
 
                </a>
-               <span style="color: #e31e24;font-weight: 600;font-style: normal;font-size: 15px;margin-top: -5px;transform: translateX(-19px);">One Stop Solution</span>
+               <span style="color: #fff;font-weight: 600;font-style: normal;font-size: 15px;margin-top: -5px;transform: translateX(-19px);">One Stop Solution</span>
                
 
 

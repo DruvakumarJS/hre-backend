@@ -7,11 +7,7 @@
         
         <div class="container-header">
             <label class="label-bold" id="div1">Intend Details</label>
-           <div id="div2">
-            <a class="btn btn-light" href="">
-             <label id="modal"> </label> </a>
           
-          </div>
          
         </div>
 
@@ -100,14 +96,15 @@
                     <div style="margin-left: 20px">
 
                     @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '3' )
-                        
+                    
                         <form method="post" action="{{route('update_quantity')}}">
                             @csrf
                             <div class="form-group row">
-                                <label for="text" class="col-4 col-form-label">Quantity Dispatched</label>
+                               
+                                <label for="text" class="col-4 col-form-label">Quantity Dispatched </label>
                                 <div class="col-4">
                                     <input id="text" type="Number" class="form-control" placeholder="Enter numbers"
-                                           name="quantity" required="required" min="1" max="{{$indend_data->pending}}" value="{{old('quantity')}}">
+                                           name="quantity" required="required" min="1" max="<?php echo $indend_data->pending-$dispatched ;?>" value="{{old('quantity')}}">
 
                                 </div>
                                 <input type="hidden" name="indent_no" value="{{$indend_data->indent->indent_no}}">
@@ -142,6 +139,7 @@
                                 <th>Rejected</th>
                                 <th>Comments</th>
                                 <th>Dispatched Date</th>
+                                <th></th>
                             </tr>
                             </thead>
                         @foreach($grn as $key =>$value)
@@ -151,8 +149,13 @@
                                     <td>{{$value->status}}</td>
                                     <td>{{$value->approved}} </td>
                                     <td>{{$value->damaged}} </td>
-                                    <td>{{$value->comments}}</td>
+                                    <td>{{$value->comment}}</td>
                                     <td>{{$value->created_at}}</td>
+                                    <td>
+                                        @if(Auth::user()->role_id == '3' || Auth::user()->role_id == '1') 
+                                        <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_grn',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
+                                        @endif
+                                    </td>
                                 </tr>
                         @endforeach
                         </table>

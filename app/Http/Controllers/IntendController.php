@@ -320,9 +320,13 @@ class IntendController extends Controller
      * @param  \App\Models\Intend  $intend
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Intend $intend)
+    public function destroy($id)
     {
-        //
+        $delete = GRN::where('id', $id)->delete();
+
+        if($delete){
+          return redirect()->back();
+        }
     }
 
     public function export($indent_no){
@@ -353,13 +357,21 @@ class IntendController extends Controller
 
     public function action(Request $request){
 
-        $product = DB::table('materials')
-        ->select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
-        ->where('item_code' , 'LIKE', '%'.$request->search.'%')
-        ->orWhere('name' , 'LIKE', '%'.$request->search.'%')
-        ->orWhere('brand' , 'LIKE', '%'.$request->search.'%')
+        // $product = DB::table('materials')
+        // ->select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
+        // ->where('item_code' , 'LIKE', '%'.$request->search.'%')
+        // ->orWhere('name' , 'LIKE', '%'.$request->search.'%')
+        // ->orWhere('brand' , 'LIKE', '%'.$request->search.'%')
+        // ->where('deleted_at','=',null)
+        // ->get();
+
+        $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
+          ->where('item_code' , 'LIKE', '%'.$request->search.'%')
+          ->orWhere('name' , 'LIKE', '%'.$request->search.'%')
+          ->orWhere('brand' , 'LIKE', '%'.$request->search.'%')
         ->get();
 
+        
         return response()->json($product);
 
     }
@@ -375,7 +387,7 @@ class IntendController extends Controller
 
             $indent_list = Indent_list::where('id',$value->indent_list_id)->orderBy('id', 'DESC')->first();
 
-            $material = Material::where('item_code',$indent_list->material_id)->first();
+            $material = Material::where('item_code',$indent_list->material_id)->withTrashed()->first();
             
             $material_detail = [
               'material_name' => $material->name,

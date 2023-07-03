@@ -17,6 +17,7 @@ class CreatePettycashesTable extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('total');
+            $table->string('issued_on');
             $table->string('comments')->nullable();
             $table->string('spend');
             $table->string('remaining');

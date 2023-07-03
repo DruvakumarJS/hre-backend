@@ -85,7 +85,7 @@
         </div>
 
         <div class="col-md-6 col-sm-6">
-          <div class="card overflow-auto border-white" style="height: 350px">
+          <div class="card border-white scroll tableFixHead" style="height: 350px">
 
                         <table class="table" >
                           <thead>

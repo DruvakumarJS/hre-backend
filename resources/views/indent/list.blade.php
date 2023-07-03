@@ -83,7 +83,7 @@
                                 <td> 
                                   <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button btn-sm">View</button></a>
 
-                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('export_indent',$value->id)}}" style="margin-left: 10px; color: black"><i class='fa fa-download'></i></a>
+                                  <a onclick="return confirm('Are you sure to download?')" href="{{route('export_indent',$value->id)}}" style="margin-left: 10px; color: black"><i class='fa fa-download'></i></a>
                                 </td>
                                 
                               </tr>

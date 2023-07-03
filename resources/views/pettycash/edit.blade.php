@@ -44,6 +44,13 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Issued Date*</label>
+                            <div class="col-7">
+                                <input name="issued_date"  type="date" class="form-control" required="required" placeholder="Enter Amount" value="{{$data->issued_on}}">
+                            </div>
+                        </div>
+
                          <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Description*</label>
                             <div class="col-7">

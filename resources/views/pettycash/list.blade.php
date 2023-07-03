@@ -6,7 +6,7 @@
         <label class="label-bold" id="div1">Petty Cash</label>
 
 @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '5' )
-        <div id="div2" style="margin-right: 30px">
+        <div id="div2" >
             <a class="btn btn-light btn-outline-secondary" href="{{route('create_new')}}"><i class="fa fa-plus"></i> Create New</a>
         </div>
 
@@ -15,6 +15,10 @@
         </div>
 @endif
     </div>
+
+     @if(Session::has('message'))
+            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
+        @endif  
 
      <div class="row">
         <div class="card border-white">
@@ -25,8 +29,8 @@
                     <th scope="col">Date</th>
                     <th scope="col">Employee ID</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Mobile</th>
                     <th scope="col">Role</th>
+                    <th scope="col">Issued On</th>
                     <th scope="col">Issued Amount</th>
                     <th scope="col">Balance Amount</th>   
                     <th scope="col">Payment Mode</th>           
@@ -39,8 +43,8 @@
                         <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                         <td>{{$value->employee->employee_id}}</td>
                         <td>{{$value->employee->name}}</td>
-                        <td>{{$value->employee->mobile}}</td>
                         <td>{{$value->employee->user->roles->alias}}</td>
+                        <td>{{date("d-m-Y", strtotime($value->issued_on))}}</td>
                         <td><span>&#8377;</span>{{$value->total}}</td>
                         <td><span>&#8377;</span>{{$value->remaining}}</td>
                         <td>{{$value->mode}}</td>
@@ -50,16 +54,25 @@
                         <td>
                             @if(Auth::user()->role == 'admin' || Auth::user()->role == 'finance')
                             <a href="{{route('edit_pettycash',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
+                            @if($value->user_id == Auth::user()->id)
+                             <a href="{{route('pettycash_expenses',$value->id)}}"><button class="btn btn-light btn-sm btn-outline-danger">Upload Expenses</button></a>
+                             @endif
                             @else 
                             <a href="{{route('pettycash_expenses',$value->id)}}"><button class="btn btn-light btn-sm btn-outline-danger">Upload Expenses</button></a>
                             @endif
                             <a href="{{route('details_pettycash',$value->id)}}"><button class="btn btn-light btn-sm btn-outline-success">Details</button></a>
+                            
+
+                            @if(Auth::user()->role_id == '1') 
+                            <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_pettycash',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
+                            @endif  
+
                             @if($size!=0)
                             <i class="fa fa-clock-o " style="color: red;width: 2px ; height: 2px ; margin-left: 10px"></i>
                              @endif
 
                         </td>
-                        
+                       
                     </tr>
 
                     @endforeach

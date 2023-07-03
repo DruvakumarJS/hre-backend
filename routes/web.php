@@ -147,6 +147,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('save_indent',[IntendController::class,'store'])->name('save_indent');
     Route::get('grn',[IntendController::class,'grn'])->name('grn');
     Route::post('update-grn', [IntendController::class,'update_grn'])->name('update-grn');
+    Route::get('delete-grn/{id}', [IntendController::class,'destroy'])->name('delete_grn');
    
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');
@@ -179,6 +180,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('save_petty_cash',[PettycashController::class,'store'])->name('save_petty_cash');
     Route::get('edit_pettycash/{id}',[PettycashController::class,'edit'])->name('edit_pettycash');
     Route::post('update_pettycash/{id}',[PettycashController::class,'update'])->name('update_pettycash');
+    Route::get('pettycash_delete/{id}',[PettycashController::class,'destroy'])->name('delete_pettycash');
     Route::get('pettycash_details/{id}',[PettyCashDetailController::class,'index'])->name('details_pettycash');
     Route::get('pettycash_expenses/{id}',[PettyCashDetailController::class,'create'])->name('pettycash_expenses');
     Route::post('upload_bills/{id}',[PettyCashDetailController::class,'store'])->name('upload_bills');

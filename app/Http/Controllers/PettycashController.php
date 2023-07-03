@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pettycash;
+use App\Models\PettyCashDetail;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -67,6 +68,7 @@ class PettycashController extends Controller
             'user_id' => $request->user_id ,
             'finance_id' => $request->finance_id , 
             'total' => $request->amount,
+            'issued_on' => $request->issued_date,
             'comments' => $request->comment,
             'remaining' => $request->amount ,
             'spend' => '0',
@@ -117,6 +119,7 @@ class PettycashController extends Controller
         $update = Pettycash::where('id', $request->rowid)->update([
             'user_id' => $request->user_id ,
             'total' => $request->amount,
+            'issued_on' => $request->issued_date ,
             'comments' => $request->comment,
             'remaining' => $request->amount ,
         ]);
@@ -134,9 +137,21 @@ class PettycashController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function destroy(Pettycash $pettycash)
+    public function destroy($id)
     {
-        //
+        if(PettyCashDetail::where('pettycash_id' , $id)->exists())
+        {
+            return redirect()->back()->withMessage('This Pettycash is already used by the employee');
+        }
+        else {
+             $delete = Pettycash::where('id', $id)->delete();
+             return redirect()->back();
+
+        }
+       
+        
+            
+      
     }
 
      function action(Request $request)
