@@ -11,9 +11,12 @@
   margin-right: 40px;
 }
 
+.navigation {
+  transform: translateY(24px);
+}
 .navigation a {
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
   font-weight: 600;
   cursor: pointer;
 }
@@ -22,7 +25,10 @@
   padding: 8px;
 }
 .nav-links:hover {
-  background: #f10909;
+  background: #f2f2f2;
+  border-radius: 8px 8px 0px 0px;
+  color: #5a5a5a;
+  padding: 7px 15px;
 }
 
 .userLogin {
@@ -42,20 +48,21 @@
   border-bottom: 1px solid #ffffff;
 }
 .navbar .active .nav-links {
-  background: #f10909;
+  background: #f2f2f2;
+  border-radius: 8px 8px 0px 0px;
+  color: #5a5a5a;
+  padding: 7px 15px;
 }
 .navbar .nav-link {
   color: #fff;
+  padding: 7px 28px;
 }
 .navbar a label {
   color: #fff;
   cursor: pointer;
   width: -moz-fit-content;
   width: fit-content;
-}
-
-.active label {
-  border-bottom: 1px solid #000000;
+  padding: 7px 15px;
 }
 
 .top-counter .card-text {

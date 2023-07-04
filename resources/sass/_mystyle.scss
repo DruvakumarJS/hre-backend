@@ -12,21 +12,23 @@
 }
 
 .navigation{
-    a{
-        padding-right: 20px;
-        padding-left: 20px;
+     transform:translateY(24px) ;
+        a{
+        padding-right: 10px;
+        padding-left: 10px;
         font-weight: 600;
         cursor: pointer;
        
     }
 }
 
-
-
 .nav-links{
  padding: 8px;
     &:hover{
-    background: #f10909;
+    background: #f2f2f2;
+    border-radius: 8px 8px 0px 0px ;
+    color : #5a5a5a;  
+    padding: 7px 15px; 
 
     }
 }
@@ -46,14 +48,19 @@
     background: #5A5A5A;
     border-bottom: 1px solid #ffffff;
 
+
     .active{
     .nav-links{
-    background: #f10909;
+    background: #f2f2f2;
+    border-radius: 8px 8px 0px 0px ;
+    color : #5a5a5a;  
+    padding: 7px 15px;  
     }
 }
 
     .nav-link{
         color: #fff;
+        padding: 7px 28px;
     }
     
     a{
@@ -61,17 +68,12 @@
             color: #fff;
             cursor: pointer;
             width: fit-content;
+            padding: 7px 15px; 
         }
     }
 }
 
 
-
-.active{
-    label{
-        border-bottom: 1px solid #000000;
-    }
-}
 
 
 .top-counter{
