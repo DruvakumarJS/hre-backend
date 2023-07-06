@@ -22,12 +22,7 @@
                       ? 'active' : ''}}" href="{{route('filter_indents','Active')}}"><button class="btn" id="div1" style="margin-left: 20px">Active({{$activeCount}})</button></a>
 
 
-            <!-- <label style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
-            
-             <a class="{{request()->routeIs('filter_indents')
-                      ? 'active' : ''}}" href="{{route('filter_indents','Pending')}}"><button class="btn" id="div1" style="margin-left: 20px;">Pending({{$pendingCount}})</button>
-             </a>
-             -->
+           
 
             <label  style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
           
@@ -37,7 +32,7 @@
               </a>
           
          
-          <div id="div2" style="margin-right: 30px">
+          <div id="div2" >
             <a href="{{route('create_indent')}}"><button class="btn btn-light btn-outline-secondary" > Create Indent</button></a>
              
           </div>
@@ -47,8 +42,20 @@
              
           </div>
 
-          
+          <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_indent')}}">
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search here">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
 
+
+        
           
         </div>
       <div class="page-container">

@@ -265,7 +265,7 @@ $( document ).ready(function() {
         var s_date = document.getElementById('start_date').value;
         if(s_date!=''){
            $("#end_date" ).datepicker({
-           minDate:document.getElementById('start_date').value,
+         //  minDate:document.getElementById('start_date').value,
             dateFormat: 'yy-mm-dd'
           });
         }
@@ -274,7 +274,7 @@ $( document ).ready(function() {
          var s_date = document.getElementById('start_date').value;
         if(s_date!=''){
            $("#actual_end_date" ).datepicker({
-           minDate:document.getElementById('actual_start_date').value,
+          // minDate:document.getElementById('actual_start_date').value,
             dateFormat: 'yy-mm-dd'
           });
         }
@@ -372,7 +372,7 @@ $( document ).ready(function() {
 
     $( function() {
       $("#start_date").datepicker({
-       minDate:0,
+      // minDate:0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText, $el) {
          
@@ -385,7 +385,7 @@ $( document ).ready(function() {
     function setenddate(dateText){
      
          $("#end_date").datepicker({
-           minDate:'2023-06-30',
+         //  minDate:'2023-06-30',
             dateFormat: 'yy-mm-dd'
           });
       
@@ -394,7 +394,7 @@ $( document ).ready(function() {
   
  $( function() {
       $( "#actual_start_date" ).datepicker({
-       minDate:0,
+      // minDate:0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText, $el) {
         //  alert(dateText);
@@ -407,7 +407,7 @@ $( document ).ready(function() {
 
  function setactualenddate(dateText){
          $("#actual_end_date" ).datepicker({
-           minDate:dateText,
+          // minDate:dateText,
             dateFormat: 'yy-mm-dd'
           });
       
@@ -418,7 +418,7 @@ $( document ).ready(function() {
      function set_enddate(){
 
          $("#end_date" ).datepicker({
-           minDate:document.getElementById('start_date').value,
+         // minDate:document.getElementById('start_date').value,
             dateFormat: 'yy-mm-dd'
           });
        
@@ -428,7 +428,7 @@ $( document ).ready(function() {
       function set_actual_enddate(){
       
          $("#actual_end_date" ).datepicker({
-           minDate:document.getElementById('actual_start_date').value,
+          // minDate:document.getElementById('actual_start_date').value,
             dateFormat: 'yy-mm-dd'
           });
        

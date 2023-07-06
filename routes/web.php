@@ -147,7 +147,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('save_indent',[IntendController::class,'store'])->name('save_indent');
     Route::get('grn',[IntendController::class,'grn'])->name('grn');
     Route::post('update-grn', [IntendController::class,'update_grn'])->name('update-grn');
-    Route::get('delete-grn/{id}', [IntendController::class,'destroy'])->name('delete_grn');
+    Route::post('edit_quantity', [IntendController::class,'edit_grn'])->name('edit_quantity');
+    Route::post('search_indent', [IntendController::class,'search'])->name('search_indent');
    
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');
@@ -177,14 +178,17 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
      Route::get('autocomplete_employee',[PettycashController::class,'action'])->name('autocomplete_employee');
     Route::get('pettycash',[PettycashController::class,'index'])->name('pettycash');
     Route::get('create_new',[PettycashController::class,'create'])->name('create_new');
+    Route::get('pettycash_info/{id}',[PettycashController::class,'show'])->name('pettycash_info');
     Route::post('save_petty_cash',[PettycashController::class,'store'])->name('save_petty_cash');
     Route::get('edit_pettycash/{id}',[PettycashController::class,'edit'])->name('edit_pettycash');
     Route::post('update_pettycash/{id}',[PettycashController::class,'update'])->name('update_pettycash');
     Route::get('pettycash_delete/{id}',[PettycashController::class,'destroy'])->name('delete_pettycash');
     Route::get('pettycash_details/{id}',[PettyCashDetailController::class,'index'])->name('details_pettycash');
-    Route::get('pettycash_expenses/{id}',[PettyCashDetailController::class,'create'])->name('pettycash_expenses');
-    Route::post('upload_bills/{id}',[PettyCashDetailController::class,'store'])->name('upload_bills');
+    Route::get('pettycash_expenses',[PettyCashDetailController::class,'create'])->name('pettycash_expenses');
+    Route::post('upload_bills',[PettyCashDetailController::class,'store'])->name('upload_bills');
     Route::get('update_bill_status',[PettyCashDetailController::class,'update'])->name('update_bill_status');
+    Route::get('view-summary/{id}',[PettycashController::class,'summary'])->name('view_summary');
+    Route::post('summary',[PettyCashDetailController::class,'fetch_summary'])->name('fetch_summary');
 
 
 

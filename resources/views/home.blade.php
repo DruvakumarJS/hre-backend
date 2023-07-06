@@ -76,7 +76,7 @@ $yvalue=array();
       <div class="row justify-content-between">
         <div class="col-md-6 col-sm-6">
 
-          <div class="card border-white scroll tableFixHead" style="height: 350px">
+          <div class="card border-white scroll tableFixHead" style="height: 350px; padding: 0px 5px 20px 20px">
 
                         <table class="table" >
                           <thead >

@@ -32,23 +32,24 @@ class IntendController extends Controller
     { 
 
        if(Auth::user()->role_id != 4 ) {
-        $indents=Intend::orderBy('id', 'DESC')->paginate(10);
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->paginate(50);
+
         $all = Intend::count();
         $activeCount = Intend::where('status','Active')->count();
-        $pendingCount = Intend::where('status','Pending')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
         $compltedCount = Intend::where('status','Completed')->count();
        }
        else {
-        $indents=Intend::where('user_id' ,Auth::user()->id)->orderBy('id', 'DESC')->paginate(10);
+        $indents=Intend::where('user_id' ,Auth::user()->id)->paginate(50);
         $all = Intend::where('user_id' ,Auth::user()->id)->count();
         $activeCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Active')->count();
-        $pendingCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Pending')->count();
+      //  $pendingCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Pending')->count();
         $compltedCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Completed')->count();
        }
         
         //print_r($pendingCount);
 
-         return view('indent/list' , compact('indents' , 'all' , 'activeCount', 'pendingCount' , 'compltedCount'));
+         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount'));
     } 
 
     /**
@@ -152,7 +153,8 @@ class IntendController extends Controller
 
           }
 
-          return redirect()->route('intends');
+         // return redirect()->route('intends');
+           return redirect()->back()->with('Indent',$ind_no);
 
 
 
@@ -213,9 +215,31 @@ class IntendController extends Controller
      * @param  \App\Models\Intend  $intend
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Intend $intend)
-    {
-        //
+    public function edit_grn(Request $request)
+    { 
+     // print_r($request->Input());die();
+
+       $Update = GRN::where('grn',$request->grn)->update([
+               
+                'dispatched' => $request->quantity,
+               
+            ]);
+
+       if($Update){
+         return redirect()->route('edit_intends',$request->id)
+                            ->withmessage('GRN Updated successfully');
+
+       }
+       else{
+         return redirect()->route('edit_intends',$request->id)
+                            ->withmessage('Failed to Update GRN');
+
+
+       }
+
+           
+
+       
     }
 
     public function update_quantity(Request $request)
@@ -481,6 +505,43 @@ class IntendController extends Controller
           return redirect()->back()->withMessage('Could not update GRN');
 
         }
+
+    }
+
+    public function search(Request $request){
+     // print_r($request->search);die();
+      $search = $request->search;
+      
+      if(Auth::user()->role_id != 4 ) {
+
+       $indents = Intend::where('indent_no','LIKE','%'.$search.'%')
+                        ->orWhere('pcn','LIKE','%'.$search.'%')
+                        ->orWhereHas('pcns', function ($query) use ($search) {
+                        $query->where('client_name', 'like', '%'.$search.'%');
+                           })
+                        ->paginate(50);
+
+                        
+        $all = Intend::count();
+        $activeCount = Intend::where('status','Active')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::where('status','Completed')->count();
+       }
+
+       else 
+       {
+        $indents = Intend::where('indent_no','LIKE','%'.$search.'%')
+                        ->orWhere('pcn','LIKE','%'.$search.'%')->where('user_id' ,Auth::user()->id)->paginate(50);
+        
+        $all = Intend::where('user_id' ,Auth::user()->id)->count();
+        $activeCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Active')->count();
+      //  $pendingCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Pending')->count();
+        $compltedCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Completed')->count();
+       }
+        
+        //print_r($pendingCount);
+
+         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount'));              
 
     }
 }

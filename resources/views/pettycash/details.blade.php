@@ -31,13 +31,13 @@
 
             <div class="col-md-2">
                 <label>Issued Amount</label>
-                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total}}</h3>
+                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total_issued}}</h3>
                 
             </div>
 
             <div class="col-md-2">
                 <label>Bill Accepted for</label>
-                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->spend}}</h3>
+                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total_issued-$pettycash->total_balance}}</h3>
                 
             </div>
 
@@ -45,10 +45,16 @@
              <div class="col-md-2">
                 <label>Balance Amount</label>
                 @if(auth::user()->role_id == '5' || auth::user()->role_id == '1')
-                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->remaining}}</h3>
+                @if($pettycash->employee->user_id == auth::user()->id)
+                 <h3 class="label-bold"><span>&#8377;</span><?php echo intval($pettycash->total_issued) - intval($myspent) ; ?></h3>
                 @else
-                <h3 class="label-bold"><span>&#8377;</span><?php echo intval($pettycash->total) - intval($myspent) ; ?></h3>
+                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total_balance}}</h3>
                 @endif
+
+                @else
+                <h3 class="label-bold"><span>&#8377;</span><?php echo intval($pettycash->total_issued) - intval($myspent) ; ?></h3>
+                 @endif
+                
                 
             </div>
             
@@ -98,16 +104,15 @@
                                     <td>
                                         @if( (Auth::user()->role == 'admin') || (Auth::user()->role == 'finance'))
                                             @if($value->isapproved == '0')
-                                                <a data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-warning">Approve/Reject</button></a>
-                                                <!-- <a onclick="return confirm('you are Accepting this bill ?')" href="{{route('update_bill_status',['id' => $value->id, 'status' => '1']) }}"><button class="btn btn-sm btn-outline-success">Accept</button></a>
-                                                <a onclick="return confirm('you are Rejecting this bill ?')" href="{{route('update_bill_status',['id' => $value->id, 'status' => '2'] ) }}"><button  class="btn btn-sm btn-outline-danger">Reject</button></a>-->
+                                                <a id="MybtnModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-warning">Approve/Reject</button></a>
+                                               
                                             @endif
                                             @endif  
                                     </td> 
                                    </tr>
 
 <!--  Modal -->
-        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modal_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -119,7 +124,7 @@
                     @csrf
 
                     <div class="form-group ">
-                            <label class="label-bold">Bill Date :</label> <label>{{date("d-m-Y", strtotime($value->bill_date))}}</label>
+                            <label class="label-bold">Bill Date :</label> <label>{{date("d-m-Y", strtotime($value->bill_date))}} {{$value->spent_amount}}</label>
                             <textarea name="remarks" placeholder="Enter Remarks here" style="width: 100%;padding: 10px" required></textarea> 
                            
                        
@@ -135,10 +140,20 @@
           </div>
         </div>
 <!-- Modal -->
+<script>
+$(document).ready(function(){
+  $('#MybtnModal_{{$key}}').click(function(){
+    $('#modal_{{$key}}').modal('show');
+  });
+});  
+</script>
                         @endforeach
                         </table>
                         </div>
 
  </div>    
 </div>
+
+
+
 @endsection

@@ -18,6 +18,39 @@ $date = date('dd-mm-yyyy');
          
          
         </div>
+
+        @if(session()->has('PCN'))
+       <script>
+        $(document).ready(function(){
+            $('#modal').modal('show');
+          });
+        
+        </script>
+
+        <!--  Modal -->
+          <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">PCN Created Succesfully</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                  <label>PCN </label><h3>{{ Session::get('PCN') }}</h3>
+
+                  <div id="div2">
+                    <a href="{{route('view_pcn')}}"><button class="btn btn-success">OK , GOT IT</button></a>
+                    
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </div>
+          </div>
+  <!-- Modal -->
+    @endif
         <div class="form-build">
             <div class="row">
                 <div class="col-6">
@@ -302,7 +335,7 @@ $( document ).ready(function() {
 <script language="javascript">
    $( function() {
       $( "#start_date" ).datepicker({
-       minDate:0,
+        //minDate:0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText, $el) {
          // alert(dateText);
@@ -314,7 +347,7 @@ $( document ).ready(function() {
 
      function setenddate(dateText){
          $("#end_date" ).datepicker({
-           minDate:dateText,
+         // minDate:dateText,
             dateFormat: 'yy-mm-dd'
           });
       
@@ -322,7 +355,7 @@ $( document ).ready(function() {
 
  $( function() {
       $( "#actual_start_date" ).datepicker({
-       minDate:0,
+      // minDate:0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText, $el) {
         //  alert(dateText);
@@ -336,7 +369,7 @@ $( document ).ready(function() {
 
      function setactualenddate(dateText){
          $("#actual_end_date" ).datepicker({
-           minDate:dateText,
+          // minDate:dateText,
             dateFormat: 'yy-mm-dd'
           });
       

@@ -2,9 +2,14 @@
 
 @section('content')
 <div class="container">
-	<div class="container-header">
+  <div class="row justify-content-center">
+	 <div class="container-header">
             <label class="label-bold" id="div1">GRNs</label>
-                 
+
+            <div id="div2">
+              <a href="{{route('intends')}}"><button class="btn btn-light btn-outline-secondary" > View Indents </button></a>
+            </div>
+      
     </div>
 
     <div class="page-container">
@@ -138,7 +143,7 @@ $(document).ready(function(){
                           
                           @endforeach                         
                             
-                          </tbody>
+                         
                         </table>
 
                         
@@ -148,7 +153,7 @@ $(document).ready(function(){
                     <!--</div>-->
                  </div>
         </div>
-     
+    </div> 
 </div>	
 
 

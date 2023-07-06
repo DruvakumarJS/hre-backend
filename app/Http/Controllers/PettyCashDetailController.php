@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\PettyCashDetail;
 use App\Models\Pettycash;
+use App\Models\PettycashOverview;
+use App\Models\PettycashSummary;
 use Illuminate\Http\Request;
+use Auth;
 
 class PettyCashDetailController extends Controller
 {
@@ -21,9 +24,11 @@ class PettyCashDetailController extends Controller
 
     public function index($id)
     {
-         $data = PettyCashDetail::where('pettycash_id' , $id)->orderBy('id', 'DESC')->get();
-         $myspent = PettyCashDetail::where('pettycash_id' , $id)->where('isapproved','!=' , '2')->sum('spent_amount');
-         $pettycash = Pettycash::where('id', $id)->first();
+         $data = PettyCashDetail::where('user_id' , $id)->orderBy('id', 'DESC')->get();
+         $myspent = PettyCashDetail::where('user_id' , $id)->where('isapproved','!=' , '2')->sum('spent_amount');
+         $pettycash = PettycashOverview::where('user_id', $id)->first();
+
+         //print_r($myspent);die();
 
         return view('pettycash/details',compact('data' , 'pettycash' , 'myspent'));
     }
@@ -33,11 +38,10 @@ class PettyCashDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        $data = Pettycash::where('id' , $id)->first();
-
-        return view('pettycash/add_expenses', compact('data'));
+    
+        return view('pettycash/add_expenses');
     }
 
     /**
@@ -74,7 +78,7 @@ class PettyCashDetailController extends Controller
           }
 
           $createData = PettyCashDetail::create([
-                'pettycash_id' => $request->id,
+                'user_id' => Auth::user()->id,
                 'billing_no' => $bill_no ,
                 'bill_date' => $request->bill_date ,
                 'spent_amount' => $request->amount ,
@@ -87,7 +91,7 @@ class PettyCashDetailController extends Controller
 
           $finance = pettycash::select('finance_id')->where('id', $request->id)->first();
 
-          return redirect()->route('pettycash');
+          return redirect()->route('details_pettycash',Auth::user()->id);
 
 
     }
@@ -123,29 +127,35 @@ class PettyCashDetailController extends Controller
      */
     public function update(Request $request)
     {
-        //print_r($request->Input());die();
+      //  print_r($request->Input());die();
 
         if($request->status == '1'){
             $update = PettyCashDetail::where('id',$request->id)->update(['isapproved' => $request->status , 'remarks' => $request->remarks]);
             if($update){
                 $Data = PettyCashDetail::where('id',$request->id)->first();
 
-                $PettyCash = Pettycash::where('id',$Data->pettycash_id)->first();
-                 $total_amount = $PettyCash->total;
-                 $spend = $PettyCash->spend;
-                 $remaining = $PettyCash->remaining;
+                $PettyCash = PettycashOverview::where('user_id',$Data->user_id)->first();
+                 //$total_issued = $PettyCash->total_issued;
+                 $total_balance = $PettyCash->total_balance;
 
-                 $total_spend = intval($spend)+intval($Data->spent_amount);
-                 $outstanding = intval($total_amount)-intval($total_spend);
+                // $total_spend = intval($spend)+intval($Data->spent_amount);
+                $outstanding = intval($total_balance)-intval($Data->spent_amount);
 
-                 $updatetable = pettycash::where('id',$Data->pettycash_id)->update(['spend'=>$total_spend , 'remaining' => $outstanding]);
+                $updatetable = PettycashOverview::where('user_id',$Data->user_id)->update(['total_balance'=>$outstanding]);
+                $summary = PettycashSummary::create([
+                    'user_id' => $Data->user_id ,
+                    'amount' => $Data->spent_amount ,
+                    'comment' => $Data->comments ,
+                    'type' => 'Debit',
+                    'balance' => $outstanding ]);
+               }
 
                  if($updatetable){
 
                      return redirect()->back()->withMesage('Updated');
                  }
 
-            }
+            
 
         }
         else if($request->status == '2'){
@@ -176,5 +186,49 @@ class PettyCashDetailController extends Controller
     public function destroy(PettyCashDetail $pettyCashDetail)
     {
         //
+    }
+
+    public function fetch_summary(Request $request){
+
+       $data = array();
+       if($request->from_date != '' && $request->to_date != '')
+        {
+            $data = array();
+            $now = strtotime($request->from_date);
+            $last = strtotime($request->to_date);
+
+            $summary = PettycashSummary::where('user_id',$request->id)->get();
+
+            foreach ($summary as $key => $value) {
+                $data[]=[
+                    'date' => $value->created_at->toDateTimeString(),
+                    'amount' => $value->amount,
+                    'comment' => $value->comment,
+                    'type' => $value->type,
+                    'balance' => $value->balance,
+                ];
+              
+            }
+
+           /* 
+               
+               foreach ($summary as $key => $value) {
+                   $res = [
+                    'date' => date('d-m-Y H:i', $created_at),
+                    'amount' => $value->amount,
+                    'comment' => $value->comment,
+                    'type' => $value->type,
+                    'balance' => $value->balance,
+                   ]; 
+                   array_push($data, $res);   
+
+               } */
+        }
+         else
+          {
+           $data = 'mnm';
+          }
+          echo json_encode($data);
+         // echo json_encode($data);
     }
 }

@@ -29,7 +29,6 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Date</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Billing Name</th>
                               <th scope="col">Brand</th>
@@ -46,7 +45,6 @@
                           <tbody>
                             @foreach($pcns as $key => $value)
                             <tr> 
-                              <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->pcn}}</td>
                               <td>{{$value->client_name}}</td>
                                <td>{{$value->brand}}</td>

@@ -70,7 +70,7 @@
                               <th scope="col">Information</th>
                               <th scope="col">Description</th>                          
                               <th scope="col">Total Quantity</th>
-                              <th scope="col">Delivered</th>
+                              <th scope="col">GRN</th>
                               <th scope="col">Pending</th>
                               <th scope="col">Status</th>
                               <th scope="col">Action</th>
@@ -108,7 +108,7 @@
                              	<td>{{$value->status}}</td>
                              	<td>
                                 <a href="{{route('edit_intends' , $value->id)}}"><button class="btn btn-light curved-text-button btn-sm">
-                                  <?php echo ((Auth::user()->role_id == '3') ||(Auth::user()->role_id == '1')) ? 'Disaptch' : 'View' ?></button>
+                                  <?php echo ((Auth::user()->role_id == '3') ||(Auth::user()->role_id == '1')) ? 'Dispatch' : 'View' ?></button>
                                 </a>
                              		
                              	</td>

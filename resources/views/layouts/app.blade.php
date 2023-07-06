@@ -84,8 +84,10 @@
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
+                     ||request()->routeIs('create_indent')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('filter_indents')
+                     || request()->routeIs('search_indent')
                      ||request()->routeIs('grn')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
@@ -111,6 +113,7 @@
                     ||request()->routeIs('create_new')
                     ||request()->routeIs('details_pettycash')
                     ||request()->routeIs('update_bill_status')
+                    ||request()->routeIs('pettycash_info')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
                </div>
@@ -151,8 +154,10 @@
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
+                     ||request()->routeIs('create_indent')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('filter_indents')
+                     ||request()->routeIs('search_indent')
                      ||request()->routeIs('grn')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
@@ -212,8 +217,10 @@
                       <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
+                     ||request()->routeIs('create_indent')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('grn')
+                     ||request()->routeIs('search_indent')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -272,8 +279,10 @@
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
+                     ||request()->routeIs('create_indent')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('grn')
+                     ||request()->routeIs('search_indent')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -331,9 +340,11 @@
                       
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
+                     ||request()->routeIs('create_indent')
                      ||request()->routeIs('indent_details')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('grn')
+                     ||request()->routeIs('search_indent')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 

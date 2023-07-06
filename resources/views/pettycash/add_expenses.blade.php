@@ -22,7 +22,7 @@
     <div class="form-build">
      	<div class="row">
      			<div class="col-6">
-     				<form method="post" action="{{route('upload_bills', $data->id)}}" enctype="multipart/form-data">
+     				<form method="post" action="{{route('upload_bills')}}" enctype="multipart/form-data">
      					@csrf
      					
                         <div class="form-group row">
@@ -76,7 +76,6 @@
                         </div>
 
 
-                        <input type="hidden" name="id" value="{{$data->id}}">
 
                          <div class="form-group row">
                             <div class="offset-5 col-7">

@@ -96,6 +96,7 @@
                     <div style="margin-left: 20px">
 
                     @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '3' )
+                     @if($indend_data->pending > 0)
                     
                         <form method="post" action="{{route('update_quantity')}}">
                             @csrf
@@ -117,6 +118,7 @@
                             </div>
 
                         </form>
+                        @endif
                        
                         @endif 
 
@@ -152,11 +154,54 @@
                                     <td>{{$value->comment}}</td>
                                     <td>{{$value->created_at}}</td>
                                     <td>
-                                        @if(Auth::user()->role_id == '3' || Auth::user()->role_id == '1') 
-                                        <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_grn',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
+                                        @if(Auth::user()->role_id == '3' || Auth::user()->role_id == '1')
+                                        @if($value->status == 'Awaiting for Confirmation') 
+                                        <a id="MybtnModal_{{$key}}"><button class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                                        @endif
                                         @endif
                                     </td>
                                 </tr>
+
+                                <!--  Modal -->
+                                        <div class="modal fade" id="modal_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Dispatch Quantity - {{$value->grn}}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <form method="POST" action="{{ route('edit_quantity') }}" >
+                                                    @csrf
+
+                                                   <label for="text" >Quantity Dispatched </label>
+
+                                                    <input id="text" type="Number" class="form-control" placeholder="Enter numbers"
+                                                     name="quantity" required="required" min="1" max="{{$indend_data->pending-$dispatched+$value->dispatched }}" value="{{$value->dispatched}}"  style="width:150px" >
+
+                                                    <input type="hidden" name="indent_no" value="{{$indend_data->indent->indent_no}}">
+                                                    <input type="hidden" name="pcn" value="{{$indend_data->indent->pcn}}">
+                                                    <input type="hidden" name="id" value="{{$id}}">
+                                                    <input type="hidden" name="grn" value="{{$value->grn}}">
+                                                    <input type="hidden" name="pending" value="{{$indend_data->pending}}">
+                                                    <button class="btn btn-outline-success div-margin">Update</button>
+                                                   
+                                                    
+                                                </form>
+                                              </div>
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                <!-- Modal -->
+                                <script>
+                                $(document).ready(function(){
+                                  $('#MybtnModal_{{$key}}').click(function(){
+                                    $('#modal_{{$key}}').modal('show');
+                                  });
+                                });  
+                                </script>
+
                         @endforeach
                         </table>
                         </div>

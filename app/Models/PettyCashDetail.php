@@ -10,7 +10,7 @@ class PettyCashDetail extends Model
     use HasFactory;
 
     protected $fillable =[
-    	'pettycash_id',
+    	'user_id',
     	'billing_no',
         'bill_date',
     	'spent_amount',
@@ -22,8 +22,6 @@ class PettyCashDetail extends Model
         'remarks'
     ];
 
-     function pettycash(){
-    	return $this->belongsTo(Pettycash::class,'pettycash_id', 'id');
-    }
+    
 
 }

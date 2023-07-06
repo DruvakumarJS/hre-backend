@@ -15,7 +15,7 @@ class CreatePettyCashDetailsTable extends Migration
     {
         Schema::create('petty_cash_details', function (Blueprint $table) {
             $table->id();
-            $table->string('pettycash_id');
+            $table->string('user_id');
             $table->string('billing_no');
             $table->string('bill_date');
             $table->string('spent_amount');

@@ -26,51 +26,42 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Date</th>
                     <th scope="col">Employee ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Issued On</th>
                     <th scope="col">Issued Amount</th>
-                    <th scope="col">Balance Amount</th>   
-                    <th scope="col">Payment Mode</th>           
+                    <th scope="col">Balance Amount</th>          
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                     @foreach($data as $key=>$value)
                     <tr>
-                        <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                         <td>{{$value->employee->employee_id}}</td>
                         <td>{{$value->employee->name}}</td>
                         <td>{{$value->employee->user->roles->alias}}</td>
-                        <td>{{date("d-m-Y", strtotime($value->issued_on))}}</td>
-                        <td><span>&#8377;</span>{{$value->total}}</td>
-                        <td><span>&#8377;</span>{{$value->remaining}}</td>
-                        <td>{{$value->mode}}</td>
-                        @php
+                        <td><span>&#8377;</span>{{$value['total_issued']}}</td>
+                        <td><span>&#8377;</span>{{$value['total_balance']}}</td>
+                          @php
                          $size = sizeof($value->details);
                         @endphp
+                      
                         <td>
-                            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'finance')
-                            <a href="{{route('edit_pettycash',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
-                            @if($value->user_id == Auth::user()->id)
-                             <a href="{{route('pettycash_expenses',$value->id)}}"><button class="btn btn-light btn-sm btn-outline-danger">Upload Expenses</button></a>
-                             @endif
-                            @else 
-                            <a href="{{route('pettycash_expenses',$value->id)}}"><button class="btn btn-light btn-sm btn-outline-danger">Upload Expenses</button></a>
+                            <a href="{{route('view_summary',$value->user_id)}}"><button class="btn btn-sm btn-light btn-outline-secondary">View Summary</button></a>
+                            <a href="{{route('details_pettycash',$value->user_id)}}"><button class="btn btn-sm btn-outline-success">Details</button></a>
+                            @if(Auth::user()->role_id == '1')
+                            <a href="{{route('pettycash_info',$value->user_id)}}"><button class="btn btn-sm btn-outline-warning">Edit</button></a>
                             @endif
-                            <a href="{{route('details_pettycash',$value->id)}}"><button class="btn btn-light btn-sm btn-outline-success">Details</button></a>
-                            
 
-                            @if(Auth::user()->role_id == '1') 
-                            <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_pettycash',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
-                            @endif  
+                            @if($value['user_id'] == Auth::user()->id)
+                             <a href="{{route('pettycash_expenses')}}"><button class="btn btn-light btn-sm btn-outline-danger">Upload Expenses</button></a>
+                             @endif
 
                             @if($size!=0)
                             <i class="fa fa-clock-o " style="color: red;width: 2px ; height: 2px ; margin-left: 10px"></i>
                              @endif
-
+ 
+                           
                         </td>
                        
                     </tr>
@@ -81,10 +72,7 @@
                 </tbody>
             </table>
 
-            <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
-                                    of {{$data->total()}} results</label>
-
-                                {!! $data->links('pagination::bootstrap-4') !!}
+           
 
           
 
