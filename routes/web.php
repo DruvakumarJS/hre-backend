@@ -132,7 +132,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('save_pcn',[PcnController::class,'store'])->name('save_pcn');
     Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
     Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');
-   
+    Route::post('search_pcn', [PcnController::class,'search'])->name('search_pcn');
 
 
     Route::get('indents',[IntendController::class,'index'])->name('intends');
@@ -212,6 +212,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('edit_product/{id}',[MaterialController::class,'edit'])->name('edit_product');
     Route::post('update_product',[MaterialController::class,'update'])->name('update_product');
     Route::get('uoms',[MaterialController::class,'action'])->name('uoms');
+    Route::post('search_material', [MaterialController::class,'search'])->name('search_material');
+    Route::post('search_product', [MaterialController::class,'search_product'])->name('search_product');
 
     Route::get('settings/Material-master',[CategoryController::class, 'index'])->name('materials_master');
     Route::post('create_category',[CategoryController::class, 'create'])->name('create-category');
@@ -231,9 +233,9 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('edit_customer/{id}' ,[CustomerController::class,'edit'])->name('edit_customer');
     Route::post('update_customer' ,[CustomerController::class,'update'])->name('update_customer');
     Route::post('delete_customer/{id}' ,[CustomerController::class,'destroy'])->name('delete_customer');
-
     Route::post('delete_address' ,[CustomerController::class,'delete_address'])->name('delete_address');
     Route::get('delete_customer//{id}' ,[CustomerController::class,'delete_customer'])->name('delete_customer');
+    Route::post('search_customer', [CustomerController::class,'search'])->name('search_customer');
 
 
     Route::get('settings',[SettingController::class,'index'])->name('settings');
@@ -272,6 +274,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('export-users/{role}',[ExportController::class , 'users'])->name('export-users');
     Route::get('export',[ExportController::class , 'category'])->name('export-categories');
     Route::get('export-material/{filter}',[ExportController::class,'material'])->name('export-materials');
+    Route::post('export_summary',[ExportController::class,'summary'])->name('export_summary');
 
     Route::get('show-notification/{id}',[NotificationController::class,'index'])->name('notification');
     Route::get('view-notification',[NotificationController::class,'show'])->name('view_notification');

@@ -31,64 +31,19 @@ class PettycashController extends Controller
         $user = Auth::user();
 
         if($user->role == 'admin' || $user->role == 'finance'){
-           /* $data = Pettycash::with(['details' => function ($query) {
-                    $query->where('isapproved', '=', 0);
-                }])->orderBy('id', 'DESC')->paginate();*/
-/*
-               $data= array();
-               $pettycash = Pettycash::select('user_id')->groupBy('user_id')->orderBy('user_id', 'ASC')->get();
-
-               foreach ($pettycash as $key => $value) {
-                  $user = Employee::where('user_id',$value->user_id)->first();
-                  $issued = Pettycash::select('total')->where('user_id',$value->user_id)->get();
-                  $issued_amount = $issued->sum('total');
-
-                  $balance = Pettycash::select('remaining')->where('user_id',$value->user_id)->get();
-                  $balance_amount = $balance->sum('remaining');
-
-                 
-
-                  $data[] = [
-                    'user_id' => $user->user_id,
-                    'employee_id' => $user->employee_id,
-                    'name' => $user->name,
-                    'role' => $user->user->roles->alias,
-                    'issued' => $issued_amount ,
-                    'balance' => $balance_amount];
-*/
+           
                 $data = PettycashOverview::with(['details' => function ($query) {
                     $query->where('isapproved', '=', 0);
                 }])->orderBy('id', 'DESC')->paginate();
-                    
-                //$data = PettycashOverview::orderBy('id', 'DESC')->paginate();   
-
+               
                }
 
-              // print(json_encode($data)); die();
-        
         else {
-            /*$data= array();
-               
-                  $user = Employee::where('user_id',Auth::user()->id)->first();
-                  $issued = Pettycash::select('total')->where('user_id',Auth::user()->id)->get();
-                  $issued_amount = $issued->sum('total');
+            $data = PettycashOverview::where('user_id',Auth::user()->id)
+                     ->with(['details' => function ($query) {
+                            $query->where('isapproved', '=', 0);
+                        }])->orderBy('id', 'DESC')->paginate(10);
 
-                  $balance = Pettycash::select('remaining')->where('user_id',Auth::user()->id)->get();
-                  $balance_amount = $balance->sum('remaining');
-
-                 
-
-                  $data[] = [
-                    'user_id' => $user->user_id,
-                    'employee_id' => $user->employee_id,
-                    'name' => $user->name,
-                    'role' => $user->user->roles->alias,
-                    'issued' => $issued_amount ,
-                    'balance' => $balance_amount];
-
-
-               }*/
-               $data = PettycashOverview::where('user_id',Auth::user()->id)->orderBy('id', 'DESC')->paginate();   
         
          }
 
@@ -323,8 +278,9 @@ class PettycashController extends Controller
     public function summary($id){
        
         $data = PettycashSummary::where('user_id',$id)->get();
+        $user = Employee::where('user_id' , $id)->first();
 
-         return view('pettycash/summary',compact('data','id') );
+         return view('pettycash/summary',compact('data','id', 'user') );
 
     }
 

@@ -402,7 +402,7 @@ class IntendController extends Controller
 
     public function grn(){
 
-        $grns = GRN::where('user_id',Auth::user()->id)->get();
+        $grns = GRN::where('user_id',Auth::user()->id)->orderBy('id', 'DESC')->get();
         $grn_array = array();
 
         if(sizeof($grns)>0){

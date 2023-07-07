@@ -20,10 +20,23 @@
                 </div>
             </div>
         </div>
+
+        <!-- <form method="POST" action="{{route('export_summary')}}">
+          @csrf
+            <input type="hidden" name="user_id" id="user_id" value="{{$id}}">
+            <input type="hidden" name="start_date" id="start_date">
+            <input type="hidden" name="end_date" id="end_date" >
+
+            <div id="div3" style="margin-right: 30px">
+                <button type="submit" class="btn btn-light btn-outline-secondary" > Download CSV</button>
+            </div>
+          
+        </form> -->
+
       </div>
 
       <div>
-         <label style="font-weight: bolder;font-size: 25px">Druva Kumar JS</label> <label >Projet Manager</label>
+         <label style="font-weight: bolder;font-size: 25px">{{$user->name}}</label> <label >{{$user->user->roles->alias}}</label>
       </div>
     
     <div class="form-build">
@@ -79,9 +92,9 @@ $(function() {
         var from_date = start.format('YYYY-MM-DD');
         var to_date = end.format('YYYY-MM-DD');
 
-      /* document.getElementById('start_date').value=from_date
+       document.getElementById('start_date').value=from_date
        document.getElementById('end_date').value=to_date;
-        */
+        
         var id = document.getElementById('id').value;
         var _token = $('input[name="_token"]').val();
 

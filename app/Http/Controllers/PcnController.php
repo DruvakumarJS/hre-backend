@@ -301,5 +301,24 @@ class PcnController extends Controller
 
     }
 
+    public function search(Request $request){
+      
+      $search = $request->search;
+           $pcns = Pcn::where('pcn','LIKE', '%'.$request->search.'%')
+           ->orWhere('client_name','LIKE', '%'.$request->search.'%')
+           ->orWhere('brand','LIKE', '%'.$request->search.'%')
+           ->orWhere('location','LIKE', '%'.$request->search.'%')
+           ->orWhere('area','LIKE', '%'.$request->search.'%')
+           ->orWhere('city','LIKE', '%'.$request->search.'%')
+           ->orWhere('state','LIKE', '%'.$request->search.'%')
+           ->orWhereHas('customer', function ($query) use ($search) {
+                        $query->where('email', 'like', '%'.$search.'%');
+                           })
+           ->orderBy('id','DESC')->paginate(20); 
+       
+       return view('pcn/list', compact('pcns'));
+
+    }
+
 
 }

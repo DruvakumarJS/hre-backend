@@ -73,6 +73,7 @@
                                 <input type="file" class="form-control form-control-sm" name="bill" id="imgInp" required>
                 
                             </div>
+
                         </div>
 
 
@@ -157,4 +158,20 @@
  
 });
 </script>
+
+<script type="text/javascript">
+    imgInp.onchange = evt => {
+  const [file] = imgInp.files
+  var fileType = file["type"];
+
+  if (fileType == 'image/jpeg' || fileType=='image/png' ) {
+    blah.src = URL.createObjectURL(file)
+    $(".imagen").show();
+  }
+  else{
+    
+  }
+}
+</script>
+
 @endsection

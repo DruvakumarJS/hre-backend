@@ -93,7 +93,7 @@
                                         @endif
                                     </td>
                                     @if($value->isapproved == '0')
-                                        <td style="color: blue">Waiting for approval</td>
+                                        <td style="color: blue">Awaiting approval</td>
                                     @elseif($value->isapproved == '1')
                                          <td style="color: green">Approved</td>
                                     @else 

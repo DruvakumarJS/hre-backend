@@ -6,7 +6,7 @@
         <div class="container-header">
             <label class="label-bold" id="div1">Materials</label>
            
-          <div id="div2" style="margin-right: 30px">
+          <div id="div2" >
             <a class="btn btn-light btn-outline-secondary" href="{{route('materials_master')}}"></i> View Category</a>
             
           </div>
@@ -16,9 +16,23 @@
           </div>
 
 
+          <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_material')}}">
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search here">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+
+          
            <div id="div3" style="margin-right: 30px">
              <a href="{{route('export-materials','all')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
           </div>
+
 
 
             

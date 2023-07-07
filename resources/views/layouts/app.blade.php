@@ -69,6 +69,7 @@
                     <a href="{{route('view_customers')}}"
                      class="{{request()->routeIs('view_customers')
                         || request()->routeIs('create_customer')
+                        || request()->routeIs('search_customer')
                       ? 'active' : ''}}"
                     >
                       <label class="nav-links">Customers</label></a>
@@ -76,6 +77,7 @@
                     <a href="{{route('PCN')}}"
                       class="{{request()->routeIs('PCN')
                       || request()->routeIs('create_pcn')
+                      || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
                       ? 'active' : ''}}">
@@ -114,6 +116,7 @@
                     ||request()->routeIs('details_pettycash')
                     ||request()->routeIs('update_bill_status')
                     ||request()->routeIs('pettycash_info')
+                    ||request()->routeIs('view_summary')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
                </div>
@@ -146,6 +149,7 @@
                     <a href="{{route('PCN')}}"
                       class="{{request()->routeIs('PCN')
                       || request()->routeIs('create_pcn')
+                      || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
                       ? 'active' : ''}}">
@@ -208,6 +212,7 @@
                     <a href="{{route('PCN')}}"
                      class="{{request()->routeIs('PCN')
                      || request()->route('edit_pcn')
+                     || request()->routeIs('search_pcn')
                      || request()->routeIs('create_pcn')
                      || request()->routeIs('edit_pcn')
                      || request()->routeIs('view_pcn')
@@ -270,6 +275,7 @@
                     <a href="{{route('PCN')}}"
                       class="{{request()->routeIs('PCN')
                       || request()->routeIs('create_pcn')
+                      || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
                       ? 'active' : ''}}">
@@ -332,6 +338,7 @@
                     <a href="{{route('PCN')}}"
                       class="{{request()->routeIs('PCN')
                       || request()->routeIs('create_pcn')
+                      || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
                       ? 'active' : ''}}">

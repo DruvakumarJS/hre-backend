@@ -282,5 +282,15 @@ class CustomerController extends Controller
 
     }
 
+    public function search(Request $request){
+    $customers = Customer::where('name' , 'LIKE', '%'.$request->search.'%')
+    ->orWhere('email' , 'LIKE', '%'.$request->search.'%')
+    ->orWhere('mobile' ,'LIKE', '%'.$request->search.'%')
+    ->orderBy('id', 'DESC')
+    ->paginate(10);
+
+        return view('customer/list',compact('customers'));
+    }
+
    
 }

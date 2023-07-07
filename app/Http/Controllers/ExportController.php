@@ -13,6 +13,7 @@ use App\Exports\ExportAttendanceReport;
 use App\Exports\ExportUsers;
 use App\Exports\ExportCategory;
 use App\Exports\ExportMaterial;
+use App\Exports\ExportPettycashSummary;
 
 use Excel ;
 use App\Models\customer;
@@ -23,6 +24,7 @@ use App\Models\Attendance;
 use App\Models\Pettycash;
 use App\Models\Category;
 use App\Models\Material;
+use App\Models\PettycashSummary;
 
 
 
@@ -206,5 +208,22 @@ class ExportController extends Controller
         }
 
        }
+    }
+
+    public function summary(Request $request){
+        $user_id = $request->user_id ;
+        $start_date = $request->start_date ;
+        $end_date = $request->end_date ;
+      
+          $file_name = 'PettycashSummary_'.$user_id.'.csv';
+
+          if(PettycashSummary::where('user_id',$user_id)->exists()){
+
+             return Excel::download(new ExportPettycashSummary($user_id ,$start_date, $end_date ), $file_name);
+          }
+          else {
+             return redirect()->back();
+          }
+      
     }
 }

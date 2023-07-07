@@ -267,5 +267,41 @@ class MaterialController extends Controller
         return response()->json($data);
     }
 
+    public function search(Request $request){
+
+        $MaterialList = Material::where('item_code', 'LIKE','%'.$request->search.'%')
+        ->orWhere('name', 'LIKE','%'.$request->search.'%')
+        ->orWhere('brand', 'LIKE','%'.$request->search.'%')
+        ->orWhere('uom', 'LIKE','%'.$request->search.'%')
+        ->orWhere('information', 'LIKE','%'.$request->search.'%')
+        ->paginate(10);
+       
+      return view('material/list', compact('MaterialList'));
+
+    }
+
+    public function search_product(Request $request){
+
+        $c_name = Category::select('category' , 'material_category')->where('code',$request->id)->first();
+        $id = $request->id ;
+        $search = $request->search ;
+        $category = $c_name->category ;
+        $material_category = $c_name->material_category ;
+
+        $MaterialList = Material::where('category_id',$request->id)
+             ->where(function($query) use ($search){
+            $query->where('item_code', 'LIKE','%'.$search.'%')
+            ->orWhere('name', 'LIKE','%'.$search.'%')
+            ->orWhere('brand', 'LIKE','%'.$search.'%')
+            ->orWhere('uom', 'LIKE','%'.$search.'%')
+            ->orWhere('information', 'LIKE','%'.$search.'%');
+         })
+            ->paginate(10);
+       
+       return view('material/view_products', compact('MaterialList' ,'category','material_category' ,'id'));
+
+
+    }
+
 
 }

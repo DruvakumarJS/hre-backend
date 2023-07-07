@@ -17,6 +17,18 @@
           </div>
           @endif
 
+          <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_pcn')}}">
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search here">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+
             
         </div>
 
