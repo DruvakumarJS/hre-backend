@@ -20,12 +20,12 @@
                 </div>
             </div>
         </div>
-        
+      </div>
 
-      
-     </div>
-
-
+      <div>
+         <label style="font-weight: bolder;font-size: 25px">Druva Kumar JS</label> <label >Projet Manager</label>
+      </div>
+    
     <div class="form-build">
 
     	<div class="card">
@@ -49,7 +49,7 @@
 	    </div>
    
   </div>    
- </div>
+
 </div>
 
 <script>
@@ -110,8 +110,21 @@ $(function() {
      output += '<tr>';
      output += '<td>' + data[count].date + '</td>';
      output += '<td>' + data[count].comment + '</td>';
-     output += '<td>' + data[count].amount + '</td>';
-     output += '<td>' + data[count].amount + '</td>';
+     if(data[count].type == 'Credit'){
+         output += '<td>' + data[count].amount + '</td>';
+     }
+     else {
+          output += '<td></td>';
+     }
+
+     if(data[count].type == 'Debit'){
+         output += '<td>' + data[count].amount + '</td>';
+     }
+     else {
+          output += '<td></td>';
+     }
+     
+   
      output += '<td>' + data[count].balance + '</td>';
     
      

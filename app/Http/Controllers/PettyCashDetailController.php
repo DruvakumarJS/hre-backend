@@ -197,7 +197,9 @@ class PettyCashDetailController extends Controller
             $now = strtotime($request->from_date);
             $last = strtotime($request->to_date);
 
-            $summary = PettycashSummary::where('user_id',$request->id)->get();
+           while($now <= $last ) {
+
+            $summary = PettycashSummary::where('user_id',$request->id)->where('created_at','LIKE','%'.date('Y-m-d', $now).'%')->get();
 
             foreach ($summary as $key => $value) {
                 $data[]=[
@@ -208,27 +210,18 @@ class PettyCashDetailController extends Controller
                     'balance' => $value->balance,
                 ];
               
-            }
+            
+         }
 
-           /* 
-               
-               foreach ($summary as $key => $value) {
-                   $res = [
-                    'date' => date('d-m-Y H:i', $created_at),
-                    'amount' => $value->amount,
-                    'comment' => $value->comment,
-                    'type' => $value->type,
-                    'balance' => $value->balance,
-                   ]; 
-                   array_push($data, $res);   
+          $now = strtotime('+1 day', $now);
+         } 
 
-               } */
         }
          else
           {
            $data = 'mnm';
           }
           echo json_encode($data);
-         // echo json_encode($data);
+        
     }
 }

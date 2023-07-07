@@ -50,7 +50,7 @@
                             <a href="{{route('view_summary',$value->user_id)}}"><button class="btn btn-sm btn-light btn-outline-secondary">View Summary</button></a>
                             <a href="{{route('details_pettycash',$value->user_id)}}"><button class="btn btn-sm btn-outline-success">Details</button></a>
                             @if(Auth::user()->role_id == '1')
-                            <a href="{{route('pettycash_info',$value->user_id)}}"><button class="btn btn-sm btn-outline-warning">Edit</button></a>
+                            <a href="{{route('pettycash_info',$value->user_id)}}"><button class="btn btn-sm btn-outline-warning">View</button></a>
                             @endif
 
                             @if($value['user_id'] == Auth::user()->id)

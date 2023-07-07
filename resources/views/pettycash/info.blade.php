@@ -45,7 +45,7 @@
                         <td>{{$value->comments}}</td>
                         <td>{{$value->mode}}</td>
                         <td>
-                           <a href="{{route('edit_pettycash',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
+                           <a href="{{route('edit_pettycash',$value->id)}}"><button class="btn btn-light btn-sm btn-outline-secondary">Edit</button></a>
 
                         </td>
                        
