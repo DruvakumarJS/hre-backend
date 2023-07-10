@@ -40,6 +40,13 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Bill number*</label>
+                            <div class="col-7">
+                                <input name="bill_number" id="bill_number" type="text" class="form-control" required="required" placeholder="Enter Bill Number">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label class="col-5 col-form-label">Purpose*</label>
                             <div class="col-7">
                                 <select name="purpose" class="form-control" required="required">
@@ -80,7 +87,7 @@
 
                          <div class="form-group row">
                             <div class="offset-5 col-7">
-                                <button  type="submit" class="btn btn-danger">Submit</button>
+                                <button  type="submit" class="btn btn-danger" id="btn_submit">Submit</button>
                                 
                             </div>
                         </div>
@@ -118,6 +125,8 @@
             document.getElementById("pcn_lable").style.display= "none" ;
             document.getElementById("pcn").style.display= "none" ;
             document.getElementById("pcn").required = false;
+             document.getElementById("btn_submit").style.display= "block" ;
+             document.getElementById("pcn_detail").style.display= "none" ;
          }
    
      });
@@ -125,6 +134,9 @@
 
 <script type="text/javascript">
   $( document ).ready(function() {
+    var btn = document.getElementById("btn_submit");
+    
+
   var path = "{{ route('autocomplete_pcn') }}";
    let text = "";
     $( "#pcn" ).autocomplete({
@@ -138,8 +150,20 @@
             },
             success: function( data ) {
              // console.log(data);
-               response( data );
+            document.getElementById("pcn_detail").innerHTML="";
+            document.getElementById("btn_submit").style.display= "none" ;
+            
+
+             if(data.length==0){
+               document.getElementById("pcn_detail").innerHTML="PCN doesn't exists";
+               var getValue=document.getElementById("pcn");
               
+             }
+             else {
+            
+                 response( data );
+             }
+             
             }
           });
         },
@@ -147,10 +171,12 @@
            $('#pcn').val(ui.item.label);
            $('#pcns').val(ui.item.label);
 
+          
            var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
           
           
           // $('#pcn_detail').val(address);
+           document.getElementById("btn_submit").style.display= "block" ;
            document.getElementById("pcn_detail").innerHTML=address;
         
         }

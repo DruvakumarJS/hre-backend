@@ -4,13 +4,26 @@
 <div class="container">
 	<div class="row justify-content-center">
      <div class="container-header">
-        <label class="label-bold" id="div1">Petty Cash Summary</label>
+      
+      <!-- <div class="form-group row">
+        <div class="col-md-6">
+          <label class="label-bold" id="div1">Petty Cash Summary</label>
+          <label>(Approved Bills & Fund Transfer Only)</label>
+        </div>
+       
+     </div> -->
 
-        <div id="div2" style="margin-right: 30px">
+     <div id="div1">
+          <h3 style="font-weight: bold;">Petty Cash Summary</h3>
+         <label style="font-size: 10px;">(Approved Bills & Fund Transfer Only)</label>
+        </div>
+         
+
+        <div id="div2" style="margin-right: 30px;">
             <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}"> View PettyCash List</a>
         </div>
 
-        <div id="div2" style="margin-right: 30px" >
+        <div  id="div2" style="margin-right: 30px" >
             <div class="mb-3 d">
               <input type="hidden" name="id" id="id" value="{{$id}}">
               
@@ -27,13 +40,14 @@
             <input type="hidden" name="start_date" id="start_date">
             <input type="hidden" name="end_date" id="end_date" >
 
-           <!--  <div id="div3" style="margin-right: 30px">
+            <div id="div3" style="margin-right: 30px">
                 <button type="submit" class="btn btn-light btn-outline-secondary" > Download CSV</button>
-            </div> -->
+            </div>
           
         </form>
 
       </div>
+
 
       <div>
          <label style="font-weight: bolder;font-size: 25px">{{$user->name}}</label> <label >{{$user->user->roles->alias}}</label>
@@ -46,8 +60,11 @@
 	    <table class="table table-striped">
 	        <thead>
 	        <tr>
-	            <th>Date</th>
+	            <th>Trasnsaction Date</th>
+              <th>Mode</th>
+              <th>Reference No.</th>
 	            <th>Description</th>
+              <!-- <th>Trasnsaction Date</th> -->
 	            <th>Credit</th>
 	            <th>Debit</th>
 	            <th>Balance</th>
@@ -121,8 +138,11 @@ $(function() {
       var dates = data[count].date ;
 
      output += '<tr>';
-     output += '<td>' + data[count].date + '</td>';
+     output += '<td>' + data[count].issued_date + '</td>';
+     output += '<td>'+ data[count].mode + '</td>';
+     output += '<td>'+ data[count].ref + '</td>';
      output += '<td>' + data[count].comment + '</td>';
+    /* output += '<td>' + data[count].issued_date + '</td>';*/
      if(data[count].type == 'Credit'){
          output += '<td>' + data[count].amount + '</td>';
      }
@@ -137,7 +157,7 @@ $(function() {
           output += '<td></td>';
      }
      
-   
+    
      output += '<td>' + data[count].balance + '</td>';
     
      

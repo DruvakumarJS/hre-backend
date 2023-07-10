@@ -536,6 +536,7 @@ options: {
 
 </script>
 
+
 <script type="text/javascript">
   $(document).ready(function() {
     var freshTime = new Date(parseInt($("#current-time-now").attr("data-start"))*1000);

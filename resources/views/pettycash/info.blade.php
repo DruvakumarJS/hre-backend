@@ -24,24 +24,24 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Date</th>
                    
                     <th scope="col">Issued On</th>
                     <th scope="col">Issued Amount</th>
                     <th scope="col">Purpose</th>
-                    <th scope="col">Payment Mode</th>            
+                    <th scope="col">Payment Mode</th> 
+                    <th scope="col">Reference No.</th>            
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                     @foreach($data as $key=>$value)
                     <tr>
-                        <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                        
                         <td>{{date("d-m-Y", strtotime($value->issued_on))}}</td>
                         <td><span>&#8377;</span>{{$value->total}}</td>
                         <td>{{$value->comments}}</td>
                         <td>{{$value->mode}}</td>
+                        <td>{{$value->reference_number}}</td>
                         <td>
                            <a href="{{route('edit_pettycash',$value->id)}}"><button class="btn btn-light btn-sm btn-outline-secondary">Edit</button></a>
 

@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use DB;
 use App\Models\PettycashSummary;
 
-class ExportPettycashSummary implements FromCollection
+class ExportPettycashSummary implements FromCollection,WithHeadings
 {
     private $user_id;
 	private $start_date;
@@ -24,13 +24,31 @@ class ExportPettycashSummary implements FromCollection
 
     public function collection()
     {
-    	 $start = '%'.$this->start_date.'%';
-    	 $end = '%'.$this->end_date.'%';
+    	 $start = date($this->start_date).' 00:00:00';
+    	 $end = date($this->end_date).' 23:59:59';
     	
-    	
-        $summary  = PettycashSummary::where('user_id',$this->user_id)
-                    ->whereBetween('created_at', [$start , $end])->get();
-        print_r($summary); die();
+    	/*print_r($start);
+        print_r($end); die();*/
+       /* $summary  = PettycashSummary::select('created_at' )->where('user_id',$this->user_id)
+                    ->whereBetween('created_at', [$start , $end])->get();*/
+
+
+       
+        $summary = DB::table('pettycash_summaries')
+                 ->select(DB::raw("DATE_FORMAT(pettycash_summaries.transaction_date, '%d-%m-%Y') as formatted_dob"),
+                           'comment',
+                           'mode',
+                           'reference_number',
+                           'amount',
+                           'type',
+                           'balance'
+                           )
+                 ->where('user_id', $this->user_id)
+                 ->whereBetween('transaction_date', [$start , $end])
+                 ->get();
+
+                // print_r(json_encode($summary)) ; die();
+
         return $summary;            
 
         
@@ -39,7 +57,7 @@ class ExportPettycashSummary implements FromCollection
     public function headings(): array
      {       
        return [
-         'Date','Description' , 'Amount' , 'Type','Balance'
+         'Date','Mode','Reference Number','Description' , 'Amount' , 'Type','Balance'
        ];
      }
 }

@@ -187,10 +187,9 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('pettycash_expenses',[PettyCashDetailController::class,'create'])->name('pettycash_expenses');
     Route::post('upload_bills',[PettyCashDetailController::class,'store'])->name('upload_bills');
     Route::get('update_bill_status',[PettyCashDetailController::class,'update'])->name('update_bill_status');
+    Route::get('delete_expense/{id}',[PettyCashDetailController::class,'destroy'])->name('delete_expense');
     Route::get('view-summary/{id}',[PettycashController::class,'summary'])->name('view_summary');
     Route::post('summary',[PettyCashDetailController::class,'fetch_summary'])->name('fetch_summary');
-
-
 
     //admin
     Route::get('/home', [HomeController::class, 'index'])->name('home');

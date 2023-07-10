@@ -14,6 +14,9 @@ class PettycashSummary extends Model
     'amount',
     'comment',
     'type',
-    'balance'
+    'balance',
+    'transaction_date',
+    'mode',
+    'reference_number'
    ] ;
 }

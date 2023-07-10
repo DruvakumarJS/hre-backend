@@ -20,6 +20,9 @@ class CreatePettycashSummariesTable extends Migration
             $table->string('comment');
             $table->string('type');
             $table->string('balance');
+            $table->string('transaction_date');
+            $table->string('mode')->nullable();
+            $table->string('reference_number')->nullable();
             $table->timestamps();
         });
     }

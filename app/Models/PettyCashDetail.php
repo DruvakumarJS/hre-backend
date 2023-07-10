@@ -13,6 +13,7 @@ class PettyCashDetail extends Model
     	'user_id',
     	'billing_no',
         'bill_date',
+        'bill_number',
     	'spent_amount',
         'purpose',
         'pcn',

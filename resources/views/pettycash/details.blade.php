@@ -8,6 +8,9 @@
         <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}"> View PettyCash List</a>
         </div>
+       <!--  <div id="div2" style="margin-right: 30px">
+            <a href="{{route('pettycash_expenses')}}"><button class="btn btn-light btn-outline-secondary">Upload Expenses</button></a>
+        </div> -->
 
       
     </div>
@@ -69,11 +72,12 @@
                                <!--  <th>Transaction Ref</th> -->
                                 <th>Amount Utilised</th>
                                 <th>Purpose</th>
-                                <th width="200px">Description</th>
+                                <th>PCN</th>
+                                <th width="170px">Description</th>
                                 <th>Bill Date</th>
-                                <th>Proof of Expense</th>
-                                <th>Status</th>
-                                <th width="200px">Remarks</th>
+                                <th>Proof</th>
+                                <th width="140px">Status</th>
+                                <th width="150px">Remarks</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -83,7 +87,8 @@
                                    <!--  <td>{{$value->billing_no}}</td> -->
                                     <td><span>&#8377;</span>{{$value->spent_amount}}</td>
                                     <td>{{$value->purpose}}</td>
-                                    <td>{{$value->pcn}} {{$value->comments}}</td>
+                                    <td>{{$value->pcn}}</td>
+                                    <td>{{$value->comments}}</td>
                                     <td>{{date("d-m-Y", strtotime($value->bill_date))}}</td>
                                     <td>
                                         @if($value->filename != '')
@@ -100,14 +105,22 @@
                                          <td style="color: red">Rejected</td> 
                                     @endif
 
-                                    <td >{{$value->remarks}}</td> 
+                                    <td>{{$value->remarks}}</td> 
                                     <td>
+                                        @if($value->user_id == Auth::user()->id)
+                                         @if($value->isapproved == '0')
+                                        
+                                       <!--  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_expense',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a>  -->
+                                         @endif
+                                        @endif
+
                                         @if( (Auth::user()->role == 'admin') || (Auth::user()->role == 'finance'))
                                             @if($value->isapproved == '0')
                                                 <a id="MybtnModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-warning">Approve/Reject</button></a>
                                                
                                             @endif
-                                            @endif  
+                                            @endif 
+
                                     </td> 
                                    </tr>
 

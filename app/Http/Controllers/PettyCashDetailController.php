@@ -81,6 +81,7 @@ class PettyCashDetailController extends Controller
                 'user_id' => Auth::user()->id,
                 'billing_no' => $bill_no ,
                 'bill_date' => $request->bill_date ,
+                'bill_number' => $request->bill_number ,
                 'spent_amount' => $request->amount ,
                 'purpose' => $request->purpose ,
                 'pcn' => $request->pcn,
@@ -113,9 +114,9 @@ class PettyCashDetailController extends Controller
      * @param  \App\Models\PettyCashDetail  $pettyCashDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit(PettyCashDetail $pettyCashDetail)
+    public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -142,12 +143,16 @@ class PettyCashDetailController extends Controller
                 $outstanding = intval($total_balance)-intval($Data->spent_amount);
 
                 $updatetable = PettycashOverview::where('user_id',$Data->user_id)->update(['total_balance'=>$outstanding]);
+
                 $summary = PettycashSummary::create([
                     'user_id' => $Data->user_id ,
                     'amount' => $Data->spent_amount ,
                     'comment' => $Data->comments ,
                     'type' => 'Debit',
-                    'balance' => $outstanding ]);
+                    'balance' => $outstanding,
+                    'transaction_date' => $Data->bill_date,
+                    'reference_number'=>$Data->bill_number
+                      ]);
                }
 
                  if($updatetable){
@@ -183,9 +188,15 @@ class PettyCashDetailController extends Controller
      * @param  \App\Models\PettyCashDetail  $pettyCashDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PettyCashDetail $pettyCashDetail)
+    public function destroy($id)
     {
-        //
+      
+       $delete = PettyCashDetail::where('id', $id)->delete();
+
+       if($delete){
+          return redirect()->back();
+
+       }
     }
 
     public function fetch_summary(Request $request){
@@ -199,15 +210,29 @@ class PettyCashDetailController extends Controller
 
            while($now <= $last ) {
 
-            $summary = PettycashSummary::where('user_id',$request->id)->where('created_at','LIKE','%'.date('Y-m-d', $now).'%')->get();
+            $summary = PettycashSummary::where('user_id',$request->id)->where('created_at','LIKE',date('Y-m-d', $now).'%')->get();
 
             foreach ($summary as $key => $value) {
+                $reference = $value->reference_number;
+                $mode = $value->mode;
+
+                if($reference == '' ){
+                   $reference = '';
+                }
+
+                if($mode == '' ){
+                   $mode = '';
+                }
+
                 $data[]=[
-                    'date' => $value->created_at->toDateTimeString(),
+                    'date' => date('d-m-Y', $now),
                     'amount' => $value->amount,
                     'comment' => $value->comment,
+                    'issued_date' =>    $value->transaction_date,
                     'type' => $value->type,
                     'balance' => $value->balance,
+                    'mode' => $mode,
+                    'ref' => $reference
                 ];
               
             

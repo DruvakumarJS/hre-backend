@@ -105,7 +105,10 @@ class PettycashController extends Controller
                     'amount' => $request->amount ,
                     'comment' => $request->comment ,
                     'type' => 'Credit',
-                    'balance' => $total_balance ]);
+                    'balance' => $total_balance ,
+                    'transaction_date' => $request->issued_date,
+                    'mode' => $request->mode,
+                    'reference_number' => $request->refernce ]);
                }
 
             
@@ -120,7 +123,10 @@ class PettycashController extends Controller
                     'amount' => $request->amount ,
                     'comment' => $request->comment ,
                     'type' => 'Credit',
-                    'balance' => $request->amount ]);
+                    'balance' => $request->amount,
+                    'transaction_date' => $request->issued_date,
+                    'mode' => $request->mode,
+                    'reference_number' => $request->refernce ]);
                }
 
             return redirect()->route('pettycash');
@@ -174,6 +180,8 @@ class PettycashController extends Controller
             'issued_on' => $request->issued_date ,
             'comments' => $request->comment,
             'remaining' => $request->amount ,
+            'mode'=>$request->mode,
+            'reference_number' => $request->refernce
         ]);
 
         if($update){
@@ -185,8 +193,7 @@ class PettycashController extends Controller
 
                 //print_r($amount); die();
 
-
-                 $total_issued = intval($issued)+intval($amount);
+                 $total_issued = intval($issued)+intval($amount); 
                  $total_balance = intval($balance)+intval($amount);
 
                  if($request->amount > $pettycash->total){
@@ -205,12 +212,21 @@ class PettycashController extends Controller
                     'total_balance' => $total_balance
                 ]);
 
-                 PettycashSummary::create([
+                $due = intval($request->amount)-intval($pettycash->total);
+               
+                if($due != 0){
+                    PettycashSummary::create([
                     'user_id' => $request->user_id ,
                     'amount' => $updatedamount ,
                     'comment' => $comment ,
                     'type' => $mode,
-                    'balance' => $total_balance ]);
+                    'balance' => $total_balance ,
+                    'transaction_date' => $request->issued_date,
+                    'mode' => $request->mode,
+                    'reference_number' => $request->refernce]);
+                }
+
+                 
                }
 
        // }
