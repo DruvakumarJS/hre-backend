@@ -54,7 +54,7 @@
 	    <table class="table table-striped">
 	        <thead>
 	        <tr>
-              <th>Bill Submission Date</th>
+              <th>Date</th>
 	            <th>Trasnsaction Date</th>
               <th>Mode</th>
               <th>Reference No.</th>
