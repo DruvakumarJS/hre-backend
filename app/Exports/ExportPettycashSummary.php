@@ -36,9 +36,9 @@ class ExportPettycashSummary implements FromCollection,WithHeadings
        
         $summary = DB::table('pettycash_summaries')
                  ->select(DB::raw("DATE_FORMAT(pettycash_summaries.transaction_date, '%d-%m-%Y') as formatted_dob"),
-                           'comment',
                            'mode',
                            'reference_number',
+                           'comment',
                            'amount',
                            'type',
                            'balance'

@@ -5,17 +5,11 @@
 	<div class="row justify-content-center">
      <div class="container-header">
       
-      <!-- <div class="form-group row">
-        <div class="col-md-6">
-          <label class="label-bold" id="div1">Petty Cash Summary</label>
-          <label>(Approved Bills & Fund Transfer Only)</label>
-        </div>
-       
-     </div> -->
+     
 
      <div id="div1">
-          <h3 style="font-weight: bold;">Petty Cash Summary</h3>
-         <label style="font-size: 10px;">(Approved Bills & Fund Transfer Only)</label>
+          <h4 style="font-weight: bold;">Petty Cash Summary</h4>
+         <label id="div1" style="font-size: 10px;margin-left: 20px">(Approved Bills & Fund Transfer Only)</label>
         </div>
          
 
@@ -50,7 +44,7 @@
 
 
       <div>
-         <label style="font-weight: bolder;font-size: 25px">{{$user->name}}</label> <label >{{$user->user->roles->alias}}</label>
+         <label class="div-margin" style="font-weight: bolder;font-size: 25px">{{$user->name}}</label> <label >{{$user->user->roles->alias}}</label>
       </div>
     
     <div class="form-build">
@@ -60,11 +54,11 @@
 	    <table class="table table-striped">
 	        <thead>
 	        <tr>
+              <th>Bill Submission Date</th>
 	            <th>Trasnsaction Date</th>
               <th>Mode</th>
               <th>Reference No.</th>
 	            <th>Description</th>
-              <!-- <th>Trasnsaction Date</th> -->
 	            <th>Credit</th>
 	            <th>Debit</th>
 	            <th>Balance</th>
@@ -138,11 +132,12 @@ $(function() {
       var dates = data[count].date ;
 
      output += '<tr>';
+     output += '<td>' + data[count].date + '</td>';
      output += '<td>' + data[count].issued_date + '</td>';
      output += '<td>'+ data[count].mode + '</td>';
      output += '<td>'+ data[count].ref + '</td>';
      output += '<td>' + data[count].comment + '</td>';
-    /* output += '<td>' + data[count].issued_date + '</td>';*/
+    
      if(data[count].type == 'Credit'){
          output += '<td>' + data[count].amount + '</td>';
      }

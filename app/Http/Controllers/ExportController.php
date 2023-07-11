@@ -212,10 +212,11 @@ class ExportController extends Controller
 
     public function summary(Request $request){
         $user_id = $request->user_id ;
+        $emp = Employee::where('user_id', $user_id)->first();
         $start_date = $request->start_date ;
         $end_date = $request->end_date ;
       
-          $file_name = 'PettycashSummary_'.$user_id.'.csv';
+          $file_name = 'PettycashSummary_'.$emp->employee_id.'.csv';
 
           if(PettycashSummary::where('user_id',$user_id)->exists()){
 
