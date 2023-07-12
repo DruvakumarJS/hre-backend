@@ -41,12 +41,19 @@
         </form>
 
       </div>
-
+      
+     
 
       <div>
          <label class="div-margin" style="font-weight: bolder;font-size: 25px">{{$user->name}}</label> <label >{{$user->user->roles->alias}}</label>
+       
+        <div id="div2" style="margin-right: 30px">
+           <label class="label-bold">Outstanding Balance : </label> <label id="balance"></label> 
+        </div>
+         
       </div>
-    
+
+
     <div class="form-build">
 
     	<div class="card">
@@ -54,14 +61,14 @@
 	    <table class="table table-striped">
 	        <thead>
 	        <tr>
-              <th>Date</th>
+              <!-- <th>Date</th> -->
 	            <th>Trasnsaction Date</th>
               <th>Mode</th>
               <th>Reference No.</th>
 	            <th>Description</th>
 	            <th>Credit</th>
 	            <th>Debit</th>
-	            <th>Balance</th>
+	           <!--  <th>Balance</th> -->
 	           
 	        </tr>
 	        </thead>
@@ -126,10 +133,13 @@ $(function() {
     
     console.log(data);
     var output = '';
+    var bal='';
     $('#total_records').text(data.length);
     for(var count = 0; count < data.length; count++)
     {
       var dates = data[count].date ;
+
+    
 
      output += '<tr>';
      output += '<td>' + data[count].date + '</td>';
@@ -152,12 +162,15 @@ $(function() {
           output += '<td></td>';
      }
      
+     bal = data[count].balance;
     
      output += '<td>' + data[count].balance + '</td>';
-    
+     
      
     }
     $('tbody').html(output);
+    document.getElementById('balance').innerHTML=bal;
+
    }
   })
  }

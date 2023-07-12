@@ -163,6 +163,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('ticket_details/{id}',[TicketController::class,''])->name('ticket-details');
     Route::get('ticket_details/{id}',[TicketConversationController::class,'index'])->name('ticket-details');
     Route::post('reply_conversation',[TicketConversationController::class,'store'])->name('reply_conversation');
+    Route::get('modify_ticket/{id}/{action}',[TicketController::class,'modify_ticket'])->name('modify_ticket');
 
     Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
     Route::get('employee-details',[AttendanceController::class,'employeedetails'])->name('employee-details');

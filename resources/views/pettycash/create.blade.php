@@ -50,7 +50,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Issued date*</label>
                             <div class="col-7">
-                                <input name="issued_date" type="date" class="form-control" required="required" >
+                                <input name="issued_date" type="date" class="form-control" required="required" max="{{date('Y-m-d')}}">
                             </div>
                         </div>
 

@@ -212,8 +212,8 @@ class PettyCashDetailController extends Controller
 
             $summary = PettycashSummary::where('user_id',$request->id)->where('created_at','LIKE',date('Y-m-d', $now).'%')->get();
 
-           /*$summary = PettycashSummary::where('user_id',$request->id)->where('transaction_date',date('Y-m-d', $now))->orderBy('id','ASC')->get();*/
-
+           /*$summary = PettycashSummary::where('user_id',$request->id)->where('transaction_date',date('Y-m-d', $now))->orderBy('id','ASC')->get();
+*/
             foreach ($summary as $key => $value) {
                 $reference = $value->reference_number;
                 $mode = $value->mode;

@@ -85,7 +85,7 @@
          
            <div id="container"></div>
            <input type="hidden" name="pcn" id="pcns" required>
-           <button class="btn btn-danger div-margin">Submit</button>
+           <button class="btn btn-danger div-margin" id="btn_submit">Submit</button>
           
         </form>
         
@@ -106,7 +106,7 @@
   var i = 0;
 
 $( document ).ready(function() {
-//product
+
   var path = "{{ route('products') }}";
    let text = "";
     $( "#product" ).autocomplete({
@@ -190,7 +190,7 @@ var inform ="";
   
    console.log('INOF==',inform);
 
-  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-1"><label>Item Code</label><input class="form-control" type="text" name="indent[' + i + '][item_code]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><label>Product Name</label><input class="form-control" type="text" name="indent[' + i + '][name]" value="'+ name +'" readonly></div><div class="col-md-1"><label>Brand</label><input class="form-control" type="text" name="indent[' + i + '][brand]"  value="'+ brand +'" readonly></div>  <div class="col-md-3"><label>Features</label>  <textarea class="form-control" onclick="adjustHeight(this)">'+ inform +'</textarea>     </div>  <div class="col-md-2"><label>Description</label><input class="form-control" type="text" name="indent[' + i + '][desc]" placeholder="Add additional comments" ></div><div class="col-md-1"><label>Quantity*</label><input class="form-control" type="number" name="indent[' + i + '][quantity]" id="quantity" min="1" required></div>  <div class="col-md-1"><label>UOM*</label><input class="form-control"  name="indent[' + i + '][uom]" value="'+ uom +'" required></div>  <div class="col-md-1"><i class="fa fa-close remove-input-field"></i></div> </div></td></tr>');
+  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-1"><label>Item Code</label><input class="form-control" type="text" name="indent[' + i + '][item_code]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><label>Product Name</label><input class="form-control" type="text" name="indent[' + i + '][name]" value="'+ name +'" readonly></div><div class="col-md-1"><label>Brand</label><input class="form-control" type="text" name="indent[' + i + '][brand]"  value="'+ brand +'" readonly></div>  <div class="col-md-3"><label>Features</label>  <textarea class="form-control" onclick="adjustHeight(this)">'+ inform +'</textarea>     </div>  <div class="col-md-2"><label>Description</label><input class="form-control" type="text" name="indent[' + i + '][desc]" placeholder="Add additional comments" ></div><div class="col-md-1"><label>Quantity*</label><input class="form-control" type="number" name="indent[' + i + '][quantity]" id="quantity" min="1" required></div>  <div class="col-md-1"><label>UOM*</label><input class="form-control"  name="indent[' + i + '][uom]" value="'+ uom +'" required readonly></div>  <div class="col-md-1"><i class="fa fa-close remove-input-field"></i></div> </div></td></tr>');
 
   setTimeout(function(){
   adjustHeight(this);       
@@ -231,7 +231,19 @@ var inform ="";
             },
             success: function( data ) {
              // console.log(data);
-               response( data );
+               document.getElementById("pcn_detail").innerHTML="";
+            document.getElementById("btn_submit").style.display= "none" ;
+            
+
+             if(data.length==0){
+               document.getElementById("pcn_detail").innerHTML="PCN doesn't exists";
+               var getValue=document.getElementById("pcn");
+              
+             }
+             else {
+            
+                 response( data );
+             }
               
             }
           });
@@ -243,6 +255,7 @@ var inform ="";
            var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
           
           // $('#pcn_detail').val(address);
+           document.getElementById("btn_submit").style.display= "block" ;
            document.getElementById("pcn_detail").innerHTML=address;
         
         }

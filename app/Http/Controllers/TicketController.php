@@ -41,8 +41,10 @@ class TicketController extends Controller
          $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
       }
       else {
-         $tickets = Ticket::where('creator' , $user->id)->orWhere('assigned_to', $user->id )->orderby('id' , 'DESC')->paginate(10);
+         $tickets = Ticket::where('status', 'Pending')->orWhere('creator', Auth::user()->id)->orderby('id' , 'DESC')->paginate(10);
       }
+
+      // $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
         
          return view('ticket/list' ,  compact('tickets','filter'));
     }
@@ -70,10 +72,14 @@ class TicketController extends Controller
     public function store(Request $request)
     {
        // print_r($request->Input());die();
+
+
       
         if(Pcn::where('pcn', $request->pcn)->exists())
         {
             $fileName = '';
+            $imagearray=array();
+
             if(Ticket::exists()){
             $tickets = Ticket::select('ticket_no')->orderby('id' , 'DESC')->first();
 
@@ -86,23 +92,27 @@ class TicketController extends Controller
         }
 
          if($file = $request->hasFile('image')) {
-             
-            $file = $request->file('image') ;
-            $fileName = $file->getClientOriginalName() ;
-            
-           // $newfilename = round(microtime(true)) . '.' . end($temp);
 
-            if(TicketConversation::exists()){
-                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
-                 $temp = explode(".", $file->getClientOriginalName());
-                 $fileName=$ticket_no . '.' . end($temp);
+            foreach($_FILES['image']['name'] as $key=>$val){ 
+                
+               $fileName = basename($_FILES['image']['name'][$key]); 
+                $temp = explode(".", $fileName);
+                 
+                  $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/ticketimages/'.$fileName ;
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+             
+                 
             }
-           
-            $destinationPath = public_path().'/ticketimages' ;
-            $file->move($destinationPath,$fileName);
-            
+          
           }
 
+          $imageNames = implode(',', $imagearray);
+          //$revertNames = explode(',', $imageNames);
 
         $Insert = Ticket::create([
             'ticket_no'=> $ticket_no,
@@ -111,7 +121,7 @@ class TicketController extends Controller
             'issue' => $request->issue,
             'creator' => $request->owner ,
             'priority' => $request->priority,
-            'filename' => $fileName,
+            'filename' => $imageNames,
             'status' => 'Created'
         ]);
 
@@ -161,33 +171,41 @@ class TicketController extends Controller
     public function update(Request $request)
     {
        // print_r($request->Input());die();
+         $imageNames = "" ;
+           if($file = $request->hasFile('image')) {
 
-         if($file = $request->hasFile('image')) {
-             $fileName = '';
-            $file = $request->file('image') ;
-            $fileName = $file->getClientOriginalName() ;
-            
-           // $newfilename = round(microtime(true)) . '.' . end($temp);
+            foreach($_FILES['image']['name'] as $key=>$val){ 
+                
+               $fileName = basename($_FILES['image']['name'][$key]); 
+                $temp = explode(".", $fileName);
+                 
+                  $fileName = rand('111111','999999') . '.' . end($temp);
 
-            if(TicketConversation::exists()){
-                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
-                 $temp = explode(".", $file->getClientOriginalName());
-                 $fileName=$request->ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
+            $destinationPath = public_path().'/ticketimages/'.$fileName ;
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+            $imageNames = implode(',', $imagearray);
+             
+                 
             }
-           
-            $destinationPath = public_path().'/ticketimages' ;
-            $file->move($destinationPath,$fileName);
+          
+          }
 
-           
+         if(($request->status) == 'Created' && $request->hasFile('image')){
 
              $update = Ticket::where('id',$request->id)->update([
-                    'filename' => $fileName
+                    'issue' => $request->issue ,
+                    'status' => $request->status,
+                    'comments' => $request->comment,
+                    'assigner' => $request->assigner,
+                    'filename' => $imageNames,
                      ]);
-            
          }
          
 
-        if(($request->status) == 'Rejected' || ($request->status) == 'Created' ){
+        else if(($request->status) == 'Rejected' || ($request->status) == 'Created' ){
            
            
              $update = Ticket::where('id',$request->id)->update([
@@ -232,6 +250,15 @@ class TicketController extends Controller
              
              if($request->status == 'Pending'){
                    $msg = 'Ticket no '.$ticket->ticket_no .' is assigned to you';
+
+                   $conversation = TicketConversation::create([
+                        'ticket_id' => $ticket->id ,
+                        'ticket_no' => $ticket->ticket_no ,
+                        'message' => $request->comment ,
+                        'sender' => $request->assigner ,
+                        'recipient' => $request->user_id,
+                        'status' => 'pending',
+                        'filename' => $imageNames]);
              }
              else if($request->status == 'Completed'){
                  $msg = 'Ticket no '.$ticket->ticket_no .' is Completed and closed';
@@ -337,5 +364,24 @@ class TicketController extends Controller
             $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$request->filter)->orderby('id' , 'DESC')->paginate();
             return view('ticket/list' ,  compact('tickets','filter'));
         }
+    }
+
+    public function modify_ticket($id , $action){
+
+        $ticket = Ticket::where('ticket_no',$id)->first();
+       
+        $conversation = TicketConversation::create([
+                        'ticket_id' => $ticket->id ,
+                        'ticket_no' => $ticket->ticket_no ,
+                        'message' => $action ,
+                        'sender' => Auth::user()->id ,
+                        'recipient' => $ticket->creator,
+                        'status' => 'Completed',
+                        ]);
+
+        $updateticket = Ticket::where('id',$ticket->id)->update([
+            'status' => 'Completed']);
+
+        return redirect()->back();
     }
 }

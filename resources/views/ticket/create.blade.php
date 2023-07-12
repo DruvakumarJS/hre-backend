@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<style type="text/css">
-    img[src=""] {
-    display: none;
-}
-</style>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -20,11 +15,11 @@
      </div>
 
      <div class="form-build">
-     	<div class="row">
-     			<div class="col-6">
-     				<form method="post" action="{{route('save-ticket')}}" enctype="multipart/form-data">
-     					@csrf
-     					<div class="form-group row">
+        <div class="row">
+                <div class="col-6">
+                    <form method="post" action="{{route('save-ticket')}}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Code Number*</label>
                             <div class="col-7">
                                 <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Enter PCN">
@@ -35,7 +30,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Department*</label>
                             <div class="col-7">
-                                <select class="form-control" name="category"required="required">
+                                <select class="form-control form-select" name="category"required="required">
                                     <option value="">Select Department</option>
                                     @foreach($category as $key=>$value)
                                     <option value="{{$value->category}}">{{$value->category}}</option>
@@ -62,7 +57,7 @@
                             <label for="" class="col-5 col-form-label">Priority*</label>
                             <div class="col-7">
                                
-                                <select class="form-control" name="priority" id='priority' required="required" >
+                                <select class="form-control form-select" name="priority" id='priority' required="required" >
                                    <option value="">Select Priority</option>
                                     <option value="High">High</option>
                                     <option value="Medium">Medium</option>
@@ -78,39 +73,41 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Attach image </label>
                             <div class="col-7">
-                                <input type="file" class="form-control form-control-sm" name="image" id="imgInp" accept="image/*">
+                               <!--  <input type="file" class="form-control form-control-sm" name="image" id="imgInp" accept="image/*"> -->
+
+                                <input class="form-control form-control-sm" type="file" id="upload-btn" name="image[]" accept="image/*" multiple />
+                                 
                 
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                              <output id="result" />
+                        </div>
 
                         <input type="hidden" name="owner" value="{{Auth::user()->id}}">
 
                          <div class="form-group row">
                             <div class="offset-5 col-7">
-                                <button name="submit" type="submit" class="btn btn-danger">Generate Ticket</button>
+                                <button name="submit" type="submit" class="btn btn-danger" id="btn_submit">Generate Ticket</button>
                                 
                             </div>
                         </div>
 
-                    	
-     				</form>
-     				
-     			</div>
-
-                <div class="col-6">
-                     <img class="imagen" id="blah" src="" alt="ticketimage" style="width: 200px;height: 200px" />
-
+                        
+                    </form>
+                    
                 </div>
-     		
-     		
-     	</div>
-     	
+
+                
+            
+            
+        </div>
+        
      </div>
 
     </div>
 </div>
-
 
 
 <script type="text/javascript">
@@ -128,7 +125,20 @@ $( document ).ready(function() {
                search: request.term
             },
             success: function( data ) {
-               response( data );
+               
+            document.getElementById("pcn_detail").innerHTML="";
+            document.getElementById("btn_submit").style.display= "none" ;
+            
+
+             if(data.length==0){
+               document.getElementById("pcn_detail").innerHTML="PCN doesn't exists";
+               var getValue=document.getElementById("pcn");
+              
+             }
+             else {
+            
+                 response( data );
+             }
               
             }
           });
@@ -138,6 +148,7 @@ $( document ).ready(function() {
            var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
           
          
+           document.getElementById("btn_submit").style.display= "block" ;
            document.getElementById("pcn_detail").innerHTML=address;
         
         }
@@ -156,6 +167,55 @@ $( document ).ready(function() {
   }
 }
 </script>
+
+<script type="text/javascript">
+    window.onload = function() {
+  // Check for File API support.
+  if (window.File && window.FileList && window.FileReader) {
+
+    var filesInput = document.getElementById('upload-btn');
+    filesInput.addEventListener('change', function(e) {
+      var output = document.getElementById('result');
+      var files = e.target.files; //FileList object
+      
+      output.innerHTML = ''; // Clear (previous) results.
+
+       if(files.length > 4){
+        document.getElementById('upload-btn').value= null;
+        alert("You can only upload a maximum of 4 files");
+
+        
+      }
+      else {
+      
+      for (var i = 0; i < files.length; i++) {
+        var currFile = files[i];
+        if (!currFile.type.match('image')) continue; // Skip non-images.
+        
+        var imgReader = new FileReader();
+        imgReader.fileName = currFile.name;
+        imgReader.addEventListener('load', function(e1) {
+          var img = e1.target;
+          var div = document.createElement('div');
+          div.className = 'thumbnail';
+          div.innerHTML = [
+            '<img class="thumb" src="' + img.result + '"' + 'title="' + img.fileName + '"/>',
+            '<label class="caption">' + img.fileName + '</label>'
+          ].join('');
+          output.appendChild(div);
+        });
+
+        // Read image.
+        imgReader.readAsDataURL(currFile);
+      }
+    }
+    });
+  } else {
+    console.log('Your browser does not support File API!');
+  }
+}
+</script>
+
 
 
 @endsection

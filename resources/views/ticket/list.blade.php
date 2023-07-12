@@ -56,7 +56,7 @@
 	                  <th scope="col">Billing Details</th>
 	                  <th scope="col" width="150px">Department</th>
 	                  <th scope="col" width="150px">Description</th>
-	                 <!--  <th scope="col">Creator</th>  -->
+	                  <th scope="col">Creator</th> 
 	                  <th scope="col">Priority</th>
 	                  <th scope="col">TAT</th>
 	                  
@@ -73,8 +73,8 @@
 	                	<td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
-	                	<td width="200px">{{$value->pcns->client_name}} @php echo'<br/>'; @endphp {{$value->pcns->area}},{{$value->pcns->city}}</td>
-	                	<td>{{$value->category}}</td>
+	                	<td>{{$value->pcns->client_name}} @php echo'<br/>'; @endphp {{$value->pcns->location}},{{$value->pcns->area}},{{$value->pcns->city}}</td>
+	                	<td >{{$value->category}}</td>
 	                	<td>{{$value->issue}}</td>
 	                	 
                        @php
@@ -88,6 +88,7 @@
                          $colors = 'limegreen' ;
 	                	 
                        @endphp
+                       <td>{{$value->user->name}}</td>
 	                	<td><button class="btn btn-light" style="width:50px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></i></td>
 
 	                	<td><?php echo ($value->tat!='') ? date("d-m-Y", strtotime($value->tat)) :''  ?></td>
@@ -101,14 +102,14 @@
 	                		@endif
 	                	</td>
 	                	
-	                	
+	              
 	                	<td>
-	                		@if(Auth::user()->id ==1 || Auth::user()->role == 'manager')
-	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
+	                		@if(Auth::user()->role_id == 1 || Auth::user()->role == 'manager')
+	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Update</button></a>
 	                		@elseif($value->status == 'Created')
-	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
+	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Update</button></a>
 	                		@else
-	                		<a href=""><button class="btn btn-light curved-text-button btn-sm" disabled>Edit</button></a>
+	                		<!-- <a href=""><button class="btn btn-light curved-text-button btn-sm" disabled>Edit</button></a> -->
                             @endif
 
 	                		 @if($value->status == 'Created')
@@ -125,26 +126,29 @@
 	                </tr>
 
         <!-- Modal -->
-
                   <div class="modal" id="modal_{{$key}}" >
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Attachment</h5>
-                          @if($value->filename != '')
-        		
-                <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> 
-        		@endif
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
+			        <div class="modal-dialog">
+			          <div class="modal-content">
+			            <div class="modal-header">
+			              <h5 class="modal-title" id="exampleModalLabel">Attachment </h5>
+			             
+			              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			            </div>
+			            <div class="modal-body">
+			            	@php
+			            	$revertNames = explode(',', $value->filename);
+			            	@endphp
 
-                           <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value->filename}}" alt="ticketimage" style="width: 400px;height: 250px" />
-                          
-                        </div>
-        </div>
-      </div>
-    </div>
+                          @foreach($revertNames as $key=>$value)
+			               <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value}}" alt="ticketimage" style="width: 400px;height: 250px" />
+
+			                <a download href="{{ URL::to('/') }}/ticketimages/{{$value}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> 
+			               @endforeach
+			              
+			            </div>
+			        </div>
+			      </div>
+			    </div>
 
 <!--  end Modal -->
 

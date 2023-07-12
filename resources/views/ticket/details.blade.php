@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+
+@php
+  $can_reply="false";
+@endphp
 <div class="container">
     <div class="row justify-content-center">
 	 <div class="container-header">
@@ -21,9 +25,46 @@
 
      <div>
      	
-     	<div class="card">
+        <div class="row justify-content-center">
 
-     		<div class="row">
+          <div class="col-sm-6 col-md-6 ">
+            <div class="card">
+              <div>
+              <label>Ticket No : </label> <label class="label-bold">{{$id}}</label>
+            </div>
+
+             <div>
+              <label>Ticket Creator : </label> <label class="label-bold">{{$ticket->user->name}} - {{$ticket->user->roles->alias}}</label>
+            </div>
+
+             <div>
+              <label>Ticket Assigned to : </label> <label class="label-bold">{{$ticket->employee->name}} - {{$ticket->employee->roles->alias}}</label>
+            </div>
+              
+            </div>
+            
+            
+            
+          </div>
+
+          <div class="col-sm-6 col-md-6 ">
+            <div class="card">
+            <div>
+              <label>PCN : </label> <label class="label-bold">{{$id}}</label>
+            </div>
+
+             <div>
+            
+              <label class="label-bold">{{$pcn_data->client_name}},{{$pcn_data->brand}}<?php echo '<br>' ;?> {{$pcn_data->location}} , {{$pcn_data->area}},{{$pcn_data->city}},{{$pcn_data->state}}</label>
+            </div>
+            </div>
+            
+            
+          </div>
+          
+        </div>
+
+     		<!-- <div class="row">
      			<div class="col-md-2">
      				<div class="row">
      					<label>Ticket No</label>
@@ -46,6 +87,7 @@
      					<label>Ticket Creator</label>
              
                 <h4>{{$ticket->user->name}} - {{$ticket->user->roles->alias}}</h4>
+                
                             
      				    
      				</div>
@@ -61,21 +103,48 @@
      			</div>
 
      			
-     		</div>
-     	</div>
+     		</div> -->
+
+     
+
      </div>
      
      <div>
      	<h4 class="label-bold">CATEGORY : {{$ticket->category}}</h4>
      	<label>Description : {{$ticket->issue}}</label>
 
+       @foreach($conversation as $key => $value)
 
-     	 <div id="div2">
+                   @php
+                    if(($value->sender == Auth::user()->id) or ($value->recipient == Auth::user()->id)) 
+                    {
+                      $can_reply = 'True';
+                    }
+
+                   @endphp
+
+        @endforeach
+
+        @if($can_reply == "True" or Auth::user()->role_id == 1 or Auth::user()->role_id == 2 or Auth::user()->role_id == 5)
+     	 <div id="div2" style="display: block">
            <a data-bs-toggle="modal" data-bs-target="#replyModal"  class="btn btn-light btn-outline-secondary" href=""><i class="fa fa-plus"></i> 
              <label id="modal">Reply</label>
            </a>
-          </div>
-        
+      </div>
+      @endif
+      @if(Auth::user()->role_id == 1 or Auth::user()->role_id == 2 or Auth::user()->role_id == 5)
+       <div id="div2" style="display: block; margin-right: 30px">
+           <a onclick="return confirm('Ticket status will be set to Completed')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'closed'])}}"> 
+             <label id="modal">Close</label>
+           </a>
+      </div>
+
+      <div id="div2" style="display: block ; margin-right: 30px">
+           <a onclick="return confirm('Ticket status will be set to Completed')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'Completed'])}}">
+             <label id="modal">Complete</label>
+           </a>
+      </div>
+      @endif
 
      		<table class="table ">
      			<tr>
@@ -88,7 +157,6 @@
 
                 @foreach($conversation as $key => $value)
 
-               
              			<tr>
              				
              				<td>{{$value->created_at}}</td>

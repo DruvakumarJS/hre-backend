@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TicketConversation;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Pcn;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,8 @@ class TicketConversationController extends Controller
         $ticket = Ticket::where('ticket_no', $id)->first();
         $conversation = TicketConversation::where('ticket_id', $ticket->id)->get();
         $employee = User::select('id' , 'name' , 'role_id')->where('role_id', '!=' , '1')->get();
-        return view('ticket/details' , compact('id' , 'ticket' , 'conversation' , 'employee'));
+        $pcn_data = Pcn::where('pcn',$ticket->pcn)->first();
+        return view('ticket/details' , compact('id' , 'ticket' , 'conversation' , 'employee' , 'pcn_data'));
     }
 
     /**
