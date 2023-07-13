@@ -8,14 +8,12 @@
         <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}"> View PettyCash List</a>
         </div>
-       <!--  <div id="div2" style="margin-right: 30px">
+        <div id="div2" style="margin-right: 30px">
             <a href="{{route('pettycash_expenses')}}"><button class="btn btn-light btn-outline-secondary">Upload Expenses</button></a>
-        </div> -->
+        </div>
 
       
     </div>
-
-
 
 
     <div class="form-build">
@@ -92,9 +90,9 @@
                                     <td>{{date("d-m-Y", strtotime($value->bill_date))}}</td>
                                     <td>
                                         @if($value->filename != '')
-                                        <a target="_blank" href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-eye" style="color: black"></i></a> 
+                                        <a id="MyproofModal_{{$key}}"><i class="fa fa-eye" style="color: black"></i></a> 
 
-                                        <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px;color: black"></i></a> 
+                                        <!-- <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px;color: black"></i></a> --> 
                                         @endif
                                     </td>
                                     @if($value->isapproved == '0')
@@ -110,7 +108,7 @@
                                         @if($value->user_id == Auth::user()->id)
                                          @if($value->isapproved == '0')
                                         
-                                       <!--  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_expense',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a>  -->
+                                        <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_expense',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a> 
                                          @endif
                                         @endif
 
@@ -160,6 +158,51 @@ $(document).ready(function(){
   });
 });  
 </script>
+
+
+
+<!-- proof -->
+
+<!--  Modal -->
+        <div class="modal fade" id="proof_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Manage Bill Status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                @php
+                $revertNames = explode(',', $value->filename);
+                @endphp
+
+              @foreach($revertNames as $key2=>$value2)
+               @if(str_contains($value2, ".pdf"))
+                <img class="imagen" id="blah" src="{{ URL::to('/') }}/images/pdf.png" alt="ticketimage" style="width: 100px;height: 100px" />
+               @else
+               <img class="imagen" id="blah" src="{{ URL::to('/') }}/pettycashfiles/{{$value2}}" alt="ticketimage" style="width: 400px;height: 250px" />
+               @endif
+
+               <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value2}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> 
+
+             
+               @endforeach
+              
+            </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
+<script>
+$(document).ready(function(){
+  $('#MyproofModal_{{$key}}').click(function(){
+    $('#proof_{{$key}}').modal('show');
+  });
+});  
+</script>
+
+<!-- Proof -->
                         @endforeach
                         </table>
                         </div>

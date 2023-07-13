@@ -293,7 +293,9 @@ class PettycashController extends Controller
 
     public function summary($id){
        
-        $data = PettycashSummary::where('user_id',$id)->get();
+        $data = PettycashSummary::where('user_id',$id)->orderBy('id', 'DESC')->first();
+
+       // print_r(json_encode($data)); die();
         $user = Employee::where('user_id' , $id)->first();
 
          return view('pettycash/summary',compact('data','id', 'user') );

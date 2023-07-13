@@ -125,25 +125,30 @@
 
         @endforeach
 
+        @if($ticket->status != 'Completed')
         @if($can_reply == "True" or Auth::user()->role_id == 1 or Auth::user()->role_id == 2 or Auth::user()->role_id == 5)
      	 <div id="div2" style="display: block">
            <a data-bs-toggle="modal" data-bs-target="#replyModal"  class="btn btn-light btn-outline-secondary" href=""><i class="fa fa-plus"></i> 
              <label id="modal">Reply</label>
            </a>
       </div>
-      @endif
-      @if(Auth::user()->role_id == 1 or Auth::user()->role_id == 2 or Auth::user()->role_id == 5)
-       <div id="div2" style="display: block; margin-right: 30px">
-           <a onclick="return confirm('Ticket status will be set to Completed')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'closed'])}}"> 
-             <label id="modal">Close</label>
-           </a>
-      </div>
-
-      <div id="div2" style="display: block ; margin-right: 30px">
-           <a onclick="return confirm('Ticket status will be set to Completed')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'Completed'])}}">
+       <div id="div2" style="display: block ; margin-right: 30px">
+           <a onclick="return confirm('Ticket is Completed')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'Completed'])}}">
              <label id="modal">Complete</label>
            </a>
       </div>
+
+      
+      @endif
+
+      @if(Auth::user()->role_id == 1 or Auth::user()->role_id == 2)
+      <div id="div2" style="display: block; margin-right: 30px">
+           <a onclick="return confirm('Ticket is Resolved')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'Resolved'])}}"> 
+             <label id="modal">Resolved</label>
+           </a>
+      </div>
+     
+      @endif
       @endif
 
      		<table class="table ">

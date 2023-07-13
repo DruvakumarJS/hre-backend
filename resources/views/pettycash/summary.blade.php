@@ -48,7 +48,7 @@
          <label class="div-margin" style="font-weight: bolder;font-size: 25px">{{$user->name}}</label> <label >{{$user->user->roles->alias}}</label>
        
         <div id="div2" style="margin-right: 30px">
-           <label class="label-bold">Outstanding Balance : </label> <label id="balance"></label> 
+           <label class="label-bold">Outstanding Balance : </label> <label> {{$data->balance}}</label> 
         </div>
          
       </div>
@@ -142,7 +142,7 @@ $(function() {
     
 
      output += '<tr>';
-     output += '<td>' + data[count].date + '</td>';
+   /*  output += '<td>' + data[count].date + '</td>';*/
      output += '<td>' + data[count].issued_date + '</td>';
      output += '<td>'+ data[count].mode + '</td>';
      output += '<td>'+ data[count].ref + '</td>';
@@ -162,9 +162,9 @@ $(function() {
           output += '<td></td>';
      }
      
-     bal = data[count].balance;
+    // bal = data[count].balance;
     
-     output += '<td>' + data[count].balance + '</td>';
+    /* output += '<td>' + data[count].balance + '</td>';*/
      
      
     }

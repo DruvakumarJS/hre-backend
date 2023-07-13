@@ -54,8 +54,8 @@
 	                  <th scope="col">Ticket No</th>
 	                  <th scope="col">PCN</th>
 	                  <th scope="col">Billing Details</th>
-	                  <th scope="col" width="150px">Department</th>
-	                  <th scope="col" width="150px">Description</th>
+	                  <th scope="col">Department</th>
+	                  <th scope="col">Description</th>
 	                  <th scope="col">Creator</th> 
 	                  <th scope="col">Priority</th>
 	                  <th scope="col">TAT</th>
@@ -73,7 +73,7 @@
 	                	<td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
-	                	<td>{{$value->pcns->client_name}} @php echo'<br/>'; @endphp {{$value->pcns->location}},{{$value->pcns->area}},{{$value->pcns->city}}</td>
+	                	<td width="100px">{{$value->pcns->client_name}} @php echo'<br/>'; @endphp {{$value->pcns->location}},{{$value->pcns->area}},{{$value->pcns->city}}</td>
 	                	<td >{{$value->category}}</td>
 	                	<td>{{$value->issue}}</td>
 	                	 

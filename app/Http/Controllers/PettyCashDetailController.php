@@ -55,27 +55,31 @@ class PettyCashDetailController extends Controller
        // print_r($request->Input());die();
 
         $fileName='';
+        $imagearray=array();
         $bill_no = 'PC00';
 
-        if(PettyCashDetail::exists()){
-                 $conversation_id = PettyCashDetail::select('id')->orderBy('id', 'DESC')->first();                 
-                 $bill_no= "PC00".++$conversation_id->id;
-            }
-            else{                 
-                 $bill_no= 'PC001';                
-            }
+       
+         if($file = $request->hasFile('image')) {
 
-        if($file = $request->hasFile('bill')) {
-           
-            $file = $request->file('bill') ;
-            //$fileName = $file->getClientOriginalName() ;
-             $temp = explode(".", $file->getClientOriginalName());
-             $fileName=$bill_no . '.' . end($temp);
-        
-            $destinationPath = public_path().'/pettycashfiles' ;
-            $file->move($destinationPath,$fileName);
-  
+            foreach($_FILES['image']['name'] as $key=>$val){ 
+                
+               $fileName = basename($_FILES['image']['name'][$key]); 
+                $temp = explode(".", $fileName);
+                 
+                $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/pettycashfiles/'.$fileName ;
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+             
+                 
+            }
+          
           }
+
+           $imageNames = implode(',', $imagearray);
 
           $createData = PettyCashDetail::create([
                 'user_id' => Auth::user()->id,
@@ -86,7 +90,7 @@ class PettyCashDetailController extends Controller
                 'purpose' => $request->purpose ,
                 'pcn' => $request->pcn,
                 'comments' => $request->comment,
-                'filename' => $fileName,
+                'filename' => $imageNames,
                 'isapproved' => '0'
             ]);
 
@@ -210,10 +214,10 @@ class PettyCashDetailController extends Controller
 
            while($now <= $last ) {
 
-            $summary = PettycashSummary::where('user_id',$request->id)->where('created_at','LIKE',date('Y-m-d', $now).'%')->get();
-
-           /*$summary = PettycashSummary::where('user_id',$request->id)->where('transaction_date',date('Y-m-d', $now))->orderBy('id','ASC')->get();
+           /* $summary = PettycashSummary::where('user_id',$request->id)->where('created_at','LIKE',date('Y-m-d', $now).'%')->get();
 */
+           $summary = PettycashSummary::where('user_id',$request->id)->where('transaction_date',date('Y-m-d', $now))->orderBy('id','ASC')->get();
+
             foreach ($summary as $key => $value) {
                 $reference = $value->reference_number;
                 $mode = $value->mode;

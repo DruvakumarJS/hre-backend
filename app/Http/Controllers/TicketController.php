@@ -369,19 +369,31 @@ class TicketController extends Controller
     public function modify_ticket($id , $action){
 
         $ticket = Ticket::where('ticket_no',$id)->first();
-       
-        $conversation = TicketConversation::create([
+       // print_r($action); die();
+
+        if($action == 'Completed'){
+            $conversation = TicketConversation::create([
                         'ticket_id' => $ticket->id ,
                         'ticket_no' => $ticket->ticket_no ,
-                        'message' => $action ,
+                        'message' => 'This ticket is Completed' ,
                         'sender' => Auth::user()->id ,
                         'recipient' => $ticket->creator,
-                        'status' => 'Completed',
+                        ]);
+        }
+        else if($action == 'Resolved'){
+            $conversation = TicketConversation::create([
+                        'ticket_id' => $ticket->id ,
+                        'ticket_no' => $ticket->ticket_no ,
+                        'message' => 'This ticket is Resolved' ,
+                        'sender' => Auth::user()->id ,
+                        'recipient' => $ticket->creator,
                         ]);
 
-        $updateticket = Ticket::where('id',$ticket->id)->update([
+             $updateticket = Ticket::where('id',$ticket->id)->update([
             'status' => 'Completed']);
 
+        }
+      
         return redirect()->back();
     }
 }

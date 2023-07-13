@@ -2,12 +2,6 @@
 
 @section('content')
 
-<style type="text/css">
-    img[src=""] {
-    display: none;
-}
-</style>
-
 <div class="container">
   <div class="row justify-content-center">
      <div class="container-header">
@@ -77,10 +71,15 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Upload bill</label>
                             <div class="col-7">
-                                <input type="file" class="form-control form-control-sm" name="bill" id="imgInp" required>
+                               <!--  <input type="file" class="form-control form-control-sm" name="bill" id="imgInp" required> -->
+                               <input class="form-control form-control-sm" type="file" id="upload-btn" name="image[]" accept="image/* , application/pdf" multiple />
                 
                             </div>
 
+                        </div>
+
+                         <div class="form-group row">
+                              <output id="result" />
                         </div>
 
 
@@ -97,10 +96,7 @@
      				
      			</div>
 
-                <div class="col-6">
-                     <img class="imagen" id="blah" src="" alt="ticketimage" style="width: 200px;height: 200px" />
-
-                </div>
+               
      		
      		
      	</div>
@@ -186,18 +182,69 @@
 </script>
 
 <script type="text/javascript">
-    imgInp.onchange = evt => {
-  const [file] = imgInp.files
-  var fileType = file["type"];
+    window.onload = function() {
+  // Check for File API support.
+  if (window.File && window.FileList && window.FileReader) {
 
-  if (fileType == 'image/jpeg' || fileType=='image/png' ) {
-    blah.src = URL.createObjectURL(file)
-    $(".imagen").show();
-  }
-  else{
-    
+    var filesInput = document.getElementById('upload-btn');
+    filesInput.addEventListener('change', function(e) {
+      var output = document.getElementById('result');
+      var files = e.target.files; //FileList object
+      
+      output.innerHTML = ''; // Clear (previous) results.
+
+       if(files.length > 4){
+        document.getElementById('upload-btn').value= null;
+        alert("You can only upload a maximum of 4 files");
+
+        
+      }
+      else {
+      
+      for (var i = 0; i < files.length; i++) {
+        var currFile = files[i];
+      //  if (!currFile.type.match('image')) continue; // Skip non-images.
+      
+        
+        var imgReader = new FileReader();
+        imgReader.fileName = currFile.name;
+        imgReader.addEventListener('load', function(e1) {
+          var img = e1.target;
+         // var src = img.result;
+          
+          var div = document.createElement('div');
+          div.className = 'thumbnail';
+           if (currFile.name.match(/\.(jpg|jpeg|png|gif)$/i))
+             {
+              div.innerHTML = [
+                  '<img class="thumb" src="' + img.result + '"' + 'title="' + img.fileName + '"/>',
+                  '<label class="caption">' + img.fileName + '</label>'
+                ].join('');
+           }
+        else {
+
+           div.innerHTML = [
+                  '<img class="thumb" src="' + "images/pdf.png" + '"' + 'title="' + img.fileName + '"/>',
+                  '<label class="caption">' + img.fileName + '</label>'
+                ].join('');
+       
+        }
+
+          output.appendChild(div);
+        
+        });
+
+        // Read image.
+        imgReader.readAsDataURL(currFile);
+      }
+    }
+    });
+  } else {
+    console.log('Your browser does not support File API!');
   }
 }
 </script>
+
+
 
 @endsection
