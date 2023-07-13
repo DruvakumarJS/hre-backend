@@ -213,12 +213,14 @@ class ExportController extends Controller
     public function summary(Request $request){
         $user_id = $request->user_id ;
         $emp = Employee::where('user_id', $user_id)->first();
-        $start_date = $request->start_date ;
-        $end_date = $request->end_date ;
+        $start_date = $request->start_date.' 00:00:00'; 
+        $end_date = $request->end_date.' 23:59:59'; 
       
           $file_name = 'PettycashSummary_'.$emp->employee_id.'.csv';
 
-          if(PettycashSummary::where('user_id',$user_id)->exists()){
+          if(PettycashSummary::where('user_id',$user_id)->whereBetween('transaction_date', [$start_date , $end_date])->exists()){
+
+            print_r(PettycashSummary::where('user_id',$user_id)->whereBetween('transaction_date', [$start_date , $end_date])->get());die();
 
              return Excel::download(new ExportPettycashSummary($user_id ,$start_date, $end_date ), $file_name);
           }
