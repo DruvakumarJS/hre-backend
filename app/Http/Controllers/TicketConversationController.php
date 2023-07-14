@@ -27,7 +27,7 @@ class TicketConversationController extends Controller
     {
         $ticket = Ticket::where('ticket_no', $id)->first();
         $conversation = TicketConversation::where('ticket_id', $ticket->id)->get();
-        $employee = User::select('id' , 'name' , 'role_id')->where('role_id', '!=' , '1')->get();
+        $employee = User::select('id' , 'name' , 'role_id')->get();
         $pcn_data = Pcn::where('pcn',$ticket->pcn)->first();
         return view('ticket/details' , compact('id' , 'ticket' , 'conversation' , 'employee' , 'pcn_data'));
     }
@@ -54,7 +54,7 @@ class TicketConversationController extends Controller
 
         $Ticket = Ticket::select('status')->where('ticket_no',$request->ticket_no)->first();
         $fileName = '';
-        if($Ticket->status == 'Pending' || $Ticket->status == 'Re-Opened'){
+        if($Ticket->status == 'Pending/Ongoing' || $Ticket->status == 'Re-Opened'){
 
             if($file = $request->hasFile('image')) {
              
@@ -91,6 +91,40 @@ class TicketConversationController extends Controller
         else {
             return redirect()->route('ticket-details',$request->ticket_no)->withMessage('Ticket is closed . You cannot communicate to this ticket No .');
         }
+    }
+
+    public function download_conversation_ticket($id){
+
+       
+        $data = TicketConversation::select('filename')->where('id', $id)->first();
+
+        $zip = new \ZipArchive();
+        $fileName = 'zipFile.zip';
+        $destinationPath = public_path($fileName);
+
+        if(file_exists($destinationPath)){
+           
+            unlink($destinationPath);
+        }
+
+      
+        $downloads = explode(',', $data->filename);
+
+
+        if ($zip->open(public_path($fileName), \ZipArchive::CREATE)== TRUE)
+        {
+           //$files = File::files(public_path('myFiles'));
+            foreach ($downloads as $key => $value){
+                $relativeName = basename($value);
+                $path = 'ticketimages/'.$relativeName;
+                $zip->addFile($path);
+            }
+            $zip->close();
+        }
+
+        return response()->download(public_path($fileName));
+
+
     }
 
     /**

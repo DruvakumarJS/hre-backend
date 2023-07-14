@@ -125,7 +125,7 @@
 
         @endforeach
 
-        @if($ticket->status != 'Completed')
+        @if($ticket->status != 'Resolved')
         @if($can_reply == "True" or Auth::user()->role_id == 1 or Auth::user()->role_id == 2 or Auth::user()->role_id == 5)
      	 <div id="div2" style="display: block">
            <a data-bs-toggle="modal" data-bs-target="#replyModal"  class="btn btn-light btn-outline-secondary" href=""><i class="fa fa-plus"></i> 
@@ -134,7 +134,7 @@
       </div>
        <div id="div2" style="display: block ; margin-right: 30px">
            <a onclick="return confirm('Ticket is Completed')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'Completed'])}}">
-             <label id="modal">Complete</label>
+             <label id="modal">Completed</label>
            </a>
       </div>
 
@@ -171,7 +171,7 @@
                     @if(!empty($value->filename))
                      <td>
                       <a id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"> <i class="fa fa-eye"></i></a>
-                       <a download href="{{ URL::to('/') }}/ticketimages/{{$value->filename}}"><i class="fa fa-download"></i></a>
+                       
                     </td>
                     @else 
                     <td>
@@ -189,13 +189,23 @@
                                   <div class="modal-content">
                                     <div class="modal-header">
                                       <h5 class="modal-title" id="exampleModalLabel">Attachment</h5>
+                                      <a href="{{route('download_conversation_ticket',$value->id)}}"><i style="margin-left: 30px" class="fa fa-download"></i></a>
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
+                                   <div class="modal-body">
+                @php
+                $revertNames = explode(',', $value->filename);
+                @endphpx
 
-                                       <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value->filename}}" alt="ticketimage" style="width: 400px;height: 250px" />
-                                      
-                                    </div>
+              @foreach($revertNames as $key2=>$value2)
+               <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value2}}" alt="ticketimage" style="width: 400px;height: 250px; margin-top: 20px" />
+
+               <a target="_blank" href="{{ URL::to('/') }}/ticketimages/{{$value2}}"><i class="fa fa-expand" style="color: black;font-size:30px"></i></a> 
+
+             
+               @endforeach
+              
+            </div>
                     </div>
                   </div>
                 </div>
@@ -233,7 +243,7 @@
                 <form method="post" action="{{route('reply_conversation')}}" enctype="multipart/form-data">
                   @csrf
                    <label>Subject : </label>
-                   <label class="label-bold">{{$ticket->subject}}</label>
+                   <label class="label-bold">{{$ticket->issue}}</label>
                   
                   <div class="mb-3 div-margin">
                     <label for="recipient-name" class="col-form-label">Recipient Name</label>
@@ -265,7 +275,7 @@
 
                   <div class="modal-footer">
                    
-                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="submit" class="btn btn-danger">Send</button>
                   </div>
                 </form>
               </div>

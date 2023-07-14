@@ -73,6 +73,8 @@
                             <div class="col-7">
                                <!--  <input type="file" class="form-control form-control-sm" name="bill" id="imgInp" required> -->
                                <input class="form-control form-control-sm" type="file" id="upload-btn" name="image[]" accept="image/* , application/pdf" multiple />
+
+                              
                 
                             </div>
 
@@ -80,6 +82,7 @@
 
                          <div class="form-group row">
                               <output id="result" />
+                               
                         </div>
 
 
@@ -244,6 +247,8 @@
   }
 }
 </script>
+
+
 
 
 

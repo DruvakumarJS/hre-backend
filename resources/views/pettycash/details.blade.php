@@ -8,9 +8,12 @@
         <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}"> View PettyCash List</a>
         </div>
+
+        @if($id == auth::user()->id)
         <div id="div2" style="margin-right: 30px">
             <a href="{{route('pettycash_expenses')}}"><button class="btn btn-light btn-outline-secondary">Upload Expenses</button></a>
         </div>
+        @endif
 
       
     </div>
@@ -66,14 +69,14 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Date</th>
+                                <th>Bill Date</th>
                                <!--  <th>Transaction Ref</th> -->
                                 <th>Amount Utilised</th>
                                 <th>Purpose</th>
                                 <th>PCN</th>
                                 <th width="170px">Description</th>
-                                <th>Bill Date</th>
                                 <th>Proof</th>
+                                <th>Entry Date</th>
                                 <th width="140px">Status</th>
                                 <th width="150px">Remarks</th>
                                 <th></th>
@@ -81,20 +84,25 @@
                             </thead>
                         @foreach($data as $key =>$value)
                                 <tr>
-                                    <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
+                                    <td>{{date("d-m-Y", strtotime($value->bill_date))}}</td>
                                    <!--  <td>{{$value->billing_no}}</td> -->
                                     <td><span>&#8377;</span>{{$value->spent_amount}}</td>
                                     <td>{{$value->purpose}}</td>
                                     <td>{{$value->pcn}}</td>
                                     <td>{{$value->comments}}</td>
-                                    <td>{{date("d-m-Y", strtotime($value->bill_date))}}</td>
+                                    
                                     <td>
                                         @if($value->filename != '')
                                         <a id="MyproofModal_{{$key}}"><i class="fa fa-eye" style="color: black"></i></a> 
 
-                                        <!-- <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px;color: black"></i></a> --> 
+                                        <!-- <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px;color: black"></i></a> -->
+
+                                        <a href="{{route('download_bills',$value->id)}}"><i class="fa fa-download" style="margin-left: 10px;color: black"></i></a> 
+
                                         @endif
                                     </td>
+
+                                    <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                                     @if($value->isapproved == '0')
                                         <td style="color: blue">Awaiting approval</td>
                                     @elseif($value->isapproved == '1')
@@ -178,12 +186,15 @@ $(document).ready(function(){
 
               @foreach($revertNames as $key2=>$value2)
                @if(str_contains($value2, ".pdf"))
-                <img class="imagen" id="blah" src="{{ URL::to('/') }}/images/pdf.png" alt="ticketimage" style="width: 100px;height: 100px" />
+                <img class="imagen" id="blah" src="{{ URL::to('/') }}/images/pdf.png" alt="ticketimage" style="width: 100px;height: 100px;margin: 10px" />
                @else
                <img class="imagen" id="blah" src="{{ URL::to('/') }}/pettycashfiles/{{$value2}}" alt="ticketimage" style="width: 400px;height: 250px" />
                @endif
 
-               <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value2}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> 
+               <a target="_blank" href="{{ URL::to('/') }}/pettycashfiles/{{$value2}}"><i class="fa fa-expand" style="color: black;font-size:30px;margin: 10px"></i></a> 
+
+               <!-- <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value2}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> -->
+
 
              
                @endforeach

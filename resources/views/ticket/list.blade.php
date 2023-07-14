@@ -130,7 +130,9 @@
 			        <div class="modal-dialog">
 			          <div class="modal-content">
 			            <div class="modal-header">
-			              <h5 class="modal-title" id="exampleModalLabel">Attachment </h5>
+			              <h5 class="modal-title" id="exampleModalLabel">Attachments </h5>
+
+			               <a href="{{route('download_ticket',$value->id)}}"><i style="margin-left: 30px" class="fa fa-download"></i></a>
 			             
 			              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			            </div>
@@ -139,10 +141,10 @@
 			            	$revertNames = explode(',', $value->filename);
 			            	@endphp
 
-                          @foreach($revertNames as $key=>$value)
-			               <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value}}" alt="ticketimage" style="width: 400px;height: 250px" />
+                          @foreach($revertNames as $key2=>$value2)
+			               <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value2}}" alt="ticketimage" style="width: 400px;height: 250px; margin: 10px" />
 
-			                <a download href="{{ URL::to('/') }}/ticketimages/{{$value}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> 
+			                <a target="_blank" href="{{ URL::to('/') }}/ticketimages/{{$value2}}"><i class="fa fa-expand" style="color: black;font-size:30px"></i></a> 
 			               @endforeach
 			              
 			            </div>

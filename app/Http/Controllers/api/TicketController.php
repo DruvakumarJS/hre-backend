@@ -14,13 +14,14 @@ class TicketController extends Controller
 
      	if(isset($request->user_id)){
 
-     	if(Ticket::where('creator' , $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->exists()){
+     	if(Ticket::where('status', 'Pending/Ongoing')->orWhere('creator' , $request->user_id)->exists()){
 
-     		$tickets = Ticket::where('creator' , $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->get();
+     		$tickets = Ticket::where('status', 'Pending/Ongoing')->orWhere('creator' , $request->user_id)->orderby('id' , 'DESC')->get();
 
             $ticketarray= array();
 
             foreach ($tickets as $key => $value) {
+                $images = explode(',', $value->filename);
             	$ticketarray[]=[
             		'ticket_id'=> $value->id ,
             		'ticket_no' => $value->ticket_no ,
@@ -29,9 +30,9 @@ class TicketController extends Controller
             		'message' => $value->issue,
                     'priority' => $value->priority,
                     'filepath' => 'https://hre.netiapps.com/ticketimages/',
-                    'filename' => $value->filename,
             		'status' => $value->status,
-            		'created_on' => $value->created_at->toDateTimeString()];
+            		'created_on' => $value->created_at->toDateTimeString(),
+                    'filename' => ($images)];
             }
 
 	            return response()->json([
@@ -71,6 +72,7 @@ class TicketController extends Controller
      	if(Pcn::where('pcn', $request->pcn)->exists())
         { 
              $fileName = '';
+             $imagearray=array();
             if(Ticket::exists()){
             $tickets = Ticket::select('ticket_no')->orderby('id' , 'DESC')->first();
 
@@ -82,23 +84,27 @@ class TicketController extends Controller
             $ticket_no ="TN001";
         }
 
-         if($file = $request->hasFile('image')) {
-             
-            $file = $request->file('image') ;
-            $fileName = $file->getClientOriginalName() ;
-            
-           // $newfilename = round(microtime(true)) . '.' . end($temp);
+          if($file = $request->hasFile('image')) {
 
-            if(TicketConversation::exists()){
-                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
-                 $temp = explode(".", $file->getClientOriginalName());
-                 $fileName=$ticket_no . '.' . end($temp);
+            foreach($_FILES['image']['name'] as $key=>$val){ 
+                
+               $fileName = basename($_FILES['image']['name'][$key]); 
+               $temp = explode(".", $fileName);
+                 
+                  $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/ticketimages/'.$fileName ;
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+             
+                 
             }
-           
-            $destinationPath = public_path().'/ticketimages' ;
-            $file->move($destinationPath,$fileName);
-            
+          
           }
+
+          $imageNames = implode(',', $imagearray);
 
 
         $Insert = Ticket::create([
@@ -108,7 +114,7 @@ class TicketController extends Controller
             'issue' => $request->issue ,
             'priority' => $request->priority,
             'creator' => $request->user_id ,
-            'filename' => $fileName,
+            'filename' => $imageNames,
             'status' => 'Created'   
         ]);
 
@@ -218,13 +224,14 @@ class TicketController extends Controller
             $data=array();
 
             foreach ($conversation as $key => $value) {
+                $images = explode(',', $value->filename);
                 $result=[
                     'sender' => $value->mailsender->name ,
                     'recipient' => $value->mailrecipient->name ,
                     'message' => $value->message ,
                     'filepath' => 'https://hre.netiapps.com/ticketimages/',
-                    'filename' => $value->filename,
-                    'date' => $value->created_at->toDateTimeString()];
+                    'date' => $value->created_at->toDateTimeString(),
+                    'filename' => $images];
 
                     array_push($data, $result);
             }

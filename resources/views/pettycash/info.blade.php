@@ -24,8 +24,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                   
-                    <th scope="col">Issued On</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Issued Amount</th>
                     <th scope="col">Purpose</th>
                     <th scope="col">Payment Mode</th> 

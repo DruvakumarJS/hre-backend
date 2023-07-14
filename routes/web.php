@@ -164,6 +164,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('ticket_details/{id}',[TicketConversationController::class,'index'])->name('ticket-details');
     Route::post('reply_conversation',[TicketConversationController::class,'store'])->name('reply_conversation');
     Route::get('modify_ticket/{id}/{action}',[TicketController::class,'modify_ticket'])->name('modify_ticket');
+    Route::get('download_ticket/{id}',[TicketController::class,'download_ticket'])->name('download_ticket');
+    Route::get('download_conversation_ticket/{id}',[TicketConversationController::class,'download_conversation_ticket'])->name('download_conversation_ticket');
 
     Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
     Route::get('employee-details',[AttendanceController::class,'employeedetails'])->name('employee-details');
@@ -191,6 +193,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('delete_expense/{id}',[PettyCashDetailController::class,'destroy'])->name('delete_expense');
     Route::get('view-summary/{id}',[PettycashController::class,'summary'])->name('view_summary');
     Route::post('summary',[PettyCashDetailController::class,'fetch_summary'])->name('fetch_summary');
+    Route::get('download_bills/{id}',[PettyCashDetailController::class,'download_bills'])->name('download_bills');
 
     //admin
     Route::get('/home', [HomeController::class, 'index'])->name('home');

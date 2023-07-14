@@ -102,20 +102,23 @@
                                      @if($tickets->status == 'Created')
                                    <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
                                    <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
-                                   <option value="Pending" <?php echo ($tickets->status == 'Pending') ? 'selected' : ''; ?>  >Pending</option>
+                                   <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Pending/Ongoing</option>
 
                                    @elseif($tickets->status == 'Rejected')
                                   
                                    <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
                                     <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
 
+                                    @elseif($tickets->status == 'Resolved')
+                                    <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
+                                    <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
                                     @elseif($tickets->status == 'Completed')
                                     <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
-                                    <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
+                                    <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
 
-                                    @elseif($tickets->status == 'Pending')
-                                     <option value="Pending" <?php echo ($tickets->status == 'Pending') ? 'selected' : ''; ?>  >Pending</option>
-                                     <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
+                                    @elseif($tickets->status == 'Pending/Ongoing')
+                                     <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Pending/Ongoing</option>
+                                     <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
 
 
                                    @endif
@@ -168,7 +171,7 @@
                         
                          <div class="form-group row">
                             <div class="offset-5 col-7">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#importModal" ><button  class="btn btn-light">View Images</button></a>
+                               
 
                                 <button name="submit" type="submit" class="btn btn-danger">Update Ticket</button>
                                 
@@ -183,16 +186,19 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ticket Images</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Ticket Images </h5>
+                <a href="{{route('download_ticket',$tickets->id)}}"><i style="margin-left: 30px" class="fa fa-download"></i></a>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
                <div class="modal-body">
                 @php
                 $revertNames = explode(',', $tickets->filename);
-                @endphp
+                @endphpx
 
               @foreach($revertNames as $key=>$value)
-               <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value}}" alt="ticketimage" style="width: 400px;height: 250px" />
+               <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value}}" alt="ticketimage" style="width: 400px;height: 250px; margin-top: 20px" />
+
+               <a target="_blank" href="{{ URL::to('/') }}/ticketimages/{{$value}}"><i class="fa fa-expand" style="color: black;font-size:30px"></i></a> 
 
              
                @endforeach

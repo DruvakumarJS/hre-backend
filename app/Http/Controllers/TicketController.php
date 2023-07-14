@@ -16,6 +16,7 @@ use SendGrid\Mail\To;
 use SendGrid\Mail\Mail;
 use PDF;
 use Auth;
+use ZipArchive;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -41,7 +42,7 @@ class TicketController extends Controller
          $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
       }
       else {
-         $tickets = Ticket::where('status', 'Pending')->orWhere('creator', Auth::user()->id)->orderby('id' , 'DESC')->paginate(10);
+         $tickets = Ticket::where('status', 'Pending/Ongoing')->orWhere('creator', Auth::user()->id)->orderby('id' , 'DESC')->paginate(10);
       }
 
       // $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
@@ -221,7 +222,7 @@ class TicketController extends Controller
            
              $update = Ticket::where('id',$request->id)->update([
                     'issue' => $request->issue ,
-                    'status' => 'Pending',
+                    'status' => 'Pending/Ongoing',
                     'comments' => $request->comment,
                     'assigned_to' => $request->user_id,
                     'priority' => $request->priority,
@@ -230,7 +231,18 @@ class TicketController extends Controller
                     'reopened' => '1'
                      ]);
 
+
+
               $ticket = Ticket::where('id',$request->id)->first();
+
+               $conversation = TicketConversation::create([
+                'ticket_id' => $ticket->id ,
+                'ticket_no' => $ticket->ticket_no ,
+                'message' => $request->comment ,
+                'sender' => auth::user()->id ,
+                'recipient' => $request->user_id,
+                'status' => 'Pending/Ongoing',
+                'filename' => $imageNames]);
 
              
         }
@@ -248,7 +260,7 @@ class TicketController extends Controller
 
              $ticket = Ticket::where('id',$request->id)->first();
              
-             if($request->status == 'Pending'){
+             if($request->status == 'Pending/Ongoing'){
                    $msg = 'Ticket no '.$ticket->ticket_no .' is assigned to you';
 
                    $conversation = TicketConversation::create([
@@ -379,6 +391,7 @@ class TicketController extends Controller
                         'sender' => Auth::user()->id ,
                         'recipient' => $ticket->creator,
                         ]);
+
         }
         else if($action == 'Resolved'){
             $conversation = TicketConversation::create([
@@ -387,13 +400,46 @@ class TicketController extends Controller
                         'message' => 'This ticket is Resolved' ,
                         'sender' => Auth::user()->id ,
                         'recipient' => $ticket->creator,
-                        ]);
-
-             $updateticket = Ticket::where('id',$ticket->id)->update([
-            'status' => 'Completed']);
+                        ]);      
 
         }
+
+        $updateticket = Ticket::where('id',$ticket->id)->update([
+            'status' => $action]);
       
         return redirect()->back();
+    }
+
+    public function download_ticket($id){
+
+        $data = Ticket::select('filename')->where('id', $id)->first();
+
+        $zip = new \ZipArchive();
+        $fileName = 'zipFile.zip';
+        $destinationPath = public_path($fileName);
+
+        if(file_exists($destinationPath)){
+           
+            unlink($destinationPath);
+        }
+
+      
+        $downloads = explode(',', $data->filename);
+
+
+        if ($zip->open(public_path($fileName), \ZipArchive::CREATE)== TRUE)
+        {
+           //$files = File::files(public_path('myFiles'));
+            foreach ($downloads as $key => $value){
+                $relativeName = basename($value);
+                $path = 'ticketimages/'.$relativeName;
+                $zip->addFile($path);
+            }
+            $zip->close();
+        }
+
+        return response()->download(public_path($fileName));
+
+
     }
 }

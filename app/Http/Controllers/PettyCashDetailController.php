@@ -8,6 +8,8 @@ use App\Models\PettycashOverview;
 use App\Models\PettycashSummary;
 use Illuminate\Http\Request;
 use Auth;
+use ZipArchive;
+use File;
 
 class PettyCashDetailController extends Controller
 {
@@ -30,7 +32,7 @@ class PettyCashDetailController extends Controller
 
          //print_r($myspent);die();
 
-        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent'));
+        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent' , 'id'));
     }
 
     /**
@@ -58,11 +60,10 @@ class PettyCashDetailController extends Controller
         $imagearray=array();
         $bill_no = 'PC00';
 
-       
-         if($file = $request->hasFile('image')) {
-
+         if($file = $request->has('image')) {
+         
             foreach($_FILES['image']['name'] as $key=>$val){ 
-                
+               
                $fileName = basename($_FILES['image']['name'][$key]); 
                 $temp = explode(".", $fileName);
                  
@@ -78,7 +79,7 @@ class PettyCashDetailController extends Controller
             }
           
           }
-
+     
            $imageNames = implode(',', $imagearray);
 
           $createData = PettyCashDetail::create([
@@ -194,13 +195,13 @@ class PettyCashDetailController extends Controller
      */
     public function destroy($id)
     {
-      
-       $delete = PettyCashDetail::where('id', $id)->delete();
-
-       if($delete){
+       $data = pettyCashDetail::select('isapproved')->where('id',$id)->first(); 
+       if($data->isapproved == '0'){
+         $delete = PettyCashDetail::where('id', $id)->delete();
+       }
           return redirect()->back();
 
-       }
+     
     }
 
     public function fetch_summary(Request $request){
@@ -254,5 +255,56 @@ class PettyCashDetailController extends Controller
           }
           echo json_encode($data);
         
+    }
+
+    public function download_bills($id){
+
+
+      
+
+        $data = pettyCashDetail::select('filename')->where('id', $id)->first();
+
+        $zip = new \ZipArchive();
+        $fileName = 'zipFile.zip';
+        $destinationPath = public_path($fileName);
+
+        if(file_exists($destinationPath)){
+           
+            unlink($destinationPath);
+        }
+
+         
+
+       //  die();
+
+
+        $downloads = explode(',', $data->filename);
+
+        if ($zip->open(public_path($fileName), \ZipArchive::CREATE)== TRUE)
+        {
+           //$files = File::files(public_path('myFiles'));
+            foreach ($downloads as $key => $value){
+                $relativeName = basename($value);
+                $path = 'pettycashfiles/'.$relativeName;
+                $zip->addFile($path);
+            }
+            $zip->close();
+        }
+
+        return response()->download(public_path($fileName));
+
+        /*foreach ($downloads as $key => $value) {
+           
+            $path = 'pettycashfiles/'.$value;
+           return response()->download(public_path($path));     
+        }*/
+
+        //die();
+
+        /*$destinationPath = public_path($fileName);
+        unlink("test.txt");*/
+
+      //  return redirect()->back();
+
     }
 }
