@@ -81,6 +81,13 @@ class PettyCashDetailController extends Controller
           }
      
            $imageNames = implode(',', $imagearray);
+           if(PettyCashDetail::exists()){
+                 $conversation_id = PettyCashDetail::select('id')->orderBy('id', 'DESC')->first();                 
+                 $bill_no= "PC00".++$conversation_id->id;
+            }
+            else{                 
+                 $bill_no= 'PC001';                
+            }
 
           $createData = PettyCashDetail::create([
                 'user_id' => Auth::user()->id,

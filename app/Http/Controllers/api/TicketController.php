@@ -150,14 +150,13 @@ class TicketController extends Controller
 
 
 
-
    function conversation(Request $request){
 
 	   if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no) && isset($request->message) && isset($request->recipient) ){
 
 	   	$Ticket = Ticket::select('status')->where('ticket_no',$request->ticket_no)->first();
         $fileName = '';
-        if($Ticket->status == 'Pending' || $Ticket->status == 'Re-Opened'){
+        if($Ticket->status == 'Pending/Ongoing' || $Ticket->status == 'Re-Opened'){
 
             if($file = $request->hasFile('image')) {
              
@@ -203,7 +202,7 @@ class TicketController extends Controller
              ]);
         }
 
-	   }
+	   }   
 	   else {
 
 	   	return response()->json([

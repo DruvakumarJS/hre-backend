@@ -290,6 +290,20 @@ class PcnController extends Controller
                     ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
                     ->where('status' , 'Active')
                     ->get();
+
+       /* $data = DB::table('pcns')
+            ->select(
+                    DB::raw("CONCAT(pcn,' - ',client_name,' - ',brand,' - ',location , ' - ',area ,' - ',city,' - ',state) AS value"),
+                    'client_name',
+                    'brand',
+                    'location',
+                    'area',
+                    'city',
+                    'state'
+                )
+                    ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
+                    ->where('status' , 'Active')
+                    ->get();       */     
     
         return response()->json($data);
 
