@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Exports\ExportPcn;
 use Excel;
 use Auth ;
+use DB;
 class PcnController extends Controller
 {
     /**
@@ -286,15 +287,16 @@ class PcnController extends Controller
 
     public function autocomplete_pcn(Request $request){
 
-        $data = Pcn::select("pcn as value" , 'client_name' , 'brand' , 'location', 'area' , 'city' , 'state')
+        /*$data = Pcn::select("pcn as value" , 'client_name' , 'brand' , 'location', 'area' , 'city' , 'state')
                     ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
                     ->where('status' , 'Active')
-                    ->get();
+                    ->get();*/
 
-       /* $data = DB::table('pcns')
+        $data = DB::table('pcns')
             ->select(
                     DB::raw("CONCAT(pcn,' - ',client_name,' - ',brand,' - ',location , ' - ',area ,' - ',city,' - ',state) AS value"),
                     'client_name',
+                    'pcn',
                     'brand',
                     'location',
                     'area',
@@ -303,7 +305,7 @@ class PcnController extends Controller
                 )
                     ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
                     ->where('status' , 'Active')
-                    ->get();       */     
+                    ->get();            
     
         return response()->json($data);
 

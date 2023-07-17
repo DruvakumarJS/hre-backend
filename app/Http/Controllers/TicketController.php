@@ -273,6 +273,7 @@ class TicketController extends Controller
                         'filename' => $imageNames]);
              }
              else if($request->status == 'Completed'){
+                
                  $msg = 'Ticket no '.$ticket->ticket_no .' is Completed and closed';
              }
             
@@ -378,22 +379,41 @@ class TicketController extends Controller
         }
     }
 
-    public function modify_ticket($id , $action){
+    public function modify_ticket(Request $request){
 
-        $ticket = Ticket::where('ticket_no',$id)->first();
-       // print_r($action); die();
+        $ticket = Ticket::where('id',$request->ticket_id)->first();
+        //print_r($request->Input()); die();
+        $fileName="";
+        if($request->action == 'Completed'){
+           if($file = $request->hasFile('image')) {
+             
+            $file = $request->file('image') ;
+            $fileName = $file->getClientOriginalName() ;
+            
+           // $newfilename = round(microtime(true)) . '.' . end($temp);
 
-        if($action == 'Completed'){
+            if(TicketConversation::exists()){
+                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
+                 $temp = explode(".", $file->getClientOriginalName());
+                 $fileName=$request->ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
+            }
+           
+            $destinationPath = public_path().'/ticketimages' ;
+            $file->move($destinationPath,$fileName);
+            
+         }
+
             $conversation = TicketConversation::create([
-                        'ticket_id' => $ticket->id ,
-                        'ticket_no' => $ticket->ticket_no ,
-                        'message' => 'This ticket is Completed' ,
-                        'sender' => Auth::user()->id ,
-                        'recipient' => $ticket->creator,
-                        ]);
+                'ticket_id' => $request->ticket_id ,
+                'ticket_no' => $request->ticket_no ,
+                'message' => $request->message ,
+                'sender' => $request->sender ,
+                'recipient' => $ticket->creator,
+                'status' => 'pending',
+                'filename' => $fileName]);
 
         }
-        else if($action == 'Resolved'){
+        else if($request->action == 'Resolved'){
             $conversation = TicketConversation::create([
                         'ticket_id' => $ticket->id ,
                         'ticket_no' => $ticket->ticket_no ,
@@ -405,7 +425,7 @@ class TicketController extends Controller
         }
 
         $updateticket = Ticket::where('id',$ticket->id)->update([
-            'status' => $action]);
+            'status' => $request->action]);
       
         return redirect()->back();
     }

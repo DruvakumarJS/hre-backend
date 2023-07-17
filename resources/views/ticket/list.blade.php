@@ -18,18 +18,19 @@
              	@csrf
              <div class="input-group mb-3">
 				 
-				  <select class="form-control" name="filter">
+				  <select class="form-control" name="filter" onchange="filetrdata()">
 				  	<option value="">Select </option>
 	             	<option value="0">All Tickets</option>
-	             	<option value="{{Auth::user()->id}}">My Tickets</option>
-	             	<option value="Created">Created Tickets</option>
-	             	<option value="Pending">Pending Tickets</option>
-	             	<option value="Completed">Completed Tickets</option>
-	             	<option value="Reopend">Reopend Tickets</option>
-	             	<option value="Rejected">Rejected Tickets</option>
+	             	<option <?php echo ($filter == '1')?'selected':''  ?> value="{{Auth::user()->id}}">My Tickets</option>
+	             	<option <?php echo ($filter == 'Created')?'selected':''  ?> value="Created">Created Tickets</option>
+	             	<option <?php echo ($filter == 'Pending/Ongoing')?'selected':''  ?> value="Pending/Ongoing">Pending Tickets</option>
+	             	<option <?php echo ($filter == 'Completed')?'selected':''  ?> value="Completed">Completed Tickets</option>
+	             	<option <?php echo ($filter == 'Resolved')?'selected':''  ?> value="Resolved">Resolved Tickets</option>
+	             	<option <?php echo ($filter == 'Reopend')?'selected':''  ?> value="Reopend">Reopend Tickets</option>
+	             	<option <?php echo ($filter == 'Rejected')?'selected':''  ?> value="Rejected">Rejected Tickets</option>
                  </select>
                  <div class="input-group-prepend">
-				    <button class="btn btn-outline-secondary rounded-0" type="submit">Filter</button>
+				    <button class="btn btn-outline-secondary rounded-0" id="btn_filter" type="submit" style="display: none">Filter</button>
 				  </div>
 				</div>
              </form>
@@ -112,7 +113,7 @@
 	                		<!-- <a href=""><button class="btn btn-light curved-text-button btn-sm" disabled>Edit</button></a> -->
                             @endif
 
-	                		 @if($value->status == 'Created')
+	                		 @if($value->status == 'Created' || $value->status == 'Rejected'  )
 	                		 <a href=""><button class="btn-light btn-outline-grey btn-sm" disabled="" >More Info</button></a>
 
 	                		 @else
@@ -186,6 +187,10 @@
 	function getTickets(){
 		var filter = document.getElementById('filter').value;
 		alert(filter);
+	}
+
+	function filetrdata(){
+		$('#btn_filter').click();
 	}
 </script>
 @endsection

@@ -11,6 +11,7 @@ class PettycashSummary extends Model
 
     protected $fillable = [
     'user_id',
+    'finance_id',
     'amount',
     'comment',
     'type',

@@ -6,6 +6,7 @@ use App\Models\PettyCashDetail;
 use App\Models\Pettycash;
 use App\Models\PettycashOverview;
 use App\Models\PettycashSummary;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 use ZipArchive;
@@ -238,14 +239,18 @@ class PettyCashDetailController extends Controller
                    $mode = '';
                 }
 
+                $finance = User::select('name')->where('id',$value->finance_id)->first();
+
                 $data[]=[
-                    'date' => date('d-m-Y', $now),
+                    'date' => \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('d-m-Y'),
+                    'finance_id' => $finance->name, 
                     'amount' => $value->amount,
                     'comment' => $value->comment,
                     'issued_date' => \Carbon\Carbon::createFromFormat('Y-m-d', $value->transaction_date)->format('d-m-Y') ,
                     'type' => $value->type,
                     'balance' => $value->balance,
                     'mode' => $mode,
+                    'created_at' =>\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('d-m-Y-H:i'),
                     'ref' => $reference
                 ];
               

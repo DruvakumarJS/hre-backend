@@ -16,6 +16,7 @@ class CreatePettycashSummariesTable extends Migration
         Schema::create('pettycash_summaries', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('finance_id');
             $table->string('amount');
             $table->string('comment');
             $table->string('type');

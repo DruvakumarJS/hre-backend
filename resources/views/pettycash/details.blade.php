@@ -76,9 +76,10 @@
                                 <th>PCN</th>
                                 <th width="170px">Description</th>
                                 <th>Proof</th>
-                                <th>Entry Date</th>
                                 <th width="140px">Status</th>
+                                 <th>Entry Date</th>
                                 <th width="150px">Remarks</th>
+                               
                                 <th></th>
                             </tr>
                             </thead>
@@ -102,7 +103,7 @@
                                         @endif
                                     </td>
 
-                                    <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
+                                   
                                     @if($value->isapproved == '0')
                                         <td style="color: blue">Awaiting approval</td>
                                     @elseif($value->isapproved == '1')
@@ -110,8 +111,9 @@
                                     @else 
                                          <td style="color: red">Rejected</td> 
                                     @endif
+                                    <td>{{date("d-m-Y", strtotime($value->created_at))}}</td> 
+                                    <td>{{$value->remarks}}</td>
 
-                                    <td>{{$value->remarks}}</td> 
                                     <td>
                                         @if($value->user_id == Auth::user()->id)
                                          @if($value->isapproved == '0')

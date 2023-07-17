@@ -133,7 +133,11 @@
            </a>
       </div>
        <div id="div2" style="display: block ; margin-right: 30px">
-           <a onclick="return confirm('Ticket is Completed')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'Completed'])}}">
+           <!-- <a onclick="return confirm('Ticket is Completed')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'Completed'])}}">
+             <label id="modal">Completed</label>
+           </a>
+ -->
+      <a data-bs-toggle="modal" data-bs-target="#completeModal"  class="btn btn-light btn-outline-secondary" href="">
              <label id="modal">Completed</label>
            </a>
       </div>
@@ -143,9 +147,18 @@
 
       @if(Auth::user()->role_id == 1 or Auth::user()->role_id == 2)
       <div id="div2" style="display: block; margin-right: 30px">
-           <a onclick="return confirm('Ticket is Resolved')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'Resolved'])}}"> 
+           <!-- <a onclick="return confirm('Ticket is Resolved')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'Resolved'])}}"> 
              <label id="modal">Resolved</label>
-           </a>
+           </a> -->
+
+           <form method="POST" action="{{route('modify_ticket')}}">
+            @csrf
+                 <input type="hidden" name="sender" value="{{Auth::user()->id}}">
+                  <input type="hidden" name="ticket_no" value="{{$id}}">
+                  <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
+                  <input type="hidden" name="action" value="Resolved">
+                  <a onclick="return confirm('If Ticket is Resolved , no further communication can be done  ')"><button class="btn btn-light btn-outline-secondary">Resolved</button></a>
+           </form>
       </div>
      
       @endif
@@ -284,6 +297,51 @@
           </div>
         </div>
 <!-- Modal -->
+
+
+<!-- Completed Modal -->
+        <div class="modal fade" id="completeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add your comments and documents </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+              </div>
+              <div class="modal-body">
+                <form method="post" action="{{route('modify_ticket')}}" enctype="multipart/form-data">
+                  @csrf
+                   <label>Subject : </label>
+                   <label class="label-bold">{{$ticket->issue}}</label>
+                  
+                  <div class="mb-6">
+                   
+                    
+                     <!-- <input type="text" class="form-control" id="message" name="message" required> -->
+                  </div>
+                  <textarea name="message" placeholder="Enter your comments here..." required style="width: 100%; padding: 10px"></textarea>
+                  <input type="hidden" name="sender" value="{{Auth::user()->id}}">
+                  <input type="hidden" name="ticket_no" value="{{$id}}">
+                  <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
+                  <input type="hidden" name="action" value="Completed">
+
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Attach Image</label>
+                      <input type="file" class="form-control form-control-sm" name="image" id="imgInp" accept="image/*">
+                
+                  </div>
+
+                  <div class="modal-footer">
+                   
+                    <button type="submit" class="btn btn-danger">Send</button>
+                  </div>
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!--Completed Modal -->
 
 
 

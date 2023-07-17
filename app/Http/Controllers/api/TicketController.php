@@ -23,6 +23,7 @@ class TicketController extends Controller
             foreach ($tickets as $key => $value) {
                 $images = explode(',', $value->filename);
             	$ticketarray[]=[
+                    'ticket_creator' => $value->creator,
             		'ticket_id'=> $value->id ,
             		'ticket_no' => $value->ticket_no ,
             		'pcn' => $value->pcn ,
@@ -227,6 +228,8 @@ class TicketController extends Controller
                 $result=[
                     'sender' => $value->mailsender->name ,
                     'recipient' => $value->mailrecipient->name ,
+                    'sender_id' => $value->sender,
+                    'recipient_id' => $value->recipient ,
                     'message' => $value->message ,
                     'filepath' => 'https://hre.netiapps.com/ticketimages/',
                     'date' => $value->created_at->toDateTimeString(),

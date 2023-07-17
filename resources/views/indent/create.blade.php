@@ -255,6 +255,10 @@ var inform ="";
            var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
           
           // $('#pcn_detail').val(address);
+          setTimeout(function(){
+          $('#pcn').val(ui.item.pcn);
+          },500)
+          
            document.getElementById("btn_submit").style.display= "block" ;
            document.getElementById("pcn_detail").innerHTML=address;
         

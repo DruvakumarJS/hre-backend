@@ -54,7 +54,7 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Date</th>
+                              <th scope="col">Creation Date</th>
                               <th scope="col">Billing Name</th>
                               <th scope="col">Email</th>
                               <th scope="col">Mobile</th>

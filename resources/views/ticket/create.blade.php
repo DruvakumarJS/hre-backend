@@ -136,7 +136,7 @@ $( document ).ready(function() {
               
              }
              else {
-            
+                // console.log(data);
                  response( data );
              }
               
@@ -144,12 +144,16 @@ $( document ).ready(function() {
           });
         },
         select: function (event, ui) {
-           $('#pcn').val(ui.item.label);
-           var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+          // $('#pcn').val(ui.item.pcn);
+           var address = ui.item.pcn +' , '+ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
           
-         
+           //document.getElementById("pcn").value=ui.item.pcn;
            document.getElementById("btn_submit").style.display= "block" ;
-           document.getElementById("pcn_detail").innerHTML=address;
+          document.getElementById("pcn_detail").innerHTML=address;
+          setTimeout(function(){
+          $('#pcn').val(ui.item.pcn);
+          },500)
+         // document.getElementById("pcn_detail").innerHTML= ui.item.pcn;
         
         }
       });

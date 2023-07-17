@@ -136,7 +136,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Comments</label>
                             <div class="col-7">
-                                <textarea  name="comment" id="comment" type="text" class="typeahead form-control"  placeholder="Enter comments here" >{{$tickets->comments}}</textarea>
+                                <textarea  name="comment" id="comment" type="text" class="typeahead form-control"  placeholder="Enter comments here" required>{{$tickets->comments}}</textarea>
                             </div>
                         </div>
 

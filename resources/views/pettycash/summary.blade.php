@@ -61,13 +61,14 @@
 	    <table class="table table-striped">
 	        <thead>
 	        <tr>
-              <!-- <th>Date</th> -->
 	            <th>Trasnsaction Date</th>
               <th>Mode</th>
-              <th>Reference No.</th>
+              <th>Reference No. / Bill No.</th>
 	            <th>Description</th>
 	            <th>Credit</th>
 	            <th>Debit</th>
+              <th>Entry Date</th>
+              <th></th>
 	           <!--  <th>Balance</th> -->
 	           
 	        </tr>
@@ -147,6 +148,10 @@ $(function() {
      output += '<td>'+ data[count].mode + '</td>';
      output += '<td>'+ data[count].ref + '</td>';
      output += '<td>' + data[count].comment + '</td>';
+
+    //  var tittle = 'Created&nbsp;on&#13;'+data[count].created_at+' by '+data[count].finance_id;
+      var tittle = 'Created&nbsp;on&nbsp;'+data[count].created_at+'&nbsp;by&#13;'+data[count].finance_id;
+     // var tittle = "Created_on &#013; jnk iuh"
     
      if(data[count].type == 'Credit'){
          output += '<td>' + data[count].amount + '</td>';
@@ -161,7 +166,11 @@ $(function() {
      else {
           output += '<td></td>';
      }
+
+     output += '<td>' + data[count].date + '</td>';
+     output += '<td> <i class="fa fa-user"  title=' + tittle +'></i> </td>';
      
+    
     // bal = data[count].balance;
     
     /* output += '<td>' + data[count].balance + '</td>';*/
