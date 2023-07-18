@@ -186,6 +186,7 @@
                     <a href="{{route('pettycash')}}"
                     class="{{request()->routeIs('pettycash')
                     ||request()->routeIs('edit_pettycash')
+                    ||request()->routeIs('view_summary')
                     ||request()->routeIs('details_pettycash')
                     ||request()->routeIs('update_bill_status')
                     ||request()->routeIs('pettycash_expenses')
@@ -251,6 +252,7 @@
                     class="{{request()->routeIs('pettycash')
                     ||request()->routeIs('edit_pettycash')
                     ||request()->routeIs('details_pettycash')
+                    ||request()->routeIs('view_summary')
                     ||request()->routeIs('update_bill_status')
                     ||request()->routeIs('pettycash_expenses')
                       ? 'active' : ''}}">
@@ -314,6 +316,7 @@
                     class="{{request()->routeIs('pettycash')
                     ||request()->routeIs('edit_pettycash')
                     ||request()->routeIs('details_pettycash')
+                    ||request()->routeIs('view_summary')
                     ||request()->routeIs('update_bill_status')
                     ||request()->routeIs('pettycash_expenses')
                       ? 'active' : ''}}">
@@ -378,6 +381,7 @@
                     class="{{request()->routeIs('pettycash')
                     ||request()->routeIs('edit_pettycash')
                     ||request()->routeIs('details_pettycash')
+                    ||request()->routeIs('view_summary')
                     ||request()->routeIs('update_bill_status')
                     ||request()->routeIs('pettycash_expenses')
                       ? 'active' : ''}}">

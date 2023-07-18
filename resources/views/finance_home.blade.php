@@ -245,19 +245,16 @@ $yvalue=array();
 <!-- Ticket & Pettycash Graph -->
       <div class="row justify-content-between">
         <div class="col-md-6 col-sm-6" >
-          <div class="card h-100">
+          <div class="card">
              <label style="color: black;font-weight: bold;"> Tickets </label>
              <canvas id="tickets_chart" ></canvas>
           </div>
         </div>
 
         <div class="col-md-6 col-sm-6">
-          <div class="card h-100">
-          <div class="wrapper " style="height: 300px">
+          <div class="card">     
             <label style="color: black;font-weight: bold;"> PettyCash</label>
-
             <canvas id="pettycash_chart" ></canvas>
-          </div>
         </div>
           
         </div>
@@ -474,67 +471,79 @@ function getRandomColor() { //generates random colours and puts them in string
 </script>
 
 <!-- Pettycash -->
-<script type="text/javascript">
+<script>
 
-  var ctx = document.getElementById("pettycash_chart").getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels:  <?php echo $ticketArry['tickets_xValue']; ?>,
-    datasets: [{
-      label: 'Balance Amount',
-      backgroundColor: "#5A5A5A",
-      lineTension: 0,
-     data: <?php echo $pettycashArry['pc_balance'];  ?>,
-    }, {
-      label: 'Approved Amount',
-      backgroundColor: "#eeeeee",
-      data: <?php echo $pettycashArry['pc_used'] ; ?>,
-    }],
-  },
-options: {
-    tooltips: {
-      displayColors: true,
-      callbacks:{
-        mode: 'x',
+   var date = <?php echo $pettycashArry['date']; ?>;
+   var issued = <?php echo $pettycashArry['total_issued']; ?>;
+   var approved= <?php echo $pettycashArry['total_utilised']; ?>;
+   Chart.defaults.global.defaultFontStyle = 'bold';
+
+   
+    new Chart("pettycash_chart", {
+      type: "line",
+      title:{
+        text:"Chart Title",
+       },
+      
+      data: {
+        labels: date,
+
+        datasets: [
+        {
+          label: 'Issued Amount',  
+          fill: false,
+          lineTension: 0,
+          /*backgroundColor: "<?php echo '#5A5A5A' ;  ?>",
+          borderColor: "rgba(0,0,255,0.1)",*/
+          backgroundColor: "<?php echo '#5A5A5A' ;  ?>",
+          borderColor: "<?php echo '#5A5A5A' ;  ?>",
+          data: issued
+        },
+        {
+          label: 'Approved Amount',  
+          fill: false,
+          lineTension: 0,
+          /*backgroundColor: "<?php echo '#eeeeee';  ?>",
+          borderColor: "rgba(0,0,255,0.1)",*/
+          backgroundColor: "<?php echo '#bebebe' ;  ?>",
+          borderColor: "<?php echo '#bebebe' ;  ?>",
+          data: approved
+        },
+       
+        ]
       },
-    },
-    scales: {
-      xAxes: [{
-        stacked: true,
-        ticks: {
-          autoSkip: false,
-        },
-        gridLines: {
-          display: false,
-        },
-        scaleLabel: {
+      options: {
+         tooltips: {
+                  mode: 'index'
+                },
+        legend: {display: true},
+        scales: {
+          pointLabels :{
+           fontStyle: "bold",
+            },
+          yAxes: [{
+            gridLines: {
+             drawOnChartArea: false },
+
+          
+            scaleLabel: {
+                    display: true,
+                    labelString: 'Amount in Rs.',
+                    fontColor: '#000',   }
+                }],
+          xAxes: [{
+            barPercentage: 1.5,
+             gridLines: {
+             drawOnChartArea: false },
+            ticks: {min: 0, max:31 ,autoSkip: false} ,
+            scaleLabel: {
                     display: true,
                     labelString: '<?php echo date('M  Y');?>',
                     fontColor: '#000', }
-      }],
-      yAxes: [{
-        stacked: true,
-        ticks: {
-          beginAtZero: true,
-           autoSkip: true,
-        },
-        gridLines: {
-          display: false,
-        },
-        scaleLabel: {
-                    display: true,
-                    labelString: 'Amount in Rs.',
-                    fontColor: '#000', },
-        type: 'linear',
-      }]
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    legend: { position: 'top' },
-  }
-});
-
+                }],
+        }
+      }
+    });
 </script>
 
 <script type="text/javascript">

@@ -17,6 +17,7 @@ class CreatePettycashSummariesTable extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('finance_id');
+            $table->string('pettycash_id');
             $table->string('amount');
             $table->string('comment');
             $table->string('type');

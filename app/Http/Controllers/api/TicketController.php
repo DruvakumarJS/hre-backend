@@ -318,4 +318,85 @@ class TicketController extends Controller
         }
     }
 
+
+    public function modify_ticket_status(Request $request){
+
+        if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no) && isset($request->message)){
+
+        $ticket = Ticket::where('id',$request->ticket_id)->first();
+        $fileName="";
+        if($request->action == 'Completed' ){
+           if($file = $request->hasFile('image')) {
+             
+            $file = $request->file('image') ;
+            $fileName = $file->getClientOriginalName() ;
+            
+           // $newfilename = round(microtime(true)) . '.' . end($temp);
+
+            if(TicketConversation::exists()){
+                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
+                 $temp = explode(".", $file->getClientOriginalName());
+                 $fileName=$request->ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
+            }
+           
+            $destinationPath = public_path().'/ticketimages' ;
+            $file->move($destinationPath,$fileName);
+            
+         }
+
+
+            $conversation = TicketConversation::create([
+                'ticket_id' => $request->ticket_id ,
+                'ticket_no' => $request->ticket_no ,
+                'message' => $request->message ,
+                'sender' => $request->user_id ,
+                'recipient' => $ticket->creator,
+                'status' => 'pending',
+                'filename' => $fileName]);
+            
+            if($conversation){
+
+             $updateticket = Ticket::where('id',$ticket->id)->update([
+               'status' => $request->action]);
+
+             if($updateticket){
+                return response()->json([
+                    'status' => 1 ,
+                    'message' => 'Ticket Updated Successfully']);
+             }
+             else {
+                 return response()->json([
+                    'status' => 0 ,
+                    'message' => 'Could not Update ticket']);
+
+             }
+
+            }
+            else{
+                return response()->json([
+                    'status' => 0 ,
+                    'message' => 'Could not create conversation']);
+
+            }
+
+
+
+
+        }
+        else {
+            return response()->json([
+                    'status' => 0 ,
+                    'message' => 'No action mentioned']);
+
+        }
+       }
+        else {
+             return response()->json([
+                        'status' => 0 ,
+                        'message' => 'Insufficient Data']);
+        }
+    
+      
+    }
+
 }

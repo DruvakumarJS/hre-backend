@@ -360,7 +360,10 @@ class TicketController extends Controller
     {
        // print_r($request->Input());
         $filter = $request->filter ;
-       // print_r($filter); die();
+       
+        if($filter == 'Pending'){$filter = 'Pending/Ongoing';}
+
+        // print_r($filter); die();
 
         if(empty($request->filter)){
           return redirect()->route('tickets');
@@ -374,7 +377,7 @@ class TicketController extends Controller
             return view('ticket/list' ,  compact('tickets','filter'));
         }
         else {
-            $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$request->filter)->orderby('id' , 'DESC')->paginate();
+            $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$filter)->orderby('id' , 'DESC')->paginate();
             return view('ticket/list' ,  compact('tickets','filter'));
         }
     }

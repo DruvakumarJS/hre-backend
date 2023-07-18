@@ -36,7 +36,7 @@
                           @foreach($grn_array as $key=>$value)
 
                           @php
-                           if($value['status'] == 'Awaiting for Confirmation'){
+                           if($value['status'] == 'Awaiting Confirmation'){
                            $color = 'blue';
 
                            }

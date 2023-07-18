@@ -149,12 +149,14 @@ $(function() {
      output += '<td>'+ data[count].ref + '</td>';
      output += '<td>' + data[count].comment + '</td>';
 
-    //  var tittle = 'Created&nbsp;on&#13;'+data[count].created_at+' by '+data[count].finance_id;
+
       var tittle = 'Created&nbsp;on&nbsp;'+data[count].created_at+'&nbsp;by&#13;'+data[count].finance_id;
-     // var tittle = "Created_on &#013; jnk iuh"
+     
     
      if(data[count].type == 'Credit'){
          output += '<td>' + data[count].amount + '</td>';
+         var tittle = 'Created&nbsp;on&nbsp;'+data[count].created_at+'&nbsp;by&#13;'+data[count].finance_id;
+     
      }
      else {
           output += '<td></td>';
@@ -162,6 +164,8 @@ $(function() {
 
      if(data[count].type == 'Debit'){
          output += '<td>' + data[count].amount + '</td>';
+         var tittle = 'Approved&nbsp;on&nbsp;'+data[count].created_at+'&nbsp;by&#13;'+data[count].finance_id;
+     
      }
      else {
           output += '<td></td>';

@@ -25,6 +25,7 @@ use App\Models\Pettycash;
 use App\Models\Category;
 use App\Models\Material;
 use App\Models\PettycashSummary;
+use DB;
 
 
 
@@ -47,9 +48,18 @@ class ExportController extends Controller
      }
 
      public function ticket($filter){
-       // print_r($filter);die();
+    //  print_r($filter);die();
+       if($filter == 'Pending')
+        {
+          $filter = 'Pending/Ongoing';
+          $file_name = 'Pending_tickets.csv';
+        }
+        else{
+           $file_name = $filter.'_tickets.csv';
+        }
+      
      	
-        $file_name = $filter.'_tickets.csv';
+       
 
         if($filter=='all'){
          if(Ticket::exists()){
@@ -211,16 +221,15 @@ class ExportController extends Controller
     }
 
     public function summary(Request $request){
+
         $user_id = $request->user_id ;
         $emp = Employee::where('user_id', $user_id)->first();
-        $start_date = $request->start_date.' 00:00:00'; 
-        $end_date = $request->end_date.' 23:59:59'; 
+        $start_date = $request->start_date; 
+        $end_date = $request->end_date; 
       
           $file_name = 'PettycashSummary_'.$emp->employee_id.'.csv';
 
           if(PettycashSummary::where('user_id',$user_id)->whereBetween('transaction_date', [$start_date , $end_date])->exists()){
-
-            print_r(PettycashSummary::where('user_id',$user_id)->whereBetween('transaction_date', [$start_date , $end_date])->get());die();
 
              return Excel::download(new ExportPettycashSummary($user_id ,$start_date, $end_date ), $file_name);
           }

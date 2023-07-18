@@ -160,6 +160,7 @@ class PettyCashDetailController extends Controller
                 $summary = PettycashSummary::create([
                     'user_id' => $Data->user_id ,
                     'finance_id' => Auth::user()->id,
+                    'pettycash_id'=> $Data->id,
                     'amount' => $Data->spent_amount ,
                     'comment' => $Data->comments ,
                     'type' => 'Debit',

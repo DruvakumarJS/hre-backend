@@ -2,6 +2,10 @@
 
 @section('content')
 
+@php
+if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
+@endphp
+
 
 <div class="container">
     <div class="row justify-content-center">
@@ -23,7 +27,7 @@
 	             	<option value="0">All Tickets</option>
 	             	<option <?php echo ($filter == '1')?'selected':''  ?> value="{{Auth::user()->id}}">My Tickets</option>
 	             	<option <?php echo ($filter == 'Created')?'selected':''  ?> value="Created">Created Tickets</option>
-	             	<option <?php echo ($filter == 'Pending/Ongoing')?'selected':''  ?> value="Pending/Ongoing">Pending Tickets</option>
+	             	<option <?php echo ($filter == 'Pending')?'selected':''  ?> value="Pending">Pending Tickets</option>
 	             	<option <?php echo ($filter == 'Completed')?'selected':''  ?> value="Completed">Completed Tickets</option>
 	             	<option <?php echo ($filter == 'Resolved')?'selected':''  ?> value="Resolved">Resolved Tickets</option>
 	             	<option <?php echo ($filter == 'Reopend')?'selected':''  ?> value="Reopend">Reopend Tickets</option>

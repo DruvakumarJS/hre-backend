@@ -7,7 +7,10 @@
         
         <div class="container-header">
             <label class="label-bold" id="div1">Intend Details</label>
-          
+            <div id="div2">
+                <a href="{{ url()->previous() }}"><button class="btn btn0sm btn-outline-secondary">View Indents</button></a>
+                
+            </div>
          
         </div>
 

@@ -8,10 +8,12 @@ use App\Models\Ticket;
 use App\Models\Pcn;
 use App\Models\User;
 use App\Models\Pettycash;
+use App\Models\PettyCashDetail;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TestEmail;
 use PDF;
+use DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -42,13 +44,13 @@ class HomeController extends Controller
          $overallticket  = Ticket::count();
          $overall_closed = Ticket::where('status', 'Completed')->count();
          $overall_alloted = Pettycash::get()->sum('total');
-         $overall_used = Pettycash::get()->sum('spend');
+         $overall_used = PettyCashDetail::where('isapproved', '1')->get()->sum('spent_amount');
 
 
          $month_ticket  = Ticket::where('created_at','LIKE','%'.date('Y-m').'%')->count();
          $month_closed = Ticket::where('status', 'Completed')->where('created_at','LIKE','%'.date('Y-m').'%')->count();
-         $month_alloted = Pettycash::where('created_at','LIKE','%'.date('Y-m').'%')->get()->sum('total');
-         $month_used = Pettycash::where('created_at','LIKE','%'.date('Y-m').'%')->get()->sum('spend');
+         $month_alloted = Pettycash::where('issued_on','LIKE','%'.date('Y-m').'%')->get()->sum('total');
+         $month_used = PettyCashDetail::where('bill_date','LIKE','%'.date('Y-m').'%')->where('isapproved', '1')->get()->sum('spent_amount');
 
          $counts_array = array('o_tickets' => $overallticket , 'o_closed' => $overall_closed , 'o_alloted' => $overall_alloted , 'o_used'=>$overall_used ,  'm_tickets' => $month_ticket , 'm_closed' => $month_closed , 'm_alloted' => $month_alloted , 'm_used'=>$month_used );
            
@@ -114,10 +116,7 @@ class HomeController extends Controller
 
            /*PettyCash*/
 
-
-           /*Pettycash*/
-
-        $montharray=array();
+           $montharray=array();
         $month = date("t", strtotime('2021-10-18'));
         $alldatethismonth = range(1, $month);
         $count = 0;
@@ -130,32 +129,39 @@ class HomeController extends Controller
            {
             $today=date("Y-m-").$date;
            }
+          // print_r($today);
+           
+            $amount_issued=DB::table('pettycashes')->where('issued_on',$today)->sum('total');
+           //  print_r($amount_issued); print_r("  ");
+ 
+           
+            $results['issued'][]=$amount_issued;
+            $results['date'][]=$date;
 
-        $pettycash_balance  = Pettycash::where('created_at', 'LIKE','%'.$today.'%')->orderBy('id', 'DESC')->sum('remaining');
+            
+             $amount_utilised=DB::table('petty_cash_details')->where('bill_date',$today)->where('isapproved', '1')->sum('spent_amount');
+              //print_r($amount_utilised);echo"<br>";
 
-        $balance[] = [
-                'y' => intval($pettycash_balance),
-                ];
+             $results['utilised'][]=$amount_utilised;
 
-
-        $pettycash_used  = Pettycash::where('created_at', 'LIKE','%'.$today.'%')->orderBy('id', 'DESC')->sum('spend');
-        
-
-        $used[] = [
-                'y' => intval($pettycash_used),
-                'x' => intval($date) 
-                ]; 
-                             
-        }
-         $pc_balance = json_encode($balance, true);
+            
     
-         $pc_used = json_encode($used, true);
+        }
+         // die();
+
+            $date = json_encode($results['date'], true);
+            $total_issued = json_encode($results['issued'], true);
+            $total_utilised = json_encode($results['utilised'], true);
+
+            $pettycashArry = array('date' => $date, 'total_issued'=>$total_issued ,  'total_utilised' => $total_utilised);
 
 
-         $pettycashArry = array('pc_balance' => $pc_balance, 'pc_used'=>$pc_used );
+           /*Pettycash*/
+
+      
       
 
-         $chart_pcn = Pcn::select('client_name')->groupby('client_name')->get();
+        // $chart_pcn = Pcn::select('client_name')->groupby('client_name')->get();
 
         return view('home', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' ,'ticketArry', 'date' , 'count' , 'counts_array' , 'pettycashArry'));
     }

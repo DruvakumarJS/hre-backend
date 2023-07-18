@@ -84,6 +84,7 @@ class PettycashController extends Controller
         ]);
 
         if($craete){ 
+            $pettycash= Pettycash::select('id')->where('user_id',$request->user_id)->where('finance_id',$request->finance_id)->where('total',$request->amount)->where('issued_on',$request->issued_date)->orderBy('id', 'DESC')->first();
            
             if(PettycashOverview::where('user_id', $request->user_id)->exists()){
 
@@ -100,9 +101,11 @@ class PettycashController extends Controller
                 ]);
 
                 
+                
                PettycashSummary::create([
                     'user_id' => $request->user_id ,
-                    'finance_id' => AUth::user()->id ,
+                    'finance_id' => Auth::user()->id ,
+                    'pettycash_id'=> $pettycash->id,
                     'amount' => $request->amount ,
                     'comment' => $request->comment ,
                     'type' => 'Credit',
@@ -121,7 +124,8 @@ class PettycashController extends Controller
 
                 PettycashSummary::create([
                     'user_id' => $request->user_id ,
-                    'finance_id' => AUth::user()->id ,
+                    'finance_id' => Auth::user()->id ,
+                    'pettycash_id'=> $pettycash->id,
                     'amount' => $request->amount ,
                     'comment' => $request->comment ,
                     'type' => 'Credit',
@@ -178,6 +182,7 @@ class PettycashController extends Controller
 
         $update = Pettycash::where('id', $request->rowid)->update([
             'user_id' => $request->user_id ,
+            'finance_id' => Auth::user()->id ,
             'total' => $request->amount,
             'issued_on' => $request->issued_date ,
             'comments' => $request->comment,
@@ -215,10 +220,25 @@ class PettycashController extends Controller
                 ]);
 
                 $due = intval($request->amount)-intval($pettycash->total);
+               // print_r($due);
+
+                PettycashSummary::where('pettycash_id',$request->rowid)->where('type', 'Credit')->update([
+                    'amount' => $request->amount,
+                    'finance_id'=> Auth::user()->id ,
+                    'transaction_date' => $request->issued_date ,
+                    'comment'=> $request->comment ,
+                    'mode' => $request->mode ,
+                    'reference_number' => $request->refernce ]);
                
-                if($due != 0){
-                    PettycashSummary::create([
+                /*if($due != 0){
+                 print_r("due there");
+
+                 
+
+                    $summary = PettycashSummary::create([
                     'user_id' => $request->user_id ,
+                    'finance_id' => Auth::user()->id ,
+                    'pettycash_id'=> $request->rowid,
                     'amount' => $updatedamount ,
                     'comment' => $comment ,
                     'type' => $mode,
@@ -226,7 +246,11 @@ class PettycashController extends Controller
                     'transaction_date' => $request->issued_date,
                     'mode' => $request->mode,
                     'reference_number' => $request->refernce]);
+
                 }
+                else {
+                     print_r("no due");die();
+                }*/
 
                  
                }

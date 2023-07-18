@@ -24,8 +24,8 @@ class ExportPettycashSummary implements FromCollection,WithHeadings
 
     public function collection()
     {
-    	 $start = date($this->start_date).' 00:00:00';
-    	 $end = date($this->end_date).' 23:59:59';
+    	 $start = date($this->start_date);
+    	 $end = date($this->end_date);
     	
     	/*print_r($start);
         print_r($end); die();*/
@@ -35,13 +35,14 @@ class ExportPettycashSummary implements FromCollection,WithHeadings
 
        
         $summary = DB::table('pettycash_summaries')
-                 ->select(DB::raw("DATE_FORMAT(pettycash_summaries.transaction_date, '%d-%m-%Y') as formatted_dob"),
+                 ->select(DB::raw("DATE_FORMAT(pettycash_summaries.transaction_date, '%d-%m-%Y') as formatted_date"),
                            'mode',
                            'reference_number',
                            'comment',
                            'amount',
                            'type',
-                           'balance'
+                           'balance',
+                           DB::raw("DATE_FORMAT(pettycash_summaries.created_at, '%d-%m-%Y %H:%i') as created_date")
                            )
                  ->where('user_id', $this->user_id)
                  ->whereBetween('transaction_date', [$start , $end])
@@ -57,7 +58,7 @@ class ExportPettycashSummary implements FromCollection,WithHeadings
     public function headings(): array
      {       
        return [
-         'Date','Mode','Reference Number','Description' , 'Amount' , 'Type','Balance'
+         'Date','Mode','Reference Number','Description' , 'Amount' , 'Type','Balance', 'Entry Date'
        ];
      }
 }
