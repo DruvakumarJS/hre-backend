@@ -102,6 +102,7 @@ class PettycashController extends Controller
                 
                PettycashSummary::create([
                     'user_id' => $request->user_id ,
+                    'finance_id' => AUth::user()->id ,
                     'amount' => $request->amount ,
                     'comment' => $request->comment ,
                     'type' => 'Credit',
@@ -120,6 +121,7 @@ class PettycashController extends Controller
 
                 PettycashSummary::create([
                     'user_id' => $request->user_id ,
+                    'finance_id' => AUth::user()->id ,
                     'amount' => $request->amount ,
                     'comment' => $request->comment ,
                     'type' => 'Credit',

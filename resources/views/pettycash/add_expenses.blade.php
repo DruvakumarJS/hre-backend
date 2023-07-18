@@ -173,7 +173,9 @@
           
            var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
           
-          
+           setTimeout(function(){
+          $('#pcn').val(ui.item.pcn);
+          },500)
           // $('#pcn_detail').val(address);
            document.getElementById("btn_submit").style.display= "block" ;
            document.getElementById("pcn_detail").innerHTML=address;
