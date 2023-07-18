@@ -70,7 +70,7 @@
                             <thead>
                             <tr>
                                 <th>Bill Date</th>
-                               <!--  <th>Transaction Ref</th> -->
+                                <th>Bill Number</th>
                                 <th>Amount Utilised</th>
                                 <th>Purpose</th>
                                 <th>PCN</th>
@@ -86,7 +86,7 @@
                         @foreach($data as $key =>$value)
                                 <tr>
                                     <td>{{date("d-m-Y", strtotime($value->bill_date))}}</td>
-                                   <!--  <td>{{$value->billing_no}}</td> -->
+                                    <td>{{$value->bill_number}}</td>
                                     <td><span>&#8377;</span>{{$value->spent_amount}}</td>
                                     <td>{{$value->purpose}}</td>
                                     <td>{{$value->pcn}}</td>

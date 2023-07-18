@@ -130,7 +130,8 @@ class PcnController extends Controller
 
             if($createPCN){
                 //return redirect()->route('PCN');
-                return redirect()->back()->with('PCN' , 'PCN_'.$request->pcn);
+                $data = Pcn::where('pcn', 'PCN_'.$request->pcn)->first();
+                return redirect()->back()->with('PCN' , $data);
             }
             else{
                  return redirect()->route('create_pcn')->withMessage('Something went wrong')->withInput(); ;

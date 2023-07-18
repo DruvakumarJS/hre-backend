@@ -524,7 +524,7 @@ function getRandomColor() { //generates random colours and puts them in string
           yAxes: [{
             gridLines: {
              drawOnChartArea: false },
-
+             ticks: {min: 0} ,
           
             scaleLabel: {
                     display: true,

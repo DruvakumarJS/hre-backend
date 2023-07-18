@@ -36,8 +36,29 @@ $date = date('dd-mm-yyyy');
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                  @php
+                  $data= Session::get('PCN');
 
-                  <label>PCN </label><h3>{{ Session::get('PCN') }}</h3>
+                  @endphp
+                  <div>
+                     <label>PCN : </label> <label class="label-bold">{{$data->pcn}}</label>
+                  </div>
+                   <div>
+                     <label>Brand : </label> <label class="label-bold">{{$data->brand}}</label>
+                  </div>
+                   <div>
+                     <label>Location : </label> <label class="label-bold">{{$data->location}}</label>
+                  </div>
+                   <div>
+                     <label>Area : </label> <label class="label-bold">{{$data->area}}</label>
+                  </div>
+                   <div>
+                     <label>City : </label> <label class="label-bold">{{$data->city}}</label>
+                  </div>
+                   <div>
+                     <label>State : </label> <label class="label-bold">{{$data->state}}</label>
+                  </div>
+                 
 
                   <div id="div2">
                     <a href="{{route('view_pcn')}}"><button class="btn btn-success">OK , GOT IT</button></a>
