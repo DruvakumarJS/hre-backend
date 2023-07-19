@@ -250,7 +250,7 @@ var inform ="";
         },
         select: function (event, ui) {
            $('#pcn').val(ui.item.label);
-           $('#pcns').val(ui.item.label);
+           $('#pcns').val(ui.item.pcn);
 
            var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
           

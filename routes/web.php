@@ -288,6 +288,9 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('delete_doc/{id}',[VaultController::class,'destroy'])->name('delete_doc');
 
 
+    Route::post('testimages',[PettyCashDetailController::class,'test'])->name('testimages');
+
+
 
 
 

@@ -61,9 +61,15 @@ class PettyCashDetailController extends Controller
         $imagearray=array();
         $bill_no = 'PC00';
 
+        $file = $request->file('image');
+    $file = $request->file_name; 
+    print_r($file);die(); 
+
          if($file = $request->has('image')) {
+           
          
-            foreach($_FILES['image']['name'] as $key=>$val){ 
+            foreach($_FILES['image']['name'] as $key=>$val){
+             
                
                $fileName = basename($_FILES['image']['name'][$key]); 
                 $temp = explode(".", $fileName);
@@ -80,6 +86,7 @@ class PettyCashDetailController extends Controller
             }
           
           }
+          die();
      
            $imageNames = implode(',', $imagearray);
            if(PettyCashDetail::exists()){
@@ -319,6 +326,14 @@ class PettyCashDetailController extends Controller
         unlink("test.txt");*/
 
       //  return redirect()->back();
+
+    }
+
+
+    public function test(Request $request){
+
+       $data="YES";
+        return response()->json($data);
 
     }
 }
