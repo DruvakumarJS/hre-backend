@@ -63,7 +63,7 @@ class PettyCashDetailController extends Controller
 
         $file = $request->file('image');
     $file = $request->file_name; 
-    print_r($file);die(); 
+  
 
          if($file = $request->has('image')) {
            
@@ -86,7 +86,7 @@ class PettyCashDetailController extends Controller
             }
           
           }
-          die();
+     
      
            $imageNames = implode(',', $imagearray);
            if(PettyCashDetail::exists()){
