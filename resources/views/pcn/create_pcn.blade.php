@@ -218,7 +218,7 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label id="lbl_approve" for="" class="col-5 col-form-label" style="display: none">Approved Holidays</label>
                             <div class="col-7" id="">
-                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value="{{old('approved_holidays')}}" style="display: none">
+                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value="{{old('approved_holidays')}}"  min="0" style="display: none">
                             </div>
                         </div>
                         

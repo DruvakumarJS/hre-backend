@@ -145,7 +145,7 @@
                          <div class="form-group row">
                             <label id="lbl_approve" for="" class="col-5 col-form-label" style="display: <?php echo ($pcn_data->approve_holidays == 'Yes') ? 'block' : 'none'; ?>">Approved Holidays</label>
                             <div class="col-7" id="">
-                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value ="{{$pcn_data->approved_days}}" style="display: <?php echo ($pcn_data->approve_holidays == 'Yes') ? 'block' : 'none'; ?>">
+                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value ="{{$pcn_data->approved_days}}" min="0" style="display: <?php echo ($pcn_data->approve_holidays == 'Yes') ? 'block' : 'none'; ?>">
                             </div>
                         </div>
                         

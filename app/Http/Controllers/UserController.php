@@ -184,15 +184,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-       // print_r($request->Input());die();
+       // print_r($id); die();
 
          $validator = Validator::make($request->all(), [
             'employee_id' => 'required|unique:employees,employee_id,'.$request->row_id,
-            'mobile' => 'required|min:10|max:10|unique:employees,mobile,'.$request->row_id,
+            'mobile' => 'required|max:10|unique:employees,mobile,'.$id,
             'email' => 'required|email|unique:employees,email,'.$request->row_id,    
         ]);
+
 
 
        if ($validator->fails()) {

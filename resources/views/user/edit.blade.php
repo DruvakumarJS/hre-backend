@@ -18,7 +18,7 @@
 
 
     <div class="page-container">
-      <form method="post" action="{{route('update_user')}}">
+      <form method="post" action="{{route('update_user',$id)}}">
         @csrf
        <div class="row">
            
