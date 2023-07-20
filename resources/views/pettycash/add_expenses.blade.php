@@ -72,7 +72,7 @@
                             <label for="" class="col-5 col-form-label">Upload bill</label>
                             <div class="col-7">
                                <!--  <input type="file" class="form-control form-control-sm" name="bill" id="imgInp" required> -->
-                               <input class="form-control form-control-sm" type="file" id="upload-btn" name="image[]" accept="image/* , application/pdf" multiple />
+                               <input class="form-control form-control-sm" type="file" id="upload-btn" name="image[]" accept="image/* , application/pdf" multiple required />
 
                               
                 

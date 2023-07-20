@@ -46,6 +46,7 @@ class ExportPettycashSummary implements FromCollection,WithHeadings
                            )
                  ->where('user_id', $this->user_id)
                  ->whereBetween('transaction_date', [$start , $end])
+                 ->orderBy('transaction_date', 'ASC')
                  ->get();
 
                 // print_r(json_encode($summary)) ; die();
@@ -58,7 +59,7 @@ class ExportPettycashSummary implements FromCollection,WithHeadings
     public function headings(): array
      {       
        return [
-         'Date','Mode','Reference Number','Description' , 'Amount' , 'Type','Balance', 'Entry Date'
+         'Trasnsaction Date','Mode',' Reference No. / Bill No.','Description' , 'Amount' , 'Type','Balance', 'Entry Date'
        ];
      }
 }

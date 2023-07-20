@@ -332,7 +332,13 @@ class PettyCashDetailController extends Controller
 
     public function test(Request $request){
 
-       $data="YES";
+    //   $data    = $_POST["result"];
+    // $data    = json_decode("$data", true);
+
+    //just echo an item in the array
+  //  echo "image1 : ".$data["image1"];
+
+        $data= $request->Input();
         return response()->json($data);
 
     }

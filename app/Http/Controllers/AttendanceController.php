@@ -269,7 +269,7 @@ class AttendanceController extends Controller
 
     public function employeedetails()
     {
-        $employees = Employee::paginate(10);
+        $employees = Employee::get();
         $data = array();
 
 

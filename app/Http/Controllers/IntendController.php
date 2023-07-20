@@ -32,7 +32,7 @@ class IntendController extends Controller
     { 
 
        if(Auth::user()->role_id != 4 ) {
-        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->paginate(50);
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->orderBy('created_at', 'ASC')->paginate(50);
 
         $all = Intend::count();
         $activeCount = Intend::where('status','Active')->count();

@@ -66,7 +66,7 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Date</th>
+                              <th scope="col">Creation Date</th>
                               <th scope="col">Indent Number</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Billing Details </th>

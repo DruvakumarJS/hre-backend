@@ -15,15 +15,16 @@ class ExportPettycash implements FromCollection, WithHeadings
     public function collection()
     {
         $att= DB::table('pettycash_overviews')
-        ->select(DB::raw("DATE_FORMAT(pettycash_overviews.created_at, '%d-%m-%Y') as formatted_dob"),
-        	     'employees.name',
-                 'employees.employee_id',
+        ->select(
+        	     'employees.employee_id',
+                 'employees.name',
                  'roles.alias',
         	     'pettycash_overviews.total_issued',
         	     'pettycash_overviews.total_balance' 
          )    
          ->join('employees', 'pettycash_overviews.user_id', '=', 'employees.user_id')
          ->join('roles', 'employees.role', '=', 'roles.name')
+         ->orderBy('pettycash_overviews.id', 'DESC')
         ->get();
 
         return $att ;
@@ -33,6 +34,6 @@ class ExportPettycash implements FromCollection, WithHeadings
     public function headings(): array
      {       
        return [
-         'Date','Employee Name','Employee ID' ,'Role', 'Issued Amount' , 'Balance Amount'];
+         'Employee ID' ,'Name', 'Role', 'Issued Amount' , 'Balance Amount'];
      }
 }

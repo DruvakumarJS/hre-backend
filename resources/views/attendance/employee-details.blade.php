@@ -13,7 +13,7 @@
         </div>
 
         <div id="div2" style="margin-right: 30px">
-            <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"> Download</a>
+            <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"> Download CSV</a>
         </div>
 
         <!-- <div id="div2" style="margin-right: 30px">

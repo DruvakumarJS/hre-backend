@@ -188,9 +188,17 @@ class UserController extends Controller
     {
        // print_r($id); die();
 
+       /* if(Employee::where('mobile',$request->mobile)->where('user_id' ,'!=', $id)->exists()){
+            print_r("YES");
+        }
+        else {
+            print_r("NO");
+        }
+        die();*/
+
          $validator = Validator::make($request->all(), [
             'employee_id' => 'required|unique:employees,employee_id,'.$request->row_id,
-            'mobile' => 'required|max:10|unique:employees,mobile,'.$id,
+            'mobile' => 'required|min:10|max:10|unique:employees,mobile,'.$request->row_id,
             'email' => 'required|email|unique:employees,email,'.$request->row_id,    
         ]);
 
