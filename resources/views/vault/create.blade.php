@@ -5,10 +5,11 @@
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Vault</label>
-         
+         @if(Auth::user()->role_id == '1')
          <div id="div2">
           <button  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm btn-outline-secondary">Add New </button>
         </div>
+        @endif
         </div>
 
         
@@ -33,8 +34,10 @@
                 <td width="100px">{{$value->type}}</td>
                 <td>
                   <a target="_blank" href="{{ URL::to('/') }}/vault/{{$value->filename}}"><button class="btn btn-sm btn-outline-secondary">View</button></a>
+                  @if(Auth::user()->role_id == '1')
                   <a id="MybtnModal_{{$key}}" style="margin-left: 20px" > <button class="btn btn-outline-success btn-sm">Rename</button></i></a>
                   <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_doc',$value->id)}}" style="margin-left: 20px"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
+                  @endif
                 </td>
               </tr>
 
@@ -106,7 +109,7 @@ $(document).ready(function(){
 
                     <div class="form-group mb-4">
                         <div class="custom-file text-left">
-                            <input type="file" name="file" class="custom-file-input" id="customFile">
+                            <input type="file" name="file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" class="custom-file-input" id="customFile">
                            
                         </div>
                     </div>

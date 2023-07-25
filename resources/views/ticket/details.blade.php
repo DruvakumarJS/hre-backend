@@ -326,7 +326,7 @@
                   <input type="hidden" name="action" value="Completed">
 
                   <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Attach Image</label>
+                    <label for="message-text" class="col-form-label">Attach Image *</label>
                       <input type="file" class="form-control form-control-sm" name="image" id="imgInp" required accept="image/*">
                 
                   </div>

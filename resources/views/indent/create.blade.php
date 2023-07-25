@@ -118,15 +118,27 @@ $( document ).ready(function() {
             data: {
                search: request.term
             },
-            success: function( data ) {
-              
-              console.log(data);
-               response( data );
-               
-              
+            success: function (data) {
+                /*response($.map(data, function (item) {
+                    // return { label: item.ID + ' - ' + item.Name, id: item.ID, value: item.Name }
+                   var regEx = new RegExp(request.term, "ig");
+                   //var replaceMask ="<b style=\"color:green;\">$&</b>";
+                    // var replaceMask ="DK";
+                    var replaceMask = "<b style=\"color:green;\">$&</b>"
+                    var html = item.value.replace(regEx, replaceMask);
+                    //var html = item.value 
+                    console.log(html);
+                    return (html)
+
+                    //alert(item.value);
+
+
+                }))*/
+
+                response(data)
             }
-          });
-        },
+        });
+    },
         select: function (event, ui) {
 
           $('#product').val(ui.item.value);
@@ -141,7 +153,11 @@ $( document ).ready(function() {
          
         }
       });
-    
+  function getSearchCnt(){
+          var searchCnt= $('#product').val();
+          console.log('DDD==',searchCnt);
+           $('.ui-menu').css('')
+    }
 });
 
  $(document).on('click', '.remove-input-field', function () {

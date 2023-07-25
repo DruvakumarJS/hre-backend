@@ -58,6 +58,12 @@ $date = date('dd-mm-yyyy');
                    <div>
                      <label>State : </label> <label class="label-bold">{{$data->state}}</label>
                   </div>
+                   <div>
+                     <label>Proposed Start Date : </label> <label class="label-bold">{{$data->proposed_start_date}}</label>
+                  </div>
+                   <div>
+                     <label>Proposed End Date : </label> <label class="label-bold">{{$data->proposed_end_date}}</label>
+                  </div>
                  
 
                   <div id="div2">

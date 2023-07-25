@@ -8,7 +8,7 @@
         <div class="container-header">
             <label class="label-bold" id="div1">Intend Details</label>
             <div id="div2">
-                <a href="{{ url()->previous() }}"><button class="btn btn0sm btn-outline-secondary">View Indents</button></a>
+                <a href="{{route('indent_details',$indend_data->indent->indent_no)}}"><button class="btn btn0sm btn-outline-secondary">View Indents</button></a>
                 
             </div>
          
@@ -105,11 +105,15 @@
                             @csrf
                             <div class="form-group row">
                                
-                                <label for="text" class="col-4 col-form-label">Quantity Dispatched </label>
-                                <div class="col-4">
+                                <label for="text" class="col-3 col-form-label">Quantity Dispatched </label>
+                               
+                                <div class="col-3">
                                     <input id="text" type="Number" class="form-control" placeholder="Enter numbers"
                                            name="quantity" required="required" min="1" max="<?php echo $indend_data->pending-$dispatched ;?>" value="{{old('quantity')}}">
+                                </div>
 
+                                <div class="col-3">
+                                    <input type="text" class="form-control" name="dispatch_comment" placeholder="Enter Dispatch Coments" >
                                 </div>
                                 <input type="hidden" name="indent_no" value="{{$indend_data->indent->indent_no}}">
                                 <input type="hidden" name="pcn" value="{{$indend_data->indent->pcn}}">
@@ -139,11 +143,12 @@
                             <tr>
                                 <th>GRN</th>
                                 <th>Dispatched</th>
+                                <th>D_Comments</th>
                                 <th>GRN Status</th>
                                 <th>Accepted</th>
                                 <th>Rejected</th>
                                 <th>Comments</th>
-                                <th>Dispatched Date</th>
+                                <th>D_Date</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -151,6 +156,7 @@
                                 <tr>
                                     <td>{{$value->grn}}</td>
                                     <td>{{$value->dispatched}}</td>
+                                    <td>{{$value->dispatch_comment}}</td>
                                     <td>{{$value->status}}</td>
                                     <td>{{$value->approved}} </td>
                                     <td>{{$value->damaged}} </td>
@@ -181,6 +187,11 @@
 
                                                     <input id="text" type="Number" class="form-control" placeholder="Enter numbers"
                                                      name="quantity" required="required" min="1" max="{{$indend_data->pending-$dispatched+$value->dispatched }}" value="{{$value->dispatched}}"  style="width:150px" >
+                                                    
+                                                    <div style="margin-top: 20px">
+                                                        <input type="text" class="form-control" name="dispatch_comment" placeholder="Enter Dispatch Coments" value="{{$value->dispatch_comment}}">
+                                                    </div>
+                                                      
 
                                                     <input type="hidden" name="indent_no" value="{{$indend_data->indent->indent_no}}">
                                                     <input type="hidden" name="pcn" value="{{$indend_data->indent->pcn}}">

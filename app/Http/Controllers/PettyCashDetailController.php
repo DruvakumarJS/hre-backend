@@ -62,7 +62,7 @@ class PettyCashDetailController extends Controller
         $bill_no = 'PC00';
 
         $file = $request->file('image');
-    $file = $request->file_name; 
+        $file = $request->file_name; 
   
 
          if($file = $request->has('image')) {
@@ -338,7 +338,33 @@ class PettyCashDetailController extends Controller
     //just echo an item in the array
   //  echo "image1 : ".$data["image1"];
 
-        $data= $request->Input();
+       // $data= $request->Input();
+       // $data= $request->file('image');
+         if($file = $request->file('image')) {
+           $data= "YES";
+         
+            /*foreach($_FILES['image']['name'] as $key=>$val){
+             
+               
+               $fileName = basename($_FILES['image']['name'][$key]); 
+                $temp = explode(".", $fileName);
+                 
+                $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/pettycashfiles/'.$fileName ;
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+             
+                 
+            }*/
+          
+          }
+          {
+             $data= "NO";
+          }
+
         return response()->json($data);
 
     }

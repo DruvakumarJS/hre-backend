@@ -119,57 +119,6 @@ class IndentController extends Controller
                  'details'=> $data     
           ];
 
-        
-        $file = 'HRE_'.$idtend->indent_no.'.pdf';
-          
-        $pdf = PDF::loadView('pdf.indentsPDF', $indent_details);
-      
-        $pdf->save(public_path('pdf/'.$file));
-/*
-        $path = public_path('pdf');
-        $filename = $path.'/'.$file;
-        Mail::to('druva@netiapps.com')->send(new IndentsMail($indent_details , $filename));
-*/
-        /*$userdetails = User::where('id', $request->user_id)->first();
-        $pcn_details = Pcn::where('pcn',$request->pcn)->first();
-
-        $from = new From("abhishek@netiapps.com", "HRE");
-                $tos = [
-                    new To(
-                        "druva@netiapps.com",
-                        "Druva",
-                       
-                        [
-                            'indent_no' => $idtend->indent_no,
-                            'pcn' => $idtend->pcn,
-                            'name' => 'Druva',
-                            'supervisor' => $userdetails->name,
-                            'client_name' => $pcn_details->client_name,
-                            'brand' => $pcn_details->brand,
-                            'client_location' => $pcn_details->area.",".$pcn_details->city.",",$pcn_details->state
-                        ]
-                        
-                    )
-                ];
-
-              
-                $email = new Mail(
-                    $from,
-                    $tos
-                );
-                $email->setTemplateId("d-03a5c49c9835443c9bfa4f0df5475e7f");
-                
-                $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
-                try {
-                    $response = $sendgrid->send($email);
-                     print $response->statusCode() . "\n";
-                     print_r($response->headers());
-                     print $response->body() . "\n"; die();
-                } catch (Exception $e) {
-                    echo 'Caught exception: '.  $e->getMessage(). "\n";
-                } 
-
-*/
 
         return response()->json([
          	 		'status' => 1 ,

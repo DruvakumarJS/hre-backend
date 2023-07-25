@@ -6,9 +6,21 @@
 	 <div class="container-header">
             <label class="label-bold" id="div1">GRNs</label>
 
-            <div id="div2">
+            <div id="div2" style="margin-left: 30px">
               <a href="{{route('intends')}}"><button class="btn btn-light btn-outline-secondary" > View Indents </button></a>
             </div>
+
+            <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_grn')}}">
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search GRN here">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
       
     </div>
 

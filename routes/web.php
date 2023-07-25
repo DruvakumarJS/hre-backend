@@ -149,6 +149,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('update-grn', [IntendController::class,'update_grn'])->name('update-grn');
     Route::post('edit_quantity', [IntendController::class,'edit_grn'])->name('edit_quantity');
     Route::post('search_indent', [IntendController::class,'search'])->name('search_indent');
+    Route::post('search_grn', [IntendController::class,'search_grn'])->name('search_grn');
    
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');
@@ -270,6 +271,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('export_customer',[ExportController::class,'customer'])->name('export_customer');
     Route::get('export-pcn',[ExportController::class,'pcn'])->name('export-pcn');
     Route::get('export_indent/{id}',[ExportController::class,'indent'])->name('export_indent');
+    Route::post('download_multiple_indents',[ExportController::class,'download_multiple_indents'])->name('download_multiple_indents');
     Route::get('export_tickets/{filter}',[ExportController::class,'ticket'])->name('export_tickets');
     Route::get('export_pettycash',[ExportController::class,'pettycash'])->name('export_pettycash');
     Route::post('export_attendance',[ExportController::class,'attendance'])->name('export_attendance');

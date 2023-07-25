@@ -14,6 +14,7 @@ use App\Exports\ExportUsers;
 use App\Exports\ExportCategory;
 use App\Exports\ExportMaterial;
 use App\Exports\ExportPettycashSummary;
+use App\Exports\ExportMultipleIndents;
 
 use Excel ;
 use App\Models\customer;
@@ -24,6 +25,7 @@ use App\Models\Attendance;
 use App\Models\Pettycash;
 use App\Models\Category;
 use App\Models\Material;
+use App\Models\Intend;
 use App\Models\PettycashSummary;
 use DB;
 
@@ -237,5 +239,18 @@ class ExportController extends Controller
              return redirect()->back();
           }
       
+    }
+
+    public function download_multiple_indents(Request $request){
+
+   
+      $file_name = 'indents.csv';
+
+      $indents = $request->selctedindent;
+
+      $indentarray= explode (',', $indents);
+     
+      return Excel::download(new ExportMultipleIndents($indentarray), $file_name);
+   
     }
 }

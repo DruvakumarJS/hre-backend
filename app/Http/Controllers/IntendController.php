@@ -222,6 +222,7 @@ class IntendController extends Controller
        $Update = GRN::where('grn',$request->grn)->update([
                
                 'dispatched' => $request->quantity,
+                'dispatch_comment' => $request->dispatch_comment,
                
             ]);
 
@@ -325,6 +326,7 @@ class IntendController extends Controller
                 'indent_no' => $request->indent_no,
                 'pcn' => $request->pcn,
                 'dispatched' => $request->quantity,
+                'dispatch_comment' => $request->dispatch_comment,
                 'status' => "Awaiting for Confirmation"
             ]);
 
@@ -543,5 +545,46 @@ class IntendController extends Controller
 
          return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount'));              
 
+    }
+
+    public function search_grn(Request $request){
+
+      $grns = GRN::where('grn', 'LIKE','%'.$request->search.'%')->where('user_id',Auth::user()->id)->orderBy('id', 'DESC')->get();
+        $grn_array = array();
+
+        if(sizeof($grns)>0){
+
+          foreach ($grns as $key => $value) {
+
+            $indent_list = Indent_list::where('id',$value->indent_list_id)->orderBy('id', 'DESC')->first();
+
+            $material = Material::where('item_code',$indent_list->material_id)->withTrashed()->first();
+            
+            $material_detail = [
+              'material_name' => $material->name,
+              'brand' => $material->brand,
+              'information' => json_decode($material->information, true, JSON_UNESCAPED_SLASHES),
+              'quantity_raised' => $indent_list->quantity,
+              'quantity_received' => $indent_list->recieved,
+              'quantity_pending' => $indent_list->pending,
+
+            ];
+
+             $grs_data = [
+              'date' => $value->created_at,
+              'grn' => $value->grn,
+              'pcn' => $value->pcn,
+              'indent_no' => $value->indent_no,
+              'dispatched' => $value->dispatched,
+              'status'=> $value->status,
+              'indent_details' => array($material_detail)
+            ];
+
+            array_push($grn_array, $grs_data);
+          }
+
+         
+          }
+           return view('indent/grn',compact('grn_array'));
     }
 }

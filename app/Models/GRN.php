@@ -16,6 +16,7 @@ class GRN extends Model
     	'indent_no',
     	'pcn',
     	'dispatched',
+      'dispatch_comment',
       'approved',
     	'damaged',
       'comment',

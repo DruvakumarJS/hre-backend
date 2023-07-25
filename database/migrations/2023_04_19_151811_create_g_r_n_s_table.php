@@ -21,6 +21,7 @@ class CreateGRNSTable extends Migration
             $table->string('indent_no');
             $table->string('pcn');
             $table->string('dispatched');
+            $table->string('dispatch_comment');
             $table->string('approved')->nullable();
             $table->string('damaged')->nullable();
             $table->string('comment')->nullable();
