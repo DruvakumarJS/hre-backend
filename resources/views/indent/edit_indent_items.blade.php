@@ -8,7 +8,7 @@
         <div class="container-header">
             <label class="label-bold" id="div1">Intend Details</label>
             <div id="div2">
-                <a href="{{route('indent_details',$indend_data->indent->indent_no)}}"><button class="btn btn0sm btn-outline-secondary">View Indents</button></a>
+                <a href="{{route('indent_details',$indend_data->indent->indent_no)}}"><button class="btn btn0sm btn-outline-secondary">Back to Indents</button></a>
                 
             </div>
          

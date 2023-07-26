@@ -2,49 +2,6 @@
 
 @section('content')
 
-<style type="text/css">
-  output{
-  width: 100%;
-  min-height: 150px;
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 15px;
-  position: relative;
-  border-radius: 5px;
-}
-
-output .image{
-  height: 150px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-  position: relative;
-}
-
-output .image img{
-  height: 100%;
-  width: 100%;
-}
-
-output .image span {
-  position: absolute;
-  top: -4px;
-  right: 4px;
-  cursor: pointer;
-  font-size: 22px;
-  color: white;
-}
-
-output .image span:hover {
-  opacity: 0.8;
-}
-
-output .span--hidden{
-  visibility: hidden;
-}
-</style>
-
 <div class="container">
   <div class="row justify-content-center">
      <div class="container-header">
@@ -115,36 +72,30 @@ output .span--hidden{
                             <label for="" class="col-5 col-form-label">Upload bill</label>
                             <div class="col-7">
                                <!--  <input type="file" class="form-control form-control-sm" name="bill" id="imgInp" required> -->
-                               <input class="form-control form-control-sm" type="file" id="upload-btn" name="documents[]"  accept="image/* , application/pdf" multiple />
+                               <input class="form-control form-control-sm" type="file" id="upload-btn" name="image[]" accept="image/* , application/pdf" multiple required />
 
                               
                 
                             </div>
 
                         </div>
-                        <input type="hidden" name="image[]" id="image">
 
-                       
+                         <div class="form-group row">
+                              <output id="result" />
+                               
+                        </div>
+
+
+
                          <div class="form-group row">
                             <div class="offset-5 col-7">
                                 <button  type="submit" class="btn btn-danger" id="btn_submit">Submit</button>
-
-                               
                                 
                             </div>
                         </div>
-                          <div class="form-group row">
-                              <output id="result" />
-
-                               
-                        </div>
-
 
                       
             </form>
-
-            <div id="image-container"></div>
-
             
           </div>
 
@@ -217,7 +168,7 @@ output .span--hidden{
         },
         select: function (event, ui) {
            $('#pcn').val(ui.item.label);
-           //$('#pcns').val(ui.item.label);
+           $('#pcns').val(ui.item.label);
 
           
            var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
@@ -238,21 +189,14 @@ output .span--hidden{
 <script type="text/javascript">
     window.onload = function() {
   // Check for File API support.
-    var imagesArray = [];
-      var Data = new FormData();
-   
   if (window.File && window.FileList && window.FileReader) {
 
     var filesInput = document.getElementById('upload-btn');
-      var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
-
     filesInput.addEventListener('change', function(e) {
       var output = document.getElementById('result');
       var files = e.target.files; //FileList object
-    
-    
       
-     // output.innerHTML = ''; // Clear (previous) results.
+      output.innerHTML = ''; // Clear (previous) results.
 
        if(files.length > 4){
         document.getElementById('upload-btn').value= null;
@@ -264,71 +208,46 @@ output .span--hidden{
       
       for (var i = 0; i < files.length; i++) {
         var currFile = files[i];
-     
-       imagesArray.push(files[i]);
-       Data.append('image[]', files[i]);
-     
-       
-         // Data.append("image[]", currFile); 
-
-       displayImages();
+      //  if (!currFile.type.match('image')) continue; // Skip non-images.
       
+        
+        var imgReader = new FileReader();
+        imgReader.fileName = currFile.name;
+        imgReader.addEventListener('load', function(e1) {
+          var img = e1.target;
+         // var src = img.result;
+          
+          var div = document.createElement('div');
+          div.className = 'thumbnail';
+           if (currFile.name.match(/\.(jpg|jpeg|png|gif)$/i))
+             {
+              div.innerHTML = [
+                  '<img class="thumb" src="' + img.result + '"' + 'title="' + img.fileName + '"/>',
+                  '<label class="caption">' + img.fileName + '</label>'
+                ].join('');
+           }
+        else {
+
+           div.innerHTML = [
+                  '<img class="thumb" src="' + "images/pdf.png" + '"' + 'title="' + img.fileName + '"/>',
+                  '<label class="caption">' + img.fileName + '</label>'
+                ].join('');
+       
+        }
+
+          output.appendChild(div);
+        
+        });
+
+        // Read image.
+        imgReader.readAsDataURL(currFile);
       }
-
-   
-     function displayImages() {
-      let images = ""
-   
-  imagesArray.forEach((image, index) => {
-     
-          images += `<div class="image">
-                <img  src="${URL.createObjectURL(image)}" alt="image">
-                <span onclick="deleteImage(${index})">&times;</span>
-              </div>` 
-      })
-
- 
-
-       output.innerHTML = images
-
-       //alert(Data);
-
-     /*  imagesArray.forEach(function(image, i) {
-          Data.append('image[]', image);
-      });*/
-
-     //  document.getElementById('image').value=Data    
-    }
-
-     var _token = $('input[name="_token"]').val();
-
-         $.ajax({
-            url: "{{ route('testimages') }}",
-            type: 'POST',
-            dataType: "json",
-
-            data: {
-              data: (Data),_token:_token
-            },
-            contentType: false,
-            processData: false,
-            
-            success: function( data ) {
-              console.log(data);
-            
-            },
-          });
-
-
-
     }
     });
   } else {
     console.log('Your browser does not support File API!');
   }
 }
-
-
 </script>
 
 

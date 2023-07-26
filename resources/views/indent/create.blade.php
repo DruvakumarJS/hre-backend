@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<style type="text/css">
+  .highlight {
+  background-color: yellow
+}
+</style>
 <div class="container">
 	<div class="justify-content-centre">
 		<div class="container-header">
@@ -90,11 +95,7 @@
         </form>
         
       </div>
-        
 
-       
-
-     	
      </div>
 		
 	</div>
@@ -106,6 +107,26 @@
   var i = 0;
 
 $( document ).ready(function() {
+ var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";
+  $('#search').autocomplete({
+        source: ['java', 'javascript', 'asp.net', 'PHP'],
+        open: function(e,ui) {
+            var
+                acData = $(this).data('autocomplete'),
+                styledTerm = termTemplate.replace('%s', '<span class="ui-autocomplete-term">ja</span>');
+                styledTerm = termTemplate;
+            acData
+                .menu
+                .element
+                .find('a')
+                .each(function() {
+                    var me = $(this);
+                    me.html( me.text().replace(acData.term, 'JANI') );
+                });
+        }
+    });
+
+  // ===========================
 
   var path = "{{ route('products') }}";
    let text = "";
@@ -118,21 +139,24 @@ $( document ).ready(function() {
             data: {
                search: request.term
             },
+            
             success: function (data) {
-                /*response($.map(data, function (item) {
-                    // return { label: item.ID + ' - ' + item.Name, id: item.ID, value: item.Name }
+               /* response($.map(data, function (item) {
+                  console.log('ITEM==',item);
+                    
                    var regEx = new RegExp(request.term, "ig");
-                   //var replaceMask ="<b style=\"color:green;\">$&</b>";
-                    // var replaceMask ="DK";
-                    var replaceMask = "<b style=\"color:green;\">$&</b>"
+                     //var replaceMask ="<b style=\"color:green;\">$&</b>";
+                     // var replaceMask ="DK";
+                    var replaceMask = "<span style='color:red;'>"+ request.term +"</span>";
+                    // var  template = "<span class='" + request.term + "'>$1</span>",
                     var html = item.value.replace(regEx, replaceMask);
-                    //var html = item.value 
-                    console.log(html);
-                    return (html)
-
-                    //alert(item.value);
-
-
+                     $li = $( "<li/>" ).appendTo( request.term);
+                      
+                    $( "<a/>" ).attr( "href", "#" )
+                       .html( html )
+                       .appendTo( $li );
+                  return $li;
+                  
                 }))*/
 
                 response(data)
