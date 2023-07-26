@@ -90,7 +90,7 @@
                               <td style="color: <?php echo $color; ?>">{{$value['status']}}</td>
                               @if($value['status']=='Received')
                               <td>
-                                  <a ><button class="btn btn-sm btn-outline-success" disabled >Update</button></a>
+                                  <a ><button class="btn btn-sm btn-outline-secondary" disabled="" >Update</button></a>
                               </td>
                               @else
                               <td>

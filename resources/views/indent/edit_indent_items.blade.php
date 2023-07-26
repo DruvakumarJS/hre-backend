@@ -113,7 +113,7 @@
                                 </div>
 
                                 <div class="col-3">
-                                    <input type="text" class="form-control" name="dispatch_comment" placeholder="Enter Dispatch Coments" >
+                                    <input type="text" class="form-control" name="dispatch_comment" placeholder="Enter Dispatch Coments" required>
                                 </div>
                                 <input type="hidden" name="indent_no" value="{{$indend_data->indent->indent_no}}">
                                 <input type="hidden" name="pcn" value="{{$indend_data->indent->pcn}}">
@@ -189,7 +189,7 @@
                                                      name="quantity" required="required" min="1" max="{{$indend_data->pending-$dispatched+$value->dispatched }}" value="{{$value->dispatched}}"  style="width:150px" >
                                                     
                                                     <div style="margin-top: 20px">
-                                                        <input type="text" class="form-control" name="dispatch_comment" placeholder="Enter Dispatch Coments" value="{{$value->dispatch_comment}}">
+                                                        <input type="text" class="form-control" name="dispatch_comment" placeholder="Enter Dispatch Coments" value="{{$value->dispatch_comment}}" required>
                                                     </div>
                                                       
 
