@@ -6,14 +6,22 @@ use App\Models\User;
 use App\Models\Employee;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class ImportUser implements ToModel
+class ImportUser implements ToModel, WithStartRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+
+    public function startRow(): int
+    {
+        return 2;
+    }
+
+
     public function model(array $row)
     {
 

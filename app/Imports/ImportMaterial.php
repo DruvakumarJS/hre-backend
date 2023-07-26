@@ -5,14 +5,21 @@ namespace App\Imports;
 use App\Models\Material;
 use App\Models\Category;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class ImportMaterial implements ToModel
+
+class ImportMaterial implements ToModel, WithStartRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+
+    public function startRow(): int
+    {
+        return 2;
+    }
 
      public function model(array $row)
     {
@@ -40,50 +47,59 @@ class ImportMaterial implements ToModel
 
         $categoryData = Category::where('material_category',$code)->first(); 
 
-        $paramarray=array();
+        $keyarray=array();
+        $valuearray=array();
 
         if($key1 != ""){
-          $param1=$key1.":".$value1;
-         array_push($paramarray , $param1);
+         array_push($keyarray , $key1);
+         array_push($valuearray , $value1);
         }
 
-        if($key2 != ""){
-          $param2=$key2.":".$value2;
-         array_push($paramarray , $param2);
+         if($key2 != ""){
+         array_push($keyarray , $key2);
+         array_push($valuearray , $value2);
         }
-
-        if($key3 != ""){
-          $param3=$key3.":".$value3;
-          array_push($paramarray , $param3);
+         if($key3 != ""){
+         array_push($keyarray , $key3);
+         array_push($valuearray , $value3);
         }
-
         if($key4 != ""){
-          $param4=$key4.":".$value4;
-          array_push($paramarray , $param4);
+         array_push($keyarray , $key4);
+         array_push($valuearray , $value4);
+        }
+         if($key5 != ""){
+         array_push($keyarray , $key5);
+         array_push($valuearray , $value5);
+        }
+         if($key6 != ""){
+         array_push($keyarray , $key6);
+         array_push($valuearray , $value6);
+        }
+         if($key7 != ""){
+         array_push($keyarray , $key7);
+         array_push($valuearray , $value7);
+        }
+         if($key8 != ""){
+         array_push($keyarray , $key8);
+         array_push($valuearray , $value8);
         }
 
-        if($key5 != ""){
-          $param5=$key5.":".$value5;
-          array_push($paramarray , $param5);
+
+        foreach ($keyarray as $key=>$value) {
+          $result[$value]=$valuearray[$key];
         }
 
-        if($key6 != ""){
-            $param6=$key6.":".$value6;
-           array_push($paramarray , $param6);
-          }
+         /*print_r($result);print_r('<br>');
+    
+         print_r(json_encode($result));
+          die();*/
 
-        if($key7 != ""){
-            $param7=$key7.":".$value7;
-            array_push($paramarray , $param7);
-          }  
-  
-        if($key8 != ""){
-          $param8=$key8.":".$value8;
-          array_push($paramarray , $param8);
-        }  
-
-
-        print_r(json_encode($paramarray)); die();
+         if(sizeof($result)>0){
+             $features = json_encode($result);
+         }
+         else{
+             $features = "{}";
+         }
         
         if(Material::exists()){
              $validate=Material::select('item_code')->where('item_code','LIKE','%'.$code.'%')->orderBy('id', 'DESC')->first();
@@ -98,7 +114,7 @@ class ImportMaterial implements ToModel
                         'name' => $row[1],
                         'brand' => $row[2],
                         'uom' => $row[3],
-                        'information'=> $des,
+                        'information'=> $features,
                   ]);   
              }
              else {
@@ -111,7 +127,7 @@ class ImportMaterial implements ToModel
                         'name' => $row[1],
                         'brand' => $row[2],
                         'uom' => $row[3],
-                        'information'=> $des,
+                        'information'=> $features,
                   ]);
 
              }
@@ -129,7 +145,7 @@ class ImportMaterial implements ToModel
                         'name' => $row[1],
                         'brand' => $row[2],
                         'uom' => $row[3],
-                        'information'=> $des,
+                        'information'=> $features,
                   ]);
 
         }
