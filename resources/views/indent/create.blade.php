@@ -2,10 +2,15 @@
 
 @section('content')
 <style type="text/css">
-  .highlight {
-  background-color: yellow
-}
+    .highlight
+    {
+        background-color: #FFFFAF;
+        color: Red;
+        font-weight: bold;
+    }
 </style>
+
+
 <div class="container">
 	<div class="justify-content-centre">
 		<div class="container-header">
@@ -107,27 +112,6 @@
   var i = 0;
 
 $( document ).ready(function() {
- var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";
-  $('#search').autocomplete({
-        source: ['java', 'javascript', 'asp.net', 'PHP'],
-        open: function(e,ui) {
-            var
-                acData = $(this).data('autocomplete'),
-                styledTerm = termTemplate.replace('%s', '<span class="ui-autocomplete-term">ja</span>');
-                styledTerm = termTemplate;
-            acData
-                .menu
-                .element
-                .find('a')
-                .each(function() {
-                    var me = $(this);
-                    me.html( me.text().replace(acData.term, 'JANI') );
-                });
-        }
-    });
-
-  // ===========================
-
   var path = "{{ route('products') }}";
    let text = "";
     $( "#product" ).autocomplete({
@@ -141,24 +125,7 @@ $( document ).ready(function() {
             },
             
             success: function (data) {
-               /* response($.map(data, function (item) {
-                  console.log('ITEM==',item);
-                    
-                   var regEx = new RegExp(request.term, "ig");
-                     //var replaceMask ="<b style=\"color:green;\">$&</b>";
-                     // var replaceMask ="DK";
-                    var replaceMask = "<span style='color:red;'>"+ request.term +"</span>";
-                    // var  template = "<span class='" + request.term + "'>$1</span>",
-                    var html = item.value.replace(regEx, replaceMask);
-                     $li = $( "<li/>" ).appendTo( request.term);
-                      
-                    $( "<a/>" ).attr( "href", "#" )
-                       .html( html )
-                       .appendTo( $li );
-                  return $li;
-                  
-                }))*/
-
+              
                 response(data)
             }
         });
@@ -176,12 +143,13 @@ $( document ).ready(function() {
            
          
         }
-      });
-  function getSearchCnt(){
-          var searchCnt= $('#product').val();
-          console.log('DDD==',searchCnt);
-           $('.ui-menu').css('')
-    }
+      }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            var regx = new RegExp('(' + this.term + ')', 'ig');
+           // var label = item.value.replace(regx, "<span class='highlight'>" + this.term + "</span>");
+             var label = item.value.replace(regx, "<span class='highlight'>" + this.term + "</span>");
+            return $("<li/>").data("ui-autocomplete-item", item).append($("<a>").html(label)).appendTo(ul);
+        };
+  
 });
 
  $(document).on('click', '.remove-input-field', function () {
@@ -314,7 +282,63 @@ min-height: 60px;
 overflow-y: auto;
 word-wrap:break-word
 }
+
+.highlight
+    {
+        background-color: #FFFFAF;
+        color: Red;
+        font-weight: bold;
+    }
+
 </style>
+
+
+  <script type="text/javascript">
+    $(function () {
+        $("#rerer").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                  url: "{{ route('products') }}",
+                  type: 'GET',
+                  dataType: "json",
+                  data: {
+                     search: request.term
+                  },
+                    success: function (data) {
+                      console.log(data);
+                         response($.map(data, function (item) {
+                                return {
+                                    label: item.split('-')[0],
+                                    val: item.split('-')[1]
+                                }
+                            }))
+
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                if (i.item.val == -1) {
+                    $('[id$=txtSearch]').val("");
+                    return false;
+                } else {
+                    $("[id$=hfCustomerId]").val(i.item.val);
+                }
+            },
+            minLength: 1
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            var regx = new RegExp('(' + this.term + ')', 'ig');
+            var label = item.value.replace(regx, "<span class='highlight'>" + this.term + "</span>");
+            return $("<li/>").data("ui-autocomplete-item", item).append($("<a>").html(label)).appendTo(ul);
+        };
+    });
+</script>
+
 
 
 @endsection

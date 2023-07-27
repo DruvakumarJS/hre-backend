@@ -55,37 +55,37 @@ class PettyCashDetailController extends Controller
      */
     public function store(Request $request)
     {
-       // print_r($request->Input());die();
+      //  print_r($request->Input());die();
 
         $fileName='';
         $imagearray=array();
         $bill_no = 'PC00';
 
-        $file = $request->file('image');
+        $file = $request->file('file');
         $file = $request->file_name; 
   
 
-         if($file = $request->has('image')) {
+         if($file = $request->has('file')) {
            
          
-            foreach($_FILES['image']['name'] as $key=>$val){
+            foreach($_FILES['file']['name'] as $key=>$val){
              
                
-               $fileName = basename($_FILES['image']['name'][$key]); 
+               $fileName = basename($_FILES['file']['name'][$key]); 
                 $temp = explode(".", $fileName);
                  
                 $fileName = rand('111111','999999') . '.' . end($temp);
 
             $destinationPath = public_path().'/pettycashfiles/'.$fileName ;
             //move($destinationPath,$fileName);
-            move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
+            move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
 
             $imagearray[] = $fileName ;
-             
-                 
+                  
             }
           
           }
+         // print_r($imagearray);
      
      
            $imageNames = implode(',', $imagearray);
@@ -112,7 +112,9 @@ class PettyCashDetailController extends Controller
 
           $finance = pettycash::select('finance_id')->where('id', $request->id)->first();
 
-          return redirect()->route('details_pettycash',Auth::user()->id);
+         // return redirect()->route('details_pettycash',Auth::user()->id);
+          $id=Auth::user()->id;
+           return response()->json($id);
 
 
     }
@@ -332,8 +334,69 @@ class PettyCashDetailController extends Controller
 
     public function test(Request $request){
 
+     //  $imagearray = implode(',', $request->image);
+       
         $data = $request->Input();
-        return response()->json($data);
 
+        /* if($request->file('file')) {
+            $file = $request->file('file');
+            $filename = time().'_'.$file->getClientOriginalName();
+
+             $destinationPath = public_path().'/pettycashfiles/'.$filename ;
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["file"]["tmp_name"], $destinationPath);
+
+            return response()->json($filename);
+        }*/
+       // return response()->json($data);
+
+       if($file = $request->has('file')) {
+       
+          foreach($_FILES['file']['name'] as $key=>$val){
+             
+             $fileName = basename($_FILES['file']['name'][$key]);
+             $temp = explode(".", $fileName);
+              $fileName = rand('111111','999999') . '.' . end($temp);
+              $destinationPath = public_path().'/test/'.$fileName ; 
+               move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
+                $imagearray[] = $fileName ;
+                 $data[]=$fileName;
+         }
+
+       }
+       else {
+        $data= "NO";
+       }
+     return response()->json($request->Input());
+
+
+        /* if($file = $request->has('file')) {
+                   
+                 
+                    foreach($_FILES['file']['name'] as $key=>$val){
+                     
+                       
+                       $fileName = basename($_FILES['file']['name'][$key]); 
+                        $temp = explode(".", $fileName);
+                         
+                        $fileName = rand('111111','999999') . '.' . end($temp);
+
+                   // $destinationPath = public_path().'/pettycashfiles/'.$fileName ;
+                    //move($destinationPath,$fileName);
+                   // move_uploaded_file($_FILES["files"]["tmp_name"][$key], $destinationPath);
+
+                    $imagearray[] = $fileName ;
+                     
+                         
+                    }
+                  
+                  }
+                
+
+
+        return response()->json($imagearray);*/
+
+     
+    
     }
 }
