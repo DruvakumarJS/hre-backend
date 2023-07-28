@@ -98,7 +98,7 @@
 
                                         <!-- <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px;color: black"></i></a> -->
 
-                                        <a href="{{route('download_bills',$value->id)}}"><i class="fa fa-download" style="margin-left: 10px;color: black"></i></a> 
+                                        <a href="{{route('download_bills',$value->id)}}"><i class="fa fa-download" style="color: black"></i></a> 
 
                                         @endif
                                     </td>
@@ -145,7 +145,7 @@
                     @csrf
 
                     <div class="form-group ">
-                            <label class="label-bold">Bill Date :</label> <label>{{date("d-m-Y", strtotime($value->bill_date))}} {{$value->spent_amount}}</label>
+                            <label class="label-bold">Bill Date :</label> <label>{{date("d-m-Y", strtotime($value->bill_date))}} </label>   <label class="label-bold" style="margin-left: 20px">Bill Amount :</label> <label>{{$value->spent_amount}} </label>
                             <textarea name="remarks" placeholder="Enter Remarks here" style="width: 100%;padding: 10px" required></textarea> 
                            
                        
@@ -178,7 +178,7 @@ $(document).ready(function(){
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Manage Bill Status</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Bill Proof</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
