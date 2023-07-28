@@ -233,6 +233,9 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
+
+
 </script>
 
 <script type="text/javascript">
@@ -283,14 +286,13 @@ $.ajaxSetup({
 
        $(".img-delete").click(function(){
             //alert("kkk");
-            alert(imagesArray.length);
+          //  alert(imagesArray.length);
                    var imgInd = $(this).attr('data-indx');
                   // alert(imgInd);
                    imagesArray.splice(imgInd,1);
                    $(this).parent(".image").remove();
                    
-
-                  // alert(imagesArray.length);
+                   
 
                 });
 
@@ -370,7 +372,10 @@ $.ajaxSetup({
                           dataType: 'json',
                           success: function(response){
                              // console.log(response);
-                              window.location.href = "{{ route('details_pettycash',1)}}";
+                             // window.location.href = "{{ route('details_pettycash',1)}}";
+                             alert("Bill Uploaded successfully");
+                               window.location.href = location.reload();
+
                           },
                           error: function(response){
                                 console.log("error : " + JSON.stringify(response) );

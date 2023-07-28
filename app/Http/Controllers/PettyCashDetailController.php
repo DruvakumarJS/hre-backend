@@ -113,7 +113,8 @@ class PettyCashDetailController extends Controller
           $finance = pettycash::select('finance_id')->where('id', $request->id)->first();
 
          // return redirect()->route('details_pettycash',Auth::user()->id);
-          $id=Auth::user()->id;
+          $id="Success";
+
            return response()->json($id);
 
 

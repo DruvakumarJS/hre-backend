@@ -157,7 +157,7 @@
                        <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Attach image </label>
                             <div class="col-7">
-                                 <input class="form-control form-control-sm" type="file" id="upload-btn" name="image[]" accept="image/*" multiple />
+                                 <input class="form-control form-control-sm" type="file" id="upload-btn" name="image[]" accept="image/*"  />
                 
                             </div>
                         </div>

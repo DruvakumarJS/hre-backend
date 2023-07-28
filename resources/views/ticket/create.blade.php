@@ -17,7 +17,7 @@
      <div class="form-build">
         <div class="row">
                 <div class="col-6">
-                    <form method="post" action="{{route('save-ticket')}}" enctype="multipart/form-data">
+                    <form name="myForm">
                         @csrf
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Code Number*</label>
@@ -30,7 +30,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Department*</label>
                             <div class="col-7">
-                                <select class="form-control form-select" name="category"required="required">
+                                <select class="form-control form-select" id="category" name="category"required="required">
                                     <option value="">Select Department</option>
                                     @foreach($category as $key=>$value)
                                     <option value="{{$value->category}}">{{$value->category}}</option>
@@ -75,25 +75,25 @@
                             <div class="col-7">
                                <!--  <input type="file" class="form-control form-control-sm" name="image" id="imgInp" accept="image/*"> -->
 
-                                <input class="form-control form-control-sm" type="file" id="upload-btn" name="image[]" accept="image/*" multiple />
+                               <input type='file' id="file" name='file' multiple class="form-control">
+                               <!-- Error -->
+                               <div class='alert alert-danger mt-2 d-none text-danger' id="err_file"></div>
                                  
                 
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                              <output id="result" />
-                        </div>
-
-                        <input type="hidden" name="owner" value="{{Auth::user()->id}}">
+                        <input type="hidden" name="owner" id="owner" value="{{Auth::user()->id}}">
 
                          <div class="form-group row">
                             <div class="offset-5 col-7">
-                                <button name="submit" type="submit" class="btn btn-danger" id="btn_submit">Generate Ticket</button>
+                                <button name="submit" type="button" class="btn btn-danger" id="submit">Generate Ticket</button>
                                 
                             </div>
                         </div>
-
+                       <div class="form-group row">
+                            <output id="result" />
+                        </div>
                         
                     </form>
                     
@@ -127,7 +127,7 @@ $( document ).ready(function() {
             success: function( data ) {
                
             document.getElementById("pcn_detail").innerHTML="";
-            document.getElementById("btn_submit").style.display= "none" ;
+            document.getElementById("submit").style.display= "none" ;
             
 
              if(data.length==0){
@@ -148,7 +148,7 @@ $( document ).ready(function() {
            var address = ui.item.pcn +' , '+ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
           
            //document.getElementById("pcn").value=ui.item.pcn;
-           document.getElementById("btn_submit").style.display= "block" ;
+           document.getElementById("submit").style.display= "block" ;
           document.getElementById("pcn_detail").innerHTML=address;
           setTimeout(function(){
           $('#pcn').val(ui.item.pcn);
@@ -163,29 +163,16 @@ $( document ).ready(function() {
 </script>
 
 <script type="text/javascript">
-    imgInp.onchange = evt => {
-  const [file] = imgInp.files
-  if (file) {
-    blah.src = URL.createObjectURL(file)
-    $(".imagen").show();
-  }
-}
-</script>
-
-<script type="text/javascript">
-    window.onload = function() {
-  // Check for File API support.
-  if (window.File && window.FileList && window.FileReader) {
-
-    var filesInput = document.getElementById('upload-btn');
+   var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+   var imagesArray = [];
+   var filesInput = document.getElementById('file');
+    
     filesInput.addEventListener('change', function(e) {
       var output = document.getElementById('result');
       var files = e.target.files; //FileList object
-      
-      output.innerHTML = ''; // Clear (previous) results.
 
-       if(files.length > 4){
-        document.getElementById('upload-btn').value= null;
+       if(files.length > 4 || imagesArray.length >=4){
+        document.getElementById('file').value= null;
         alert("You can only upload a maximum of 4 files");
 
         
@@ -193,32 +180,173 @@ $( document ).ready(function() {
       else {
       
       for (var i = 0; i < files.length; i++) {
+       // alert('ll');
         var currFile = files[i];
-        if (!currFile.type.match('image')) continue; // Skip non-images.
-        
-        var imgReader = new FileReader();
-        imgReader.fileName = currFile.name;
-        imgReader.addEventListener('load', function(e1) {
-          var img = e1.target;
-          var div = document.createElement('div');
-          div.className = 'thumbnail';
-          div.innerHTML = [
-            '<img class="thumb" src="' + img.result + '"' + 'title="' + img.fileName + '"/>',
-            '<label class="caption">' + img.fileName + '</label>'
-          ].join('');
-          output.appendChild(div);
-        });
+     
+       imagesArray.push(files[i]);
 
-        // Read image.
-        imgReader.readAsDataURL(currFile);
+        displayImages();
+
+        
+  
+      
       }
+
+       function displayImages() {
+
+        let images = ""
+        imagesArray.forEach((image, index) => {
+     
+          images += `<div class="image">
+                <img  src="${URL.createObjectURL(image)}" alt="image">
+                '<span data-indx="`+index+`" class="img-delete"><b class="remove_icon">X</b></span>'
+              </div>` 
+           })
+        
+         
+        output.innerHTML = images
+
+       }
+
+
+       $(".img-delete").click(function(){
+            //alert("kkk");
+          //  alert(imagesArray.length);
+                   var imgInd = $(this).attr('data-indx');
+                  // alert(imgInd);
+                   imagesArray.splice(imgInd,1);
+                   $(this).parent(".image").remove();
+
+                   
+                   
+
+                });
+
+    
     }
+
     });
-  } else {
-    console.log('Your browser does not support File API!');
-  }
-}
+
+   $(document).ready(function(){
+
+         $('#submit').click(function(){
+              
+             var pcn = $('#pcn').val();
+             var category = $('#category').val();
+             var issue = $('#issue').val();
+             var priority = $('#priority').val();
+             var creator = $('#owner').val();
+            
+
+            if(pcn == ''){
+              alert("Please Select PCN");
+              return;
+             }
+             if(category == ''){
+              alert("Please Select Department");
+              return;
+             }
+             if(issue == ''){
+              alert("Please Enter Ticket Description");
+              return;
+             }
+             if(priority == ''){
+              alert("Please Select Priority");
+              return;
+             }
+             
+             if(imagesArray.length == 0){
+              alert("Please Upload your Bill ");
+              return;
+             }
+
+              
+                     var fd = new FormData();
+
+                      imagesArray.forEach(function(image, i) {
+                         fd.append('file[]',image);
+                      });
+
+                     // Append data 
+                    // fd.append('file',imagesArray);
+                     fd.append('_token',CSRF_TOKEN);
+                     fd.append('pcn',pcn);
+                     fd.append('category',category);
+                     fd.append('issue',issue);
+                     fd.append('priority',priority);
+                     fd.append('owner',creator);
+                     // Hide alert 
+                     $('#responseMsg').hide();
+
+                     // AJAX request 
+                     $.ajax({
+                          url: "{{ route('save-ticket') }}",
+                          method: 'post',
+                          data: fd,
+                          contentType: false,
+                          processData: false,
+                          dataType: 'json',
+                          success: function(response){
+                             // console.log(response);
+                             // window.location.href = "{{ route('details_pettycash',1)}}";
+                              alert("Ticket Created Succesfully");
+                               window.location.href = "{{ route('tickets')}}";
+
+                          },
+                          error: function(response){
+                                console.log("error : " + JSON.stringify(response) );
+                          }
+                     });
+               
+
+         });
+    });
 </script>
+
+<style type="text/css">
+  output{
+  width: 100%;
+  min-height: 150px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+  position: relative;
+  border-radius: 5px;
+}
+
+output .image{
+  height: 150px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+output .image img{
+  height: 100%;
+  width: 100%;
+}
+
+output .image span {
+  position: absolute;
+  top: -4px;
+  right: 4px;
+  cursor: pointer;
+  font-size: 22px;
+  color: white;
+}
+
+output .image span:hover {
+  opacity: 0.8;
+}
+
+output .span--hidden{
+  visibility: hidden;
+}
+
+
+</style>
 
 
 

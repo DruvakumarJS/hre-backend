@@ -92,18 +92,18 @@ class TicketController extends Controller
             $ticket_no ="TN001";
         }
 
-         if($file = $request->hasFile('image')) {
+         if($file = $request->hasFile('file')) {
 
-            foreach($_FILES['image']['name'] as $key=>$val){ 
+            foreach($_FILES['file']['name'] as $key=>$val){ 
                 
-               $fileName = basename($_FILES['image']['name'][$key]); 
+               $fileName = basename($_FILES['file']['name'][$key]); 
                 $temp = explode(".", $fileName);
                  
                   $fileName = rand('111111','999999') . '.' . end($temp);
 
             $destinationPath = public_path().'/ticketimages/'.$fileName ;
             //move($destinationPath,$fileName);
-            move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
+            move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
 
             $imagearray[] = $fileName ;
              
@@ -127,12 +127,16 @@ class TicketController extends Controller
         ]);
 
         if($Insert){
-            return redirect()->route('tickets');
+           // return redirect()->route('tickets');
+            $message = "Ticket Created Succesfully";
+             return response()->json($message);
         }
 
         }
         else {
-             return redirect()->route('generate-ticket')->withInput()->withmessage('PCN does not exist');
+            // return redirect()->route('generate-ticket')->withInput()->withmessage('PCN does not exist');
+             $message = "PCN does not exist";
+             return response()->json($message);
         }
 
         
@@ -334,7 +338,9 @@ class TicketController extends Controller
 
       }
 
-       return redirect()->route('tickets');
+
+     return redirect()->route('tickets');
+
     }
 
     public function ticket_details($id){
