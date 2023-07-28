@@ -261,10 +261,7 @@ $.ajaxSetup({
        imagesArray.push(files[i]);
 
         displayImages();
-
-        
-  
-      
+ 
       }
 
        function displayImages() {
