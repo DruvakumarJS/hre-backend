@@ -39,10 +39,10 @@ class TicketController extends Controller
         $filter="all";
 
       if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '5'){
-         $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
+         $tickets = Ticket::orderby('id' , 'DESC')->paginate(50);
       }
       else {
-         $tickets = Ticket::where('status', 'Pending/Ongoing')->orWhere('creator', Auth::user()->id)->orderby('id' , 'DESC')->paginate(10);
+         $tickets = Ticket::where('status', 'Pending/Ongoing')->orWhere('creator', Auth::user()->id)->orderby('id' , 'DESC')->paginate(50);
       }
 
       // $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
@@ -470,5 +470,33 @@ class TicketController extends Controller
         return response()->download(public_path($fileName));
 
 
+    }
+
+    public function search(Request $request){
+        $user = Auth::user();
+        $filter=$request->filter;
+        $search = $request->search ;
+
+        if($search == ''){
+            return redirect()->route('tickets');
+        }
+
+
+      if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '5'){
+         $tickets = Ticket::orderby('id' , 'DESC')
+                 ->where('pcn','LIKE','%'.$search.'%')
+                 ->orWhere('category','LIKE','%'.$search.'%')
+                 ->orWhere('pcn','LIKE','%'.$search.'%')
+                 ->orWhere('ticket_no','LIKE','%'.$search.'%')
+                 ->orWhere('status','LIKE','%'.$search.'%')
+                 ->paginate(50);
+      }
+      else {
+         $tickets = Ticket::where('status', 'Pending/Ongoing')->orWhere('creator', Auth::user()->id)->orderby('id' , 'DESC')->paginate(10);
+      }
+
+      // $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
+        
+         return view('ticket/list' ,  compact('tickets','filter'));
     }
 }

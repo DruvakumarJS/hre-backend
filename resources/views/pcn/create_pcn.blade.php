@@ -58,12 +58,15 @@ $date = date('dd-mm-yyyy');
                    <div>
                      <label>State : </label> <label class="label-bold">{{$data->state}}</label>
                   </div>
+                  
                    <div>
-                     <label>Proposed Start Date : </label> <label class="label-bold">{{$data->proposed_start_date}}</label>
+                     <label>Proposed Start Date : </label> <label class="label-bold">{{date("d-m-Y", strtotime($data->proposed_start_date))}}</label>
                   </div>
+                  @if($data->proposed_end_date != "")
                    <div>
-                     <label>Proposed End Date : </label> <label class="label-bold">{{$data->proposed_end_date}}</label>
+                     <label>Proposed End Date : </label> <label class="label-bold">{{date("d-m-Y", strtotime($data->proposed_end_date))}}</label>
                   </div>
+                  @endif
                  
 
                   <div id="div2">

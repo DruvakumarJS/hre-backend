@@ -101,6 +101,7 @@
                     || request()->routeIs('ticket-details')
                     || request()->routeIs('generate-ticket')
                     || request()->routeIs('filter')
+                    || request()->routeIs('search_ticket')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
 

@@ -167,6 +167,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('modify_ticket',[TicketController::class,'modify_ticket'])->name('modify_ticket');
     Route::get('download_ticket/{id}',[TicketController::class,'download_ticket'])->name('download_ticket');
     Route::get('download_conversation_ticket/{id}',[TicketConversationController::class,'download_conversation_ticket'])->name('download_conversation_ticket');
+    Route::post('search_ticket',[TicketController::class,'search'])->name('search_ticket');
+
 
     Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
     Route::get('employee-details',[AttendanceController::class,'employeedetails'])->name('employee-details');
@@ -177,6 +179,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('attendance',[AttendanceController::class,'fetch_data'])->name('fetch_attendance');
     
     Route::post('update_attendance',[AttendanceController::class,'update'])->name('update_attendance');
+    Route::post('search_employee',[AttendanceController::class,'search'])->name('search_employee');
+    Route::post('search_attendance',[AttendanceController::class,'search_attendance'])->name('search_attendance');
 
  //petty cash
      Route::get('autocomplete_employee',[PettycashController::class,'action'])->name('autocomplete_employee');
@@ -195,6 +199,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('view-summary/{id}',[PettycashController::class,'summary'])->name('view_summary');
     Route::post('summary',[PettyCashDetailController::class,'fetch_summary'])->name('fetch_summary');
     Route::get('download_bills/{id}',[PettyCashDetailController::class,'download_bills'])->name('download_bills');
+    Route::post('search_pettycash',[PettycashController::class,'search'])->name('search_pettycash');
 
     //admin
     Route::get('/home', [HomeController::class, 'index'])->name('home');

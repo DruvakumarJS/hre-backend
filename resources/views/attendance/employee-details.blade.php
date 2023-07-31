@@ -12,17 +12,24 @@
 
         </div>
 
+        
+
+       <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_employee')}}" >
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search by Name / ID">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+
         <div id="div2" style="margin-right: 30px">
             <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"> Download CSV</a>
         </div>
-
-        <!-- <div id="div2" style="margin-right: 30px">
-            <a  class="btn btn-light" href="#"></i> View Employees</a>
-        </div>
-
-        <div id="div3" style="margin-right: 30px">
-            <button class="btn btn-light" > Download CSV</button>
-        </div> -->
+          
     </div>
 
     

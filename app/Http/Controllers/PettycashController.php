@@ -328,5 +328,19 @@ class PettycashController extends Controller
 
     }
 
+    public function search(Request $request){
+         $user = Auth::user();
+         $search = $request->search ;
+
+        $data = PettycashOverview::whereHas('employee', function ($query) use ($search) {
+                $query->where('name','LIKE','%'.$search.'%')->orWhere('employee_id','LIKE','%'.$search.'%');
+            })
+        ->with(['details' => function ($query) {
+            $query->where('isapproved', '=', 0);
+        }])->orderBy('id', 'DESC')->paginate();
+         
+         return view('pettycash/list', compact('data'));
+    }
+
    
 }

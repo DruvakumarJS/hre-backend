@@ -218,8 +218,16 @@ output .span--hidden{
           $('#pcn').val(ui.item.pcn);
           },500)
           // $('#pcn_detail').val(address);
-           document.getElementById("submit").style.display= "block" ;
+          
+           if(ui.item.status == 'Completed'){
+            document.getElementById("pcn_detail").innerHTML="This PCN is Completed , Please contact your Super Admin for more information";
+            document.getElementById("submit").style.display= "none" ;
+          }
+          else {
+            document.getElementById("submit").style.display= "block" ;
            document.getElementById("pcn_detail").innerHTML=address;
+          }
+          
         
         }
       });

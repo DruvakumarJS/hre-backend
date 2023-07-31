@@ -16,8 +16,7 @@ class AttendanceController extends Controller
     		if(isset($request->action) && $request->action == 'login')
     		{
 
-              
-    			if(Attendance::where('user_id' , $request->user_id)->where('date' , date('Y-m-d'))->orderby('id' ,'DESC')->exists())
+    			/*if(Attendance::where('user_id' , $request->user_id)->where('date' , date('Y-m-d'))->orderby('id' ,'DESC')->exists())
     			{
                     $updateUser = User::where('id' , $request->user_id)->update([
                             'isloggedin' => '1' 
@@ -28,7 +27,7 @@ class AttendanceController extends Controller
 					    		]);
     			}
     			else
-    			 {
+    			 {*/
 		              $create = Attendance::create([
 		              	'date' => date('Y-m-d'),
 		              	'user_id' => $request->user_id ,
@@ -56,7 +55,7 @@ class AttendanceController extends Controller
 
 		              }
 
-             }
+            // }
 
     		}
 

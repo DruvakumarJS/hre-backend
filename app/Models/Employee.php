@@ -46,7 +46,12 @@ class Employee extends Model
       
       public function pettycash(){
             return $this->hasMany(Pettycash::class,'user_id', 'user_id');
-        }          
+        }
+
+
+      public function pettycash_overview(){
+            return $this->hasMany(Pettycash::class,'user_id', 'user_id');
+        }            
 
       
 }

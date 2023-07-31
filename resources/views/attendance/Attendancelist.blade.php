@@ -11,6 +11,7 @@
         <label class="label-bold" id="div1">Today's Attendance</label>
 
         @if(auth::user()->role_id == '1')
+
         <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light btn-outline-secondary" href="{{route('users')}}"><i class="fa fa-plus"></i> Create Employee</a>
 
@@ -21,6 +22,18 @@
         <div id="div2" style="margin-right: 30px">
             <a  class="btn btn-light btn-outline-secondary" href="{{route('employee-details')}}"> View Employees</a>
         </div>
+
+         <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_attendance')}}" >
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search by Name / ID">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
          @endif
        
 

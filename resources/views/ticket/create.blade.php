@@ -148,12 +148,21 @@ $( document ).ready(function() {
            var address = ui.item.pcn +' , '+ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
           
            //document.getElementById("pcn").value=ui.item.pcn;
-           document.getElementById("submit").style.display= "block" ;
-          document.getElementById("pcn_detail").innerHTML=address;
+          
           setTimeout(function(){
           $('#pcn').val(ui.item.pcn);
           },500)
          // document.getElementById("pcn_detail").innerHTML= ui.item.pcn;
+
+         if(ui.item.status == 'Completed'){
+            document.getElementById("pcn_detail").innerHTML="This PCN is Completed , Please contact your Super Admin for more information";
+            document.getElementById("submit").style.display= "none" ;
+          }
+          else {
+            document.getElementById("submit").style.display= "block" ;
+           document.getElementById("pcn_detail").innerHTML=address;
+          }
+          
         
         }
       });

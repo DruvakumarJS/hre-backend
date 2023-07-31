@@ -239,7 +239,7 @@ var inform ="";
             },
             success: function( data ) {
              // console.log(data);
-               document.getElementById("pcn_detail").innerHTML="";
+            document.getElementById("pcn_detail").innerHTML="";
             document.getElementById("btn_submit").style.display= "none" ;
             
 
@@ -266,9 +266,17 @@ var inform ="";
           setTimeout(function(){
           $('#pcn').val(ui.item.pcn);
           },500)
-          
-           document.getElementById("btn_submit").style.display= "block" ;
+
+          if(ui.item.status == 'Completed'){
+            document.getElementById("pcn_detail").innerHTML="This PCN is Completed , Please contact your Super Admin for more information";
+            document.getElementById("btn_submit").style.display= "none" ;
+          }
+          else {
+            document.getElementById("btn_submit").style.display= "block" ;
            document.getElementById("pcn_detail").innerHTML=address;
+          }
+          
+           
         
         }
       });

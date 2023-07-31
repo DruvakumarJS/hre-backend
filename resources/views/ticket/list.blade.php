@@ -15,6 +15,20 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
             <a class="btn btn-light btn-outline-secondary" href="{{route('generate-ticket')}}">
              <label id="modal">Generate Ticket </label> </a>
           </div>
+
+           <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_ticket')}}" >
+            @csrf
+             <div class="input-group mb-3">
+             	<input type="hidden" name="filter" value="{{$filter}}">
+                <input class="form-control" type="text" name="search" placeholder="Search ticket">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+
           <div id="div2" style="margin-right: 30px">
              <!-- <input class="form-control" type="text" name="search" placeholder="Filter "> -->
             @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' )
@@ -41,6 +55,7 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
             @endif
 
           </div> 
+
 
           <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light btn-outline-secondary" href="{{route('export_tickets',$filter)}}">

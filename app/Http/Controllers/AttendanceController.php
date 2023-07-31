@@ -473,6 +473,51 @@ class AttendanceController extends Controller
 
     }
 
+      public function search(Request $request){
+
+        $employees = Employee::where('name','LIKE','%'.$request->search.'%')->orWhere('employee_id','LIKE','%'.$request->search.'%')->get();
+        $data = array();
+
+
+        foreach ($employees as $key => $value) {
+
+        $days_present = Attendance::where('user_id',$value->user_id)->where('date','LIKE','%'.date('Y-m').'%')->get();
+        $role = Roles::where('name',$value->role)->first();
+           
+            $result = [
+                'employee_id' => $value->employee_id,
+                'user_id' => $value->user_id,
+                'name' => $value->name ,
+                'role' => $role->alias ,
+                'days_present' => $days_present->count(),
+                'working_hours' => $days_present->sum('total_hours'),
+                'mobile' => $value->mobile ];
+
+            array_push($data,$result) ;  
+
+        }
+
+       // print_r($data);die();
+
+        return view('attendance/employee-details', compact('data') ) ;
+       
+    }
+
+    public function search_attendance(Request $request){
+        
+        $search=$request->search ;
+
+
+         $attendance= Attendance::whereHas('employee',function($query)use ($search){
+            $query->where('name','LIKE','%'.$search.'%')->orWhere('employee_id','LIKE','%'.$search.'%');
+         })
+         ->where('date', 'LIKE','%'.date('Y-m-d').'%')
+         ->paginate(50);
+
+        // print_r(json_encode($attendance)); die();
+       return view('attendance/Attendancelist',compact('attendance'));
+    }
+
 }
 
 

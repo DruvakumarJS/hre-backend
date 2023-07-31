@@ -302,10 +302,11 @@ class PcnController extends Controller
                     'location',
                     'area',
                     'city',
-                    'state'
+                    'state',
+                    'status'
                 )
                     ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
-                    ->where('status' , 'Active')
+                   // ->where('status' , 'Active')
                     ->get();            
     
         return response()->json($data);
