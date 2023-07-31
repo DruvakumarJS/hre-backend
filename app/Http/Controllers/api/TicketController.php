@@ -19,6 +19,14 @@ class TicketController extends Controller
      		$tickets = Ticket::where('status', 'Pending/Ongoing')->orWhere('creator' , $request->user_id)->orderby('id' , 'DESC')->get();
 
             $ticketarray= array();
+            $final_array=array();
+
+            $active = Ticket::where('status', 'Pending/Ongoing')->where('creator' , $request->user_id)->count();
+           // $created = Ticket::where('status', 'Created')->where('creator' , $request->user_id)->count();
+            $completed = Ticket::where('status', 'Completed')->where('creator' , $request->user_id)->count();
+            $Resolved = Ticket::where('status', 'Resolved')->where('creator' , $request->user_id)->count();
+
+            $count[]= ['Active' => $active , 'Completed'=> $completed , 'Resolved' => $Resolved];
 
             foreach ($tickets as $key => $value) {
                 $images = explode(',', $value->filename);
@@ -36,10 +44,12 @@ class TicketController extends Controller
                     'filename' => ($images)];
             }
 
+            $final_array=['counts' => $count , 'tickets' =>$ticketarray ];
+
 	            return response()->json([
 	     			'status'=> 1,
 	     			'message' => 'Success' ,
-	     			'data' => $ticketarray ]);
+	     			'data' => $final_array ]);
 	     		
 
 	     	}

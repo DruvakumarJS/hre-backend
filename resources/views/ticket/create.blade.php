@@ -187,8 +187,6 @@ $( document ).ready(function() {
 
         displayImages();
 
-        
-  
       
       }
 

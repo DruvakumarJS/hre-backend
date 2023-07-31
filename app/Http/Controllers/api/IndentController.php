@@ -122,7 +122,7 @@ class IndentController extends Controller
 
         return response()->json([
          	 		'status' => 1 ,
-         	 		'message' => 'Indent Created Succesfully'
+         	 		'message' => 'Indent Created Succesfully '.$ind_no
          	 		]);
         }
 
@@ -146,6 +146,7 @@ class IndentController extends Controller
 
    function indents(Request $request){
     $indentarray=array();
+    $final_array=array();
       if(!isset($request->user_id)){
         return response()->json([
               'status' => 0 ,
@@ -155,23 +156,35 @@ class IndentController extends Controller
       }
       else {
         $indents = Intend::where('user_id',$request->user_id)->where('status','!=','Completed')->get();
+       
+        $indent_active = Intend::where('user_id',$request->user_id)->where('status','Active')->count();
+        $indent_completed = Intend::where('user_id',$request->user_id)->where('status','Completed')->count();
+
+        $counts=['Active' => $indent_active , 'Completed' => $indent_completed ];
         
 
         foreach ($indents as $key => $value) {
+         $pcn_data=Pcn::where('pcn',$value->pcn)->first();
+
+         $pcn_detail = $pcn_data->client_name . " , ".$pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+
           $indentarray[] = [
             'indent_id' => $value->id ,
             'indent_no' => $value->indent_no,
             'pcn' => $value->pcn,
+            'pcn_detail' => $pcn_detail,
             'status'=> $value->status,
             'created_on' => $value->created_at->toDateTimeString()
 
           ];
               
         }
+        $final_array=['counts' => $counts , 'myindents' => $indentarray];
+
         return response()->json([
               'status' => 1 ,
               'message' => 'success' ,
-              'data' => $indentarray
+              'data' => $final_array
               ]);
 
 

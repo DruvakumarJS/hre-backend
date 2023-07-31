@@ -55,7 +55,7 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 
      			<thead>
 	                <tr>
-	                  <th scope="col">Date</th>
+	                  <th scope="col">C_Date</th>
 	                  <th scope="col">Ticket No</th>
 	                  <th scope="col">PCN</th>
 	                  <th scope="col">Billing Details</th>
