@@ -276,6 +276,7 @@ class AttendanceController extends Controller
         foreach ($employees as $key => $value) {
 
         $days_present = Attendance::select('date')->where('user_id',$value->user_id)->where('date','LIKE','%'.date('Y-m').'%')->groupBy('date')->get();
+         $workinghours = Attendance::where('user_id',$value->user_id)->where('date','LIKE','%'.date('Y-m').'%')->get();
         $role = Roles::where('name',$value->role)->first();
            
             $result = [
@@ -284,7 +285,7 @@ class AttendanceController extends Controller
                 'name' => $value->name ,
                 'role' => $role->alias ,
                 'days_present' => $days_present->count(),
-                'working_hours' => $days_present->sum('total_hours'),
+                'working_hours' => $workinghours->sum('total_hours'),
                 'mobile' => $value->mobile ];
 
             array_push($data,$result) ;  
