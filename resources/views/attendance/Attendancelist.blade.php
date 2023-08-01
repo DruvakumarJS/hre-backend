@@ -75,7 +75,7 @@
                     @endif
                     <th scope="col">Out Of Work</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Action</th>
+                    <!-- <th scope="col">Action</th> -->
                 </tr>
                 </thead>
                 <tbody>
@@ -116,10 +116,10 @@
                         <td>{{$hour}}Hr : {{$min}}Min</td>
                         @endif
                         
-                        <td>
+                        <!-- <td>
                             <a href="{{route('employee-history', $value->user_id)}}"><button type="button" class="btn btn-sm curved-text">view</button></a>
                             
-                        </td>
+                        </td> -->
                     </tr>
 <!-- Modal -->
 

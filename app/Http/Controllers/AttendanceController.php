@@ -275,7 +275,7 @@ class AttendanceController extends Controller
 
         foreach ($employees as $key => $value) {
 
-        $days_present = Attendance::where('user_id',$value->user_id)->where('date','LIKE','%'.date('Y-m').'%')->get();
+        $days_present = Attendance::select('date')->where('user_id',$value->user_id)->where('date','LIKE','%'.date('Y-m').'%')->groupBy('date')->get();
         $role = Roles::where('name',$value->role)->first();
            
             $result = [
@@ -299,38 +299,86 @@ class AttendanceController extends Controller
     public function employeehistory($id)
     {
 
-          $arr = array();
-          $now = strtotime('2023-05-01');
-          $last = strtotime('2023-05-30');
-          $data= array();
+           /*$data = array();
+          $now = strtotime('2023-08-01');
+          $last = strtotime('2023-08-01');
+         // $data= array();
+
+         
 
           while($now <= $last ) {
            // $arr[] = date('Y-m-d', $now);  
 
-            if(Attendance::where('user_id',$id)->where('date',date('Y-m-d', $now))->exists()){
-                $attendance = Attendance::where('user_id',$id)->where('date',date('Y-m-d', $now))->first();
+            if(Attendance::where('user_id','2')->where('date',date('Y-m-d', $now))->exists()){
+                 
+                $attendance = Attendance::where('user_id','2')->where('date',date('Y-m-d', $now))->first();
 
-                $login_time = $attendance->login_time ;
-                $logout_time = $attendance->logout_time;
+                $attendance_in = Attendance::where('user_id','2')->where('date',date('Y-m-d', $now))->first();
+                $attendance_out = Attendance::where('user_id','2')->where('date',date('Y-m-d', $now))->orderBy('id', 'DESC')->first();
+
+                $total_hr = Attendance::where('user_id','2')->where('date',date('Y-m-d', $now))->sum('total_hours');
+              
+
+                $login_time = $login ;
+                $logout_time = $logout;
+                $total_hours = $total_hr;
+                $out_of_work = '0';
+
+                if($logout_time == ''){
+                    $logout_time = '---';
+                }
+
+                if($total_hours != '0'){
+                    
+                    if($total_hours%60 > '0'){
+                         $total_hours = floor($total_hours/60) ."Hr : " . $total_hours%60 ."Min";
+                    }
+                    else {
+                        $total_hours = $total_hours/60 ."Hr";
+                    }
+                         
+
+                }
+                else {
+                    $total_hours = '0 Min'; 
+                }
+
+
+                 if($out_of_work != '0'){
+                    
+                    if($out_of_work%60 > '0'){
+                         $out_of_work = floor($out_of_work/60) ."Hr : " . $out_of_work%60 ."Min";
+                    }
+                    else {
+                        $out_of_work = $out_of_work/60 ."Hr";
+                    }
+                }
+                else {
+                    $out_of_work = '0 Min'; 
+                }
+ 
  
             }
             else {
-                $login_time = 'ABSENT' ;
-                $logout_time = 'ABSENT';
+                $login_time = '---' ;
+                $logout_time = '---';
+                $total_hours = '---';
+                $out_of_work = '---';
 
             }
             $res = [
-                'date' => date('Y-m-d', $now),
-                'login' => $login_time,
-                'logout' => $logout_time
+                'date' => date('d-m-Y', $now),
+                'login_time' => $login_time,
+                'logout_time' => $logout_time,
+                'total_hours' => $total_hours,
+                //'out_of_work' => $out_of_work,
+
             ];
 
-            array_push($arr, $res);
+            array_push($data, $res);
 
            $now = strtotime('+1 day', $now);
-          }
-
-        //  print_r($arr);die();
+          }*/
 
  
         $employee = Employee::where('user_id',$id)->first();
@@ -349,9 +397,6 @@ class AttendanceController extends Controller
       if($request->from_date != '' && $request->to_date != '')
       {
 
-      /* $data = Attendance::whereBetween('date', [$request->from_date, $request->to_date])->where('user_id',$request->user_id)->get();
-*/
-
           $data = array();
           $now = strtotime($request->from_date);
           $last = strtotime($request->to_date);
@@ -364,16 +409,31 @@ class AttendanceController extends Controller
             if(Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->exists()){
                 $attendance = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->first();
 
-                $login_time = $attendance->login_time ;
+                $attendance_in = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->first();
+                $attendance_out = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->orderBy('id', 'DESC')->first();
+
+                $total_hr = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->sum('total_hours');
+                $out_of_hr = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->sum('out_of_work');
+              
+
+                $login = $attendance_in->login_time;
+                $logout = $attendance_out->logout_time ;
+
+                /*$login_time = $attendance->login_time ;
                 $logout_time = $attendance->logout_time;
                 $total_hours = $attendance->total_hours;
-                $out_of_work = $attendance->out_of_work;
+                $out_of_work = $attendance->out_of_work;*/
+
+                $login_time = $login ;
+                $logout_time = $logout;
+                $total_hours = $total_hr;
+                $out_of_work = $out_of_hr;
 
                 if($logout_time == ''){
                     $logout_time = '---';
                 }
 
-                if($total_hours != '0'){
+               /* if($total_hours != '0'){
                     
                     if($total_hours%60 > '0'){
                          $total_hours = floor($total_hours/60) ."Hr : " . $total_hours%60 ."Min";
@@ -381,10 +441,12 @@ class AttendanceController extends Controller
                     else {
                         $total_hours = $total_hours/60 ."Hr";
                     }
+                         
+
                 }
                 else {
                     $total_hours = '0 Min'; 
-                }
+                }*/
 
 
                  if($out_of_work != '0'){

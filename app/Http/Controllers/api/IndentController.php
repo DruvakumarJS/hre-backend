@@ -240,7 +240,7 @@ class IndentController extends Controller
    $pcn_array= array();
      if(isset($request->user_id))
      {
-      $Pcns = Pcn::where('status','Active')->get();
+      $Pcns = Pcn::get();
       
       foreach ($Pcns as $key => $value) {
       $pcn_array[] = [
@@ -249,7 +249,8 @@ class IndentController extends Controller
         'brand' => $value->brand,
         'location' => $value->location,
         'area' => $value->area,
-        'city' => $value->city
+        'city' => $value->city,
+        'status' => $value->status,
          ];
 
       }
