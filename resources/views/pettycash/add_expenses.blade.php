@@ -379,7 +379,8 @@ $.ajaxSetup({
                              // console.log(response);
                              // window.location.href = "{{ route('details_pettycash',1)}}";
                              alert("Bill Uploaded successfully");
-                               window.location.href = location.reload();
+                               //window.location.href = location.reload();
+                                window.location.href = "{{ route('pettycash')}}";
 
                           },
                           error: function(response){

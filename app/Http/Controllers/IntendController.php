@@ -7,13 +7,18 @@ use App\Models\Indent_list;
 use App\Models\Indent_tracker;
 use App\Models\GRN;
 use App\Models\Pcn;
+use App\Models\Employee;
 use App\Models\Material;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportIndents;
+use App\Mail\IndentsMail;
+use App\Mail\GRNMail;
 use Excel;
 use Auth ;
 use DB;
+use PDF;
+use Mail;
 
 class IntendController extends Controller
 {
@@ -154,9 +159,50 @@ class IntendController extends Controller
           }
 
          // return redirect()->route('intends');
+
+           $idtend= Intend::where('indent_no',$ind_no)->first();
+           $pdf_array = Indent_list::where('indent_id' , $idtend->id)->with('materials')->get();
+
+           foreach ($pdf_array as $key => $value) {
+             $data[] = [
+              'material_id' => $value->material_id ,
+              'name' => $value->materials->name ,
+              'brand' => $value->materials->brand ,
+              'quantity' => $value->quantity,
+              'comments' => $value->decription,
+              'uom'=> $value->materials->uom,
+
+             ];
+           }
+          
+          $pcn_data=Pcn::where('pcn',$idtend->pcn)->first();
+
+         $pcn_detail = $pcn_data->client_name . " , ".$pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+
+          
+           $indent_details = [
+                 'indent_no' => $idtend->indent_no,
+                 'pcn' => $idtend->pcn ,
+                 'pcn_details'=> $pcn_detail ,
+                 'creator' =>Auth::user()->name,
+                 'details'=> $data     
+          ];
+          
+        $filename = 'indent.pdf';
+        $pdf = PDF::loadView('pdf/indentsPDF', compact('indent_details'));
+    
+        $savepdf = $pdf->save(public_path($filename));
+
+        $filename = public_path($filename);
+        if($savepdf){
+         // $to = explode(',', env('ADMIN_EMAILS'));
+           $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
+           $to = explode(',', $address);
+
+          // Mail::to($to)->send(new IndentsMail($indent_details,$filename));
+           
            return redirect()->back()->with('Indent',$ind_no);
-
-
+        }
 
      }
      else {
@@ -329,6 +375,20 @@ class IntendController extends Controller
                 'dispatch_comment' => $request->dispatch_comment,
                 'status' => "Awaiting for Confirmation"
             ]);
+
+
+            $userdetail = Employee::where('user_id',$indent->user_id)->first();
+
+             $grndata=[
+              'grn' => $GRN_id,
+              'owner' => $userdetail->name,
+              'indent_no' => $request->indent_no,
+              'dispatched' => $request->quantity,
+             ];
+            
+             // Mail::to($userdetail->email)->send(new GRNMail($grndata));
+             // Mail::to('druva@netiapps.com')->send(new GRNMail($grndata));
+
 
             return redirect()->route('edit_intends',$request->id)
                             ->withmessage('GRN created successfully');

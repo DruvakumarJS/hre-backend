@@ -12,6 +12,9 @@ use App\Exports\ExportPcn;
 use Excel;
 use Auth ;
 use DB;
+use App\Mail\PcnMail;
+use Mail;
+
 class PcnController extends Controller
 {
     /**
@@ -129,8 +132,24 @@ class PcnController extends Controller
         ]);
 
             if($createPCN){
-                //return redirect()->route('PCN');
+                
                 $data = Pcn::where('pcn', 'PCN_'.$request->pcn)->first();
+                $pcn_data= ['pcn'=>'PCN_'.$request->pcn ,
+                            'client_name' => $request->client_name,
+                            'brand' => $request->brand ,
+                            'work' => $request->work,
+                            'location' => $request->loc,
+                            'area' => $request->building,
+                            'city' => $request->city,
+                            'state' => $request->state,];
+
+                $subject = "New PCN Created";
+
+                $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
+                $to = explode(',', $address);
+
+             //Mail::to($userdetail->email)->send(new PettycashMail($message));
+            // Mail::to('druva@netiapps.com')->send(new PcnMail($pcn_data,$subject));
                 return redirect()->back()->with('PCN' , $data);
             }
             else{
@@ -242,6 +261,24 @@ class PcnController extends Controller
         ]);
 
             if($updatePCN){
+                 $pcn_data= ['pcn'=>$request->pcn ,
+                            'client_name' => $request->client_name,
+                            'brand' => $request->brand ,
+                            'work' => $request->work,
+                            'location' => $request->loc,
+                            'area' => $request->area,
+                            'city' => $request->city,
+                            'state' => $request->state,
+                            ];
+                            
+                $subject = $request->pcn." is Modified";
+
+                $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
+                $to = explode(',', $address);
+
+             //Mail::to($userdetail->email)->send(new PettycashMail($message));
+            // Mail::to('druva@netiapps.com')->send(new PcnMail($pcn_data,$subject));
+
                 return redirect()->route('view_pcn');
             }
             else{

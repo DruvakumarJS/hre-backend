@@ -15,9 +15,8 @@ use App\Models\Category;
 //use Illuminate\Support\Facades\Mail;
 use App\Mail\IndentsMail;
 use PDF;
-use SendGrid\Mail\From;
-use SendGrid\Mail\To;
-use SendGrid\Mail\Mail;
+
+use Mail;
 
 class IndentController extends Controller
 {
@@ -107,18 +106,39 @@ class IndentController extends Controller
               'material_id' => $value->material_id ,
               'name' => $value->materials->name ,
               'brand' => $value->materials->brand ,
-              'decription' => $value->decription,
               'quantity' => $value->quantity,
+              'comments' => $value->decription,
+              'uom'=> $value->materials->uom,
              ];
            }
+          
+          $pcn_data=Pcn::where('pcn',$idtend->pcn)->first();
 
+          $pcn_detail = $pcn_data->client_name . " , ".$pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+          $user = User::where('id',$request->user_id)->first();
           
            $indent_details = [
                  'indent_no' => $idtend->indent_no,
                  'pcn' => $idtend->pcn ,
+                 'pcn_details'=> $pcn_detail ,
+                 'creator' =>$user->name,
                  'details'=> $data     
           ];
 
+        $filename = 'indent.pdf';
+        $pdf = PDF::loadView('pdf/indentsPDF', compact('indent_details'));
+    
+        $savepdf = $pdf->save(public_path($filename));
+
+        $filename = public_path($filename);
+        if($savepdf){
+         // $to = explode(',', env('ADMIN_EMAILS'));
+          $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
+          $to = explode(',', $address);
+
+        // Mail::to($to)->send(new IndentsMail($indent_details,$filename));
+           
+        }
 
         return response()->json([
          	 		'status' => 1 ,

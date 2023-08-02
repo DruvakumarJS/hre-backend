@@ -27,43 +27,42 @@
                 height: 50px; 
                 font-size: 20px !important;
                 background-color: #f2f2f2;
-                color: black;
+                color: white;
                 text-align: center;
                 line-height: 35px;
             }
         </style>
     </head>
-    <body>
+    <body >
         <!-- Define header and footer blocks before your content -->
         <header>
             HRE- One Stop Solution
             
         </header>
 
-        <footer>
-           <label style="font-size: 17px;">#241/E, 1st floor, 4th Block, HBR Layout, Outer Ring road, Hennur, Bengaluru 560043</label> 
-        </footer>
-
         <!-- Wrap the content of your PDF inside a main tag -->
-        <main>
-            <div>
+        <main style="padding: 30px;">
+            <div style="margin-top: 10px;">
                 <label>Date : </label> <label>{{date('d-m-Y')}}</label>
             </div>
 
-             <div style="margin-top: 10px;">
+             <div>
                 <label>Created By : </label> <label>{{$indent_details['creator']}}</label>
             </div>
-            <div style="margin-top: 10px;">
+
+            <div>
                 <label>Indent No : </label> <label>{{$indent_details['indent_no']}}</label>
             </div>
 
-             <div style="margin-top: 10px;">
+             <div>
                 <label>PCN : </label> <label>{{$indent_details['pcn']}}</label>
             </div>
-               <label style="color: darkgrey; font-size: 17px">{{$indent_details['pcn_details']}}</label>
+               <label>{{$indent_details['pcn_details']}}</label>
+            <div>
+                <label>View on Dashaboard : </label> <label>https://hre.netiapps.com/indent_details/{{$indent_details['indent_no']}}</label>
+            </div>
 
                
-
                 <div  class="card border-white" style="margin-top: 10px;">
                   <table class="table responsive" width="100%">
                                       <thead>
@@ -71,9 +70,9 @@
                                            <th scope="col">Sl.no</th>
                                            <th scope="col">Material Id</th>
                                            <th scope="col">Material Name</th> 
-                                           <th scope="col">Brand</th> 
-                                            <th scope="col">Description</th>                               
-                                          <th scope="col">Total Quantity</th>
+                                           <th scope="col">Brand</th>
+                                           <th scope="col">Description</th>                        
+                                           <th scope="col">Total Quantity</th>
                                        
                                         </tr>
                                       </thead>

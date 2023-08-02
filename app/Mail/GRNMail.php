@@ -7,21 +7,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class IndentsMail extends Mailable
+class GRNMail extends Mailable
 {
     use Queueable, SerializesModels;
-     public $indent_details;
-     public $filename;
+     public $grndata;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($indent_details , $filename)
+    public function __construct($grndata)
     {
-        $this->indent_details = $indent_details;
-        $this->filename = $filename;
+        $this->grndata = $grndata ;
     }
 
     /**
@@ -31,7 +29,6 @@ class IndentsMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('New Order')->view('email.indents')->attach($this->filename);
+        return $this->subject('Indent Items dispatched')->view('email.grn');
     }
-    
 }

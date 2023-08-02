@@ -7,10 +7,13 @@ use App\Models\Pettycash;
 use App\Models\PettycashOverview;
 use App\Models\PettycashSummary;
 use App\Models\User;
+use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Mail\PettycashMail;
 use Auth;
 use ZipArchive;
 use File;
+use Mail;
 
 class PettyCashDetailController extends Controller
 {
@@ -112,9 +115,18 @@ class PettyCashDetailController extends Controller
 
           $finance = pettycash::select('finance_id')->where('id', $request->id)->first();
 
+          $userdetail = Employee::where('user_id',Auth::user()->id)->first();
+
+          $message = "Your Pettycash Bill of amount Rs.".$request->amount. " dated ".$request->bill_date. " has been submitted successfully . You can check the status of the bill on your Dashboard. https://hre.netiapps.com/pettycash_details/".Auth::user()->id;
+
+          $p_data= ['name'=> $userdetail->name , 'message' => $message];
+
+          //Mail::to($userdetail->email)->send(new PettycashMail($message));
+          //Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data));
+
          // return redirect()->route('details_pettycash',Auth::user()->id);
           $id="Success";
-
+         
            return response()->json($id);
 
 
@@ -182,6 +194,17 @@ class PettyCashDetailController extends Controller
 
                  if($updatetable){
 
+          $finance = pettycash::select('finance_id')->where('id', $request->id)->first();
+
+          $userdetail = Employee::where('user_id',Auth::user()->id)->first();
+
+          $message = "Your Pettycash Bill of amount Rs.".$Data->spent_amount." dated " .$Data->bill_date ." has been Approved . You can check on your Dashboard. https://hre.netiapps.com/pettycash_details/".Auth::user()->id;
+
+          $p_data= ['name'=> $userdetail->name ,'message' => $message];
+
+          //Mail::to($userdetail->email)->send(new PettycashMail($message));
+          //Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data));
+
                      return redirect()->back()->withMesage('Updated');
                  }
 
@@ -193,6 +216,17 @@ class PettyCashDetailController extends Controller
             if($update){
                 $Data = PettyCashDetail::where('id',$request->id)->first();
                 $PettyCash = Pettycash::where('id',$Data->pettycash_id)->first();
+
+                $finance = pettycash::select('finance_id')->where('id', $request->id)->first();
+
+                  $userdetail = Employee::where('user_id',Auth::user()->id)->first();
+
+                  $message = "Your Pettycash Bill of amount Rs.".$Data->spent_amount." dated " .$Data->bill_date." has been Rejected due to ".$request->remarks. " .You can check on your Dashboard. https://hre.netiapps.com/pettycash_details/".Auth::user()->id;
+
+                  $p_data= ['name'=> $userdetail->name , 'message' => $message];
+
+                  //Mail::to($userdetail->email)->send(new PettycashMail($message));
+                 // Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data));
 
 
                  return redirect()->back()->withMesage('Updated');

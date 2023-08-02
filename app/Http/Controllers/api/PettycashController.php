@@ -8,6 +8,9 @@ use App\Models\Pettycash;
 use App\Models\PettycashSummary;
 use App\Models\PettycashOverview;
 use App\Models\PettyCashDetail;
+use App\Models\Employee;
+use App\Mail\PettycashMail;
+use Mail;
 
 class PettycashController extends Controller
 {
@@ -95,6 +98,15 @@ class PettycashController extends Controller
             ]);
 
           if($createData){
+             $userdetail = Employee::where('user_id',$request->user_id)->first();
+
+          $message = "Your Pettycash Bill of amount Rs.".$request->spent_amount. " dated ".$request->bill_date. " has been submitted successfully . You can check the status of the bill on your Dashboard. https://hre.netiapps.com/pettycash_details/".$request->user_id;
+
+          $p_data= ['name'=> $userdetail->name ,'message' => $message];
+
+          //Mail::to($userdetail->email)->send(new PettycashMail($message));
+         // Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data));
+
           	return response()->json([
           		'status' => 1,
           		'message' => 'Success'
