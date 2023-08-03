@@ -200,8 +200,10 @@ class IntendController extends Controller
            $to = explode(',', $address);
 
           // Mail::to($to)->send(new IndentsMail($indent_details,$filename));
+
+           $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
            
-           return redirect()->back()->with('Indent',$ind_no);
+           return redirect()->back()->with('Indent',$data);
         }
 
      }

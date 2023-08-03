@@ -29,7 +29,9 @@ class FinanceHomeController extends Controller
          $date = date('Y-m-d');
          $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
          $tickets = Ticket::where('created_at','LIKE','%'.$date.'%')->count();
-         $attendance = Attendance::where('created_at','LIKE','%'.$date.'%')->count();
+         $attendance = Attendance::select('user_id')->where('date','LIKE',date('Y-m-d'))->groupBy('user_id')->get();
+
+         $attendance = sizeof($attendance);
 
          $overallticket  = Ticket::count();
          $overall_closed = Ticket::where('status', 'Completed')->count();

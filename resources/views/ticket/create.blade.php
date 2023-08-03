@@ -8,11 +8,37 @@
             <label class="label-bold" id="div1">Generate Tickets</label>
            <div id="div2">
             <a class="btn btn-light btn-outline-secondary" href="{{route('tickets')}}">
-             <label id="modal">View Tickets </label> </a>
+             <label>View Tickets </label> </a>
           
           </div>
 
      </div>
+
+     <!--  Modal -->
+          <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Ticket Created Succesfully</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                 
+                  <div>
+                     <label>Ticket No. : </label> <label id="modal_body" class="label-bold"></label>
+                  </div>
+                  
+                  <div id="div2">
+                    <a href="{{route('tickets')}}"><button class="btn btn-success">OK , GOT IT</button></a>
+                    
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </div>
+          </div>
+  <!-- Modal -->
 
      <div class="form-build">
         <div class="row">
@@ -71,7 +97,7 @@
 
                        
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Attach image </label>
+                            <label for="" class="col-5 col-form-label">Attach image* </label>
                             <div class="col-7">
                                <!--  <input type="file" class="form-control form-control-sm" name="image" id="imgInp" accept="image/*"> -->
 
@@ -110,6 +136,8 @@
 </div>
 
 
+
+
 <script type="text/javascript">
 
 $( document ).ready(function() {
@@ -145,7 +173,7 @@ $( document ).ready(function() {
         },
         select: function (event, ui) {
           // $('#pcn').val(ui.item.pcn);
-           var address = ui.item.pcn +' , '+ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+           var address = ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
           
            //document.getElementById("pcn").value=ui.item.pcn;
           
@@ -263,7 +291,7 @@ $( document ).ready(function() {
              }
              
              if(imagesArray.length == 0){
-              alert("Please Upload your Bill ");
+              alert("Please attach image(s) ");
               return;
              }
 
@@ -295,9 +323,13 @@ $( document ).ready(function() {
                           dataType: 'json',
                           success: function(response){
                              // console.log(response);
-                             // window.location.href = "{{ route('details_pettycash',1)}}";
-                              alert("Ticket Created Succesfully");
-                               window.location.href = "{{ route('tickets')}}";
+                            
+                             // alert("Ticket Created Succesfully");
+                              // window.location.href = "{{ route('tickets')}}";
+                             var data = response;
+                              $("#modal_body").html(data);
+                             $("#modal").modal('show');
+
 
                           },
                           error: function(response){

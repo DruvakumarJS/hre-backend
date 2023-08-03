@@ -93,7 +93,7 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 	                	<td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
-	                	<td width="100px">{{$value->pcns->client_name}} @php echo'<br/>'; @endphp {{$value->pcns->location}},{{$value->pcns->area}},{{$value->pcns->city}}</td>
+	                	<td width="100px">{{$value->pcns->brand}} @php echo'<br/>'; @endphp {{$value->pcns->location}},{{$value->pcns->area}},{{$value->pcns->city}}</td>
 	                	<td >{{$value->category}}</td>
 	                	<td>{{$value->issue}}</td>
 	                	 
@@ -189,10 +189,7 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
      			
 
      		</table>
-     		<label>Showing {{ $tickets->firstItem() }} to {{ $tickets->lastItem() }}
-                                    of {{$tickets->total()}} results</label>
-
-                                {!! $tickets->links('pagination::bootstrap-4') !!}
+     		
 
      	</div>
      	

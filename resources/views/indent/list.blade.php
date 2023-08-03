@@ -83,7 +83,7 @@
                                 <td>{{date("d-m-Y", strtotime($value->created_at))}}</td> 
                                 <td>{{$value->indent_no}}</td> 
                                 <td>{{$value->pcn}}</td> 
-                                <td >{{$value->pcns->client_name}} ,{{$value->pcns->brand}} , {{$value->pcns->area}} , {{$value->pcns->city}}</td> 
+                                <td >{{$value->pcns->brand}} , {{$value->pcns->location}} , {{$value->pcns->area}} , {{$value->pcns->city}}</td> 
                                 <td>{{$value->user->name}}</td>  
                                 <td>{{$value->status}}</td>
                                 

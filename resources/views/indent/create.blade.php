@@ -39,8 +39,21 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                   @php
+                  $data= Session::get('Indent');
 
-                  <label>Indent No. </label><h3>{{ Session::get('Indent') }}</h3>
+                  @endphp
+                  
+                  <div>
+                     <label>Indent No : </label> <label class="label-bold">{{$data['indent_no']}}</label>
+                  </div>
+                   <div>
+                     <label>PCN : </label> <label class="label-bold">{{$data['pcn']}}</label>
+                  </div>
+                   
+                   <div>
+                     <label class="label-bold">{{$data['detail']}}</label>
+                  </div>
 
                   <div id="div2">
                     <a href="{{route('intends')}}"><button class="btn btn-success">OK , GOT IT</button></a>
@@ -260,7 +273,7 @@ var inform ="";
            $('#pcn').val(ui.item.label);
            $('#pcns').val(ui.item.pcn);
 
-           var address = ui.item.client_name +' , '+  ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+           var address = ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
           
           // $('#pcn_detail').val(address);
           setTimeout(function(){

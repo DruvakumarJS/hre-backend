@@ -332,7 +332,7 @@ class PcnController extends Controller
 
         $data = DB::table('pcns')
             ->select(
-                    DB::raw("CONCAT(pcn,' - ',client_name,' - ',brand,' - ',location , ' - ',area ,' - ',city,' - ',state) AS value"),
+                    DB::raw("CONCAT(pcn,' - ',brand,' - ',location , ' - ',area ,' - ',city,' - ',state) AS value"),
                     'client_name',
                     'pcn',
                     'brand',

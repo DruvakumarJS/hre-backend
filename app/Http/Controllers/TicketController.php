@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
@@ -37,16 +36,35 @@ class TicketController extends Controller
     {
         $user = Auth::user();
         $filter="all";
+        $tickets=array();
 
       if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '5'){
-         $tickets = Ticket::orderby('id' , 'DESC')->paginate(50);
+         $tickets = Ticket::orderby('id' , 'DESC')->get();
       }
       else {
-         $tickets = Ticket::where('status', 'Pending/Ongoing')->orWhere('creator', Auth::user()->id)->orderby('id' , 'DESC')->paginate(50);
-      }
+          $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)->groupBy('ticket_id')->get();
 
-      // $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
+          foreach ($ticket_convers as $key => $value) {
+            $ids[]=$value->ticket_id;
+
+          }
         
+       if(sizeof($ticket_convers) > 0){
+       
+        $tickets = Ticket::where(function($query){
+            $query->where('status','!=','Resolved');
+        })
+        ->whereIn('id', $ids)->orWhere('creator', Auth::user()->id)
+        
+        ->orderby('id' , 'DESC')->get();
+       }
+       else{
+           $tickets = Ticket::where('creator', Auth::user()->id)->orWhere('assigned_to', Auth::user()->id)->orderby('id' , 'DESC')->get();
+       }
+
+       // print_r(json_encode($tickets)); die();
+      }
+     
          return view('ticket/list' ,  compact('tickets','filter'));
     }
 
@@ -128,7 +146,8 @@ class TicketController extends Controller
 
         if($Insert){
            // return redirect()->route('tickets');
-            $message = "Ticket Created Succesfully";
+            $message = $ticket_no;
+           // $data = ['message' => 'Ticket Created Succesfully' , 'ticket_id' =>$ticket_no ]
              return response()->json($message);
         }
 
