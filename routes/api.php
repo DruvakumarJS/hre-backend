@@ -57,5 +57,6 @@ Route::post('/get-pettycash_summary',[PettycashController::class,'fetch_summary'
 
 
 Route::post('/get-app-data',[AppdataController::class,'index']);
+Route::post('/vault',[AppdataController::class,'vault']);
 
 
