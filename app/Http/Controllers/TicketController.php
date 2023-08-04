@@ -402,7 +402,7 @@ class TicketController extends Controller
             return view('ticket/list' ,  compact('tickets','filter'));
         }
         else {
-            $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$filter)->orderby('id' , 'DESC')->paginate();
+            $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$filter)->orderby('id' , 'DESC')->get();
             return view('ticket/list' ,  compact('tickets','filter'));
         }
     }

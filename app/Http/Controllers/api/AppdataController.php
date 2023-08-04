@@ -11,23 +11,33 @@ class AppdataController extends Controller
     public function index(Request $request){
 
     	if(isset($request->user_id)){
-
+            $data=array();
             $user = User::select('isloggedin')->where('id',$request->user_id)->first();
          
          if(User::where('id',$request->user_id)->exists()){
          	 if($user->isloggedin == '1'){
            
+           
+            $data = ['isloggedin' => 'true',
+                     'app_version' => '1.0',
+                     'need_update' => 'No'];
+           
             return response()->json([
                 'status'=> 1,
-                'message' => 'true'
+                'message' => 'success',
+                'data' => $data
             ]);
 
          }
          else {
+            $data = ['isloggedin' => 'false',
+                     'app_version' => '1.0',
+                     'need_update' => 'No'];
            
-            return response()->json([
-                'status'=> 0,
-                'message' => 'false'
+           return response()->json([
+                'status'=> 1,
+                'message' => 'success',
+                'data' => $data
             ]);
 
          }
@@ -36,7 +46,8 @@ class AppdataController extends Controller
          else {
          	return response()->json([
                 'status'=> 0,
-                'message' => 'User not found'
+                'message' => 'UnAuthorized',
+                'data' => $data
             ]);
 
          }

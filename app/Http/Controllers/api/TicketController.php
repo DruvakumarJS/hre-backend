@@ -13,52 +13,70 @@ class TicketController extends Controller
      function index(Request $request){
 
      	if(isset($request->user_id)){
-
-     	if(Ticket::where('status', 'Pending/Ongoing')->orWhere('creator' , $request->user_id)->exists()){
-
-     		$tickets = Ticket::where('status', 'Pending/Ongoing')->orWhere('creator' , $request->user_id)->orderby('id' , 'DESC')->get();
-
             $ticketarray= array();
             $final_array=array();
 
-            $active = Ticket::where('status', 'Pending/Ongoing')->where('creator' , $request->user_id)->count();
-           // $created = Ticket::where('status', 'Created')->where('creator' , $request->user_id)->count();
-            $completed = Ticket::where('status', 'Completed')->where('creator' , $request->user_id)->count();
-            $Resolved = Ticket::where('status', 'Resolved')->where('creator' , $request->user_id)->count();
+          $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', $request->user_id)->orWhere('sender', $request->user_id)->groupBy('ticket_id')->get();
 
-            $count[]= ['Active' => $active , 'Completed'=> $completed , 'Resolved' => $Resolved];
+          foreach ($ticket_convers as $key => $value) {
+            $ids[]=$value->ticket_id;
 
-            foreach ($tickets as $key => $value) {
-                $images = explode(',', $value->filename);
-            	$ticketarray[]=[
+          }
+  
+       if(sizeof($ticket_convers) > 0){
+       
+        $tickets = Ticket::where(function($query){
+            $query->where('status','!=','Resolved');
+        })
+        ->whereIn('id', $ids)->orWhere('creator', $request->user_id)
+        ->orderby('id' , 'DESC')->get();
+
+
+        
+        foreach ($tickets as $key => $value) {
+             $images = explode(',', $value->filename);
+             $ticketarray[]=[
                     'ticket_creator' => $value->creator,
-            		'ticket_id'=> $value->id ,
-            		'ticket_no' => $value->ticket_no ,
-            		'pcn' => $value->pcn ,
-            		'category' => $value->category ,
-            		'message' => $value->issue,
+                    'ticket_id'=> $value->id ,
+                    'ticket_no' => $value->ticket_no ,
+                    'pcn' => $value->pcn ,
+                    'category' => $value->category ,
+                    'message' => $value->issue,
                     'priority' => $value->priority,
                     'filepath' => 'https://hre.netiapps.com/ticketimages/',
-            		'status' => $value->status,
-            		'created_on' => $value->created_at->toDateTimeString(),
+                    'status' => $value->status,
+                    'created_on' => $value->created_at->toDateTimeString(),
                     'filename' => ($images)];
-            }
+         } 
 
-            $final_array=['counts' => $count , 'tickets' =>$ticketarray ];
+       }
 
-	            return response()->json([
-	     			'status'=> 1,
-	     			'message' => 'Success' ,
-	     			'data' => $final_array ]);
-	     		
+       else{
+           $tickets = Ticket::where('creator', Auth::user()->id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->get();
 
-	     	}
-	     	else {
-	     		return response()->json([
-	     			'status'=> 1,
-	     			'message' => 'No tickets available' ,
-	     			'data' => $ticketarray]);
-	     	}
+           foreach ($tickets as $key => $value) {
+             $images = explode(',', $value->filename);
+             $ticketarray[]=[
+                    'ticket_creator' => $value->creator,
+                    'ticket_id'=> $value->id ,
+                    'ticket_no' => $value->ticket_no ,
+                    'pcn' => $value->pcn ,
+                    'category' => $value->category ,
+                    'message' => $value->issue,
+                    'priority' => $value->priority,
+                    'filepath' => 'https://hre.netiapps.com/ticketimages/',
+                    'status' => $value->status,
+                    'created_on' => $value->created_at->toDateTimeString(),
+                    'filename' => ($images)];
+         } 
+       }
+     	$count[]= ['Active' => '0' , 'Completed'=> '0' , 'Resolved' => '0'];
+        $final_array=['counts' => $count , 'tickets' =>$ticketarray ];
+
+                return response()->json([
+                    'status'=> 1,
+                    'message' => 'Success' ,
+                    'data' => $final_array ]);
 
 	     }
 

@@ -299,6 +299,16 @@ class UserController extends Controller
         }*/
     }
 
+    public function force_logout($id){
+          
+          $update = User::where('id',$id)->update(['isloggedin' => '0']);
+
+          if($update){
+            return redirect()->back();
+          }
+
+    }
+
     public  function view_superadmins(){
        $users = Employee::where('role','admin')->paginate(10);
        $role = "Super Admin";

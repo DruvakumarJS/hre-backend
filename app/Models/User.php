@@ -26,6 +26,7 @@ class User extends Authenticatable
         'role_id',
         'role',
         'password',
+        'device_id',
         'isloggedin',
     ];
 

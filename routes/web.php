@@ -210,7 +210,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('edit_user/{id}',[UserController::class , 'edit'])->name('edit_user');
     Route::post('update_user/{id}',[UserController::class , 'update'])->name('update_user');
     Route::get('delete_user/{id}',[UserController::class , 'destroy'])->name('delete_user');
-    //Route::get('delete_user/{id}',[UserController::class , 'destroy'])->name('back');
+    Route::get('force_logout/{id}',[UserController::class , 'force_logout'])->name('force_logout');
 
 
     Route::get('materials',[MaterialController::class,'index'])->name('materials');
