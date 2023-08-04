@@ -46,7 +46,7 @@ class UserController extends Controller
 
                 else {
                      return response()->json([
-                            'status '=> "FALSE",
+                            'status'=> "FALSE",
                             'message' => 'Invalid credentials',
                             'data' => $userdata
                             
@@ -79,7 +79,7 @@ class UserController extends Controller
 
                 else {
                      return response()->json([
-                            'status '=> "FALSE",
+                            'status'=> "FALSE",
                             'message' => 'Invalid credentials',
                             'data' => $userdata
                             
@@ -89,7 +89,7 @@ class UserController extends Controller
             }
             else{
                  return response()->json([
-                            'status '=> "FALSE",
+                            'status'=> "FALSE",
                             'message' => 'Please contact your Administrator',
                             'data' => $userdata
                             
