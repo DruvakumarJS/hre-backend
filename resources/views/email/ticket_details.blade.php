@@ -10,7 +10,6 @@
                 margin: 100px 25px;
             }
 
-
             footer {
                 position: fixed; 
                 bottom: -60px; 
@@ -30,11 +29,15 @@
        
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;">
-            <label style="margin-top: 20px;">Dear {{$p_data['name']}} ,</label>
-            <div style="margin-top: 20px;">
-                <label style="margin-top: 20px;">{{$p_data['message']}}</label>
-            </div>
+            <label> Ticket details , </label>
             
+            <div  style="margin-top: 10px;">
+                <label class="label-bold">{{$body}}</label>
+             </div>
+
+             <div class="label-bold" style="margin-top: 10px;">
+                 <label class="label-bold">View on Dashaboard : </label> <label>https://hre.netiapps.com/ticket_details/{{$ticketarray['ticket_no']}}</label>
+             </div>
                               
         </main>
     </body>

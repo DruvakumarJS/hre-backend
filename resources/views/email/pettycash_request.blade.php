@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <style>
-             .label-bold{
+            .label-bold{
               font-weight: bold;
               font-size: 15px;
           }
@@ -30,9 +30,12 @@
        
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;">
-            <label style="margin-top: 20px;">Dear {{$p_data['name']}} ,</label>
+            <label style="margin-top: 20px;">Hi,</label>
             <div style="margin-top: 20px;">
-                <label style="margin-top: 20px;">{{$p_data['message']}}</label>
+                <label class="label-bold" style="margin-top: 20px;">Requesting to verifiy my Pettycash Bills </label>
+            </div>
+            <div style="margin-top: 20px;">
+                <label class="label-bold" style="margin-top: 20px;">visit : https://hre.netiapps.com/pettycash_details/{{$id}} </label>
             </div>
             
                               

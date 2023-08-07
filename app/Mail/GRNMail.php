@@ -11,15 +11,17 @@ class GRNMail extends Mailable
 {
     use Queueable, SerializesModels;
      public $grndata;
+     public $subject;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($grndata)
+    public function __construct($grndata , $subject)
     {
         $this->grndata = $grndata ;
+         $this->subject = $subject ;
     }
 
     /**
@@ -29,6 +31,6 @@ class GRNMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Indent Items dispatched')->view('email.grn');
+        return $this->subject( $this->subject)->view('email.grn');
     }
 }

@@ -2,23 +2,15 @@
 <html lang="en">
     <head>
         <style>
+           .label-bold{
+              font-weight: bold;
+              font-size: 15px;
+          }
             @page {
                 margin: 100px 25px;
             }
 
-            header {
-                position: fixed;
-                top: -60px;
-                left: 0px;
-                right: 0px;
-                height: 50px;
-                font-size: 20px !important;
-                background-color: #f10909;
-                color: white;
-                text-align: center;
-                line-height: 35px;
-            }
-
+        
             footer {
                 position: fixed; 
                 bottom: -60px; 
@@ -35,31 +27,27 @@
     </head>
     <body >
         <!-- Define header and footer blocks before your content -->
-        <header>
-            HRE- One Stop Solution
-            
-        </header>
-
+        
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;">
             <div style="margin-top: 10px;">
-                <label>Date : </label> <label>{{date('d-m-Y')}}</label>
+                <label>Date : </label> <label class="label-bold">{{date('d-m-Y')}}</label>
             </div>
 
              <div>
-                <label>Created By : </label> <label>{{$indent_details['creator']}}</label>
+                <label>Created By : </label> <label class="label-bold">{{$indent_details['creator']}}</label>
             </div>
 
             <div>
-                <label>Indent No : </label> <label>{{$indent_details['indent_no']}}</label>
+                <label>Indent No : </label> <label class="label-bold">{{$indent_details['indent_no']}}</label>
             </div>
 
              <div>
-                <label>PCN : </label> <label>{{$indent_details['pcn']}}</label>
+                <label>PCN : </label> <label class="label-bold">{{$indent_details['pcn']}}</label>
             </div>
                <label>{{$indent_details['pcn_details']}}</label>
             <div>
-                <label>View on Dashaboard : </label> <label>https://hre.netiapps.com/indent_details/{{$indent_details['indent_no']}}</label>
+                <label>View on Dashaboard : </label> <label class="label-bold">https://hre.netiapps.com/indent_details/{{$indent_details['indent_no']}}</label>
             </div>
 
                

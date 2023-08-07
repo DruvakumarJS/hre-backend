@@ -30,18 +30,22 @@
        
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;margin-top: 20px;">
-            <label style="margin-top: 20px;">Hi ,Please find the Client details</label>
-                   <div style="margin-top: 20px;">
-                     <label>Clinet name : </label> <label class="label-bold">{{$data['name']}}</label>
+            <label style="margin-top: 20px;">Hi ,Please find the attendance details</label>
+                  <div style="margin-top: 20px;">
+                     <label>Employee name : </label> <label class="label-bold">{{$attendance['name']}}</label>
                   </div>
                    <div style="margin-top: 20px;">
-                     <label>Mobile No : </label> <label class="label-bold">{{$data['mobile']}}</label>
+                     <label>Employee ID : </label> <label class="label-bold">{{$attendance['employee_id']}}</label>
                   </div>
                    <div style="margin-top: 20px;">
-                     <label>Email ID : </label> <label class="label-bold">{{$data['email']}}</label>
+                     <label class="label-bold">{{$attendance['body']}}</label> 
+                  </div>
+
+                  <div style="margin-top: 20px;">
+                     <label>Edited by</label> <label class="label-bold">{{$attendance['editor_name']}} - {{$attendance['editor_id']}}</label> 
                   </div>
                                     
-                  <label class="label-bold" style="margin-top: 20px;">For more details visit : https://hre.netiapps.com/view_customers</label>
+                  <label class="label-bold" style="margin-top: 20px;">For more details visit : https://hre.netiapps.com/employee-history/{{$attendance['employee_id']}}</label>
                  
         </main>
     </body>

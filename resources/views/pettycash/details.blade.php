@@ -13,7 +13,13 @@
         <div id="div2" style="margin-right: 30px">
             <a href="{{route('pettycash_expenses')}}"><button class="btn btn-light btn-outline-secondary">Upload Expenses</button></a>
         </div>
+
+        <div id="div2" style="margin-right: 30px">
+            <a href="{{route('pettycash_approval_reminder', auth::user()->id)}}"><button class="btn btn-light btn-outline-secondary">Send Reminder</button></a>
+        </div>
         @endif
+
+
 
       
     </div>

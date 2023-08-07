@@ -6,10 +6,13 @@ use App\Models\Material;
 use App\Models\Category;
 use App\Models\SizeMaster;
 use App\Models\UnitMaster;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportMaterial;
 use Excel;
+use App\Mail\MaterialMail;
+use Mail;
 
 
 class MaterialController extends Controller
@@ -93,7 +96,7 @@ class MaterialController extends Controller
         $itemcode = $categoryData->material_category ."001";
 
          $MaterialData = Material::create([
-             'category_id' => $categoryData->code,
+            'category_id' => $categoryData->code,
             'item_code' => $itemcode,
             'name' => $request->name,
             'brand' =>$request->brand,
@@ -133,6 +136,25 @@ class MaterialController extends Controller
         'unit' => $request->uom
         ]);
       }
+
+       $subject = "New material added : ".$itemcode ;
+       $material = [
+            'category_id' => $categoryData->code,
+            'item_code' => $itemcode,
+            'name' => $request->name,
+            'brand' =>$request->brand,
+            'uom' =>$request->uom,
+            'information'=> $features
+       ];
+
+
+       $emailarray = User::select('email')->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+     // Mail::to('druva@netiapps.com')->send(new MaterialMail($subject , $material));
 
       
        return redirect()->route('add_product',$request->code);
@@ -236,6 +258,7 @@ class MaterialController extends Controller
                                         'uom' =>$request->uom,
                                         'information'=> $features]);
       if($update_material){
+        
         return redirect()->route('materials');
       }
 

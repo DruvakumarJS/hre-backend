@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Address;
 use App\Models\Pcn;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +13,7 @@ use App\Exports\ExportCustomer;
 use Excel;
 use App\Mail\CustomerMail;
 use Mail;
+use App\Jobs\SendCustomerEmail;
 
 
 class CustomerController extends Controller
@@ -30,7 +32,32 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::with('address')->orderBy('id', 'DESC')->paginate(10);
+        //return view('customer/list',compact('customers'));
+
+      /* $emailarray = User::select('email')->where('role_id','1')->get();
+       foreach ($emailarray as $key => $value) {
+          $emailid[]=$value->email;
+       }
+      
+        $data = ['name' => "TATA" , 'mobile'=>"8123747334" , 'email'=>"tata@gmail.com"];
+            $subject = "New Customer Added";
+            $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
+            $to = explode(',', $address);
+ 
+         Mail::to($emailid)->send(new CustomerMail($data,$subject));*/
+
+      /* $mail_data = [
+            'subject' => 'New message subject.'
+        ];
+        
+        $job = (new SendCustomerEmail($mail_data))
+                ->delay(now()->addSeconds(2)); 
+
+        dispatch($job);*/
+
+
         return view('customer/list',compact('customers'));
+         
     }
 
     /**
@@ -103,12 +130,12 @@ class CustomerController extends Controller
           $subject = "New Customer Added";
           $data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email];
 
-            $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
-            $to = explode(',', $address);
+             $emailarray = User::select('email')->where('role_id','!=','4')->get();
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
 
-
-         //Mail::to($userdetail->email)->send(new PettycashMail($message));
-         //Mail::to('druva@netiapps.com')->send(new CustomerMail($data,$subject));
+          //Mail::to($emailid)->send(new CustomerMail($data,$subject));
 
 
         return redirect()->route('view_customers');

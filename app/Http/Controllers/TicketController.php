@@ -10,12 +10,12 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use File;
-use SendGrid\Mail\From;
-use SendGrid\Mail\To;
-use SendGrid\Mail\Mail;
+use App\Mail\TicketsMail;
+use App\Mail\TicketDetailsMail;
 use PDF;
 use Auth;
 use ZipArchive;
+use Mail ;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -145,7 +145,28 @@ class TicketController extends Controller
         ]);
 
         if($Insert){
-           // return redirect()->route('tickets');
+          
+          $empl = Employee::where('user_id',Auth::user()->id)->first(); 
+
+          $subject = "New Ticket : " .$ticket_no." - ".$request->category ." - ".$request->pcn;
+
+          $ticketarray = [
+             'ticket_no'=> $ticket_no,
+             'pcn' => $request->pcn,
+             'creator' => $empl->name ,
+             'category' => $request->category,
+             'issue' => $request->issue,
+             'priority' => $request->priority,
+             ];
+
+          $emailarray = User::select('email')->where('role_id','1')->orWhere('role_id','2')->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+          //Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
+
             $message = $ticket_no;
            // $data = ['message' => 'Ticket Created Succesfully' , 'ticket_id' =>$ticket_no ]
              return response()->json($message);
@@ -284,6 +305,7 @@ class TicketController extends Controller
              $ticket = Ticket::where('id',$request->id)->first();
              
              if($request->status == 'Pending/Ongoing'){
+
                    $msg = 'Ticket no '.$ticket->ticket_no .' is assigned to you';
 
                    $conversation = TicketConversation::create([
@@ -294,6 +316,33 @@ class TicketController extends Controller
                         'recipient' => $request->user_id,
                         'status' => 'pending',
                         'filename' => $imageNames]);
+                   if($conversation){
+
+                 $recipient_detail = Employee::where('user_id',$request->user_id)->first();
+                 $creator_detail = Employee::where('user_id',$ticket->creator)->first();
+                 $assigner_detail = Employee::where('user_id',Auth::user()->id)->first();  
+
+                  $subject = "Ticket verified : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn . " - ".$assigner_detail->employee_id ;
+
+                  $body = "The Ticket No. ".$ticket->ticket_no." is verified by ".$assigner_detail->name."-".$assigner_detail->employee_id." and is assigned to ".$recipient_detail->name ."-".$recipient_detail->employee_id." .The TAT is set to ".$request->tat." .";
+
+                 // print_r(json_encode($recipient_detail)); die();
+                  
+                  $ticketarray = [
+                     'ticket_no'=> $ticket->ticket_no,
+                     'assigned_to' => $recipient_detail->name ."-".$recipient_detail->employee_id,
+                     'tat' =>$request->tat,
+                     'comments' =>$request->comment
+                     ];
+
+                  $emailarray = User::select('email')->where('id',$request->user_id)->orWhere('id',$ticket->creator)->get();
+
+                       foreach ($emailarray as $key => $value) {
+                          $emailid[]=$value->email;
+                       }
+
+                  Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                   }
              }
              else if($request->status == 'Completed'){
                 
@@ -440,6 +489,19 @@ class TicketController extends Controller
                 'status' => 'pending',
                 'filename' => $fileName]);
 
+             $subject = "Ticket Completed : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn;
+
+              $body = "The Ticket No. ".$request->ticket_no." is Completed ";
+              $ticketarray = ['ticket_no' => $request->ticket_no ];
+
+              $emailarray = User::select('email')->where('id',$ticket->creator)->orWhere('role_id','2')->get();
+
+                   foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                   }
+
+             // Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));
+
         }
         else if($request->action == 'Resolved'){
             $conversation = TicketConversation::create([
@@ -448,7 +510,20 @@ class TicketController extends Controller
                         'message' => 'This ticket is Resolved' ,
                         'sender' => Auth::user()->id ,
                         'recipient' => $ticket->creator,
-                        ]);      
+                        ]);  
+
+              $subject = "Ticket Resolved : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn;
+
+              $body = "The Ticket No. ".$request->ticket_no." is Resolved ";
+              $ticketarray = ['ticket_no' => $request->ticket_no ];
+
+              $emailarray = User::select('email')->orWhere('role_id','1')->get();
+
+                   foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                   }
+
+             // Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));                
 
         }
 
@@ -487,7 +562,6 @@ class TicketController extends Controller
         }
 
         return response()->download(public_path($fileName));
-
 
     }
 

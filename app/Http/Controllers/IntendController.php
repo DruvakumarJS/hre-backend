@@ -7,6 +7,7 @@ use App\Models\Indent_list;
 use App\Models\Indent_tracker;
 use App\Models\GRN;
 use App\Models\Pcn;
+use App\Models\User;
 use App\Models\Employee;
 use App\Models\Material;
 use App\Http\Controllers\Controller;
@@ -48,7 +49,7 @@ class IntendController extends Controller
         $indents=Intend::where('user_id' ,Auth::user()->id)->paginate(50);
         $all = Intend::where('user_id' ,Auth::user()->id)->count();
         $activeCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Active')->count();
-      //  $pendingCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Pending')->count();
+      // $pendingCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Pending')->count();
         $compltedCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Completed')->count();
        }
         
@@ -193,13 +194,21 @@ class IntendController extends Controller
     
         $savepdf = $pdf->save(public_path($filename));
 
-        $filename = public_path($filename);
+       // $filename = public_path($filename);
+        $attachment = public_path($filename) ;
         if($savepdf){
-         // $to = explode(',', env('ADMIN_EMAILS'));
-           $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
-           $to = explode(',', $address);
+           
+          $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first(); 
 
-          // Mail::to($to)->send(new IndentsMail($indent_details,$filename));
+          $subject = "New Indent : " .$empl->employee_id." - ".$ind_no ." - ".$request->pcn;
+
+          $emailarray = User::select('email')->where('role_id','3')->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+        //  Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
 
            $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
            
@@ -293,7 +302,7 @@ class IntendController extends Controller
 
     public function update_quantity(Request $request)
     {
-       print_r($request->Input());die();
+      // print_r($request->Input());die();
 
         $Insert = Indent_tracker::create([
             'indent_list_id' => $request->id,
@@ -344,7 +353,7 @@ class IntendController extends Controller
 
     public function update_dispatches(Request $request)
     {
-         //print_r($request->Input());die();
+        // print_r($request->Input());die();
 
          if($request->quantity > $request->pending){
             return redirect()->route('edit_intends',$request->id)
@@ -380,6 +389,7 @@ class IntendController extends Controller
 
 
             $userdetail = Employee::where('user_id',$indent->user_id)->first();
+            $subject = "Materials Dispatched : ".$GRN_id." - ".$request->indent_no." - ".$request->pcn." - ".$request->category;
 
              $grndata=[
               'grn' => $GRN_id,
@@ -389,7 +399,7 @@ class IntendController extends Controller
              ];
             
              // Mail::to($userdetail->email)->send(new GRNMail($grndata));
-             // Mail::to('druva@netiapps.com')->send(new GRNMail($grndata));
+              //Mail::to('druva@netiapps.com')->send(new GRNMail($grndata , $subject));
 
 
             return redirect()->route('edit_intends',$request->id)

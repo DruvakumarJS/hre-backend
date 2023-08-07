@@ -200,6 +200,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('summary',[PettyCashDetailController::class,'fetch_summary'])->name('fetch_summary');
     Route::get('download_bills/{id}',[PettyCashDetailController::class,'download_bills'])->name('download_bills');
     Route::post('search_pettycash',[PettycashController::class,'search'])->name('search_pettycash');
+    Route::get('pettycash_approval_reminder/{id}',[PettyCashDetailController::class,'reminder'])->name('pettycash_approval_reminder');
 
     //admin
     Route::get('/home', [HomeController::class, 'index'])->name('home');

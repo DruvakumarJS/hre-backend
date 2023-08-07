@@ -7,22 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class PettycashMail extends Mailable
+class AttendanceMail extends Mailable
 {
     use Queueable, SerializesModels;
-   
-     public $p_data;
-     public $id;
+    public $subject;
+    public $attendance;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($p_data , $id)
+    public function __construct($subject , $attendance)
     {
-        $this->p_data=$p_data;
-        $this->id=$id;
+        $this->subject = $subject;
+        $this->attendance= $attendance;
     }
 
     /**
@@ -32,6 +31,6 @@ class PettycashMail extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->p_data)->view('email.pettycash_request');
+        return $this->subject($this->subject)->view('email.attendance');
     }
 }

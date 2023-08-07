@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pcn;
 use App\Models\Customer;
 use App\Models\Employee;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -141,15 +142,19 @@ class PcnController extends Controller
                             'location' => $request->loc,
                             'area' => $request->building,
                             'city' => $request->city,
-                            'state' => $request->state,];
+                            'state' => $request->state,
+                            'gst' => $request->gst];
 
-                $subject = "New PCN Created";
+                $subject = 'PCN_'.$request->pcn." - New PCN added";
 
-                $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
-                $to = explode(',', $address);
+                $emailarray = User::select('email')->get();
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
 
-             //Mail::to($userdetail->email)->send(new PettycashMail($message));
-            // Mail::to('druva@netiapps.com')->send(new PcnMail($pcn_data,$subject));
+            
+               // Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
+
                 return redirect()->back()->with('PCN' , $data);
             }
             else{
@@ -247,6 +252,7 @@ class PcnController extends Controller
                 'area' => $request->area,
                 'city' => $request->city,
                 'state' => $request->state,
+                'gst' => $request->gst,
                 'proposed_start_date' => $request->start_date,
                 'proposed_end_date' => $request->end_date,
                 'approve_holidays' => $request->holiday,
@@ -261,7 +267,8 @@ class PcnController extends Controller
         ]);
 
             if($updatePCN){
-                 $pcn_data= ['pcn'=>$request->pcn ,
+                 $pcn_data= [
+                            'pcn'=>$request->pcn ,
                             'client_name' => $request->client_name,
                             'brand' => $request->brand ,
                             'work' => $request->work,
@@ -269,15 +276,18 @@ class PcnController extends Controller
                             'area' => $request->area,
                             'city' => $request->city,
                             'state' => $request->state,
+                            'gst' => $request->gst
                             ];
                             
                 $subject = $request->pcn." is Modified";
 
-                $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
-                $to = explode(',', $address);
+                $emailarray = User::select('email')->get();
+                   foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                   }
 
-             //Mail::to($userdetail->email)->send(new PettycashMail($message));
-            // Mail::to('druva@netiapps.com')->send(new PcnMail($pcn_data,$subject));
+            
+             // Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
 
                 return redirect()->route('view_pcn');
             }

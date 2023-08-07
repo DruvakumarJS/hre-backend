@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <style>
-         .label-bold{
+             .label-bold{
               font-weight: bold;
               font-size: 15px;
           }
@@ -29,29 +29,30 @@
        
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;">
-            <label> Dear {{$grndata['owner']}} , </label>
-            <div>
-                 <label> Indent materials has been dispatched . Please find the details below</label>
-            </div>
+            <label> New Ticket details , </label>
             
+            <div  style="margin-top: 10px;">
+                <label>Ticket Description : </label> <label class="label-bold">{{$ticketarray['issue']}}</label>
+             </div>
+
             <div style="margin-top: 10px;">
-                <label>Date : </label> <label class="label-bold">{{date('d-m-Y')}}</label>
+                <label>Ticket No : </label> <label class="label-bold">{{$ticketarray['ticket_no']}}</label>
             </div>
             
             <div  style="margin-top: 10px;">
-                <label>GRN : </label> <label class="label-bold">{{$grndata['grn']}}</label>
+                <label>Created By : </label> <label class="label-bold">{{$ticketarray['creator']}}</label>
             </div>
 
             <div  style="margin-top: 10px;">
-                <label>Indent No : </label> <label class="label-bold">{{$grndata['indent_no']}}</label>
+                <label>Department : </label> <label class="label-bold">{{$ticketarray['category']}}</label>
             </div>
 
              <div  style="margin-top: 10px;">
-                <label>dispatched Quantity : </label> <label class="label-bold">{{$grndata['dispatched']}}</label>
+                <label>Priority : </label> <label class="label-bold">{{$ticketarray['priority']}}</label>
              </div>
 
              <div style="margin-top: 10px;">
-                 <label>View on Dashaboard : </label> <label class="label-bold">https://hre.netiapps.com/grn</label>
+                 <label>View on Dashaboard : </label> <label class="label-bold">https://hre.netiapps.com/tickets</label>
              </div>
                               
         </main>

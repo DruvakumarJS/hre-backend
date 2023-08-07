@@ -6,6 +6,7 @@ use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\Roles;
 use App\Models\User;
+use App\Mail\AttendanceMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportAttendance;
@@ -13,6 +14,7 @@ use App\Exports\ExportAttendanceReport;
 use DB;
 use Auth;
 use Excel;
+use Mail;
 
 class AttendanceController extends Controller
 {
@@ -188,7 +190,7 @@ class AttendanceController extends Controller
          // print_r($only_time);die();
 
         if(isset($request->logout_time) && isset($request->break)){
-            $login = Attendance::where('user_id' , $request->id)->where('date' , $date)->first();
+            $login = Attendance::where('user_id' , $request->id)->where('date' , $date)->orderBy('id','desc')->first();
 
             $l_in = $login->date." ".$login->login_time;
 
@@ -207,18 +209,20 @@ class AttendanceController extends Controller
             $out_of_work = intval($login->out_of_work) + intval($request->break*60);
 
 
-            $LOGOUT = Attendance::where('user_id' , $request->id)->where('date' , $date)->update([
+            $LOGOUT = Attendance::where('user_id' , $request->id)->where('date' , $date)->orderBy('id','desc')->take(1)->update([
                 'logout_time' => $only_time ,
                 'logout_lat' => $login->login_lat ,
                 'logout_long' => $login->login_long ,
                 'logout_location' =>$login->login_location,
                 'out_of_work'=> $out_of_work,
                 'total_hours' => $total_hour
-              ]);   
+              ]); 
+
+              $body = "Logout timing on date ".$login->date. " is set to ".$request->logout_time." and total working hours is reduced by ".$request->break;  
 
         }
         else if(isset($request->logout_time)){
-             $login = Attendance::where('user_id' , $request->id)->where('date' , $date)->first();
+             $login = Attendance::where('user_id' , $request->id)->where('date' , $date)->orderBy('id','desc')->first();
 
             $l_in = $login->date." ".$login->login_time;
 
@@ -229,7 +233,8 @@ class AttendanceController extends Controller
 
             $total_hour = $logouttime - $logintime ; 
           
-            $LOGOUT = Attendance::where('user_id' , $request->id)->where('date' , $date)->update([
+            $LOGOUT = Attendance::where('user_id' , $request->id)->where('date' , $date)->orderBy('id','desc')
+             ->take(1)->update([
                 'logout_time' =>  $only_time ,
                 'logout_lat' => $login->login_lat ,
                 'logout_long' => $login->login_long ,
@@ -237,19 +242,42 @@ class AttendanceController extends Controller
                 'total_hours' => $total_hour/60
               ]); 
 
+            $body = "Logout timing on date ".$login->date. " is set to ".$request->logout_time;
+
         }
         else if(isset($request->break)){
-             $login = Attendance::where('user_id' , $request->id)->where('date' , $date)->first();
+             $login = Attendance::where('user_id' , $request->id)->where('date' , $date)->orderBy('id','desc')->first();
 
              $diffrence = intval($login->total_hours) - intval($request->break*60) ; 
              $out_of_work = intval($login->out_of_work) + intval($request->break*60);
 
-              $LOGOUT = Attendance::where('user_id' , $request->id)->where('date' , $date)->update([
+              $LOGOUT = Attendance::where('user_id' , $request->id)->where('date' , $date)->orderBy('id','desc')->take(1)->update([
                 'out_of_work'=> $out_of_work,
                 'total_hours' => $diffrence
               ]);
 
+            $body = "total working hours on date ".$login->date." is reduced by ".$request->break;
+
         }
+
+         $empl = Employee::where('user_id',$request->id)->first(); 
+
+         $subject = "Attendance Modified : " .$empl->employee_id;
+         $editor = Employee::where('user_id',Auth::user()->id)->first(); 
+
+         $attedance=['name' => $empl->name,
+                     'employee_id' => $empl->employee_id ,
+                     'editor_name' => $editor->name,
+                     'editor_id' => $editor->employee_id,
+                     'body' => $body];
+
+         $emailarray = User::select('email')->where('role_id','1')->orWhere('id',$request->id)->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+        //  Mail::to('druva@netiapps.com')->send(new AttendanceMail($subject,$attedance));
 
         return redirect()->back();
         

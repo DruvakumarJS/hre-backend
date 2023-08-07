@@ -2,13 +2,14 @@
 <html lang="en">
     <head>
         <style>
-           .label-bold{
+          .label-bold{
               font-weight: bold;
               font-size: 15px;
           }
             @page {
                 margin: 100px 25px;
             }
+
 
             footer {
                 position: fixed; 
@@ -26,33 +27,46 @@
     </head>
     <body >
         <!-- Define header and footer blocks before your content -->
-      
+       
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;margin-top: 20px;">
-            <label style="margin-top: 20px;">Hi ,Please find the new PCN details</label>
+            <label style="margin-top: 20px;">Hi ,Please find the Material details</label>
                    <div style="margin-top: 20px;">
-                     <label>PCN : </label> <label class="label-bold">{{$pcn_data['pcn']}}</label>
+                     <label>Category : </label> <label class="label-bold">{{$material['category_id']}}</label>
                   </div>
                    <div style="margin-top: 20px;">
-                     <label>Brand : </label> <label class="label-bold">{{$pcn_data['brand']}}</label>
+                     <label>Item Code : </label> <label class="label-bold">{{$material['item_code']}}</label>
                   </div>
                    <div style="margin-top: 20px;">
-                     <label>Location : </label> <label class="label-bold">{{$pcn_data['location']}}</label>
+                     <label>Material Name : </label> <label class="label-bold">{{$material['name']}}</label>
                   </div>
+
                    <div style="margin-top: 20px;">
-                     <label>Area : </label> <label class="label-bold">{{$pcn_data['area']}}</label>
+                     <label>brand Name : </label> <label class="label-bold">{{$material['brand']}}</label>
                   </div>
+
+                  <div style="margin-top: 20px;">
+                     <label>UoM : </label> <label class="label-bold">{{$material['uom']}}</label>
+                  </div>
+
                    <div style="margin-top: 20px;">
-                     <label>City : </label> <label class="label-bold">{{$pcn_data['city']}}</label>
+                     <label>Features : </label> 
                   </div>
-                   <div style="margin-top: 20px;">
-                     <label>State : </label> <label class="label-bold">{{$pcn_data['state']}}</label>
-                  </div>
-                   <div style="margin-top: 20px;">
-                     <label>GST : </label> <label class="label-bold">{{$pcn_data['gst']}}</label>
-                  </div>
-                  
-                  <label class="label-bold" style="margin-top: 20px;">visit : https://hre.netiapps.com/PCN</label>
+
+
+                      @php
+                       $info = json_decode($material['information']);
+                      @endphp
+
+                      @foreach($info as $key => $val)
+                             <div>
+                               <label class="label-bold">{{$key}} = {{$val}}</label>
+                             </div>
+                              
+                         
+                      @endforeach
+
+                    
                  
         </main>
     </body>

@@ -116,6 +116,7 @@
                                     <input type="text" class="form-control" name="dispatch_comment" placeholder="Enter Dispatch Coments" required>
                                 </div>
                                 <input type="hidden" name="indent_no" value="{{$indend_data->indent->indent_no}}">
+                                <input type="hidden" name="category" value="{{$indend_data->materials->Category->category}}">
                                 <input type="hidden" name="pcn" value="{{$indend_data->indent->pcn}}">
                                 <input type="hidden" name="id" value="{{$id}}">
                                 <input type="hidden" name="pending" value="{{$indend_data->pending}}">

@@ -115,11 +115,11 @@ class PettyCashDetailController extends Controller
 
           $finance = pettycash::select('finance_id')->where('id', $request->id)->first();
 
-          $userdetail = Employee::where('user_id',Auth::user()->id)->first();
+         /* $userdetail = Employee::where('user_id',Auth::user()->id)->first();
 
           $message = "Your Pettycash Bill of amount Rs.".$request->amount. " dated ".$request->bill_date. " has been submitted successfully . You can check the status of the bill on your Dashboard. https://hre.netiapps.com/pettycash_details/".Auth::user()->id;
 
-          $p_data= ['name'=> $userdetail->name , 'message' => $message];
+          $p_data= ['name'=> $userdetail->name , 'message' => $message];*/
 
           //Mail::to($userdetail->email)->send(new PettycashMail($message));
           //Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data));
@@ -433,5 +433,19 @@ class PettyCashDetailController extends Controller
 
      
     
+    }
+
+    public function reminder($id){
+      $empl = Employee::where('user_id', $id)->first();
+      $p_data = "PettyCash bill approval request : ".$empl->employee_id;
+
+       $emailarray = User::select('email')->where('role_id','5')->orWhere('role_id','1')->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+     // Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data , $id));
+      return redirect()->back();
     }
 }
