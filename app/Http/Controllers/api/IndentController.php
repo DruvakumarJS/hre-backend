@@ -114,7 +114,7 @@ class IndentController extends Controller
           
           $pcn_data=Pcn::where('pcn',$idtend->pcn)->first();
 
-          $pcn_detail = $pcn_data->client_name . " , ".$pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+          $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
           $user = User::where('id',$request->user_id)->first();
           
            $indent_details = [
@@ -298,17 +298,20 @@ class IndentController extends Controller
         {
           $user_id = $request->user_id ;
 
-          $grns = GRN::where('user_id',$user_id)->where('status','!=','Received')->get();
+          $grns = GRN::where('user_id',$user_id)->get();
 
           if(sizeof($grns)>0){
 
            
-
           foreach ($grns as $key => $value) {
 
             $indent_list = Indent_list::where('id',$value->indent_list_id)->first();
 
             $material = Material::where('item_code',$indent_list->material_id)->first();
+
+            $pcn_data=Pcn::where('pcn',$value->pcn)->first();
+
+            $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
             
             $material_detail = [
               'material_name' => $material->name,
@@ -323,8 +326,10 @@ class IndentController extends Controller
              $grs_data = [
               'grn' => $value->grn,
               'pcn' => $value->pcn,
+              'pcn_detail'=> $pcn_detail,
               'indent_no' => $value->indent_no,
               'dispatched' => $value->dispatched,
+              'status' => $value->status,
               'indent_details' => array($material_detail)
             ];
 
