@@ -189,13 +189,13 @@ class IntendController extends Controller
                  'details'=> $data     
           ];
           
-        $filename = 'indent.pdf';
-        $pdf = PDF::loadView('pdf/indentsPDF', compact('indent_details'));
+       // $filename = 'indent.pdf';
+        //$pdf = PDF::loadView('pdf/indentsPDF', compact('indent_details'));
     
-        $savepdf = $pdf->save(public_path($filename));
+        //$savepdf = $pdf->save(public_path($filename));
 
        // $filename = public_path($filename);
-        $attachment = public_path($filename) ;
+        //$attachment = public_path($filename) ;
        /* if($savepdf){
            
           $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first(); 
