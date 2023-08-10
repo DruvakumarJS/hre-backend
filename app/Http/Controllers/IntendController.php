@@ -196,7 +196,7 @@ class IntendController extends Controller
 
        // $filename = public_path($filename);
         $attachment = public_path($filename) ;
-        if($savepdf){
+       /* if($savepdf){
            
           $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first(); 
 
@@ -209,11 +209,18 @@ class IntendController extends Controller
                }
 
         //  Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
+          // Mail::to('druva@netiapps.com')->send(new IndentsMail($indent_details,$subject,$attachment));
+
+    
 
            $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
            
            return redirect()->back()->with('Indent',$data);
-        }
+        }*/
+
+         $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
+           
+           return redirect()->back()->with('Indent',$data);
 
      }
      else {

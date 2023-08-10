@@ -125,7 +125,7 @@ class IndentController extends Controller
                  'details'=> $data     
           ];
 
-        $filename = 'indent.pdf';
+        /*$filename = 'indent.pdf';
         $pdf = PDF::loadView('pdf/indentsPDF', compact('indent_details'));
     
         $savepdf = $pdf->save(public_path($filename));
@@ -138,7 +138,7 @@ class IndentController extends Controller
 
         // Mail::to($to)->send(new IndentsMail($indent_details,$filename));
            
-        }
+        }*/
 
         return response()->json([
          	 		'status' => 1 ,
