@@ -10,6 +10,7 @@ use App\Http\Controllers\api\TicketController;
 use App\Http\Controllers\api\AttendanceController;
 use App\Http\Controllers\api\PettycashController;
 use App\Http\Controllers\api\AppdataController;
+use App\Http\Controllers\api\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,4 +60,5 @@ Route::post('/get-pettycash_summary',[PettycashController::class,'fetch_summary'
 Route::post('/get-app-data',[AppdataController::class,'index']);
 Route::post('/vault',[AppdataController::class,'vault']);
 
+Route::post('/my-dashboard-details',[HomeController::class,'mydashboard']);
 

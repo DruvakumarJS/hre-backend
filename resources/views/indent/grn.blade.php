@@ -40,6 +40,7 @@
                               <th scope="col">Brand</th>
                               <th scope="col">Information</th>
                               <th scope="col">Dispatched No</th>
+                              <th scope="col">Comments</th>
                               <th scope="col">Status</th>
                               <th scope="col">Action</th>
                              
@@ -87,6 +88,7 @@
                               </table>
                               </td>
                               <td>{{$value['dispatched']}}</td>
+                              <td>{{$value['comment']}}</td>
                               <td style="color: <?php echo $color; ?>">{{$value['status']}}</td>
                               @if($value['status']=='Received')
                               <td>

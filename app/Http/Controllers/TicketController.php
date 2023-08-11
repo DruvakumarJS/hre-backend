@@ -341,7 +341,7 @@ class TicketController extends Controller
                           $emailid[]=$value->email;
                        }
 
-                  Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                //  Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));
                    }
              }
              else if($request->status == 'Completed'){

@@ -107,6 +107,13 @@ $date = date('dd-mm-yyyy');
 
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">P.O Number *</label>
+                            <div class="col-7">
+                                <input name="po_number" id="po_number" type="text" class="typeahead form-control" required="required" value="{{old('po_number')}}" placeholder="Enter P.O Number">
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Billing Name *</label>
                             <div class="col-7">

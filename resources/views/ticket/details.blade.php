@@ -50,7 +50,7 @@
           <div class="col-sm-6 col-md-6 ">
             <div class="card">
             <div>
-              <label>PCN : </label> <label class="label-bold">{{$id}}</label>
+              <label>PCN : </label> <label class="label-bold">{{$pcn_data->pcn}}</label>
             </div>
 
              <div>
@@ -126,7 +126,7 @@
         @endforeach
 
         @if($ticket->status != 'Resolved')
-        @if($can_reply == "True" or Auth::user()->role_id == 1 or Auth::user()->role_id == 2 or Auth::user()->role_id == 5)
+        @if($can_reply == "True" or Auth::user()->role_id == 1 or Auth::user()->role_id == 2 or Auth::user()->role_id == 5 or Auth::user()->id == $ticket->creator)
      	 <div id="div2" style="display: block">
            <a data-bs-toggle="modal" data-bs-target="#replyModal"  class="btn btn-light btn-outline-secondary" href=""><i class="fa fa-plus"></i> 
              <label id="modal">Reply</label>

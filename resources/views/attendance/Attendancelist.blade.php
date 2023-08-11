@@ -66,13 +66,13 @@
                     <th scope="col">Name</th>
                     <th scope="col">Role</th>
                     <th scope="col">Login </th>
-                    @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
+                   <!--  @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
                     <th scope="col">Login Location</th>
-                    @endif
+                    @endif -->
                     <th scope="col">Logout</th>
-                    @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
+                   <!--  @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
                     <th scope="col">Logout Location </th>
-                    @endif
+                    @endif -->
                     <th scope="col">Out Of Work</th>
                     <th scope="col">Total Hours</th>
                     <!-- <th scope="col">Action</th> -->
@@ -86,13 +86,13 @@
                         <td>{{$value->employee->name}}</td>
                         <td>{{$value->user->roles->alias}}</td>
                         <td>{{$value->login_time}}</td>
-                        @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
+                        <!-- @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
                         <td width="200px">{{$value->login_location}}</td>
-                        @endif
+                        @endif -->
                         <td>{{$value->logout_time}}</td>
-                        @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
+                       <!--  @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
                          <td width="200px">{{$value->logout_location}}</td>
-                         @endif
+                         @endif -->
                         @php
                           $minute1 = $value->out_of_work;
                           $hour1=  floor($minute1 / 60) ;

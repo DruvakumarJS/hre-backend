@@ -6,6 +6,7 @@ use App\Models\Ticket;
 use App\Models\TicketConversation;
 use App\Models\Employee;
 use App\Models\Pcn;
+use App\Models\User;
 
 class TicketController extends Controller
 {
@@ -15,6 +16,35 @@ class TicketController extends Controller
      	if(isset($request->user_id)){
             $ticketarray= array();
             $final_array=array();
+          $role = User::select('role_id')->where('id',$request->user_id)->first(); 
+
+          if($role->role_id == '1' || $role->role_id == '2'){
+             $tickets = Ticket::orderBy('id' , 'DESC')->get();
+     
+        foreach ($tickets as $key => $value) {
+             $images = explode(',', $value->filename);
+             $pcn_data = Pcn::where('pcn',$value->pcn)->first();
+             $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+              $userdetail = Employee::where('user_id', $value->creator)->first();
+             $ticketarray[]=[
+                    'ticket_creator' => $value->creator,
+                    'creator_name' => $userdetail->name,
+                    'creator_emplid'=> $userdetail->employee_id,
+                    'creator_role'=> $userdetail->user->roles->alias,
+                    'ticket_id'=> $value->id ,
+                    'ticket_no' => $value->ticket_no ,
+                    'pcn' => $value->pcn ,
+                    'pcn_detail' => $pcn_detail,
+                    'category' => $value->category ,
+                    'message' => $value->issue,
+                    'priority' => $value->priority,
+                    'filepath' => 'https://hre.netiapps.com/ticketimages/',
+                    'status' => $value->status,
+                    'created_on' => $value->created_at->toDateTimeString(),
+                    'filename' => ($images)];
+         } 
+          }
+          else{
 
           $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', $request->user_id)->orWhere('sender', $request->user_id)->groupBy('ticket_id')->get();
 
@@ -35,11 +65,18 @@ class TicketController extends Controller
         
         foreach ($tickets as $key => $value) {
              $images = explode(',', $value->filename);
+             $pcn_data = Pcn::where('pcn',$value->pcn)->first();
+             $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+             $userdetail = Employee::where('user_id', $value->creator)->first();
              $ticketarray[]=[
                     'ticket_creator' => $value->creator,
+                    'creator_name' => $userdetail->name,
+                    'creator_emplid'=> $userdetail->employee_id,
+                    'creator_role'=> $userdetail->user->roles->alias,
                     'ticket_id'=> $value->id ,
                     'ticket_no' => $value->ticket_no ,
                     'pcn' => $value->pcn ,
+                    'pcn_detail' => $pcn_detail,
                     'category' => $value->category ,
                     'message' => $value->issue,
                     'priority' => $value->priority,
@@ -56,11 +93,18 @@ class TicketController extends Controller
 
            foreach ($tickets as $key => $value) {
              $images = explode(',', $value->filename);
+             $pcn_data = Pcn::where('pcn',$value->pcn)->first();
+             $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+              $userdetail = Employee::where('user_id', $value->creator)->first();
              $ticketarray[]=[
                     'ticket_creator' => $value->creator,
+                    'creator_name' => $userdetail->name,
+                    'creator_emplid'=> $userdetail->employee_id,
+                    'creator_role'=> $userdetail->user->roles->alias,
                     'ticket_id'=> $value->id ,
                     'ticket_no' => $value->ticket_no ,
                     'pcn' => $value->pcn ,
+                    'pcn_detail' => $pcn_detail,
                     'category' => $value->category ,
                     'message' => $value->issue,
                     'priority' => $value->priority,
@@ -70,6 +114,7 @@ class TicketController extends Controller
                     'filename' => ($images)];
          } 
        }
+     }
      	$count[]= ['Active' => '0' , 'Completed'=> '0' , 'Resolved' => '0'];
         $final_array=['counts' => $count , 'tickets' =>$ticketarray ];
 

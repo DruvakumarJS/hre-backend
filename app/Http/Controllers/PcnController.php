@@ -110,6 +110,7 @@ class PcnController extends Controller
 
             $createPCN = Pcn::create([
                 'pcn'=>'PCN_'.$request->pcn ,
+                'po'=>$request->po_number ,
                 'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,
                 'brand' => $request->brand ,
@@ -244,6 +245,7 @@ class PcnController extends Controller
             }
 
             $updatePCN = Pcn::where('pcn' ,$request->pcn)->update([
+                'po'=>$request->po_number,
                 'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,
                 'brand' => $request->brand ,

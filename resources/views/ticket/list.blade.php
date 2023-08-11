@@ -132,10 +132,10 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
                             @endif
 
 	                		 @if($value->status == 'Created' || $value->status == 'Rejected'  )
-	                		 <a href=""><button class="btn-light btn-outline-grey btn-sm" disabled="" >More Info</button></a>
+	                		 <a href=""><button class="btn-light btn-outline-grey btn-sm" disabled="" >Info / Convo</button></a>
 
 	                		 @else
-	                		 <a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm" >More Info</button></a>
+	                		 <a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm" >Info / Convo</button></a>
 
 	                		 @endif
 

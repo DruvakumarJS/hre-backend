@@ -186,7 +186,7 @@ class IndentController extends Controller
         foreach ($indents as $key => $value) {
          $pcn_data=Pcn::where('pcn',$value->pcn)->first();
 
-         $pcn_detail = $pcn_data->client_name . " , ".$pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+         $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
 
           $indentarray[] = [
             'indent_id' => $value->id ,
@@ -329,6 +329,10 @@ class IndentController extends Controller
               'pcn_detail'=> $pcn_detail,
               'indent_no' => $value->indent_no,
               'dispatched' => $value->dispatched,
+              'dispatch_comment' => $value->dispatch_comment,
+              'accepted' => $value->approved ,
+              'rejected' => $value->damaged,
+              'accepting_comment' => $value->comment,
               'status' => $value->status,
               'indent_details' => array($material_detail)
             ];

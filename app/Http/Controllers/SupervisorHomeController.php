@@ -19,9 +19,9 @@ class SupervisorHomeController extends Controller
 
     public function index(){
     	$date = date('Y-m');
-    	$indents = Intend::where('user_id', Auth::user()->id)->where('created_at', 'LIKE','%'.$date.'%')->count();
+    	$indents = Intend::where('user_id', Auth::user()->id)->->count();
     	$attendance = Attendance::where('user_id', Auth::user()->id)->where('date', 'LIKE','%'.date('Y-m-d').'%')->count();
-    	$tickets = Ticket::where('creator', Auth::user()->id)->where('created_at', 'LIKE','%'.$date.'%')->count();
+    	$tickets = Ticket::where('creator', Auth::user()->id)->count();
     	
 
     	return view('supervisor_home', compact('indents' , 'attendance','tickets'));

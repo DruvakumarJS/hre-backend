@@ -39,6 +39,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">P.O Number *</label>
+                            <div class="col-7">
+                                <input name="po_number" id="po_number" type="text" class="typeahead form-control" required="required" value="{{$pcn_data->po}}" placeholder="Enter P.O Number">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Client Name / Billing Name</label>
                             <div class="col-7">
                                 <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" value="{{$pcn_data->client_name}}" >

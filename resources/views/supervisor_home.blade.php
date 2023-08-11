@@ -26,7 +26,7 @@
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Indents</h4>
                            
                         </div >
-                        <label class="card-text-label ">My Indents in this Month</label>
+                        <label class="card-text-label ">My Indents </label>
                         
                     </div>
                     <!--</div>-->
@@ -60,7 +60,7 @@
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Tickets</h4>
                            
                         </div >
-                        <label class="card-text-label  ">My Tickets in this Month</label>
+                        <label class="card-text-label  ">My Tickets </label>
                       
                     </div>
                     <!--</div>-->

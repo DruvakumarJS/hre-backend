@@ -510,6 +510,7 @@ class IntendController extends Controller
               'pcn' => $value->pcn,
               'indent_no' => $value->indent_no,
               'dispatched' => $value->dispatched,
+              'comment' => $value->dispatch_comment,
               'status'=> $value->status,
               'indent_details' => array($material_detail)
             ];
