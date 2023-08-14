@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
 
+
 class ImportMaterial implements ToModel, WithStartRow
 {
     /**
@@ -15,6 +16,7 @@ class ImportMaterial implements ToModel, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+    public $rowCount = 0;
 
     public function startRow(): int
     {
@@ -23,6 +25,7 @@ class ImportMaterial implements ToModel, WithStartRow
 
      public function model(array $row)
     {
+        ++$this->rowCount;
         
         $code = $row[0];
         $name = $row[1];
@@ -150,74 +153,16 @@ class ImportMaterial implements ToModel, WithStartRow
 
         }
 
-
+        
 
         return ; 
     }
-   /* public function model(array $row)
-    {
-        
-        $code = $row[0];
-        $name = $row[1];
-        $brand = $row[2];
-        $uom = $row[3];
-        $des = $row[4];
-
-        $categoryData = Category::where('material_category',$code)->first(); 
   
-        if(Material::exists()){
-             $validate=Material::select('item_code')->where('item_code','LIKE','%'.$code.'%')->orderBy('id', 'DESC')->first();
 
-             if(!empty($validate)){
-                $arr = explode($code, $validate->item_code);
-                $itemcode = $code.'00'.++$arr[1];
-
-                     $MaterialData = Material::create([
-                        'category_id' => $categoryData->code,
-                        'item_code' => $itemcode,
-                        'name' => $row[1],
-                        'brand' => $row[2],
-                        'uom' => $row[3],
-                        'information'=> $des,
-                  ]);   
-             }
-             else {
-
-                $itemcode = $categoryData->material_category ."001";
-
-                     $MaterialData = Material::create([
-                        'category_id' => $categoryData->code,
-                        'item_code' => $itemcode,
-                        'name' => $row[1],
-                        'brand' => $row[2],
-                        'uom' => $row[3],
-                        'information'=> $des,
-                  ]);
-
-             }
-
-        }
-
-        else {
-
-            $itemcode = $code ."001";
-        
-
-                     $MaterialData = Material::create([
-                        'category_id' => $categoryData->code,
-                        'item_code' => $itemcode,
-                        'name' => $row[1],
-                        'brand' => $row[2],
-                        'uom' => $row[3],
-                        'information'=> $des,
-                  ]);
-
-        }
-
-
-
-        return ; 
-    }*/
+    public function getRowCount(): int
+    {
+        return $this->rowCount;
+    }
 
 
 }

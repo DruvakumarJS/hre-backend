@@ -32,8 +32,9 @@ class MaterialController extends Controller
     public function index()
     {
         $MaterialList = Material::paginate(10);
+         $search = '' ;
        
-       return view('material/list', compact('MaterialList'));
+       return view('material/list', compact('MaterialList','search'));
     }
 
     /**
@@ -298,8 +299,10 @@ class MaterialController extends Controller
         ->orWhere('uom', 'LIKE','%'.$request->search.'%')
         ->orWhere('information', 'LIKE','%'.$request->search.'%')
         ->paginate(10);
+
+        $search = $request->search ;
        
-      return view('material/list', compact('MaterialList'));
+      return view('material/list', compact('MaterialList' , 'search'));
 
     }
 

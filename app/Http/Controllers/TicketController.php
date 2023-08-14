@@ -5,7 +5,7 @@ use App\Models\Ticket;
 use App\Models\TicketConversation;
 use App\Models\Employee;
 use App\Models\Pcn;
-use App\Models\Category;
+use App\Models\TicketDepartment;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,7 +16,10 @@ use PDF;
 use Auth;
 use ZipArchive;
 use Mail ;
+use Illuminate\Pagination\Paginator;
 
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 
 class TicketController extends Controller
@@ -64,8 +67,17 @@ class TicketController extends Controller
 
        // print_r(json_encode($tickets)); die();
       }
-     
+     // $tickets = $this->paginate($tickets);
+
          return view('ticket/list' ,  compact('tickets','filter'));
+    }
+
+    public function paginate($items, $perPage = 10, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
     /**
@@ -78,7 +90,7 @@ class TicketController extends Controller
        // $supervisor = Employee::where('role','supervisor')->get();
       $employee = User::select('id' , 'name' , 'role_id')->get();
       $pcn = Pcn::where('status', 'Active')->get();
-      $category=Category::get(); 
+      $category=TicketDepartment::get(); 
         return view('ticket/create', compact('employee', 'pcn' , 'category'));
     }
 
@@ -159,12 +171,19 @@ class TicketController extends Controller
              'priority' => $request->priority,
              ];
 
-          $emailarray = User::select('email')->where('role_id','1')->orWhere('role_id','2')->get();
+           
+         $departemnt = TicketDepartment::where('department', 'Accounts')->first();
+         $recipients = $departemnt->roles;
+
+         $array = explode(',', $recipients);
+
+         // $emailarray = User::select('email')->where('role_id','1')->orWhere('role_id','2')->get();
+          $emailarray = User::select('email')->whereIn('role_id',$array)->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
+                 
                }
-
           //Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
 
             $message = $ticket_no;
@@ -591,5 +610,30 @@ class TicketController extends Controller
       // $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
         
          return view('ticket/list' ,  compact('tickets','filter'));
+    }
+
+    public function departments(){
+        $data = TicketDepartment::all();
+
+        return view('ticket/departments', compact('data'));
+
+    }
+
+    public function create_department(Request $request){
+
+        $insert =TicketDepartment::create(['department' => $request->name , 'description' => $request->desc]);
+
+        if($insert){
+            return redirect()->route('department_master');
+        }
+
+    }
+
+    public function delete_department($id){
+        $destroy = TicketDepartment::where('id', $id)->delete();
+
+        if($destroy){
+             return redirect()->route('department_master');
+        }
     }
 }

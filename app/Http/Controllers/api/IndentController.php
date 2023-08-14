@@ -457,26 +457,5 @@ class IndentController extends Controller
 
    }
 
-   function getdepartments(Request $request){
-
-    $data= array();
-    if(isset($request->user_id)){
-        $data = Category::select('category')->get();
-
-        return response()->json([
-          'status' => 1 ,
-          'message' => 'success',
-          'data' => $data
-        ]);
-
-    }
-    else {
-      return response()->json([
-                  'status' => 0 ,
-                  'message' => 'UnAuthorized/Insufficient data',
-                  'data' => $data
-                  ]);
-    }
-
-   }
+  
 }

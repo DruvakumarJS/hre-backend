@@ -59,7 +59,7 @@
                                 <select class="form-control form-select" id="category" name="category"required="required">
                                     <option value="">Select Department</option>
                                     @foreach($category as $key=>$value)
-                                    <option value="{{$value->category}}">{{$value->category}}</option>
+                                    <option value="{{$value->department}}">{{$value->department}}</option>
                                     @endforeach
                                 </select>
                             </div>

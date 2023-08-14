@@ -7,6 +7,8 @@ use App\Models\TicketConversation;
 use App\Models\Employee;
 use App\Models\Pcn;
 use App\Models\User;
+use App\Models\TicketDepartment;
+
 
 class TicketController extends Controller
 {
@@ -471,5 +473,28 @@ class TicketController extends Controller
     
       
     }
+
+     function getdepartments(Request $request){
+
+    $data= array();
+    if(isset($request->user_id)){
+        $data =TicketDepartment::select('department')->get();
+
+        return response()->json([
+          'status' => 1 ,
+          'message' => 'success',
+          'data' => $data
+        ]);
+
+    }
+    else {
+      return response()->json([
+                  'status' => 0 ,
+                  'message' => 'UnAuthorized/Insufficient data',
+                  'data' => $data
+                  ]);
+    }
+
+   }
 
 }

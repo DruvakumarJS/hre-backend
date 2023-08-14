@@ -425,7 +425,7 @@
                            
                           
                             <!--  <a href="{{route('notification', Auth::user()->id)}}" class="notification"> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a> -->
-                            <div class="dropdown">
+                           <!--  <div class="dropdown">
                                <a data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
 
                                  <ul class="dropdown-menu dropdown-menu-end">
@@ -434,7 +434,14 @@
                                         <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li>
 
                                     </ul>
-                             </div>
+                             </div> -->
+
+                             <a class="dropdown-item" href="{{route('vault_master')}}"><img class="circle" src="{{asset('images/vault.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"></a>
+
+                             <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moddl"><img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"></a>
+
+
+
                              @if(Auth::user()->role_id == 1)
                                 <div class="dropdown">
 
@@ -442,6 +449,7 @@
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item" href="{{route('users')}}">User Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('materials_master')}}">Material Master</a></li>
+                                        <li><a class="dropdown-item" href="{{route('department_master')}}">Department Master</a></li>
                                       
                                         <li>
                                           <a class="dropdown-item" href="#">Recycle & Restore </a>

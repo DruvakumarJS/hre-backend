@@ -6,6 +6,13 @@
 if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 @endphp
 
+<style type="text/css">
+	thead th {
+ 
+  height: 50px;
+}
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
 	 <div class="container-header">
@@ -64,13 +71,13 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 
     <div class="page-container"> 
      <div>
-     	<div class="card border-white table-responsive">
+     	<div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
      		<table class="table">
 
      			<thead>
 	                <tr>
 	                  <th scope="col">C_Date</th>
-	                  <th scope="col">Ticket No</th>
+	                  <th scope="col">Ticket_No</th>
 	                  <th scope="col">PCN</th>
 	                  <th scope="col">Billing Details</th>
 	                  <th scope="col">Department</th>
@@ -89,7 +96,7 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 	            <tbody>
 	            @foreach($tickets as $key=>$value)
 	                <tr>
-	                	<td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
+	                	<td width="100px">{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
 	                	<td width="100px">{{$value->pcns->brand}} @php echo'<br/>'; @endphp {{$value->pcns->location}},{{$value->pcns->area}},{{$value->pcns->city}}</td>
@@ -108,9 +115,9 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 	                	 
                        @endphp
                        <td>{{$value->user->name}}</td>
-	                	<td><button class="btn btn-light" style="width:50px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></i></td>
+	                	<td><button class="btn btn-light" style="width:25px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></i></td>
 
-	                	<td><?php echo ($value->tat!='') ? date("d-m-Y", strtotime($value->tat)) :''  ?></td>
+	                	<td width="100px"><?php echo ($value->tat!='') ? date("d-m-Y", strtotime($value->tat)) :''  ?></td>
 	                	
 	                	<td>{{$value->status}} <?php echo '<br>';echo($value->reopened == '1') ? 'Re-Opened':'' ?></td>
 	                	
@@ -124,18 +131,18 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 	              
 	                	<td>
 	                		@if(Auth::user()->role_id == 1 || Auth::user()->role == 'manager')
-	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Update</button></a>
+	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>
 	                		@elseif($value->status == 'Created')
-	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Update</button></a>
+	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>
 	                		@else
 	                		<!-- <a href=""><button class="btn btn-light curved-text-button btn-sm" disabled>Edit</button></a> -->
                             @endif
 
 	                		 @if($value->status == 'Created' || $value->status == 'Rejected'  )
-	                		 <a href=""><button class="btn-light btn-outline-grey btn-sm" disabled="" >Info / Convo</button></a>
+	                		 <a href=""><button class="btn-light btn-outline-grey btn-sm" disabled >Info/Convo</button></a>
 
 	                		 @else
-	                		 <a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm" >Info / Convo</button></a>
+	                		 <a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm" style="padding: 1px 10px">Info/Convo</button></a>
 
 	                		 @endif
 
@@ -184,8 +191,7 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 	            
 	            	
 	            </tbody>
-
-     			
+                 
 
      		</table>
      		

@@ -32,7 +32,7 @@ class PcnController extends Controller
     public function index()
     {
         if(Auth::user()->id == '1'){
-           $pcns = Pcn::orderBy('id','DESC')->paginate(20); 
+           $pcns = Pcn::orderBy('id','DESC')->paginate(10); 
         }
         else {
              $pcns = Pcn::where('status','Active')->orderBy('id','DESC')->paginate(20); 

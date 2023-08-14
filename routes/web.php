@@ -168,6 +168,9 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('download_ticket/{id}',[TicketController::class,'download_ticket'])->name('download_ticket');
     Route::get('download_conversation_ticket/{id}',[TicketConversationController::class,'download_conversation_ticket'])->name('download_conversation_ticket');
     Route::post('search_ticket',[TicketController::class,'search'])->name('search_ticket');
+    Route::get('department_master',[TicketController::class,'departments'])->name('department_master');
+    Route::post('create-department',[TicketController::class,'create_department'])->name('create_department');
+    Route::get('delete-department/{id}',[TicketController::class,'delete_department'])->name('delete_department');
 
 
     Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
@@ -284,7 +287,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('download_attendance',[ExportController::class,'month_report'])->name('download_monthly_attendance');
     Route::get('export-users/{role}',[ExportController::class , 'users'])->name('export-users');
     Route::get('export',[ExportController::class , 'category'])->name('export-categories');
-    Route::get('export-material/{filter}',[ExportController::class,'material'])->name('export-materials');
+    Route::post('export-material',[ExportController::class,'material'])->name('export-materials');
     Route::post('export_summary',[ExportController::class,'summary'])->name('export_summary');
 
     Route::get('show-notification/{id}',[NotificationController::class,'index'])->name('notification');

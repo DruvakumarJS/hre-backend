@@ -29,10 +29,10 @@
            </form>
           </div>
 
-           <div id="div3" style="margin-right: 30px">
+           <!-- <div id="div3" style="margin-right: 30px">
             <a href="{{route('export-materials',$id)}}"> <button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
             
-          </div>
+          </div> -->
 
    </div>
 

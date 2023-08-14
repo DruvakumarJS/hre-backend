@@ -195,12 +195,24 @@ class ExportController extends Controller
 
     }
 
-    public function material($filter){
+    public function material(Request $request){
+         
+      // print_r($request->Input());die();
+       $filter = $request->search ;
+       if(isset($request->start_date)){
+        $start = $request->start_date . ' 00:00:01';
+       $end = $request->end_date. ' 23:59:59'; 
+       }
+       else {
+        $start = '';
+        $end = ''; 
+       }
        
+
        $file_name = 'Material.csv';
        if($filter=="all"){
-        if(Material::exists()){
-            return Excel::download(new ExportMaterial($filter), $file_name);
+        if(Material::whereBetween('created_at', [$start , $end])->exists()){
+            return Excel::download(new ExportMaterial($filter ,$start , $end), $file_name);
 
         }
         else{
@@ -210,8 +222,8 @@ class ExportController extends Controller
 
        }
        else{
-        if(Material::where('category_id',$filter)->exists()){
-            return Excel::download(new ExportMaterial($filter), $file_name);
+        if(Material::whereBetween('created_at', [$start , $end])->exists()){
+            return Excel::download(new ExportMaterial($filter , $start , $end), $file_name);
 
         }
         else{
