@@ -445,10 +445,10 @@ class IntendController extends Controller
 
     public function filter_indents($filter){
         if($filter=='all'){
-             $indents=Intend::orderBy('id', 'DESC')->paginate(10);
+             $indents=Intend::orderBy('id', 'DESC')->paginate(50);
         }
         else {
-             $indents=Intend::where('status',$filter)->orderBy('id', 'DESC')->paginate(10);
+             $indents=Intend::where('status',$filter)->orderBy('id', 'DESC')->paginate(50);
         }
        // $indents=Intend::where('status',$filter)->orderBy('id', 'DESC')->paginate(10);
         $all = Intend::count();
