@@ -14,10 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
+            $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
+        // CREATE TABLE `password_resets` (
+        //     `email` varchar(255) not null,
+        //     `token` varchar(255) not null,
+        //     `created_at` timestamp null,
+        //     PRIMARY KEY (`email`)
+        // ) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
     }
 
     /**
