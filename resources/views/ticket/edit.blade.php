@@ -2,13 +2,6 @@
 
 @section('content')
 
-<style type="text/css">
-    img[src=""] {
-    display: none;
-}
-</style>
-
-
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
@@ -57,7 +50,7 @@
                             <div class="col-7">
 
                                
-                                <select class="form-control" name="user_id" id="user_id" >
+                                <select class="form-control form-select" name="user_id" id="user_id" >
                                    <option value=''>Select </option>
                                     @foreach($supervisor as $key => $value)
                                     
@@ -75,7 +68,7 @@
                             <label for="" class="col-5 col-form-label">Priority</label>
                             <div class="col-7">
                                
-                                <select class="form-control" name="priority" id='priority' >
+                                <select class="form-control form-select" name="priority" id='priority' >
                                    <option value="">Select Priority</option>
                                     <option value="High" <?php echo ($tickets->priority == 'High') ? 'selected' : ''; ?>  >High</option>
                                     <option value="Medium" <?php echo ($tickets->priority == 'Medium') ? 'selected' : ''; ?> >Medium</option>
@@ -100,7 +93,7 @@
                             <label for="" class="col-5 col-form-label">Status</label>
                             <div class="col-7">
                                
-                                <select class="form-control" name="status" id='status' required="required"  onchange="run()" >
+                                <select class="form-control form-select" name="status" id='status' required="required"  onchange="run()" >
                                 @if((Auth::user()->role_id != '1') and (Auth::user()->role_id != '2') and (Auth::user()->role_id != '5'))
                                  <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
 
@@ -109,20 +102,23 @@
                                      @if($tickets->status == 'Created')
                                    <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
                                    <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
-                                   <option value="Pending" <?php echo ($tickets->status == 'Pending') ? 'selected' : ''; ?>  >Pending</option>
+                                   <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Pending/Ongoing</option>
 
                                    @elseif($tickets->status == 'Rejected')
                                   
                                    <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
                                     <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
 
+                                    @elseif($tickets->status == 'Resolved')
+                                    <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
+                                    <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
                                     @elseif($tickets->status == 'Completed')
                                     <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
-                                    <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
+                                    <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
 
-                                    @elseif($tickets->status == 'Pending')
-                                     <option value="Pending" <?php echo ($tickets->status == 'Pending') ? 'selected' : ''; ?>  >Pending</option>
-                                     <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
+                                    @elseif($tickets->status == 'Pending/Ongoing')
+                                     <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Pending/Ongoing</option>
+                                     <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
 
 
                                    @endif
@@ -140,7 +136,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Comments</label>
                             <div class="col-7">
-                                <textarea  name="comment" id="comment" type="text" class="typeahead form-control"  placeholder="Enter comments here" >{{$tickets->comments}}</textarea>
+                                <textarea  name="comment" id="comment" type="text" class="typeahead form-control"  placeholder="Enter comments here" required>{{$tickets->comments}}</textarea>
                             </div>
                         </div>
 
@@ -154,15 +150,20 @@
                             
                              </div>
                                
-                           
-   
+                        
                         </div>
+
+                      
                        <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Attach image </label>
                             <div class="col-7">
-                                <input type="file" class="form-control form-control-sm" name="image" id="imgInp" accept="image/*" >
+                                 <input class="form-control form-control-sm" type="file" id="upload-btn" name="image[]" accept="image/*"  />
                 
                             </div>
+                        </div>
+
+                         <div class="form-group row">
+                              <output id="result" />
                         </div>
 
                         <input type="hidden" name="assigner" value="{{Auth::user()->id}}">
@@ -170,6 +171,8 @@
                         
                          <div class="form-group row">
                             <div class="offset-5 col-7">
+                               
+
                                 <button name="submit" type="submit" class="btn btn-danger">Update Ticket</button>
                                 
                             </div>
@@ -177,23 +180,49 @@
 
      					
      				</form>
+                    
+                    <!-- Modal -->
+        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ticket Images </h5>
+                <a href="{{route('download_ticket',$tickets->id)}}"><i style="margin-left: 30px" class="fa fa-download"></i></a>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+               <div class="modal-body">
+                @php
+                $revertNames = explode(',', $tickets->filename);
+                @endphpx
+
+              @foreach($revertNames as $key=>$value)
+               <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value}}" alt="ticketimage" style="width: 400px;height: 250px; margin-top: 20px" />
+
+               <a target="_blank" href="{{ URL::to('/') }}/ticketimages/{{$value}}"><i class="fa fa-expand" style="color: black;font-size:30px"></i></a> 
+
+             
+               @endforeach
+              
+            </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
+
+
      				
      			</div>
 
-     		<div class="col-6">
-                @if($tickets->filename != "")
-                     <img class="serverimage" id="serverimage"  src="{{ URL::to('/') }}/ticketimages/{{$tickets->filename}}" style="width: 200px;height: 200px" />
-                @endif
-                     <img class="imagen" id="blah" src="" alt="ticketimage" style="width: 200px;height: 200px" />
-                </div>
-
-               
+     		
      		
      	</div>
      	
      </div>
 
     </div>
+
+   
 </div>
 
 <script type="text/javascript">
@@ -271,24 +300,53 @@
 </script>
 
 <script type="text/javascript">
-    imgInp.onchange = evt => {
-  const [file] = imgInp.files
-  if (file) {
-    blah.src = URL.createObjectURL(file)
-    $(".serverimage").hide();
-    $(".imagen").show();
+    window.onload = function() {
+  // Check for File API support.
+  if (window.File && window.FileList && window.FileReader) {
+    var filesInput = document.getElementById('upload-btn');
+    filesInput.addEventListener('change', function(e) {
+      var output = document.getElementById('result');
+      var files = e.target.files; //FileList object
+      
+      output.innerHTML = ''; // Clear (previous) results.
+
+      if(files.length > 4){
+        document.getElementById('upload-btn').value= null;
+        alert("You can only upload a maximum of 4 files");
+
+        
+      }
+      else {
+      
+      for (var i = 0; i < files.length; i++) {
+        var currFile = files[i];
+        if (!currFile.type.match('image')) continue; // Skip non-images.
+        
+        var imgReader = new FileReader();
+        imgReader.fileName = currFile.name;
+        imgReader.addEventListener('load', function(e1) {
+          var img = e1.target;
+          var div = document.createElement('div');
+          div.className = 'thumbnail';
+          div.innerHTML = [
+            '<img class="thumb" src="' + img.result + '"' + 'title="' + img.fileName + '"/>',
+            '<label class="caption">' + img.fileName + '</label>'
+          ].join('');
+          output.appendChild(div);
+        });
+
+        // Read image.
+        imgReader.readAsDataURL(currFile);
+      }
+      }
+    });
+  } else {
+    console.log('Your browser does not support File API!');
   }
 }
 </script>
-<script type="text/javascript">
-   var image = document.getElementById('serverimage');
-image.onerror = function () {
- // alert('error loading ' + this.src);
- // this.src = 'error.png'; // place your error.png image instead
-};
 
 
-</script>
 
 
 @endsection

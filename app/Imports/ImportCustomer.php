@@ -5,14 +5,21 @@ namespace App\Imports;
 use App\Models\Customer;
 use App\Models\Address;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class ImportCustomer implements ToModel
+class ImportCustomer implements ToModel, WithStartRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+
+    public function startRow(): int
+    {
+        return 2;
+    } 
+    
     public function model(array $row)
     {
        $client = $row[0];
@@ -23,10 +30,14 @@ class ImportCustomer implements ToModel
         else {
             $customer = Customer::create([
             'name' => $row[0],
-            'brand' => $row[1],
-            'mobile' => $row[2],
-            'email' => $row[3],
-            'telephone' => $row[4], 
+            'mobile' => $row[4],
+            'mobile1' => $row[5],
+            'mobile2' => $row[6],
+            'mobile3' => $row[7],
+            'email' => $row[8],
+            'email1' => $row[9],
+            'email2' => $row[10],
+            'email3' => $row[11], 
         ]);
 
         }
@@ -35,10 +46,9 @@ class ImportCustomer implements ToModel
 
          $addres = Address::create([
                 'customer_id'=> $c_id->id ,
-                'area' => $row[5] , 
-                'city' => $row[6] , 
-                'state' => $row[7] ,
-                'gst' => $row[8] ,
+                'brand' => $row[1],
+                'state' => $row[2] ,
+                'gst' => $row[3],
 
                ]);
 

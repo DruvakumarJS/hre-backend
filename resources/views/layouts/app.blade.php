@@ -69,6 +69,7 @@
                     <a href="{{route('view_customers')}}"
                      class="{{request()->routeIs('view_customers')
                         || request()->routeIs('create_customer')
+                        || request()->routeIs('search_customer')
                       ? 'active' : ''}}"
                     >
                       <label class="nav-links">Customers</label></a>
@@ -76,6 +77,7 @@
                     <a href="{{route('PCN')}}"
                       class="{{request()->routeIs('PCN')
                       || request()->routeIs('create_pcn')
+                      || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
                       ? 'active' : ''}}">
@@ -84,9 +86,12 @@
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
+                     ||request()->routeIs('create_indent')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('filter_indents')
+                     || request()->routeIs('search_indent')
                      ||request()->routeIs('grn')
+                     || request()->routeIs('search_grn')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -95,6 +100,8 @@
                     || request()->routeIs('edit-ticket')
                     || request()->routeIs('ticket-details')
                     || request()->routeIs('generate-ticket')
+                    || request()->routeIs('filter')
+                    || request()->routeIs('search_ticket')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
 
@@ -111,6 +118,9 @@
                     ||request()->routeIs('create_new')
                     ||request()->routeIs('details_pettycash')
                     ||request()->routeIs('update_bill_status')
+                    ||request()->routeIs('pettycash_info')
+                    ||request()->routeIs('view_summary')
+                    ||request()->routeIs('pettycash_expenses')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
                </div>
@@ -143,6 +153,7 @@
                     <a href="{{route('PCN')}}"
                       class="{{request()->routeIs('PCN')
                       || request()->routeIs('create_pcn')
+                      || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
                       ? 'active' : ''}}">
@@ -151,9 +162,12 @@
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
+                     ||request()->routeIs('create_indent')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('filter_indents')
+                     ||request()->routeIs('search_indent')
                      ||request()->routeIs('grn')
+                     || request()->routeIs('search_grn')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -175,8 +189,10 @@
                     <a href="{{route('pettycash')}}"
                     class="{{request()->routeIs('pettycash')
                     ||request()->routeIs('edit_pettycash')
+                    ||request()->routeIs('view_summary')
                     ||request()->routeIs('details_pettycash')
                     ||request()->routeIs('update_bill_status')
+                    ||request()->routeIs('pettycash_expenses')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
                </div>
@@ -203,6 +219,7 @@
                     <a href="{{route('PCN')}}"
                      class="{{request()->routeIs('PCN')
                      || request()->route('edit_pcn')
+                     || request()->routeIs('search_pcn')
                      || request()->routeIs('create_pcn')
                      || request()->routeIs('edit_pcn')
                      || request()->routeIs('view_pcn')
@@ -212,8 +229,11 @@
                       <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
+                     ||request()->routeIs('create_indent')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('grn')
+                     ||request()->routeIs('search_indent')
+                     ||request()->routeIs('search_grn')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -236,7 +256,9 @@
                     class="{{request()->routeIs('pettycash')
                     ||request()->routeIs('edit_pettycash')
                     ||request()->routeIs('details_pettycash')
+                    ||request()->routeIs('view_summary')
                     ||request()->routeIs('update_bill_status')
+                    ||request()->routeIs('pettycash_expenses')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
 
@@ -263,6 +285,7 @@
                     <a href="{{route('PCN')}}"
                       class="{{request()->routeIs('PCN')
                       || request()->routeIs('create_pcn')
+                      || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
                       ? 'active' : ''}}">
@@ -272,8 +295,11 @@
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
+                     ||request()->routeIs('create_indent')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('grn')
+                     ||request()->routeIs('search_indent')
+                     ||request()->routeIs('search_grn')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -295,7 +321,9 @@
                     class="{{request()->routeIs('pettycash')
                     ||request()->routeIs('edit_pettycash')
                     ||request()->routeIs('details_pettycash')
+                    ||request()->routeIs('view_summary')
                     ||request()->routeIs('update_bill_status')
+                    ||request()->routeIs('pettycash_expenses')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
      
@@ -323,6 +351,7 @@
                     <a href="{{route('PCN')}}"
                       class="{{request()->routeIs('PCN')
                       || request()->routeIs('create_pcn')
+                      || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
                       ? 'active' : ''}}">
@@ -331,9 +360,12 @@
                       
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
+                     ||request()->routeIs('create_indent')
                      ||request()->routeIs('indent_details')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('grn')
+                     ||request()->routeIs('search_grn')
+                     ||request()->routeIs('search_indent')
                       ? 'active' : ''}}">
                       <label class="nav-links">Indents</label></a>
 
@@ -355,7 +387,9 @@
                     class="{{request()->routeIs('pettycash')
                     ||request()->routeIs('edit_pettycash')
                     ||request()->routeIs('details_pettycash')
+                    ||request()->routeIs('view_summary')
                     ||request()->routeIs('update_bill_status')
+                    ||request()->routeIs('pettycash_expenses')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
                </div>
@@ -391,6 +425,21 @@
                            
                           
                             <!--  <a href="{{route('notification', Auth::user()->id)}}" class="notification"> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a> -->
+                           <!--  <div class="dropdown">
+                               <a data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
+
+                                 <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moddl">About</a></li>
+                                        
+                                        <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li>
+
+                                    </ul>
+                             </div> -->
+
+                             <a class="dropdown-item" href="{{route('vault_master')}}"><img class="circle" src="{{asset('images/vault.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"></a>
+
+                             <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moddl"><img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"></a>
+
 
 
                              @if(Auth::user()->role_id == 1)
@@ -400,6 +449,7 @@
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item" href="{{route('users')}}">User Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('materials_master')}}">Material Master</a></li>
+                                        <li><a class="dropdown-item" href="{{route('department_master')}}">Department Master</a></li>
                                       
                                         <li>
                                           <a class="dropdown-item" href="#">Recycle & Restore </a>
@@ -414,6 +464,7 @@
 
                                     </ul>
                                 </div>
+
                              @endif
 
                              <a href=""> <img class="circle" src="{{asset('images/persons.svg')}}" style="width: 20px;height: 20px;margin-left: 30px;"> </a>
@@ -455,5 +506,60 @@
     </div>
 </body>
 
+
+<!-- Modal -->
+        <div class="modal fade" id="moddl" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">About</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="card">
+                  <div class="card-header text-white label-bold  align-items-center d-flex justify-content-center" style="background-color: #f10909;;font-family: sans-serif;">Web Application Specification</div>
+                    <div class="card-body">
+                       <div>
+                        <label style="font-family: sans-serif;">App Name :</label> <label style="font-size: 17px;font-family: sans-serif;">HRE Dashbaord</label>
+                      </div>
+
+                      <div style="margin-top: 10px">
+                        <label style="font-family: sans-serif;">Version :</label> <label style="font-size: 17px;font-family: sans-serif;">1.0</label>
+                      </div>
+
+                       <div style="margin-top: 10px">
+                        <label style="font-family: sans-serif;">System Type :</label> <label style="font-size: 17px;font-family: sans-serif;">64-bit operationg system</label>
+                      </div>
+
+                      <div style="margin-top: 10px">
+                        <label style="font-family: sans-serif;">Interactive :</label> <label style="font-size: 17px;font-family: sans-serif;">Yes</label>
+                      </div>
+
+                      <div style="margin-top: 10px">
+                        <label style="font-family: sans-serif;">Help :</label> <label class="label-bold" style="color: blue";font-family: sans-serif;>Kamal@hresolutions.in</label>
+                      </div>
+
+                      <div style="margin-top: 10px">
+                        <label style="font-family: sans-serif;">Concept Designer :</label><label style="font-size: 17px;font-family: sans-serif;" >Kamala Kannan R</label>
+                      </div>
+
+                      <div style="margin-top: 10px">
+                        <label style="font-family: sans-serif;">App developer :</label> <label style="font-size: 17px;font-family: sans-serif;">Netiapps Software Pvt. Ltd.</label>
+                      </div>
+
+                      <div>
+                        <label style="font-size: 17px;font-family: sans-serif;" >Netiapps #406, 9th Main Rd, HRBR Layout 1st Block, HRBR Layout, Kalyan Nagar, Bengaluru, Karnataka 560043</label>
+                      </div>
+                       
+                    </div>
+                  
+                </div>
+                
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
 
 </html>

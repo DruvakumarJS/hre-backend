@@ -27,7 +27,9 @@ class ManagerHomeController extends Controller
         $date = date('Y-m-d');
         $indents = Intend::orderby('id','DESC')->paginate(10);
         $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
-        $attendance = Attendance::where('date','LIKE','%'.$date.'%')->count();
+        $attendance = Attendance::select('user_id')->where('date','LIKE',date('Y-m-d'))->groupBy('user_id')->get();
+
+         $attendance = sizeof($attendance);
         $tickets = Ticket::where('created_at','LIKE','%'.$date.'%')->count();
 
         $overallticket  = Ticket::count();

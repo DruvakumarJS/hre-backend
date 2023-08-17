@@ -72,7 +72,7 @@
            
            <div class="col-md-4">
                 <label>Password *</label>
-                <input class="form-control" type="password" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');" name="password" required="" placeholder="Enter Password">
+                <input class="form-control" type="text" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');" name="password" required="" placeholder="Enter Password">
                 
                 
           </div>

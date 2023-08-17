@@ -10,14 +10,32 @@
     <div class="container-header">
         <label class="label-bold" id="div1">Today's Attendance</label>
 
+        @if(auth::user()->role_id == '1')
+
         <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light btn-outline-secondary" href="{{route('users')}}"><i class="fa fa-plus"></i> Create Employee</a>
 
         </div>
-
+        @endif
+        
+         @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
         <div id="div2" style="margin-right: 30px">
             <a  class="btn btn-light btn-outline-secondary" href="{{route('employee-details')}}"> View Employees</a>
         </div>
+
+         <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_attendance')}}" >
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search by Name / ID">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+         @endif
+       
 
         
 
@@ -48,12 +66,16 @@
                     <th scope="col">Name</th>
                     <th scope="col">Role</th>
                     <th scope="col">Login </th>
+                   <!--  @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
                     <th scope="col">Login Location</th>
+                    @endif -->
                     <th scope="col">Logout</th>
+                   <!--  @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
                     <th scope="col">Logout Location </th>
+                    @endif -->
                     <th scope="col">Out Of Work</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Action</th>
+                    <!-- <th scope="col">Action</th> -->
                 </tr>
                 </thead>
                 <tbody>
@@ -64,9 +86,13 @@
                         <td>{{$value->employee->name}}</td>
                         <td>{{$value->user->roles->alias}}</td>
                         <td>{{$value->login_time}}</td>
+                        <!-- @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
                         <td width="200px">{{$value->login_location}}</td>
+                        @endif -->
                         <td>{{$value->logout_time}}</td>
+                       <!--  @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
                          <td width="200px">{{$value->logout_location}}</td>
+                         @endif -->
                         @php
                           $minute1 = $value->out_of_work;
                           $hour1=  floor($minute1 / 60) ;
@@ -90,10 +116,10 @@
                         <td>{{$hour}}Hr : {{$min}}Min</td>
                         @endif
                         
-                        <td>
+                        <!-- <td>
                             <a href="{{route('employee-history', $value->user_id)}}"><button type="button" class="btn btn-sm curved-text">view</button></a>
                             
-                        </td>
+                        </td> -->
                     </tr>
 <!-- Modal -->
 

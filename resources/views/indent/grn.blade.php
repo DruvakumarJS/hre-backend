@@ -2,9 +2,26 @@
 
 @section('content')
 <div class="container">
-	<div class="container-header">
+  <div class="row justify-content-center">
+	 <div class="container-header">
             <label class="label-bold" id="div1">GRNs</label>
-                 
+
+            <div id="div2" style="margin-left: 30px">
+              <a href="{{route('intends')}}"><button class="btn btn-light btn-outline-secondary" > View Indents </button></a>
+            </div>
+
+            <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_grn')}}">
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search GRN here">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+      
     </div>
 
     <div class="page-container">
@@ -23,6 +40,7 @@
                               <th scope="col">Brand</th>
                               <th scope="col">Information</th>
                               <th scope="col">Dispatched No</th>
+                              <th scope="col">Comments</th>
                               <th scope="col">Status</th>
                               <th scope="col">Action</th>
                              
@@ -31,7 +49,7 @@
                           @foreach($grn_array as $key=>$value)
 
                           @php
-                           if($value['status'] == 'Awaiting for Confirmation'){
+                           if($value['status'] == 'Awaiting Confirmation'){
                            $color = 'blue';
 
                            }
@@ -70,10 +88,11 @@
                               </table>
                               </td>
                               <td>{{$value['dispatched']}}</td>
+                              <td>{{$value['comment']}}</td>
                               <td style="color: <?php echo $color; ?>">{{$value['status']}}</td>
                               @if($value['status']=='Received')
                               <td>
-                                  <a ><button class="btn btn-sm btn-outline-success" disabled >Update</button></a>
+                                  <a ><button class="btn btn-sm btn-outline-secondary" disabled="" >Update</button></a>
                               </td>
                               @else
                               <td>
@@ -138,7 +157,7 @@ $(document).ready(function(){
                           
                           @endforeach                         
                             
-                          </tbody>
+                         
                         </table>
 
                         
@@ -148,7 +167,7 @@ $(document).ready(function(){
                     <!--</div>-->
                  </div>
         </div>
-     
+    </div> 
 </div>	
 
 

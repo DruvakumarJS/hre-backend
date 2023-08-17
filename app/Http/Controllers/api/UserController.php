@@ -18,34 +18,86 @@ class UserController extends Controller
           $userdata= array();
         if (Auth::attempt($credentials)) {
 
-            $search = Employee::where('email',$request->email)
-                    ->first();
-      
-            if(!empty($search)){
-                $userdata = [
-                    'user_id' => $search->user_id,
-                    'employee_id' => $search->employee_id,
-                    'username' => $search->name,
-                    'role' => $search->role,
-                    'role_name' => $search->user->roles->alias
-                     ];
+            $user = User::where('email' , $request->email)->first();
 
+            $isloggedin = $user->isloggedin;
+
+            if($isloggedin == '0'){
+               $update = User::where('email' , $request->email)->update(['isloggedin'=>'1' , 'device_id'=> $request->device_id]);
+               if($update){
+                 $search = Employee::where('email',$request->email)
+                        ->first();
+          
+                if(!empty($search)){
+                    $userdata = [
+                        'user_id' => $search->user_id,
+                        'employee_id' => $search->employee_id,
+                        'username' => $search->name,
+                        'role' => $search->role,
+                        'role_name' => $search->user->roles->alias
+                         ];
+
+                     return response()->json([
+                        'status' => "TRUE",
+                        'message' => 'success',
+                        'data' => array($userdata)]
+                        );
+                }
+
+                else {
+                     return response()->json([
+                            'status'=> "FALSE",
+                            'message' => 'Invalid credentials',
+                            'data' => $userdata
+                            
+                    ]);
+
+                }    
+               }
+            }
+            
+            else if($user->device_id == $request->device_id)
+            {
+                $search = Employee::where('email',$request->email)
+                        ->first();
+          
+                if(!empty($search)){
+                    $userdata = [
+                        'user_id' => $search->user_id,
+                        'employee_id' => $search->employee_id,
+                        'username' => $search->name,
+                        'role' => $search->role,
+                        'role_name' => $search->user->roles->alias
+                         ];
+
+                     return response()->json([
+                        'status' => "TRUE",
+                        'message' => 'success',
+                        'data' => array($userdata)]
+                        );
+                }
+
+                else {
+                     return response()->json([
+                            'status'=> "FALSE",
+                            'message' => 'Invalid credentials',
+                            'data' => $userdata
+                            
+                    ]);
+
+                }    
+            }
+            else{
                  return response()->json([
-                    'status' => "TRUE",
-                    'message' => 'success',
-                    'data' => array($userdata)]
-                    );
+                            'status'=> "FALSE",
+                            'message' => 'Please contact your Administrator',
+                            'data' => $userdata
+                            
+                    ]);
+
             }
 
-            else {
-                 return response()->json([
-                        'status '=> "FALSE",
-                        'message' => 'Invalid credentials',
-                        'data' => $userdata
-                        
-                ]);
-
-            }     
+             
            
         }
 

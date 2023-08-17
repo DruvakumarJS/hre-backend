@@ -39,6 +39,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">P.O Number *</label>
+                            <div class="col-7">
+                                <input name="po_number" id="po_number" type="text" class="typeahead form-control" required="required" value="{{$pcn_data->po}}" placeholder="Enter P.O Number">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Client Name / Billing Name</label>
                             <div class="col-7">
                                 <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required" value="{{$pcn_data->client_name}}" >
@@ -145,7 +152,7 @@
                          <div class="form-group row">
                             <label id="lbl_approve" for="" class="col-5 col-form-label" style="display: <?php echo ($pcn_data->approve_holidays == 'Yes') ? 'block' : 'none'; ?>">Approved Holidays</label>
                             <div class="col-7" id="">
-                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value ="{{$pcn_data->approved_days}}" style="display: <?php echo ($pcn_data->approve_holidays == 'Yes') ? 'block' : 'none'; ?>">
+                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value ="{{$pcn_data->approved_days}}" min="0" style="display: <?php echo ($pcn_data->approve_holidays == 'Yes') ? 'block' : 'none'; ?>">
                             </div>
                         </div>
                         
@@ -265,7 +272,7 @@ $( document ).ready(function() {
         var s_date = document.getElementById('start_date').value;
         if(s_date!=''){
            $("#end_date" ).datepicker({
-           minDate:document.getElementById('start_date').value,
+         //  minDate:document.getElementById('start_date').value,
             dateFormat: 'yy-mm-dd'
           });
         }
@@ -274,7 +281,7 @@ $( document ).ready(function() {
          var s_date = document.getElementById('start_date').value;
         if(s_date!=''){
            $("#actual_end_date" ).datepicker({
-           minDate:document.getElementById('actual_start_date').value,
+          // minDate:document.getElementById('actual_start_date').value,
             dateFormat: 'yy-mm-dd'
           });
         }
@@ -372,7 +379,7 @@ $( document ).ready(function() {
 
     $( function() {
       $("#start_date").datepicker({
-       minDate:0,
+      // minDate:0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText, $el) {
          
@@ -385,7 +392,7 @@ $( document ).ready(function() {
     function setenddate(dateText){
      
          $("#end_date").datepicker({
-           minDate:'2023-06-30',
+         //  minDate:'2023-06-30',
             dateFormat: 'yy-mm-dd'
           });
       
@@ -394,7 +401,7 @@ $( document ).ready(function() {
   
  $( function() {
       $( "#actual_start_date" ).datepicker({
-       minDate:0,
+      // minDate:0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText, $el) {
         //  alert(dateText);
@@ -407,7 +414,7 @@ $( document ).ready(function() {
 
  function setactualenddate(dateText){
          $("#actual_end_date" ).datepicker({
-           minDate:dateText,
+          // minDate:dateText,
             dateFormat: 'yy-mm-dd'
           });
       
@@ -418,7 +425,7 @@ $( document ).ready(function() {
      function set_enddate(){
 
          $("#end_date" ).datepicker({
-           minDate:document.getElementById('start_date').value,
+         // minDate:document.getElementById('start_date').value,
             dateFormat: 'yy-mm-dd'
           });
        
@@ -428,7 +435,7 @@ $( document ).ready(function() {
       function set_actual_enddate(){
       
          $("#actual_end_date" ).datepicker({
-           minDate:document.getElementById('actual_start_date').value,
+          // minDate:document.getElementById('actual_start_date').value,
             dateFormat: 'yy-mm-dd'
           });
        

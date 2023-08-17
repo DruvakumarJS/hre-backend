@@ -26,6 +26,7 @@ class User extends Authenticatable
         'role_id',
         'role',
         'password',
+        'device_id',
         'isloggedin',
     ];
 
@@ -65,6 +66,7 @@ class User extends Authenticatable
      public function intends(){
             return $this->hasMany(Intend::class,'id', 'user_id');
         }  
+
     
      public function tickets(){
             return $this->hasMany(Ticket::class,'id', 'owner');
@@ -77,6 +79,10 @@ class User extends Authenticatable
       public function recipient(){
             return $this->hasMany(TicketConversation::class,'id', 'recipient');
         } 
+
+      public function departments(){
+            return $this->hasMany(TicketDepartment::class,'role_id', 'id');
+        }    
 
 
 

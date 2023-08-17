@@ -44,7 +44,7 @@
                                 <h2>Project Manager</h2>
                                  <div class="div-margin">
                                      <a href="{{route('manager')}}"><label class="btn btn-light" id="modal">View Users</label></a>
-                                 <a style="margin-left: 30px" href="{{route('create_user','manager')}}"></i> 
+                                 <a style="margin-left: 30px" href="{{route('create_user','manager')}}">
                                     <label class="btn btn-light curved-text-button" id="modal">Create User</label>
                                  </a>
                                 </div>
@@ -60,7 +60,7 @@
                                 <h2>Supervisor</h2>
                                  <div class="div-margin">
                                      <a href="{{route('supervisor')}}"><label class="btn btn-light" id="modal">View Users</label></a>
-                                 <a style="margin-left: 30px" href="{{route('create_user','supervisor')}}"></i> 
+                                 <a style="margin-left: 30px" href="{{route('create_user','supervisor')}}"> 
                                     <label class="btn btn-light curved-text-button" id="modal">Create User</label>
                                  </a>
                                 </div>
@@ -78,7 +78,7 @@
                                 <h2>Procurement</h2>
                                 <div class="div-margin">
                                      <a href="{{route('procurement')}}"><label class="btn btn-light" id="modal">View Users</label></a>
-                                 <a style="margin-left: 30px" href="{{route('create_user','procurement')}}"></i> 
+                                 <a style="margin-left: 30px" href="{{route('create_user','procurement')}}">
                                     <label class="btn btn-light curved-text-button" id="modal">Create User</label>
                                  </a>
                                 </div>
@@ -97,7 +97,7 @@
                                 <h2>Finance</h2>
                                 <div class="div-margin">
                                      <a href="{{route('finance')}}"><label class="btn btn-light" id="modal">View Users</label></a>
-                                 <a style="margin-left: 30px" href="{{route('create_user','finance')}}"></i> 
+                                 <a style="margin-left: 30px" href="{{route('create_user','finance')}}">
                                     <label class="btn btn-light curved-text-button" id="modal">Create User</label>
                                  </a>
                                 </div>

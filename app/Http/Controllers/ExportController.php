@@ -13,6 +13,8 @@ use App\Exports\ExportAttendanceReport;
 use App\Exports\ExportUsers;
 use App\Exports\ExportCategory;
 use App\Exports\ExportMaterial;
+use App\Exports\ExportPettycashSummary;
+use App\Exports\ExportMultipleIndents;
 
 use Excel ;
 use App\Models\customer;
@@ -23,6 +25,9 @@ use App\Models\Attendance;
 use App\Models\Pettycash;
 use App\Models\Category;
 use App\Models\Material;
+use App\Models\Intend;
+use App\Models\PettycashSummary;
+use DB;
 
 
 
@@ -45,9 +50,18 @@ class ExportController extends Controller
      }
 
      public function ticket($filter){
-       // print_r($filter);die();
+    //  print_r($filter);die();
+       if($filter == 'Pending')
+        {
+          $filter = 'Pending/Ongoing';
+          $file_name = 'Pending_tickets.csv';
+        }
+        else{
+           $file_name = $filter.'_tickets.csv';
+        }
+      
      	
-        $file_name = $filter.'_tickets.csv';
+       
 
         if($filter=='all'){
          if(Ticket::exists()){
@@ -181,12 +195,24 @@ class ExportController extends Controller
 
     }
 
-    public function material($filter){
+    public function material(Request $request){
+         
+      // print_r($request->Input());die();
+       $filter = $request->search ;
+       if(isset($request->start_date)){
+        $start = $request->start_date . ' 00:00:01';
+       $end = $request->end_date. ' 23:59:59'; 
+       }
+       else {
+        $start = '';
+        $end = ''; 
+       }
        
+
        $file_name = 'Material.csv';
        if($filter=="all"){
-        if(Material::exists()){
-            return Excel::download(new ExportMaterial($filter), $file_name);
+        if(Material::whereBetween('created_at', [$start , $end])->exists()){
+            return Excel::download(new ExportMaterial($filter ,$start , $end), $file_name);
 
         }
         else{
@@ -196,8 +222,8 @@ class ExportController extends Controller
 
        }
        else{
-        if(Material::where('category_id',$filter)->exists()){
-            return Excel::download(new ExportMaterial($filter), $file_name);
+        if(Material::whereBetween('created_at', [$start , $end])->exists()){
+            return Excel::download(new ExportMaterial($filter , $start , $end), $file_name);
 
         }
         else{
@@ -206,5 +232,37 @@ class ExportController extends Controller
         }
 
        }
+    }
+
+    public function summary(Request $request){
+
+        $user_id = $request->user_id ;
+        $emp = Employee::where('user_id', $user_id)->first();
+        $start_date = $request->start_date; 
+        $end_date = $request->end_date; 
+      
+          $file_name = 'PettycashSummary_'.$emp->employee_id.'.csv';
+
+          if(PettycashSummary::where('user_id',$user_id)->whereBetween('transaction_date', [$start_date , $end_date])->exists()){
+
+             return Excel::download(new ExportPettycashSummary($user_id ,$start_date, $end_date ), $file_name);
+          }
+          else {
+             return redirect()->back();
+          }
+      
+    }
+
+    public function download_multiple_indents(Request $request){
+
+   
+      $file_name = 'indents.csv';
+
+      $indents = $request->selctedindent;
+
+      $indentarray= explode (',', $indents);
+     
+      return Excel::download(new ExportMultipleIndents($indentarray), $file_name);
+   
     }
 }

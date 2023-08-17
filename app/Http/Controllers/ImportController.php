@@ -32,11 +32,17 @@ class ImportController extends Controller
 
      public function importmaterial(Request $request){
 
-     	$des = '"size":"1800*900","thickness":"6","grade":"MR"';
+     
+        $import = new ImportMaterial ;
 
-     	//print_r(json_encode($des)); die();
+    	Excel::import($import, $request->file('file'));
 
-    	Excel::import(new ImportMaterial, $request->file('file'));
-        return redirect()->back();
+        if($import->getRowCount() == 0){
+            return redirect()->back()->withMessage('No data imported');
+        }
+        else {
+            return redirect()->back()->withMessage('Import Successfull. '.$import->getRowCount() . ' materials added .');
+        }
+        //return redirect()->back();
     }
 }

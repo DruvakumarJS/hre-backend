@@ -132,7 +132,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('save_pcn',[PcnController::class,'store'])->name('save_pcn');
     Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
     Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');
-   
+    Route::post('search_pcn', [PcnController::class,'search'])->name('search_pcn');
 
 
     Route::get('indents',[IntendController::class,'index'])->name('intends');
@@ -147,6 +147,9 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('save_indent',[IntendController::class,'store'])->name('save_indent');
     Route::get('grn',[IntendController::class,'grn'])->name('grn');
     Route::post('update-grn', [IntendController::class,'update_grn'])->name('update-grn');
+    Route::post('edit_quantity', [IntendController::class,'edit_grn'])->name('edit_quantity');
+    Route::post('search_indent', [IntendController::class,'search'])->name('search_indent');
+    Route::post('search_grn', [IntendController::class,'search_grn'])->name('search_grn');
    
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');
@@ -161,6 +164,14 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('ticket_details/{id}',[TicketController::class,''])->name('ticket-details');
     Route::get('ticket_details/{id}',[TicketConversationController::class,'index'])->name('ticket-details');
     Route::post('reply_conversation',[TicketConversationController::class,'store'])->name('reply_conversation');
+    Route::post('modify_ticket',[TicketController::class,'modify_ticket'])->name('modify_ticket');
+    Route::get('download_ticket/{id}',[TicketController::class,'download_ticket'])->name('download_ticket');
+    Route::get('download_conversation_ticket/{id}',[TicketConversationController::class,'download_conversation_ticket'])->name('download_conversation_ticket');
+    Route::post('search_ticket',[TicketController::class,'search'])->name('search_ticket');
+    Route::get('department_master',[TicketController::class,'departments'])->name('department_master');
+    Route::post('create-department',[TicketController::class,'create_department'])->name('create_department');
+    Route::get('delete-department/{id}',[TicketController::class,'delete_department'])->name('delete_department');
+
 
     Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');
     Route::get('employee-details',[AttendanceController::class,'employeedetails'])->name('employee-details');
@@ -171,20 +182,28 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('attendance',[AttendanceController::class,'fetch_data'])->name('fetch_attendance');
     
     Route::post('update_attendance',[AttendanceController::class,'update'])->name('update_attendance');
+    Route::post('search_employee',[AttendanceController::class,'search'])->name('search_employee');
+    Route::post('search_attendance',[AttendanceController::class,'search_attendance'])->name('search_attendance');
 
  //petty cash
      Route::get('autocomplete_employee',[PettycashController::class,'action'])->name('autocomplete_employee');
     Route::get('pettycash',[PettycashController::class,'index'])->name('pettycash');
     Route::get('create_new',[PettycashController::class,'create'])->name('create_new');
+    Route::get('pettycash_info/{id}',[PettycashController::class,'show'])->name('pettycash_info');
     Route::post('save_petty_cash',[PettycashController::class,'store'])->name('save_petty_cash');
     Route::get('edit_pettycash/{id}',[PettycashController::class,'edit'])->name('edit_pettycash');
     Route::post('update_pettycash/{id}',[PettycashController::class,'update'])->name('update_pettycash');
+    Route::get('pettycash_delete/{id}',[PettycashController::class,'destroy'])->name('delete_pettycash');
     Route::get('pettycash_details/{id}',[PettyCashDetailController::class,'index'])->name('details_pettycash');
-    Route::get('pettycash_expenses/{id}',[PettyCashDetailController::class,'create'])->name('pettycash_expenses');
-    Route::post('upload_bills/{id}',[PettyCashDetailController::class,'store'])->name('upload_bills');
+    Route::get('pettycash_expenses',[PettyCashDetailController::class,'create'])->name('pettycash_expenses');
+    Route::post('upload_bills',[PettyCashDetailController::class,'store'])->name('upload_bills');
     Route::get('update_bill_status',[PettyCashDetailController::class,'update'])->name('update_bill_status');
-
-
+    Route::get('delete_expense/{id}',[PettyCashDetailController::class,'destroy'])->name('delete_expense');
+    Route::get('view-summary/{id}',[PettycashController::class,'summary'])->name('view_summary');
+    Route::post('summary',[PettyCashDetailController::class,'fetch_summary'])->name('fetch_summary');
+    Route::get('download_bills/{id}',[PettyCashDetailController::class,'download_bills'])->name('download_bills');
+    Route::post('search_pettycash',[PettycashController::class,'search'])->name('search_pettycash');
+    Route::get('pettycash_approval_reminder/{id}',[PettyCashDetailController::class,'reminder'])->name('pettycash_approval_reminder');
 
     //admin
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -193,9 +212,9 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('settings/create_user/{role}',[UserController::class, 'create_user'])->name('create_user');
     Route::post('save_user',[UserController::class , 'store'])->name('save_user');
     Route::get('edit_user/{id}',[UserController::class , 'edit'])->name('edit_user');
-    Route::post('update_user',[UserController::class , 'update'])->name('update_user');
+    Route::post('update_user/{id}',[UserController::class , 'update'])->name('update_user');
     Route::get('delete_user/{id}',[UserController::class , 'destroy'])->name('delete_user');
-    //Route::get('delete_user/{id}',[UserController::class , 'destroy'])->name('back');
+    Route::get('force_logout/{id}',[UserController::class , 'force_logout'])->name('force_logout');
 
 
     Route::get('materials',[MaterialController::class,'index'])->name('materials');
@@ -206,6 +225,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('edit_product/{id}',[MaterialController::class,'edit'])->name('edit_product');
     Route::post('update_product',[MaterialController::class,'update'])->name('update_product');
     Route::get('uoms',[MaterialController::class,'action'])->name('uoms');
+    Route::post('search_material', [MaterialController::class,'search'])->name('search_material');
+    Route::post('search_product', [MaterialController::class,'search_product'])->name('search_product');
 
     Route::get('settings/Material-master',[CategoryController::class, 'index'])->name('materials_master');
     Route::post('create_category',[CategoryController::class, 'create'])->name('create-category');
@@ -225,9 +246,9 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('edit_customer/{id}' ,[CustomerController::class,'edit'])->name('edit_customer');
     Route::post('update_customer' ,[CustomerController::class,'update'])->name('update_customer');
     Route::post('delete_customer/{id}' ,[CustomerController::class,'destroy'])->name('delete_customer');
-
     Route::post('delete_address' ,[CustomerController::class,'delete_address'])->name('delete_address');
     Route::get('delete_customer//{id}' ,[CustomerController::class,'delete_customer'])->name('delete_customer');
+    Route::post('search_customer', [CustomerController::class,'search'])->name('search_customer');
 
 
     Route::get('settings',[SettingController::class,'index'])->name('settings');
@@ -259,13 +280,15 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('export_customer',[ExportController::class,'customer'])->name('export_customer');
     Route::get('export-pcn',[ExportController::class,'pcn'])->name('export-pcn');
     Route::get('export_indent/{id}',[ExportController::class,'indent'])->name('export_indent');
+    Route::post('download_multiple_indents',[ExportController::class,'download_multiple_indents'])->name('download_multiple_indents');
     Route::get('export_tickets/{filter}',[ExportController::class,'ticket'])->name('export_tickets');
     Route::get('export_pettycash',[ExportController::class,'pettycash'])->name('export_pettycash');
     Route::post('export_attendance',[ExportController::class,'attendance'])->name('export_attendance');
     Route::get('download_attendance',[ExportController::class,'month_report'])->name('download_monthly_attendance');
     Route::get('export-users/{role}',[ExportController::class , 'users'])->name('export-users');
     Route::get('export',[ExportController::class , 'category'])->name('export-categories');
-    Route::get('export-material/{filter}',[ExportController::class,'material'])->name('export-materials');
+    Route::post('export-material',[ExportController::class,'material'])->name('export-materials');
+    Route::post('export_summary',[ExportController::class,'summary'])->name('export_summary');
 
     Route::get('show-notification/{id}',[NotificationController::class,'index'])->name('notification');
     Route::get('view-notification',[NotificationController::class,'show'])->name('view_notification');
@@ -274,6 +297,9 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('save_document',[VaultController::class,'store'])->name('save_document');
     Route::post('update-doc',[VaultController::class,'update'])->name('update-doc');
     Route::get('delete_doc/{id}',[VaultController::class,'destroy'])->name('delete_doc');
+
+
+    Route::post('testimages',[PettyCashDetailController::class,'test'])->name('testimages');
 
 
 

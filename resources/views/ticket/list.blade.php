@@ -2,6 +2,16 @@
 
 @section('content')
 
+@php
+if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
+@endphp
+
+<style type="text/css">
+	thead th {
+ 
+  height: 50px;
+}
+</style>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -11,6 +21,20 @@
             <a class="btn btn-light btn-outline-secondary" href="{{route('generate-ticket')}}">
              <label id="modal">Generate Ticket </label> </a>
           </div>
+        @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' )
+           <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_ticket')}}" >
+            @csrf
+             <div class="input-group mb-3">
+             	<input type="hidden" name="filter" value="{{$filter}}">
+                <input class="form-control" type="text" name="search" placeholder="Search ticket">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+        @endif
           <div id="div2" style="margin-right: 30px">
              <!-- <input class="form-control" type="text" name="search" placeholder="Filter "> -->
             @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' )
@@ -18,24 +42,26 @@
              	@csrf
              <div class="input-group mb-3">
 				 
-				  <select class="form-control" name="filter">
+				  <select class="form-control" name="filter" onchange="filetrdata()">
 				  	<option value="">Select </option>
 	             	<option value="0">All Tickets</option>
-	             	<option value="{{Auth::user()->id}}">My Tickets</option>
-	             	<option value="Created">Created Tickets</option>
-	             	<option value="Pending">Pending Tickets</option>
-	             	<option value="Completed">Completed Tickets</option>
-	             	<option value="Reopend">Reopend Tickets</option>
-	             	<option value="Rejected">Rejected Tickets</option>
+	             	<option <?php echo ($filter == '1')?'selected':''  ?> value="{{Auth::user()->id}}">My Tickets</option>
+	             	<option <?php echo ($filter == 'Created')?'selected':''  ?> value="Created">Created Tickets</option>
+	             	<option <?php echo ($filter == 'Pending')?'selected':''  ?> value="Pending">Pending Tickets</option>
+	             	<option <?php echo ($filter == 'Completed')?'selected':''  ?> value="Completed">Completed Tickets</option>
+	             	<option <?php echo ($filter == 'Resolved')?'selected':''  ?> value="Resolved">Resolved Tickets</option>
+	             	<option <?php echo ($filter == 'Reopend')?'selected':''  ?> value="Reopend">Reopend Tickets</option>
+	             	<option <?php echo ($filter == 'Rejected')?'selected':''  ?> value="Rejected">Rejected Tickets</option>
                  </select>
                  <div class="input-group-prepend">
-				    <button class="btn btn-outline-secondary rounded-0" type="submit">Filter</button>
+				    <button class="btn btn-outline-secondary rounded-0" id="btn_filter" type="submit" style="display: none">Filter</button>
 				  </div>
 				</div>
              </form>
             @endif
 
           </div> 
+
 
           <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light btn-outline-secondary" href="{{route('export_tickets',$filter)}}">
@@ -45,18 +71,18 @@
 
     <div class="page-container"> 
      <div>
-     	<div class="card border-white table-responsive">
+     	<div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
      		<table class="table">
 
      			<thead>
 	                <tr>
-	                  <th scope="col">Date</th>
-	                  <th scope="col">Ticket No</th>
+	                  <th scope="col">C_Date</th>
+	                  <th scope="col">Ticket_No</th>
 	                  <th scope="col">PCN</th>
 	                  <th scope="col">Billing Details</th>
-	                  <th scope="col" width="150px">Department</th>
-	                  <th scope="col" width="150px">Description</th>
-	                 <!--  <th scope="col">Creator</th>  -->
+	                  <th scope="col">Department</th>
+	                  <th scope="col">Description</th>
+	                  <th scope="col">Creator</th> 
 	                  <th scope="col">Priority</th>
 	                  <th scope="col">TAT</th>
 	                  
@@ -70,11 +96,11 @@
 	            <tbody>
 	            @foreach($tickets as $key=>$value)
 	                <tr>
-	                	<td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
+	                	<td width="100px">{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
-	                	<td width="200px">{{$value->pcns->client_name}} @php echo'<br/>'; @endphp {{$value->pcns->area}},{{$value->pcns->city}}</td>
-	                	<td>{{$value->category}}</td>
+	                	<td width="100px">{{$value->pcns->brand}} @php echo'<br/>'; @endphp {{$value->pcns->location}},{{$value->pcns->area}},{{$value->pcns->city}}</td>
+	                	<td >{{$value->category}}</td>
 	                	<td>{{$value->issue}}</td>
 	                	 
                        @php
@@ -88,9 +114,10 @@
                          $colors = 'limegreen' ;
 	                	 
                        @endphp
-	                	<td><button class="btn btn-light" style="width:50px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></i></td>
+                       <td>{{$value->user->name}}</td>
+	                	<td><button class="btn btn-light" style="width:25px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></i></td>
 
-	                	<td><?php echo ($value->tat!='') ? date("d-m-Y", strtotime($value->tat)) :''  ?></td>
+	                	<td width="100px"><?php echo ($value->tat!='') ? date("d-m-Y", strtotime($value->tat)) :''  ?></td>
 	                	
 	                	<td>{{$value->status}} <?php echo '<br>';echo($value->reopened == '1') ? 'Re-Opened':'' ?></td>
 	                	
@@ -101,21 +128,21 @@
 	                		@endif
 	                	</td>
 	                	
-	                	
+	              
 	                	<td>
-	                		@if(Auth::user()->id ==1 || Auth::user()->role == 'manager')
-	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
+	                		@if(Auth::user()->role_id == 1 || Auth::user()->role == 'manager')
+	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>
 	                		@elseif($value->status == 'Created')
-	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
+	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>
 	                		@else
-	                		<a href=""><button class="btn btn-light curved-text-button btn-sm" disabled>Edit</button></a>
+	                		<!-- <a href=""><button class="btn btn-light curved-text-button btn-sm" disabled>Edit</button></a> -->
                             @endif
 
-	                		 @if($value->status == 'Created')
-	                		 <a href=""><button class="btn-light btn-outline-grey btn-sm" disabled="" >More Info</button></a>
+	                		 @if($value->status == 'Created' || $value->status == 'Rejected'  )
+	                		 <a href=""><button class="btn-light btn-outline-grey btn-sm" disabled >Info/Convo</button></a>
 
 	                		 @else
-	                		 <a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm" >More Info</button></a>
+	                		 <a href="{{route('ticket-details', $value->ticket_no)}}"><button class="btn btn-light btn-outline-success btn-sm" style="padding: 1px 10px">Info/Convo</button></a>
 
 	                		 @endif
 
@@ -125,26 +152,31 @@
 	                </tr>
 
         <!-- Modal -->
-
                   <div class="modal" id="modal_{{$key}}" >
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Attachment</h5>
-                          @if($value->filename != '')
-        		
-                <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> 
-        		@endif
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
+			        <div class="modal-dialog">
+			          <div class="modal-content">
+			            <div class="modal-header">
+			              <h5 class="modal-title" id="exampleModalLabel">Attachments </h5>
 
-                           <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value->filename}}" alt="ticketimage" style="width: 400px;height: 250px" />
-                          
-                        </div>
-        </div>
-      </div>
-    </div>
+			               <a href="{{route('download_ticket',$value->id)}}"><i style="margin-left: 30px" class="fa fa-download"></i></a>
+			             
+			              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			            </div>
+			            <div class="modal-body">
+			            	@php
+			            	$revertNames = explode(',', $value->filename);
+			            	@endphp
+
+                          @foreach($revertNames as $key2=>$value2)
+			               <img class="imagen" id="blah" src="{{ URL::to('/') }}/ticketimages/{{$value2}}" alt="ticketimage" style="width: 400px;height: 250px; margin: 10px" />
+
+			                <a target="_blank" href="{{ URL::to('/') }}/ticketimages/{{$value2}}"><i class="fa fa-expand" style="color: black;font-size:30px"></i></a> 
+			               @endforeach
+			              
+			            </div>
+			        </div>
+			      </div>
+			    </div>
 
 <!--  end Modal -->
 
@@ -159,14 +191,10 @@
 	            
 	            	
 	            </tbody>
-
-     			
+                 
 
      		</table>
-     		<label>Showing {{ $tickets->firstItem() }} to {{ $tickets->lastItem() }}
-                                    of {{$tickets->total()}} results</label>
-
-                                {!! $tickets->links('pagination::bootstrap-4') !!}
+     		
 
      	</div>
      	
@@ -180,6 +208,10 @@
 	function getTickets(){
 		var filter = document.getElementById('filter').value;
 		alert(filter);
+	}
+
+	function filetrdata(){
+		$('#btn_filter').click();
 	}
 </script>
 @endsection

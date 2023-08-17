@@ -15,9 +15,8 @@ use App\Models\Category;
 //use Illuminate\Support\Facades\Mail;
 use App\Mail\IndentsMail;
 use PDF;
-use SendGrid\Mail\From;
-use SendGrid\Mail\To;
-use SendGrid\Mail\Mail;
+
+use Mail;
 
 class IndentController extends Controller
 {
@@ -107,73 +106,43 @@ class IndentController extends Controller
               'material_id' => $value->material_id ,
               'name' => $value->materials->name ,
               'brand' => $value->materials->brand ,
-              'decription' => $value->decription,
               'quantity' => $value->quantity,
+              'comments' => $value->decription,
+              'uom'=> $value->materials->uom,
              ];
            }
+          
+          $pcn_data=Pcn::where('pcn',$idtend->pcn)->first();
 
+          $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+          $user = User::where('id',$request->user_id)->first();
           
            $indent_details = [
                  'indent_no' => $idtend->indent_no,
                  'pcn' => $idtend->pcn ,
+                 'pcn_details'=> $pcn_detail ,
+                 'creator' =>$user->name,
                  'details'=> $data     
           ];
 
-        
-        $file = 'HRE_'.$idtend->indent_no.'.pdf';
-          
-        $pdf = PDF::loadView('pdf.indentsPDF', $indent_details);
-      
-        $pdf->save(public_path('pdf/'.$file));
-/*
-        $path = public_path('pdf');
-        $filename = $path.'/'.$file;
-        Mail::to('druva@netiapps.com')->send(new IndentsMail($indent_details , $filename));
-*/
-        /*$userdetails = User::where('id', $request->user_id)->first();
-        $pcn_details = Pcn::where('pcn',$request->pcn)->first();
+        /*$filename = 'indent.pdf';
+        $pdf = PDF::loadView('pdf/indentsPDF', compact('indent_details'));
+    
+        $savepdf = $pdf->save(public_path($filename));
 
-        $from = new From("abhishek@netiapps.com", "HRE");
-                $tos = [
-                    new To(
-                        "druva@netiapps.com",
-                        "Druva",
-                       
-                        [
-                            'indent_no' => $idtend->indent_no,
-                            'pcn' => $idtend->pcn,
-                            'name' => 'Druva',
-                            'supervisor' => $userdetails->name,
-                            'client_name' => $pcn_details->client_name,
-                            'brand' => $pcn_details->brand,
-                            'client_location' => $pcn_details->area.",".$pcn_details->city.",",$pcn_details->state
-                        ]
-                        
-                    )
-                ];
+        $filename = public_path($filename);
+        if($savepdf){
+         // $to = explode(',', env('ADMIN_EMAILS'));
+          $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
+          $to = explode(',', $address);
 
-              
-                $email = new Mail(
-                    $from,
-                    $tos
-                );
-                $email->setTemplateId("d-03a5c49c9835443c9bfa4f0df5475e7f");
-                
-                $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
-                try {
-                    $response = $sendgrid->send($email);
-                     print $response->statusCode() . "\n";
-                     print_r($response->headers());
-                     print $response->body() . "\n"; die();
-                } catch (Exception $e) {
-                    echo 'Caught exception: '.  $e->getMessage(). "\n";
-                } 
-
-*/
+        // Mail::to($to)->send(new IndentsMail($indent_details,$filename));
+           
+        }*/
 
         return response()->json([
          	 		'status' => 1 ,
-         	 		'message' => 'Indent Created Succesfully'
+         	 		'message' => 'Indent Created Succesfully '.$ind_no
          	 		]);
         }
 
@@ -197,6 +166,7 @@ class IndentController extends Controller
 
    function indents(Request $request){
     $indentarray=array();
+    $final_array=array();
       if(!isset($request->user_id)){
         return response()->json([
               'status' => 0 ,
@@ -206,23 +176,35 @@ class IndentController extends Controller
       }
       else {
         $indents = Intend::where('user_id',$request->user_id)->where('status','!=','Completed')->get();
+       
+        $indent_active = Intend::where('user_id',$request->user_id)->where('status','Active')->count();
+        $indent_completed = Intend::where('user_id',$request->user_id)->where('status','Completed')->count();
+
+        $counts=['Active' => $indent_active , 'Completed' => $indent_completed ];
         
 
         foreach ($indents as $key => $value) {
+         $pcn_data=Pcn::where('pcn',$value->pcn)->first();
+
+         $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+
           $indentarray[] = [
             'indent_id' => $value->id ,
             'indent_no' => $value->indent_no,
             'pcn' => $value->pcn,
+            'pcn_detail' => $pcn_detail,
             'status'=> $value->status,
             'created_on' => $value->created_at->toDateTimeString()
 
           ];
               
         }
+        $final_array=['counts' => $counts , 'myindents' => $indentarray];
+
         return response()->json([
               'status' => 1 ,
               'message' => 'success' ,
-              'data' => $indentarray
+              'data' => $final_array
               ]);
 
 
@@ -278,7 +260,7 @@ class IndentController extends Controller
    $pcn_array= array();
      if(isset($request->user_id))
      {
-      $Pcns = Pcn::where('status','Active')->get();
+      $Pcns = Pcn::get();
       
       foreach ($Pcns as $key => $value) {
       $pcn_array[] = [
@@ -287,7 +269,8 @@ class IndentController extends Controller
         'brand' => $value->brand,
         'location' => $value->location,
         'area' => $value->area,
-        'city' => $value->city
+        'city' => $value->city,
+        'status' => $value->status,
          ];
 
       }
@@ -315,17 +298,20 @@ class IndentController extends Controller
         {
           $user_id = $request->user_id ;
 
-          $grns = GRN::where('user_id',$user_id)->where('status','!=','Received')->get();
+          $grns = GRN::where('user_id',$user_id)->get();
 
           if(sizeof($grns)>0){
 
            
-
           foreach ($grns as $key => $value) {
 
             $indent_list = Indent_list::where('id',$value->indent_list_id)->first();
 
             $material = Material::where('item_code',$indent_list->material_id)->first();
+
+            $pcn_data=Pcn::where('pcn',$value->pcn)->first();
+
+            $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
             
             $material_detail = [
               'material_name' => $material->name,
@@ -340,8 +326,14 @@ class IndentController extends Controller
              $grs_data = [
               'grn' => $value->grn,
               'pcn' => $value->pcn,
+              'pcn_detail'=> $pcn_detail,
               'indent_no' => $value->indent_no,
               'dispatched' => $value->dispatched,
+              'dispatch_comment' => $value->dispatch_comment,
+              'accepted' => $value->approved ,
+              'rejected' => $value->damaged,
+              'accepting_comment' => $value->comment,
+              'status' => $value->status,
               'indent_details' => array($material_detail)
             ];
 
@@ -465,26 +457,5 @@ class IndentController extends Controller
 
    }
 
-   function getdepartments(Request $request){
-
-    $data= array();
-    if(isset($request->user_id)){
-        $data = Category::select('category')->get();
-
-        return response()->json([
-          'status' => 1 ,
-          'message' => 'success',
-          'data' => $data
-        ]);
-
-    }
-    else {
-      return response()->json([
-                  'status' => 0 ,
-                  'message' => 'UnAuthorized/Insufficient data',
-                  'data' => $data
-                  ]);
-    }
-
-   }
+  
 }

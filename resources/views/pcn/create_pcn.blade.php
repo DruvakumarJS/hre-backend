@@ -18,6 +18,69 @@ $date = date('dd-mm-yyyy');
          
          
         </div>
+
+        @if(session()->has('PCN'))
+       <script>
+        $(document).ready(function(){
+            $('#modal').modal('show');
+          });
+        
+        </script>
+
+        <!--  Modal -->
+          <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">PCN Created Succesfully</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  @php
+                  $data= Session::get('PCN');
+
+                  @endphp
+                  <div>
+                     <label>PCN : </label> <label class="label-bold">{{$data->pcn}}</label>
+                  </div>
+                   <div>
+                     <label>Brand : </label> <label class="label-bold">{{$data->brand}}</label>
+                  </div>
+                   <div>
+                     <label>Location : </label> <label class="label-bold">{{$data->location}}</label>
+                  </div>
+                   <div>
+                     <label>Area : </label> <label class="label-bold">{{$data->area}}</label>
+                  </div>
+                   <div>
+                     <label>City : </label> <label class="label-bold">{{$data->city}}</label>
+                  </div>
+                   <div>
+                     <label>State : </label> <label class="label-bold">{{$data->state}}</label>
+                  </div>
+                  
+                   <div>
+                     <label>Proposed Start Date : </label> <label class="label-bold">{{date("d-m-Y", strtotime($data->proposed_start_date))}}</label>
+                  </div>
+                  @if($data->proposed_end_date != "")
+                   <div>
+                     <label>Proposed End Date : </label> <label class="label-bold">{{date("d-m-Y", strtotime($data->proposed_end_date))}}</label>
+                  </div>
+                  @endif
+                 
+
+                  <div id="div2">
+                    <a href="{{route('view_pcn')}}"><button class="btn btn-success">OK , GOT IT</button></a>
+                    
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </div>
+          </div>
+  <!-- Modal -->
+    @endif
         <div class="form-build">
             <div class="row">
                 <div class="col-6">
@@ -42,6 +105,13 @@ $date = date('dd-mm-yyyy');
                                    <div class="alert alert-danger mt-1 mb-1">{{ Session::get('message') }}</div>
                                  @endif
 
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">P.O Number *</label>
+                            <div class="col-7">
+                                <input name="po_number" id="po_number" type="text" class="typeahead form-control" required="required" value="{{old('po_number')}}" placeholder="Enter P.O Number">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -164,7 +234,7 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label id="lbl_approve" for="" class="col-5 col-form-label" style="display: none">Approved Holidays</label>
                             <div class="col-7" id="">
-                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value="{{old('approved_holidays')}}" style="display: none">
+                                <input id="inp_approve" name="approved_holidays" type="number" class="form-control" value="{{old('approved_holidays')}}"  min="0" style="display: none">
                             </div>
                         </div>
                         
@@ -302,7 +372,7 @@ $( document ).ready(function() {
 <script language="javascript">
    $( function() {
       $( "#start_date" ).datepicker({
-       minDate:0,
+        //minDate:0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText, $el) {
          // alert(dateText);
@@ -314,7 +384,7 @@ $( document ).ready(function() {
 
      function setenddate(dateText){
          $("#end_date" ).datepicker({
-           minDate:dateText,
+         // minDate:dateText,
             dateFormat: 'yy-mm-dd'
           });
       
@@ -322,7 +392,7 @@ $( document ).ready(function() {
 
  $( function() {
       $( "#actual_start_date" ).datepicker({
-       minDate:0,
+      // minDate:0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText, $el) {
         //  alert(dateText);
@@ -336,7 +406,7 @@ $( document ).ready(function() {
 
      function setactualenddate(dateText){
          $("#actual_end_date" ).datepicker({
-           minDate:dateText,
+          // minDate:dateText,
             dateFormat: 'yy-mm-dd'
           });
       

@@ -18,6 +18,20 @@
           </div>
           @endif
 
+          
+
+          <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_customer')}}">
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search here">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+
           <div id="div2" style="margin-right: 30px" >
             <a href="{{route('export_customer')}}" class="btn btn-light btn-outline-secondary" href=""><label id="modal">Download CSV</label></a>
           </div>
@@ -40,7 +54,7 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Date</th>
+                              <th scope="col">Creation Date</th>
                               <th scope="col">Billing Name</th>
                               <th scope="col">Email</th>
                               <th scope="col">Mobile</th>

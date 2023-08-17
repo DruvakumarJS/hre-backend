@@ -184,15 +184,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-       // print_r($request->Input());die();
+       // print_r($id); die();
+
+       /* if(Employee::where('mobile',$request->mobile)->where('user_id' ,'!=', $id)->exists()){
+            print_r("YES");
+        }
+        else {
+            print_r("NO");
+        }
+        die();*/
 
          $validator = Validator::make($request->all(), [
             'employee_id' => 'required|unique:employees,employee_id,'.$request->row_id,
             'mobile' => 'required|min:10|max:10|unique:employees,mobile,'.$request->row_id,
             'email' => 'required|email|unique:employees,email,'.$request->row_id,    
         ]);
+
 
 
        if ($validator->fails()) {
@@ -288,6 +297,16 @@ class UserController extends Controller
             $delete = Employee::where('user_id',$id)->delete();
             return redirect()->back();
         }*/
+    }
+
+    public function force_logout($id){
+          
+          $update = User::where('id',$id)->update(['isloggedin' => '0']);
+
+          if($update){
+            return redirect()->back();
+          }
+
     }
 
     public  function view_superadmins(){

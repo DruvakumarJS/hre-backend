@@ -28,11 +28,13 @@ class ExportAttendance implements FromCollection, WithHeadings
     public function collection()
     {
         $att= DB::table('attendances')
-        ->select(DB::raw('date ,login_time , logout_time , CONCAT(FLOOR(total_hours/60),"Hr : ",MOD(total_hours,60),"Min") ')) 
+        ->select(DB::raw('date ,login_time , login_location , logout_time , logout_location ,  CONCAT(FLOOR(total_hours/60),"Hr : ",MOD(total_hours,60),"Min") , CONCAT(FLOOR(out_of_work/60),"Hr : ",MOD(out_of_work,60),"Min")')) 
        
         ->where('user_id',$this->user_id )
         ->whereBetween('date', [$this->start_date, $this->end_date])
         ->get();
+
+      //  print_r(json_encode($att)); die();
 
         return $att ;
 
@@ -42,7 +44,7 @@ class ExportAttendance implements FromCollection, WithHeadings
     public function headings(): array
      {       
        return [
-         'Date','Login Time' , 'Logout Time' , 'Working minutes'
+         'Date','Login Time' , 'Login Location' ,'Logout Time' , 'Logout Location','Working minutes','Out Of Work' 
        ];
      }
 }

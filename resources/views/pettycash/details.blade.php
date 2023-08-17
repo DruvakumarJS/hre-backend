@@ -9,10 +9,20 @@
             <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}"> View PettyCash List</a>
         </div>
 
+        @if($id == auth::user()->id)
+        <div id="div2" style="margin-right: 30px">
+            <a href="{{route('pettycash_expenses')}}"><button class="btn btn-light btn-outline-secondary">Upload Expenses</button></a>
+        </div>
+
+        <div id="div2" style="margin-right: 30px">
+            <a href="{{route('pettycash_approval_reminder', auth::user()->id)}}"><button class="btn btn-light btn-outline-secondary">Send Reminder</button></a>
+        </div>
+        @endif
+
+
+
       
     </div>
-
-
 
 
     <div class="form-build">
@@ -31,13 +41,13 @@
 
             <div class="col-md-2">
                 <label>Issued Amount</label>
-                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total}}</h3>
+                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total_issued}}</h3>
                 
             </div>
 
             <div class="col-md-2">
                 <label>Bill Accepted for</label>
-                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->spend}}</h3>
+                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total_issued-$pettycash->total_balance}}</h3>
                 
             </div>
 
@@ -45,10 +55,16 @@
              <div class="col-md-2">
                 <label>Balance Amount</label>
                 @if(auth::user()->role_id == '5' || auth::user()->role_id == '1')
-                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->remaining}}</h3>
+                @if($pettycash->employee->user_id == auth::user()->id)
+                 <h3 class="label-bold"><span>&#8377;</span><?php echo intval($pettycash->total_issued) - intval($myspent) ; ?></h3>
                 @else
-                <h3 class="label-bold"><span>&#8377;</span><?php echo intval($pettycash->total) - intval($myspent) ; ?></h3>
+                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total_balance}}</h3>
                 @endif
+
+                @else
+                <h3 class="label-bold"><span>&#8377;</span><?php echo intval($pettycash->total_issued) - intval($myspent) ; ?></h3>
+                 @endif
+                
                 
             </div>
             
@@ -59,55 +75,71 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Date</th>
-                               <!--  <th>Transaction Ref</th> -->
+                                <th>Bill Date</th>
+                                <th>Bill Number</th>
                                 <th>Amount Utilised</th>
                                 <th>Purpose</th>
-                                <th width="200px">Description</th>
-                                <th>Bill Date</th>
-                                <th>Proof of Expense</th>
-                                <th>Status</th>
-                                <th width="200px">Remarks</th>
+                                <th>PCN</th>
+                                <th width="170px">Description</th>
+                                <th>Proof</th>
+                                <th width="140px">Status</th>
+                                 <th>Entry Date</th>
+                                <th width="150px">Remarks</th>
+                               
                                 <th></th>
                             </tr>
                             </thead>
                         @foreach($data as $key =>$value)
                                 <tr>
-                                    <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                   <!--  <td>{{$value->billing_no}}</td> -->
+                                    <td>{{date("d-m-Y", strtotime($value->bill_date))}}</td>
+                                    <td>{{$value->bill_number}}</td>
                                     <td><span>&#8377;</span>{{$value->spent_amount}}</td>
                                     <td>{{$value->purpose}}</td>
-                                    <td>{{$value->pcn}} {{$value->comments}}</td>
-                                    <td>{{date("d-m-Y", strtotime($value->bill_date))}}</td>
+                                    <td>{{$value->pcn}}</td>
+                                    <td>{{$value->comments}}</td>
+                                    
                                     <td>
                                         @if($value->filename != '')
-                                        <a target="_blank" href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-eye" style="color: black"></i></a> 
+                                        <a id="MyproofModal_{{$key}}"><i class="fa fa-eye" style="color: black"></i></a> 
 
-                                        <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px;color: black"></i></a> 
+                                        <!-- <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value->filename}}"><i class="fa fa-download" style="margin-left: 10px;color: black"></i></a> -->
+
+                                        <a href="{{route('download_bills',$value->id)}}"><i class="fa fa-download" style="color: black"></i></a> 
+
                                         @endif
                                     </td>
+
+                                   
                                     @if($value->isapproved == '0')
-                                        <td style="color: blue">Waiting for approval</td>
+                                        <td style="color: blue">Awaiting approval</td>
                                     @elseif($value->isapproved == '1')
                                          <td style="color: green">Approved</td>
                                     @else 
                                          <td style="color: red">Rejected</td> 
                                     @endif
+                                    <td>{{date("d-m-Y", strtotime($value->created_at))}}</td> 
+                                    <td>{{$value->remarks}}</td>
 
-                                    <td >{{$value->remarks}}</td> 
                                     <td>
+                                        @if($value->user_id == Auth::user()->id)
+                                         @if($value->isapproved == '0')
+                                        
+                                        <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_expense',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a> 
+                                         @endif
+                                        @endif
+
                                         @if( (Auth::user()->role == 'admin') || (Auth::user()->role == 'finance'))
                                             @if($value->isapproved == '0')
-                                                <a data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-warning">Approve/Reject</button></a>
-                                                <!-- <a onclick="return confirm('you are Accepting this bill ?')" href="{{route('update_bill_status',['id' => $value->id, 'status' => '1']) }}"><button class="btn btn-sm btn-outline-success">Accept</button></a>
-                                                <a onclick="return confirm('you are Rejecting this bill ?')" href="{{route('update_bill_status',['id' => $value->id, 'status' => '2'] ) }}"><button  class="btn btn-sm btn-outline-danger">Reject</button></a>-->
+                                                <a id="MybtnModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-warning">Approve/Reject</button></a>
+                                               
                                             @endif
-                                            @endif  
+                                            @endif 
+
                                     </td> 
                                    </tr>
 
 <!--  Modal -->
-        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modal_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -119,7 +151,7 @@
                     @csrf
 
                     <div class="form-group ">
-                            <label class="label-bold">Bill Date :</label> <label>{{date("d-m-Y", strtotime($value->bill_date))}}</label>
+                            <label class="label-bold">Bill Date :</label> <label>{{date("d-m-Y", strtotime($value->bill_date))}} </label>   <label class="label-bold" style="margin-left: 20px">Bill Amount :</label> <label>{{$value->spent_amount}} </label>
                             <textarea name="remarks" placeholder="Enter Remarks here" style="width: 100%;padding: 10px" required></textarea> 
                            
                        
@@ -135,10 +167,68 @@
           </div>
         </div>
 <!-- Modal -->
+<script>
+$(document).ready(function(){
+  $('#MybtnModal_{{$key}}').click(function(){
+    $('#modal_{{$key}}').modal('show');
+  });
+});  
+</script>
+
+
+
+<!-- proof -->
+
+<!--  Modal -->
+        <div class="modal fade" id="proof_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bill Proof</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                @php
+                $revertNames = explode(',', $value->filename);
+                @endphp
+
+              @foreach($revertNames as $key2=>$value2)
+               @if(str_contains($value2, ".pdf"))
+                <img class="imagen" id="blah" src="{{ URL::to('/') }}/images/pdf.png" alt="ticketimage" style="width: 100px;height: 100px;margin: 10px" />
+               @else
+               <img class="imagen" id="blah" src="{{ URL::to('/') }}/pettycashfiles/{{$value2}}" alt="ticketimage" style="width: 400px;height: 250px" />
+               @endif
+
+               <a target="_blank" href="{{ URL::to('/') }}/pettycashfiles/{{$value2}}"><i class="fa fa-expand" style="color: black;font-size:30px;margin: 10px"></i></a> 
+
+               <!-- <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value2}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> -->
+
+
+             
+               @endforeach
+              
+            </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
+<script>
+$(document).ready(function(){
+  $('#MyproofModal_{{$key}}').click(function(){
+    $('#proof_{{$key}}').modal('show');
+  });
+});  
+</script>
+
+<!-- Proof -->
                         @endforeach
                         </table>
                         </div>
 
  </div>    
 </div>
+
+
+
 @endsection

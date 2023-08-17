@@ -23,22 +23,53 @@ class RoleSeeder extends Seeder
                     [
                         'name' => 'manager',
                         'alias' => 'Project Manager',
-                        'description'=>'All Controles'
+                        'description'=>'Can manage Tickets'
                     ],
                     [
                         'name' => 'procurement',
-                        'alias' => 'Procurement',
-                        'description'=>'Limited data can see'
+                        'alias' => 'Procurement Manager',
+                        'description'=>'Dispatch Indents'
                     ],
                     [
                         'name' => 'supervisor',
                         'alias' => 'Supervisor',
-                        'description'=>'Limited data can see'
+                        'description'=>'Create Indents'
                     ],
                     [
                         'name' => 'finance',
-                        'alias' => 'Finance',
-                        'description'=>'Limited data can see'
+                        'alias' => 'Finance Manager',
+                        'description'=>'Responsible for Pettycash'
+                    ] ,
+
+                    [
+                        'name' => 'asst_manager',
+                        'alias' => 'Assistant Project Manager',
+                        'description'=>'no controle'
+                    ],
+                    [
+                        'name' => 'exec_manager',
+                        'alias' => 'Executive project Manager',
+                        'description'=>'no controle'
+                    ],
+                    [
+                        'name' => 'asst_procurement',
+                        'alias' => 'Assistant Procurement Manager',
+                        'description'=>'no controle'
+                    ],
+                    [
+                        'name' => 'exec_procuement',
+                        'alias' => 'Executive Procurement Manager',
+                        'description'=>'no controle'
+                    ],
+                    [
+                        'name' => 'asst_finance',
+                        'alias' => 'Assistant Finance Manager',
+                        'description'=>'no controle'
+                    ],
+                    [
+                        'name' => 'jun_finance',
+                        'alias' => 'Junior Finance Manager',
+                        'description'=>'no controle'
                     ]
                  ];
         foreach ($input as $key => $value) {

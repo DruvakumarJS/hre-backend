@@ -44,10 +44,35 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Issued Date*</label>
+                            <div class="col-7">
+                                <input name="issued_date"  type="date" class="form-control" required="required" placeholder="Enter Amount" value="{{$data->issued_on}}">
+                            </div>
+                        </div>
+
                          <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Description*</label>
                             <div class="col-7">
                                 <input name="comment" id="comment" type="text" class="form-control" required="required" placeholder="Enter description" value="{{$data->comments}}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Mode of Payment* </label>
+                            <div class="col-7">
+                               <select class="form-control"name='mode' id='mode' required="required">
+                                   <option value="">Select Mode</option>
+                                   <option value="Cash" <?php echo  ($data->mode == 'Cash')  ? 'selected':'' ?> >Cash</option>
+                                   <option value="Online" <?php echo ($data->mode == 'Online')  ? 'selected':'' ?> >Online</option>
+                               </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" >
+                            <label id="ref_lable" class="col-5 col-form-label" style="display:  none">Reference Number* </label>
+                            <div class="col-7">
+                                <input name="refernce" id="refernce" type="text" class="form-control" placeholder="Enter Reference Number" id="refernce" value="{{$data->reference_number}}" style="display: none">
                             </div>
                         </div>
 
@@ -79,6 +104,34 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+     var mode = document.getElementById("mode").value;
+
+     if(mode=='Online'){
+            document.getElementById("refernce").style.display= "block" ;
+            document.getElementById("ref_lable").style.display= "block" ;
+            document.getElementById("refernce").required = true;
+     }
+
+     $('select').on('change', function() {
+
+         if(this.value == "Online"){
+            document.getElementById("refernce").style.display= "block" ;
+            document.getElementById("ref_lable").style.display= "block" ;
+            document.getElementById("refernce").required = true;
+
+         }
+         else {
+            document.getElementById("refernce").style.display= "none" ;
+            document.getElementById("ref_lable").style.display= "none" ;
+            document.getElementById("refernce").required = false;
+            document.getElementById('refernce').value='';
+         }
+   
+     });
+
+</script>
 
 
 

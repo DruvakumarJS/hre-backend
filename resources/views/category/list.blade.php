@@ -122,7 +122,7 @@
                               <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->category}}</td>
                               <td>{{$value->material_category}}</td>
-                              <td>{{$value->description}}</td>
+                              <td width="300px">{{$value->description}}</td>
                               <td>
                                 <a href="{{route('add_product',$value->code)}}"><label class="btn btn-light btn-outline-secondary  btn-sm">Add Product</label></a>
                                 <a href="{{route('view_products',$value->code)}}"><label class="btn btn-light btn-outline-secondary btn-sm">View Product</label></a>   

@@ -48,7 +48,8 @@
                           $hour=  floor($minute / 60) ;
                           $min = $minute % 60 ;
                         @endphp
-                        <h2>{{$hour}}Hr : {{$min}}Min</h2>
+                        <h2 id="totalHour"></h2>
+                        <!-- <input type="text" name="totalHour" id="totalHour"> -->
                         <p>Total Working Hours</p>
                     </div>
                    
@@ -179,6 +180,7 @@ $(function() {
 
     console.log(data);
     var output = '';
+    var total_hours = 0;
     $('#total_records').text(data.length);
     for(var count = 0; count < data.length; count++)
     {
@@ -189,11 +191,50 @@ $(function() {
      output += '<td>' + data[count].login_time + '</td>';
      output += '<td>' + data[count].logout_time + '</td>';
      output += '<td>' + data[count].out_of_work + '</td>';
-     output += '<td>' + data[count].total_hours + '</td>';
+
+ if(data[count].total_hours > 0){
+    var num = data[count].total_hours;
+    var hours = (num / 60);
+    var rhours = Math.floor(hours);
+    var minutes = (hours - rhours) * 60;
+    var rminutes = Math.round(minutes);
+    var working_hours = rhours+'Hr : '+rminutes+"Min ";
+    }
+    else {
+       var working_hours = '0Hr : '+"0Min ";
+    }
+    
+
+     output += '<td>' + working_hours + '</td>';
+
+
+     if(data[count].total_hours == '---'){
+          data[count].total_hours = '0';
+     }
+
+    total_hours += parseInt(data[count].total_hours) ;
+    if(total_hours > 0){
+      var num2 = total_hours;
+    var hours2 = (num2 / 60);
+    var rhours2 = Math.floor(hours2);
+    var minutes2 = (hours2 - rhours2) * 60;
+    var rminutes2 = Math.round(minutes2);
+    var working_hours2 = rhours2+'Hr : '+rminutes2+"Min ";
+    }
+    else {
+       var working_hours2 = '0Hr : '+"0Min ";
+    }
+    
+
+    //$('#totalHour').val=working_hours2;
+
+
     
      output += '<td>' + '@if((Auth::user()->role_id == 1)OR (Auth::user()->role_id == 5) )<button type="button" value='+data[count].date+' id="editdate'+count+'" data-date="'+dates+'" class="btn btn-sm btn-light btn-outline-secondary" onclick="edit('+count+')">Edit</button>@endif'+'</td></tr>';
    
     }
+   // alert(working_hours2);
+    document.getElementById('totalHour').textContent =working_hours2;
     $('tbody').html(output);
    }
   })

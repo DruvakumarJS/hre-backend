@@ -7,11 +7,10 @@
         
         <div class="container-header">
             <label class="label-bold" id="div1">Intend Details</label>
-           <div id="div2">
-            <a class="btn btn-light" href="">
-             <label id="modal"> </label> </a>
-          
-          </div>
+            <div id="div2">
+                <a href="{{route('indent_details',$indend_data->indent->indent_no)}}"><button class="btn btn0sm btn-outline-secondary">Back to Indents</button></a>
+                
+            </div>
          
         </div>
 
@@ -100,17 +99,24 @@
                     <div style="margin-left: 20px">
 
                     @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '3' )
-                        
+                     @if($indend_data->pending > 0)
+                    
                         <form method="post" action="{{route('update_quantity')}}">
                             @csrf
                             <div class="form-group row">
-                                <label for="text" class="col-4 col-form-label">Quantity Dispatched</label>
-                                <div class="col-4">
+                               
+                                <label for="text" class="col-3 col-form-label">Quantity Dispatched </label>
+                               
+                                <div class="col-3">
                                     <input id="text" type="Number" class="form-control" placeholder="Enter numbers"
-                                           name="quantity" required="required" min="1" max="{{$indend_data->pending}}" value="{{old('quantity')}}">
+                                           name="quantity" required="required" min="1" max="<?php echo $indend_data->pending-$dispatched ;?>" value="{{old('quantity')}}">
+                                </div>
 
+                                <div class="col-3">
+                                    <input type="text" class="form-control" name="dispatch_comment" placeholder="Enter Dispatch Coments" required>
                                 </div>
                                 <input type="hidden" name="indent_no" value="{{$indend_data->indent->indent_no}}">
+                                <input type="hidden" name="category" value="{{$indend_data->materials->Category->category}}">
                                 <input type="hidden" name="pcn" value="{{$indend_data->indent->pcn}}">
                                 <input type="hidden" name="id" value="{{$id}}">
                                 <input type="hidden" name="pending" value="{{$indend_data->pending}}">
@@ -120,6 +126,7 @@
                             </div>
 
                         </form>
+                        @endif
                        
                         @endif 
 
@@ -137,23 +144,79 @@
                             <tr>
                                 <th>GRN</th>
                                 <th>Dispatched</th>
+                                <th>D_Comments</th>
                                 <th>GRN Status</th>
                                 <th>Accepted</th>
                                 <th>Rejected</th>
                                 <th>Comments</th>
-                                <th>Dispatched Date</th>
+                                <th>D_Date</th>
+                                <th></th>
                             </tr>
                             </thead>
                         @foreach($grn as $key =>$value)
                                 <tr>
                                     <td>{{$value->grn}}</td>
                                     <td>{{$value->dispatched}}</td>
+                                    <td>{{$value->dispatch_comment}}</td>
                                     <td>{{$value->status}}</td>
                                     <td>{{$value->approved}} </td>
                                     <td>{{$value->damaged}} </td>
-                                    <td>{{$value->comments}}</td>
+                                    <td>{{$value->comment}}</td>
                                     <td>{{$value->created_at}}</td>
+                                    <td>
+                                        @if(Auth::user()->role_id == '3' || Auth::user()->role_id == '1')
+                                        @if($value->status == 'Awaiting for Confirmation') 
+                                        <a id="MybtnModal_{{$key}}"><button class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                                        @endif
+                                        @endif
+                                    </td>
                                 </tr>
+
+                                <!--  Modal -->
+                                        <div class="modal fade" id="modal_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Dispatch Quantity - {{$value->grn}}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <form method="POST" action="{{ route('edit_quantity') }}" >
+                                                    @csrf
+
+                                                   <label for="text" >Quantity Dispatched </label>
+
+                                                    <input id="text" type="Number" class="form-control" placeholder="Enter numbers"
+                                                     name="quantity" required="required" min="1" max="{{$indend_data->pending-$dispatched+$value->dispatched }}" value="{{$value->dispatched}}"  style="width:150px" >
+                                                    
+                                                    <div style="margin-top: 20px">
+                                                        <input type="text" class="form-control" name="dispatch_comment" placeholder="Enter Dispatch Coments" value="{{$value->dispatch_comment}}" required>
+                                                    </div>
+                                                      
+
+                                                    <input type="hidden" name="indent_no" value="{{$indend_data->indent->indent_no}}">
+                                                    <input type="hidden" name="pcn" value="{{$indend_data->indent->pcn}}">
+                                                    <input type="hidden" name="id" value="{{$id}}">
+                                                    <input type="hidden" name="grn" value="{{$value->grn}}">
+                                                    <input type="hidden" name="pending" value="{{$indend_data->pending}}">
+                                                    <button class="btn btn-outline-success div-margin">Update</button>
+                                                   
+                                                    
+                                                </form>
+                                              </div>
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                <!-- Modal -->
+                                <script>
+                                $(document).ready(function(){
+                                  $('#MybtnModal_{{$key}}').click(function(){
+                                    $('#modal_{{$key}}').modal('show');
+                                  });
+                                });  
+                                </script>
+
                         @endforeach
                         </table>
                         </div>

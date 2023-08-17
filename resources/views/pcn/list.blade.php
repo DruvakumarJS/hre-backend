@@ -17,6 +17,18 @@
           </div>
           @endif
 
+          <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_pcn')}}">
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search here">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+
             
         </div>
 
@@ -29,7 +41,6 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">Date</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Billing Name</th>
                               <th scope="col">Brand</th>
@@ -46,12 +57,11 @@
                           <tbody>
                             @foreach($pcns as $key => $value)
                             <tr> 
-                              <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->pcn}}</td>
                               <td>{{$value->client_name}}</td>
                                <td>{{$value->brand}}</td>
                               <td>{{$value->customer->email}}</td>
-                              <td>{{$value->area}},{{$value->city}},{{$value->state}}</td>
+                              <td width="200px">{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}}</td>
                               @if(Auth::user()->role_id == '1')
                               <td>{{$value->status}}</td>
                               

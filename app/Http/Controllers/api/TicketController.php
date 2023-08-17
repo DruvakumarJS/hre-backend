@@ -6,6 +6,9 @@ use App\Models\Ticket;
 use App\Models\TicketConversation;
 use App\Models\Employee;
 use App\Models\Pcn;
+use App\Models\User;
+use App\Models\TicketDepartment;
+
 
 class TicketController extends Controller
 {
@@ -13,40 +16,114 @@ class TicketController extends Controller
      function index(Request $request){
 
      	if(isset($request->user_id)){
-
-     	if(Ticket::where('creator' , $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->exists()){
-
-     		$tickets = Ticket::where('creator' , $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->get();
-
             $ticketarray= array();
+            $final_array=array();
+          $role = User::select('role_id')->where('id',$request->user_id)->first(); 
 
-            foreach ($tickets as $key => $value) {
-            	$ticketarray[]=[
-            		'ticket_id'=> $value->id ,
-            		'ticket_no' => $value->ticket_no ,
-            		'pcn' => $value->pcn ,
-            		'category' => $value->category ,
-            		'message' => $value->issue,
+          if($role->role_id == '1' || $role->role_id == '2'){
+             $tickets = Ticket::orderBy('id' , 'DESC')->get();
+     
+        foreach ($tickets as $key => $value) {
+             $images = explode(',', $value->filename);
+             $pcn_data = Pcn::where('pcn',$value->pcn)->first();
+             $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+              $userdetail = Employee::where('user_id', $value->creator)->first();
+             $ticketarray[]=[
+                    'ticket_creator' => $value->creator,
+                    'creator_name' => $userdetail->name,
+                    'creator_emplid'=> $userdetail->employee_id,
+                    'creator_role'=> $userdetail->user->roles->alias,
+                    'ticket_id'=> $value->id ,
+                    'ticket_no' => $value->ticket_no ,
+                    'pcn' => $value->pcn ,
+                    'pcn_detail' => $pcn_detail,
+                    'category' => $value->category ,
+                    'message' => $value->issue,
                     'priority' => $value->priority,
                     'filepath' => 'https://hre.netiapps.com/ticketimages/',
-                    'filename' => $value->filename,
-            		'status' => $value->status,
-            		'created_on' => $value->created_at->toDateTimeString()];
-            }
+                    'status' => $value->status,
+                    'created_on' => $value->created_at->toDateTimeString(),
+                    'filename' => ($images)];
+         } 
+          }
+          else{
 
-	            return response()->json([
-	     			'status'=> 1,
-	     			'message' => 'Success' ,
-	     			'data' => $ticketarray ]);
-	     		
+          $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', $request->user_id)->orWhere('sender', $request->user_id)->groupBy('ticket_id')->get();
 
-	     	}
-	     	else {
-	     		return response()->json([
-	     			'status'=> 1,
-	     			'message' => 'No tickets available' ,
-	     			'data' => $ticketarray]);
-	     	}
+          foreach ($ticket_convers as $key => $value) {
+            $ids[]=$value->ticket_id;
+
+          }
+  
+       if(sizeof($ticket_convers) > 0){
+       
+        $tickets = Ticket::where(function($query){
+            $query->where('status','!=','Resolved');
+        })
+        ->whereIn('id', $ids)->orWhere('creator', $request->user_id)
+        ->orderby('id' , 'DESC')->get();
+
+
+        
+        foreach ($tickets as $key => $value) {
+             $images = explode(',', $value->filename);
+             $pcn_data = Pcn::where('pcn',$value->pcn)->first();
+             $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+             $userdetail = Employee::where('user_id', $value->creator)->first();
+             $ticketarray[]=[
+                    'ticket_creator' => $value->creator,
+                    'creator_name' => $userdetail->name,
+                    'creator_emplid'=> $userdetail->employee_id,
+                    'creator_role'=> $userdetail->user->roles->alias,
+                    'ticket_id'=> $value->id ,
+                    'ticket_no' => $value->ticket_no ,
+                    'pcn' => $value->pcn ,
+                    'pcn_detail' => $pcn_detail,
+                    'category' => $value->category ,
+                    'message' => $value->issue,
+                    'priority' => $value->priority,
+                    'filepath' => 'https://hre.netiapps.com/ticketimages/',
+                    'status' => $value->status,
+                    'created_on' => $value->created_at->toDateTimeString(),
+                    'filename' => ($images)];
+         } 
+
+       }
+
+       else{
+           $tickets = Ticket::where('creator', Auth::user()->id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->get();
+
+           foreach ($tickets as $key => $value) {
+             $images = explode(',', $value->filename);
+             $pcn_data = Pcn::where('pcn',$value->pcn)->first();
+             $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+              $userdetail = Employee::where('user_id', $value->creator)->first();
+             $ticketarray[]=[
+                    'ticket_creator' => $value->creator,
+                    'creator_name' => $userdetail->name,
+                    'creator_emplid'=> $userdetail->employee_id,
+                    'creator_role'=> $userdetail->user->roles->alias,
+                    'ticket_id'=> $value->id ,
+                    'ticket_no' => $value->ticket_no ,
+                    'pcn' => $value->pcn ,
+                    'pcn_detail' => $pcn_detail,
+                    'category' => $value->category ,
+                    'message' => $value->issue,
+                    'priority' => $value->priority,
+                    'filepath' => 'https://hre.netiapps.com/ticketimages/',
+                    'status' => $value->status,
+                    'created_on' => $value->created_at->toDateTimeString(),
+                    'filename' => ($images)];
+         } 
+       }
+     }
+     	$count[]= ['Active' => '0' , 'Completed'=> '0' , 'Resolved' => '0'];
+        $final_array=['counts' => $count , 'tickets' =>$ticketarray ];
+
+                return response()->json([
+                    'status'=> 1,
+                    'message' => 'Success' ,
+                    'data' => $final_array ]);
 
 	     }
 
@@ -71,6 +148,7 @@ class TicketController extends Controller
      	if(Pcn::where('pcn', $request->pcn)->exists())
         { 
              $fileName = '';
+             $imagearray=array();
             if(Ticket::exists()){
             $tickets = Ticket::select('ticket_no')->orderby('id' , 'DESC')->first();
 
@@ -82,23 +160,27 @@ class TicketController extends Controller
             $ticket_no ="TN001";
         }
 
-         if($file = $request->hasFile('image')) {
-             
-            $file = $request->file('image') ;
-            $fileName = $file->getClientOriginalName() ;
-            
-           // $newfilename = round(microtime(true)) . '.' . end($temp);
+          if($file = $request->hasFile('image')) {
 
-            if(TicketConversation::exists()){
-                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
-                 $temp = explode(".", $file->getClientOriginalName());
-                 $fileName=$ticket_no . '.' . end($temp);
+            foreach($_FILES['image']['name'] as $key=>$val){ 
+                
+               $fileName = basename($_FILES['image']['name'][$key]); 
+               $temp = explode(".", $fileName);
+                 
+                  $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/ticketimages/'.$fileName ;
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+             
+                 
             }
-           
-            $destinationPath = public_path().'/ticketimages' ;
-            $file->move($destinationPath,$fileName);
-            
+          
           }
+
+          $imageNames = implode(',', $imagearray);
 
 
         $Insert = Ticket::create([
@@ -108,7 +190,7 @@ class TicketController extends Controller
             'issue' => $request->issue ,
             'priority' => $request->priority,
             'creator' => $request->user_id ,
-            'filename' => $fileName,
+            'filename' => $imageNames,
             'status' => 'Created'   
         ]);
 
@@ -144,14 +226,13 @@ class TicketController extends Controller
 
 
 
-
    function conversation(Request $request){
 
 	   if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no) && isset($request->message) && isset($request->recipient) ){
 
 	   	$Ticket = Ticket::select('status')->where('ticket_no',$request->ticket_no)->first();
         $fileName = '';
-        if($Ticket->status == 'Pending' || $Ticket->status == 'Re-Opened'){
+        if($Ticket->status == 'Pending/Ongoing' || $Ticket->status == 'Re-Opened'){
 
             if($file = $request->hasFile('image')) {
              
@@ -197,7 +278,7 @@ class TicketController extends Controller
              ]);
         }
 
-	   }
+	   }   
 	   else {
 
 	   	return response()->json([
@@ -218,13 +299,16 @@ class TicketController extends Controller
             $data=array();
 
             foreach ($conversation as $key => $value) {
+                $images = explode(',', $value->filename);
                 $result=[
                     'sender' => $value->mailsender->name ,
                     'recipient' => $value->mailrecipient->name ,
+                    'sender_id' => $value->sender,
+                    'recipient_id' => $value->recipient ,
                     'message' => $value->message ,
                     'filepath' => 'https://hre.netiapps.com/ticketimages/',
-                    'filename' => $value->filename,
-                    'date' => $value->created_at->toDateTimeString()];
+                    'date' => $value->created_at->toDateTimeString(),
+                    'filename' => $images];
 
                     array_push($data, $result);
             }
@@ -308,5 +392,109 @@ class TicketController extends Controller
 
         }
     }
+
+
+    public function modify_ticket_status(Request $request){
+
+        if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no) && isset($request->message)){
+
+        $ticket = Ticket::where('id',$request->ticket_id)->first();
+        $fileName="";
+        if($request->action == 'Completed' ){
+           if($file = $request->hasFile('image')) {
+             
+            $file = $request->file('image') ;
+            $fileName = $file->getClientOriginalName() ;
+            
+           // $newfilename = round(microtime(true)) . '.' . end($temp);
+
+            if(TicketConversation::exists()){
+                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
+                 $temp = explode(".", $file->getClientOriginalName());
+                 $fileName=$request->ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
+            }
+           
+            $destinationPath = public_path().'/ticketimages' ;
+            $file->move($destinationPath,$fileName);
+            
+         }
+
+
+            $conversation = TicketConversation::create([
+                'ticket_id' => $request->ticket_id ,
+                'ticket_no' => $request->ticket_no ,
+                'message' => $request->message ,
+                'sender' => $request->user_id ,
+                'recipient' => $ticket->creator,
+                'status' => 'pending',
+                'filename' => $fileName]);
+            
+            if($conversation){
+
+             $updateticket = Ticket::where('id',$ticket->id)->update([
+               'status' => $request->action]);
+
+             if($updateticket){
+                return response()->json([
+                    'status' => 1 ,
+                    'message' => 'Ticket Updated Successfully']);
+             }
+             else {
+                 return response()->json([
+                    'status' => 0 ,
+                    'message' => 'Could not Update ticket']);
+
+             }
+
+            }
+            else{
+                return response()->json([
+                    'status' => 0 ,
+                    'message' => 'Could not create conversation']);
+
+            }
+
+
+
+
+        }
+        else {
+            return response()->json([
+                    'status' => 0 ,
+                    'message' => 'No action mentioned']);
+
+        }
+       }
+        else {
+             return response()->json([
+                        'status' => 0 ,
+                        'message' => 'Insufficient Data']);
+        }
+    
+      
+    }
+
+     function getdepartments(Request $request){
+
+    $data= array();
+    if(isset($request->user_id)){
+        $data =TicketDepartment::select('department')->get();
+
+        return response()->json([
+          'status' => 1 ,
+          'message' => 'success',
+          'data' => $data
+        ]);
+
+    }
+    else {
+      return response()->json([
+                  'status' => 0 ,
+                  'message' => 'UnAuthorized/Insufficient data',
+                  'data' => $data
+                  ]);
+    }
+
+   }
 
 }

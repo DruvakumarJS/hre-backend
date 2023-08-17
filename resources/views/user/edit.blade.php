@@ -18,7 +18,7 @@
 
 
     <div class="page-container">
-      <form method="post" action="{{route('update_user')}}">
+      <form method="post" action="{{route('update_user',$id)}}">
         @csrf
        <div class="row">
            
@@ -49,7 +49,7 @@
                 <label>Mobile Number</label>
                 <input class="form-control" type="text" name="mobile" placeholder="Enter Mobile Number" required=""value="{{$userData->mobile}}" onkeypress='validate(event)'>
                  @error('mobile')
-               <div class="alert alert-danger mt-1 mb-1">{{ old('mobile') }} has been already taken</div>
+              <div class="alert alert-danger mt-1 mb-1">{{ old('mobile')}} - {{ $message }}</div>
              @enderror
                 
           </div>
@@ -58,7 +58,7 @@
                 <label>Email ID</label>
                 <input class="form-control" type="input" name="email" placeholder="Enter Email ID" required=""value="{{$userData->email}}">
                  @error('email')
-               <div class="alert alert-danger mt-1 mb-1">{{ old('email') }} has been already taken</div>
+              <div class="alert alert-danger mt-1 mb-1">{{ old('email')}} - {{ $message }}</div>
              @enderror
           </div>
 
@@ -68,7 +68,7 @@
            
            <div class="col-md-4">
                 <label>Password</label>
-                <input class="form-control" type="password" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');" name="password" required="" placeholder="Enter Password">
+                <input class="form-control" type="text" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');" name="password" required="" placeholder="Enter Password">
                 
                 
           </div>

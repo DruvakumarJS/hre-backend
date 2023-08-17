@@ -12,17 +12,24 @@
 
         </div>
 
+        
+
+       <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_employee')}}" >
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search by Name / ID">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+
         <div id="div2" style="margin-right: 30px">
-            <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"> Download</a>
+            <a  class="btn btn-light btn-outline-secondary" href="{{route('download_monthly_attendance')}}"> Download CSV</a>
         </div>
-
-        <!-- <div id="div2" style="margin-right: 30px">
-            <a  class="btn btn-light" href="#"></i> View Employees</a>
-        </div>
-
-        <div id="div3" style="margin-right: 30px">
-            <button class="btn btn-light" > Download CSV</button>
-        </div> -->
+          
     </div>
 
     
@@ -36,10 +43,11 @@
                    
                     <th scope="col">Employee ID</th>
                     <th scope="col">Employee Name</th>
+                    <th scope="col">Contact No</th>
                     <th scope="col">Role</th>
                     <th scope="col">Days Present</th>
                     <th scope="col">Total Working Hours</th>
-                    <th scope="col">Contact No</th>
+                    
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
@@ -49,6 +57,7 @@
                         
                         <td>{{$value['employee_id']}}</td>
                         <td>{{$value['name']}}</td>
+                        <td>{{$value['mobile']}}</td>
                         <td>{{$value['role']}}</td>
                         <td>{{$value['days_present']}}</td>
                         @php
@@ -61,7 +70,7 @@
                         @else
                         <td>{{$hour}}Hr : {{$min}}Min</td>
                         @endif
-                        <td>{{$value['mobile']}}</td>
+                       
                         <td>
                            <a href="{{route('employee-history', $value['user_id'])}}"><button type="button" class="btn btn-sm curved-text">View Attendance</button></a>
                         </td>

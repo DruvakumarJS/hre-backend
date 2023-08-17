@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Pcn;
 use App\Models\Customer;
 use App\Models\Employee;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Exports\ExportPcn;
 use Excel;
 use Auth ;
+use DB;
+use App\Mail\PcnMail;
+use Mail;
+
 class PcnController extends Controller
 {
     /**
@@ -27,7 +32,7 @@ class PcnController extends Controller
     public function index()
     {
         if(Auth::user()->id == '1'){
-           $pcns = Pcn::orderBy('id','DESC')->paginate(20); 
+           $pcns = Pcn::orderBy('id','DESC')->paginate(10); 
         }
         else {
              $pcns = Pcn::where('status','Active')->orderBy('id','DESC')->paginate(20); 
@@ -105,6 +110,7 @@ class PcnController extends Controller
 
             $createPCN = Pcn::create([
                 'pcn'=>'PCN_'.$request->pcn ,
+                'po'=>$request->po_number ,
                 'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,
                 'brand' => $request->brand ,
@@ -128,7 +134,29 @@ class PcnController extends Controller
         ]);
 
             if($createPCN){
-                return redirect()->route('PCN');
+                
+                $data = Pcn::where('pcn', 'PCN_'.$request->pcn)->first();
+                $pcn_data= ['pcn'=>'PCN_'.$request->pcn ,
+                            'client_name' => $request->client_name,
+                            'brand' => $request->brand ,
+                            'work' => $request->work,
+                            'location' => $request->loc,
+                            'area' => $request->building,
+                            'city' => $request->city,
+                            'state' => $request->state,
+                            'gst' => $request->gst];
+
+                $subject = 'PCN_'.$request->pcn." - New PCN added";
+
+                $emailarray = User::select('email')->get();
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+            
+               // Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
+
+                return redirect()->back()->with('PCN' , $data);
             }
             else{
                  return redirect()->route('create_pcn')->withMessage('Something went wrong')->withInput(); ;
@@ -217,6 +245,7 @@ class PcnController extends Controller
             }
 
             $updatePCN = Pcn::where('pcn' ,$request->pcn)->update([
+                'po'=>$request->po_number,
                 'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,
                 'brand' => $request->brand ,
@@ -225,6 +254,7 @@ class PcnController extends Controller
                 'area' => $request->area,
                 'city' => $request->city,
                 'state' => $request->state,
+                'gst' => $request->gst,
                 'proposed_start_date' => $request->start_date,
                 'proposed_end_date' => $request->end_date,
                 'approve_holidays' => $request->holiday,
@@ -239,6 +269,28 @@ class PcnController extends Controller
         ]);
 
             if($updatePCN){
+                 $pcn_data= [
+                            'pcn'=>$request->pcn ,
+                            'client_name' => $request->client_name,
+                            'brand' => $request->brand ,
+                            'work' => $request->work,
+                            'location' => $request->loc,
+                            'area' => $request->area,
+                            'city' => $request->city,
+                            'state' => $request->state,
+                            'gst' => $request->gst
+                            ];
+                            
+                $subject = $request->pcn." is Modified";
+
+                $emailarray = User::select('email')->get();
+                   foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                   }
+
+            
+             // Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
+
                 return redirect()->route('view_pcn');
             }
             else{
@@ -285,10 +337,26 @@ class PcnController extends Controller
 
     public function autocomplete_pcn(Request $request){
 
-        $data = Pcn::select("pcn as value" , 'client_name' , 'brand' , 'location', 'area' , 'city' , 'state')
+        /*$data = Pcn::select("pcn as value" , 'client_name' , 'brand' , 'location', 'area' , 'city' , 'state')
                     ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
                     ->where('status' , 'Active')
-                    ->get();
+                    ->get();*/
+
+        $data = DB::table('pcns')
+            ->select(
+                    DB::raw("CONCAT(pcn,' - ',brand,' - ',location , ' - ',area ,' - ',city,' - ',state) AS value"),
+                    'client_name',
+                    'pcn',
+                    'brand',
+                    'location',
+                    'area',
+                    'city',
+                    'state',
+                    'status'
+                )
+                    ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
+                   // ->where('status' , 'Active')
+                    ->get();            
     
         return response()->json($data);
 
@@ -297,6 +365,25 @@ class PcnController extends Controller
     public function export(){
 
         return Excel::download(new ExportPcn() , "PCNs.csv");
+
+    }
+
+    public function search(Request $request){
+      
+      $search = $request->search;
+           $pcns = Pcn::where('pcn','LIKE', '%'.$request->search.'%')
+           ->orWhere('client_name','LIKE', '%'.$request->search.'%')
+           ->orWhere('brand','LIKE', '%'.$request->search.'%')
+           ->orWhere('location','LIKE', '%'.$request->search.'%')
+           ->orWhere('area','LIKE', '%'.$request->search.'%')
+           ->orWhere('city','LIKE', '%'.$request->search.'%')
+           ->orWhere('state','LIKE', '%'.$request->search.'%')
+           ->orWhereHas('customer', function ($query) use ($search) {
+                        $query->where('email', 'like', '%'.$search.'%');
+                           })
+           ->orderBy('id','DESC')->paginate(20); 
+       
+       return view('pcn/list', compact('pcns'));
 
     }
 

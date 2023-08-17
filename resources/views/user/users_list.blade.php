@@ -62,6 +62,8 @@
                                    
                                    <td>
                                     <a href="{{route('edit_user',$value->user_id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
+
+                                    <a  onclick="return confirm('The Employee can login with his credentials on different device .')" href="{{route('force_logout',$value->user_id)}}"><button class="btn btn-success btn-sm ">Force Logout</button></a>
                                    
                                    @if($value->user_id != 1)
                                     <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_user',$value->user_id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>

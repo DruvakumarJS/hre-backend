@@ -47,6 +47,13 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Issued date*</label>
+                            <div class="col-7">
+                                <input name="issued_date" type="date" class="form-control" required="required" max="{{date('Y-m-d')}}">
+                            </div>
+                        </div>
+
                          <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Description* </label>
                             <div class="col-7">
@@ -57,7 +64,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Mode of Payment* </label>
                             <div class="col-7">
-                               <select class="form-control"name='mode' id='mode' required="required">
+                               <select class="form-control form-select"name='mode' id='mode' required="required">
                                    <option value="">Select Mode</option>
                                    <option value="Cash">Cash</option>
                                    <option value="Online">Online</option>

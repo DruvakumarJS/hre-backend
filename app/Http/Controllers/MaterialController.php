@@ -6,10 +6,13 @@ use App\Models\Material;
 use App\Models\Category;
 use App\Models\SizeMaster;
 use App\Models\UnitMaster;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportMaterial;
 use Excel;
+use App\Mail\MaterialMail;
+use Mail;
 
 
 class MaterialController extends Controller
@@ -29,8 +32,9 @@ class MaterialController extends Controller
     public function index()
     {
         $MaterialList = Material::paginate(10);
+         $search = '' ;
        
-       return view('material/list', compact('MaterialList'));
+       return view('material/list', compact('MaterialList','search'));
     }
 
     /**
@@ -93,7 +97,7 @@ class MaterialController extends Controller
         $itemcode = $categoryData->material_category ."001";
 
          $MaterialData = Material::create([
-             'category_id' => $categoryData->code,
+            'category_id' => $categoryData->code,
             'item_code' => $itemcode,
             'name' => $request->name,
             'brand' =>$request->brand,
@@ -133,6 +137,25 @@ class MaterialController extends Controller
         'unit' => $request->uom
         ]);
       }
+
+       $subject = "New material added : ".$itemcode ;
+       $material = [
+            'category_id' => $categoryData->code,
+            'item_code' => $itemcode,
+            'name' => $request->name,
+            'brand' =>$request->brand,
+            'uom' =>$request->uom,
+            'information'=> $features
+       ];
+
+
+       $emailarray = User::select('email')->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+     // Mail::to('druva@netiapps.com')->send(new MaterialMail($subject , $material));
 
       
        return redirect()->route('add_product',$request->code);
@@ -236,6 +259,7 @@ class MaterialController extends Controller
                                         'uom' =>$request->uom,
                                         'information'=> $features]);
       if($update_material){
+        
         return redirect()->route('materials');
       }
 
@@ -265,6 +289,44 @@ class MaterialController extends Controller
                     ->get();
     
         return response()->json($data);
+    }
+
+    public function search(Request $request){
+
+        $MaterialList = Material::where('item_code', 'LIKE','%'.$request->search.'%')
+        ->orWhere('name', 'LIKE','%'.$request->search.'%')
+        ->orWhere('brand', 'LIKE','%'.$request->search.'%')
+        ->orWhere('uom', 'LIKE','%'.$request->search.'%')
+        ->orWhere('information', 'LIKE','%'.$request->search.'%')
+        ->paginate(10);
+
+        $search = $request->search ;
+       
+      return view('material/list', compact('MaterialList' , 'search'));
+
+    }
+
+    public function search_product(Request $request){
+
+        $c_name = Category::select('category' , 'material_category')->where('code',$request->id)->first();
+        $id = $request->id ;
+        $search = $request->search ;
+        $category = $c_name->category ;
+        $material_category = $c_name->material_category ;
+
+        $MaterialList = Material::where('category_id',$request->id)
+             ->where(function($query) use ($search){
+            $query->where('item_code', 'LIKE','%'.$search.'%')
+            ->orWhere('name', 'LIKE','%'.$search.'%')
+            ->orWhere('brand', 'LIKE','%'.$search.'%')
+            ->orWhere('uom', 'LIKE','%'.$search.'%')
+            ->orWhere('information', 'LIKE','%'.$search.'%');
+         })
+            ->paginate(10);
+       
+       return view('material/view_products', compact('MaterialList' ,'category','material_category' ,'id'));
+
+
     }
 
 

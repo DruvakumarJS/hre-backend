@@ -14,17 +14,17 @@ class ExportPettycash implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        $att= DB::table('pettycashes')
-        ->select(DB::raw("DATE_FORMAT(pettycashes.created_at, '%d-%m-%Y') as formatted_dob"),
-        	     'users.name',
-        	     'pettycashes.total',
-        	     'pettycashes.comments',
-        	     'pettycashes.spend',
-        	     'pettycashes.remaining',
-        	     'pettycashes.mode',
-        	     'pettycashes.reference_number'
+        $att= DB::table('pettycash_overviews')
+        ->select(
+        	     'employees.employee_id',
+                 'employees.name',
+                 'roles.alias',
+        	     'pettycash_overviews.total_issued',
+        	     'pettycash_overviews.total_balance' 
          )    
-         ->join('users', 'pettycashes.user_id', '=', 'users.id')
+         ->join('employees', 'pettycash_overviews.user_id', '=', 'employees.user_id')
+         ->join('roles', 'employees.role', '=', 'roles.name')
+         ->orderBy('pettycash_overviews.id', 'DESC')
         ->get();
 
         return $att ;
@@ -34,7 +34,6 @@ class ExportPettycash implements FromCollection, WithHeadings
     public function headings(): array
      {       
        return [
-         'Date','Employee Name','Alloted Amount' , 'Purpose' , 'Utilised Amount' , 'Balance Amount' , 'Mode of Payment' , 'Reference'
-       ];
+         'Employee ID' ,'Name', 'Role', 'Issued Amount' , 'Balance Amount'];
      }
 }

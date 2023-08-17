@@ -10,6 +10,7 @@ use App\Http\Controllers\api\TicketController;
 use App\Http\Controllers\api\AttendanceController;
 use App\Http\Controllers\api\PettycashController;
 use App\Http\Controllers\api\AppdataController;
+use App\Http\Controllers\api\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +41,11 @@ Route::post('/update-grn',[IndentController::class,'update_grn']);
 Route::post('/create-ticket',[TicketController::class,'create']);
 Route::post('/get-tickets',[TicketController::class,'index']);
 Route::post('/update-ticket',[TicketController::class,'update']);
+Route::post('/update-ticket-status',[TicketController::class,'modify_ticket_status']);
+
 Route::post('/add-conversation',[TicketController::class,'conversation']);
 Route::post('/get-conversation',[TicketController::class,'conversation_details']);
-Route::post('/get-departments',[IndentController::class,'getdepartments']);
+Route::post('/get-departments',[TicketController::class,'getdepartments']);
 Route::post('/get-employees',[UserController::class,'employees']);
 
 Route::post('/attendance',[AttendanceController::class,'attendance']);
@@ -51,6 +54,11 @@ Route::post('/myattendance',[AttendanceController::class,'myattendance']);
 Route::post('/get-mypettycash',[PettycashController::class,'mypettycash']);
 Route::post('/upload-pettycash_bill',[PettycashController::class,'upload_bill']);
 Route::post('/get-pettycash_details',[PettycashController::class,'pettycash_details']);
+Route::post('/get-pettycash_summary',[PettycashController::class,'fetch_summary']);
+
 
 Route::post('/get-app-data',[AppdataController::class,'index']);
+Route::post('/vault',[AppdataController::class,'vault']);
+
+Route::post('/my-dashboard-details',[HomeController::class,'mydashboard']);
 

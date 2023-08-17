@@ -16,8 +16,7 @@ class AttendanceController extends Controller
     		if(isset($request->action) && $request->action == 'login')
     		{
 
-              
-    			if(Attendance::where('user_id' , $request->user_id)->where('date' , date('Y-m-d'))->orderby('id' ,'DESC')->exists())
+    			/*if(Attendance::where('user_id' , $request->user_id)->where('date' , date('Y-m-d'))->orderby('id' ,'DESC')->exists())
     			{
                     $updateUser = User::where('id' , $request->user_id)->update([
                             'isloggedin' => '1' 
@@ -28,7 +27,7 @@ class AttendanceController extends Controller
 					    		]);
     			}
     			else
-    			 {
+    			 {*/
 		              $create = Attendance::create([
 		              	'date' => date('Y-m-d'),
 		              	'user_id' => $request->user_id ,
@@ -56,7 +55,7 @@ class AttendanceController extends Controller
 
 		              }
 
-             }
+            // }
 
     		}
 
@@ -173,32 +172,29 @@ class AttendanceController extends Controller
           while($now <= $last ) {
            
             if(Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->exists()){
-                $attendance = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->first();
+               $attendance = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->first();
 
-                $login_time = $attendance->login_time ;
-                $logout_time = $attendance->logout_time;
-                $total_hours = $attendance->total_hours;
-                $login_location = $attendance->login_location;
-                $logout_location = $attendance->logout_location;
-                $out_of_work = $attendance->out_of_work;
+                $attendance_in = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->first();
+                $attendance_out = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->orderBy('id', 'DESC')->first();
+
+                $total_hr = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->sum('total_hours');
+                $out_of_hr = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->sum('out_of_work');
+              
+
+                $login = $attendance_in->login_time;
+                $logout = $attendance_out->logout_time ;
+                
+
+                $login_time = $login ;
+                $logout_time = $logout;
+                $total_hours = $total_hr;
+                $out_of_work = $out_of_hr;
 
                 if($logout_time == ''){
                     $logout_time = '---';
                 }
-
-               /* if($total_hours != '0'){
-                    
-                    if($total_hours%60 > '0'){
-                         $total_hours = $total_hours/60 ."Hr : " . $total_hours%60 ."Min";
-                    }
-                    else {
-                        $total_hours = $total_hours/60 ."Hr";
-                    }
-                }
-                else {
-                    $total_hours = '0 Min'; 
-                }*/
  
+               
             }
             else {
                 $login_time = '---' ;
@@ -207,12 +203,11 @@ class AttendanceController extends Controller
                 $out_of_work = '---';
 
             }
+
             $res = [
                 'date' => date('Y-m-d', $now),
                 'login'=> $login_time ,
-                'login_location' => '',
                 'logout' => $logout_time,
-                'logout_location' => '',
                 'out_of_work' => $out_of_work,
                 'working_minutes' => $total_hours
 
