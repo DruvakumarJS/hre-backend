@@ -52,9 +52,8 @@
                @if(Auth::user()->role_id == 1)
                <div class="d-flex flex-column text-center" >
                    
-                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
-                 
-                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
+                    <img class="logo" src="{{asset('images/logo_new.svg')}}">
+                
                </div>
 
                
@@ -176,6 +175,7 @@
                     || request()->routeIs('edit-ticket')
                     || request()->routeIs('ticket-details')
                     || request()->routeIs('generate-ticket')
+                    || request()->routeIs('search_ticket')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
 
@@ -243,6 +243,7 @@
                     || request()->routeIs('edit-ticket')
                     || request()->routeIs('ticket-details')
                     || request()->routeIs('generate-ticket')
+                    || request()->routeIs('search_ticket')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
 
@@ -310,6 +311,7 @@
                     || request()->routeIs('edit-ticket')
                     || request()->routeIs('ticket-details')
                     || request()->routeIs('generate-ticket')
+                    || request()->routeIs('search_ticket')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
 
@@ -377,6 +379,7 @@
                     || request()->routeIs('edit-ticket')
                     || request()->routeIs('ticket-details')
                     || request()->routeIs('generate-ticket')
+                    || request()->routeIs('search_ticket')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
 
@@ -439,7 +442,7 @@
                                     </ul>
                              </div> -->
 
-                             <a class="dropdown-item" href="{{route('vault_master')}}"><img class="circle" src="{{asset('images/vault.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"></a>
+                             <a class="dropdown-item" href="{{route('vault_master')}}"><img class="circle" src="{{asset('images/vault1.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"></a>
 
                              <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moddl"><img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"></a>
 

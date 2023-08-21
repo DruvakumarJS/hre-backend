@@ -47,14 +47,10 @@
                    class="list-group-item  py-2 ripple {{ request()->routeIs('customer-dashboard')
                    ? 'active' : '' }}"
                    >
-                  <img  src="{{asset('images/logo2.svg')}}" style="width: 100px;height: 100px;margin-top: 20px; margin-left: 10px">
+                  <img  src="{{asset('images/logo_new.svg')}}" style="width: 150px;height: 150px;margin-top: 20px; margin-left: 10px">
 
                </a>
-               <span style="color: #fff;font-weight: 600;font-style: normal;font-size: 15px;margin-top: -5px;transform: translateX(-19px);">One Stop Solution</span>
                
-
-
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

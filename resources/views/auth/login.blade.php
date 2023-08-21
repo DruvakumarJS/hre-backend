@@ -6,7 +6,7 @@
 
         <div class="row justify-content-center align-items-center">
             <div class="col-md-8">
-                <img  src="{{asset('images/login_image.svg')}}" style="margin-top: 50px">
+                <img  src="{{asset('images/login_image.svg')}}">
             </div>
             <div class="col-md-3">
                 <div class="login">

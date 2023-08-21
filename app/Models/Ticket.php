@@ -31,7 +31,7 @@ class Ticket extends Model
 
     function conversation()
     {
-          return $this->hasMany(TicketConversation::class,'ticket_no', 'ticket_no');
+          return $this->hasMany(TicketConversation::class,'id', 'ticket_id');
     }
 
 
