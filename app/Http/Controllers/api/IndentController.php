@@ -465,6 +465,7 @@ class IndentController extends Controller
       $role_id = Roles::where('name' , $request->role)->first();
       $indentarray = array();
       $user_id = $request->user_id ;
+      $final_array=array();
 
       if($role_id->id != 4 ) {
       //  print_r("lll"); die();
@@ -492,11 +493,15 @@ class IndentController extends Controller
             ];
                 
           }
+
+          $counts = ['Active' => '0' , 'Completed' => '0' ];
+
+          $final_array=['counts' => $counts , 'myindents' => $indentarray];
         
           return response()->json([
                 'status' => 1 ,
                 'message' => 'success' ,
-                'data' => $indentarray
+                'data' => $final_array
                 ]);
 
        }
@@ -536,12 +541,15 @@ class IndentController extends Controller
             ];
                 
           }
-        
+          $counts = ['Active' => '0' , 'Completed' => '0' ];
 
+          $final_array=['counts' => $counts , 'myindents' => $indentarray];
+        
+          
           return response()->json([
                 'status' => 1 ,
                 'message' => 'success' ,
-                'data' => $indentarray
+                'data' => $final_array
                 ]);
 
                         
@@ -565,12 +573,15 @@ class IndentController extends Controller
               ];
                   
             }
-          
+
+          $counts = ['Active' => '0' , 'Completed' => '0' ];
+
+          $final_array=['counts' => $counts , 'myindents' => $indentarray];
 
             return response()->json([
                   'status' => 1 ,
                   'message' => 'success' ,
-                  'data' => $indentarray
+                  'data' => $final_array
                   ]);
 
             
