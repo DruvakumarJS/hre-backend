@@ -178,7 +178,7 @@ class IndentController extends Controller
               ]);
       }
       else {
-        $indents = Intend::where('user_id',$request->user_id)->where('status','!=','Completed')->get();
+        $indents = Intend::where('user_id',$request->user_id)->get();
        
         $indent_active = Intend::where('user_id',$request->user_id)->where('status','Active')->count();
         $indent_completed = Intend::where('user_id',$request->user_id)->where('status','Completed')->count();
