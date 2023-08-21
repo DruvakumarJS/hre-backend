@@ -15,12 +15,12 @@
      </div>
 
      <!--  Modal -->
-          <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" data-bs-backdrop="static"  id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Ticket Created Succesfully</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 <!--  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
                 <div class="modal-body">
                  
@@ -312,6 +312,7 @@ $( document ).ready(function() {
                      fd.append('owner',creator);
                      // Hide alert 
                      $('#responseMsg').hide();
+                    
 
                      // AJAX request 
                      $.ajax({
@@ -326,6 +327,9 @@ $( document ).ready(function() {
                             
                              // alert("Ticket Created Succesfully");
                               // window.location.href = "{{ route('tickets')}}";
+                            // document.getElementById("myForm").reset();
+                            //$('#myForm').trigger("reset");
+                            jQuery("#submit input[type=text]").val('');
                              var data = response;
                               $("#modal_body").html(data);
                              $("#modal").modal('show');

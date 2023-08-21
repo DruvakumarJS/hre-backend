@@ -88,14 +88,17 @@
 $(function() {
   $('input[name="daterange"]').daterangepicker({
     opens: 'left'
+
   }, function(start, end, label) {
-    alert(start);
+   // alert(start);
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
   });
 });
 </script>
 
+
 <script type="text/javascript">
+
 $(function() {
     
     var today = <?php echo date('d');  ?>;
@@ -106,6 +109,7 @@ $(function() {
  /**/
 
     function cb(start, end) {
+
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         
         var from_date = start.format('YYYY-MM-DD');
@@ -193,6 +197,7 @@ $(function() {
     $('#reportrange').daterangepicker({
         startDate: start,
         endDate: end,
+        maxDate : moment(),
         ranges: {
            'Today': [moment(), moment()],
            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],

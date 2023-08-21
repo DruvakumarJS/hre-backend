@@ -21,7 +21,8 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
             <a class="btn btn-light btn-outline-secondary" href="{{route('generate-ticket')}}">
              <label id="modal">Generate Ticket </label> </a>
           </div>
-        @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' )
+       
+
            <div id="div2" style="margin-right: 30px">
            <form method="POST" action="{{route('search_ticket')}}" >
             @csrf
@@ -34,7 +35,9 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
               </div>
            </form>
           </div>
-        @endif
+ 
+
+ 
           <div id="div2" style="margin-right: 30px">
              <!-- <input class="form-control" type="text" name="search" placeholder="Filter "> -->
             @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' )

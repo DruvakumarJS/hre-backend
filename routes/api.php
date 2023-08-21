@@ -35,6 +35,8 @@ Route::post('/get-material-list',[MaterialController::class,'material_list']);
 Route::post('/create-indent',[IndentController::class,'create']);
 Route::post('/get-indents',[IndentController::class,'indents']);
 Route::post('/get-indent-details',[IndentController::class,'indent_details']);
+Route::post('/search-indent',[IndentController::class,'search']);
+
 Route::post('/pcns',[IndentController::class,'pcn_list']);
 Route::get('/grn',[IndentController::class,'grn_list']);
 Route::post('/update-grn',[IndentController::class,'update_grn']);
@@ -42,6 +44,7 @@ Route::post('/create-ticket',[TicketController::class,'create']);
 Route::post('/get-tickets',[TicketController::class,'index']);
 Route::post('/update-ticket',[TicketController::class,'update']);
 Route::post('/update-ticket-status',[TicketController::class,'modify_ticket_status']);
+Route::post('/search-ticket',[IndentController::class,'search']);
 
 Route::post('/add-conversation',[TicketController::class,'conversation']);
 Route::post('/get-conversation',[TicketController::class,'conversation_details']);

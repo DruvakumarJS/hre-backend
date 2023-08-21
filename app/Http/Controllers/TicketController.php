@@ -44,13 +44,14 @@ class TicketController extends Controller
       if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '5'){
          $tickets = Ticket::orderby('id' , 'DESC')->get();
       }
-      else {
+      else { 
           $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)->groupBy('ticket_id')->get();
 
           foreach ($ticket_convers as $key => $value) {
             $ids[]=$value->ticket_id;
 
           }
+
         
        if(sizeof($ticket_convers) > 0){
        
@@ -597,16 +598,83 @@ class TicketController extends Controller
       if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '5'){
          $tickets = Ticket::orderby('id' , 'DESC')
                  ->where('pcn','LIKE','%'.$search.'%')
-                 ->orWhere('category','LIKE','%'.$search.'%')
                  ->orWhere('pcn','LIKE','%'.$search.'%')
                  ->orWhere('ticket_no','LIKE','%'.$search.'%')
                  ->orWhere('status','LIKE','%'.$search.'%')
-                 ->paginate(50);
+                 ->orWhereHas('pcns',function($query)use($search){
+                    $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                 })
+                 ->get();
       }
       else {
-         $tickets = Ticket::where('status', 'Pending/Ongoing')->orWhere('creator', Auth::user()->id)->orderby('id' , 'DESC')->paginate(10);
-      }
+       
+          $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)
+             ->where('ticket_no','LIKE','%'.$search.'%')
+             ->groupBy('ticket_id')->get();
+          
+          foreach ($ticket_convers as $key => $value) {
+            
+            $ids[]=$value->ticket_id;
 
+          }
+         
+        
+       if(sizeof($ticket_convers) > 0){
+     
+        $tickets = Ticket::orderby('id' , 'DESC')
+                 ->where(function($query){
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                 })
+                 ->where(function($query)use($search){
+                     $query->where('ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('pcn','LIKE','%'.$search.'%');
+                     $query->orWhereHas('pcns',function($query)use($search){
+                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+
+                     });
+
+                    // $query->orWhere('category','LIKE','%'.$search.'%');                    
+                     //$query->orWhere('status','LIKE','%'.$search.'%');
+                     
+                 }) 
+                /* ->where(function($query){
+                     $query->where('status' ,'!=','Resolved');
+                 })
+                 */
+                 ->orWhere(function($query)use($ids){
+                    $query->whereIn('id', $ids);
+                    $query->where('status' ,'!=','Resolved');
+                 }) 
+                          
+                 ->get();
+
+       }
+       else{
+     //print_r("ll"); die();
+           $tickets = Ticket::where(function($query){
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                 })
+                 ->where(function($query)use($search){
+                     $query->where('ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('pcn','LIKE','%'.$search.'%');
+                     $query->orWhereHas('pcns',function($query)use($search){
+                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                     });
+                     /*$query->orWhere('category','LIKE','%'.$search.'%');                    
+                     $query->orWhere('status','LIKE','%'.$search.'%');*/
+                     
+                 }) 
+                /* ->where(function($query){
+                    $query->where('status' ,'!=','Resolved');
+                 }) */
+                 ->orderby('id' , 'DESC')
+                
+                 ->get();
+       }          
+      }
+   //die();
       // $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
         
          return view('ticket/list' ,  compact('tickets','filter'));

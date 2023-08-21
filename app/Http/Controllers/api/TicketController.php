@@ -63,8 +63,6 @@ class TicketController extends Controller
         ->whereIn('id', $ids)->orWhere('creator', $request->user_id)
         ->orderby('id' , 'DESC')->get();
 
-
-        
         foreach ($tickets as $key => $value) {
              $images = explode(',', $value->filename);
              $pcn_data = Pcn::where('pcn',$value->pcn)->first();
@@ -141,7 +139,7 @@ class TicketController extends Controller
      function create(Request $request){
       
       //  print_r($fileName);die();
-
+        
      	if(isset($request->user_id) && isset($request->pcn) && isset($request->subject) && isset($request->issue))
      	{
 
@@ -197,7 +195,8 @@ class TicketController extends Controller
         if($Insert){
              return response()->json([
                 'status' => 1 ,
-                'message' => 'Ticket Created'
+                'message' => 'Ticket Created',
+                'data' =>['ticket_no'=> $ticket_no] 
              ]);
             
         }
@@ -207,7 +206,8 @@ class TicketController extends Controller
             
              return response()->json([
              	'status' => 0 ,
-             	'message' => 'PCN does not exist'
+             	'message' => 'PCN does not exist',
+                 'data' =>[] 
              ]);
         }
 
@@ -216,7 +216,8 @@ class TicketController extends Controller
 
     	 return response()->json([
              	'status' => 0 ,
-             	'message' => 'Insufficient inputs'
+             	'message' => 'Insufficient inputs',
+                 'data' =>[] 
              ]);
 
     }
@@ -494,6 +495,10 @@ class TicketController extends Controller
                   'data' => $data
                   ]);
     }
+
+   }
+
+   public function search(Request $request){
 
    }
 

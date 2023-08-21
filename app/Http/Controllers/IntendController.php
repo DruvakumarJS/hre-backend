@@ -445,19 +445,39 @@ class IntendController extends Controller
 
     public function filter_indents($filter){
         if($filter=='all'){
-             $indents=Intend::orderBy('id', 'DESC')->paginate(50);
+
+            if(Auth::user()->role_id == 4){
+              $indents=Intend::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->paginate(50);
+            }
+            else{
+              $indents=Intend::orderBy('id', 'DESC')->paginate(50);
+            }
         }
         else {
-             $indents=Intend::where('status',$filter)->orderBy('id', 'DESC')->paginate(50);
+          if(Auth::user()->role_id == 4){
+              $indents=Intend::where('user_id', Auth::user()->id)->where('status',$filter)->orderBy('id', 'DESC')->paginate(50);
+            }
+            else{
+              $indents=Intend::where('status',$filter)->orderBy('id', 'DESC')->paginate(50);
+            }
+             
         }
-       // $indents=Intend::where('status',$filter)->orderBy('id', 'DESC')->paginate(10);
+       if(Auth::user()->role_id == 4){
+        $all = Intend::where('user_id', Auth::user()->id)->count();
+        $activeCount = Intend::where('user_id', Auth::user()->id)->where('status','Active')->count();
+        $pendingCount = Intend::where('user_id', Auth::user()->id)->where('status','Pending')->count();
+        $compltedCount = Intend::where('user_id', Auth::user()->id)->where('status','Completed')->count();
+      }
+      else{
         $all = Intend::count();
         $activeCount = Intend::where('status','Active')->count();
         $pendingCount = Intend::where('status','Pending')->count();
         $compltedCount = Intend::where('status','Completed')->count();
+      }
         //print_r($pendingCount);
 
          return view('indent/list' , compact('indents' , 'all' , 'activeCount', 'pendingCount' , 'compltedCount'));
+      
     }
 
     public function action(Request $request){
@@ -599,7 +619,7 @@ class IntendController extends Controller
        $indents = Intend::where('indent_no','LIKE','%'.$search.'%')
                         ->orWhere('pcn','LIKE','%'.$search.'%')
                         ->orWhereHas('pcns', function ($query) use ($search) {
-                        $query->where('client_name', 'like', '%'.$search.'%');
+                        $query->where('brand', 'like', '%'.$search.'%');
                            })
                         ->paginate(50);
 
@@ -609,15 +629,33 @@ class IntendController extends Controller
         //$pendingCount = Intend::where('status','Pending')->count();
         $compltedCount = Intend::where('status','Completed')->count();
        }
-
        else 
        {
-        $indents = Intend::where('indent_no','LIKE','%'.$search.'%')
-                        ->orWhere('pcn','LIKE','%'.$search.'%')->where('user_id' ,Auth::user()->id)->paginate(50);
+         if($search != ''){
+          $indents = Intend::where(function($query){
+                          $query->where('user_id', Auth::user()->id);
+                            })
+                        ->where('indent_no','LIKE','%'.$search.'%')
+                        
+                        ->orWhere(function($query)use($search){
+                          $query->where('pcn','LIKE','%'.$search.'%');
+                          $query->where('user_id', Auth::user()->id);
+                            })
+                        ->orWhereHas('pcns', function ($query) use ($search) {
+                           $query->where('brand', 'like', '%'.$search.'%');
+                           $query->where('user_id', Auth::user()->id);
+                           })
+                        
+                        ->paginate(50);
+         }
+         else {
+           $indents=Intend::where('user_id' ,Auth::user()->id)->paginate(50);
+            
+         }
+        
         
         $all = Intend::where('user_id' ,Auth::user()->id)->count();
         $activeCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Active')->count();
-      //  $pendingCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Pending')->count();
         $compltedCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Completed')->count();
        }
         
@@ -628,8 +666,20 @@ class IntendController extends Controller
     }
 
     public function search_grn(Request $request){
+      $search = $request->search ;
+      if($request->search == ''){
+          return redirect()->route('grn');
+      }
+      else{
+      $grns = GRN::where('user_id',Auth::user()->id)
+              ->where(function($query)use($search){
+                 $query->where('grn', 'LIKE','%'.$search.'%');
+                 $query->orWhere('pcn', 'LIKE' ,'%'.$search.'%');
+                 $query->orWhere('indent_no', 'LIKE' ,'%'.$search.'%');
 
-      $grns = GRN::where('grn', 'LIKE','%'.$request->search.'%')->where('user_id',Auth::user()->id)->orderBy('id', 'DESC')->get();
+              })
+              ->orderBy('id', 'DESC')
+              ->get();
         $grn_array = array();
 
         if(sizeof($grns)>0){
@@ -656,15 +706,22 @@ class IntendController extends Controller
               'pcn' => $value->pcn,
               'indent_no' => $value->indent_no,
               'dispatched' => $value->dispatched,
+              'comment' => $value->dispatch_comment,
               'status'=> $value->status,
               'indent_details' => array($material_detail)
             ];
-
+            
             array_push($grn_array, $grs_data);
           }
-
+            
          
           }
+          else {
+              $grn_array=array();
+          
+          }
+
            return view('indent/grn',compact('grn_array'));
     }
+  }
 }

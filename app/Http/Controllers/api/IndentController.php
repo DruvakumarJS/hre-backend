@@ -11,6 +11,7 @@ use App\Models\GRN;
 use App\Models\User;
 use App\Models\Material;
 use App\Models\Category;
+use App\Models\Roles;
 
 //use Illuminate\Support\Facades\Mail;
 use App\Mail\IndentsMail;
@@ -142,14 +143,16 @@ class IndentController extends Controller
 
         return response()->json([
          	 		'status' => 1 ,
-         	 		'message' => 'Indent Created Succesfully '.$ind_no
+         	 		'message' => 'Indent Created Succesfully ',
+              'data' => ['indent_no' => $idtend->indent_no,'pcn' =>$idtend->pcn ,'pcn_details'=> $pcn_detail   ]
          	 		]);
         }
 
         else {
             return response()->json([
            	 		'status' => 0 ,
-           	 		'message' => 'Indent array is empty' 
+           	 		'message' => 'Indent array is empty',
+                'data' =>[]
            	 ]);
         }
    	 }
@@ -457,5 +460,123 @@ class IndentController extends Controller
 
    }
 
-  
+   public function search(Request $request){
+      $search = $request->search;
+      $role_id = Roles::where('name' , $request->role)->first();
+      $indentarray = array();
+      $user_id = $request->user_id ;
+
+      if($role_id->id != 4 ) {
+      //  print_r("lll"); die();
+
+       $indents = Intend::where('indent_no','LIKE','%'.$search.'%')
+                        ->orWhere('pcn','LIKE','%'.$search.'%')
+                        ->orWhereHas('pcns', function ($query) use ($search) {
+                        $query->where('brand', 'like', '%'.$search.'%');
+                           })
+                        ->get();
+
+         foreach ($indents as $key => $value) {
+           $pcn_data=Pcn::where('pcn',$value->pcn)->first();
+
+           $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+
+            $indentarray[] = [
+              'indent_id' => $value->id ,
+              'indent_no' => $value->indent_no,
+              'pcn' => $value->pcn,
+              'pcn_detail' => $pcn_detail,
+              'status'=> $value->status,
+              'created_on' => $value->created_at->toDateTimeString()
+
+            ];
+                
+          }
+        
+          return response()->json([
+                'status' => 1 ,
+                'message' => 'success' ,
+                'data' => $indentarray
+                ]);
+
+       }
+       else 
+       {
+        // print_r($role_id->id); die();
+         if($search != ''){
+          $indents = Intend::where(function($query)use($user_id){
+                          $query->where('user_id', $user_id );
+                            })
+                        ->where('indent_no','LIKE','%'.$search.'%')
+                        
+                        ->orWhere(function($query)use($search, $user_id){
+                          $query->where('pcn','LIKE','%'.$search.'%');
+                          $query->where('user_id', $user_id);
+                            })
+                        ->orWhereHas('pcns', function ($query) use ($search, $user_id) {
+                           $query->where('brand', 'like', '%'.$search.'%');
+                           $query->where('user_id', $user_id);
+                           })
+                        
+                        ->get();
+
+          foreach ($indents as $key => $value) {
+           $pcn_data=Pcn::where('pcn',$value->pcn)->first();
+
+           $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+
+            $indentarray[] = [
+              'indent_id' => $value->id ,
+              'indent_no' => $value->indent_no,
+              'pcn' => $value->pcn,
+              'pcn_detail' => $pcn_detail,
+              'status'=> $value->status,
+              'created_on' => $value->created_at->toDateTimeString()
+
+            ];
+                
+          }
+        
+
+          return response()->json([
+                'status' => 1 ,
+                'message' => 'success' ,
+                'data' => $indentarray
+                ]);
+
+                        
+         }
+         else {
+           $indents=Intend::where('user_id' ,$request->user_id )->get();
+
+           foreach ($indents as $key => $value) {
+             $pcn_data=Pcn::where('pcn',$value->pcn)->first();
+
+             $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+
+              $indentarray[] = [
+                'indent_id' => $value->id ,
+                'indent_no' => $value->indent_no,
+                'pcn' => $value->pcn,
+                'pcn_detail' => $pcn_detail,
+                'status'=> $value->status,
+                'created_on' => $value->created_at->toDateTimeString()
+
+              ];
+                  
+            }
+          
+
+            return response()->json([
+                  'status' => 1 ,
+                  'message' => 'success' ,
+                  'data' => $indentarray
+                  ]);
+
+            
+         }
+      
+   }
+
+  }
 }
