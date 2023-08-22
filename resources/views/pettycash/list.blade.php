@@ -28,8 +28,8 @@
             <a class="btn btn-light btn-outline-secondary" href="{{route('export_pettycash')}}"> Download CSV</a>
         </div>
 
-    </div>
 @endif
+ </div>
      @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
         @endif  
@@ -64,7 +64,7 @@
                             <a href="{{route('view_summary',$value->user_id)}}"><button class="btn btn-sm btn-light btn-outline-secondary">Statement</button></a>
                             <a href="{{route('details_pettycash',$value->user_id)}}"><button class="btn btn-sm btn-outline-success">Transaction info</button></a>
                             @if(Auth::user()->role_id == '1')
-                            <a href="{{route('pettycash_info',$value->user_id)}}"><button class="btn btn-sm btn-outline-info">More</button></a>
+                            <a href="{{route('pettycash_info',$value->user_id)}}"><button class="btn btn-sm btn-light btn-outline-secondary">More</button></a>
                             @endif
 
                             @if($value['user_id'] == Auth::user()->id)

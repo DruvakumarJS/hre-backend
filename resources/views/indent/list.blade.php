@@ -108,7 +108,7 @@
                       <form id="theForm" method="POST" action="download_multiple_indents">
                         @csrf
                         <input type="hidden" name="selctedindent" id="selctedindent">
-                        <button class="btn btn-sm btn-light btn-outline-secondary" id="download" onclick="GetSelected()">Download Selected Indents</button>
+                        <button class="btn btn-sm btn-light btn-outline-secondary" id="download" onclick="GetSelected()" style="display: none">Download Selected Indents</button>
                       </form>  
                     
                        
@@ -168,5 +168,39 @@
         });*/
     }
 
+$(function() {
+  // General/modular function for status logging
+  var checked='';
+  var checkboxChecker = function() {
+
+
+    $('table tr').each(function(i) {
+      // Only check rows that contain a checkbox
+      var $chkbox = $(this).find('input[type="checkbox"]');
+      if ($chkbox.length) {
+        var status = $chkbox.prop('checked');
+        //alert(status);
+        if(status){
+           checked="true";
+        }
+       
+        console.log('Table row ' + i + ' contains a checkbox with a checked status of: ' + status);
+      }
+
+      if(checked=="true"){
+    document.getElementById("download").style.display="block";
+  }
+    });
+  };
+  
+  
+  // Check checkboxes status on DOMready
+  checkboxChecker();
+  
+  // Check again when checkboxes states are changed
+  $('table tr input[type="checkbox"]').on('change', function() {
+    checkboxChecker();
+  });
+});
 </script>
 @endsection

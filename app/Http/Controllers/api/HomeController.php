@@ -8,6 +8,7 @@ use App\Models\Attendance;
 use App\Models\Intend;
 use App\Models\Ticket;
 use App\Models\GRN;
+use App\Models\PettycashOverview;
 
 class HomeController extends Controller
 {
@@ -46,11 +47,21 @@ class HomeController extends Controller
     			$GRN = "0";
     		}
 
-    		$data = ['attendance' => $attendance , 'indents_count' => $indents , 'tickets_count' => $tickets ,'grn_count' => $GRN ];
+            if(PettycashOverview::where('user_id' , $request->user_id)->exists()){
+                $pc = PettycashOverview::where('user_id' , $request->user_id)->first();
+                $balance = $pc->total_balance;
+
+            }
+            else {
+                $balance = "0";
+            }
+
+
+    		$data = ['attendance' => $attendance , 'indents_count' => $indents , 'tickets_count' => $tickets ,'grn_count' => $GRN , 'pettycash' => $balance];
 
     		return response()->json([
-    			'status' => 0,
-    			'message' => 'UnAuthorised',
+    			'status' => 1,
+    			'message' => 'Success',
     			'data'=> $data]);
 
 
