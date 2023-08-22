@@ -613,10 +613,13 @@ class TicketController extends Controller
                     'filename' => ($images)];
          } 
 
+        $count[]= ['Active' => '0' , 'Completed'=> '0' , 'Resolved' => '0'];
+        $final_array=['counts' => $count , 'tickets' =>$ticketarray ];
+
          return response()->json([
                     'status'=> 1,
                     'message' => 'Success' ,
-                    'data' => $ticketarray ]);
+                    'data' => $final_array ]);
 
    }
 
