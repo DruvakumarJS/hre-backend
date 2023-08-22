@@ -590,4 +590,74 @@ class IndentController extends Controller
    }
 
   }
+
+  public function search_grn(Request $request){
+    $search = $request->search ;
+      
+      $grns = GRN::where('user_id',$request->user_id)
+              ->where(function($query)use($search){
+                 $query->where('grn', 'LIKE','%'.$search.'%');
+                 $query->orWhere('pcn', 'LIKE' ,'%'.$search.'%');
+                 $query->orWhere('indent_no', 'LIKE' ,'%'.$search.'%');
+
+              })
+              ->orderBy('id', 'DESC')
+              ->get();
+        $grn_array = array();
+
+        if(sizeof($grns)>0){
+
+          foreach ($grns as $key => $value) {
+
+             $indent_list = Indent_list::where('id',$value->indent_list_id)->first();
+
+            $material = Material::where('item_code',$indent_list->material_id)->first();
+
+            $pcn_data=Pcn::where('pcn',$value->pcn)->first();
+
+            $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+            
+            $material_detail = [
+              'material_name' => $material->name,
+              'brand' => $material->brand,
+              'information' => json_decode($material->information, true, JSON_UNESCAPED_SLASHES),
+              'quantity_raised' => $indent_list->quantity,
+              'quantity_received' => $indent_list->recieved,
+              'quantity_pending' => $indent_list->pending,
+
+            ];
+
+             $grs_data = [
+              'grn' => $value->grn,
+              'pcn' => $value->pcn,
+              'pcn_detail'=> $pcn_detail,
+              'indent_no' => $value->indent_no,
+              'dispatched' => $value->dispatched,
+              'dispatch_comment' => $value->dispatch_comment,
+              'accepted' => $value->approved ,
+              'rejected' => $value->damaged,
+              'accepting_comment' => $value->comment,
+              'status' => $value->status,
+              'indent_details' => array($material_detail)
+            ];
+
+            array_push($grn_array, $grs_data);
+          }
+             return response()->json([
+                        'status' => 1 ,
+                        'message' => 'success',
+                        'data'=> $grn_array]);
+         
+          }
+          else {
+             
+               return response()->json([
+                        'status' => 1 ,
+                        'message' => 'No active GRN available',
+                        'data'=> $grn_array ]);
+          
+          }
+
+  }
+  
 }

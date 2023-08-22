@@ -39,6 +39,7 @@ Route::post('/search-indent',[IndentController::class,'search']);
 
 Route::post('/pcns',[IndentController::class,'pcn_list']);
 Route::get('/grn',[IndentController::class,'grn_list']);
+Route::post('/search-grn',[IndentController::class,'search_grn']);
 Route::post('/update-grn',[IndentController::class,'update_grn']);
 Route::post('/create-ticket',[TicketController::class,'create']);
 Route::post('/get-tickets',[TicketController::class,'index']);
