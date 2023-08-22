@@ -151,12 +151,12 @@ class TicketController extends Controller
             if(Ticket::exists()){
             $tickets = Ticket::select('ticket_no')->orderby('id' , 'DESC')->first();
 
-            $arr = explode("TN_00", $tickets->ticket_no);
+            $arr = explode("TN00", $tickets->ticket_no);
            // print_r($arr);die();
-            $ticket_no = "TN_00".++$arr[1];
+            $ticket_no = "TN00".++$arr[1];
         }
         else {
-            $ticket_no ="TN_001";
+            $ticket_no ="TN001";
         }
 
           if($file = $request->hasFile('image')) {

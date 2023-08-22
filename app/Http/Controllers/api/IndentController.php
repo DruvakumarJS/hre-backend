@@ -34,14 +34,14 @@ class IndentController extends Controller
           if(Intend::exists()){
           	$Indent = Intend::select('indent_no')->orderBy('id', 'DESC')->first();
 
-             $arr = explode("MI_00", $Indent->indent_no);
+             $arr = explode("MI00", $Indent->indent_no);
            
-          	$ind_no = "MI_00".++$arr[1];
+          	$ind_no = "MI00".++$arr[1];
 
            //  print_r($indent_no);die();
           }
           else {
-          	$ind_no = "MI_001" ;
+          	$ind_no = "MI001" ;
           }
 
           $indent_array = $request->indents ; 
