@@ -178,7 +178,11 @@ class IndentController extends Controller
               ]);
       }
       else {
-        $indents = Intend::where('user_id',$request->user_id)->get();
+        $user = User::where('id',$request->user_id)->first();
+        $role_id = $user->role_id ;
+
+        if($role_id == '4'){
+           $indents = Intend::where('user_id',$request->user_id)->get();
        
         $indent_active = Intend::where('user_id',$request->user_id)->where('status','Active')->count();
         $indent_completed = Intend::where('user_id',$request->user_id)->where('status','Completed')->count();
@@ -202,16 +206,45 @@ class IndentController extends Controller
           ];
               
         }
-        $final_array=['counts' => $counts , 'myindents' => $indentarray];
+       }
+        else {
+           $indents = Intend::get();
+       
+        $indent_active = Intend::where('status','Active')->count();
+        $indent_completed = Intend::where('status','Completed')->count();
 
-        return response()->json([
-              'status' => 1 ,
-              'message' => 'success' ,
-              'data' => $final_array
-              ]);
+        $counts=['Active' => $indent_active , 'Completed' => $indent_completed ];
+        
 
+        foreach ($indents as $key => $value) {
+         $pcn_data=Pcn::where('pcn',$value->pcn)->first();
 
-      }
+         $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+
+          $indentarray[] = [
+            'indent_id' => $value->id ,
+            'indent_no' => $value->indent_no,
+            'pcn' => $value->pcn,
+            'pcn_detail' => $pcn_detail,
+            'status'=> $value->status,
+            'created_on' => $value->created_at->toDateTimeString()
+
+          ];
+              
+        }
+        }
+           
+            $final_array=['counts' => $counts , 'myindents' => $indentarray];
+
+              return response()->json([
+                    'status' => 1 ,
+                    'message' => 'success' ,
+                    'data' => $final_array
+                    ]);
+
+        }
+       
+      
 
    }
 
