@@ -659,5 +659,39 @@ class IndentController extends Controller
           }
 
   }
+
+  public function search_pcn(Request $request){
+    $pcn_array=array(); 
+
+    if(Pcn::where('pcn','LIKE','%'.$request->search.'%')->exists()){
+       $data = Pcn::where('pcn','LIKE','%'.$request->search.'%')->get();
+
+       foreach ($data as $key => $value) {
+        $pcn_array[] = [
+          'pcn'=> $value->pcn,
+          'client_name'=>$value->client_name,
+          'brand' => $value->brand,
+          'location' => $value->location,
+          'area' => $value->area,
+          'city' => $value->city,
+          'status' => $value->status,
+           ];
+
+        }
+
+        return response()->json([
+                      'status' => 1 ,
+                      'message' => 'success',
+                      'data'=> $pcn_array]);
+    }
+    else{
+       return response()->json([
+                        'status' => 0 ,
+                        'message' => 'PCN does not exist',
+                        'data'=> $pcn_array ]);
+    }
+   
+
+  }
   
 }
