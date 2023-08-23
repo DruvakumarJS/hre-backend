@@ -69,6 +69,7 @@
                      class="{{request()->routeIs('view_customers')
                         || request()->routeIs('create_customer')
                         || request()->routeIs('search_customer')
+                        || request()->routeIs('edit_customer')
                       ? 'active' : ''}}"
                     >
                       <label class="nav-links">Customers</label></a>
