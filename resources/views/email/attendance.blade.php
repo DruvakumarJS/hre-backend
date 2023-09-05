@@ -44,8 +44,12 @@
                   <div style="margin-top: 20px;">
                      <label>Edited by</label> <label class="label-bold">{{$attendance['editor_name']}} - {{$attendance['editor_id']}}</label> 
                   </div>
+                  @php
+                    $domain = url('/');
+                  @endphp
+            
                                     
-                  <label class="label-bold" style="margin-top: 20px;">For more details visit : https://hre.netiapps.com/employee-history/{{$attendance['employee_id']}}</label>
+                  <label class="label-bold" style="margin-top: 20px;">For more details visit : {{$domain}}/employee-history/{{$attendance['employee_id']}}</label>
                  
         </main>
     </body>

@@ -131,13 +131,16 @@
                     @csrf
                     <div class="form-group mb-4">
                         <div class="custom-file text-left">
-                            <input type="file" name="file" class="custom-file-input" id="customFile">
-                           
+                            <input type="file" name="file" class="custom-file-input" id="customFile"> 
                         </div>
                     </div>
                     <button class="btn btn-danger">Import</button>
                     
                 </form>
+
+                    <div id="div2">
+                       <a target="_blank" href="{{ URL::to('/') }}/templates/HRE_User_Template.xlsx" ><button class="btn btn-sm btn-light">Download Template</button></a>
+                    </div>
               </div>
               
             </div>

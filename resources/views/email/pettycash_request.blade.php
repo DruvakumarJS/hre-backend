@@ -34,8 +34,12 @@
             <div style="margin-top: 20px;">
                 <label class="label-bold" style="margin-top: 20px;">Requesting to verifiy my Pettycash Bills </label>
             </div>
+
+            @php
+              $domain = url('/');
+            @endphp
             <div style="margin-top: 20px;">
-                <label class="label-bold" style="margin-top: 20px;">visit : https://hre.netiapps.com/pettycash_details/{{$id}} </label>
+                <label class="label-bold" style="margin-top: 20px;">View on Dashaboard : {{$domain}}/pettycash_details/{{$id}} </label>
             </div>
             
                               

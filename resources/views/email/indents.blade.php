@@ -47,7 +47,10 @@
             </div>
                <label>{{$indent_details['pcn_details']}}</label>
             <div>
-                <label>View on Dashaboard : </label> <label class="label-bold">https://hre.netiapps.com/indent_details/{{$indent_details['indent_no']}}</label>
+                  @php
+                    $domain = url('/');
+                  @endphp
+                <label>View on Dashaboard : </label> <label class="label-bold">{{$domain}}/indent_details/{{$indent_details['indent_no']}}</label>
             </div>
 
                

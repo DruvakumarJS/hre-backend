@@ -135,7 +135,7 @@ class CustomerController extends Controller
                   $emailid[]=$value->email;
                }
 
-          //Mail::to($emailid)->send(new CustomerMail($data,$subject));
+          Mail::to($emailid)->send(new CustomerMail($data,$subject));
 
 
         return redirect()->route('view_customers');

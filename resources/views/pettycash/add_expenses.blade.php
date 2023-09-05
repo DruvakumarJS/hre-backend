@@ -74,7 +74,7 @@ output .span--hidden{
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Date of Bill*</label>
                             <div class="col-7">
-                                <input name="bill_date" id="bill_date" type="date" class="form-control" required="required" >
+                                <input name="bill_date" id="bill_date" type="date" class="form-control" max="<?php echo date('Y-m-d') ?>" required="required" >
                             </div>
                         </div>
 

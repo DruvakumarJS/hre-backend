@@ -189,14 +189,15 @@ class IntendController extends Controller
                  'details'=> $data     
           ];
           
-       // $filename = 'indent.pdf';
-        //$pdf = PDF::loadView('pdf/indentsPDF', compact('indent_details'));
+       $filename = 'indent.pdf';
+       $pdf = PDF::loadView('pdf/indentsPDF', compact('indent_details'));
     
-        //$savepdf = $pdf->save(public_path($filename));
+       $savepdf = $pdf->save(public_path($filename));
 
        // $filename = public_path($filename);
-        //$attachment = public_path($filename) ;
-       /* if($savepdf){
+        $attachment = public_path($filename) ;
+
+        if($savepdf){
            
           $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first(); 
 
@@ -208,7 +209,7 @@ class IntendController extends Controller
                   $emailid[]=$value->email;
                }
 
-        //  Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
+          Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
           // Mail::to('druva@netiapps.com')->send(new IndentsMail($indent_details,$subject,$attachment));
 
     
@@ -216,7 +217,7 @@ class IntendController extends Controller
            $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
            
            return redirect()->back()->with('Indent',$data);
-        }*/
+        }
 
          $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
            

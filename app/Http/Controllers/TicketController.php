@@ -173,19 +173,21 @@ class TicketController extends Controller
              ];
 
            
-        // $departemnt = TicketDepartment::where('department', 'Accounts')->first();
-        // $recipients = $departemnt->roles;
+         $departemnt = TicketDepartment::where('department', $request->category)->first();
+         $recipients = $departemnt->roles;
 
-        // $array = explode(',', $recipients);
+         $array = explode(',', $recipients);
+
+         //print_r($array); die();
 
          // $emailarray = User::select('email')->where('role_id','1')->orWhere('role_id','2')->get();
-         /* $emailarray = User::select('email')->whereIn('role_id',$array)->get();
+          $emailarray = User::select('email')->whereIn('role_id',$array)->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                  
-               }*/
-          //Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
+               }
+          Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
 
             $message = $ticket_no;
            // $data = ['message' => 'Ticket Created Succesfully' , 'ticket_id' =>$ticket_no ]
@@ -361,7 +363,7 @@ class TicketController extends Controller
                           $emailid[]=$value->email;
                        }
 
-                //  Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                  Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
                    }
              }
              else if($request->status == 'Completed'){
@@ -520,7 +522,7 @@ class TicketController extends Controller
                       $emailid[]=$value->email;
                    }
 
-             // Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));
+              Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
 
         }
         else if($request->action == 'Resolved'){
@@ -543,7 +545,7 @@ class TicketController extends Controller
                       $emailid[]=$value->email;
                    }
 
-             // Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));                
+              Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));                
 
         }
 

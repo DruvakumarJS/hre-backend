@@ -52,7 +52,10 @@
                      <label>GST : </label> <label class="label-bold">{{$pcn_data['gst']}}</label>
                   </div>
                   
-                  <label class="label-bold" style="margin-top: 20px;">visit : https://hre.netiapps.com/PCN</label>
+                  @php
+                    $domain = url('/');
+                  @endphp
+                  <label class="label-bold" style="margin-top: 20px;">View on Dashaboard : {{$domain}}/PCN</label>
                  
         </main>
     </body>

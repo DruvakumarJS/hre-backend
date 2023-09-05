@@ -155,6 +155,10 @@
                     <button class="btn btn-danger">Import</button>
                     
                 </form>
+
+                    <div id="div2">
+                       <a target="_blank" href="{{ URL::to('/') }}/templates/HRE_Products_Template.xlsx" ><button class="btn btn-sm btn-light">Download Template</button></a>
+                    </div>
               </div>
               
             </div>

@@ -40,8 +40,11 @@
                    <div style="margin-top: 20px;">
                      <label>Email ID : </label> <label class="label-bold">{{$data['email']}}</label>
                   </div>
+                  @php
+                    $domain = url('/');
+                  @endphp
                                     
-                  <label class="label-bold" style="margin-top: 20px;">For more details visit : https://hre.netiapps.com/view_customers</label>
+                  <label class="label-bold" style="margin-top: 20px;">For more details visit : {{$domain}}/view_customers</label>
                  
         </main>
     </body>

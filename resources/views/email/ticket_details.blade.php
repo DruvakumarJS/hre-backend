@@ -34,9 +34,12 @@
             <div  style="margin-top: 10px;">
                 <label class="label-bold">{{$body}}</label>
              </div>
+             @php
+              $domain = url('/');
+             @endphp
 
              <div class="label-bold" style="margin-top: 10px;">
-                 <label class="label-bold">View on Dashaboard : </label> <label>https://hre.netiapps.com/ticket_details/{{$ticketarray['ticket_no']}}</label>
+                 <label class="label-bold">View on Dashaboard : </label> <label>{{$domain}}/ticket_details/{{$ticketarray['ticket_no']}}</label>
              </div>
                               
         </main>

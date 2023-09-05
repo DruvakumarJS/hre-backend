@@ -9,6 +9,7 @@ use App\Models\Indent_list;
 use App\Models\Pcn;
 use App\Models\GRN;
 use App\Models\User;
+use App\Models\Employee;
 use App\Models\Material;
 use App\Models\Category;
 use App\Models\Roles;
@@ -126,20 +127,28 @@ class IndentController extends Controller
                  'details'=> $data     
           ];
 
-        /*$filename = 'indent.pdf';
+        $filename = 'indent.pdf';
         $pdf = PDF::loadView('pdf/indentsPDF', compact('indent_details'));
     
         $savepdf = $pdf->save(public_path($filename));
 
-        $filename = public_path($filename);
-        if($savepdf){
-         // $to = explode(',', env('ADMIN_EMAILS'));
-          $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
-          $to = explode(',', $address);
+       // $filename = public_path($filename);
+        $attachment = public_path($filename) ;
 
-        // Mail::to($to)->send(new IndentsMail($indent_details,$filename));
+        if($savepdf){
+          $empl = Employee::select('employee_id')->where('user_id',$request->user_id)->first(); 
+
+          $subject = "New Indent : " .$empl->employee_id." - ".$ind_no ." - ".$request->pcn;
+
+          $emailarray = User::select('email')->where('role_id','3')->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+          Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
            
-        }*/
+        }
 
         return response()->json([
          	 		'status' => 1 ,

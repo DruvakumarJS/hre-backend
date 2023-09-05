@@ -17,6 +17,7 @@
                 color: white;
                 text-align: center;
                 line-height: 35px;
+                font-weight: bolder;
             }
 
             footer {
@@ -31,12 +32,16 @@
                 text-align: center;
                 line-height: 35px;
             }
+
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
         </style>
     </head>
     <body>
         <!-- Define header and footer blocks before your content -->
         <header>
-            HRE- One Stop Solution
+            HRE TEAMS
             
         </header>
 
@@ -60,7 +65,7 @@
              <div style="margin-top: 10px;">
                 <label>PCN : </label> <label>{{$indent_details['pcn']}}</label>
             </div>
-               <label style="color: darkgrey; font-size: 17px">{{$indent_details['pcn_details']}}</label>
+               <label style="color: black; font-size: 13px">{{$indent_details['pcn_details']}}</label>
 
                
 

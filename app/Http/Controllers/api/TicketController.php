@@ -9,6 +9,9 @@ use App\Models\Pcn;
 use App\Models\User;
 use App\Models\Roles;
 use App\Models\TicketDepartment;
+use Mail;
+use App\Mail\TicketsMail;
+use App\Mail\TicketDetailsMail;
 
 
 class TicketController extends Controller
@@ -194,6 +197,37 @@ class TicketController extends Controller
         ]);
 
         if($Insert){
+
+          $empl = Employee::where('user_id',$request->user_id)->first(); 
+
+          $subject = "New Ticket : " .$ticket_no." - ".$request->subject ." - ".$request->pcn;
+
+          $ticketarray = [
+             'ticket_no'=> $ticket_no,
+             'pcn' => $request->pcn,
+             'creator' => $empl->name ,
+             'category' => $request->subject,
+             'issue' => $request->issue,
+             'priority' => $request->priority,
+             ];
+
+           
+         $departemnt = TicketDepartment::where('department', $request->subject)->first();
+         $recipients = $departemnt->roles;
+
+         $array = explode(',', $recipients);
+
+         //print_r($array); die();
+
+         // $emailarray = User::select('email')->where('role_id','1')->orWhere('role_id','2')->get();
+          $emailarray = User::select('email')->whereIn('role_id',$array)->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+                 
+               }
+          Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
+
              return response()->json([
                 'status' => 1 ,
                 'message' => 'Ticket Created',
@@ -432,6 +466,19 @@ class TicketController extends Controller
                 'filename' => $fileName]);
             
             if($conversation){
+
+              $subject = "Ticket Completed : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn;
+
+              $body = "The Ticket No. ".$request->ticket_no." is Completed ";
+              $ticketarray = ['ticket_no' => $request->ticket_no ];
+
+              $emailarray = User::select('email')->where('id',$ticket->creator)->orWhere('role_id','2')->get();
+
+                   foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                   }
+
+              Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
 
              $updateticket = Ticket::where('id',$ticket->id)->update([
                'status' => $request->action]);

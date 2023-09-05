@@ -155,7 +155,7 @@ class MaterialController extends Controller
                   $emailid[]=$value->email;
                }
 
-     // Mail::to('druva@netiapps.com')->send(new MaterialMail($subject , $material));
+      Mail::to('druva@netiapps.com')->send(new MaterialMail($subject , $material));
 
       
        return redirect()->route('add_product',$request->code);

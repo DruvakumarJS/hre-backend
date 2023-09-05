@@ -218,7 +218,7 @@ class AttendanceController extends Controller
                 'total_hours' => $total_hour
               ]); 
 
-              $body = "Logout timing on date ".$login->date. " is set to ".$request->logout_time." and total working hours is reduced by ".$request->break;  
+              $body = "Logout timing on date ".$login->date. " is set to ".$request->logout_time." and total working hours is reduced by ".$request->break.'Hour';  
 
         }
         else if(isset($request->logout_time)){
@@ -277,7 +277,7 @@ class AttendanceController extends Controller
                   $emailid[]=$value->email;
                }
 
-        //  Mail::to('druva@netiapps.com')->send(new AttendanceMail($subject,$attedance));
+         Mail::to($emailid)->send(new AttendanceMail($subject,$attedance));
 
         return redirect()->back();
         

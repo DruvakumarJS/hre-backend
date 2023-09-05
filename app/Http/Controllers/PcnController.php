@@ -154,7 +154,7 @@ class PcnController extends Controller
                }
 
             
-               // Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
+                Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
 
                 return redirect()->back()->with('PCN' , $data);
             }

@@ -49,9 +49,12 @@
              <div  style="margin-top: 10px;">
                 <label>dispatched Quantity : </label> <label class="label-bold">{{$grndata['dispatched']}}</label>
              </div>
+                  @php
+                    $domain = url('/');
+                  @endphp
 
              <div style="margin-top: 10px;">
-                 <label>View on Dashaboard : </label> <label class="label-bold">https://hre.netiapps.com/grn</label>
+                 <label>View on Dashaboard : </label> <label class="label-bold">{{$domain}}/grn</label>
              </div>
                               
         </main>

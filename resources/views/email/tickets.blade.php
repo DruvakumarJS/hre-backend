@@ -51,8 +51,12 @@
                 <label>Priority : </label> <label class="label-bold">{{$ticketarray['priority']}}</label>
              </div>
 
+             @php
+              $domain = url('/');
+             @endphp
+
              <div style="margin-top: 10px;">
-                 <label>View on Dashaboard : </label> <label class="label-bold">https://hre.netiapps.com/tickets</label>
+                 <label>View on Dashaboard : </label> <label class="label-bold">{{$domain}}/tickets</label>
              </div>
                               
         </main>
