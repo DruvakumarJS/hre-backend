@@ -31,7 +31,7 @@
         <main style="padding: 30px;">
             <label> Dear {{$grndata['owner']}} , </label>
             <div>
-                 <label> Indent materials has been dispatched . Please find the details below</label>
+                 <label> Indent materials has been dispatched . Please find the details below: </label>
             </div>
             
             <div style="margin-top: 10px;">
@@ -47,14 +47,14 @@
             </div>
 
              <div  style="margin-top: 10px;">
-                <label>dispatched Quantity : </label> <label class="label-bold">{{$grndata['dispatched']}}</label>
+                <label>Dispatched Quantity : </label> <label class="label-bold">{{$grndata['dispatched']}}</label>
              </div>
                   @php
                     $domain = url('/');
                   @endphp
 
              <div style="margin-top: 10px;">
-                 <label>View on Dashaboard : </label> <label class="label-bold">{{$domain}}/grn</label>
+                 <label>View on Dashboard : </label> <label class="label-bold">{{$domain}}/grn</label>
              </div>
                               
         </main>

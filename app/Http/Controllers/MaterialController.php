@@ -148,14 +148,12 @@ class MaterialController extends Controller
             'information'=> $features
        ];
 
-
-       $emailarray = User::select('email')->get();
+      $emailarray = User::select('email')->where('role_id','3')->orWhere('role_id', '1')->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
-
-      Mail::to('druva@netiapps.com')->send(new MaterialMail($subject , $material));
+      Mail::to($emailid)->send(new MaterialMail($subject , $material));
 
       
        return redirect()->route('add_product',$request->code);

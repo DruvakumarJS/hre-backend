@@ -42,7 +42,7 @@
                   </div>
 
                    <div style="margin-top: 20px;">
-                     <label>brand Name : </label> <label class="label-bold">{{$material['brand']}}</label>
+                     <label>Brand Name : </label> <label class="label-bold">{{$material['brand']}}</label>
                   </div>
 
                   <div style="margin-top: 20px;">

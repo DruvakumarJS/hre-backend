@@ -55,7 +55,11 @@
                   @php
                     $domain = url('/');
                   @endphp
-                  <label class="label-bold" style="margin-top: 20px;">View on Dashaboard : {{$domain}}/PCN</label>
+
+                  <div style="margin-top: 20px;">
+                     <label class="label-bold">View on Dashboard : {{$domain}}/PCN</label>
+                 
+                  </div>
                  
         </main>
     </body>

@@ -56,7 +56,7 @@
              @endphp
 
              <div style="margin-top: 10px;">
-                 <label>View on Dashaboard : </label> <label class="label-bold">{{$domain}}/tickets</label>
+                 <label>View on Dashboard : </label> <label class="label-bold">{{$domain}}/tickets</label>
              </div>
                               
         </main>

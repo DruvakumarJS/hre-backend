@@ -445,7 +445,7 @@ class PettyCashDetailController extends Controller
                   $emailid[]=$value->email;
                }
 
-      Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data , $id));
+      Mail::to($emailid)->send(new PettycashMail($p_data , $id));
       return redirect()->back();
     }
 }

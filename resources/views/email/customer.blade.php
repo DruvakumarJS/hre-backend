@@ -32,7 +32,7 @@
         <main style="padding: 30px;margin-top: 20px;">
             <label style="margin-top: 20px;">Hi ,Please find the Client details</label>
                    <div style="margin-top: 20px;">
-                     <label>Clinet name : </label> <label class="label-bold">{{$data['name']}}</label>
+                     <label>Client Name : </label> <label class="label-bold">{{$data['name']}}</label>
                   </div>
                    <div style="margin-top: 20px;">
                      <label>Mobile No : </label> <label class="label-bold">{{$data['mobile']}}</label>
@@ -43,8 +43,10 @@
                   @php
                     $domain = url('/');
                   @endphp
-                                    
-                  <label class="label-bold" style="margin-top: 20px;">For more details visit : {{$domain}}/view_customers</label>
+                   <div style="margin-top: 20px;">
+                      <label class="label-bold" >For more details visit : {{$domain}}/view_customers</label>
+                   </div>                 
+                 
                  
         </main>
     </body>

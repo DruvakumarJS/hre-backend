@@ -65,11 +65,11 @@
              <div style="margin-top: 10px;">
                 <label>PCN : </label> <label>{{$indent_details['pcn']}}</label>
             </div>
-               <label style="color: black; font-size: 13px">{{$indent_details['pcn_details']}}</label>
-
-               
-
-                <div  class="card border-white" style="margin-top: 10px;">
+            <div style="margin-top: 10px;">
+                <label>{{$indent_details['pcn_details']}}</label>
+            </div>
+              
+                <div  class="card border-white" style="margin-top: 20px;">
                   <table class="table responsive" width="100%">
                                       <thead>
                                         <tr>

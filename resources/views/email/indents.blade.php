@@ -50,7 +50,7 @@
                   @php
                     $domain = url('/');
                   @endphp
-                <label>View on Dashaboard : </label> <label class="label-bold">{{$domain}}/indent_details/{{$indent_details['indent_no']}}</label>
+                <label>View on Dashboard : </label> <label class="label-bold">{{$domain}}/indent_details/{{$indent_details['indent_no']}}</label>
             </div>
 
                

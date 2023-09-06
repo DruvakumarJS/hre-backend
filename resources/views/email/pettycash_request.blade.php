@@ -39,7 +39,7 @@
               $domain = url('/');
             @endphp
             <div style="margin-top: 20px;">
-                <label class="label-bold" style="margin-top: 20px;">View on Dashaboard : {{$domain}}/pettycash_details/{{$id}} </label>
+                <label class="label-bold" style="margin-top: 20px;">View on Dashboard : {{$domain}}/pettycash_details/{{$id}} </label>
             </div>
             
                               
