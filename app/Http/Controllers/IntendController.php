@@ -406,7 +406,7 @@ class IntendController extends Controller
               'dispatched' => $request->quantity,
              ];
             
-             // Mail::to($userdetail->email)->send(new GRNMail($grndata));
+              Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
               //Mail::to('druva@netiapps.com')->send(new GRNMail($grndata , $subject));
 
 
