@@ -17,30 +17,37 @@ class DepartmentsSeeder extends Seeder
         $input = [
                     [
                         'department' => 'Carpentry',
+                        'roles' => '1,2',
                         
                     ],
                     [
                         'department' => 'Plumbing',
+                        'roles' => '1,2',
                         
                     ],
                     [
                         'department' => 'Civil',
+                        'roles' => '1,2',
                        
                     ],
                     [
                         'department' => 'IT',
+                        'roles' => '1,2',
                         
                     ],
                     [
                         'department' => 'HVAC',
+                        'roles' => '1,2',
                         
                     ],
                     [
                         'department' => 'Accounts',
+                        'roles' => '1,2,5',
                         
                     ],
                     [
                         'department' => 'HR',
+                        'roles' => '1,2',
                         
                     ]
                  ];

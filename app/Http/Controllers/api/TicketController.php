@@ -93,7 +93,7 @@ class TicketController extends Controller
        }
 
        else{
-           $tickets = Ticket::where('creator', Auth::user()->id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->get();
+           $tickets = Ticket::where('creator', $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->get();
 
            foreach ($tickets as $key => $value) {
              $images = explode(',', $value->filename);
@@ -137,7 +137,6 @@ class TicketController extends Controller
      }	
 
      }
-
 
 
      function create(Request $request){
