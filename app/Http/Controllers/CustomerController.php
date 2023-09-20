@@ -242,12 +242,12 @@ class CustomerController extends Controller
          $subject = "Client : ".$request->name. " Details Modified";
           $data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email];
 
-            $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
-            $to = explode(',', $address);
-
-
-         //Mail::to($userdetail->email)->send(new PettycashMail($message));
-        // Mail::to('druva@netiapps.com')->send(new CustomerMail($data,$subject));
+            $emailarray = User::select('email')->where('role_id','!=','4')->get();
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+               
+            Mail::to($emailid)->send(new CustomerMail($data,$subject));
 
         return redirect()->route('view_customers');
       }
