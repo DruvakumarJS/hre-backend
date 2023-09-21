@@ -170,6 +170,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('search_ticket',[TicketController::class,'search'])->name('search_ticket');
     Route::get('department_master',[TicketController::class,'departments'])->name('department_master');
     Route::post('create-department',[TicketController::class,'create_department'])->name('create_department');
+    Route::put('update-department/{id}',[TicketController::class,'update_department'])->name('update_department');
     Route::get('delete-department/{id}',[TicketController::class,'delete_department'])->name('delete_department');
 
 

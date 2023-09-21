@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\Pcn;
 use App\Models\TicketDepartment;
 use App\Models\User;
+use App\Models\Roles;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use File;
@@ -686,20 +687,62 @@ class TicketController extends Controller
     }
 
     public function departments(){
-        $data = TicketDepartment::all();
+        $data = TicketDepartment::orderBy('id', 'DESC')->get();
+        $roles = Roles::get();
 
-        return view('ticket/departments', compact('data'));
+        return view('ticket/departments', compact('data','roles'));
 
     }
 
     public function create_department(Request $request){
+      // print_r($request->Input()); die();
 
-        $insert =TicketDepartment::create(['department' => $request->name , 'description' => $request->desc]);
+        $roleids= explode(',', rtrim($request->roleids, ',')); 
+        $names=array();
+
+        foreach ($roleids as $value) {
+           $role = Roles::where('id',$value)->first();
+           array_push($names, $role->alias);
+
+           //print_r(json_encode($alias)); 
+        }
+        
+        $rolenames = implode(',', $names);
+       // print_r($rolenames); die();
+       
+        $insert =TicketDepartment::create(['department' => $request->name , 'description' => $request->desc , 'roles' =>$request->roleids , 'role_alias' => $rolenames]);
 
         if($insert){
             return redirect()->route('department_master');
         }
 
+    }
+
+    public function update_department(Request $request , $id){
+       // print_r($request->Input()); 
+
+        $input = $request->all();
+        $roleids= $input['cat']; 
+        $names=array();
+        $ids=array();
+
+        foreach ($roleids as $value) {
+           $role = Roles::where('id',$value)->first();
+           array_push($names, $role->alias);
+           array_push($ids, $role->id);
+
+           //print_r(json_encode($alias)); 
+        }
+        
+        $rolenames = implode(',', $names);
+        $role_ids = implode(',', $ids);
+       // print_r($rolenames); die();
+       
+        $insert =TicketDepartment::where('id',$id)->update(['department' => $request->name , 'description' => $request->desc , 'roles' =>$role_ids , 'role_alias' => $rolenames]);
+
+        if($insert){
+            return redirect()->route('department_master');
+        }
     }
 
     public function delete_department($id){

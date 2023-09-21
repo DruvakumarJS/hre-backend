@@ -11,7 +11,8 @@ class TicketDepartment extends Model
      protected $fillable = [
      	'department',
      	'description',
-     	'roles'];
+     	'roles',
+     	'role_alias'];
 
      public function users(){
      	return $this->belongsTo(User::class , 'id','role_id');

@@ -18,6 +18,7 @@ class CreateTicketDepartmentsTable extends Migration
             $table->string('department');
             $table->string('description')->nullable();
             $table->string('roles')->nullable();
+            $table->string('role_alias')->nullable();
             $table->timestamps();
         });
     }
