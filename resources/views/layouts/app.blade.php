@@ -443,16 +443,16 @@
                                     </ul>
                              </div> -->
 
-                             <a class="dropdown-item" href="{{route('vault_master')}}"><img class="circle" src="{{asset('images/vault1.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"></a>
+                             <a class="dropdown-item" href="{{route('vault_master')}}"><img class="circle" src="{{asset('images/vault1.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;margin-right: 10px"></a>
 
-                             <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moddl"><img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"></a>
+                             <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moddl"><img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;margin-right: 10px"></a>
 
 
 
                              @if(Auth::user()->role_id == 1)
                                 <div class="dropdown">
 
-                                    <a href="{{route('settings')}}" data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
+                                    <a href="{{route('settings')}}" data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-right: 10px;"> </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item" href="{{route('users')}}">User Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('materials_master')}}">Material Master</a></li>
@@ -474,11 +474,12 @@
 
                              @endif
 
-                             <a href=""> <img class="circle" src="{{asset('images/persons.svg')}}" style="width: 20px;height: 20px;margin-left: 30px;"> </a>
+                             <a href=""> <img class="circle" src="{{asset('images/persons.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;"> </a>
 
                             <div class="userLogin">
-                                <h4> {{ Auth::user()->name }}</h4>
-                                <h5>{{Auth::user()->roles->alias }}</h5>
+                                <h4 style="width: 100px"> {{ Auth::user()->name }}</h4>
+                               
+                                <h5 style="width: 100px">{{Auth::user()->roles->alias }}</h5>
                             </div>
 
                                <li class="nav-item dropdown">
