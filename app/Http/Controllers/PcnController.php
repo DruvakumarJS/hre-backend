@@ -16,6 +16,7 @@ use DB;
 use App\Mail\PcnMail;
 use Mail;
 
+
 class PcnController extends Controller
 {
     /**
@@ -153,10 +154,23 @@ class PcnController extends Controller
                   $emailid[]=$value->email;
                }
 
-            
-                Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
+               
+               try{
 
-                return redirect()->back()->with('PCN' , $data);
+                  Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
+               }
+               catch(\Exception $e){
+
+                  return $e->getMessage();
+               }
+               finally{
+
+                  return redirect()->back()->with('PCN' , $data);
+               }
+               
+               
+
+                
             }
             else{
                  return redirect()->route('create_pcn')->withMessage('Something went wrong')->withInput(); ;
@@ -289,9 +303,17 @@ class PcnController extends Controller
                    }
 
             
-              Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
-
-                return redirect()->route('view_pcn');
+                    try {
+                      Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                     
+                      return redirect()->route('view_pcn');
+                    }             
+                   
             }
             else{
                  return redirect()->back()->withMessage('Something went wrong')->withInput(); ;

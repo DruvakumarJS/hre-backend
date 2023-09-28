@@ -135,10 +135,21 @@ class CustomerController extends Controller
                   $emailid[]=$value->email;
                }
 
-          Mail::to($emailid)->send(new CustomerMail($data,$subject));
+          //Mail::to($emailid)->send(new CustomerMail($data,$subject));
+
+          try {
+             Mail::to($emailid)->send(new CustomerMail($data,$subject));
+            } catch (\Exception $e) {
+                return $e->getMessage();
+               
+            } 
+            finally {
+             
+              return redirect()->route('view_customers');
+            }     
 
 
-        return redirect()->route('view_customers');
+        
         
         }
     }
@@ -247,9 +258,20 @@ class CustomerController extends Controller
                   $emailid[]=$value->email;
                }
                
-            Mail::to($emailid)->send(new CustomerMail($data,$subject));
+           // Mail::to($emailid)->send(new CustomerMail($data,$subject));
 
-        return redirect()->route('view_customers');
+               try {
+                      Mail::to($emailid)->send(new CustomerMail($data,$subject));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                     
+                      return redirect()->route('view_customers');
+                    }     
+
+        
       }
       else{
          return redirect()->Back()->withmessage('Please add atleast one address');

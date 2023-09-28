@@ -17,6 +17,7 @@ use PDF;
 use Auth;
 use ZipArchive;
 use Mail ;
+//use Illuminate\Support\Facades\Mail;
 use Illuminate\Pagination\Paginator;
 
 use Illuminate\Support\Collection;
@@ -188,12 +189,21 @@ class TicketController extends Controller
                   $emailid[]=$value->email;
                  
                }
-          Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
 
-            $message = $ticket_no;
-           // $data = ['message' => 'Ticket Created Succesfully' , 'ticket_id' =>$ticket_no ]
-             return response()->json($message);
-        }
+         
+                try {
+                      Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
+                     // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                      $message = $ticket_no;
+                     return response()->json($message);
+                   }             
+                 }
+
 
         }
         else {
@@ -364,7 +374,19 @@ class TicketController extends Controller
                           $emailid[]=$value->email;
                        }
 
-                  Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                 // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+
+                    try {
+                      Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                     
+                       return redirect()->route('tickets');
+                    }     
+
                    }
              }
              else if($request->status == 'Completed'){
@@ -523,7 +545,7 @@ class TicketController extends Controller
                       $emailid[]=$value->email;
                    }
 
-              Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+             // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
 
         }
         else if($request->action == 'Resolved'){
@@ -546,14 +568,25 @@ class TicketController extends Controller
                       $emailid[]=$value->email;
                    }
 
-              Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));                
+              //Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));                
 
         }
 
         $updateticket = Ticket::where('id',$ticket->id)->update([
             'status' => $request->action]);
+
+        try {
+          Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));    
+        } catch (\Exception $e) {
+            return $e->getMessage();
+           
+        } 
+        finally {
+         
+          return redirect()->back();
+        }     
       
-        return redirect()->back();
+        
     }
 
     public function download_ticket($id){

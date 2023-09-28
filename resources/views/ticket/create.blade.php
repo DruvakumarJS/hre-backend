@@ -43,7 +43,7 @@
      <div class="form-build">
         <div class="row">
                 <div class="col-6">
-                    <form name="myForm">
+                    <form name="myForm" >
                         @csrf
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Code Number*</label>
@@ -265,12 +265,14 @@ $( document ).ready(function() {
    $(document).ready(function(){
 
          $('#submit').click(function(){
+
               
              var pcn = $('#pcn').val();
              var category = $('#category').val();
              var issue = $('#issue').val();
              var priority = $('#priority').val();
              var creator = $('#owner').val();
+             var isDisabled = true;
             
 
             if(pcn == ''){
@@ -294,6 +296,8 @@ $( document ).ready(function() {
               alert("Please attach image(s) ");
               return;
              }
+
+             document.getElementById("submit").style.display= "none" ;
 
               
                      var fd = new FormData();

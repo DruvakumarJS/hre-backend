@@ -153,12 +153,19 @@ class MaterialController extends Controller
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
-      Mail::to($emailid)->send(new MaterialMail($subject , $material));
+      //Mail::to($emailid)->send(new MaterialMail($subject , $material));
 
-      
-       return redirect()->route('add_product',$request->code);
-     
-
+       try {
+          Mail::to($emailid)->send(new MaterialMail($subject , $material));
+        } catch (\Exception $e) {
+            return $e->getMessage();
+           
+        } 
+        finally {
+         
+          return redirect()->route('add_product',$request->code);
+        }             
+        
     }
 
     /**

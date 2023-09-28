@@ -277,9 +277,20 @@ class AttendanceController extends Controller
                   $emailid[]=$value->email;
                }
 
-         Mail::to($emailid)->send(new AttendanceMail($subject,$attedance));
+         //Mail::to($emailid)->send(new AttendanceMail($subject,$attedance));
 
-        return redirect()->back();
+               try {
+                     Mail::to($emailid)->send(new AttendanceMail($subject,$attedance));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                     
+                     return redirect()->back();
+                    }           
+
+        
         
           
     }

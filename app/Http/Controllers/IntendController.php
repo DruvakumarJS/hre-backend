@@ -209,14 +209,21 @@ class IntendController extends Controller
                   $emailid[]=$value->email;
                }
 
-          Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
-          // Mail::to('druva@netiapps.com')->send(new IndentsMail($indent_details,$subject,$attachment));
+          //Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
 
-    
-
-           $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
+                try {
+                     Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                     
+                       $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
            
-           return redirect()->back()->with('Indent',$data);
+                       return redirect()->back()->with('Indent',$data);
+                    }       
+           
         }
 
          $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
@@ -406,14 +413,20 @@ class IntendController extends Controller
               'dispatched' => $request->quantity,
              ];
             
-              Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
-              //Mail::to('druva@netiapps.com')->send(new GRNMail($grndata , $subject));
-
-
-            return redirect()->route('edit_intends',$request->id)
+             // Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
+             try {
+                      Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                     
+                     return redirect()->route('edit_intends',$request->id)
                             ->withmessage('GRN created successfully');
-           
-         }
+                    }     
+          
+             }
 
          
 

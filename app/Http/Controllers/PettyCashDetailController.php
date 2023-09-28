@@ -445,7 +445,17 @@ class PettyCashDetailController extends Controller
                   $emailid[]=$value->email;
                }
 
-      Mail::to($emailid)->send(new PettycashMail($p_data , $id));
-      return redirect()->back();
+      
+      try {
+              Mail::to($emailid)->send(new PettycashMail($p_data , $id));
+            } catch (\Exception $e) {
+                return $e->getMessage();
+               
+            } 
+            finally {
+             
+              return redirect()->back();
+            }     
+     
     }
 }
