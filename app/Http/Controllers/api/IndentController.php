@@ -146,7 +146,22 @@ class IndentController extends Controller
                   $emailid[]=$value->email;
                }
 
-          Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
+         // Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
+          try {
+                Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
+              } catch (\Exception $e) {
+                  return $e->getMessage();
+                 
+              } 
+              finally {
+               
+               return response()->json([
+                    'status' => 1 ,
+                    'message' => 'Indent Created Succesfully ',
+                    'data' => ['indent_no' => $idtend->indent_no,'pcn' =>$idtend->pcn ,'pcn_details'=> $pcn_detail   ]
+                    ]);
+
+              }          
            
         }
 

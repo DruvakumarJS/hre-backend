@@ -225,13 +225,25 @@ class TicketController extends Controller
                   $emailid[]=$value->email;
                  
                }
-          Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
+         // Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
 
-             return response()->json([
-                'status' => 1 ,
-                'message' => 'Ticket Created',
-                'data' =>['ticket_no'=> $ticket_no] 
-             ]);
+            try {
+                  Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
+                } catch (\Exception $e) {
+                    return $e->getMessage();
+                   
+                } 
+                finally {
+                 
+                return response()->json([
+                    'status' => 1 ,
+                    'message' => 'Ticket Created',
+                    'data' =>['ticket_no'=> $ticket_no] 
+                ]);
+
+                }        
+
+            
             
         }
 
@@ -477,15 +489,27 @@ class TicketController extends Controller
                       $emailid[]=$value->email;
                    }
 
-              Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+             // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
 
              $updateticket = Ticket::where('id',$ticket->id)->update([
                'status' => $request->action]);
 
              if($updateticket){
-                return response()->json([
-                    'status' => 1 ,
-                    'message' => 'Ticket Updated Successfully']);
+
+                try {
+                      Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                     
+                     return response()->json([
+                        'status' => 1 ,
+                        'message' => 'Ticket Updated Successfully']);
+                    }     
+                    
+                
              }
              else {
                  return response()->json([
