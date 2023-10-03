@@ -15,6 +15,7 @@ use Auth ;
 use DB;
 use App\Mail\PcnMail;
 use Mail;
+use App\Jobs\SendPCNEmails;
 
 
 class PcnController extends Controller
@@ -158,6 +159,7 @@ class PcnController extends Controller
                try{
 
                   Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
+               // SendPCNEmails::dispatch($pcn_data,$subject,$emailid);
                }
                catch(\Exception $e){
 
@@ -167,7 +169,7 @@ class PcnController extends Controller
 
                   return redirect()->back()->with('PCN' , $data);
                }
-               
+
                
 
                 

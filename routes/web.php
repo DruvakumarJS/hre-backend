@@ -172,6 +172,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('create-department',[TicketController::class,'create_department'])->name('create_department');
     Route::put('update-department/{id}',[TicketController::class,'update_department'])->name('update_department');
     Route::get('delete-department/{id}',[TicketController::class,'delete_department'])->name('delete_department');
+    Route::get('delete-delete_ticket/{id}',[TicketController::class,'delete_ticket'])->name('delete_ticket');
+
 
 
     Route::get('attendance',[AttendanceController::class,'index'])->name('attendance');

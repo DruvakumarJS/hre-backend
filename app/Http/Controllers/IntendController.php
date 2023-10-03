@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Exports\ExportIndents;
 use App\Mail\IndentsMail;
 use App\Mail\GRNMail;
+use App\Jobs\SendIndentEmail;
 use Excel;
 use Auth ;
 use DB;
@@ -208,6 +209,8 @@ class IntendController extends Controller
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
+
+              // SendIndentEmail::dispatch($indent_details,$subject,$attachment,$emailid);
 
           //Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
 

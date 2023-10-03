@@ -6,12 +6,7 @@
 if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 @endphp
 
-<style type="text/css">
-	thead th {
- 
-  height: 50px;
-}
-</style>
+
 
 <div class="container">
     <div class="row justify-content-center">
@@ -73,7 +68,7 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
        </div>
 
     <div class="page-container"> 
-     <div>
+     <div class="row">
      	<div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
      		<table class="table">
 
@@ -96,15 +91,15 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 	                 
 	                </tr>
 	            </thead>
-	            <tbody>
+	           
 	            @foreach($tickets as $key=>$value)
 	                <tr>
 	                	<td width="100px">{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td>{{$value->ticket_no}}</td>
 	                	<td>{{$value->pcn}}</td>
 	                	<td width="100px">{{$value->pcns->brand}} @php echo'<br/>'; @endphp {{$value->pcns->location}},{{$value->pcns->area}},{{$value->pcns->city}}</td>
-	                	<td >{{$value->category}}</td>
-	                	<td>{{$value->issue}}</td>
+	                	<td>{{$value->category}}</td>
+	                	<td style="overflow: hidden;word-break: break-word;display: block;">{{$value->issue}}</td>
 	                	 
                        @php
 	                	if($value->priority == 'High'){
@@ -181,7 +176,7 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 			      </div>
 			    </div>
 
-<!--  end Modal -->
+        <!--  end Modal -->
 
             <script>
               $(document).ready(function(){
@@ -193,7 +188,7 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
                 @endforeach
 	            
 	            	
-	            </tbody>
+	            
                  
 
      		</table>

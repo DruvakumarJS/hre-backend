@@ -172,10 +172,14 @@
                          <div class="form-group row">
                             <div class="offset-5 col-7">
                                
-
-                                <button name="submit" type="submit" class="btn btn-danger">Update Ticket</button>
+                                <button name="submit" type="submit" class="btn btn-success">Update Ticket</button>
+                                @if((auth::user()->role_id == 1) && ($tickets->status == 'Created'))
+                                <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_ticket',$tickets->id)}}"><button name="buton" type="button" class="btn btn-danger">Delete Ticket</button></a>
+                                @endif
                                 
                             </div>
+
+
                         </div>
 
      					

@@ -785,4 +785,12 @@ class TicketController extends Controller
              return redirect()->route('department_master');
         }
     }
+
+    public function delete_ticket($id){
+        $delete = Ticket::where('id',$id)->delete();
+
+        if($delete){
+            return redirect()->route('tickets');
+        }
+    }
 }
