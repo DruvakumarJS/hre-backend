@@ -99,7 +99,7 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 	                	<td>{{$value->pcn}}</td>
 	                	<td width="100px">{{$value->pcns->brand}} @php echo'<br/>'; @endphp {{$value->pcns->location}},{{$value->pcns->area}},{{$value->pcns->city}}</td>
 	                	<td>{{$value->category}}</td>
-	                	<td style="overflow: hidden;word-break: break-word;display: block;">{{$value->issue}}</td>
+	                	<td style="overflow: hidden;word-break: break-word;">{{$value->issue}}</td>
 	                	 
                        @php
 	                	if($value->priority == 'High'){
