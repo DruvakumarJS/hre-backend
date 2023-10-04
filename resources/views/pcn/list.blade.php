@@ -61,7 +61,7 @@
                               <td>{{$value->client_name}}</td>
                                <td>{{$value->brand}}</td>
                               <td>{{$value->customer->email}}</td>
-                              <td width="200px">{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}}</td>
+                              <td width="200px">{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}</td>
                               @if(Auth::user()->role_id == '1')
                               <td>{{$value->status}}</td>
                               

@@ -32,9 +32,7 @@
                                    
                                     <th scope="col">PCN</th>
                                     <th scope="col">Brand</th>
-                                    <th scope="col">Location</th>
-                                    <th scope="col">City</th>
-                                    <th scope="col">PINCODE</th>
+                                    <th scope="col">Address</th>
                                     <th scope="col">P_SD</th>
                                     <th scope="col">P_ED</th>
                                     <th scope="col">P_HD</th>
@@ -55,17 +53,15 @@
                                     
                                     <td>{{$value->pcn}}</td>
                                     <td>{{$value->brand}}</td>
-                                    <td>{{$value->area}}</td>
-                                    <td>{{$value->city}}</td>
-                                    <td>{{$value->pincode}}</td>
-                                    <td><?php echo ($value->proposed_start_date) !='' ? date("d-m-Y", strtotime($value->proposed_start_date)):'' ; ?> </td>
+                                    <td>{{$value->area}} , {{$value->city}} , {{$value->state}} , {{$value->pincode}}</td>
+                                    <td width="100px"><?php echo ($value->proposed_start_date) !='' ? date("d-m-Y", strtotime($value->proposed_start_date)):'' ; ?> </td>
                       
-                                    <td><?php echo ($value->proposed_end_date) !='' ? date("d-m-Y", strtotime($value->proposed_end_date)):'' ; ?></td>
+                                    <td width="100px"><?php echo ($value->proposed_end_date) !='' ? date("d-m-Y", strtotime($value->proposed_end_date)):'' ; ?></td>
                                     <td>{{$value->approved_days}}</td>
                                     
                                     <td style="text-align: center; ">{{$value->targeted_days}}</td>
-                                    <td><?php echo ($value->actual_start_date) !='' ? date("d-m-Y", strtotime($value->actual_start_date)):'' ; ?></td>
-                                    <td><?php echo ($value->actual_completed_date) !='' ? date("d-m-Y", strtotime($value->actual_completed_date)):'' ; ?></td>
+                                    <td width="100px"><?php echo ($value->actual_start_date) !='' ? date("d-m-Y", strtotime($value->actual_start_date)):'' ; ?></td>
+                                    <td width="100px"><?php echo ($value->actual_completed_date) !='' ? date("d-m-Y", strtotime($value->actual_completed_date)):'' ; ?></td>
                                     <td style="text-align: center; ">{{$value->hold_days}}</td>
                                     <td style="text-align: center; ">{{$value->days_acheived}}</td>
                                     <td>{{$value->status}}</td>
