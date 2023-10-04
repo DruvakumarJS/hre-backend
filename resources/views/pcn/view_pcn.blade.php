@@ -53,7 +53,7 @@
                                     
                                     <td>{{$value->pcn}}</td>
                                     <td>{{$value->brand}}</td>
-                                    <td>{{$value->area}} , {{$value->city}} , {{$value->state}} , {{$value->pincode}}</td>
+                                    <td width="200px" style="overflow: hidden;word-break: break-word;">{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}</td>
                                     <td width="100px"><?php echo ($value->proposed_start_date) !='' ? date("d-m-Y", strtotime($value->proposed_start_date)):'' ; ?> </td>
                       
                                     <td width="100px"><?php echo ($value->proposed_end_date) !='' ? date("d-m-Y", strtotime($value->proposed_end_date)):'' ; ?></td>
