@@ -117,7 +117,7 @@ class UserController extends Controller
 
         if(isset($request->user_id)){
            
-            $users = User::where('role_id', '!=' , '1')->get();
+            $users = User::get();
 
             foreach ($users as $key => $value) {
                 $roles = Roles::select('alias')->where('id', $value->role_id)->first();
