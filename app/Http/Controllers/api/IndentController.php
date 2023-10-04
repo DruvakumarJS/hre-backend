@@ -330,6 +330,8 @@ class IndentController extends Controller
         'location' => $value->location,
         'area' => $value->area,
         'city' => $value->city,
+         'state' => $value->state,
+        'pincode' => $value->pincode,
         'status' => $value->status,
          ];
 
@@ -731,6 +733,8 @@ class IndentController extends Controller
           'location' => $value->location,
           'area' => $value->area,
           'city' => $value->city,
+          'state' => $value->state,
+          'pincode' => $value->pincode,
           'status' => $value->status,
            ];
 

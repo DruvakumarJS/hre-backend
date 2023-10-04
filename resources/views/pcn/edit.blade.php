@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="form-group row">
-                             <label for="" class="col-5 col-form-label">Building / Area</label>
+                             <label for="" class="col-5 col-form-label">Building / Area *</label>
                              <div class="col-7 " >
                                  <input  class="form-control" type="text" name="area" required="required" value="{{$pcn_data->area}}" >
                              </div>
@@ -100,28 +100,28 @@
                        
                     
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">City</label>
+                            <label for="" class="col-5 col-form-label">City *</label>
                             <div class="col-7">
                                 <input id="city" class="form-control" type="text" name="city" value="{{$pcn_data->city}}" >
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">PINCODE</label>
+                            <label for="" class="col-5 col-form-label">PINCODE *</label>
                             <div class="col-7">
                                 <input id="city" class="form-control" type="text" name="pincode" value="{{$pcn_data->pincode}}" >
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">State</label>
+                            <label for="" class="col-5 col-form-label">State *</label>
                             <div class="col-7">
                                <input id="state" class="form-control" type="text" name="state" value="{{$pcn_data->state}}" readonly="readonly">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">GST No.</label>
+                            <label for="" class="col-5 col-form-label">GST No. *</label>
                             <div class="col-7">
                                <input id="gst" class="form-control" type="text" name="gst" value="{{$pcn_data->gst}}" readonly="readonly">
                             </div>
