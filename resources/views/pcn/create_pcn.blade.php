@@ -58,6 +58,9 @@ $date = date('dd-mm-yyyy');
                    <div>
                      <label>State : </label> <label class="label-bold">{{$data->state}}</label>
                   </div>
+                  <div>
+                     <label>PINCODE : </label> <label class="label-bold">{{$data->pincode}}</label>
+                  </div>
                   
                    <div>
                      <label>Proposed Start Date : </label> <label class="label-bold">{{date("d-m-Y", strtotime($data->proposed_start_date))}}</label>
@@ -156,41 +159,49 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                              <label for="" class="col-5 col-form-label">Brand *</label>
                              <div class="col-7 " id="location" >
-                                 <input  class="form-control" type="text" name="brand" required="required" value="{{old('brand')}}" readonly="readonly">
+                                 <input  class="form-control" type="text" name="brand" required="required" value="{{old('brand')}}" readonly="readonly" placeholder="Brand Name">
                              </div>
                         </div>
                        
                        <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Location *</label>
                             <div class="col-7">
-                                <input  class="form-control" type="text" name="loc" value="{{old('loc')}}" required >
+                                <input  class="form-control" type="text" name="loc" value="{{old('loc')}}" placeholder="Enter project location" required >
                             </div>
                         </div>
 
                          <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Building / Area *</label>
                             <div class="col-7">
-                                <input  class="form-control" type="text" name="building" value="{{old('building')}}" required >
+                                <input  class="form-control" type="text" name="building" value="{{old('building')}}" placeholder="Enter building / Area name" required >
                             </div>
                         </div>
                     
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">City *</label>
                             <div class="col-7">
-                                <input  class="form-control" type="text" name="city" value="{{old('city')}}" required >
+                                <input  class="form-control" type="text" name="city" value="{{old('city')}}" placeholder="Enter city name" required >
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">PINCODE *</label>
+                            <div class="col-7">
+                                <input  class="form-control" type="number" name="pincode" value="{{old('pincode')}}" placeholder="Enter area PINCODE" required >
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">State *</label>
                             <div class="col-7">
-                               <input id="state" class="form-control" type="text" name="state" value="{{old('state')}}" readonly="readonly">
+                               <input id="state" class="form-control" type="text" name="state" value="{{old('state')}}" readonly="readonly" placeholder="State">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">GST No.*</label>
                             <div class="col-7">
-                               <input id="gst" class="form-control" type="text" name="gst" value="{{old('gst')}}" readonly="readonly">
+                               <input id="gst" class="form-control" type="text" name="gst" value="{{old('gst')}}" readonly="readonly" placeholder="GST No.">
                             </div>
                         </div>
 

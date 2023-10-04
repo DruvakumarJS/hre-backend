@@ -34,6 +34,7 @@
                                     <th scope="col">Brand</th>
                                     <th scope="col">Location</th>
                                     <th scope="col">City</th>
+                                    <th scope="col">PINCODE</th>
                                     <th scope="col">P_SD</th>
                                     <th scope="col">P_ED</th>
                                     <th scope="col">P_HD</th>
@@ -56,7 +57,7 @@
                                     <td>{{$value->brand}}</td>
                                     <td>{{$value->area}}</td>
                                     <td>{{$value->city}}</td>
-                                    
+                                    <td>{{$value->pincode}}</td>
                                     <td><?php echo ($value->proposed_start_date) !='' ? date("d-m-Y", strtotime($value->proposed_start_date)):'' ; ?> </td>
                       
                                     <td><?php echo ($value->proposed_end_date) !='' ? date("d-m-Y", strtotime($value->proposed_end_date)):'' ; ?></td>

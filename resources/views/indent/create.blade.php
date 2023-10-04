@@ -273,7 +273,7 @@ var inform ="";
            $('#pcn').val(ui.item.label);
            $('#pcns').val(ui.item.pcn);
 
-           var address = ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+           var address = ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state +' , '+ ui.item.pincode;
           
           // $('#pcn_detail').val(address);
           setTimeout(function(){

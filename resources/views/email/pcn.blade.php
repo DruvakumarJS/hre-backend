@@ -29,26 +29,29 @@
       
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;margin-top: 20px;">
-            <label style="margin-top: 20px;">Hi ,Please find the new PCN details</label>
+            <label style="margin-top: 20px;">Hi ,Please find the PCN details</label>
                    <div style="margin-top: 20px;">
                      <label>PCN : </label> <label class="label-bold">{{$pcn_data['pcn']}}</label>
                   </div>
-                   <div style="margin-top: 20px;">
+                   <div style="margin-top: 10px;">
                      <label>Brand : </label> <label class="label-bold">{{$pcn_data['brand']}}</label>
                   </div>
-                   <div style="margin-top: 20px;">
+                   <div style="margin-top: 10px;">
                      <label>Location : </label> <label class="label-bold">{{$pcn_data['location']}}</label>
                   </div>
-                   <div style="margin-top: 20px;">
+                   <div style="margin-top: 10px;">
                      <label>Area : </label> <label class="label-bold">{{$pcn_data['area']}}</label>
                   </div>
-                   <div style="margin-top: 20px;">
+                   <div style="margin-top: 10px;">
                      <label>City : </label> <label class="label-bold">{{$pcn_data['city']}}</label>
                   </div>
-                   <div style="margin-top: 20px;">
+                   <div style="margin-top: 10px;">
                      <label>State : </label> <label class="label-bold">{{$pcn_data['state']}}</label>
                   </div>
-                   <div style="margin-top: 20px;">
+                  <div style="margin-top: 10px;">
+                     <label>State : </label> <label class="label-bold">{{$pcn_data['pincode']}}</label>
+                  </div>
+                   <div style="margin-top: 10px;">
                      <label>GST : </label> <label class="label-bold">{{$pcn_data['gst']}}</label>
                   </div>
                   

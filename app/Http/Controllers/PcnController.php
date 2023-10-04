@@ -121,6 +121,7 @@ class PcnController extends Controller
                 'area' => $request->building,
                 'city' => $request->city,
                 'state' => $request->state,
+                'pincode' => $request->pincode,
                 'gst' => $request->gst ,
                 'proposed_start_date' => $start_date,
                 'proposed_end_date' => $request->end_date,
@@ -146,6 +147,7 @@ class PcnController extends Controller
                             'area' => $request->building,
                             'city' => $request->city,
                             'state' => $request->state,
+                            'pincode' => $request->pincode,
                             'gst' => $request->gst];
 
                 $subject = 'PCN_'.$request->pcn." - New PCN added";
@@ -269,6 +271,7 @@ class PcnController extends Controller
                 'location' => $request->loc,
                 'area' => $request->area,
                 'city' => $request->city,
+                'pincode' => $request->pincode,
                 'state' => $request->state,
                 'gst' => $request->gst,
                 'proposed_start_date' => $request->start_date,
@@ -293,6 +296,7 @@ class PcnController extends Controller
                             'location' => $request->loc,
                             'area' => $request->area,
                             'city' => $request->city,
+                            'pincode' => $request->pincode,
                             'state' => $request->state,
                             'gst' => $request->gst
                             ];
@@ -376,6 +380,7 @@ class PcnController extends Controller
                     'area',
                     'city',
                     'state',
+                    'pincode',
                     'status'
                 )
                     ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')

@@ -19,6 +19,7 @@ class Pcn extends Model
       'location',
     	'area',
     	'city',
+      'pincode',
     	'state',
       'gst',
     	'proposed_start_date',

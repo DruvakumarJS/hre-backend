@@ -105,6 +105,14 @@
                                 <input id="city" class="form-control" type="text" name="city" value="{{$pcn_data->city}}" >
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">PINCODE</label>
+                            <div class="col-7">
+                                <input id="city" class="form-control" type="text" name="pincode" value="{{$pcn_data->pincode}}" >
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">State</label>
                             <div class="col-7">

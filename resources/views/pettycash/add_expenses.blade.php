@@ -212,7 +212,7 @@ output .span--hidden{
            $('#pcns').val(ui.item.label);
 
           
-           var address = ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+           var address = ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state +' , '+ ui.item.pincode;;
           
            setTimeout(function(){
           $('#pcn').val(ui.item.pcn);

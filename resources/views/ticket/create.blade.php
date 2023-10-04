@@ -173,7 +173,7 @@ $( document ).ready(function() {
         },
         select: function (event, ui) {
           // $('#pcn').val(ui.item.pcn);
-           var address = ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state;
+           var address = ui.item.brand  +' ,  '+  ui.item.location  +' ,'+  ui.item.area  +' , '+  ui.item.city +' , '+ ui.item.state +' , '+ ui.item.pincode;;
           
            //document.getElementById("pcn").value=ui.item.pcn;
           
