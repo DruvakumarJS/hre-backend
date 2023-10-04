@@ -18,9 +18,9 @@
            <form method="POST" action="{{route('search_employee')}}" >
             @csrf
              <div class="input-group mb-3">
-                <input class="form-control" type="text" name="search" placeholder="Search by Name / ID">
+                <input class="form-control" type="text" id="search" name="search" placeholder="Search by Name / ID"  >
                 <div class="input-group-prepend">
-                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                   <button class="btn btn-outline-secondary rounded-0" type="submit"  >Search</button>
                 </div>
               </div>
            </form>
@@ -87,4 +87,12 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+  $("#search").keyup(function(){
+         //if($(this).val().length > 1)
+            //$('#form :submit').click();
+             $("#btn_search").click();
+    });
+</script>
 @endsection

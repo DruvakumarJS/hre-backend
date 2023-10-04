@@ -18,11 +18,9 @@ use Auth;
 use ZipArchive;
 use Mail ;
 //use Illuminate\Support\Facades\Mail;
-use Illuminate\Pagination\Paginator;
-
-use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
+
 
 class TicketController extends Controller
 {
@@ -44,7 +42,7 @@ class TicketController extends Controller
         $tickets=array();
 
       if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '5'){
-         $tickets = Ticket::orderby('id' , 'DESC')->get();
+         $tickets = Ticket::orderby('id' , 'DESC')->paginate(25);
       }
       else { 
           $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)->groupBy('ticket_id')->get();
@@ -62,24 +60,21 @@ class TicketController extends Controller
         })
         ->whereIn('id', $ids)->orWhere('creator', Auth::user()->id)
         
-        ->orderby('id' , 'DESC')->get();
+        ->orderby('id' , 'DESC')->paginate(25);
        }
        else{
-           $tickets = Ticket::where('creator', Auth::user()->id)->orWhere('assigned_to', Auth::user()->id)->orderby('id' , 'DESC')->get();
+           $tickets = Ticket::where('creator', Auth::user()->id)->orWhere('assigned_to', Auth::user()->id)->orderby('id' , 'DESC')->paginate(25);
        }
 
-       // print_r(json_encode($tickets)); die();
       }
-     // $tickets = $this->paginate($tickets);
 
          return view('ticket/list' ,  compact('tickets','filter'));
     }
 
-    public function paginate($items, $perPage = 10, $page = null, $options = [])
+    public function paginate($items, $perPage = 5, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
-
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 

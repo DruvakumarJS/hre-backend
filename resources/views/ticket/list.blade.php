@@ -6,7 +6,12 @@
 if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 @endphp
 
-
+<style type="text/css">
+  thead th {
+ 
+  height: 50px;
+}
+</style>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -113,7 +118,7 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 	                	 
                        @endphp
                        <td>{{$value->user->name}}</td>
-	                	<td><button class="btn btn-light" style="width:25px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></i></td>
+	                	<td><button class="btn btn-light" style="width:25px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></td>
 
 	                	<td width="100px"><?php echo ($value->tat!='') ? date("d-m-Y", strtotime($value->tat)) :''  ?></td>
 	                	
@@ -186,17 +191,17 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
               });  
             </script>
                 @endforeach
-	            
-	            	
-	            
-                 
-
+	         
      		</table>
-     		
+     		<label>Showing {{ $tickets->firstItem() }} to {{ $tickets->lastItem() }}
+                                    of {{$tickets->total()}} results</label>
 
+                                {!! $tickets->links('pagination::bootstrap-4') !!}
+              
      	</div>
      	
      </div>
+
     </div> 
    </div>
   </div> 
