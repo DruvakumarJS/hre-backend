@@ -44,7 +44,7 @@ class TicketController extends Controller
                     'category' => $value->category ,
                     'message' => $value->issue,
                     'priority' => $value->priority,
-                    'filepath' => 'https://hre.netiapps.com/ticketimages/',
+                    'filepath' => url('/').'/ticketimages/',
                     'status' => $value->status,
                     'created_on' => $value->created_at->toDateTimeString(),
                     'filename' => ($images)];
@@ -84,7 +84,7 @@ class TicketController extends Controller
                     'category' => $value->category ,
                     'message' => $value->issue,
                     'priority' => $value->priority,
-                    'filepath' => 'https://hre.netiapps.com/ticketimages/',
+                    'filepath' => url('/').'/ticketimages/',
                     'status' => $value->status,
                     'created_on' => $value->created_at->toDateTimeString(),
                     'filename' => ($images)];
@@ -112,7 +112,7 @@ class TicketController extends Controller
                     'category' => $value->category ,
                     'message' => $value->issue,
                     'priority' => $value->priority,
-                    'filepath' => 'https://hre.netiapps.com/ticketimages/',
+                    'filepath' => url('/').'/ticketimages/',
                     'status' => $value->status,
                     'created_on' => $value->created_at->toDateTimeString(),
                     'filename' => ($images)];
@@ -353,7 +353,7 @@ class TicketController extends Controller
                     'sender_id' => $value->sender,
                     'recipient_id' => $value->recipient ,
                     'message' => $value->message ,
-                    'filepath' => 'https://hre.netiapps.com/ticketimages/',
+                    'filepath' => url('/').'/ticketimages/',
                     'date' => $value->created_at->toDateTimeString(),
                     'filename' => $images];
 
@@ -677,7 +677,7 @@ class TicketController extends Controller
                     'category' => $value->category ,
                     'message' => $value->issue,
                     'priority' => $value->priority,
-                    'filepath' => 'https://hre.netiapps.com/ticketimages/',
+                    'filepath' => url('/').'/ticketimages/',
                     'status' => $value->status,
                     'created_on' => $value->created_at->toDateTimeString(),
                     'filename' => ($images)];

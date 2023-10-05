@@ -75,7 +75,7 @@ class AppdataController extends Controller
             foreach ($vault as $key => $value) {
                  $data[] = ['name' => $value->name,
                           'type' => $value->type,
-                          'filepath' => 'https://hre.netiapps.com/vault/',
+                          'filepath' => url('/').'/vault/',
                           'filename' => $value->filename];
             }
             

@@ -166,7 +166,7 @@ class PettycashController extends Controller
             'bill_submission_date' => $value->created_at->toDateTimeString(),
             'remarks' => $value->remarks,
             'isapproved'=> $approved,
-     				'filepath' => 'https://hre.netiapps.com/pettycashfiles/',
+     				'filepath' => url('/').'/pettycashfiles/',
      				'filename' => $images,
      		 
      			];
