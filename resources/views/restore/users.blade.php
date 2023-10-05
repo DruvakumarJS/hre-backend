@@ -40,7 +40,7 @@
                                    
                                    <td>
                                     <a onclick="return confirm('Are you sure to restore?')" href="{{route('restore_user',$value->user_id)}}"><button class="btn btn-light btn-sm btn-outline-success">Restore</button></a>
-                                    <a onclick="return confirm('Are you sure to delete?')" href="{{route('trash_user',$value->user_id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a></td>
+                                   <!--  <a onclick="return confirm('Are you sure to delete?')" href="{{route('trash_user',$value->user_id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a></td> -->
                                </tr>
                             @endforeach   
 

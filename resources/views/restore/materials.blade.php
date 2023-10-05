@@ -58,7 +58,7 @@
                               <td>
                                   <a onclick="return confirm('Are you sure to restore?')" href="{{route('restore_material',$value->id)}}" > <button class="btn btn-light btn-outline-success btn-sm">Restore</button></a>   
                              
-                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('trash_material',$value->id)}}" > <button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>   
+                                  <!-- <a onclick="return confirm('Are you sure to delete?')" href="{{route('trash_material',$value->id)}}" > <button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a> -->   
                               </td>
                               
                             </tr>

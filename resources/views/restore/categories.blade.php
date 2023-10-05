@@ -34,7 +34,7 @@
                                   
                                     <td>
                                       <a onclick="return confirm('Are you sure to restore?')"  onclick="return confirm('Are you sure to restore?')"  href="{{route('restore_category',$value->code)}}"><label class="btn btn-light btn-outline-success  btn-sm">Restore</label></a>
-                                      <a onclick="return confirm('Are you sure to delete?')" href="{{route('trash_category',$value->code)}}"><label class="btn btn-light btn-outline-danger btn-sm">Delete</label></a>   
+                                      <!-- <a onclick="return confirm('Are you sure to delete?')" href="{{route('trash_category',$value->code)}}"><label class="btn btn-light btn-outline-danger btn-sm">Delete</label></a>  -->  
                                     </td>
                                </tr>
                             @endforeach   

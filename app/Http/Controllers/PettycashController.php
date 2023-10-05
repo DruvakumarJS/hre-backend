@@ -289,6 +289,8 @@ class PettycashController extends Controller
 
      function action(Request $request)
     {
+
+        $search = $request->get('search') ;
         /* $data = DB::table('users')->select("*", DB::raw("CONCAT(users.name,' - ',users.role) AS value"))
         ->where('name', 'LIKE', '%'. $request->get('search'). '%')->get();
     */
@@ -308,8 +310,12 @@ class PettycashController extends Controller
           // ->select( DB::raw("CONCAT(users.name,' - ',roles.alias) AS value") )
             ->join('roles', 'users.role_id', '=', 'roles.id')
             ->join('employees', 'users.id', '=', 'employees.user_id')
-            ->where('users.name', 'LIKE', '%'. $request->get('search'). '%')
-            ->orWhere('employees.employee_id', 'LIKE', '%'. $request->get('search'). '%')->get();
+            ->whereNull('employees.deleted_at')
+            ->where(function($query)use ($search){
+                    $query->where('users.name','LIKE','%'.$search.'%')->orWhere('employees.employee_id','LIKE','%'.$search.'%');
+                 })
+        
+            ->get();
             
 
            // print_r($data);die();
