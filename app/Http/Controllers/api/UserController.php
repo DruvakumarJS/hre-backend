@@ -34,7 +34,8 @@ class UserController extends Controller
                         'employee_id' => $search->employee_id,
                         'username' => $search->name,
                         'role' => $search->role,
-                        'role_name' => $search->user->roles->alias
+                        'role_name' => $search->user->roles->alias,
+                        'role_id' => $search->role_id
                          ];
 
                      return response()->json([
@@ -67,7 +68,8 @@ class UserController extends Controller
                         'employee_id' => $search->employee_id,
                         'username' => $search->name,
                         'role' => $search->role,
-                        'role_name' => $search->user->roles->alias
+                        'role_name' => $search->user->roles->alias,
+                        'role_id' => $search->role_id
                          ];
 
                      return response()->json([

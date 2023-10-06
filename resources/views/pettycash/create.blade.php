@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
-            <label class="label-bold" id="div1">Create Petty Cash</label>
+            <label class="label-bold" id="div1">Issue Petty Cash</label>
            <div id="div2">
             <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}">
              <label id="modal">View PettyCash List</label> </a>

@@ -7,7 +7,7 @@
 
 @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '5' )
         <div id="div2" >
-            <a class="btn btn-light btn-outline-secondary" href="{{route('create_new')}}"><i class="fa fa-plus"></i> Create New</a>
+            <a class="btn btn-light btn-outline-secondary" href="{{route('create_new')}}"><i class="fa fa-plus"></i> Issue Pettycash</a>
         </div>
 
        

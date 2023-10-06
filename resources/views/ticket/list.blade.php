@@ -11,6 +11,15 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
  
   height: 50px;
 }
+
+td{
+max-width: 100px;
+overflow: hidden;
+text-overflow: clip;
+white-space: nowrap;
+}
+
+
 </style>
 
 <div class="container">
@@ -75,14 +84,14 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
     <div class="page-container"> 
      <div class="row">
      	<div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
-     		<table class="table">
+     		<table class="table" >
 
      			<thead>
 	                <tr>
 	                  <th scope="col">C_Date</th>
 	                  <th scope="col">Ticket_No</th>
 	                  <th scope="col">PCN</th>
-	                  <th scope="col">Billing Details</th>
+	                  <th scope="col">Brand</th>
 	                  <th scope="col">Department</th>
 	                  <th scope="col">Description</th>
 	                  <th scope="col">Creator</th> 
@@ -99,11 +108,11 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
 	           
 	            @foreach($tickets as $key=>$value)
 	                <tr>
-	                	<td width="100px">{{date("d-m-Y", strtotime($value->created_at))}}</td>
-	                	<td>{{$value->ticket_no}}</td>
-	                	<td>{{$value->pcn}}</td>
-	                	<td width="100px">{{$value->pcns->brand}} @php echo'<br/>'; @endphp {{$value->pcns->location}},{{$value->pcns->area}},{{$value->pcns->city}}</td>
-	                	<td>{{$value->category}}</td>
+	                	<td width="90px;">{{date("d-m-Y", strtotime($value->created_at))}}</td>
+	                	<td width="50px;">{{$value->ticket_no}}</td>
+	                	<td width="25px;">{{$value->pcn}}</td>
+	                	<td width="100px">{{$value->pcns->brand}}</td>
+	                	<td width="50px">{{$value->category}}</td>
 	                	<td style="overflow: hidden;word-break: break-word;">{{$value->issue}}</td>
 	                	 
                        @php
@@ -117,14 +126,14 @@ if($filter == 'Pending/Ongoing'){$filter = 'Pending';}
                          $colors = 'limegreen' ;
 	                	 
                        @endphp
-                       <td>{{$value->user->name}}</td>
-	                	<td><button class="btn btn-light" style="width:25px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></td>
+                       <td width="50px">{{$value->user->name}}</td>
+	                	<td width="20px"><button class="btn btn-light" style="width:25px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></td>
 
 	                	<td width="100px"><?php echo ($value->tat!='') ? date("d-m-Y", strtotime($value->tat)) :''  ?></td>
 	                	
-	                	<td>{{$value->status}} <?php echo '<br>';echo($value->reopened == '1') ? 'Re-Opened':'' ?></td>
+	                	<td width="50px">{{$value->status}} <?php echo '<br>';echo($value->reopened == '1') ? 'Re-Opened':'' ?></td>
 	                	
-	                	<td style="text-align: center; ">
+	                	<td style="text-align: center;width: 20px ">
 	                		@if($value->filename != '')
 	                		<a href="#" id="MybtnModal_{{$key}}" data-id="{{$value->filename}}"><i class="fa fa-eye" style="color:black"></i></a>
 

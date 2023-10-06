@@ -635,7 +635,7 @@ class TicketController extends Controller
                  ->orWhereHas('pcns',function($query)use($search){
                     $query->where('brand' , 'LIKE' , '%'.$search.'%');
                  })
-                 ->get();
+                 ->paginate(25);
       }
       else {
        
@@ -681,7 +681,7 @@ class TicketController extends Controller
                     $query->where('status' ,'!=','Resolved');
                  }) 
                           
-                 ->get();
+                 ->paginate(25);
 
        }
        else{
@@ -705,7 +705,7 @@ class TicketController extends Controller
                  }) */
                  ->orderby('id' , 'DESC')
                 
-                 ->get();
+                 ->paginate(25);
        }          
       }
    //die();

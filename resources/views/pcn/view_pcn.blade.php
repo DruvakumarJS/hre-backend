@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style type="text/css">
+    td{
+max-width: 100px;
+overflow: hidden;
+text-overflow: clip;
+white-space: nowrap;
+}
+
+
+</style>
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
@@ -19,6 +30,18 @@
              <a href="{{route('export-pcn')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
           </div>
 
+          <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_pcn_details')}}">
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search here">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+
 
         </div>
         <div class="form-build">
@@ -28,15 +51,14 @@
                         <div class="table table-responsive">
                             <table class="table  table-lg table-hover">
                                 <thead>
-                                <tr>
-                                   
+                                <tr>                                   
                                     <th scope="col">PCN</th>
                                     <th scope="col">Brand</th>
-                                    <th scope="col">Address</th>
+                                    <th scope="col">Location</th>
                                     <th scope="col">P_SD</th>
                                     <th scope="col">P_ED</th>
                                     <th scope="col">P_HD</th>
-                                    <th scope="col">Targeted Days</th>
+                                    <th scope="col">T_Days</th>
                                     <th scope="col">A_SD</th>
                                     <th scope="col">A_CD</th>
                                     <th scope="col">A_HD</th>
@@ -51,15 +73,15 @@
                                     @foreach($pcns as $key => $value)
                                 <tr>
                                     
-                                    <td>{{$value->pcn}}</td>
-                                    <td>{{$value->brand}}</td>
-                                    <td width="200px" style="overflow: hidden;word-break: break-word;">{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}</td>
+                                    <td width="50px">{{$value->pcn}}</td>
+                                    <td >{{$value->brand}}</td>
+                                    <td>{{$value->location}}</td>
                                     <td width="100px"><?php echo ($value->proposed_start_date) !='' ? date("d-m-Y", strtotime($value->proposed_start_date)):'' ; ?> </td>
                       
                                     <td width="100px"><?php echo ($value->proposed_end_date) !='' ? date("d-m-Y", strtotime($value->proposed_end_date)):'' ; ?></td>
                                     <td>{{$value->approved_days}}</td>
                                     
-                                    <td style="text-align: center; ">{{$value->targeted_days}}</td>
+                                    <td style="text-align: center; width: 20px;">{{$value->targeted_days}}</td>
                                     <td width="100px"><?php echo ($value->actual_start_date) !='' ? date("d-m-Y", strtotime($value->actual_start_date)):'' ; ?></td>
                                     <td width="100px"><?php echo ($value->actual_completed_date) !='' ? date("d-m-Y", strtotime($value->actual_completed_date)):'' ; ?></td>
                                     <td style="text-align: center; ">{{$value->hold_days}}</td>

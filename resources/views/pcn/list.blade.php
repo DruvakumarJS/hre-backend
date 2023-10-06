@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style type="text/css">
+  td{
+max-width: 150px;
+overflow: hidden;
+text-overflow: clip;
+white-space: nowrap;
+}
+
+</style>
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
@@ -59,9 +69,9 @@
                             <tr> 
                               <td>{{$value->pcn}}</td>
                               <td>{{$value->client_name}}</td>
-                               <td>{{$value->brand}}</td>
+                              <td width="100px">{{$value->brand}}</td>
                               <td>{{$value->customer->email}}</td>
-                              <td width="200px">{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}</td>
+                              <td>{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}</td>
                               @if(Auth::user()->role_id == '1')
                               <td>{{$value->status}}</td>
                               

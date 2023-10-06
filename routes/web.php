@@ -133,6 +133,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
     Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');
     Route::post('search_pcn', [PcnController::class,'search'])->name('search_pcn');
+    Route::post('search_pcn_details', [PcnController::class,'search_pcn_details'])->name('search_pcn_details');
 
 
     Route::get('indents',[IntendController::class,'index'])->name('intends');

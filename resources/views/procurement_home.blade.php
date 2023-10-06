@@ -88,15 +88,16 @@
               
             </div>
 
-             <!-- PCN & Pie chart -->
+ <!-- PCN & Pie chart -->
  @if(sizeof($result)>0)  
       <div class="row justify-content-between">
         <div class="col-md-6 col-sm-6">
-          <div class="card border-white scroll tableFixHead" style="height: 350px;padding: 0px 5px 20px 20px">
+
+          <div class="card border-white scroll tableFixHead" style="height: 350px; padding: 0px 5px 20px 20px">
 
                         <table class="table" >
-                          <thead>
-                            <tr>
+                          <thead >
+                            <tr >
                               <th scope="col">Billing Name</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Pending Indent</th>
@@ -162,7 +163,59 @@
         </div>
         
       </div>
- @endif
+
+       <script>
+ 
+var xValues = <?php echo json_encode($xvalue); ?>;
+var yValues = <?php echo json_encode($yvalue); ?>;
+Chart.defaults.global.defaultFontStyle = 'bold';
+var barColors = [
+  "#2C2C2C",
+  "#FDF2DF",
+  "#E31E24"
+ 
+];
+
+new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: getRandomColor(),
+      borderWidth: 0, 
+      data: yValues
+    }]
+  },
+  options: {
+     legend: {
+        position: 'right',
+        labels: {
+              fontSize: 8
+        },
+      },
+    title: {
+      display: true
+     
+    }
+  }
+});
+
+function getRandomColor() { //generates random colours and puts them in string
+  var colors = [];
+  var size = <?php echo sizeof($yvalue); ?> ;
+  for (var i = 0; i < size; i++) {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var x = 0; x < 6; x++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    colors.push(color);
+  }
+  return colors;
+}
+
+</script>
+ @endif  
 
             <div>
                 <label>Recent Indent</label>
@@ -232,56 +285,7 @@
 </script>
 
 <!-- PIE CHART -->
- <script>
-var xValues = <?php echo json_encode($xvalue); ?>;
-var yValues = <?php echo json_encode($yvalue); ?>;
-Chart.defaults.global.defaultFontStyle = 'bold';
-var barColors = [
-  "#2C2C2C",
-  "#FDF2DF",
-  "#E31E24"
- 
-];
 
-new Chart("myChart", {
-  type: "pie",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: getRandomColor(),
-      borderWidth: 0, 
-      data: yValues
-    }]
-  },
-  options: {
-     legend: {
-        position: 'right',
-        labels: {
-              fontSize: 8
-        },
-      },
-    title: {
-      display: true
-     
-    }
-  }
-});
-
-function getRandomColor() { //generates random colours and puts them in string
-  var colors = [];
-  var size = <?php echo sizeof($yvalue); ?> ;
-  for (var i = 0; i < size; i++) {
-    var letters = '0123456789ABCDEF'.split('');
-    var color = '#';
-    for (var x = 0; x < 6; x++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    colors.push(color);
-  }
-  return colors;
-}
-
-</script>
 
 
 @endsection
