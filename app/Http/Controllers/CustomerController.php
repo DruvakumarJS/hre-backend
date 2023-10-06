@@ -127,7 +127,7 @@ class CustomerController extends Controller
            }
        
           $subject = "New Customer Added";
-          $data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email];
+          $data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email , 'address' => $customer_address];
 
              $emailarray = User::select('email')->where('role_id','!=','4')->get();
                foreach ($emailarray as $key => $value) {
@@ -137,7 +137,7 @@ class CustomerController extends Controller
           //Mail::to($emailid)->send(new CustomerMail($data,$subject));
 
           try {
-             Mail::to($emailid)->send(new CustomerMail($data,$subject));
+             Mail::to('druva@netiapps.com')->send(new CustomerMail($data,$subject));
             } catch (\Exception $e) {
                 return $e->getMessage();
                
@@ -190,6 +190,12 @@ class CustomerController extends Controller
        // print_r($request->Input());die();
 
         if(isset($request->address)){
+
+           $cust_data = Customer::where('id', $request->id)->with('address')->first();
+
+          // print_r($cust_data->name); die();
+           
+          // print_r(json_encode($cust_data)); die();
 
         $update_customer = Customer::where('id', $request->id)->update([
             'name' => $request->name,
@@ -248,9 +254,10 @@ class CustomerController extends Controller
 
             
         }
+          $customer_address=$request->address;
 
-         $subject = "Client : ".$request->name. " Details Modified";
-          $data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email];
+         $subject = "Client : ".$cust_data->name. " Details Modified";
+          $data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email ,'address' => $customer_address , 'old_data'=> $cust_data];
 
             $emailarray = User::select('email')->where('role_id','!=','4')->get();
                foreach ($emailarray as $key => $value) {
@@ -260,7 +267,7 @@ class CustomerController extends Controller
            // Mail::to($emailid)->send(new CustomerMail($data,$subject));
 
                try {
-                      Mail::to($emailid)->send(new CustomerMail($data,$subject));
+                      Mail::to('druva@netiapps.com')->send(new CustomerMail($data,$subject));
                     } catch (\Exception $e) {
                         return $e->getMessage();
                        

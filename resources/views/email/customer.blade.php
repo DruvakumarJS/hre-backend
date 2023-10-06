@@ -31,15 +31,57 @@
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;margin-top: 20px;">
             <label style="margin-top: 20px;">Hi ,Please find the Client details</label>
-                   <div style="margin-top: 20px;">
+            <div>
+              <label style="font-weight: bold;">Modified details</label>
+            </div>
+                   <div style="margin-top: 10px;">
                      <label>Client Name : </label> <label class="label-bold">{{$data['name']}}</label>
                   </div>
-                   <div style="margin-top: 20px;">
+                   <div style="margin-top: 10px;">
                      <label>Mobile No : </label> <label class="label-bold">{{$data['mobile']}}</label>
                   </div>
-                   <div style="margin-top: 20px;">
+                   <div style="margin-top: 10px;">
                      <label>Email ID : </label> <label class="label-bold">{{$data['email']}}</label>
                   </div>
+
+                  <div style="margin-top: 10px;">
+                    <label >Brand and details</label>
+                     @foreach($data['address'] as $key=>$value)
+                     <div>
+                       <label style="font-weight: bold;">{{$value['brand']}}, {{$value['state']}} , {{$value['gst']}} </label>
+                     </div>
+
+                     @endforeach
+                  </div>
+
+                  @if(isset($data['old_data']))
+                      <div style="margin-top: 20px;" style="border-width: 1px;border-color: black;">
+                        <label style="font-weight: bold;">Previous details</label>
+                        <div style="margin-top: 10px;">
+                           <label>Client Name : </label> <label class="label-bold">{{$data['old_data']['name']}}</label>
+                        </div>
+                        <div style="margin-top: 10px;">
+                           <label>Mobile No : </label> <label class="label-bold">{{$data['old_data']['mobile']}}</label>
+                        </div>
+                         <div style="margin-top: 10px;">
+                           <label>Email ID : </label> <label class="label-bold">{{$data['old_data']['email']}}</label>
+                        </div>
+
+                        <div style="margin-top: 10px;">
+                          <label >Brand and Details</label>
+                           @foreach($data['old_data']['address'] as $key2=>$value2)
+                           <div>
+                             <label style="font-weight: bold;">{{$value2['brand']}}, {{$value2['state']}} , {{$value2['gst']}} </label>
+                           </div>
+
+                           @endforeach
+                        </div>
+                      </div>
+                      
+
+                  @endif
+
+
                   @php
                     $domain = url('/');
                   @endphp

@@ -49,7 +49,7 @@
                      <label>State : </label> <label class="label-bold">{{$pcn_data['state']}}</label>
                   </div>
                   <div style="margin-top: 10px;">
-                     <label>State : </label> <label class="label-bold">{{$pcn_data['pincode']}}</label>
+                     <label>PINCODE : </label> <label class="label-bold">{{$pcn_data['pincode']}}</label>
                   </div>
                    <div style="margin-top: 10px;">
                      <label>GST : </label> <label class="label-bold">{{$pcn_data['gst']}}</label>

@@ -114,7 +114,8 @@
              @enderror
                
           </div>
-           
+          
+          <input type="hidden" name="customer_data" value="{{$customer}}"> 
           
 
        </div>
