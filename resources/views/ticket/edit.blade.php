@@ -23,6 +23,7 @@
                             <label for="" class="col-5 col-form-label">Project Code Number </label>
                             <div class="col-7">
                                 <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Enter PCN" value="{{$tickets->pcn}}" readonly="readonly">
+                                <label>{{$tickets->pcns->client_name}},{{$tickets->pcns->brand}}, {{$tickets->pcns->location}},{{$tickets->pcns->area}},{{$tickets->pcns->city}},{{$tickets->pcns->pincode}}</label>
                                
                             </div>
                         </div>

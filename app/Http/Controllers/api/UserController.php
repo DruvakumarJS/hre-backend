@@ -35,7 +35,7 @@ class UserController extends Controller
                         'username' => $search->name,
                         'role' => $search->role,
                         'role_name' => $search->user->roles->alias,
-                        'role_id' => $search->role_id
+                        'role_id' => $search->user->roles->id
                          ];
 
                      return response()->json([
@@ -69,7 +69,7 @@ class UserController extends Controller
                         'username' => $search->name,
                         'role' => $search->role,
                         'role_name' => $search->user->roles->alias,
-                        'role_id' => $search->role_id
+                        'role_id' => $search->user->roles->id
                          ];
 
                      return response()->json([

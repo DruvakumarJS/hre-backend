@@ -91,7 +91,7 @@ white-space: nowrap;
 	                  <th scope="col">C_Date</th>
 	                  <th scope="col">Ticket_No</th>
 	                  <th scope="col">PCN</th>
-	                  <th scope="col">Brand</th>
+	                  <th scope="col">Billing Details</th>
 	                  <th scope="col">Department</th>
 	                  <th scope="col">Description</th>
 	                  <th scope="col">Creator</th> 
@@ -111,7 +111,7 @@ white-space: nowrap;
 	                	<td width="90px;">{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td width="50px;">{{$value->ticket_no}}</td>
 	                	<td width="25px;">{{$value->pcn}}</td>
-	                	<td width="100px">{{$value->pcns->brand}}</td>
+	                	<td>{{$value->pcns->brand}},{{$value->pcns->city}}</td>
 	                	<td width="50px">{{$value->category}}</td>
 	                	<td style="overflow: hidden;word-break: break-word;">{{$value->issue}}</td>
 	                	 
