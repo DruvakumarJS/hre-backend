@@ -16,7 +16,7 @@
         </div>
 
      <div class="row">
-                <div class="col-sm-6 col-md-4 ">
+                <div class="col-sm-6 col-md-4 " onclick="indents()">
                     <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/indent.png') }}" alt="intend" style="width:30px;height: 30px;">
@@ -34,7 +34,7 @@
 
 
 
-                 <div class="col-sm-6 col-md-4" >
+                 <div class="col-sm-6 col-md-4" onclick="attendance()">
                     <div class="card border-black" style="background-color: #5A5A5A">
                         <div class="card-body" >
                             <img src="{{ asset('images/attendance.svg') }}" alt="attendance" style="width:30px;height: 30px;">
@@ -50,7 +50,7 @@
                 </div>
 
 
-                 <div class="col-sm-6 col-md-4 ">
+                 <div class="col-sm-6 col-md-4 " onclick="ticket()">
                     <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/tickets.svg') }}" alt="ticket" style="width:30px;height: 30px;">
@@ -87,6 +87,19 @@
 });
 
 
+</script>
+
+<script type="text/javascript">
+  
+  function indents(){
+    document.location.href="indents";
+  }
+
+  
+
+   function ticket(){
+    document.location.href="tickets";
+  }
 </script>
 
 @endsection

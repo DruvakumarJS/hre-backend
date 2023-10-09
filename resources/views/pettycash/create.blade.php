@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
-            <label class="label-bold" id="div1">Issue Petty Cash</label>
+            <label class="label-bold" id="div1">Issue PettyCash</label>
            <div id="div2">
             <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}">
              <label id="modal">View PettyCash List</label> </a>
@@ -43,7 +43,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Issued Amount (in rupees)*</label>
                             <div class="col-7">
-                                <input name="amount" id="amount" type="Number" class="form-control" required="required" placeholder="Enter Amount">
+                                <input name="amount" id="amount" type="Number" class="form-control" required="required" placeholder="Enter Amount" min="1">
                             </div>
                         </div>
 

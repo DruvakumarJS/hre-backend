@@ -181,6 +181,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('employee-details',[AttendanceController::class,'employeedetails'])->name('employee-details');
     Route::get('employee-history/{id}',[AttendanceController::class,'employeehistory'])->name('employee-history')
     ;
+    Route::post('search-attendance',[AttendanceController::class,'get_attendance_by_date'])->name('get_attendance_by_date')
+    ;
 
     Route::post('add_attendance',[AttendanceController::class,'store'])->name('add_attendance');
     Route::post('attendance',[AttendanceController::class,'fetch_data'])->name('fetch_attendance');
@@ -208,6 +210,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('download_bills/{id}',[PettyCashDetailController::class,'download_bills'])->name('download_bills');
     Route::post('search_pettycash',[PettycashController::class,'search'])->name('search_pettycash');
     Route::get('pettycash_approval_reminder/{id}',[PettyCashDetailController::class,'reminder'])->name('pettycash_approval_reminder');
+    Route::post('search_bill',[PettyCashDetailController::class,'search_bill'])->name('search_bills');
+
 
     //admin
     Route::get('/home', [HomeController::class, 'index'])->name('home');

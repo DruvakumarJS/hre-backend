@@ -33,7 +33,7 @@
         </div>
    
        <div class="row">
-                <div class="col-sm-6 col-md-4 ">
+                <div class="col-sm-6 col-md-4 " onclick="indents();">
                     <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/indent.png') }}" alt="intend" style="width:30px;height: 30px;">
@@ -51,7 +51,7 @@
 
 
 
-                 <div class="col-sm-6 col-md-4" >
+                 <div class="col-sm-6 col-md-4"  onclick="indents();">
                     <div class="card border-black" style="background-color: #5A5A5A">
                         <div class="card-body" >
                             <img src="{{ asset('images/indent.png') }}" alt="attendance" style="width:30px;height: 30px;">
@@ -68,7 +68,7 @@
                 </div>
 
 
-                 <div class="col-sm-6 col-md-4 ">
+                 <div class="col-sm-6 col-md-4 "  onclick="grn();">
                     <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/indent.png') }}" alt="ticket" style="width:30px;height: 30px;">
@@ -285,6 +285,18 @@ function getRandomColor() { //generates random colours and puts them in string
 </script>
 
 <!-- PIE CHART -->
+
+<script type="text/javascript">
+  
+  function indents(){
+    document.location.href="indents";
+  }
+
+  
+   function grn(){
+    document.location.href="grn";
+  }
+</script>
 
 
 

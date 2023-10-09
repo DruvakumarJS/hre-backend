@@ -19,6 +19,18 @@
         @endif
         
          @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
+         <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('get_attendance_by_date')}}" >
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" id="date" type="text" name="search_date" placeholder="{{date('Y-m-d')}}">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+
         <div id="div2" style="margin-right: 30px">
             <a  class="btn btn-light btn-outline-secondary" href="{{route('employee-details')}}"> View Employees</a>
         </div>
@@ -255,6 +267,20 @@ function showPosition(position ) {
            }
           })
 }
+</script>
+
+<script type="text/javascript">
+  $( function() {
+      $( "#date" ).datepicker({
+        maxDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+         // alert(dateText);
+          setenddate(dateText);
+          
+        }
+      });
+    });
 </script>
 
 

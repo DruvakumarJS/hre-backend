@@ -131,7 +131,7 @@ white-space: nowrap;
 
 	                	<td width="100px"><?php echo ($value->tat!='') ? date("d-m-Y", strtotime($value->tat)) :''  ?></td>
 	                	
-	                	<td width="50px">{{$value->status}} <?php echo '<br>';echo($value->reopened == '1') ? 'Re-Opened':'' ?></td>
+	                	<td width="50px"><?php echo ($value->status == 'Pending/Ongoing')?'Ongoing':$value->status;  ?> <?php echo '<br>';echo($value->reopened == '1') ? 'Re-Opened':'' ?></td>
 	                	
 	                	<td style="text-align: center;width: 20px ">
 	                		@if($value->filename != '')

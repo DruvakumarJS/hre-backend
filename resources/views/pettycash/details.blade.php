@@ -9,6 +9,20 @@
             <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}"> View PettyCash List</a>
         </div>
 
+        <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_bills')}}" >
+            @csrf
+             <div class="input-group mb-3">
+              <input type="hidden" name="filter" >
+                <input type="hidden" name="user_id" value="{{$id}}">
+                <input class="form-control" type="text" name="search" placeholder="Search">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+
         @if($id == auth::user()->id)
         <div id="div2" style="margin-right: 30px">
             <a href="{{route('pettycash_expenses')}}"><button class="btn btn-light btn-outline-secondary">Upload Expenses</button></a>

@@ -458,4 +458,41 @@ class PettyCashDetailController extends Controller
             }     
      
     }
+
+    public function search_bill(Request $request){
+     // print_r($request->Input()); die();
+
+      $search = $request->search ;
+      $id = $request->user_id;
+
+      if($search == ''){
+        return redirect()->back();
+      }
+      else{
+         $data = PettyCashDetail::where( function ($query) use ($search){
+                   $query->where('bill_number' ,'LIKE', $search.'%');
+                   $query->orWhere('spent_amount' ,'LIKE', $search.'%');
+                   $query->orWhere('purpose' , 'LIKE', $search.'%');
+                   $query->orWhere('pcn' , 'LIKE', $search.'%');
+                   $query->orWhere('comments' ,'LIKE', $search.'%');
+                   $query->orWhere('remarks' ,'LIKE', $search.'%');
+                   $query->orWhere('isapproved' , 'LIKE', $search.'%');
+                   $query->orWhere('bill_date' , 'LIKE', $search.'%');
+
+                })
+                ->where('user_id' , $id)
+                ->orderBy('id', 'DESC')
+                ->get();
+
+         $myspent = PettyCashDetail::where('user_id' , $id)->where('isapproved','!=' , '2')->sum('spent_amount');
+         $pettycash = PettycashOverview::where('user_id', $id)->first();
+
+         //print_r($data);die();
+
+        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent' , 'id'));
+      }
+
+
+
+    }
 }

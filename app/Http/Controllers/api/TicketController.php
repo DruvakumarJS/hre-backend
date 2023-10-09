@@ -446,7 +446,9 @@ class TicketController extends Controller
 
     public function modify_ticket_status(Request $request){
 
-        if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no) && isset($request->message)){
+      //  print_r($request->Input()); die();
+
+        if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no)){
 
         $ticket = Ticket::where('id',$request->ticket_id)->first();
         $fileName="";
@@ -531,6 +533,65 @@ class TicketController extends Controller
 
 
 
+
+        }
+         else if($request->action == 'Resolved'){
+            $conversation = TicketConversation::create([
+                        'ticket_id' => $ticket->id ,
+                        'ticket_no' => $ticket->ticket_no ,
+                        'message' => 'This ticket is Resolved' ,
+                        'sender' => $request->user_id ,
+                        'recipient' => $ticket->creator,
+                        ]);  
+
+            if($conversation){
+               
+              $subject = "Ticket Resolved : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn;
+
+              $body = "The Ticket No. ".$request->ticket_no." is Resolved ";
+              $ticketarray = ['ticket_no' => $request->ticket_no ];
+              
+              $emailarray = User::select('email')->orWhere('role_id','1')->get();
+
+                   foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                   }
+              $updateticket = Ticket::where('id',$ticket->id)->update([
+               'status' => $request->action]);
+
+              if($updateticket){
+
+                try {
+                      Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                     
+                     return response()->json([
+                        'status' => 1 ,
+                        'message' => 'Ticket Updated Successfully']);
+                    }     
+                    
+                
+             }
+             else {
+                 return response()->json([
+                    'status' => 0 ,
+                    'message' => 'Could not Update ticket']);
+
+             }
+            }
+            else{
+                return response()->json([
+                    'status' => 0 ,
+                    'message' => 'Could not create conversation']);
+            }
+
+              
+
+                          
 
         }
         else {

@@ -32,7 +32,8 @@ class AttendanceController extends Controller
     public function index()
     {
         $attendance= Attendance::where('date', 'LIKE','%'.date('Y-m-d').'%')->paginate(50);
-       return view('attendance/Attendancelist',compact('attendance'));
+        $date = date('Y-m-d');
+       return view('attendance/Attendancelist',compact('attendance' , 'date'));
     }
 
     /**
@@ -597,6 +598,19 @@ class AttendanceController extends Controller
 
         // print_r(json_encode($attendance)); die();
        return view('attendance/Attendancelist',compact('attendance'));
+    }
+
+    public function get_attendance_by_date(Request $request){
+       // print_r($request->search_date); die();
+        if($request->search_date == ''){
+            return redirect()->route('attendance');
+        }
+        else {
+            $date = $request->search_date ; 
+            $attendance= Attendance::where('date', 'LIKE','%'.$date.'%')->paginate(50);
+             return view('attendance/Attendancelist',compact('attendance' , 'date'));
+        }
+
     }
 
 }
