@@ -31,7 +31,7 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        $attendance= Attendance::where('date', 'LIKE','%'.date('Y-m-d').'%')->paginate(50);
+        $attendance= Attendance::where('date', 'LIKE','%'.date('Y-m-d').'%')->paginate(25);
         $date = date('Y-m-d');
        return view('attendance/Attendancelist',compact('attendance' , 'date'));
     }
@@ -607,7 +607,7 @@ class AttendanceController extends Controller
         }
         else {
             $date = $request->search_date ; 
-            $attendance= Attendance::where('date', 'LIKE','%'.$date.'%')->paginate(50);
+            $attendance= Attendance::where('date', 'LIKE','%'.$date.'%')->paginate(25);
              return view('attendance/Attendancelist',compact('attendance' , 'date'));
         }
 

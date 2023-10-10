@@ -31,7 +31,7 @@ class MaterialController extends Controller
 
     public function index()
     {
-        $MaterialList = Material::paginate(10);
+        $MaterialList = Material::paginate(25);
          $search = '' ;
        
        return view('material/list', compact('MaterialList','search'));
@@ -213,7 +213,7 @@ class MaterialController extends Controller
         $category = $c_name->category ;
         $material_category = $c_name->material_category ;
 
-         $MaterialList = Material::where('category_id',$id)->paginate(10);
+         $MaterialList = Material::where('category_id',$id)->paginate(25);
        
        return view('material/view_products', compact('MaterialList' ,'category','material_category' ,'id'));
     }
@@ -303,7 +303,7 @@ class MaterialController extends Controller
         ->orWhere('brand', 'LIKE','%'.$request->search.'%')
         ->orWhere('uom', 'LIKE','%'.$request->search.'%')
         ->orWhere('information', 'LIKE','%'.$request->search.'%')
-        ->paginate(10);
+        ->paginate(25);
 
         $search = $request->search ;
        
@@ -327,7 +327,7 @@ class MaterialController extends Controller
             ->orWhere('uom', 'LIKE','%'.$search.'%')
             ->orWhere('information', 'LIKE','%'.$search.'%');
          })
-            ->paginate(10);
+            ->paginate(25);
        
        return view('material/view_products', compact('MaterialList' ,'category','material_category' ,'id'));
 

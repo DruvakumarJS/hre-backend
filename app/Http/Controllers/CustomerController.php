@@ -31,7 +31,7 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = Customer::with('address')->orderBy('id', 'DESC')->paginate(10);
+        $customers = Customer::with('address')->orderBy('id', 'DESC')->paginate(25);
         //return view('customer/list',compact('customers'));
 
       /* $emailarray = User::select('email')->where('role_id','1')->get();
@@ -365,7 +365,7 @@ class CustomerController extends Controller
     ->orWhere('email' , 'LIKE', '%'.$request->search.'%')
     ->orWhere('mobile' ,'LIKE', '%'.$request->search.'%')
     ->orderBy('id', 'DESC')
-    ->paginate(10);
+    ->paginate(25);
 
         return view('customer/list',compact('customers'));
     }

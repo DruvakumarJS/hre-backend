@@ -25,7 +25,7 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $categories = Category::paginate(50);
+        $categories = Category::paginate(25);
        // print_r($categories);die();
         return view('category/list',compact('categories'));
     }

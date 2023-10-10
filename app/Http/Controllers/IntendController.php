@@ -39,7 +39,7 @@ class IntendController extends Controller
     { 
 
        if(Auth::user()->role_id != 4 ) {
-        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->orderBy('created_at', 'ASC')->paginate(50);
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->orderBy('created_at', 'ASC')->paginate(25);
 
         $all = Intend::count();
         $activeCount = Intend::where('status','Active')->count();
@@ -47,7 +47,7 @@ class IntendController extends Controller
         $compltedCount = Intend::where('status','Completed')->count();
        }
        else {
-        $indents=Intend::where('user_id' ,Auth::user()->id)->paginate(50);
+        $indents=Intend::where('user_id' ,Auth::user()->id)->paginate(25);
         $all = Intend::where('user_id' ,Auth::user()->id)->count();
         $activeCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Active')->count();
       // $pendingCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Pending')->count();
@@ -259,7 +259,7 @@ class IntendController extends Controller
         $indent_id = $indents->id ;
         $pcn = $indents->pcn ;
 
-        $indents_list = Indent_list::where('indent_id',$indent_id)->paginate(10);
+        $indents_list = Indent_list::where('indent_id',$indent_id)->paginate(25);
 
        // print_r($indents_list);die();
          return view('indent/view_indents',compact('id' , 'indents_list' , 'pcn'));
@@ -464,18 +464,18 @@ class IntendController extends Controller
         if($filter=='all'){
 
             if(Auth::user()->role_id == 4){
-              $indents=Intend::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->paginate(50);
+              $indents=Intend::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->paginate(25);
             }
             else{
-              $indents=Intend::orderBy('id', 'DESC')->paginate(50);
+              $indents=Intend::orderBy('id', 'DESC')->paginate(25);
             }
         }
         else {
           if(Auth::user()->role_id == 4){
-              $indents=Intend::where('user_id', Auth::user()->id)->where('status',$filter)->orderBy('id', 'DESC')->paginate(50);
+              $indents=Intend::where('user_id', Auth::user()->id)->where('status',$filter)->orderBy('id', 'DESC')->paginate(25);
             }
             else{
-              $indents=Intend::where('status',$filter)->orderBy('id', 'DESC')->paginate(50);
+              $indents=Intend::where('status',$filter)->orderBy('id', 'DESC')->paginate(25);
             }
              
         }
@@ -638,7 +638,7 @@ class IntendController extends Controller
                         ->orWhereHas('pcns', function ($query) use ($search) {
                         $query->where('brand', 'like', '%'.$search.'%');
                            })
-                        ->paginate(50);
+                        ->paginate(25);
 
                         
         $all = Intend::count();
@@ -663,10 +663,10 @@ class IntendController extends Controller
                            $query->where('user_id', Auth::user()->id);
                            })
                         
-                        ->paginate(50);
+                        ->paginate(25);
          }
          else {
-           $indents=Intend::where('user_id' ,Auth::user()->id)->paginate(50);
+           $indents=Intend::where('user_id' ,Auth::user()->id)->paginate(25);
             
          }
         

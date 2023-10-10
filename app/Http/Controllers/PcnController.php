@@ -34,10 +34,10 @@ class PcnController extends Controller
     public function index()
     {
         if(Auth::user()->id == '1'){
-           $pcns = Pcn::orderBy('id','DESC')->paginate(10); 
+           $pcns = Pcn::orderBy('id','DESC')->paginate(25); 
         }
         else {
-             $pcns = Pcn::where('status','Active')->orderBy('id','DESC')->paginate(20); 
+             $pcns = Pcn::where('status','Active')->orderBy('id','DESC')->paginate(25); 
         }
        
        return view('pcn/list', compact('pcns'));
@@ -347,7 +347,7 @@ class PcnController extends Controller
 
     public function view_pcn()
     {
-        $pcns = Pcn::orderBy('id', 'DESC')->paginate(20);
+        $pcns = Pcn::orderBy('id', 'DESC')->paginate(25);
         return view('pcn/view_pcn' , compact('pcns'));
     }
 
@@ -410,7 +410,7 @@ class PcnController extends Controller
            ->orWhereHas('customer', function ($query) use ($search) {
                         $query->where('email', 'like', '%'.$search.'%');
                            })
-           ->orderBy('id','DESC')->paginate(20); 
+           ->orderBy('id','DESC')->paginate(25); 
        
        return view('pcn/list', compact('pcns'));
 
@@ -429,7 +429,7 @@ class PcnController extends Controller
            ->orWhereHas('customer', function ($query) use ($search) {
                         $query->where('email', 'like', '%'.$search.'%');
                            })
-           ->orderBy('id','DESC')->paginate(20); 
+           ->orderBy('id','DESC')->paginate(25); 
        
        return view('pcn/view_pcn', compact('pcns'));
 
