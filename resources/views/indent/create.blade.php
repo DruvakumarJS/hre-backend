@@ -282,11 +282,14 @@ var inform ="";
 
           if(ui.item.status == 'Completed'){
             document.getElementById("pcn_detail").innerHTML="This PCN is Completed , Please contact your Super Admin for more information";
+            $('#pcn_detail').css('color', 'red');
             document.getElementById("btn_submit").style.display= "none" ;
           }
           else {
             document.getElementById("btn_submit").style.display= "block" ;
+
            document.getElementById("pcn_detail").innerHTML=address;
+           $('#pcn_detail').css('color', 'black');
           }
           
            

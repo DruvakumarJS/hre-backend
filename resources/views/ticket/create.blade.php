@@ -184,10 +184,12 @@ $( document ).ready(function() {
 
          if(ui.item.status == 'Completed'){
             document.getElementById("pcn_detail").innerHTML="This PCN is Completed , Please contact your Super Admin for more information";
+            $('#pcn_detail').css('color', 'red');
             document.getElementById("submit").style.display= "none" ;
           }
           else {
             document.getElementById("submit").style.display= "block" ;
+            $('#pcn_detail').css('color', 'black');
            document.getElementById("pcn_detail").innerHTML=address;
           }
           
