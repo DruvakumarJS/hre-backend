@@ -8,6 +8,7 @@ Use App\Models\User ;
 Use App\Models\Roles ; 
 Use App\Models\Employee ; 
 Use App\Models\Pettycash ; 
+Use App\Models\Attendance ; 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 Use App\Exports\ExportUsers;
@@ -304,7 +305,28 @@ class UserController extends Controller
           $update = User::where('id',$id)->update(['isloggedin' => '0']);
 
           if($update){
-            return redirect()->back();
+            $login = Attendance::where('user_id' , $id)->orderBy('id' ,'DESC')->first();
+
+            $l_in = $login->date." ".$login->login_time;
+
+            $l_out = date('Y-m-d')." ".date('H:i');
+
+            $logintime = strtotime($l_in) ;
+            $logouttime = strtotime($l_out);
+
+            $total_hour = $logouttime - $logintime ; 
+
+            $LOGOUT = Attendance::where('id',$login->id)->update([
+                        'logout_time' => date('H:i') ,
+                        'logout_lat' => '0.0' ,
+                        'logout_long' => '0.0' ,
+                        'logout_location' => 'No address',
+                        'total_hours' => $total_hour/60
+                      ]);
+            if($LOGOUT){
+                return redirect()->back();
+            }
+            
           }
 
     }
