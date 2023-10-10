@@ -466,7 +466,8 @@ class PettyCashDetailController extends Controller
       $id = $request->user_id;
 
       if($search == ''){
-        return redirect()->back();
+       // print_r('lll'); die();
+        return redirect()->route('details_pettycash',$id);
       }
       else{
          $data = PettyCashDetail::where( function ($query) use ($search){

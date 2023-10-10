@@ -105,7 +105,7 @@
                             </thead>
                         @foreach($data as $key =>$value)
                                 <tr>
-                                    <td>{{date("d-m-Y", strtotime($value->bill_date))}}</td>
+                                    <td width="100px">{{date("d-m-Y", strtotime($value->bill_date))}}</td>
                                     <td>{{$value->bill_number}}</td>
                                     <td><span>&#8377;</span>{{$value->spent_amount}}</td>
                                     <td>{{$value->purpose}}</td>
@@ -131,7 +131,7 @@
                                     @else 
                                          <td style="color: red">Rejected</td> 
                                     @endif
-                                    <td>{{date("d-m-Y", strtotime($value->created_at))}}</td> 
+                                    <td width="100px">{{date("d-m-Y", strtotime($value->created_at))}}</td> 
                                     <td>{{$value->remarks}}</td>
 
                                     <td>
