@@ -307,25 +307,32 @@ class UserController extends Controller
           if($update){
             $login = Attendance::where('user_id' , $id)->orderBy('id' ,'DESC')->first();
 
-            $l_in = $login->date." ".$login->login_time;
+            if($login->logout_time == ''){
+                $l_in = $login->date." ".$login->login_time;
 
-            $l_out = date('Y-m-d')." ".date('H:i');
+                $l_out = date('Y-m-d')." ".date('H:i');
 
-            $logintime = strtotime($l_in) ;
-            $logouttime = strtotime($l_out);
+                $logintime = strtotime($l_in) ;
+                $logouttime = strtotime($l_out);
 
-            $total_hour = $logouttime - $logintime ; 
+                $total_hour = $logouttime - $logintime ; 
 
-            $LOGOUT = Attendance::where('id',$login->id)->update([
-                        'logout_time' => date('H:i') ,
-                        'logout_lat' => '0.0' ,
-                        'logout_long' => '0.0' ,
-                        'logout_location' => 'No address',
-                        'total_hours' => $total_hour/60
-                      ]);
-            if($LOGOUT){
-                return redirect()->back();
+                $LOGOUT = Attendance::where('id',$login->id)->update([
+                            'logout_time' => date('H:i') ,
+                            'logout_lat' => '0.0' ,
+                            'logout_long' => '0.0' ,
+                            'logout_location' => 'No address',
+                            'total_hours' => $total_hour/60
+                          ]);
+                if($LOGOUT){
+                    return redirect()->back();
+                }
             }
+            else {
+                 return redirect()->back();
+            }
+
+            
             
           }
 
