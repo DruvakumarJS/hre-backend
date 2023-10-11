@@ -332,35 +332,35 @@ class UserController extends Controller
     }
 
     public  function view_superadmins(){
-       $users = Employee::where('role','admin')->paginate(10);
+       $users = Employee::where('role','admin')->paginate(25);
        $role = "Super Admin";
        $role_name = 'admin';
         return view('user/users_list',compact('users' , 'role' ,'role_name'));
     }
 
      public  function view_managers(){
-        $users = Employee::where('role','manager')->paginate(10);
+        $users = Employee::where('role','manager')->paginate(25);
        $role = "Project Manager";
        $role_name = 'manager';
         return view('user/users_list',compact('users' , 'role','role_name'));
     }
 
      public  function view_supervisors(){
-        $users = Employee::where('role','supervisor')->paginate(10);
+        $users = Employee::where('role','supervisor')->paginate(25);
         $role = "Supervisor";
         $role_name = 'supervisor';
         return view('user/users_list',compact('users' , 'role','role_name'));
     }
 
      public  function view_procurement(){
-       $users = Employee::where('role','procurement')->paginate(10);
+       $users = Employee::where('role','procurement')->paginate(25);
        $role = "Procurement";
         $role_name = 'procurement';
         return view('user/users_list',compact('users' , 'role','role_name'));
     }
 
      public  function view_finance(){
-       $users = Employee::where('role','finance')->paginate(10);
+       $users = Employee::where('role','finance')->paginate(25);
        $role = "Finance";
        $role_name = 'finance';
         return view('user/users_list',compact('users' , 'role','role_name'));
