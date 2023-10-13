@@ -483,15 +483,15 @@ class TicketController extends Controller
           return redirect()->route('tickets');
         }
         else if($request->filter == '0'){
-            $tickets = Ticket::orderby('id' , 'DESC')->paginate();
+            $tickets = Ticket::orderby('id' , 'DESC')->paginate(25);
             return view('ticket/list' ,  compact('tickets','filter'));
         }
          else if($request->filter == 'Reopend'){
-            $tickets = Ticket::where('reopened', '1')->orderby('id' , 'DESC')->paginate();
+            $tickets = Ticket::where('reopened', '1')->orderby('id' , 'DESC')->paginate(25);
             return view('ticket/list' ,  compact('tickets','filter'));
         }
         else {
-            $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$filter)->orderby('id' , 'DESC')->get();
+            $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$filter)->orderby('id' , 'DESC')->paginate(25);
             return view('ticket/list' ,  compact('tickets','filter'));
         }
     }
