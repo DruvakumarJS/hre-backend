@@ -54,7 +54,7 @@ class TicketConversationController extends Controller
 
         $Ticket = Ticket::select('status')->where('ticket_no',$request->ticket_no)->first();
         $fileName = '';
-        if($Ticket->status == 'Pending/Ongoing' || $Ticket->status == 'Re-Opened'){
+        if($Ticket->status == 'Pending/Ongoing' || $Ticket->status == 'Re-Opened' || $Ticket->status == 'Completed'){
 
             if($file = $request->hasFile('image')) {
              
