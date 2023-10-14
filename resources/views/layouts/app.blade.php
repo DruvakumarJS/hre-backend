@@ -109,6 +109,7 @@
                     class="{{request()->routeIs('attendance')
                     ||request()->routeIs('employee-details')
                     ||request()->routeIs('employee-history')
+                    ||request()->routeIs('get_attendance_by_date')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Attendance</label></a>
 
