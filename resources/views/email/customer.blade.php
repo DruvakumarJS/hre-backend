@@ -31,9 +31,7 @@
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;margin-top: 20px;">
             <label style="margin-top: 20px;">Hi ,Please find the Client details</label>
-            <div>
-              <label style="font-weight: bold;">Modified details</label>
-            </div>
+           
                    <div style="margin-top: 10px;">
                      <label>Client Name : </label> <label class="label-bold">{{$data['name']}}</label>
                   </div>
