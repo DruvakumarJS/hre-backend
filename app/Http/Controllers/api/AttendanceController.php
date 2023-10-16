@@ -87,9 +87,7 @@ class AttendanceController extends Controller
 		              ]);	
 
     			if($LOGOUT){
-                    $updateUser = User::where('id' , $request->user_id)->update([
-                            'isloggedin' => '0' 
-                        ]);
+                   
               	return response()->json([
 			    			'status'=> 1,
 			    			'message' => 'Logout Successfull'

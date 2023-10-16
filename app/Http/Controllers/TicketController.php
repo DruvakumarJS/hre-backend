@@ -472,7 +472,7 @@ class TicketController extends Controller
 
     public function filter(Request $request)
     {
-       // print_r($request->Input());
+       // print_r($request->Input());die();
         $filter = $request->filter ;
        
         if($filter == 'Pending'){$filter = 'Pending/Ongoing';}
@@ -482,7 +482,7 @@ class TicketController extends Controller
         if(empty($request->filter)){
           return redirect()->route('tickets');
         }
-        else if($request->filter == '0'){
+        else if($request->filter == 'all'){
             $tickets = Ticket::orderby('id' , 'DESC')->paginate(25);
             return view('ticket/list' ,  compact('tickets','filter'));
         }

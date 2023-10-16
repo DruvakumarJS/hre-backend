@@ -110,8 +110,14 @@
      </div>
      
      <div>
-     	<h4 class="label-bold">CATEGORY : {{$ticket->category}}</h4>
-     	<label>Description : {{$ticket->issue}}</label>
+      <div>
+        <label >CATEGORY : </label> <label class="label-bold">{{$ticket->category}}</label>
+      </div>
+
+       <div>
+        <label style="max-width: 700px;">DESCRIPTION : </label> <label class="label-bold">{{$ticket->issue}}</label>
+      </div>
+    
 
        @foreach($conversation as $key => $value)
 

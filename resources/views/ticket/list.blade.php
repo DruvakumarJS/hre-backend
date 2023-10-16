@@ -54,9 +54,9 @@ white-space: nowrap;
              	@csrf
              <div class="input-group mb-3">
 				 
-				  <select class="form-control" name="filter" onchange="filetrdata()">
-				  	<option value="">Select </option>
-	             	<option value="0">All Tickets</option>
+				  <select class="form-control form-select" name="filter" onchange="filetrdata()">
+				  	
+	             	<option value="all" <?php echo ($filter == 'all')?'selected':''  ?> >All Tickets</option>
 	             	<option <?php echo ($filter == '1')?'selected':''  ?> value="{{Auth::user()->id}}">My Tickets</option>
 	             	<option <?php echo ($filter == 'Created')?'selected':''  ?> value="Created">Created Tickets</option>
 	             	<option <?php echo ($filter == 'Pending')?'selected':''  ?> value="Pending">Ongoing Tickets</option>
