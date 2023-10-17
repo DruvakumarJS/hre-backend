@@ -54,7 +54,7 @@
 
                   @if(isset($data['old_data']))
                       <div style="margin-top: 20px;" style="border-width: 1px;border-color: black;">
-                        <label style="font-weight: bold;">Previous details</label>
+                        <label style="font-weight: bold;">-----Previous Details-----</label>
                         <div style="margin-top: 10px;">
                            <label>Client Name : </label> <label class="label-bold">{{$data['old_data']['name']}}</label>
                         </div>

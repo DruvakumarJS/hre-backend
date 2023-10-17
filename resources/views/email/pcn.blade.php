@@ -51,16 +51,46 @@
                   <div style="margin-top: 10px;">
                      <label>PINCODE : </label> <label class="label-bold">{{$pcn_data['pincode']}}</label>
                   </div>
-                   <div style="margin-top: 10px;">
+                   <div style="margin-top: 10px;margin-bottom: 10px">
                      <label>GST : </label> <label class="label-bold">{{$pcn_data['gst']}}</label>
                   </div>
+
+                   @if(isset($pcn_data['old_data']))
+                  
+                   <label style="margin-top: 30px; border-width: 1px;border-color: black;">-----Previous Details-----</label>
+                   <div style="margin-top: 20px;">
+                     <label>PCN : </label> <label class="label-bold">{{$pcn_data['old_data']['pcn']}}</label>
+                  </div>
+                   <div style="margin-top: 10px;">
+                     <label>Brand : </label> <label class="label-bold">{{$pcn_data['old_data']['brand']}}</label>
+                  </div>
+                   <div style="margin-top: 10px;">
+                     <label>Location : </label> <label class="label-bold">{{$pcn_data['old_data']['location']}}</label>
+                  </div>
+                   <div style="margin-top: 10px;">
+                     <label>Area : </label> <label class="label-bold">{{$pcn_data['old_data']['area']}}</label>
+                  </div>
+                   <div style="margin-top: 10px;">
+                     <label>City : </label> <label class="label-bold">{{$pcn_data['old_data']['city']}}</label>
+                  </div>
+                   <div style="margin-top: 10px;">
+                     <label>State : </label> <label class="label-bold">{{$pcn_data['old_data']['state']}}</label>
+                  </div>
+                  <div style="margin-top: 10px;">
+                     <label>PINCODE : </label> <label class="label-bold">{{$pcn_data['old_data']['pincode']}}</label>
+                  </div>
+                   <div style="margin-top: 10px;">
+                     <label>GST : </label> <label class="label-bold">{{$pcn_data['old_data']['gst']}}</label>
+                  </div>
+
+                   @endif
                   
                   @php
                     $domain = url('/');
                   @endphp
 
                   <div style="margin-top: 20px;">
-                     <label class="label-bold">View on Dashboard : {{$domain}}/PCN</label>
+                     <label class="label-bold">For more details visit : {{$domain}}/PCN</label>
                  
                   </div>
                  

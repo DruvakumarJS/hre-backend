@@ -95,14 +95,14 @@ class IntendController extends Controller
            
             $ind_no = "MI_00".++$arr[1];
 
-           //  print_r($indent_no);die();
+           // 
           }
           else {
             $ind_no = "MI_001" ;
           }
 
           $indent_array = $request->indent ; 
-
+          
 
           $create_indent = Intend::create([
                                   'indent_no' => $ind_no,
@@ -259,7 +259,7 @@ class IntendController extends Controller
         $indent_id = $indents->id ;
         $pcn = $indents->pcn ;
 
-        $indents_list = Indent_list::where('indent_id',$indent_id)->paginate(25);
+        $indents_list = Indent_list::where('indent_id',$indent_id)->orderBy('material_id', 'ASC')->paginate(25);
 
        // print_r($indents_list);die();
          return view('indent/view_indents',compact('id' , 'indents_list' , 'pcn'));
@@ -378,7 +378,15 @@ class IntendController extends Controller
                              ->withmessage("Dispatch Quantity should be less than Pending Quantity")
                              ->withInput();
          }
+
          else{
+
+           $pcn_data =  Pcn::where('pcn',$request->pcn)->first();
+
+           if($pcn_data->status == 'Completed'){
+              return redirect()->route('edit_intends',$request->id)
+                            ->withmessage($request->pcn.' is completed , you cannot dispatch any item');
+           }
 
             if(GRN::exists()){
                 $GRN_id = GRN::select('grn')->orderBy('id' ,'DESC')->first();
@@ -740,5 +748,15 @@ class IntendController extends Controller
 
            return view('indent/grn',compact('grn_array'));
     }
+  }
+
+  public function update_indent_status($id){
+
+      $update = Intend::where('indent_no' , $id) ->update(['status' => 'Completed']);
+
+      if($update){
+        return redirect()->route('intends');
+      }
+
   }
 }

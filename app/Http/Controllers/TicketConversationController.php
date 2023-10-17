@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\TicketConversation;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Employee;
 use App\Models\Pcn;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Mail\TicketConversationMail;
+use Mail;
+
 
 class TicketConversationController extends Controller
 {
@@ -52,7 +56,7 @@ class TicketConversationController extends Controller
     {
        // print_r($request->Input());die();
 
-        $Ticket = Ticket::select('status')->where('ticket_no',$request->ticket_no)->first();
+        $Ticket = Ticket::where('ticket_no',$request->ticket_no)->first();
         $fileName = '';
         if($Ticket->status == 'Pending/Ongoing' || $Ticket->status == 'Re-Opened' || $Ticket->status == 'Completed'){
 
@@ -84,7 +88,39 @@ class TicketConversationController extends Controller
                 'filename' => $fileName]);
 
             if($conversation){
-                return redirect()->route('ticket-details',$request->ticket_no)->withMessage('Message sent');
+                $sender = Employee::where('user_id',$request->sender)->first();
+                $recipient = Employee::where('user_id',$request->recipient)->first();
+
+                $subject = "New message : " .$Ticket->ticket_no." - ".$Ticket->category ." - ".$Ticket->pcn  ;
+
+                $body = "You have a new message from ".$sender->name." regarding ticket no.".$request->ticket_no;
+
+                $ticketarray = ['ticket_no'=>$Ticket->ticket_no ,'sender' => $sender->name , 'recipient' => $recipient->name , 'subject' => $subject , 'message' => $request->message , 'body' => $body];
+
+
+                $emailarray=User::where('id',$request->recipient)->orWhere('role_id','1')->get();
+
+                    foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                     
+                    }
+                    //print_r($emailid); die();
+
+
+                try {
+                      Mail::to($emailid)->send(new TicketConversationMail($ticketarray , $subject));
+                     // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                    
+                     return redirect()->route('ticket-details',$request->ticket_no)->withMessage('Message sent');
+                   }             
+                 
+
+                
             }
 
         }

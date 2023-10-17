@@ -50,6 +50,12 @@
             <a href="{{route('intends')}}"><button class="btn btn-light btn-outline-secondary" >View Indents</button></a>
           </div>
           
+          @if(Auth::user()->role_id == '1')
+            <div id="div2" style="margin-right: 30px">
+              <a onclick="return confirm('Further Dispatch will be restricted to this Indent number and it will be marked as Completed.')" href="{{route('update_indent_status',$id)}}"><button class="btn btn-light btn-outline-secondary">Mark as Complete</button></a>
+            </div>
+          @endif
+          
 
 
         </div>

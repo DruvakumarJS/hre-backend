@@ -7,21 +7,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class PcnMail extends Mailable
+class TicketConversationMail extends Mailable
 {
     use Queueable, SerializesModels;
-     public $pcn_data ;
-     public $subject ;
+     public $ticketarray;
+    public $subject ;
+
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($pcn_data , $subject)
+   public function __construct( $ticketarray , $subject)
     {
-        $this->pcn_data = $pcn_data ;
-        $this->subject = $subject ;
+       $this->ticketarray = $ticketarray;
+       $this->subject = $subject ;
     }
 
     /**
@@ -31,7 +32,7 @@ class PcnMail extends Mailable
      */
     public function build()
     {
-      //  print_r($this->pcn_data); die();
-        return $this->subject($this->subject)->view('email.pcn');
+        
+        return $this->subject($this->subject)->view('email.ticket_conversation');
     }
 }

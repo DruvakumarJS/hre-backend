@@ -33,9 +33,9 @@ class ManagerHomeController extends Controller
         $tickets = Ticket::where('created_at','LIKE','%'.$date.'%')->count();
 
         $overallticket  = Ticket::count();
-        $overall_closed = Ticket::where('status', 'Completed')->count();
+        $overall_closed = Ticket::where('status', 'Resolved')->count();
         $month_ticket  = Ticket::where('created_at','LIKE','%'.date('Y-m').'%')->count();
-        $month_closed = Ticket::where('status', 'Completed')->where('created_at','LIKE','%'.date('Y-m').'%')->count();
+        $month_closed = Ticket::where('status', 'Resolved')->where('created_at','LIKE','%'.date('Y-m').'%')->count();
          
 
          $counts_array = array('o_tickets' => $overallticket , 'o_closed' => $overall_closed , 'm_tickets' => $month_ticket , 'm_closed' => $month_closed );
@@ -79,7 +79,7 @@ class ManagerHomeController extends Controller
             }
           
              $tckets_closed_count=Ticket::where('updated_at','LIKE','%'.$today.'%')
-            ->where('status', 'Completed')->get();
+            ->where('status', 'Resolved')->get();
 
              $tickets_closed['y'][]=$tckets_closed_count->count();
 

@@ -151,6 +151,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('edit_quantity', [IntendController::class,'edit_grn'])->name('edit_quantity');
     Route::post('search_indent', [IntendController::class,'search'])->name('search_indent');
     Route::post('search_grn', [IntendController::class,'search_grn'])->name('search_grn');
+    Route::get('update_indent_status/{id}', [IntendController::class,'update_indent_status'])->name('update_indent_status');
    
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');

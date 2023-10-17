@@ -34,13 +34,13 @@ class FinanceHomeController extends Controller
          $attendance = sizeof($attendance);
 
          $overallticket  = Ticket::count();
-         $overall_closed = Ticket::where('status', 'Completed')->count();
+         $overall_closed = Ticket::where('status', 'Resolved')->count();
          $overall_alloted = Pettycash::get()->sum('total');
          $overall_used = Pettycash::get()->sum('spend');
 
 
          $month_ticket  = Ticket::where('created_at','LIKE','%'.date('Y-m').'%')->count();
-         $month_closed = Ticket::where('status', 'Completed')->where('created_at','LIKE','%'.date('Y-m').'%')->count();
+         $month_closed = Ticket::where('status', 'Resolved')->where('created_at','LIKE','%'.date('Y-m').'%')->count();
          $month_alloted = Pettycash::where('created_at','LIKE','%'.date('Y-m').'%')->get()->sum('total');
          $month_used = Pettycash::where('created_at','LIKE','%'.date('Y-m').'%')->get()->sum('spend');
 
@@ -87,7 +87,7 @@ class FinanceHomeController extends Controller
             }
           
              $tckets_closed_count=Ticket::where('updated_at','LIKE','%'.$today.'%')
-            ->where('status', 'Completed')->get();
+            ->where('status', 'Resolved')->get();
 
              $tickets_closed['y'][]=$tckets_closed_count->count();
 

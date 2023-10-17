@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Pettycash;
 use App\Models\PettycashSummary;
 use App\Models\PettycashOverview;
@@ -236,7 +237,7 @@ class PettycashController extends Controller
          }
         
          return response()->json([
-              'status' => 0,
+              'status' => 1,
               'message' => 'Success',
               'data' => $data
               ]);
@@ -254,5 +255,41 @@ class PettycashController extends Controller
           }
          
         
+    }
+
+    public function reminder(Request $request){
+      if(isset($request->user_id)){
+        $empl = Employee::where('user_id', $request->user_id)->first();
+          $p_data = "PettyCash bill approval request : ".$empl->employee_id;
+
+           $emailarray = User::select('email')->where('role_id','5')->orWhere('role_id','1')->get();
+
+                   foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                   }
+
+          
+            try {
+                  Mail::to($emailid)->send(new PettycashMail($p_data , $request->user_id));
+                } catch (\Exception $e) {
+                    return $e->getMessage();
+                   
+                } 
+                finally {
+                 
+                  return response()->json([
+                    'status' => 1,
+                    'message' => 'Mail has been sent']);
+                }     
+
+      }
+      else{
+        return response()->json([
+                    'status' => 0,
+                    'message' => 'UnAuthorized']);
+
+      }
+      
+     
     }
 }

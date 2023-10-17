@@ -29,7 +29,7 @@
         </div>
 
         <div id="div2" style="margin-right: 30px">
-            <a href="{{route('pettycash_approval_reminder', auth::user()->id)}}"><button class="btn btn-light btn-outline-secondary">Send Reminder</button></a>
+            <a onclick="return confirm('A mail will be sent to Finance department as a remainder for approval .')" href="{{route('pettycash_approval_reminder', auth::user()->id)}}"><button class="btn btn-light btn-outline-secondary">Send Reminder</button></a>
         </div>
         @endif
 
@@ -89,6 +89,7 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
+                                <th>PC ID</th>
                                 <th>Bill Date</th>
                                 <th>Bill Number</th>
                                 <th>Amount Utilised</th>
@@ -105,6 +106,7 @@
                             </thead>
                         @foreach($data as $key =>$value)
                                 <tr>
+                                    <td>{{$value->billing_no}}</td>
                                     <td width="100px">{{date("d-m-Y", strtotime($value->bill_date))}}</td>
                                     <td>{{$value->bill_number}}</td>
                                     <td><span>&#8377;</span>{{$value->spent_amount}}</td>

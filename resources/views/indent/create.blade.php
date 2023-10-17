@@ -88,7 +88,7 @@
 
       <div class="col-md-1 div-margin">
         <label></label>
-        <input class="btn btn-outline-secondary form-control" type= "button" value= "Add" onclick= "clearInput()">
+        <input class="btn btn-outline-secondary form-control" type= "button" value= "Add Item" onclick= "clearInput()">
         
       </div>
      	

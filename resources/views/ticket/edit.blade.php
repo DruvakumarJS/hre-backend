@@ -12,6 +12,10 @@
           
           </div>
 
+           @if(Session::has('message'))
+            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
+          @endif
+
      </div>
 
      <div class="form-build">

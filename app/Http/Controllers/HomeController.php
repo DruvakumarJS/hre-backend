@@ -44,13 +44,13 @@ class HomeController extends Controller
          $attendance = sizeof($attendance);
 
          $overallticket  = Ticket::count();
-         $overall_closed = Ticket::where('status', 'Completed')->count();
+         $overall_closed = Ticket::where('status', 'Resolved')->count();
          $overall_alloted = Pettycash::get()->sum('total');
          $overall_used = PettyCashDetail::where('isapproved', '1')->get()->sum('spent_amount');
 
 
          $month_ticket  = Ticket::where('created_at','LIKE','%'.date('Y-m').'%')->count();
-         $month_closed = Ticket::where('status', 'Completed')->where('created_at','LIKE','%'.date('Y-m').'%')->count();
+         $month_closed = Ticket::where('status', 'Resolved')->where('created_at','LIKE','%'.date('Y-m').'%')->count();
          $month_alloted = Pettycash::where('issued_on','LIKE','%'.date('Y-m').'%')->get()->sum('total');
          $month_used = PettyCashDetail::where('bill_date','LIKE','%'.date('Y-m').'%')->where('isapproved', '1')->get()->sum('spent_amount');
 
@@ -97,7 +97,9 @@ class HomeController extends Controller
             }
           
              $tckets_closed_count=Ticket::where('updated_at','LIKE','%'.$today.'%')
-            ->where('status', 'Completed')->get();
+            ->where('status', 'Resolved')->get();
+
+           // print_r(json_decode($tckets_closed_count)); die();
 
              $tickets_closed['y'][]=$tckets_closed_count->count();
 

@@ -203,6 +203,8 @@
                             </div>
                         </div>
                         <input type="hidden" name="customer_id" id="customer_id" value="{{$pcn_data->customer_id}}">
+
+                        
                         <div class="form-group row">
                             <div class="offset-5 col-7">
                                 <button name="submit" type="submit" class="btn btn-success">Update</button>

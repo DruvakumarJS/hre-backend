@@ -11,8 +11,12 @@
             
           <div id="div2">
             <a class="btn btn-light btn-outline-secondary" href="{{route('tickets')}}">
-             <label id="modal">View Tickets </label> </a>
+             <label id="modal">View Tickets</label> </a>
           </div>
+
+          @if($pcn_data->status == 'Completed')
+            <label style="color: red">{{$pcn_data->pcn}} is completed and you cannot communicate to this ticket</label>
+          @endif
           
            @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
@@ -131,6 +135,8 @@
 
         @endforeach
 
+        @if($pcn_data->status == 'Active')
+
         @if($ticket->status != 'Resolved')
         @if($can_reply == "True" or Auth::user()->role_id == 1 or Auth::user()->role_id == 2 or Auth::user()->role_id == 5 or  Auth::user()->role_id == 3 or Auth::user()->id == $ticket->creator)
      	 <div id="div2" style="display: block">
@@ -139,10 +145,7 @@
            </a>
       </div>
        <div id="div2" style="display: block ; margin-right: 30px">
-           <!-- <a onclick="return confirm('Ticket is Completed')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'Completed'])}}">
-             <label id="modal">Completed</label>
-           </a>
- -->
+          
       <a data-bs-toggle="modal" data-bs-target="#completeModal"  class="btn btn-light btn-outline-secondary" href="">
              <label id="modal">Completed</label>
            </a>
@@ -153,10 +156,6 @@
 
       @if(Auth::user()->role_id == 1 or Auth::user()->role_id == 2)
       <div id="div2" style="display: block; margin-right: 30px">
-           <!-- <a onclick="return confirm('Ticket is Resolved')" class="btn btn-light btn-outline-secondary" href="{{route('modify_ticket',[$id , 'Resolved'])}}"> 
-             <label id="modal">Resolved</label>
-           </a> -->
-
            <form method="POST" action="{{route('modify_ticket')}}">
             @csrf
                  <input type="hidden" name="sender" value="{{Auth::user()->id}}">
@@ -167,6 +166,7 @@
            </form>
       </div>
      
+      @endif
       @endif
       @endif
 

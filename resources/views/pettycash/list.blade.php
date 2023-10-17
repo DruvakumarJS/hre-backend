@@ -86,7 +86,10 @@
                 </tbody>
             </table>
 
-           
+           <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
+                                    of {{$data->total()}} results</label>
+
+                                {!! $data->links('pagination::bootstrap-4') !!}
 
           
 

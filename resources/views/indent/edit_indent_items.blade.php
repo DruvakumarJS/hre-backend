@@ -6,7 +6,7 @@
             
         
         <div class="container-header">
-            <label class="label-bold" id="div1">Intend Details</label>
+            <label class="label-bold" id="div1">Intend Details </label>
             <div id="div2">
                 <a href="{{route('indent_details',$indend_data->indent->indent_no)}}"><button class="btn btn0sm btn-outline-secondary">Back to Indents</button></a>
                 
@@ -99,7 +99,7 @@
                     <div style="margin-left: 20px">
 
                     @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '3' )
-                     @if($indend_data->pending > 0)
+                     @if($indend_data->pending > 0 && $indend_data->indent->status == 'Active')
                     
                         <form method="post" action="{{route('update_quantity')}}">
                             @csrf
@@ -136,6 +136,9 @@
 
 
                         <label class="label-bolder div-margin">Recent Updates</label>
+                        @if($indend_data->indent->status != 'Active')
+                         <label style="color: red">( This indent is {{$indend_data->indent->status}} )</label>
+                        @endif
 
                         <div class="card">
 
@@ -165,7 +168,7 @@
                                     <td>{{$value->created_at}}</td>
                                     <td>
                                         @if(Auth::user()->role_id == '3' || Auth::user()->role_id == '1')
-                                        @if($value->status == 'Awaiting for Confirmation') 
+                                        @if($value->status == 'Awaiting for Confirmation' && $indend_data->indent->status == 'Active') 
                                         <a id="MybtnModal_{{$key}}"><button class="btn btn-sm btn-outline-secondary">Edit</button></a>
                                         @endif
                                         @endif

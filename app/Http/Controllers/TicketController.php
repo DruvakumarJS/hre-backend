@@ -244,6 +244,13 @@ class TicketController extends Controller
     public function update(Request $request)
     {
        // print_r($request->Input());die();
+        $ticket = Ticket::where('id',$request->id)->first();
+        $pcn_data = Pcn::where('pcn', $ticket->pcn)->first();
+
+        if($pcn_data->status == 'Completed'){
+            return redirect()->back()->withmessage($pcn_data->pcn.' is completed . You cannot update this ticket .');
+        }
+
          $imageNames = "" ;
            if($file = $request->hasFile('image')) {
 
@@ -472,7 +479,7 @@ class TicketController extends Controller
 
     public function filter(Request $request)
     {
-       // print_r($request->Input());die();
+        //print_r($request->Input());die();
         $filter = $request->filter ;
        
         if($filter == 'Pending'){$filter = 'Pending/Ongoing';}
@@ -632,6 +639,7 @@ class TicketController extends Controller
                  ->orWhere('pcn','LIKE','%'.$search.'%')
                  ->orWhere('ticket_no','LIKE','%'.$search.'%')
                  ->orWhere('status','LIKE','%'.$search.'%')
+                 ->orWhere('category','LIKE','%'.$search.'%')
                  ->orWhereHas('pcns',function($query)use($search){
                     $query->where('brand' , 'LIKE' , '%'.$search.'%');
                  })
@@ -663,6 +671,7 @@ class TicketController extends Controller
                  ->where(function($query)use($search){
                      $query->where('ticket_no','LIKE','%'.$search.'%');
                      $query->orWhere('pcn','LIKE','%'.$search.'%');
+                     $query->orWhere('category','LIKE','%'.$search.'%');
                      $query->orWhereHas('pcns',function($query)use($search){
                         $query->where('brand' , 'LIKE' , '%'.$search.'%');
 
@@ -693,6 +702,7 @@ class TicketController extends Controller
                  ->where(function($query)use($search){
                      $query->where('ticket_no','LIKE','%'.$search.'%');
                      $query->orWhere('pcn','LIKE','%'.$search.'%');
+                      $query->orWhere('category','LIKE','%'.$search.'%');
                      $query->orWhereHas('pcns',function($query)use($search){
                         $query->where('brand' , 'LIKE' , '%'.$search.'%');
                      });

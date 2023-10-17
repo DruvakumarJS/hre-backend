@@ -228,7 +228,8 @@ class PcnController extends Controller
         $achieved_days = '';
         $holdDays = '';
         $targeted_days="";
-
+        
+        $old_data = Pcn::where('pcn' ,$request->pcn)->first();
 
 
         if($request->actual_end_date != ''){
@@ -298,7 +299,8 @@ class PcnController extends Controller
                             'city' => $request->city,
                             'pincode' => $request->pincode,
                             'state' => $request->state,
-                            'gst' => $request->gst
+                            'gst' => $request->gst,
+                            'old_data'=> $old_data
                             ];
                             
                 $subject = $request->pcn." is Modified";
@@ -310,7 +312,7 @@ class PcnController extends Controller
 
             
                     try {
-                      Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
+                      Mail::to('druva@netiapps.com')->send(new PcnMail($pcn_data,$subject));
                     } catch (\Exception $e) {
                         return $e->getMessage();
                        

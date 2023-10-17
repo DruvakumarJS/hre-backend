@@ -18,7 +18,7 @@
         </div>
         @endif
         
-         @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5')) 
+         @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5') or (auth::user()->role_id == '2')) 
          <div id="div2" style="margin-right: 30px">
            <form method="POST" action="{{route('get_attendance_by_date')}}" >
             @csrf
