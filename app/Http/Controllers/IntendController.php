@@ -771,19 +771,17 @@ class IntendController extends Controller
 
     $search = $request->search;
     $search_array = explode(',', $search);
-    $result = array();
-
-    foreach ($search_array as $searchkey) {
-      $result = $search_array;
-    }
-
-     print_r($result); die();
+    $product = array();
 
     $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
-          ->where('item_code' , 'LIKE', '%'.$request->search.'%')
-          ->orWhere('name' , 'LIKE', '%'.$request->search.'%')
-          ->orWhere('brand' , 'LIKE', '%'.$request->search.'%')
+        ->where(function($query)use($search){
+            $query->where('item_code' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('name' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('brand' , 'LIKE', '%'.$search.'%');
+            $query->orWhereRaw("find_in_set(information ,$search)");
+        })
         ->get();
+
 
     print_r(json_encode($product)); die();    
 

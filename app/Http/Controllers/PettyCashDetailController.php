@@ -494,6 +494,85 @@ class PettyCashDetailController extends Controller
       }
 
 
+    }
+
+    public function revert_bill_status(Request $request){
+    // print_r($request->Input()); die();
+
+     if($request->status == '1'){
+            $update = PettyCashDetail::where('id',$request->id)->update(['isapproved' => $request->status , 'remarks' => $request->remarks." (Reverted : ".$request->reason.")"]);
+            if($update){
+                $Data = PettyCashDetail::where('id',$request->id)->first();
+
+                $PettyCash = PettycashOverview::where('user_id',$Data->user_id)->first();
+                 //$total_issued = $PettyCash->total_issued;
+                 $total_balance = $PettyCash->total_balance;
+
+                // $total_spend = intval($spend)+intval($Data->spent_amount);
+                $outstanding = intval($total_balance)-intval($Data->spent_amount);
+
+                $updatetable = PettycashOverview::where('user_id',$Data->user_id)->update(['total_balance'=>$outstanding]);
+
+                $summary = PettycashSummary::create([
+                    'user_id' => $Data->user_id ,
+                    'finance_id' => Auth::user()->id,
+                    'pettycash_id'=> $Data->id,
+                    'amount' => $Data->spent_amount ,
+                    'comment' => "Reverted : ".$request->reason ,
+                    'type' => 'Debit',
+                    'balance' => $outstanding,
+                    'transaction_date' => $Data->bill_date,
+                    'reference_number'=>$Data->bill_number
+                      ]);
+               }
+
+                 if($updatetable){
+
+                     return redirect()->back()->withMesage('Updated');
+                 }
+
+            
+
+        }
+        else if($request->status == '2'){
+             $update = PettyCashDetail::where('id',$request->id)->update(['isapproved' => $request->status , 'remarks' => $request->remarks." (Reverted : ".$request->reason.")"]);
+            if($update){
+                $Data = PettyCashDetail::where('id',$request->id)->first();
+
+                $PettyCash = PettycashOverview::where('user_id',$Data->user_id)->first();
+                 //$total_issued = $PettyCash->total_issued;
+                 $total_balance = $PettyCash->total_balance;
+
+                // $total_spend = intval($spend)+intval($Data->spent_amount);
+                $outstanding = intval($total_balance)+intval($Data->spent_amount);
+
+                $updatetable = PettycashOverview::where('user_id',$Data->user_id)->update(['total_balance'=>$outstanding]);
+
+                $summary = PettycashSummary::create([
+                    'user_id' => $Data->user_id ,
+                    'finance_id' => Auth::user()->id,
+                    'pettycash_id'=> $Data->id,
+                    'amount' => $Data->spent_amount ,
+                    'comment' => "Reverted : ".$request->reason ,
+                    'type' => 'Credit',
+                    'balance' => $outstanding,
+                    'transaction_date' => $Data->bill_date,
+                    'reference_number'=>$Data->bill_number
+                      ]);
+
+
+                 return redirect()->back()->withMesage('Updated');
+            }
+       
+
+        }
+        else{
+            return redirect()->back()->withMesage('Something went wrong...');
+        }
+        
+
 
     }
+
+
 }

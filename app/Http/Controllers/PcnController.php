@@ -312,7 +312,7 @@ class PcnController extends Controller
 
             
                     try {
-                      Mail::to('druva@netiapps.com')->send(new PcnMail($pcn_data,$subject));
+                      Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
                     } catch (\Exception $e) {
                         return $e->getMessage();
                        

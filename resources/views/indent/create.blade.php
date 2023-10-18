@@ -18,6 +18,19 @@
                  
      </div>
 
+       <!--  <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('filter_materials')}}" >
+            @csrf
+             <div class="input-group mb-3">
+             
+                <input class="form-control" type="text" name="search" placeholder="Search ticket">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div> -->
+
      @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
      @endif 

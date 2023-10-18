@@ -101,7 +101,7 @@
                                  <th>Entry Date</th>
                                 <th width="150px">Remarks</th>
                                
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                         @foreach($data as $key =>$value)
@@ -136,25 +136,39 @@
                                     <td width="100px">{{date("d-m-Y", strtotime($value->created_at))}}</td> 
                                     <td>{{$value->remarks}}</td>
 
-                                    <td>
+                                     <td>
                                         @if($value->user_id == Auth::user()->id)
                                          @if($value->isapproved == '0')
-                                        
+                                       
                                         <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_expense',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a> 
+                                         
                                          @endif
-                                        @endif
+                                        @endif 
 
-                                        @if( (Auth::user()->role == 'admin') || (Auth::user()->role == 'finance'))
+                                         @if( (Auth::user()->role == 'admin') || (Auth::user()->role == 'finance'))
                                             @if($value->isapproved == '0')
-                                                <a id="MybtnModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-success">Approve/Reject</button></a>
+                                             
+                                                <a  id="MybtnModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-secondary">Action</button></a>
                                                
                                             @endif
-                                            @endif 
+                                            @endif
 
-                                    </td> 
+                                            <!-- @if( (Auth::user()->role_id == '1') && $value->isapproved != '0')                        
+                                               <a style="margin-top: 10px" id="MyrevertModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-danger">Revert</button></a>  
+                                            @endif -->
+                                      </td> 
+                                      
+                                   <!-- 
+                                      @if( (Auth::user()->role_id == '1') && $value->isapproved != '0')
+                                       <td>
+                                         <a id="MyrevertModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-danger">Revert</button></a>
+                                        </td> 
+                                      @endif -->
+                                    
+
                                    </tr>
 
-<!--  Modal -->
+<!--Action  Modal -->
         <div class="modal fade" id="modal_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -182,14 +196,61 @@
             </div>
           </div>
         </div>
-<!-- Modal -->
+<!-- Action Modal End  -->
+
+<!-- Revert Modal -->
+        <div class="modal fade" id="revertmodal_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Revert Bill Status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="{{ route('revert_bill_status') }}" >
+                    @csrf
+
+                    <div class="form-group ">
+                            <label class="label-bold">Bill Date :</label> <label>{{date("d-m-Y", strtotime($value->bill_date))}} </label><label class="label-bold" style="margin-left: 20px">Bill Amount :</label> <label>{{$value->spent_amount}} </label>
+                            <div>
+                              <label class="label-bold">Remarks : </label> <label>{{$value->remarks}}</label>
+                            </div>
+                       
+                    </div>
+
+                     <textarea name="reason" placeholder="Enter reason for revert" style="width: 100%;padding: 10px" required></textarea> 
+
+                    <input type="hidden" name="id" value="{{$value->id}}">
+                     <input type="hidden" name="remarks" value="{{$value->remarks}}">
+                    <input type="hidden" name="pre_status" value="{{$value->isapproved}}">
+
+                    @if($value->isapproved == '2')
+                    <button class="btn btn-success" name="status" value="1">Approve</button>
+                    @endif
+                    @if($value->isapproved == '1')
+                    <button class="btn btn-danger" name="status" value="2">Reject</button>
+                    @endif
+                    
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Revert Modal End-->
 <script>
 $(document).ready(function(){
   $('#MybtnModal_{{$key}}').click(function(){
     $('#modal_{{$key}}').modal('show');
   });
+
+  $('#MyrevertModal_{{$key}}').click(function(){
+    $('#revertmodal_{{$key}}').modal('show');
+  });
 });  
 </script>
+
+
 
 
 

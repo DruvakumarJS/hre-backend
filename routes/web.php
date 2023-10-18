@@ -212,6 +212,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('search_pettycash',[PettycashController::class,'search'])->name('search_pettycash');
     Route::get('pettycash_approval_reminder/{id}',[PettyCashDetailController::class,'reminder'])->name('pettycash_approval_reminder');
     Route::post('search_bill',[PettyCashDetailController::class,'search_bill'])->name('search_bills');
+    Route::post('revert_bill_status',[PettyCashDetailController::class,'revert_bill_status'])->name('revert_bill_status');
 
 
     //admin
