@@ -42,6 +42,7 @@ class TicketController extends Controller
                     'ticket_no' => $value->ticket_no ,
                     'pcn' => $value->pcn ,
                     'pcn_detail' => $pcn_detail,
+                    'pcn_status' => $pcn_data->status ,
                     'category' => $value->category ,
                     'message' => $value->issue,
                     'priority' => $value->priority,

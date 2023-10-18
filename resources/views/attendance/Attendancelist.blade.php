@@ -23,7 +23,7 @@
            <form method="POST" action="{{route('get_attendance_by_date')}}" >
             @csrf
              <div class="input-group mb-3">
-                <input class="form-control" id="date" type="text" name="search_date" autocomplete="off" placeholder="{{$date}}">
+                <input class="form-control" id="date" type="text" name="search_date" autocomplete="off" value="{{$date}}">
                 <div class="input-group-prepend">
                    <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
                 </div>
@@ -39,6 +39,7 @@
            <form method="POST" action="{{route('search_attendance')}}" >
             @csrf
              <div class="input-group mb-3">
+                <input type="hidden" name="date" value="{{$date}}">
                 <input class="form-control" type="text" name="search" placeholder="Search by Name / ID">
                 <div class="input-group-prepend">
                    <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>

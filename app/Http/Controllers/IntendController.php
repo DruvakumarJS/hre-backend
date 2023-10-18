@@ -505,15 +505,7 @@ class IntendController extends Controller
       
     }
 
-    public function action(Request $request){
-
-        // $product = DB::table('materials')
-        // ->select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
-        // ->where('item_code' , 'LIKE', '%'.$request->search.'%')
-        // ->orWhere('name' , 'LIKE', '%'.$request->search.'%')
-        // ->orWhere('brand' , 'LIKE', '%'.$request->search.'%')
-        // ->where('deleted_at','=',null)
-        // ->get();
+  /*  public function action(Request $request){
 
         $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
           ->where('item_code' , 'LIKE', '%'.$request->search.'%')
@@ -524,6 +516,20 @@ class IntendController extends Controller
         
         return response()->json($product);
 
+    }*/
+
+    public function action(Request $request){
+      $search = $request->search;
+      
+
+      $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
+          ->where('item_code' , 'LIKE', '%'.$request->search.'%')
+          ->orWhere('name' , 'LIKE', '%'.$request->search.'%')
+          ->orWhere('brand' , 'LIKE', '%'.$request->search.'%')
+        ->get();
+
+        
+        return response()->json($product);
     }
 
     public function grn(){
@@ -757,6 +763,29 @@ class IntendController extends Controller
       if($update){
         return redirect()->route('intends');
       }
+
+  }
+
+  public function filter_materials(Request $request){
+   // print_r($request->search); 
+
+    $search = $request->search;
+    $search_array = explode(',', $search);
+    $result = array();
+
+    foreach ($search_array as $searchkey) {
+      $result = $search_array;
+    }
+
+     print_r($result); die();
+
+    $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
+          ->where('item_code' , 'LIKE', '%'.$request->search.'%')
+          ->orWhere('name' , 'LIKE', '%'.$request->search.'%')
+          ->orWhere('brand' , 'LIKE', '%'.$request->search.'%')
+        ->get();
+
+    print_r(json_encode($product)); die();    
 
   }
 }

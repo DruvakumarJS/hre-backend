@@ -588,16 +588,16 @@ class AttendanceController extends Controller
     public function search_attendance(Request $request){
         
         $search=$request->search ;
-
+        $date = $request->date ;
 
          $attendance= Attendance::whereHas('employee',function($query)use ($search){
             $query->where('name','LIKE','%'.$search.'%')->orWhere('employee_id','LIKE','%'.$search.'%');
          })
-         ->where('date', 'LIKE','%'.date('Y-m-d').'%')
+         ->where('date', 'LIKE','%'.$date.'%')
          ->paginate(50);
 
         // print_r(json_encode($attendance)); die();
-       return view('attendance/Attendancelist',compact('attendance'));
+       return view('attendance/Attendancelist',compact('attendance','date'));
     }
 
     public function get_attendance_by_date(Request $request){

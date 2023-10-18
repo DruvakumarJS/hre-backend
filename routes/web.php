@@ -152,7 +152,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('search_indent', [IntendController::class,'search'])->name('search_indent');
     Route::post('search_grn', [IntendController::class,'search_grn'])->name('search_grn');
     Route::get('update_indent_status/{id}', [IntendController::class,'update_indent_status'])->name('update_indent_status');
-   
+    Route::post('filter_materials', [IntendController::class,'filter_materials'])->name('filter_materials');
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');
     Route::get('generate-pdf', [HomeController::class, 'generatePDF'])->name('pdf');
