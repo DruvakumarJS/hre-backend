@@ -18,7 +18,7 @@
                  
      </div>
 
-       <!--  <div id="div2" style="margin-right: 30px">
+        <!-- <div id="div2" style="margin-right: 30px">
            <form method="POST" action="{{route('filter_materials')}}" >
             @csrf
              <div class="input-group mb-3">

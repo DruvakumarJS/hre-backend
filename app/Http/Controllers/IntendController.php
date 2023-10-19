@@ -519,16 +519,45 @@ class IntendController extends Controller
     }*/
 
     public function action(Request $request){
-      $search = $request->search;
-      
+     
+        $search = $request->search;
+        $search_array = explode(',', $search);
+        $product = array();
+        $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"));
+  
+        foreach ($search_array as $key => $value) {
 
-      $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
-          ->where('item_code' , 'LIKE', '%'.$request->search.'%')
-          ->orWhere('name' , 'LIKE', '%'.$request->search.'%')
-          ->orWhere('brand' , 'LIKE', '%'.$request->search.'%')
-        ->get();
+          if($key == '0'){
+           $search = $value;
+            
+           $product = $product->where(function($query)use($search){
+            $query->orWhere('item_code' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('name' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('brand' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('information' , 'LIKE', '%'.$search.'%');
 
+        });
         
+
+          }
+          else if($key > '0'){
+          $search = $value;
+
+           $product = $product->where(function($query)use($search){
+            $query->orWhere('item_code' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('name' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('brand' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('information' , 'LIKE', '%'.$search.'%');
+
+            });
+           
+          }
+         
+         
+        }
+
+        $product=$product->get();
+
         return response()->json($product);
     }
 
@@ -772,18 +801,44 @@ class IntendController extends Controller
     $search = $request->search;
     $search_array = explode(',', $search);
     $product = array();
+    $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"));
+  
+        foreach ($search_array as $key => $value) {
 
-    $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
-        ->where(function($query)use($search){
-            $query->where('item_code' , 'LIKE', '%'.$search.'%');
+          if($key == '0'){
+           $search = $value;
+            
+           $product = $product->where(function($query)use($search){
+            $query->orWhere('item_code' , 'LIKE', '%'.$search.'%');
             $query->orWhere('name' , 'LIKE', '%'.$search.'%');
             $query->orWhere('brand' , 'LIKE', '%'.$search.'%');
-            $query->orWhereRaw("find_in_set(information ,$search)");
-        })
-        ->get();
+            $query->orWhere('information' , 'LIKE', '%'.$search.'%');
 
+        });
+        
 
-    print_r(json_encode($product)); die();    
+          }
+          else if($key > '0'){
+          $search = $value;
+
+           $product = $product->where(function($query)use($search){
+            $query->orWhere('item_code' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('name' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('brand' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('information' , 'LIKE', '%'.$search.'%');
+
+            });
+           
+          }
+         
+         
+        }
+
+        $product=$product->get();
+       
+      
+
+    print_r(sizeof($product)); die();    
 
   }
 }
