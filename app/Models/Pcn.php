@@ -33,7 +33,8 @@ class Pcn extends Model
     	'days_acheived',
     	'status',
     	'assigned_to',
-      'owner'];
+      'owner',
+      'dlp_date'];
 
         public function customer()
           {

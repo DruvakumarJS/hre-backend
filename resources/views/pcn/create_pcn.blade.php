@@ -212,14 +212,14 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
-                                <input id="start_date" name="start_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off" value="{{old('start_date')}}">
+                                <input id="start_date" name="start_date" type="text" class="form-control" placeholder="Select Proposed Start Date" autocomplete="off" value="{{old('start_date')}}">
                                 
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project End Date</label>
                             <div class="col-7">
-                                <input id="end_date" name="end_date" type="text" class="form-control"placeholder="YYYY-MM-DD" autocomplete="off" value="{{old('end_date')}}">
+                                <input id="end_date" name="end_date" type="text" class="form-control"placeholder="Select Proposed End Date" autocomplete="off" value="{{old('end_date')}}">
                                
                         </div>
                          </div>
@@ -252,7 +252,7 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">
-                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off" value="{{old('actual_start_date')}}">
+                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" placeholder="Select Actual Start Date" autocomplete="off" value="{{old('actual_start_date')}}">
                                
                             </div>
                              
@@ -260,14 +260,21 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Completed Date</label>
                             <div class="col-7">
-                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off" value="{{old('actual_end_date')}}">
+                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" placeholder="Select Actual End Date" autocomplete="off" value="{{old('actual_end_date')}}">
                                
                         </div>
                          </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Hold Days/Holidays</label>
                             <div class="col-7">
-                                <input id="" name="hold_days" type="number" class="form-control"  value="{{old('hold_days')}}">
+                                <input id="" name="hold_days" type="number" class="form-control"  value="{{old('hold_days')}}" placeholder="Enter Hold Days">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">DLP Date</label>
+                            <div class="col-7">
+                                <input id="dlp_date" name="dlp_date" type="text" class="form-control"  value="{{old('dlp_date')}}" placeholder="Select DLP Date">
                             </div>
                         </div>
                         
@@ -396,7 +403,20 @@ $( document ).ready(function() {
      function setenddate(dateText){
          $("#end_date" ).datepicker({
          // minDate:dateText,
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'yy-mm-dd',
+             onSelect: function(dateText, $el) {
+         // alert(dateText);
+              setDLPdate(dateText);
+              
+            }
+          });
+      
+     }
+
+      function setDLPdate(dateText){
+         $("#dlp_date" ).datepicker({
+           minDate:dateText,
+            dateFormat: 'yy-mm-dd' 
           });
       
      }

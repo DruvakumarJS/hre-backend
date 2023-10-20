@@ -133,7 +133,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
-                                <input id="start_date" name="start_date" type="text" class="form-control" value="{{$pcn_data->proposed_start_date}}" placeholder="YYYY-MM-DD" autocomplete="off">
+                                <input id="start_date" name="start_date" type="text" class="form-control" value="{{$pcn_data->proposed_start_date}}" placeholder="Select Proposed Start Date" autocomplete="off">
                                 
                             </div>
 
@@ -141,7 +141,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project End Date</label>
                             <div class="col-7"  >
-                                <input id="end_date" name="end_date" type="text" class="form-control" value="{{$pcn_data->proposed_end_date}}" placeholder="YYYY-MM-DD" onclick="set_enddate()" autocomplete="off">
+                                <input id="end_date" name="end_date" type="text" class="form-control" value="{{$pcn_data->proposed_end_date}}" placeholder="Select Proposed End Date" onclick="set_enddate()" autocomplete="off">
                                 
                             </div>
                         </div>
@@ -167,21 +167,21 @@
                         <div class="form-group row">
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">
-                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" value="{{$pcn_data->actual_start_date}}" placeholder="YYYY-MM-DD" autocomplete="off">
+                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" value="{{$pcn_data->actual_start_date}}" placeholder="Select Actual Start Date" autocomplete="off">
                                 
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Completed Date</label>
                             <div class="col-7">
-                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" value="{{$pcn_data->actual_completed_date}}" placeholder="YYYY-MM-DD" onclick="set_actual_enddate()" autocomplete="off">
+                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" value="{{$pcn_data->actual_completed_date}}" placeholder="Select Actual End Date" onclick="set_actual_enddate()" autocomplete="off">
                                  
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Hold Days / Holidays</label>
                             <div class="col-7">
-                                <input id="" name="hold_days" type="number" class="form-control" value="{{$pcn_data->hold_days}}">
+                                <input id="" name="hold_days" type="number" class="form-control" value="{{$pcn_data->hold_days}}" placeholder="Enter Hold Days">
                             </div>
                         </div>
                         <!-- <div class="form-group row">
@@ -190,6 +190,13 @@
                                 <input id="text2" name="days_achieved" type="text" class="form-control" value="{{$pcn_data->days_acheived}}">
                             </div>
                         </div> -->
+
+                         <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">DLP Date</label>
+                            <div class="col-7">
+                                <input id="dlp_date" name="dlp_date" type="text" class="form-control"  value="{{$pcn_data->dlp_date}}" placeholder="Select DLP Date">
+                            </div>
+                        </div>
 
                          <div class="form-group row">
                             <label for="text2" class="col-5 col-form-label">Status</label>
@@ -202,6 +209,9 @@
                                 </select>
                             </div>
                         </div>
+
+                        
+
                         <input type="hidden" name="customer_id" id="customer_id" value="{{$pcn_data->customer_id}}">
 
                         
@@ -295,6 +305,16 @@ $( document ).ready(function() {
             dateFormat: 'yy-mm-dd'
           });
         }
+
+        var end_date = document.getElementById('end_date').value;
+        if(s_date!=''){
+           $("#dlp_date" ).datepicker({
+           minDate:document.getElementById('end_date').value,
+            dateFormat: 'yy-mm-dd'
+          });
+        }
+
+
         
 
      $('select').on('change', function() {
@@ -403,7 +423,20 @@ $( document ).ready(function() {
      
          $("#end_date").datepicker({
          //  minDate:'2023-06-30',
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'yy-mm-dd',
+             onSelect: function(dateText, $el) {
+         // alert(dateText);
+              setDLPdate(dateText);
+              
+            }
+          });
+      
+     }
+
+      function setDLPdate(dateText){
+         $("#dlp_date" ).datepicker({
+           minDate:dateText,
+            dateFormat: 'yy-mm-dd' 
           });
       
      }

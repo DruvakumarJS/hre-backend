@@ -134,6 +134,7 @@ class PcnController extends Controller
                 'assigned_to' => $request->user_id,
                 'status' => "Active",
                 'owner' => $request->user_id,
+                'dlp_date' => $request->dlp_date,
         ]);
 
             if($createPCN){
@@ -284,7 +285,8 @@ class PcnController extends Controller
                 'actual_completed_date' => $request->actual_end_date,
                 'hold_days' => $request->hold_days,
                 'days_acheived'=> $achieved_days,
-                'status' => $request->status
+                'status' => $request->status,
+                'dlp_date' => $request->dlp_date,
                 
         ]);
 

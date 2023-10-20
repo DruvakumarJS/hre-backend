@@ -182,12 +182,24 @@ class AttendanceController extends Controller
 
                 $login = $attendance_in->login_time;
                 $logout = $attendance_out->logout_time ;
+
+                $login_date_time = strtotime($attendance_in->date." ".$login);
+
+                if($attendance_out->logout_date == ''){
+                   $workingtime = '0';
+                }
+                else{
+                   $logout_date_time = strtotime($attendance_out->logout_date." ".$logout) ;
+                   $workingtime = ($logout_date_time-$login_date_time)/60;
+
+                }
                 
 
                 $login_time = $login ;
                 $logout_time = $logout;
                 $total_hours = $total_hr;
                 $out_of_work = $out_of_hr;
+                $working = $workingtime;
 
                 if($logout_time == ''){
                     $logout_time = '---';
@@ -200,6 +212,7 @@ class AttendanceController extends Controller
                 $logout_time = '---';
                 $total_hours = '---';
                 $out_of_work = '---';
+                $working = '---';
 
             }
 
@@ -208,7 +221,8 @@ class AttendanceController extends Controller
                 'login'=> $login_time ,
                 'logout' => $logout_time,
                 'out_of_work' => $out_of_work,
-                'working_minutes' => $total_hours
+                'working_minutes' => $total_hours,
+                'shift' => $working,
 
             ];
 

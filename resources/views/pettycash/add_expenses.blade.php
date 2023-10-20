@@ -114,7 +114,7 @@ output .span--hidden{
                         </div>
 
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Upload bill</label>
+                            <label for="" class="col-5 col-form-label">Upload bill*</label>
                             <div class="col-7">
                               
                               <input type='file' id="file" name='file' multiple class="form-control">

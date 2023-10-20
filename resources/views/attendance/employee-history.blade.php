@@ -52,6 +52,17 @@
                         <!-- <input type="text" name="totalHour" id="totalHour"> -->
                         <p>Total Working Hours</p>
                     </div>
+
+                    <div class="col-4 text-center">
+                         @php
+                          $minute = $total_hour;
+                          $hour=  floor($minute / 60) ;
+                          $min = $minute % 60 ;
+                        @endphp
+                        <h2 id="shiftHour"></h2>
+                        <!-- <input type="text" name="totalHour" id="totalHour"> -->
+                        <p>Total Shift Hours</p>
+                    </div>
                    
                    
                 </div>
@@ -71,7 +82,7 @@
                     <th scope="col">Logout Time(24 hour format)</th>
                     <th scope="col">Out Of Work</th>
                     <th scope="col">Working Hours</th>
-                    <th scope="col">Shift</th>
+                    <th scope="col">Shift Hours</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -105,22 +116,30 @@
                              
                               <div class="row div-margin" >  
                                   <div class="col-md-6">
-                                    <label>Logout Time</label>
+                                    <label>Logout Time </label>
                                     <input class="form-control" type="datetime-local" name="logout_time">
                                   </div>
                               </div>
 
-                              <div class="row div-margin" >  
-                                  <div class="col-md-6">
-                                    <label>Out of Work (Hours)</label>
-                                    <input class="form-control" type="number" name="break" placeholder="Enter Out of work hours">
+                              <div class="row div-margin" >
+                              <label>Out of Work </label>  
+                                  <div class="col-md-4">
+                                      <input class="form-control" type="number" name="break" placeholder="Enter hr / min">   
+                                  </div>
+                                  <div class="col-md-4" >
+                                    
+                                    <select class="form-control form-select" name="unit">
+                                          <option value="Hr">Hour(s)</option>
+                                          <option value="Min">Minutes</option>
+                                        </select>
+                                    
                                   </div>
                               </div>
                                <input type="hidden" name="date" id="date">
                               <input type="hidden" name="id" value="{{$employee->user_id}}">
 
                               
-                              <button class="btn btn-primary" style="margin-top: 20px">Update</button>
+                              <button class="btn btn-danger" style="margin-top: 20px">Update</button>
                               
                           </form>
                       </div>
@@ -182,6 +201,7 @@ $(function() {
     console.log(data);
     var output = '';
     var total_hours = 0;
+    var shift_working_hours = 0;
     $('#total_records').text(data.length);
     for(var count = 0; count < data.length; count++)
     {
@@ -238,6 +258,23 @@ $(function() {
     else {
        var working_hours2 = '0Hr : '+"0Min ";
     }
+
+    if(data[count].working == '---'){
+          data[count].working = '0';
+     }
+
+    shift_working_hours += parseInt(data[count].working) ;
+    if(shift_working_hours > 0){
+      var num21 = shift_working_hours;
+    var hours21 = (num21 / 60);
+    var rhours21 = Math.floor(hours21);
+    var minutes21 = (hours21 - rhours21) * 60;
+    var rminutes21 = Math.round(minutes21);
+    var working_hours21 = rhours21+'Hr : '+rminutes21+"Min ";
+    }
+    else {
+       var working_hours21 = '0Hr : '+"0Min ";
+    }
     
 
     //$('#totalHour').val=working_hours2;
@@ -249,6 +286,9 @@ $(function() {
     }
    // alert(working_hours2);
     document.getElementById('totalHour').textContent =working_hours2;
+    $('tbody').html(output);
+
+    document.getElementById('shiftHour').textContent =working_hours21;
     $('tbody').html(output);
    }
   })

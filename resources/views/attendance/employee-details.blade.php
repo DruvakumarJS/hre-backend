@@ -46,7 +46,7 @@
                     <th scope="col">Contact No</th>
                     <th scope="col">Role</th>
                     <th scope="col">Days Present</th>
-                    <th scope="col">Total Working Hours</th>
+                   <!--  <th scope="col">Total Working Hours</th> -->
                     
                     <th scope="col">Action</th>
                 </tr>
@@ -60,7 +60,7 @@
                         <td>{{$value['mobile']}}</td>
                         <td>{{$value['role']}}</td>
                         <td>{{$value['days_present']}}</td>
-                        @php
+                        <!-- @php
                           $minute = $value['working_hours'];
                           $hour=  floor($minute / 60) ;
                           $min = $minute % 60 ;
@@ -69,7 +69,7 @@
                         <td>0 Min</td>
                         @else
                         <td>{{$hour}}Hr : {{$min}}Min</td>
-                        @endif
+                        @endif -->
                        
                         <td>
                            <a href="{{route('employee-history', $value['user_id'])}}"><button type="button" class="btn btn-sm curved-text">View Attendance</button></a>

@@ -185,10 +185,11 @@ class AttendanceController extends Controller
      */
     public function update(Request $request)
     {
-        //print_r($request->Input());die();
+       // print_r($request->Input());die();
          $date = date("Y-m-d", strtotime($request->date));
          $logout_time = date("Y-m-d H:i", strtotime($request->logout_time));
          $only_time = date("H:i", strtotime($request->logout_time));
+         $only_date = date("Y-m-d", strtotime($request->logout_time));
          // print_r($only_time);die();
 
         if(isset($request->logout_time) && isset($request->break)){
@@ -206,9 +207,18 @@ class AttendanceController extends Controller
             print_r($l_out);print_r('<br>');
             print_r($total_hour / 60);die();*/
 
+            if($request->unit == 'Hr'){
+                $break_min =$request->break*60; 
+            }
+            else{
+                $break_min =$request->break;
+            }
+
+
             $d_hour =  $diffrence/60 ;
-            $total_hour = intval($d_hour)-intval($request->break*60) ;
-            $out_of_work = intval($login->out_of_work) + intval($request->break*60);
+            $total_hour = intval($d_hour)-intval($break_min) ;
+           // $out_of_work = intval($login->out_of_work) + intval($break_min);
+            $out_of_work = $break_min;
 
 
             $LOGOUT = Attendance::where('user_id' , $request->id)->where('date' , $date)->orderBy('id','desc')->take(1)->update([
@@ -217,10 +227,11 @@ class AttendanceController extends Controller
                 'logout_long' => $login->login_long ,
                 'logout_location' =>$login->login_location,
                 'out_of_work'=> $out_of_work,
-                'total_hours' => $total_hour
+                'total_hours' => $total_hour,
+                'logout_date' => $only_date
               ]); 
 
-              $body = "Logout timing on date ".$login->date. " is set to ".$request->logout_time." and total working hours is reduced by ".$request->break.'Hour';  
+              $body = "Logout timing on date ".$login->date. " is set to ".$only_date.' '.$only_time." and total working hours is reduced by ".$request->break.' '.$request->unit;  
 
         }
         else if(isset($request->logout_time)){
@@ -242,24 +253,32 @@ class AttendanceController extends Controller
                 'logout_long' => $login->login_long ,
                 'logout_location' =>$login->login_location,
                 'total_hours' => $total_hour/60,
-                'logout_date' => date('Y-m-d')
+                'logout_date' => $only_date
               ]); 
 
-            $body = "Logout timing on date ".$login->date. " is set to ".$request->logout_time;
+            $body = "Logout timing on date ".$login->date. " is set to ".$only_date.' '.$only_time;
 
         }
         else if(isset($request->break)){
              $login = Attendance::where('user_id' , $request->id)->where('date' , $date)->orderBy('id','desc')->first();
 
-             $diffrence = intval($login->total_hours) - intval($request->break*60) ; 
-             $out_of_work = intval($login->out_of_work) + intval($request->break*60);
+             if($request->unit == 'Hr'){
+                $break_min =$request->break*60; 
+            }
+            else{
+                $break_min =$request->break;
+            }
+
+             $diffrence = intval($login->total_hours) - intval($break_min) ; 
+             //$out_of_work = intval($login->out_of_work) + intval($break_min);
+             $out_of_work = $break_min;
 
               $LOGOUT = Attendance::where('user_id' , $request->id)->where('date' , $date)->orderBy('id','desc')->take(1)->update([
                 'out_of_work'=> $out_of_work,
                 'total_hours' => $diffrence
               ]);
 
-            $body = "total working hours on date ".$login->date." is reduced by ".$request->break;
+            $body = "total working hours on date ".$login->date." is reduced by ".$request->break.' '.$request->unit;
 
         }
 
@@ -462,18 +481,16 @@ class AttendanceController extends Controller
                 $logout = $attendance_out->logout_time ;
 
                 $login_date_time = strtotime($attendance_in->date." ".$login);
-                $logout_date_time = strtotime($attendance_out->logout_date." ".$logout) ;
-              
-               /* if($attendance_out->logout_date == ''){
-                    $logout_date_time = strtotime($attendance->date." ",$logout) ; 
+
+                if($attendance_out->logout_date == ''){
+                   $workingtime = '0';
                 }
                 else{
-                    $logout_date_time = strtotime($attendance_out->logout_date." ",$logout) ; 
+                   $logout_date_time = strtotime($attendance_out->logout_date." ".$logout) ;
+                   $workingtime = ($logout_date_time-$login_date_time)/60;
 
-                }*/
+                }
                 
-                $workingtime = ($logout_date_time-$login_date_time)/60;
-
                // print_r($workingtime);die();
 
                 $login_time = $login ;
