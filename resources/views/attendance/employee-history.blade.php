@@ -67,10 +67,11 @@
                 <thead>
                 <tr>
                     <th scope="col">Date</th>
-                    <th scope="col">Login Time</th>
-                    <th scope="col">Logout Time</th>
+                    <th scope="col">Login Time(24 hour format)</th>
+                    <th scope="col">Logout Time(24 hour format)</th>
                     <th scope="col">Out Of Work</th>
                     <th scope="col">Working Hours</th>
+                    <th scope="col">Shift</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -204,8 +205,21 @@ $(function() {
        var working_hours = '0Hr : '+"0Min ";
     }
     
-
      output += '<td>' + working_hours + '</td>';
+
+  if(data[count].working > 0){
+    var num3 = data[count].working;
+    var hours3 = (num3 / 60);
+    var rhours3 = Math.floor(hours3);
+    var minutes3 = (hours3 - rhours3) * 60;
+    var rminutes3 = Math.round(minutes3);
+    var shift_hours = rhours3+'Hr : '+rminutes3+"Min ";
+    }
+    else {
+       var shift_hours = '0Hr : '+"0Min ";
+    }
+     output += '<td>' + shift_hours + '</td>';
+
 
 
      if(data[count].total_hours == '---'){

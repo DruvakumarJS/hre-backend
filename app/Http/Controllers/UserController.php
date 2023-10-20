@@ -322,7 +322,8 @@ class UserController extends Controller
                             'logout_lat' => '0.0' ,
                             'logout_long' => '0.0' ,
                             'logout_location' => 'No address',
-                            'total_hours' => $total_hour/60
+                            'total_hours' => $total_hour/60,
+                            'logout_date' => date('Y-m-d')
                           ]);
                 if($LOGOUT){
                     return redirect()->back();

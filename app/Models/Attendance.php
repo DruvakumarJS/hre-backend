@@ -23,7 +23,8 @@ class Attendance extends Model
     	'overtime',
         'out_of_work',
         'total_hours',
-        'proof'
+        'proof',
+        'logout_date'
     	];
 
      function user()

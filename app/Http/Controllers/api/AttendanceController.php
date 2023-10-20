@@ -83,7 +83,8 @@ class AttendanceController extends Controller
 		              	'logout_lat' => $request->lattitude ,
 		              	'logout_long' => $request->longitude ,
                         'logout_location' => $request->address,
-		              	'total_hours' => $total_hour/60
+		              	'total_hours' => $total_hour/60,
+                        'logout_date' => date('Y-m-d')
 		              ]);	
 
     			if($LOGOUT){

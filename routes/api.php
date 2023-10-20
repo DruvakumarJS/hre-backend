@@ -66,5 +66,7 @@ Route::post('/bill_approval_remainder',[PettycashController::class,'reminder']);
 Route::post('/get-app-data',[AppdataController::class,'index']);
 Route::post('/vault',[AppdataController::class,'vault']);
 
+Route::post('/search-material',[MaterialController::class,'material_search']);
+
 Route::post('/my-dashboard-details',[HomeController::class,'mydashboard']);
 

@@ -118,7 +118,8 @@ class AttendanceController extends Controller
                         'logout_lat' => $request->lattitude ,
                         'logout_long' => $request->longitude ,
                         'logout_location' => 'Bangalore',
-                        'total_hours' => $total_hour/60
+                        'total_hours' => $total_hour/60,
+                        'logout_date' => date('Y-m-d')
                       ]);   
 
                 if($LOGOUT){
@@ -240,7 +241,8 @@ class AttendanceController extends Controller
                 'logout_lat' => $login->login_lat ,
                 'logout_long' => $login->login_long ,
                 'logout_location' =>$login->login_location,
-                'total_hours' => $total_hour/60
+                'total_hours' => $total_hour/60,
+                'logout_date' => date('Y-m-d')
               ]); 
 
             $body = "Logout timing on date ".$login->date. " is set to ".$request->logout_time;
@@ -455,15 +457,30 @@ class AttendanceController extends Controller
 
                 $total_hr = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->sum('total_hours');
                 $out_of_hr = Attendance::where('user_id',$request->user_id)->where('date',date('Y-m-d', $now))->sum('out_of_work');
-              
 
                 $login = $attendance_in->login_time;
                 $logout = $attendance_out->logout_time ;
+
+                $login_date_time = strtotime($attendance_in->date." ".$login);
+                $logout_date_time = strtotime($attendance_out->logout_date." ".$logout) ;
+              
+               /* if($attendance_out->logout_date == ''){
+                    $logout_date_time = strtotime($attendance->date." ",$logout) ; 
+                }
+                else{
+                    $logout_date_time = strtotime($attendance_out->logout_date." ",$logout) ; 
+
+                }*/
+                
+                $workingtime = ($logout_date_time-$login_date_time)/60;
+
+               // print_r($workingtime);die();
 
                 $login_time = $login ;
                 $logout_time = $logout;
                 $total_hours = $total_hr;
                 $out_of_work = $out_of_hr;
+                $working = $workingtime;
 
                 if($logout_time == ''){
                     $logout_time = '---';
@@ -489,6 +506,7 @@ class AttendanceController extends Controller
                 $logout_time = '---';
                 $total_hours = '---';
                 $out_of_work = '---';
+                $working = '---';
 
             }
             $res = [
@@ -497,6 +515,7 @@ class AttendanceController extends Controller
                 'logout_time' => $logout_time,
                 'total_hours' => $total_hours,
                 'out_of_work' => $out_of_work,
+                'working' => $working,
 
             ];
 
