@@ -140,7 +140,7 @@ class PcnController extends Controller
             if($createPCN){
                 
                 $data = Pcn::where('pcn', 'PCN_'.$request->pcn)->first();
-                $pcn_data= ['pcn'=>'PCN_'.$request->pcn ,
+                /*$pcn_data= ['pcn'=>'PCN_'.$request->pcn ,
                             'client_name' => $request->client_name,
                             'brand' => $request->brand ,
                             'work' => $request->work,
@@ -149,7 +149,9 @@ class PcnController extends Controller
                             'city' => $request->city,
                             'state' => $request->state,
                             'pincode' => $request->pincode,
-                            'gst' => $request->gst];
+                            'gst' => $request->gst];*/
+
+                  $pcn_data=['new_data' => $data];          
 
                 $subject = 'PCN_'.$request->pcn." - New PCN added";
 
@@ -290,8 +292,10 @@ class PcnController extends Controller
                 
         ]);
 
+            $new_data = Pcn::where('pcn' ,$request->pcn)->first();
+
             if($updatePCN){
-                 $pcn_data= [
+                 /*$pcn_data= [
                             'pcn'=>$request->pcn ,
                             'client_name' => $request->client_name,
                             'brand' => $request->brand ,
@@ -303,7 +307,9 @@ class PcnController extends Controller
                             'state' => $request->state,
                             'gst' => $request->gst,
                             'old_data'=> $old_data
-                            ];
+                            ];*/
+
+                    $pcn_data = ['new_data' => $new_data , 'old_data' =>$old_data ];        
                             
                 $subject = $request->pcn." is Modified";
 
