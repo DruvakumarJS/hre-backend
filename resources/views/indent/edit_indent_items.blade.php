@@ -6,7 +6,7 @@
             
         
         <div class="container-header">
-            <label class="label-bold" id="div1">Intend Details </label>
+            <label class="label-bold" id="div1">Indent Details </label>
             <div id="div2">
                 <a href="{{route('indent_details',$indend_data->indent->indent_no)}}"><button class="btn btn0sm btn-outline-secondary">Back to Indents</button></a>
                 
@@ -18,7 +18,7 @@
             <div class="HeadCounter">
                 <div class="row">
                     <div class="col">
-                        <label>Intend Number</label>
+                        <label>Indent Number</label>
                         <h3 class="label-bold">{{$indend_data->indent->indent_no}}</h3>
                     </div>
                     <div class="col">
@@ -90,7 +90,7 @@
                     <div style="margin-top: 20px">
                         <label>Created Date</label>
                         <div>
-                            <label class="label-bold">{{$indend_data->created_at}}</label>
+                            <label class="label-bold">{{date('d-m-Y H:i' ,strtotime($indend_data->created_at))}}</label>
                         </div>
                     </div>
 
@@ -165,7 +165,7 @@
                                     <td>{{$value->approved}} </td>
                                     <td>{{$value->damaged}} </td>
                                     <td>{{$value->comment}}</td>
-                                    <td>{{$value->created_at}}</td>
+                                    <td>{{date('d-m-Y H:i' ,strtotime($value->created_at))}}</td>
                                     <td>
                                         @if(Auth::user()->role_id == '3' || Auth::user()->role_id == '1')
                                         @if($value->status == 'Awaiting for Confirmation' && $indend_data->indent->status == 'Active') 

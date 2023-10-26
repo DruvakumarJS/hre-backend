@@ -183,7 +183,7 @@
 
              			<tr>
              				
-             				<td>{{$value->created_at}}</td>
+             				<td>{{date('d-m-Y H:i' ,strtotime($value->created_at))}}</td>
              				<td>{{$value->mailsender->name}}</td>
              				<td>{{$value->mailrecipient->name}}</td>
              				<td>{{$value->message}}</td>

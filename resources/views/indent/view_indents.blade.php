@@ -31,7 +31,7 @@
             <div>
               <label class="label-bolder">{{$id}}</label>
             </div>
-             <label>Intend Number</label>
+             <label>Indent Number</label>
           
         </div>
            

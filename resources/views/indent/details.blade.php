@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
       <div>
 
-        <label class="label-bold">Intend Details</label>
+        <label class="label-bold">Indent Details</label>
 
          <div id="div2">
              <button class="btn btn-light" ><i class="fa fa-plus"></i> Create User</button>
@@ -24,7 +24,7 @@
 
     	<div class="row">
     		 <div class="col-md-2">
-	    	 	<label>Intend Number</label>
+	    	 	<label>Indent Number</label>
 	    	 	<div>
 	    	 		<label class="label-bolder">{{$id}}</label>
 	    	 	</div>
