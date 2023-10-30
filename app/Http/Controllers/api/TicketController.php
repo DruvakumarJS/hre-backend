@@ -764,7 +764,7 @@ class TicketController extends Controller
              $images = explode(',', $value->filename);
              $pcn_data = Pcn::where('pcn',$value->pcn)->first();
              $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
-              $userdetail = Employee::where('user_id', $value->creator)->first();
+              $userdetail = Employee::where('user_id', $value->creator)->withTrashed()->first();
              $ticketarray[]=[
                     'ticket_creator' => $value->creator,
                     'creator_name' => $userdetail->name,
