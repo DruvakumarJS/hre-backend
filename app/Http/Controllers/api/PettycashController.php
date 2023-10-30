@@ -19,6 +19,8 @@ class PettycashController extends Controller
           
           if(isset($request->user_id)){
           	$data = PettycashOverview::where('user_id' , $request->user_id)->get();
+            $myspent = PettyCashDetail::where('user_id' , $request->user_id)->where('isapproved','!=' , '2')->sum('spent_amount');
+        
 
           	$casharray = array();
 
@@ -26,6 +28,7 @@ class PettycashController extends Controller
           		$result = [
           			'issued_amount' => $value->total_issued ,
           			'balance_amount' => $value->total_balance ,
+                'my_spend' => $myspent
           			 ];
 
                 array_push($casharray, $result);			
@@ -139,7 +142,7 @@ class PettycashController extends Controller
      	if(isset($request->user_id)){
 
      		$data = PettyCashDetail::where('user_id' , $request->user_id)->orderBy('id', 'DESC')->get();
-        
+
      		$details=array();
 
      		foreach ($data as $key => $value) {
