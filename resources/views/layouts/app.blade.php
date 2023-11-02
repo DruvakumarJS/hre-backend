@@ -111,6 +111,8 @@
                     ||request()->routeIs('employee-history')
                     ||request()->routeIs('get_attendance_by_date')
                     ||request()->routeIs('search_attendance')
+                    ||request()->routeIs('search_attendance_by_date')
+                    ||request()->routeIs('search_user_attendance')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Attendance</label></a>
 
@@ -188,6 +190,8 @@
                     ||request()->routeIs('employee-history')
                     ||request()->routeIs('get_attendance_by_date')
                     ||request()->routeIs('search_attendance')
+                    ||request()->routeIs('search_attendance_by_date')
+                    ||request()->routeIs('search_user_attendance')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Attendance</label></a>
 
@@ -258,6 +262,8 @@
                     ||request()->routeIs('employee-history')
                     ||request()->routeIs('get_attendance_by_date')
                     ||request()->routeIs('search_attendance')
+                    ||request()->routeIs('search_attendance_by_date')
+                    ||request()->routeIs('search_user_attendance')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Attendance</label></a>
 
