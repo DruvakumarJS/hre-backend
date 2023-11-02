@@ -33,14 +33,65 @@
             <label style="margin-top: 20px;">Hi ,Please find the Client details</label>
            
                    <div style="margin-top: 10px;">
-                     <label>Client Name : </label> <label class="label-bold">{{$data['name']}}</label>
+                     <label>Client Name : </label> <label class="label-bold">{{$data['details']['name']}}</label>
                   </div>
-                   <div style="margin-top: 10px;">
-                     <label>Mobile No : </label> <label class="label-bold">{{$data['mobile']}}</label>
-                  </div>
-                   <div style="margin-top: 10px;">
-                     <label>Email ID : </label> <label class="label-bold">{{$data['email']}}</label>
-                  </div>
+                   
+                   <label>Contact Details</label>
+
+                   <div  class="card border-white" style="margin-top: 10px;">
+                     <table class="table responsive" width="100%">
+                                      <thead>
+                                        <tr>
+                                           <th scope="col">Name</th>
+                                           <th scope="col">Designation</th>
+                                           <th scope="col">Mobile Number</th> 
+                                           <th scope="col">Email ID</th>
+                                           
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        
+                                         <tr>
+                                            <td style="text-align: center; ">{{$data['details']['full_name']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['designation']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['mobile']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['email']}}</td>
+                                           
+                                         </tr>
+
+                                         <tr>
+                                            <td style="text-align: center; ">{{$data['details']['full_name1']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['designation1']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['mobile1']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['email1']}}</td>
+                                           
+                                         </tr>
+
+                                         <tr>
+                                            <td style="text-align: center; ">{{$data['details']['full_name2']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['designation2']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['mobile2']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['email2']}}</td>
+                                           
+                                         </tr>
+
+                                         <tr>
+                                            <td style="text-align: center; ">{{$data['details']['full_name3']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['designation3']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['mobile3']}}</td>
+                                            <td style="text-align: center; ">{{$data['details']['email3']}}</td>
+                                           
+                                         </tr>
+                                       
+                                        
+                                        
+                                      </tbody>
+                                    </table>
+
+                
+                </div>
+
+                   
 
                   <div style="margin-top: 10px;">
                     <label >Brand and details</label>
@@ -58,12 +109,62 @@
                         <div style="margin-top: 10px;">
                            <label>Client Name : </label> <label class="label-bold">{{$data['old_data']['name']}}</label>
                         </div>
-                        <div style="margin-top: 10px;">
-                           <label>Mobile No : </label> <label class="label-bold">{{$data['old_data']['mobile']}}</label>
-                        </div>
-                         <div style="margin-top: 10px;">
-                           <label>Email ID : </label> <label class="label-bold">{{$data['old_data']['email']}}</label>
-                        </div>
+                       
+                       <label>Contact Details</label>
+
+                    <div  class="card border-white" style="margin-top: 10px;">
+                     <table class="table responsive" width="100%">
+                                      <thead>
+                                        <tr>
+                                           <th scope="col">Name</th>
+                                           <th scope="col">Designation</th>
+                                           <th scope="col">Mobile Number</th> 
+                                           <th scope="col">Email ID</th>
+                                           
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        
+                                         <tr>
+                                            <td style="text-align: center; ">{{$data['old_data']['full_name']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['designation']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['mobile']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['email']}}</td>
+                                           
+                                         </tr>
+
+                                         <tr>
+                                            <td style="text-align: center; ">{{$data['old_data']['full_name1']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['designation1']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['mobile1']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['email1']}}</td>
+                                           
+                                         </tr>
+
+                                         <tr>
+                                            <td style="text-align: center; ">{{$data['old_data']['full_name2']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['designation2']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['mobile2']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['email2']}}</td>
+                                           
+                                         </tr>
+
+                                         <tr>
+                                            <td style="text-align: center; ">{{$data['old_data']['full_name3']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['designation3']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['mobile3']}}</td>
+                                            <td style="text-align: center; ">{{$data['old_data']['email3']}}</td>
+                                           
+                                         </tr>
+                                       
+                                        
+                                        
+                                      </tbody>
+                                    </table>
+
+                
+                </div>
+                   
 
                         <div style="margin-top: 10px;">
                           <label >Brand and Details</label>

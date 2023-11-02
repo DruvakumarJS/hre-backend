@@ -22,24 +22,28 @@ $yvalue=array();
           </div>   
         </div>
        <div class="row">
-                <div class="col-sm-6 col-md-4" id="indents" onclick="indents();">
+                <div class="col-sm-6 col-md-4" id="indents" >
+                  <a href="{{route('intends')}}" style="color: white">
                     <div class="card border-white card_shadow" >
                         <div class="card-body">
                             <img src="{{ asset('images/indent.png') }}" alt="intend" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$todaysIndent}}</h2>
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$todaysIndent}}</h2>
                         </div>
                         <div  >
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Indents</h4>
                         </div >
-                        <label class="card-text-label ">Today's Indent</label>
+                        <label class="card-text-label " style="color: black">Today's Indent</label>
                     </div>
+                  </a>
+                    
                     <!--</div>-->
                 </div>
 
 
 
-                 <div class="col-sm-6 col-md-4" onclick="attendance();">
-                    <div class="card border-black card_shadow" style="background-color: #5A5A5A">
+                 <div class="col-sm-6 col-md-4" >
+                  <a href="{{route('attendance')}}" style="color: #5A5A5A">
+                     <div class="card border-black card_shadow" style="background-color: #5A5A5A">
                         <div class="card-body" >
                             <img src="{{ asset('images/attendance.svg') }}" alt="attendance" style="width:30px;height: 30px;">
                             <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">{{$attendance}}</h2>
@@ -50,22 +54,27 @@ $yvalue=array();
                         </div >
                         <label class="card-text-label" style="color:#fff">Today's Head Count</label>
                     </div>
+                  </a>
+                   
                     <!--</div>-->
                 </div>
 
 
-                 <div class="col-sm-6 col-md-4 " onclick="ticket();">
+                 <div class="col-sm-6 col-md-4 " >
+                  <a href="{{route('tickets')}}" style="color: white">
                     <div class="card border-white card_shadow">
                         <div class="card-body">
                             <img src="{{ asset('images/tickets.svg') }}" alt="ticket" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$tickets}}</h2>
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$tickets}}</h2>
                         </div>
                         <div  >
                             <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Tickets</h4>
                            
                         </div >
-                        <label class="card-text-label ">Today's Ticket</label>
+                        <label class="card-text-label " style="color: black">Today's Ticket</label>
                     </div>
+                  </a>
+                    
                     <!--</div>-->
                 </div>
       

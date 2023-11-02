@@ -231,7 +231,7 @@ $date = date('dd-mm-yyyy');
                         </div> -->
 
                          <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Provide Holiday</label>
+                            <label for="" class="col-5 col-form-label">Provide Holiday ?</label>
                             <div class="col-7">
                                 <select class="form-control form-select" id="holiday" name="holiday" value="{{old('holiday')}}" >
                                   <option value="">Select </option>
@@ -271,12 +271,31 @@ $date = date('dd-mm-yyyy');
                             </div>
                         </div>
 
+                        <div class="form-group row" >
+                            <label for="" class="col-5 col-form-label" id="dlp_label"  style="display: none">DLP Applicable ?</label>
+                            <div class="col-7" id="dlp_div"  style="display: none">
+                                <select class="form-control form-select" id="dlp_applicable" name="dlp_applicable" value="{{old('dlp_applicable')}}" >
+                                  <option value="">Select </option>
+                                  <option value="1" {{(old('dlp_applicable')=='Yes')? 'selected':''}}>Yes</option>
+                                  <option value="0" {{(old('dlp_applicable')=='No')? 'selected':''}}>No</option>
+                                  
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
+                            <label id="lbl_dlp_days" for="" class="col-5 col-form-label" style="display: none">DLP Days</label>
+                            <div class="col-7" id="">
+                                <input id="in_dlp_days" name="dlp_days" type="number" class="form-control" value="{{old('approved_holidays')}}"  min="0" style="display: none">
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group row">
                             <label for="" class="col-5 col-form-label">DLP Date</label>
                             <div class="col-7">
                                 <input id="dlp_date" name="dlp_date" type="text" class="form-control"  value="{{old('dlp_date')}}" placeholder="Select DLP Date">
                             </div>
-                        </div>
+                        </div> -->
                         
                         <input type="hidden" name="customer_id" id="customer_id" value="{{old('customer_id')}}">
                         <div class="form-group row">
@@ -345,7 +364,13 @@ $( document ).ready(function() {
 
 });
 
+      var ActualEndDate = document.getElementById('actual_end_date').value;
+     // alert(ActualEndDate);
 
+      if(ActualEndDate != ''){
+        document.getElementById('dlp_label').style.display="block";
+        document.getElementById('dlp_div').style.display="block";
+      }
 
 
       var mode = document.getElementById("holiday").value;
@@ -362,22 +387,55 @@ $( document ).ready(function() {
             document.getElementById("inp_approve").style.display= "none" ;
             document.getElementById("inp_approve").required = false;
          }
+
+
+      var dlp = document.getElementById("dlp_applicable").value;
+
+      if(dlp == "1"){
+            document.getElementById("lbl_dlp_days").style.display= "block" ;
+            document.getElementById("in_dlp_days").style.display= "block" ;
+            document.getElementById("in_dlp_days").required = true;
+
+         }
+         else {
+            document.getElementById('in_dlp_days').value='';
+            document.getElementById("lbl_dlp_days").style.display= "none" ;
+            document.getElementById("in_dlp_days").style.display= "none" ;
+            document.getElementById("in_dlp_days").required = false;
+
+         }   
    
 
      $('select').on('change', function() {
+     // alert(this.value);
 
-         if(this.value == "Yes"){
+        if(this.value == "Yes"){
             document.getElementById("lbl_approve").style.display= "block" ;
             document.getElementById("inp_approve").style.display= "block" ;
             document.getElementById("inp_approve").required = true;
 
          }
-         else {
-           document.getElementById('inp_approve').value='';
+        if(this.value == "No") {
+            document.getElementById('inp_approve').value='';
             document.getElementById("lbl_approve").style.display= "none" ;
             document.getElementById("inp_approve").style.display= "none" ;
             document.getElementById("inp_approve").required = false;
          }
+
+        if(this.value == "1"){
+            document.getElementById("lbl_dlp_days").style.display= "block" ;
+            document.getElementById("in_dlp_days").style.display= "block" ;
+            document.getElementById("in_dlp_days").required = true;
+
+         }
+        if(this.value == "0"){
+             document.getElementById('in_dlp_days').value='';
+            document.getElementById("lbl_dlp_days").style.display= "none" ;
+            document.getElementById("in_dlp_days").style.display= "none" ;
+            document.getElementById("in_dlp_days").required = false;
+
+         }
+         
    
      });
 
@@ -391,7 +449,7 @@ $( document ).ready(function() {
    $( function() {
       $( "#start_date" ).datepicker({
         //minDate:0,
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'dd-mm-yy',
         onSelect: function(dateText, $el) {
          // alert(dateText);
           setenddate(dateText);
@@ -403,7 +461,7 @@ $( document ).ready(function() {
      function setenddate(dateText){
          $("#end_date" ).datepicker({
          // minDate:dateText,
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'dd-mm-yy',
              onSelect: function(dateText, $el) {
          // alert(dateText);
               setDLPdate(dateText);
@@ -416,7 +474,7 @@ $( document ).ready(function() {
       function setDLPdate(dateText){
          $("#dlp_date" ).datepicker({
            minDate:dateText,
-            dateFormat: 'yy-mm-dd' 
+            dateFormat: 'dd-mm-yy' 
           });
       
      }
@@ -424,7 +482,7 @@ $( document ).ready(function() {
  $( function() {
       $( "#actual_start_date" ).datepicker({
       // minDate:0,
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'dd-mm-yy',
         onSelect: function(dateText, $el) {
         //  alert(dateText);
           setactualenddate(dateText);
@@ -438,8 +496,16 @@ $( document ).ready(function() {
      function setactualenddate(dateText){
          $("#actual_end_date" ).datepicker({
           // minDate:dateText,
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'dd-mm-yy',
+            onSelect: function(dateText, $el) {
+        // alert(dateText);
+         document.getElementById('dlp_label').style.display="block";
+         document.getElementById('dlp_div').style.display="block";
+
+
+        }
           });
+         
       
      }
 

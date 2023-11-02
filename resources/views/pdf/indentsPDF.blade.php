@@ -3,7 +3,7 @@
     <head>
         <style>
             @page {
-                margin: 100px 25px;
+                margin: 25px 25px;
             }
 
             header {
@@ -13,44 +13,53 @@
                 right: 0px;
                 height: 50px;
                 font-size: 20px !important;
-                background-color: #f10909;
+                /*background-color: #f10909;*/
                 color: white;
                 text-align: center;
                 line-height: 35px;
                 font-weight: bolder;
+
             }
 
             footer {
                 position: fixed; 
-                bottom: -60px; 
+                bottom: 20px; 
                 left: 0px; 
                 right: 0px;
                 height: 50px; 
                 font-size: 20px !important;
-                background-color: #f2f2f2;
-                color: black;
+                background-color: #f10909;
+                color: white;
                 text-align: center;
                 line-height: 35px;
+
             }
 
             table, th, td {
               border: 1px solid black;
               border-collapse: collapse;
+          }
+          div{
+
+          }
         </style>
     </head>
     <body>
         <!-- Define header and footer blocks before your content -->
-        <header>
-            HRE Teams - Material Indent
-            
-        </header>
-
+       
         <footer>
            <label style="font-size: 17px;">#241/E, 1st floor, 4th Block, HBR Layout, Outer Ring road, Hennur, Bengaluru 560043</label> 
         </footer>
 
         <!-- Wrap the content of your PDF inside a main tag -->
-        <main>
+        <main style="padding-left: : 30px;padding-right: 30px;padding-top: 10px;padding-bottom: 10px;">
+            
+            <div style="display: grid;place-items: center;">
+              <img src="data:image/svg;base64,{{base64_encode(file_get_contents(public_path('images/hre_logo.png')))}}" alt="" style="height: 100px; width: 100px;">
+              <label style="font-weight: bolder;font-size: 20px;text-align: center;display: grid;place-items: center;"> Material Indent</label>
+
+            </div>
+             
             <div>
                 <label>Date : </label> <label>{{date('d-m-Y')}}</label>
             </div>
@@ -75,6 +84,7 @@
                                         <tr>
                                            <th scope="col">Sl.no</th>
                                            <th scope="col">Material Id</th>
+                                           <th scope="col">Material Category</th>
                                            <th scope="col">Material Name</th> 
                                            <th scope="col">Brand</th> 
                                             <th scope="col">Description</th>                               
@@ -88,6 +98,7 @@
                                          <tr>
                                             <td style="text-align: center; ">{{$key+1}}</td>
                                             <td style="text-align: center; ">{{$value['material_id']}}</td>
+                                            <td style="text-align: center; ">{{$value['category']}}</td>
                                             <td style="text-align: center; ">{{$value['name']}}</td>
                                             <td style="text-align: center; ">{{$value['brand']}}</td>
                                             <td style="text-align: center; ">{{$value['comments']}}</td>

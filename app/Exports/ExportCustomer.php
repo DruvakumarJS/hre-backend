@@ -22,14 +22,22 @@ class ExportCustomer implements FromCollection, WithHeadings
             'addresses.brand',
             'addresses.state',
             'addresses.gst',
+            'customers.full_name',
+            'customers.designation',
             'customers.mobile',
-            'customers.mobile1',
-            'customers.mobile2',
-            'customers.mobile3',
             'customers.email',
+            'customers.full_name1',
+            'customers.designation1',
+            'customers.mobile1',
             'customers.email1',
+            'customers.full_name2',
+            'customers.designation2',
+            'customers.mobile2',
             'customers.email2',
-            'customers.email3' 
+            'customers.full_name3',
+            'customers.designation3',
+            'customers.mobile3',
+            'customers.email3',
             )
          ->join('customers', 'addresses.customer_id' , '=','customers.id')
          ->get();
@@ -58,8 +66,7 @@ class ExportCustomer implements FromCollection, WithHeadings
     public function headings(): array
      {       
        return [
-         'Date','Name', 'Brand' , 'State' , 'GST No.' , 'Mobile' , 'Mobile 1' , 'Mobile 2' , 'Mobile 3' ,
-         'Email' , 'Email 1', 'Email 2', 'Email 3' 
+         'Date','Name','Brand' , 'State' , 'GST No.' , 'Name' , 'Designation' , 'Mobile' , 'Email','Name2' , 'Designation2' , 'Mobile2' , 'Email2', 'Name3' , 'Designation3' , 'Mobile3' , 'Email3','Name4' , 'Designation4' , 'Mobile4' , 'Email4'
        ];
      }
 }

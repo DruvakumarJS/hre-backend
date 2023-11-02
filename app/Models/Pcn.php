@@ -34,6 +34,8 @@ class Pcn extends Model
     	'status',
     	'assigned_to',
       'owner',
+      'dlp_applicable',
+      'dlp_days',
       'dlp_date'];
 
         public function customer()

@@ -12,7 +12,7 @@
           </div>
 
            <div id="div2" style="margin-right: 30px" >
-            <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import</label></a>
+            <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import Materials</label></a>
           </div>
           
          

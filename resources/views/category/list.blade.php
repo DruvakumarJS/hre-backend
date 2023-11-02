@@ -16,13 +16,27 @@
            </a>
           </div>
 
+          <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_category')}}">
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search here" >
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
+
           <div id="div2" style="margin-right: 30px" >
-            <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import</label></a>
+            <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import Categories</label></a>
         </div>
 
            <div id="div3" style="margin-right: 30px">
              <a href="{{route('export-categories')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
           </div>
+
+          
 
             
         </div>

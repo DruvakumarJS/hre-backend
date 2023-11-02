@@ -47,6 +47,18 @@
             </div>
 
              <div  style="margin-top: 10px;">
+                <label>Material ID : </label> <label class="label-bold">{{$grndata['material_id']}}</label>
+            </div>
+
+            <div  style="margin-top: 10px;">
+                <label>Material Category : </label> <label class="label-bold">{{$grndata['category']}}</label>
+            </div>
+
+             <div  style="margin-top: 10px;">
+                <label>Material Name : </label> <label class="label-bold">{{$grndata['material_name']}}</label>
+            </div>
+
+             <div  style="margin-top: 10px;">
                 <label>Dispatched Quantity : </label> <label class="label-bold">{{$grndata['dispatched']}}</label>
              </div>
                   @php

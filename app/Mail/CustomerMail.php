@@ -31,6 +31,7 @@ class CustomerMail extends Mailable
      */
     public function build()
     {
+        //print_r($this->data['details']['name']); die();
         return $this->subject($this->subject)->view('email.customer');
     }
 }

@@ -17,7 +17,7 @@ use App\Exports\ExportPettycashSummary;
 use App\Exports\ExportMultipleIndents;
 
 use Excel ;
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Pcn;
 use App\Models\Ticket;

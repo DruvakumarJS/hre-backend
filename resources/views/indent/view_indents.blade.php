@@ -75,8 +75,9 @@
                               <th scope="col">Brand</th>
                               <th scope="col">Information</th>
                               <th scope="col">Description</th>                          
-                              <th scope="col">Total Quantity</th>
-                              <th scope="col">GRN</th>
+                              <th scope="col">Total Indent</th>
+                              <th scope="col">Total GRN</th>
+                              <th scope="col">Total Dispatch</th>
                               <th scope="col">Pending</th>
                               <th scope="col">Status</th>
                               <th scope="col">Action</th>
@@ -110,6 +111,7 @@
                              	<td>{{$value->decription}}</td>
                              	<td>{{$value->quantity}} {{$value->materials->uom}}</td>
                              	<td>{{$value->recieved}} {{$value->materials->uom}}</td>
+                              <td>{{$value->grns_sum_dispatched}} {{$value->materials->uom}}</td>
                              	<td>{{$value->pending}} {{$value->materials->uom}}</td>
                              	<td>{{$value->status}}</td>
                              	<td>

@@ -26,8 +26,7 @@ class ExportTicket implements FromCollection, WithHeadings
         if($this->filter == 'all'){
         	 $att= DB::table('tickets')
            ->select(
-             DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
-            'tickets.created_at',
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
         		'tickets.ticket_no' ,
         		'tickets.pcn' ,
         		'pcns.client_name',
@@ -40,6 +39,7 @@ class ExportTicket implements FromCollection, WithHeadings
         		'tickets.priority' ,
         		'tickets.tat' ,
         		'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
         		'tickets.status')
                ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
                ->join('users', 'tickets.creator', '=', 'users.id')
@@ -48,7 +48,7 @@ class ExportTicket implements FromCollection, WithHeadings
         else if($this->filter == 'Reopend'){
              $att= DB::table('tickets')
                ->select(
-                'tickets.created_at',
+                DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
@@ -61,6 +61,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
                ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
                ->join('users', 'tickets.creator', '=', 'users.id')
@@ -70,7 +71,7 @@ class ExportTicket implements FromCollection, WithHeadings
         else {
              $att= DB::table('tickets')
                ->select(
-                'tickets.created_at',
+                DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
@@ -83,6 +84,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
                ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
                ->join('users', 'tickets.creator', '=', 'users.id')
@@ -98,7 +100,7 @@ class ExportTicket implements FromCollection, WithHeadings
     public function headings(): array
      {       
        return [
-         'Date','Ticket ID', 'PCN' , 'Billing Name' , 'Area' , 'City' , 'category' , 'Description' ,  'Creator' , 'Is Reopened' , 'Priority' , 'TAT' , 'Latest Comment' , 'Status'
+         'Created Date','Ticket ID', 'PCN' , 'Billing Name' , 'Area' , 'City' , 'category' , 'Description' ,  'Creator' , 'Is Reopened' , 'Priority' , 'TAT' , 'Latest Comment' , 'Updated Date','Status'
        ];
      }
 }

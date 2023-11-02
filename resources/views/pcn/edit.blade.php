@@ -133,7 +133,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project Start Date</label>
                             <div class="col-7">
-                                <input id="start_date" name="start_date" type="text" class="form-control" value="{{$pcn_data->proposed_start_date}}" placeholder="Select Proposed Start Date" autocomplete="off">
+                                <input id="start_date" name="start_date" type="text" class="form-control" value="<?php  echo ($pcn_data->proposed_start_date !='')? date('d-m-Y', strtotime($pcn_data->proposed_start_date)) : ''?>" placeholder="Select Proposed Start Date" autocomplete="off">
                                 
                             </div>
 
@@ -141,7 +141,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Proposed Project End Date</label>
                             <div class="col-7"  >
-                                <input id="end_date" name="end_date" type="text" class="form-control" value="{{$pcn_data->proposed_end_date}}" placeholder="Select Proposed End Date" onclick="set_enddate()" autocomplete="off">
+                                <input id="end_date" name="end_date" type="text" class="form-control" value="<?php  echo ($pcn_data->proposed_end_date !='')? date('d-m-Y', strtotime($pcn_data->proposed_end_date)) : ''?>" placeholder="Select Proposed End Date" onclick="set_enddate()" autocomplete="off">
                                 
                             </div>
                         </div>
@@ -167,14 +167,14 @@
                         <div class="form-group row">
                             <label for="text1" class="col-5 col-form-label">Actual Start Date</label>
                             <div class="col-7">
-                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" value="{{$pcn_data->actual_start_date}}" placeholder="Select Actual Start Date" autocomplete="off">
+                                <input id="actual_start_date" name="actual_start_date" type="text" class="form-control" value="<?php  echo ($pcn_data->actual_start_date !='')? date('d-m-Y', strtotime($pcn_data->actual_start_date)) : ''?>" placeholder="Select Actual Start Date" autocomplete="off">
                                 
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Actual Completed Date</label>
                             <div class="col-7">
-                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" value="{{$pcn_data->actual_completed_date}}" placeholder="Select Actual End Date" onclick="set_actual_enddate()" autocomplete="off">
+                                <input id="actual_end_date" name="actual_end_date" type="text" class="form-control" value="<?php  echo ($pcn_data->actual_completed_date !='')? date('d-m-Y', strtotime($pcn_data->actual_completed_date)) : ''?>" placeholder="Select Actual End Date" onclick="set_actual_enddate()" autocomplete="off">
                                  
                             </div>
                         </div>
@@ -191,10 +191,29 @@
                             </div>
                         </div> -->
 
-                         <div class="form-group row">
+                        <!--  <div class="form-group row">
                             <label for="" class="col-5 col-form-label">DLP Date</label>
                             <div class="col-7">
                                 <input id="dlp_date" name="dlp_date" type="text" class="form-control"  value="{{$pcn_data->dlp_date}}" placeholder="Select DLP Date">
+                            </div>
+                        </div> -->
+
+                        <div class="form-group row">
+                            <label for="" class="col-5 col-form-label"  id="dlp_label"  style="display: none">DLP Applicable ?</label>
+                            <div class="col-7"  id="dlp_div"  style="display: none">
+                                <select class="form-control form-select"  name="dlp_applicable">
+                                  <option value="">Select </option>
+                                  <option value="1" <?php echo ($pcn_data->dlp_applicable == '1') ? 'selected' : ''; ?> >Yes</option>
+                                  <option value="0" <?php echo ($pcn_data->dlp_applicable == '0') ? 'selected' : ''; ?> >No</option>
+                                  
+                                </select>
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label id="lbl_dlp_days" for="" class="col-5 col-form-label" style="display: <?php echo ($pcn_data->dlp_applicable == '1') ? 'block' : 'none'; ?>">DLP Days</label>
+                            <div class="col-7" id="">
+                                <input id="in_dlp_days" name="dlp_days" type="number" class="form-control" value ="{{$pcn_data->approved_days}}" min="0" style="display: <?php echo ($pcn_data->dlp_applicable == '1') ? 'block' : 'none'; ?>">
                             </div>
                         </div>
 
@@ -291,9 +310,10 @@ $( document ).ready(function() {
 
         var s_date = document.getElementById('start_date').value;
         if(s_date!=''){
+
            $("#end_date" ).datepicker({
          //  minDate:document.getElementById('start_date').value,
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'dd-mm-yy'
           });
         }
 
@@ -302,7 +322,13 @@ $( document ).ready(function() {
         if(s_date!=''){
            $("#actual_end_date" ).datepicker({
           // minDate:document.getElementById('actual_start_date').value,
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'dd-mm-yy',
+            onSelect: function(dateText, $el) {
+        // alert(dateText);
+         document.getElementById('dlp_label').style.display="block";
+         document.getElementById('dlp_div').style.display="block";
+         }
+
           });
         }
 
@@ -310,10 +336,17 @@ $( document ).ready(function() {
         if(s_date!=''){
            $("#dlp_date" ).datepicker({
            minDate:document.getElementById('end_date').value,
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'dd-mm-yy'
           });
         }
 
+       var ActualEndDate = document.getElementById('actual_end_date').value;
+     // alert(ActualEndDate);
+
+      if(ActualEndDate != ''){
+        document.getElementById('dlp_label').style.display="block";
+        document.getElementById('dlp_div').style.display="block";
+      }
 
         
 
@@ -325,10 +358,23 @@ $( document ).ready(function() {
             document.getElementById("inp_approve").required = true;
 
          }
-         else {
+         if(this.value == "No") {
             document.getElementById("lbl_approve").style.display= "none" ;
             document.getElementById("inp_approve").style.display= "none" ;
             document.getElementById("inp_approve").required = false;
+         }
+         if(this.value == "1"){
+            document.getElementById("lbl_dlp_days").style.display= "block" ;
+            document.getElementById("in_dlp_days").style.display= "block" ;
+            document.getElementById("in_dlp_days").required = true;
+
+         }
+        if(this.value == "0"){
+             document.getElementById('in_dlp_days').value='';
+            document.getElementById("lbl_dlp_days").style.display= "none" ;
+            document.getElementById("in_dlp_days").style.display= "none" ;
+            document.getElementById("in_dlp_days").required = false;
+
          }
    
      });
@@ -410,7 +456,7 @@ $( document ).ready(function() {
     $( function() {
       $("#start_date").datepicker({
       // minDate:0,
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'dd-mm-yy',
         onSelect: function(dateText, $el) {
          
           setenddate(dateText);
@@ -423,7 +469,7 @@ $( document ).ready(function() {
      
          $("#end_date").datepicker({
          //  minDate:'2023-06-30',
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'dd-mm-yy',
              onSelect: function(dateText, $el) {
          // alert(dateText);
               setDLPdate(dateText);
@@ -436,7 +482,7 @@ $( document ).ready(function() {
       function setDLPdate(dateText){
          $("#dlp_date" ).datepicker({
            minDate:dateText,
-            dateFormat: 'yy-mm-dd' 
+            dateFormat: 'dd-mm-yy' 
           });
       
      }
@@ -445,7 +491,7 @@ $( document ).ready(function() {
  $( function() {
       $( "#actual_start_date" ).datepicker({
       // minDate:0,
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'dd-mm-yy',
         onSelect: function(dateText, $el) {
         //  alert(dateText);
           setactualenddate(dateText);
@@ -458,7 +504,7 @@ $( document ).ready(function() {
  function setactualenddate(dateText){
          $("#actual_end_date" ).datepicker({
           // minDate:dateText,
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'dd-mm-yy'
           });
       
      }
@@ -469,7 +515,7 @@ $( document ).ready(function() {
 
          $("#end_date" ).datepicker({
          // minDate:document.getElementById('start_date').value,
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'dd-mm-yy'
           });
        
           
@@ -479,7 +525,8 @@ $( document ).ready(function() {
       
          $("#actual_end_date" ).datepicker({
           // minDate:document.getElementById('actual_start_date').value,
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'dd-mm-yy',
+            
           });
        
           

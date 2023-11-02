@@ -166,8 +166,10 @@ class IntendController extends Controller
            $pdf_array = Indent_list::where('indent_id' , $idtend->id)->with('materials')->get();
 
            foreach ($pdf_array as $key => $value) {
+
              $data[] = [
               'material_id' => $value->material_id ,
+              'category' => $value->materials->Category->category,
               'name' => $value->materials->name ,
               'brand' => $value->materials->brand ,
               'quantity' => $value->quantity,
@@ -259,9 +261,10 @@ class IntendController extends Controller
         $indent_id = $indents->id ;
         $pcn = $indents->pcn ;
 
-        $indents_list = Indent_list::where('indent_id',$indent_id)->orderBy('material_id', 'ASC')->paginate(25);
+        $indents_list = Indent_list::withSum('grns','dispatched')->
+             where('indent_id',$indent_id)->orderBy('material_id', 'ASC')->paginate(25);
 
-       // print_r($indents_list);die();
+       // print_r(json_encode($indents_list));die();
          return view('indent/view_indents',compact('id' , 'indents_list' , 'pcn'));
     }
 
@@ -413,7 +416,7 @@ class IntendController extends Controller
                 'status' => "Awaiting for Confirmation"
             ]);
 
-
+            $indent_list_details = Indent_list::where('id',$request->id)->first();
             $userdetail = Employee::where('user_id',$indent->user_id)->first();
             $subject = "Materials Dispatched : ".$GRN_id." - ".$request->indent_no." - ".$request->pcn." - ".$request->category;
 
@@ -421,11 +424,16 @@ class IntendController extends Controller
               'grn' => $GRN_id,
               'owner' => $userdetail->name,
               'indent_no' => $request->indent_no,
-              'dispatched' => $request->quantity,
+              'material_id' => $indent_list_details->material_id,
+              'category' => $indent_list_details->materials->Category->category,
+              'material_name' => $indent_list_details->materials->name ,
+              'dispatched' => $request->quantity.''.$indent_list_details->materials->uom,
              ];
+
+            // print_r($grndata); die();
             
              // Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
-             try {
+                try {
                       Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
                     } catch (\Exception $e) {
                         return $e->getMessage();

@@ -680,6 +680,7 @@ class TicketController extends Controller
                  ->orWhere('pcn','LIKE','%'.$search.'%')
                  ->orWhere('ticket_no','LIKE','%'.$search.'%')
                  ->orWhere('status','LIKE','%'.$search.'%')
+                 ->orWhere('category','LIKE','%'.$search.'%')
                  ->orWhereHas('pcns',function($query)use($search){
                     $query->where('brand' , 'LIKE' , '%'.$search.'%');
                  })

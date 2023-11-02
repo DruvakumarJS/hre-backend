@@ -184,6 +184,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     ;
     Route::post('search-attendance',[AttendanceController::class,'get_attendance_by_date'])->name('get_attendance_by_date')
     ;
+    Route::post('search_attendance_by_date',[AttendanceController::class,'search_attendance_by_date'])->name('search_attendance_by_date')
+    ;
 
     Route::post('add_attendance',[AttendanceController::class,'store'])->name('add_attendance');
     Route::post('attendance',[AttendanceController::class,'fetch_data'])->name('fetch_attendance');
@@ -191,6 +193,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('update_attendance',[AttendanceController::class,'update'])->name('update_attendance');
     Route::post('search_employee',[AttendanceController::class,'search'])->name('search_employee');
     Route::post('search_attendance',[AttendanceController::class,'search_attendance'])->name('search_attendance');
+    Route::post('search_user_attendance',[AttendanceController::class,'search_user_attendance'])->name('search_user_attendance');
 
  //petty cash
      Route::get('autocomplete_employee',[PettycashController::class,'action'])->name('autocomplete_employee');
@@ -242,6 +245,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('create_category',[CategoryController::class, 'create'])->name('create-category');
     Route::get('delete_category/{id}',[CategoryController::class, 'destroy'])->name('delete_category');
     Route::post('update-category',[CategoryController::class, 'update'])->name('update-category');
+    Route::post('search-category',[CategoryController::class, 'search'])->name('search_category');
     
 
     Route::get('superadmins',[UserController::class, 'view_superadmins'])->name('admin');

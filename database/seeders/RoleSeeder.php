@@ -27,7 +27,7 @@ class RoleSeeder extends Seeder
                     ],
                     [
                         'name' => 'procurement',
-                        'alias' => 'Procurement Manager',
+                        'alias' => 'Procurement',
                         'description'=>'Dispatch Indents'
                     ],
                     [

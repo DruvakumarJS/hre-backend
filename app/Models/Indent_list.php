@@ -33,7 +33,11 @@ class Indent_list extends Model
 
      function grn(){
             return $this->hasMany(GRN::class,'id', 'indent_list_id');
-        }      
+        }  
+
+     function grns(){
+            return $this->hasMany(GRN::class,'indent_list_id', 'id');
+        }        
         
 
                

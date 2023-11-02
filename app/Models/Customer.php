@@ -20,7 +20,16 @@ class Customer extends Model
     	'mobile',
         'mobile1',
         'mobile2',
-        'mobile3'
+        'mobile3',
+        'full_name',
+        'designation',
+        'full_name1',
+        'designation1',
+        'full_name2',
+        'designation2',
+        'full_name3',
+        'designation3',
+
     	];
 
      function address(){

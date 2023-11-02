@@ -14,7 +14,7 @@
          </div>
 
           <div id="div2" style="margin-right: 30px" >
-            <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import</label></a>
+            <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import Customer</label></a>
           </div>
           @endif
 
@@ -56,6 +56,8 @@
                             <tr>
                               <th scope="col">Creation Date</th>
                               <th scope="col">Billing Name</th>
+                              <th scope="col">Contact person</th>
+                              <th scope="col">Designation</th>
                               <th scope="col">Email</th>
                               <th scope="col">Mobile</th>
                               <!-- <th scope="col" width="200px">Address</th> -->
@@ -70,6 +72,8 @@
                             <tr>
                               <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->name}}</td>
+                              <td>{{$value->full_name}}</td>
+                              <td>{{$value->designation}}</td>
                               <td>{{$value->email}}</td>
                               <td>{{$value->mobile}}</td>
                              <!--  <td>

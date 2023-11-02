@@ -34,10 +34,11 @@ class PcnController extends Controller
     public function index()
     {
         if(Auth::user()->id == '1'){
-           $pcns = Pcn::orderBy('id','DESC')->paginate(25); 
+           $pcns = Pcn::orderByraw('length(pcn),pcn')->paginate(25); 
+          // $pcns=DB::table('pcns')->orderByraw('length(pcn),pcn')->paginate(25);
         }
         else {
-             $pcns = Pcn::where('status','Active')->orderBy('id','DESC')->paginate(25); 
+             $pcns = Pcn::where('status','Active')->orderByraw('length(pcn),pcn')->paginate(25); 
         }
        
        return view('pcn/list', compact('pcns'));
@@ -63,8 +64,8 @@ class PcnController extends Controller
      */
     public function store(Request $request)
     {
-      //print_r($request->Input()); die();
-       
+      print_r($request->Input()); 
+ 
         $pcn = 'PCN_'.$request->pcn;
        if (Pcn::where('pcn',$pcn)->exists()) {
 
@@ -77,19 +78,38 @@ class PcnController extends Controller
         else {
 
             if($request->start_date == ''){
-            $start_date = date('Y-m-d');
-        }
-        else{
-            $start_date = $request->start_date ;
-        }
+             $start_date = date('Y-m-d');
+            }
+            else{
+                $start_date = date('Y-m-d',strtotime($request->start_date));
+            }
+            
+             if($request->actual_start_date == ''){
+                $actual_start_date = date('Y-m-d');
+            }
+            else{
+                $actual_start_date = date('Y-m-d',strtotime($request->actual_start_date));
+            }
 
-         if($request->actual_start_date == ''){
-            $actual_start_date = date('Y-m-d');
-        }
-        else{
-            $actual_start_date = $request->actual_start_date ;
-        }
+            if($request->end_date == ''){
+             $end_date = '';
+            }
+            else{
+                $end_date = date('Y-m-d',strtotime($request->end_date));
+            }
+            
 
+            if($request->actual_end_date == ''){
+                $actual_end_date = '';
+            }
+            else{
+                $actual_end_date = date('Y-m-d',strtotime($request->actual_end_date));
+            }
+            /*print_r($start_date);
+            print_r($end_date);
+            print_r($actual_start_date);
+            print_r($actual_end_date); die();
+*/
             $targeted_days='';
 
             if($request->holiday == 'No' || $request->holiday == ''){
@@ -109,6 +129,18 @@ class PcnController extends Controller
 
             }
 
+            if($request->dlp_applicable == '1'){
+               $dlp_days = $request->dlp_days;
+               $dlp_date = date('Y-m-d', strtotime(date('Y-m-d').'+'.$dlp_days.' days'));
+              
+
+            }
+            else{
+                $dlp_days = '0';
+                $dlp_date = '';
+
+            }
+           //  print_r('dlp date is '.$dlp_date); die();
 
             $createPCN = Pcn::create([
                 'pcn'=>'PCN_'.$request->pcn ,
@@ -124,17 +156,19 @@ class PcnController extends Controller
                 'pincode' => $request->pincode,
                 'gst' => $request->gst ,
                 'proposed_start_date' => $start_date,
-                'proposed_end_date' => $request->end_date,
+                'proposed_end_date' => $end_date,
                 'approve_holidays' => $request->holiday,
                 'approved_days' => $approved_days,
                 'targeted_days' => $targeted_days,
                 'actual_start_date' => $actual_start_date,
-                'actual_completed_date' => $request->actual_end_date,
+                'actual_completed_date' => $actual_end_date,
                 'hold_days' => $request->hold_days,
                 'assigned_to' => $request->user_id,
                 'status' => "Active",
                 'owner' => $request->user_id,
-                'dlp_date' => $request->dlp_date,
+                'dlp_applicable' => $request->dlp_applicable,
+                'dlp_days' => $dlp_days,
+                'dlp_date' => $dlp_date,
         ]);
 
             if($createPCN){
@@ -155,7 +189,7 @@ class PcnController extends Controller
 
                 $subject = 'PCN_'.$request->pcn." - New PCN added";
 
-                $emailarray = User::select('email')->get();
+                $emailarray = User::select('email')->where('role_id', '!=','4')->get();
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
@@ -234,6 +268,35 @@ class PcnController extends Controller
         
         $old_data = Pcn::where('pcn' ,$request->pcn)->first();
 
+        if($request->start_date == ''){
+             $start_date = '';
+            }
+            else{
+                $start_date = date('Y-m-d',strtotime($request->start_date));
+            }
+            
+             if($request->actual_start_date == ''){
+                $actual_start_date = '';
+            }
+            else{
+                $actual_start_date = date('Y-m-d',strtotime($request->actual_start_date));
+            }
+
+            if($request->end_date == ''){
+             $end_date = '';
+            }
+            else{
+                $end_date = date('Y-m-d',strtotime($request->end_date));
+            }
+            
+
+            if($request->actual_end_date == ''){
+                $actual_end_date = '';
+            }
+            else{
+                $actual_end_date = date('Y-m-d',strtotime($request->actual_end_date));
+            }
+
 
         if($request->actual_end_date != ''){
             $end = strtotime($request->actual_end_date);
@@ -266,6 +329,18 @@ class PcnController extends Controller
 
             }
 
+            if($request->dlp_applicable == '1'){
+               $dlp_days = $request->dlp_days;
+               $dlp_date = date('Y-m-d', strtotime(date('Y-m-d').'+'.$dlp_days.' days'));
+              
+
+            }
+            else{
+                $dlp_days = '';
+                $dlp_date = '';
+
+            }
+
             $updatePCN = Pcn::where('pcn' ,$request->pcn)->update([
                 'po'=>$request->po_number,
                 'customer_id' => $request->customer_id ,
@@ -278,17 +353,19 @@ class PcnController extends Controller
                 'pincode' => $request->pincode,
                 'state' => $request->state,
                 'gst' => $request->gst,
-                'proposed_start_date' => $request->start_date,
-                'proposed_end_date' => $request->end_date,
+                'proposed_start_date' => $start_date,
+                'proposed_end_date' => $end_date,
                 'approve_holidays' => $request->holiday,
                 'approved_days' => $approved_days,
                 'targeted_days' => $targeted_days,
-                'actual_start_date' => $request->actual_start_date,
-                'actual_completed_date' => $request->actual_end_date,
+                'actual_start_date' => $actual_start_date,
+                'actual_completed_date' => $actual_end_date,
                 'hold_days' => $request->hold_days,
                 'days_acheived'=> $achieved_days,
                 'status' => $request->status,
-                'dlp_date' => $request->dlp_date,
+                'dlp_applicable' => $request->dlp_applicable,
+                'dlp_days' => $dlp_days,
+                'dlp_date' => $dlp_date,
                 
         ]);
 
@@ -313,7 +390,7 @@ class PcnController extends Controller
                             
                 $subject = $request->pcn." is Modified";
 
-                $emailarray = User::select('email')->get();
+                $emailarray = User::select('email')->where('role_id', '!=','4')->get();
                    foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;
                    }
@@ -357,7 +434,7 @@ class PcnController extends Controller
 
     public function view_pcn()
     {
-        $pcns = Pcn::orderBy('id', 'DESC')->paginate(25);
+        $pcns = Pcn::orderByraw('length(pcn),pcn')->paginate(25);
         return view('pcn/view_pcn' , compact('pcns'));
     }
 

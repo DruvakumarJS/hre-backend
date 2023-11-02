@@ -16,26 +16,30 @@
         </div>
 
      <div class="row">
-                <div class="col-sm-6 col-md-4 " onclick="indents()">
-                    <div class="card border-white">
+                <div class="col-sm-6 col-md-4 " >
+                    <a href="{{route('intends')}}" style="color: white">
+                        <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/indent.png') }}" alt="intend" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$indents}}</h2>
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$indents}}</h2>
                         </div>
                         <div  >
-                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Indents</h4>
+                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px;color: black">Indents</h4>
                            
                         </div >
-                        <label class="card-text-label ">My Indents </label>
+                        <label class="card-text-label " style="color: black">My Indents </label>
                         
                     </div>
+                    </a>
+                    
                     <!--</div>-->
                 </div>
 
 
 
                  <div class="col-sm-6 col-md-4" onclick="attendance()">
-                    <div class="card border-black" style="background-color: #5A5A5A">
+                    
+                        <div class="card border-black" style="background-color: #5A5A5A">
                         <div class="card-body" >
                             <img src="{{ asset('images/attendance.svg') }}" alt="attendance" style="width:30px;height: 30px;">
                             <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">{{($attendance == "1") ? 'P' : 'A'}}</h2>
@@ -46,23 +50,28 @@
                         </div >
                        <label class="card-text-label " style="color: #fff;">Today's Attendance</label>
                     </div>
+                    
+                    
                     <!--</div>-->
                 </div>
 
 
                  <div class="col-sm-6 col-md-4 " onclick="ticket()">
-                    <div class="card border-white">
+                    <a href="{{route('tickets')}}" style="color: white">
+                        <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/tickets.svg') }}" alt="ticket" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$tickets}}</h2>
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$tickets}}</h2>
                         </div>
                         <div  >
-                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Tickets</h4>
+                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px;color: black">Tickets</h4>
                            
                         </div >
-                        <label class="card-text-label  ">My Tickets </label>
+                        <label class="card-text-label  " style="color: black">My Tickets </label>
                       
                     </div>
+                    </a>
+                    
                     <!--</div>-->
                 </div>
 

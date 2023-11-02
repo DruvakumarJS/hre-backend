@@ -88,6 +88,8 @@ class TicketConversationController extends Controller
                 'filename' => $fileName]);
 
             if($conversation){
+                $update = Ticket::where('id',$request->ticket_id)->update(['comments' => $request->message]);
+                
                 $sender = Employee::where('user_id',$request->sender)->first();
                 $recipient = Employee::where('user_id',$request->recipient)->first();
 

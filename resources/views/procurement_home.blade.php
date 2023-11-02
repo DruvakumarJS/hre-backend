@@ -33,25 +33,29 @@
         </div>
    
        <div class="row">
-                <div class="col-sm-6 col-md-4 " onclick="indents();">
+                <div class="col-sm-6 col-md-4 ">
+                  <a href="{{route('intends')}}" style="color: white">
                     <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/indent.png') }}" alt="intend" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$todaysIndent}}</h2>
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$todaysIndent}}</h2>
                         </div>
                        <div>
-                            <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;">Indents</h4>
+                            <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;color: black">Indents</h4>
                            
                         </div>
-                         <label class="card-text-label ">Today's Indent</label>
+                         <label class="card-text-label " style="color: black">Today's Indent</label>
 
                     </div>
+                  </a>
+                    
                     <!--</div>-->
                 </div>
 
 
 
-                 <div class="col-sm-6 col-md-4"  onclick="indents();">
+                 <div class="col-sm-6 col-md-4"  >
+                  <a href="{{route('filter_indents','Completed')}}" style="color: #5A5A5A">
                     <div class="card border-black" style="background-color: #5A5A5A">
                         <div class="card-body" >
                             <img src="{{ asset('images/indent.png') }}" alt="attendance" style="width:30px;height: 30px;">
@@ -64,23 +68,28 @@
                          <label class="card-text-label" style="color: #fff">Today's Completed Indent</label>
                         
                     </div>
+                  </a>
+                    
                     <!--</div>-->
                 </div>
 
 
-                 <div class="col-sm-6 col-md-4 "  onclick="grn();">
-                    <div class="card border-white">
+                 <div class="col-sm-6 col-md-4 " >
+                  <a href="{{route('grn')}}" style="color: white">
+                     <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/indent.png') }}" alt="ticket" style="width:30px;height: 30px;">
-                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ; ">{{$grn}}</h2>
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$grn}}</h2>
                         </div>
                         <div>
-                           <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;">GRNs</h4>
+                           <h4 class="card-text-black" style="float:left;font-size: 25px; font-weight: bolder;color: black">GRNs</h4>
                             
                         </div>
-                         <label class="card-text-label ">Today's Dispatches </label>
+                         <label class="card-text-label " style="color: black">Today's Dispatches </label>
                        
                     </div>
+                  </a>
+                   
                    
                 </div>
 

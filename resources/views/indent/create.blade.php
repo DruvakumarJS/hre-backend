@@ -294,7 +294,7 @@ var inform ="";
           },500)
 
           if(ui.item.status == 'Completed'){
-            document.getElementById("pcn_detail").innerHTML="This PCN is Completed , Please contact your Super Admin for more information";
+            document.getElementById("pcn_detail").innerHTML="Selected Project is Completed, Please contact super Admin for more information";
             $('#pcn_detail').css('color', 'red');
             document.getElementById("btn_submit").style.display= "none" ;
           }

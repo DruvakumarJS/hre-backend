@@ -78,12 +78,13 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-       // print_r($request->Input()); die();
+        //print_r($request->Input()); die();
        
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
                
         ]);
+
 
 
        if ($validator->fails()) {
@@ -96,20 +97,28 @@ class CustomerController extends Controller
            
            $customer = Customer::create([
             'name' => $request->name,
-            'mobile' => $request->mobile ,
-            'mobile1' => $request->mobile1 ,
-            'mobile2' => $request->mobile2 ,
-            'mobile3' => $request->mobile3 ,
-            'email' => $request->email ,
-            'email1' => $request->email1 ,
-            'email2' => $request->email2 ,
-            'email3' => $request->email3 ,
+            'mobile' => $request->mobile1 ,
+            'mobile1' => $request->mobile2 ,
+            'mobile2' => $request->mobile3 ,
+            'mobile3' => $request->mobile4 ,
+            'email' => $request->email1 ,
+            'email1' => $request->email2 ,
+            'email2' => $request->email3 ,
+            'email3' => $request->email4 ,
+            'full_name' => $request->full_name1,
+            'designation' => $request->designation1,
+            'full_name1' => $request->full_name2,
+            'designation1' => $request->designation2,
+            'full_name2' => $request->full_name3,
+            'designation2' => $request->designation3,
+            'full_name3' => $request->full_name4,
+            'designation3' => $request->designation4,
            
            ]);
 
            if($customer){
 
-            $customer_id = Customer::select('id')->where('email',$request->email)->first();
+            $customer_id = Customer::select('id')->where('email',$request->email1)->first();
 
             $customer_address =  $request->address ;
 
@@ -127,7 +136,25 @@ class CustomerController extends Controller
            }
        
           $subject = "New Customer Added";
-          $data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email , 'address' => $customer_address];
+          $details =[ 'name' => $request->name,
+            'mobile' => $request->mobile1,
+            'mobile1' => $request->mobile2 ,
+            'mobile2' => $request->mobile3 ,
+            'mobile3' => $request->mobile4 ,
+            'email' => $request->email1 ,
+            'email1' => $request->email2 ,
+            'email2' => $request->email3 ,
+            'email3' => $request->email4 ,
+            'full_name' => $request->full_name1,
+            'designation' => $request->designation1,
+            'full_name1' => $request->full_name2,
+            'designation1' => $request->designation2,
+            'full_name2' => $request->full_name3,
+            'designation2' => $request->designation3,
+            'full_name3' => $request->full_name4,
+            'designation3' => $request->designation4 ]; 
+            
+          $data = ['details' =>$details  ,'address' => $customer_address];
 
              $emailarray = User::select('email')->where('role_id','!=','4')->get();
                foreach ($emailarray as $key => $value) {
@@ -196,17 +223,25 @@ class CustomerController extends Controller
           // print_r($cust_data->name); die();
            
           // print_r(json_encode($cust_data)); die();
-
+        
         $update_customer = Customer::where('id', $request->id)->update([
             'name' => $request->name,
-            'mobile' => $request->mobile ,
-            'mobile1' => $request->mobile1 ,
-            'mobile2' => $request->mobile2 ,
-            'mobile3' => $request->mobile3 ,
-            'email' => $request->email ,
-            'email1' => $request->email1 ,
-            'email2' => $request->email2 ,
-            'email3' => $request->email3 ,
+            'mobile' => $request->mobile1,
+            'mobile1' => $request->mobile2 ,
+            'mobile2' => $request->mobile3 ,
+            'mobile3' => $request->mobile4 ,
+            'email' => $request->email1 ,
+            'email1' => $request->email2 ,
+            'email2' => $request->email3 ,
+            'email3' => $request->email4 ,
+            'full_name' => $request->full_name1,
+            'designation' => $request->designation1,
+            'full_name1' => $request->full_name2,
+            'designation1' => $request->designation2,
+            'full_name2' => $request->full_name3,
+            'designation2' => $request->designation3,
+            'full_name3' => $request->full_name4,
+            'designation3' => $request->designation4,
            
             ]);
 
@@ -255,9 +290,27 @@ class CustomerController extends Controller
             
         }
           $customer_address=$request->address;
+          $details =[ 'name' => $request->name,
+            'mobile' => $request->mobile1,
+            'mobile1' => $request->mobile2 ,
+            'mobile2' => $request->mobile3 ,
+            'mobile3' => $request->mobile4 ,
+            'email' => $request->email1 ,
+            'email1' => $request->email2 ,
+            'email2' => $request->email3 ,
+            'email3' => $request->email4 ,
+            'full_name' => $request->full_name1,
+            'designation' => $request->designation1,
+            'full_name1' => $request->full_name2,
+            'designation1' => $request->designation2,
+            'full_name2' => $request->full_name3,
+            'designation2' => $request->designation3,
+            'full_name3' => $request->full_name4,
+            'designation3' => $request->designation4 ]; 
 
          $subject = "Client : ".$cust_data->name. " Details Modified";
-          $data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email ,'address' => $customer_address , 'old_data'=> $cust_data];
+         $data = ['details' =>$details  ,'address' => $customer_address ,  'old_data'=> $cust_data];
+          /*$data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email ,'address' => $customer_address , 'old_data'=> $cust_data];*/
 
             $emailarray = User::select('email')->where('role_id','!=','4')->get();
                foreach ($emailarray as $key => $value) {

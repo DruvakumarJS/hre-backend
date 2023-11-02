@@ -61,12 +61,13 @@
                          <input type="hidden" name="length" id="length" value="{{count($information)}}">
 
                          @foreach($information as $key => $value)
+                         <label>{{$value}}</label>
 
                           <tr>
-                            <td><input type="text" name="specifications[{{$i}}][spec]" placeholder="Enter param Name" class="form-control" value={{$key}} />
+                            <td><input type="text" name="specifications[{{$i}}][spec]" placeholder="Enter param Name" class="form-control" value="{{$key}}" />
                             </td>
 
-                            <td><input type="text" name="specifications[{{$i}}][value]" placeholder="Enter param Value" class="form-control" value={{$value}} />
+                            <td><input type="input" name="specifications[{{$i}}][value]" placeholder="Enter param Value" class="form-control" value="{{$value}}" />
                             </td>
 
                             <td>

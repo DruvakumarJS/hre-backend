@@ -31,9 +31,56 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        $attendance= Attendance::where('date', 'LIKE','%'.date('Y-m-d').'%')->paginate(25);
+        /*$attendance= Attendance::where('date', 'LIKE','%'.date('Y-m-d').'%')->paginate(25);
+        
         $date = date('Y-m-d');
-       return view('attendance/Attendancelist',compact('attendance' , 'date'));
+        return view('attendance/Attendancelist',compact('attendance' , 'date'));*/
+
+        $attendance= array();
+        $date = date('Y-m-d');
+
+        $employees = Attendance::select('user_id')->where('date', 'LIKE','%'.date('Y-m-d').'%')->groupBy('user_id')->get();
+
+        foreach ($employees as $key => $value) {
+           // print_r($value->user_id);
+
+            $att = Attendance::where('date', 'LIKE','%'.date('Y-m-d').'%')->where('user_id' , $value->user_id)->first();
+            
+
+            $multi_login = Attendance::where('date', 'LIKE','%'.date('Y-m-d').'%')->where('user_id' , $value->user_id)->orderBy('id', 'DESC')->first();
+
+            if($att->id == $multi_login->id){
+                $logout = $att->logout_time;
+                $totalHours = $att->total_hours;
+            }
+            else {
+                $logout = $multi_login->logout_time;
+                if($logout == ''){
+                    $totalHours='0';
+                }
+                else {
+                    $totalHours = (strtotime($multi_login->logout_date.''.$multi_login->logout_time)-strtotime( $att->date.''.$att->login_time) ) / 60;
+                }
+                
+            }
+
+
+
+            $attendance[] = [
+                'employee_id' => $value->employee->employee_id,
+                'name' => $value->employee->name,
+                'role' => $value->employee->user->roles->alias,
+                'login' => $att->login_time,
+                'logout' => $logout,
+                'total_hours' =>$totalHours
+               
+            ];
+        }
+
+        return view('attendance/list',compact('attendance' , 'date'));
+
+        //print_r(($attendance)); die();
+      
     }
 
     /**
@@ -636,6 +683,59 @@ class AttendanceController extends Controller
        return view('attendance/Attendancelist',compact('attendance','date'));
     }
 
+    public function search_user_attendance(Request $request){
+        
+        $search=$request->search ;
+        $date = $request->date ;
+         $attendance= array();
+
+        $employees = Attendance::select('user_id')->whereHas('employee',function($query)use ($search){
+            $query->where('name','LIKE','%'.$search.'%')->orWhere('employee_id','LIKE','%'.$search.'%');
+         })
+         ->where('date', 'LIKE','%'.$date.'%')->groupBy('user_id')->get();
+
+         foreach ($employees as $key => $value) {
+           // print_r($value->user_id);
+
+            $att = Attendance::where('date', 'LIKE','%'.$date.'%')->where('user_id' , $value->user_id)->first();
+            
+            $multi_login = Attendance::where('date', 'LIKE','%'.$date.'%')->where('user_id' , $value->user_id)->orderBy('id', 'DESC')->first();
+
+            if($att->id == $multi_login->id){
+                $logout = $att->logout_time;
+                $totalHours = $att->total_hours;
+            }
+            else {
+                $logout = $multi_login->logout_time;
+                if($logout == ''){
+                    $totalHours='0';
+                }
+                else {
+                    $totalHours = (strtotime($multi_login->logout_date.''.$multi_login->logout_time)-strtotime( $att->date.''.$att->login_time) ) / 60;
+                }
+                
+            }
+
+            $attendance[] = [
+                'employee_id' => $value->employee->employee_id,
+                'name' => $value->employee->name,
+                'role' => $value->employee->user->roles->alias,
+                'login' => $att->login_time,
+                'logout' => $logout,
+                'total_hours' =>$totalHours
+               
+            ];
+        }
+
+        return view('attendance/list',compact('attendance' , 'date'));
+        
+        print_r(json_encode($employees)); die();
+
+        
+        // print_r(json_encode($attendance)); die();
+       return view('attendance/Attendancelist',compact('attendance','date'));
+    }
+
     public function get_attendance_by_date(Request $request){
        // print_r($request->search_date); die();
         if($request->search_date == ''){
@@ -645,6 +745,59 @@ class AttendanceController extends Controller
             $date = $request->search_date ; 
             $attendance= Attendance::where('date', 'LIKE','%'.$date.'%')->paginate(25);
              return view('attendance/Attendancelist',compact('attendance' , 'date'));
+        }
+
+    }
+
+    public function search_attendance_by_date(Request $request){
+       // print_r($request->search_date); die();
+         $attendance= array();
+        if($request->search_date == ''){
+            return redirect()->route('attendance');
+        }
+        else {
+            $date = $request->search_date ; 
+           // $attendance= Attendance::where('date', 'LIKE','%'.$date.'%')->paginate(25);
+
+            $employees = Attendance::select('user_id')->where('date', 'LIKE','%'.$date.'%')->groupBy('user_id')->get();
+
+        foreach ($employees as $key => $value) {
+           // print_r($value->user_id);
+
+            $att = Attendance::where('date', 'LIKE','%'.$date.'%')->where('user_id' , $value->user_id)->first();
+            
+
+            $multi_login = Attendance::where('date', 'LIKE','%'.$date.'%')->where('user_id' , $value->user_id)->orderBy('id', 'DESC')->first();
+
+            if($att->id == $multi_login->id){
+                $logout = $att->logout_time;
+                $totalHours = $att->total_hours;
+            }
+            else {
+                $logout = $multi_login->logout_time;
+                if($logout == ''){
+                    $totalHours='0';
+                }
+                else {
+                    $totalHours = (strtotime($multi_login->logout_date.''.$multi_login->logout_time)-strtotime( $att->date.''.$att->login_time) ) / 60;
+                }
+                
+            }
+
+
+
+            $attendance[] = [
+                'employee_id' => $value->employee->employee_id,
+                'name' => $value->employee->name,
+                'role' => $value->employee->user->roles->alias,
+                'login' => $att->login_time,
+                'logout' => $logout,
+                'total_hours' =>$totalHours
+               
+            ];
+        }
+
+        return view('attendance/list',compact('attendance' , 'date'));
         }
 
     }

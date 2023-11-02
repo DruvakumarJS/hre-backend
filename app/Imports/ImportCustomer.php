@@ -38,6 +38,8 @@ class ImportCustomer implements ToModel, WithStartRow
             'email1' => $row[9],
             'email2' => $row[10],
             'email3' => $row[11], 
+            'full_name'=>$row[12],
+            'designation' => $row[13]
         ]);
 
         }

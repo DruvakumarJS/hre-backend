@@ -106,6 +106,7 @@ class IndentController extends Controller
            foreach ($pdf_array as $key => $value) {
              $data[] = [
               'material_id' => $value->material_id ,
+              'category' => $value->materials->Category->category,
               'name' => $value->materials->name ,
               'brand' => $value->materials->brand ,
               'quantity' => $value->quantity,
@@ -378,6 +379,7 @@ class IndentController extends Controller
             $material_detail = [
               'material_name' => $material->name,
               'brand' => $material->brand,
+              'material_category' => $material->Category->category,
               'information' => json_decode($material->information, true, JSON_UNESCAPED_SLASHES),
               'quantity_raised' => $indent_list->quantity,
               'quantity_received' => $indent_list->recieved,
