@@ -29,9 +29,9 @@
            <form method="POST" action="{{route('search_attendance_by_date')}}" >
             @csrf
              <div class="input-group mb-3">
-                <input class="form-control" id="date" type="text" name="search_date" autocomplete="off" value="{{$date}}">
+                <input class="form-control" id="date" type="text" name="search_date" autocomplete="off" value="{{$date}}" >
                 <div class="input-group-prepend">
-                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                   <button class="btn btn-outline-secondary rounded-0" id="search_date" type="submit" >Search</button>
                 </div>
               </div>
            </form>
@@ -209,11 +209,15 @@ function showPosition(position ) {
         dateFormat: 'yy-mm-dd',
         onSelect: function(dateText, $el) {
          // alert(dateText);
-          setenddate(dateText);
+            $('#search_date').click();
+           $('.date').hide();
+           
           
         }
       });
     });
+
+  
 </script>
 
 
