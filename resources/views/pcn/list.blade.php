@@ -46,11 +46,11 @@ white-space: nowrap;
         <div class="div-margin">
         	
 
-        	<div class="card border-white">
+        	<div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
                         <table class="table">
                           <thead>
-                            <tr>
+                            <tr style="height: 50px">
                               <th scope="col">PCN</th>
                               <th scope="col">Billing Name</th>
                               <th scope="col">Brand</th>

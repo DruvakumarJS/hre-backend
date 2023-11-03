@@ -131,7 +131,7 @@ class PcnController extends Controller
 
             if($request->dlp_applicable == '1'){
                $dlp_days = $request->dlp_days;
-               $dlp_date = date('Y-m-d', strtotime(date('Y-m-d').'+'.$dlp_days.' days'));
+               $dlp_date = date('Y-m-d', strtotime($request->actual_end_date.'+'.$dlp_days.' days'));
               
 
             }
@@ -140,7 +140,7 @@ class PcnController extends Controller
                 $dlp_date = '';
 
             }
-           //  print_r('dlp date is '.$dlp_date); die();
+             
 
             $createPCN = Pcn::create([
                 'pcn'=>'PCN_'.$request->pcn ,
@@ -331,7 +331,7 @@ class PcnController extends Controller
 
             if($request->dlp_applicable == '1'){
                $dlp_days = $request->dlp_days;
-               $dlp_date = date('Y-m-d', strtotime(date('Y-m-d').'+'.$dlp_days.' days'));
+               $dlp_date = date('Y-m-d', strtotime($request->actual_end_date.'+'.$dlp_days.' days'));
               
 
             }
@@ -340,6 +340,7 @@ class PcnController extends Controller
                 $dlp_date = '';
 
             }
+           // print_r('dlp date is '.$dlp_date); die();
 
             $updatePCN = Pcn::where('pcn' ,$request->pcn)->update([
                 'po'=>$request->po_number,

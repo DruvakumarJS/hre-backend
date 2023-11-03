@@ -213,7 +213,7 @@
                          <div class="form-group row">
                             <label id="lbl_dlp_days" for="" class="col-5 col-form-label" style="display: <?php echo ($pcn_data->dlp_applicable == '1') ? 'block' : 'none'; ?>">DLP Days</label>
                             <div class="col-7" id="">
-                                <input id="in_dlp_days" name="dlp_days" type="number" class="form-control" value ="{{$pcn_data->approved_days}}" min="0" style="display: <?php echo ($pcn_data->dlp_applicable == '1') ? 'block' : 'none'; ?>">
+                                <input id="in_dlp_days" name="dlp_days" type="number" class="form-control" value ="{{$pcn_data->dlp_days}}" min="0" style="display: <?php echo ($pcn_data->dlp_applicable == '1') ? 'block' : 'none'; ?>">
                             </div>
                         </div>
 
@@ -526,6 +526,13 @@ $( document ).ready(function() {
          $("#actual_end_date" ).datepicker({
           // minDate:document.getElementById('actual_start_date').value,
             dateFormat: 'dd-mm-yy',
+            onSelect: function(dateText, $el) {
+        // alert(dateText);
+         document.getElementById('dlp_label').style.display="block";
+         document.getElementById('dlp_div').style.display="block";
+
+
+        }
             
           });
        

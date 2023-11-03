@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<style type="text/css">
+  thead th {
+ 
+  height: 50px;
+}
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <label class="label-bold">Restore & Recycle</label>
@@ -12,7 +18,7 @@
        <div class="row">
            <div class="col-md-12">
                <div class="users-list">
-                   <div class="card border-white">
+                   <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
                        <table class="table">
                            <thead>

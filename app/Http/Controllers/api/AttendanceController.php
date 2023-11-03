@@ -31,7 +31,7 @@ class AttendanceController extends Controller
 		              $create = Attendance::create([
 		              	'date' => date('Y-m-d'),
 		              	'user_id' => $request->user_id ,
-		              	'login_time' => $request->time ,
+		              	'login_time' => date('H:i') ,
 		              	'login_lat' => $request->lattitude ,
 		              	'login_long' => $request->longitude ,
                         'login_location' => $request->address
@@ -79,7 +79,7 @@ class AttendanceController extends Controller
     				print_r($total_hour / 60);die();*/
 
     				$LOGOUT = Attendance::where('id',$login->id)->update([
-		              	'logout_time' => $request->time ,
+		              	'logout_time' => date('H:i') ,
 		              	'logout_lat' => $request->lattitude ,
 		              	'logout_long' => $request->longitude ,
                         'logout_location' => $request->address,

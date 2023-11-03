@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-
+<style type="text/css">
+  thead th {
+ 
+  height: 50px;
+}
+</style>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
   
      
@@ -18,7 +23,7 @@
        </div>
       
       <div class="page-container div-margin">
-        <div class="card ">
+        <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
           <table class="table">
             <thead>
               <tr>

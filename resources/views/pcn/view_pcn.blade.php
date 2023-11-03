@@ -63,6 +63,7 @@ white-space: nowrap;
                                     <th scope="col">A_CD</th>
                                     <th scope="col">A_HD</th>
                                     <th scope="col">Days Achieved</th>
+                                    <th scope="col">DLP Date</th>
                                     <th scope="col">Status</th>
                                     <th></th>
                                 </tr>
@@ -86,6 +87,7 @@ white-space: nowrap;
                                     <td width="100px"><?php echo ($value->actual_completed_date) !='' ? date("d-m-Y", strtotime($value->actual_completed_date)):'' ; ?></td>
                                     <td style="text-align: center; ">{{$value->hold_days}}</td>
                                     <td style="text-align: center; ">{{$value->days_acheived}}</td>
+                                    <td><?php echo ($value->dlp_date) !='' ? date("d-m-Y", strtotime($value->dlp_date)):'' ; ?></td>
                                     <td>{{$value->status}}</td>
                                     @if(Auth::user()->role_id == 1)
                                     <td>
