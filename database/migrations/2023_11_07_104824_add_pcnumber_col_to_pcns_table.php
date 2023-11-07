@@ -26,7 +26,7 @@ class AddPcnumberColToPcnsTable extends Migration
     public function down()
     {
         Schema::table('pcns', function (Blueprint $table) {
-            $table->integer('pcnumber');
+            
         });
     }
 }
