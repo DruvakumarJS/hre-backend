@@ -480,6 +480,7 @@
                                           </ul>  
                                         </li> 
                                         <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li>
+                                        <!-- <li><a class="dropdown-item" href="{{route('view_vault')}}">Vault</a></li> -->
 
                                     </ul>
                                 </div>

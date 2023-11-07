@@ -312,7 +312,12 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('update-doc',[VaultController::class,'update'])->name('update-doc');
     Route::get('delete_doc/{id}',[VaultController::class,'destroy'])->name('delete_doc');
 
-
+    Route::get('view_vault',[VaultController::class,'view_vault'])->name('view_vault');
+    Route::post('save_files',[VaultController::class,'create'])->name('save_files');
+    Route::get('view_vault/{folder}',[VaultController::class,'sub_directory1'])->name('sub_directory');
+    Route::post('save_sub_directory_files',[VaultController::class,'save_sub_directory_files'])->name('save_sub_directory_files');
+    Route::get('view_vault/{folder}/{sub_folder}',[VaultController::class,'sub_sub_directory'])->name('sub_sub_directory');
+    Route::post('save_sub_sub_directory_files',[VaultController::class,'save_sub_sub_directory_files'])->name('save_sub_sub_directory_files');
     Route::post('testimages',[PettyCashDetailController::class,'test'])->name('testimages');
 
 

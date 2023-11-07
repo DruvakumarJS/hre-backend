@@ -34,7 +34,8 @@ class PcnController extends Controller
     public function index()
     {
         if(Auth::user()->id == '1'){
-           $pcns = Pcn::orderByraw('length(pcn),pcn')->paginate(25); 
+          // $pcns = Pcn::orderByraw('length(pcn),pcn')->paginate(25); 
+           $pcns = Pcn::orderBy('pcnumber', 'desc')->paginate(25); 
           // $pcns=DB::table('pcns')->orderByraw('length(pcn),pcn')->paginate(25);
         }
         else {
@@ -144,6 +145,7 @@ class PcnController extends Controller
 
             $createPCN = Pcn::create([
                 'pcn'=>'PCN_'.$request->pcn ,
+                'pcnumber' => $request->pcn ,
                 'po'=>$request->po_number ,
                 'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,

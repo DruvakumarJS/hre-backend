@@ -35,7 +35,7 @@
                 <td>
                   <a target="_blank" href="{{ URL::to('/') }}/vault/{{$value->filename}}"><button class="btn btn-sm btn-outline-secondary">View</button></a>
                   @if(Auth::user()->role_id == '1')
-                  <a id="MybtnModal_{{$key}}" style="margin-left: 20px" > <button class="btn btn-outline-success btn-sm">Rename</button></i></a>
+                  <a id="MybtnModal_{{$key}}" style="margin-left: 20px" > <button class="btn btn-outline-success btn-sm">Rename</button></a>
                   <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_doc',$value->id)}}" style="margin-left: 20px"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
                   @endif
                 </td>

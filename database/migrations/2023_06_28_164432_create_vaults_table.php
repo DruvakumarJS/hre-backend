@@ -17,6 +17,8 @@ class CreateVaultsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
+            $table->string('sub_folders')->nullable();
+            $table->string('folder')->nullable();
             $table->string('filename');
             $table->softDeletes();
             $table->timestamps();

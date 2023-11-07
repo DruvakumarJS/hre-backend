@@ -14,6 +14,8 @@ class Vault extends Model
     protected $fillable= [
     	'name',
     	'type',
+    	'sub_folders',
+    	'folder',
     	'filename',
     	];
 }

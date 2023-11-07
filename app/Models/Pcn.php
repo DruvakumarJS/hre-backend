@@ -11,6 +11,7 @@ class Pcn extends Model
 
     protected $fillable = [
     	'pcn',
+      'pcnumber',
       'po',
       'customer_id',
     	'client_name',

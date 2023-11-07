@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Vault;
 use Illuminate\Http\Request;
+use File;
 
 class VaultController extends Controller
 {
@@ -18,14 +19,315 @@ class VaultController extends Controller
         return view('vault/create',compact('vault'));
     }
 
+    public function view_vault()
+    {
+        $vault = Vault::all();
+        $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','1')->where('folder','LIKE','vault/'.'%')->get();
+        $folderarray = array();
+        $data = Vault::where('folder','vault')->get();
+
+        
+        foreach ($folders as $key => $value) {
+            $directory = $value->folder;
+            $folder_name = substr($directory, 6);
+            $folderarray[] = $folder_name ;
+        }
+
+       // print_r($folderarray); die();
+
+        //$vault = Vault::all();
+        return view('vault/list',compact('vault' , 'folderarray' , 'data'));
+    }
+
+    public function sub_directory1($foldername){
+       
+        $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','2')->where('folder','LIKE','vault/'.$foldername.'/%')->get();
+        $folderarray = array();
+        $data = Vault::where('folder','LIKE','vault/'.$foldername)->get();
+
+        
+        foreach ($folders as $key => $value) {
+            $directory = $value->folder;
+           // $folder_name = substr($directory, 6);
+            $folder_name = explode('/' , $directory);
+            $folderarray[] = $folder_name[2] ;
+        }
+
+       // print_r($folderarray); die();
+
+        //$vault = Vault::all();
+        return view('vault/sub_directory',compact('folderarray' , 'data' , 'foldername'));
+    }
+
+    public function sub_sub_directory($foldername , $sub_folder_name){
+        /*$folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','2')->where('folder','LIKE','vault/'.$foldername.'/%')->get();*/
+       
+        $data = Vault::where('folder','LIKE','vault/'.$foldername.'/'.$sub_folder_name.'%')->get();
+
+        return view('vault/sub_sub_directory',compact('data' , 'foldername','sub_folder_name'));
+
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+       // print_r($request->Input());
+
+
+        if($request->hasFile('file')){
+
+        $imagearray= array();
+        if($request->directory != ''){
+            $folder =  $request->directory ;
+        }
+        else if($request->folder_name != ''){
+            $folder =  $request->folder_name ;
+        }
+        else{
+            $folder = '';
+        }
+
+
+        if($folder != ''){
+            $path = 'vault/' . $folder;
+            $sub_folders = '1';
+            
+            if (file_exists(public_path().'/'.$path)) {
+              
+            } else {
+               
+                File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
+            }
+            
+        }
+        else{
+            $path ='vault'; 
+            $sub_folders = '0' ;
+        }
+
+       // print_r($sub_folders); die();
+        if(Vault::where('name', $request->name)->where('sub_folders', $sub_folders)->exists()){
+             
+             return redirect()->back()->withMessage('Document name already exists. Please use different name');
+
+            }
+
+        if($file = $request->hasFile('file')) {
+
+            foreach($_FILES['file']['name'] as $key=>$val){ 
+                
+            $fileName = basename($_FILES['file']['name'][$key]); 
+            $temp = explode(".", $fileName);
+                 
+            $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/'.$path.'/'.$fileName ;
+           // print_r($destinationPath); die();
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+             
+                 
+            }
+          
+          }
+
+
+        $imageNames = implode(',', $imagearray);
+
+        $vault = Vault::create([
+                'name' => $request->name,
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $imageNames ,
+            ]); 
+
+       // print_r($path); die();
+        return redirect()->back();
+           
+        }
+        else{
+         
+          return redirect()->back();
+        } 
+
+    }
+
+    public function save_sub_directory_files(Request $request){
+       // print_r($request->Input()); die();
+        if($request->hasFile('file')){
+
+        $imagearray= array();
+        if($request->directory != ''){
+            $folder =  $request->directory ;
+        }
+        else if($request->folder_name != ''){
+            $folder =  $request->folder_name ;
+        }
+        else{
+            $folder = '';
+        }
+
+
+        if($folder != ''){
+            $path = 'vault/'.$request->main_directory.'/'. $folder;
+            $sub_folders = '2' ;
+
+            if (file_exists(public_path().'/'.$path)) {
+              
+            } else {
+               
+                File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
+            }
+            
+        }
+        else{
+            $path ='vault/'.$request->main_directory; 
+            $sub_folders = '1' ;
+        }
+
+        if(Vault::where('name', $request->name)->where('sub_folders', $sub_folders)->exists()){
+             
+             return redirect()->back()->withMessage('Document name already exists. Please use different name');
+
+            }
+
+
+       // print_r($path); die();
+
+        if($file = $request->hasFile('file')) {
+
+            foreach($_FILES['file']['name'] as $key=>$val){ 
+                
+            $fileName = basename($_FILES['file']['name'][$key]); 
+            $temp = explode(".", $fileName);
+                 
+            $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/'.$path.'/'.$fileName ;
+           // print_r($destinationPath); die();
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+             
+                 
+            }
+          
+          }
+
+
+        $imageNames = implode(',', $imagearray);
+
+        $vault = Vault::create([
+                'name' => $request->name,
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $imageNames ,
+            ]); 
+
+       // print_r($path); die();
+        return redirect()->back();
+           
+        }
+        else{
+         
+          return redirect()->back();
+        } 
+
+    }
+
+    public function save_sub_sub_directory_files(Request $request){
+       // print_r($request->Input()); die();
+        if($request->hasFile('file')){
+
+        $imagearray= array();
+        if($request->directory != ''){
+            $folder =  $request->directory ;
+        }
+        else if($request->folder_name != ''){
+            $folder =  $request->folder_name ;
+        }
+        else{
+            $folder = '';
+        }
+
+
+        if($folder != ''){
+            $path = 'vault/'.$request->main_directory.'/'.$request->sub_directory.'/'. $folder;
+            $sub_folders = '3' ;
+
+            if (file_exists(public_path().'/'.$path)) {
+              
+            } else {
+               
+                File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
+            }
+            
+        }
+        else{
+            $path ='vault/'.$request->main_directory.'/'.$request->sub_directory; 
+            $sub_folders = '2' ;
+        }
+
+        if(Vault::where('name', $request->name)->where('sub_folders', $sub_folders)->exists()){
+             
+             return redirect()->back()->withMessage('Document name already exists. Please use different name');
+
+            }
+
+
+       // print_r($path); die();
+
+        if($file = $request->hasFile('file')) {
+
+            foreach($_FILES['file']['name'] as $key=>$val){ 
+                
+            $fileName = basename($_FILES['file']['name'][$key]); 
+            $temp = explode(".", $fileName);
+                 
+            $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/'.$path.'/'.$fileName ;
+           // print_r($destinationPath); die();
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+             
+                 
+            }
+          
+          }
+
+
+        $imageNames = implode(',', $imagearray);
+
+        $vault = Vault::create([
+                'name' => $request->name,
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $imageNames ,
+            ]); 
+
+       // print_r($path); die();
+        return redirect()->back();
+           
+        }
+        else{
+         
+          return redirect()->back();
+        } 
+
     }
 
     /**
