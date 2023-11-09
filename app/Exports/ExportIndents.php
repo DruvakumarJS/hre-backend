@@ -54,6 +54,6 @@ class ExportIndents implements FromCollection , WithHeadings
 
 
     public function headings():array{
-    	return ['Date','Indent Number', 'PCN', 'Client name','Area','Material Code','Material Name', 'Brand','Specification', 'Indent Description', 'Quantity', 'Received','Pending','Status'];
+    	return ['Date','Indent Number', 'PCN', 'Billing name','Area','Material ID','Material Name', 'Brand','Information', 'Description', 'Total Indent', 'Total GRN','Pending','Status'];
     }
 }

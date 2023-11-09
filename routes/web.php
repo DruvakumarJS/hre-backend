@@ -293,7 +293,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('import_category',[ImportController::class,'importcategory'])->name('import_category');
     Route::post('import_material',[ImportController::class,'importmaterial'])->name('import_material');
 
-    Route::get('export_customer',[ExportController::class,'customer'])->name('export_customer');
+    Route::get('export_customer/{search}',[ExportController::class,'customer'])->name('export_customer');
     Route::get('export-pcn/{search}',[ExportController::class,'pcn'])->name('export-pcn');
     Route::get('export_indent/{id}',[ExportController::class,'indent'])->name('export_indent');
     Route::post('download_multiple_indents',[ExportController::class,'download_multiple_indents'])->name('download_multiple_indents');

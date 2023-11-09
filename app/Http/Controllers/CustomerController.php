@@ -32,6 +32,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::with('address')->orderBy('id', 'DESC')->paginate(25);
+        $search = '';
         //return view('customer/list',compact('customers'));
 
       /* $emailarray = User::select('email')->where('role_id','1')->get();
@@ -56,7 +57,7 @@ class CustomerController extends Controller
         dispatch($job);*/
 
 
-        return view('customer/list',compact('customers'));
+        return view('customer/list',compact('customers' , 'search'));
          
     }
 
@@ -414,13 +415,14 @@ class CustomerController extends Controller
     }
 
     public function search(Request $request){
+        $search = $request->search ;
     $customers = Customer::where('name' , 'LIKE', '%'.$request->search.'%')
     ->orWhere('email' , 'LIKE', '%'.$request->search.'%')
     ->orWhere('mobile' ,'LIKE', '%'.$request->search.'%')
     ->orderBy('id', 'DESC')
     ->paginate(25);
 
-        return view('customer/list',compact('customers'));
+        return view('customer/list',compact('customers','search'));
     }
 
    

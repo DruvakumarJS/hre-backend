@@ -50,14 +50,14 @@
           
           @if(Auth::user()->role_id == '1' or Auth::user()->role_id == '2')
             <div id="div2" style="margin-right: 30px">
-              <a data-bs-toggle="modal" data-bs-target="#triggerModal"  class="btn btn-light btn-outline-secondary" href="" title="<?php echo ($indents->settlement_triggerd == 'YES')? $indents->trigger_comments.'-'.$indents->commentor->employee_id:''  ?>"><label id="modal">Trigger settlement</label></a>
+              <a data-bs-toggle="modal" data-bs-target="#triggerModal"  class="btn btn-light btn-outline-secondary" href="" title="<?php echo ($indents->settlement_triggerd == 'YES')? $indents->trigger_comments.'-'.$indents->commentor->employee_id:''  ?>"><label id="modal">Trigger Settlement</label></a>
 
             </div>
           @endif
           
           @if(Auth::user()->role_id == '3' AND $indents->settlement_triggerd == 'YES')
             <div id="div2" style="margin-right: 30px">
-              <button class="btn btn-light btn-outline-secondary" title="<?php echo ($indents->settlement_triggerd == 'YES')? $indents->trigger_comments.'-'.$indents->commentor->employee_id:''  ?>" >settlement Comments</button>
+              <button class="btn btn-light btn-outline-secondary" title="<?php echo ($indents->settlement_triggerd == 'YES')? $indents->trigger_comments.'-'.$indents->commentor->employee_id:''  ?>" >Settlement Comments</button>
             </div>
           @endif
 
@@ -195,7 +195,7 @@
               <div class="modal-body">
                 <form method="post" action="{{route('settle_indent')}}">
                   @csrf
-                  
+                
                   <input type="hidden" name="indent_no" value="{{$id}}">
 
                   <div class="mb-3">

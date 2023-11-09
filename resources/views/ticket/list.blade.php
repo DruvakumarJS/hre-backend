@@ -37,7 +37,7 @@ white-space: nowrap;
             @csrf
              <div class="input-group mb-3">
              	<input type="hidden" name="filter" value="{{$filter}}">
-                <input class="form-control" type="text" name="search" placeholder="Search ticket">
+                <input class="form-control" type="text" name="search" placeholder="Search ticket" value="{{$search}}">
                 <div class="input-group-prepend">
                    <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
                 </div>
@@ -53,6 +53,7 @@ white-space: nowrap;
              <form method="post" action="{{route('filter')}}">
              	@csrf
              <div class="input-group mb-3">
+             	<input type="hidden" name="search" value="{{$search}}">
 				 
 				  <select class="form-control form-select" name="filter" onchange="filetrdata()">
 				  	

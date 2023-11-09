@@ -13,6 +13,13 @@ class ExportCustomer implements FromCollection, WithHeadings
     /**
     * @return \Illuminate\Support\Collection
     */
+    public $search ;
+
+    public function __construct($search ) 
+    {
+        $this->search = $search;     
+    } 
+
     public function collection()
     {
          $customer =  DB::table('addresses')
@@ -39,7 +46,11 @@ class ExportCustomer implements FromCollection, WithHeadings
             'customers.mobile3',
             'customers.email3',
             )
+         ->where('customers.name' , 'LIKE', '%'.$this->search.'%')
+         ->orWhere('customers.email' , 'LIKE', '%'.$this->search.'%')
+         ->orWhere('customers.mobile' ,'LIKE', '%'.$this->search.'%')  
          ->join('customers', 'addresses.customer_id' , '=','customers.id')
+         ->orderBy('customers.id', 'DESC')
          ->get();
 
          return $customer;

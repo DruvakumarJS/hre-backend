@@ -29,8 +29,9 @@
           <div id="div2" style="margin-right: 30px">
            <form method="POST" action="{{route('search_customer')}}">
             @csrf
+            <input type="hidden" name="search" value="{{$search}}">
              <div class="input-group mb-3">
-                <input class="form-control" type="text" name="search" placeholder="Search here">
+                <input class="form-control" type="text" name="search" placeholder="Search here" value="{{$search}}">
                 <div class="input-group-prepend">
                    <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
                 </div>
@@ -39,7 +40,7 @@
           </div>
 
           <div id="div2" style="margin-right: 30px" >
-            <a href="{{route('export_customer')}}" class="btn btn-light btn-outline-secondary" href=""><label id="modal">Download CSV</label></a>
+            <a href="{{route('export_customer',$search)}}" class="btn btn-light btn-outline-secondary" href=""><label id="modal">Download CSV</label></a>
           </div>
 
         @if(Session::has('message'))

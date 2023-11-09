@@ -137,7 +137,7 @@
 
                         <label class="label-bolder div-margin">Recent Updates</label>
                         @if($indend_data->indent->status != 'Active')
-                         <label style="color: red">( This indent is Settled )</label>
+                         <label style="color: red">( This Indent is Settled )</label>
                         @endif
 
                         <div class="card">

@@ -80,6 +80,7 @@
                       || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
+                      || request()->routeIs('search_pcn_details')
                       ? 'active' : ''}}">
                     <label class="nav-links">PCN</label></a>
 
@@ -113,6 +114,7 @@
                     ||request()->routeIs('search_attendance')
                     ||request()->routeIs('search_attendance_by_date')
                     ||request()->routeIs('search_user_attendance')
+                    ||request()->routeIs('search_employee')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Attendance</label></a>
 
@@ -125,6 +127,7 @@
                     ||request()->routeIs('pettycash_info')
                     ||request()->routeIs('view_summary')
                     ||request()->routeIs('pettycash_expenses')
+                    ||request()->routeIs('search_pettycash')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
                </div>
@@ -160,6 +163,7 @@
                       || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
+                      || request()->routeIs('search_pcn_details')
                       ? 'active' : ''}}">
                     <label class="nav-links">PCN</label></a>
 
@@ -192,6 +196,7 @@
                     ||request()->routeIs('search_attendance')
                     ||request()->routeIs('search_attendance_by_date')
                     ||request()->routeIs('search_user_attendance')
+                    ||request()->routeIs('search_employee')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Attendance</label></a>
 
@@ -202,6 +207,7 @@
                     ||request()->routeIs('details_pettycash')
                     ||request()->routeIs('update_bill_status')
                     ||request()->routeIs('pettycash_expenses')
+                    ||request()->routeIs('search_pettycash')
                       ? 'active' : ''}}">
                       <label class="nav-links" >Petty Cash</label></a>
                </div>
@@ -232,6 +238,7 @@
                      || request()->routeIs('create_pcn')
                      || request()->routeIs('edit_pcn')
                      || request()->routeIs('view_pcn')
+                     || request()->routeIs('search_pcn_details')
                       ? 'active' : ''}}"
                       ><label class="nav-links">PCN</label></a>
 
@@ -264,6 +271,7 @@
                     ||request()->routeIs('search_attendance')
                     ||request()->routeIs('search_attendance_by_date')
                     ||request()->routeIs('search_user_attendance')
+                    ||request()->routeIs('search_employee')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Attendance</label></a>
 
@@ -303,6 +311,7 @@
                       || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
+                      || request()->routeIs('search_pcn_details')
                       ? 'active' : ''}}">
                     <label class="nav-links">PCN</label></a>  
 

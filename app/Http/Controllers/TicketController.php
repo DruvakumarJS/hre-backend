@@ -482,27 +482,81 @@ class TicketController extends Controller
     {
        // print_r($request->Input());die();
         $filter = $request->filter ;
-        $search = '';
+        $search = $request->search;
        
         if($filter == 'Pending'){$filter = 'Pending/Ongoing';}
 
         // print_r($filter); die();
+        if($search == ''){
+            if(empty($request->filter)){
+              return redirect()->route('tickets');
+            }
+            else if($request->filter == 'all'){
+                $tickets = Ticket::orderby('id' , 'DESC')->paginate(25);
+                return view('ticket/list' ,  compact('tickets','filter','search'));
+            }
+             else if($request->filter == 'Reopend'){
+                $tickets = Ticket::where('reopened', '1')->orderby('id' , 'DESC')->paginate(25);
+                return view('ticket/list' ,  compact('tickets','filter','search'));
+            }
+            else {
+                $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$filter)->orderby('id' , 'DESC')->paginate(25);
+                return view('ticket/list' ,  compact('tickets','filter','search'));
+            }
+        }
+        else{
 
-        if(empty($request->filter)){
-          return redirect()->route('tickets');
+            if($filter == 'all'){
+            $tickets = Ticket::orderby('id' , 'DESC')
+                 ->where('pcn','LIKE','%'.$search.'%')
+                 ->orWhere('pcn','LIKE','%'.$search.'%')
+                 ->orWhere('ticket_no','LIKE','%'.$search.'%')
+                 ->orWhere('status','LIKE','%'.$search.'%')
+                 ->orWhere('category','LIKE','%'.$search.'%')
+                 ->orWhereHas('pcns',function($query)use($search){
+                    $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                 })
+                 ->paginate(25);
+         }
+         else if($filter == 'Reopend'){
+            $tickets = Ticket::where('reopened', '1')
+            ->where(function($query)use($search){
+                 $query->where('pcn','LIKE','%'.$search.'%');
+                 $query->orWhere('pcn','LIKE','%'.$search.'%');
+                 $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                 $query->orWhere('status','LIKE','%'.$search.'%');
+                 $query->orWhere('category','LIKE','%'.$search.'%');
+                 $query->orWhereHas('pcns',function($query)use($search){
+                    $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                 });
+            })
+            ->orderby('id' , 'DESC')
+            ->paginate(25);
+
+         }
+         else{
+           // print_r($filter); die();
+             $tickets = Ticket::where(function($query)use($filter){
+                $query->where('creator' , $filter);
+                $query->orWhere('status',$filter);
+             })
+             ->where(function($query)use($search){
+                 $query->where('pcn','LIKE','%'.$search.'%');
+                 $query->orWhere('pcn','LIKE','%'.$search.'%');
+                 $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                 $query->orWhere('status','LIKE','%'.$search.'%');
+                 $query->orWhere('category','LIKE','%'.$search.'%');
+                 $query->orWhereHas('pcns',function($query)use($search){
+                    $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                 });
+            })
+             ->orderby('id' , 'DESC')->paginate(25);
+         }
+
+         return view('ticket/list' ,  compact('tickets','filter','search'));
+
         }
-        else if($request->filter == 'all'){
-            $tickets = Ticket::orderby('id' , 'DESC')->paginate(25);
-            return view('ticket/list' ,  compact('tickets','filter','search'));
-        }
-         else if($request->filter == 'Reopend'){
-            $tickets = Ticket::where('reopened', '1')->orderby('id' , 'DESC')->paginate(25);
-            return view('ticket/list' ,  compact('tickets','filter','search'));
-        }
-        else {
-            $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$filter)->orderby('id' , 'DESC')->paginate(25);
-            return view('ticket/list' ,  compact('tickets','filter','search'));
-        }
+        
     }
 
     public function modify_ticket(Request $request){
@@ -669,14 +723,35 @@ class TicketController extends Controller
         $user = Auth::user();
         $filter=$request->filter;
         $search = $request->search ;
-
-        if($search == ''){
-            return redirect()->route('tickets');
-        }
+        
 
 
       if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '5'){
-         $tickets = Ticket::orderby('id' , 'DESC')
+        
+        if($filter == 'Pending'){$filter = 'Pending/Ongoing';}
+
+        if($search == ''){
+            if(empty($request->filter)){
+              return redirect()->route('tickets');
+            }
+            else if($request->filter == 'all'){
+                $tickets = Ticket::orderby('id' , 'DESC')->paginate(25);
+                return view('ticket/list' ,  compact('tickets','filter','search'));
+            }
+             else if($request->filter == 'Reopend'){
+                $tickets = Ticket::where('reopened', '1')->orderby('id' , 'DESC')->paginate(25);
+                return view('ticket/list' ,  compact('tickets','filter','search'));
+            }
+            else {
+                $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$filter)->orderby('id' , 'DESC')->paginate(25);
+                return view('ticket/list' ,  compact('tickets','filter','search'));
+            }
+        }
+
+         
+
+         if($filter == 'all'){
+            $tickets = Ticket::orderby('id' , 'DESC')
                  ->where('pcn','LIKE','%'.$search.'%')
                  ->orWhere('pcn','LIKE','%'.$search.'%')
                  ->orWhere('ticket_no','LIKE','%'.$search.'%')
@@ -686,8 +761,49 @@ class TicketController extends Controller
                     $query->where('brand' , 'LIKE' , '%'.$search.'%');
                  })
                  ->paginate(25);
+         }
+         else if($filter == 'Reopend'){
+            $tickets = Ticket::where('reopened', '1')
+            ->where(function($query)use($search){
+                 $query->where('pcn','LIKE','%'.$search.'%');
+                 $query->orWhere('pcn','LIKE','%'.$search.'%');
+                 $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                 $query->orWhere('status','LIKE','%'.$search.'%');
+                 $query->orWhere('category','LIKE','%'.$search.'%');
+                 $query->orWhereHas('pcns',function($query)use($search){
+                    $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                 });
+            })
+            ->orderby('id' , 'DESC')
+            ->paginate(25);
+
+         }
+         else{
+           // print_r($filter); die();
+             $tickets = Ticket::where(function($query)use($filter){
+                $query->where('creator' , $filter);
+                $query->orWhere('status',$filter);
+             })
+             ->where(function($query)use($search){
+                 $query->where('pcn','LIKE','%'.$search.'%');
+                 $query->orWhere('pcn','LIKE','%'.$search.'%');
+                 $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                 $query->orWhere('status','LIKE','%'.$search.'%');
+                 $query->orWhere('category','LIKE','%'.$search.'%');
+                 $query->orWhereHas('pcns',function($query)use($search){
+                    $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                 });
+            })
+             ->orderby('id' , 'DESC')->paginate(25);
+         }
+         
       }
       else {
+
+        if($search == ''){
+            return redirect()->route('tickets');
+        }
+
        
           $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)
              ->where('ticket_no','LIKE','%'.$search.'%')->with('ticket')
@@ -695,12 +811,16 @@ class TicketController extends Controller
                 $query->wherehas('ticket.pcns', fn($q) => $q->where('brand', 'like', '%' . $search . '%'));
              })
              ->groupBy('ticket_id')->get();
+
+            
           
           foreach ($ticket_convers as $key => $value) {
             
             $ids[]=$value->ticket_id;
 
           }
+
+        //  print_r($ids); 
          
         
        if(sizeof($ticket_convers) > 0){
@@ -733,6 +853,8 @@ class TicketController extends Controller
                  }) 
                           
                  ->paginate(25);
+
+                // print_r(json_encode($tickets));die();
 
        }
        else{

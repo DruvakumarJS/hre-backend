@@ -28,15 +28,17 @@ use App\Models\Material;
 use App\Models\Intend;
 use App\Models\PettycashSummary;
 use DB;
+use Auth;
 
 
 
 class ExportController extends Controller
 {
-     public function customer(){
+     public function customer($search){
+     // print_r($search); die();
         $file_name = 'customers.csv';
         if(Customer::exists()){
-         return Excel::download(new ExportCustomer(), $file_name);
+         return Excel::download(new ExportCustomer($search), $file_name);
         }
         else {
             return redirect()->back();
@@ -50,10 +52,12 @@ class ExportController extends Controller
      }
 
      public function ticket(Request $request ){
-     // print_r($request->search);die();
+      //print_r('search'.$request->filter);die();
 
       $filter = $request->filter;
       $search = $request->search;
+
+      if(auth::user()->role_id == '1' OR auth::user()->role_id == '2' OR auth::user()->role_id == '5'){
        if($filter == 'Pending')
         {
           $filter = 'Pending/Ongoing';
@@ -76,7 +80,7 @@ class ExportController extends Controller
 
         else if($filter=='Reopend'){
          if(Ticket::where('reopened', '1')->exists()){
-          return Excel::download(new ExportTicket($filter), $file_name);
+          return Excel::download(new ExportTicket($filter, $search), $file_name);
          }
          else {
             return redirect()->back();
@@ -89,7 +93,7 @@ class ExportController extends Controller
          if(Ticket::where('creator' ,$filter)
                ->orWhere('status', $filter)->exists()){
            
-          return Excel::download(new ExportTicket($filter), $file_name);
+          return Excel::download(new ExportTicket($filter, $search), $file_name);
          }
          else {
           
@@ -97,8 +101,17 @@ class ExportController extends Controller
          }
 
         }
-        
+       }
+       else {
+       
+         $filter = '';
+         $file_name = "tickets.csv";
 
+         return Excel::download(new ExportTicket($filter, $search), $file_name);
+
+       }
+        
+       return redirect()->route('tickets');
        
 
      }
