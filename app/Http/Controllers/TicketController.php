@@ -39,6 +39,7 @@ class TicketController extends Controller
     {
         $user = Auth::user();
         $filter="all";
+        $search = '';
         $tickets=array();
 
       if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '5'){
@@ -68,7 +69,7 @@ class TicketController extends Controller
 
       }
 
-         return view('ticket/list' ,  compact('tickets','filter'));
+         return view('ticket/list' ,  compact('tickets','filter','search'));
     }
 
     public function paginate($items, $perPage = 5, $page = null, $options = [])
@@ -479,8 +480,9 @@ class TicketController extends Controller
 
     public function filter(Request $request)
     {
-        //print_r($request->Input());die();
+       // print_r($request->Input());die();
         $filter = $request->filter ;
+        $search = '';
        
         if($filter == 'Pending'){$filter = 'Pending/Ongoing';}
 
@@ -491,15 +493,15 @@ class TicketController extends Controller
         }
         else if($request->filter == 'all'){
             $tickets = Ticket::orderby('id' , 'DESC')->paginate(25);
-            return view('ticket/list' ,  compact('tickets','filter'));
+            return view('ticket/list' ,  compact('tickets','filter','search'));
         }
          else if($request->filter == 'Reopend'){
             $tickets = Ticket::where('reopened', '1')->orderby('id' , 'DESC')->paginate(25);
-            return view('ticket/list' ,  compact('tickets','filter'));
+            return view('ticket/list' ,  compact('tickets','filter','search'));
         }
         else {
             $tickets = Ticket::where('creator' , $request->filter)->orWhere('status',$filter)->orderby('id' , 'DESC')->paginate(25);
-            return view('ticket/list' ,  compact('tickets','filter'));
+            return view('ticket/list' ,  compact('tickets','filter','search'));
         }
     }
 
@@ -509,7 +511,7 @@ class TicketController extends Controller
         //print_r($request->Input()); die();
         $fileName="";
         if($request->action == 'Completed'){
-           if($file = $request->hasFile('image')) {
+           /*if($file = $request->hasFile('image')) {
              
             $file = $request->file('image') ;
             $fileName = $file->getClientOriginalName() ;
@@ -525,7 +527,30 @@ class TicketController extends Controller
             $destinationPath = public_path().'/ticketimages' ;
             $file->move($destinationPath,$fileName);
             
-         }
+         }*/
+
+         $imageNames = "" ;
+           if($file = $request->hasFile('image')) {
+
+            foreach($_FILES['image']['name'] as $key=>$val){ 
+                
+               $fileName = basename($_FILES['image']['name'][$key]); 
+                $temp = explode(".", $fileName);
+                 
+                  $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/ticketimages/'.$fileName ;
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+            $imageNames = implode(',', $imagearray);
+             
+                 
+            }
+          
+          }
+
 
             $conversation = TicketConversation::create([
                 'ticket_id' => $request->ticket_id ,
@@ -534,7 +559,7 @@ class TicketController extends Controller
                 'sender' => $request->sender ,
                 'recipient' => $ticket->creator,
                 'status' => 'pending',
-                'filename' => $fileName]);
+                'filename' => $imageNames]);
 
              $subject = "Ticket Completed : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn;
 
@@ -547,7 +572,22 @@ class TicketController extends Controller
                       $emailid[]=$value->email;
                    }
 
-             // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+             $updateticket = Ticket::where('id',$ticket->id)->update([
+            'status' => $request->action , 'comments' =>$request->message ]);
+
+                try {
+                  Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body)); 
+                 // Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));    
+                } catch (\Exception $e) {
+                    return $e->getMessage();
+                   
+                } 
+                finally {
+                 
+                 // return redirect()->back();
+                     $message = 'Ticket is Completed';
+                    return response()->json($message);
+                }    
 
         }
         else if($request->action == 'Resolved'){
@@ -570,23 +610,25 @@ class TicketController extends Controller
                       $emailid[]=$value->email;
                    }
 
-              //Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));                
+              $updateticket = Ticket::where('id',$ticket->id)->update([
+            'status' => $request->action ,'comments' =>$request->message]);
+
+                try {
+                  Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body)); 
+                 // Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));    
+                } catch (\Exception $e) {
+                    return $e->getMessage();
+                   
+                } 
+                finally {
+                 
+                  return redirect()->back();
+                    
+                }                  
 
         }
 
-        $updateticket = Ticket::where('id',$ticket->id)->update([
-            'status' => $request->action]);
-
-        try {
-          Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));    
-        } catch (\Exception $e) {
-            return $e->getMessage();
-           
-        } 
-        finally {
-         
-          return redirect()->back();
-        }     
+        
       
         
     }
@@ -621,7 +663,7 @@ class TicketController extends Controller
 
         return response()->download(public_path($fileName));
 
-    }
+    }   
 
     public function search(Request $request){
         $user = Auth::user();
@@ -721,7 +763,7 @@ class TicketController extends Controller
    //die();
       // $tickets = Ticket::orderby('id' , 'DESC')->paginate(10);
         
-         return view('ticket/list' ,  compact('tickets','filter'));
+         return view('ticket/list' ,  compact('tickets','filter','search'));
     }
 
     public function departments(){

@@ -82,21 +82,21 @@ div.click-to-top:hover span {
               <a target="_blank" href="{{ URL::to('/') }}/vault/{{$image}}">
                  <img src="{{ URL::to('/') }}/vault/{{$image}}" title="{{$value->name}}.{{$value->type}} , {{date('d-m-Y H:i', strtotime($value->updated_at))}}" style="height: 100px;width: 100px">
               </a>
-              <label>{{$value->name}} <?php echo ($key == '0') ?'':'('.$key .')'?> </label>
+              <label>{{$value->name}} </label>
 
             @elseif($value->type == 'pdf')
               
                <a target="_blank" href="{{ URL::to('/') }}/vault/{{$image}}">
                  <i class="fa fa-file-pdf-o" title="{{$value->name}}.{{$value->type}} , {{date('d-m-Y H:i', strtotime($value->updated_at))}}" style="font-size:100px;width: 100px; color: "></i>
               </a>
-               <label>{{$value->name}} <?php echo ($key == '0') ?'':'('.$key .')'?> </label>
+               <label>{{$value->name}} </label>
 
             @else
             
               <a target="_blank" href="{{ URL::to('/') }}/vault/{{$image}}">
                  <i class="fa fa-file" title="{{$value->name}}.{{$value->type}} , {{date('d-m-Y H:i', strtotime($value->updated_at))}}" style="font-size:100px;width: 100px; color: "></i>
               </a>
-               <label>{{$value->name}} <?php echo ($key == '0') ?'':'('.$key .')'?> </label>
+               <label>{{$value->name}} </label>
 
             @endif
           </div>
@@ -131,7 +131,7 @@ div.click-to-top:hover span {
                 <td width="100px">{{$value->type}}</td>
                 <td>
                   <a target="_blank" href="{{ URL::to('/') }}/vault/{{$value->filename}}"><button class="btn btn-sm btn-outline-secondary">View</button></a>
-                  @if(Auth::user()->role_id == '1')
+                  @if(Auth::user()->role_id == '1' )
                   <a id="MybtnModal_{{$key}}" style="margin-left: 20px" > <button class="btn btn-outline-success btn-sm">Rename</button></a>
                   <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_doc',$value->id)}}" style="margin-left: 20px"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
                   @endif
@@ -201,8 +201,6 @@ div.click-to-top:hover span {
                  <form action="{{ route('save_files') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
-                    <label style="float: right;">+ Create Folder</label>
-
                     <div class="mb-3">
                       <label for="recipient" class="col-form-label">Select Folder</label>
                       <select class="form-control form-select" name="directory">
@@ -221,15 +219,15 @@ div.click-to-top:hover span {
                     </div>
                     
                     <label>Note : If dropdown is selected ,Files will be saved into selected folder or if folder name is entered, it will be saved into Newly entered folder or it will be saved outside </label>
-                    <div class="mb-3">
+                   <!--  <div class="mb-3">
                       <label for="recipient-name" class="col-form-label">Document Name</label>
                       <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name of the document" required>
 
-                    </div>
+                    </div> -->
 
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-4" style="margin-top: 20px">
                         <div class="custom-file text-left">
-                            <input type="file" name="file[]" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" class="custom-file-input" id="customFile" multiple>
+                            <input type="file" name="file[]" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" class="custom-file-input" id="customFile" multiple required>
                            
                         </div>
                     </div>

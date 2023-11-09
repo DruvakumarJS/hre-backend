@@ -16,7 +16,13 @@ class Intend extends Model
     	'quantity',
     	'recieved',
     	'pending',
-    	'status'
+    	'status',
+      'settlement_triggerd',
+      'trigger_comments',
+      'commenter_id',
+      'indent_settled',
+      'settled_comments',
+      'settler_id'
     ];
 
      function employee()
@@ -42,6 +48,14 @@ class Intend extends Model
      function pcns()
           {
              return $this->belongsTo(Pcn::class,'pcn','pcn');
-          }           
+          }  
+
+     function commentor(){
+       return $this->belongsTo(Employee::class,'commenter_id','user_id')->withTrashed();
+     }
+
+      function settler(){
+       return $this->belongsTo(Employee::class,'settler_id','user_id')->withTrashed();
+     }              
     
 }

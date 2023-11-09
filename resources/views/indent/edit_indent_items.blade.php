@@ -27,7 +27,7 @@
                     </div>
                     <div class="col">
                         <label>Dispatched</label>
-                        <h3 class="label-bold">{{$dispatched}} {{$indend_data->materials->uom}}</h3>
+                        <h3 class="label-bold">{{$total_dispatch}} {{$indend_data->materials->uom}}</h3>
                         <label></label>
                     </div>
                     <div class="col">
@@ -137,7 +137,7 @@
 
                         <label class="label-bolder div-margin">Recent Updates</label>
                         @if($indend_data->indent->status != 'Active')
-                         <label style="color: red">( This indent is {{$indend_data->indent->status}} )</label>
+                         <label style="color: red">( This indent is Settled )</label>
                         @endif
 
                         <div class="card">
@@ -146,9 +146,9 @@
                             <thead>
                             <tr>
                                 <th>GRN</th>
-                                <th>Dispatched</th>
                                 <th>D_Comments</th>
                                 <th>GRN Status</th>
+                                <th>Dispatched</th>
                                 <th>Accepted</th>
                                 <th>Rejected</th>
                                 <th>Comments</th>
@@ -159,9 +159,9 @@
                         @foreach($grn as $key =>$value)
                                 <tr>
                                     <td>{{$value->grn}}</td>
-                                    <td>{{$value->dispatched}}</td>
                                     <td>{{$value->dispatch_comment}}</td>
                                     <td>{{$value->status}}</td>
+                                    <td>{{$value->dispatched}}</td>
                                     <td>{{$value->approved}} </td>
                                     <td>{{$value->damaged}} </td>
                                     <td>{{$value->comment}}</td>

@@ -33,7 +33,7 @@ class PcnController extends Controller
 
     public function index()
     {
-        if(Auth::user()->id == '1'){
+        if(Auth::user()->role_id == '1'){
           // $pcns = Pcn::orderByraw('length(pcn),pcn')->paginate(25); 
            $pcns = Pcn::orderBy('pcnumber', 'desc')->paginate(25); 
           // $pcns=DB::table('pcns')->orderByraw('length(pcn),pcn')->paginate(25);
@@ -401,6 +401,7 @@ class PcnController extends Controller
             
                     try {
                       Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
+                       //Mail::to('druva@netiapps.com')->send(new PcnMail($pcn_data,$subject));
                     } catch (\Exception $e) {
                         return $e->getMessage();
                        
@@ -438,7 +439,8 @@ class PcnController extends Controller
     public function view_pcn()
     {
         $pcns = Pcn::orderByraw('length(pcn),pcn')->paginate(25);
-        return view('pcn/view_pcn' , compact('pcns'));
+        $search = '';
+        return view('pcn/view_pcn' , compact('pcns','search'));
     }
 
 
@@ -497,9 +499,9 @@ class PcnController extends Controller
            ->orWhere('area','LIKE', '%'.$request->search.'%')
            ->orWhere('city','LIKE', '%'.$request->search.'%')
            ->orWhere('state','LIKE', '%'.$request->search.'%')
-           ->orWhereHas('customer', function ($query) use ($search) {
+           /*->orWhereHas('customer', function ($query) use ($search) {
                         $query->where('email', 'like', '%'.$search.'%');
-                           })
+                           })*/
            ->orderBy('id','DESC')->paginate(25); 
        
        return view('pcn/list', compact('pcns'));
@@ -509,6 +511,9 @@ class PcnController extends Controller
     public function search_pcn_details(Request $request){
       
       $search = $request->search;
+      if($search == ''){
+        return redirect()->route('view_pcn');
+      }
            $pcns = Pcn::where('pcn','LIKE', '%'.$request->search.'%')
            ->orWhere('client_name','LIKE', '%'.$request->search.'%')
            ->orWhere('brand','LIKE', '%'.$request->search.'%')
@@ -516,12 +521,12 @@ class PcnController extends Controller
            ->orWhere('area','LIKE', '%'.$request->search.'%')
            ->orWhere('city','LIKE', '%'.$request->search.'%')
            ->orWhere('state','LIKE', '%'.$request->search.'%')
-           ->orWhereHas('customer', function ($query) use ($search) {
+           /*->orWhereHas('customer', function ($query) use ($search) {
                         $query->where('email', 'like', '%'.$search.'%');
-                           })
+                           })*/
            ->orderBy('id','DESC')->paginate(25); 
        
-       return view('pcn/view_pcn', compact('pcns'));
+       return view('pcn/view_pcn', compact('pcns','search'));
 
     }
 

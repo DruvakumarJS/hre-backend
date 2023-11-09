@@ -76,8 +76,15 @@ white-space: nowrap;
 
 
           <div id="div2" style="margin-right: 30px">
-            <a class="btn btn-light btn-outline-secondary" href="{{route('export_tickets',$filter)}}">
-             <label id="modal">Download CSV</label> </a>
+            
+             <form method="post" action="{{ route('export_tickets')}}">
+             	@csrf
+             	<input type="hidden" name="search" value="{{$search}}">
+             	<input type="hidden" name="filter" value="{{$filter}}">
+
+             	<button class="btn btn-outline-secondary" type="submit">Download CSV</button>
+
+             </form>
           </div>      
        </div>
 

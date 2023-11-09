@@ -98,4 +98,28 @@ class AppdataController extends Controller
         }
 
     }
+
+    public function view_vault(Request $request){
+
+        if(isset($request->user_id)){
+           $folderarray= array();
+           $folders = Vault::select('folder')->where('sub_folders' , '1')->groupBy('folder')->get();
+           foreach ($folders as $key => $value) {
+            
+              $folderarray[]=$value->folder;
+           }
+           print_r(($folderarray));
+        }
+        else{
+
+            return response()->json([
+                            'status'=> 0,
+                            'message' => 'UnAuthorized',
+                            'data' => $data
+                            
+                    ]);
+        }
+
+        
+    }
 }

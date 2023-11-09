@@ -505,6 +505,28 @@ class TicketController extends Controller
             
          }
 
+        /* $imageNames = "" ;
+           if($file = $request->hasFile('image')) {
+
+            foreach($_FILES['image']['name'] as $key=>$val){ 
+                
+               $fileName = basename($_FILES['image']['name'][$key]); 
+                $temp = explode(".", $fileName);
+                 
+                  $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/ticketimages/'.$fileName ;
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+            $imageNames = implode(',', $imagearray);
+             
+                 
+            }
+          
+          }*/
+
 
             $conversation = TicketConversation::create([
                 'ticket_id' => $request->ticket_id ,
@@ -531,7 +553,7 @@ class TicketController extends Controller
              // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
 
              $updateticket = Ticket::where('id',$ticket->id)->update([
-               'status' => $request->action]);
+               'status' => $request->action ,'comments' =>$request->message]);
 
              if($updateticket){
 
@@ -591,7 +613,7 @@ class TicketController extends Controller
                       $emailid[]=$value->email;
                    }
               $updateticket = Ticket::where('id',$ticket->id)->update([
-               'status' => $request->action]);
+               'status' => $request->action , 'comments' =>$request->message]);
 
               if($updateticket){
 

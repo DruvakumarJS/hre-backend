@@ -58,10 +58,13 @@
                    @if(isset($pcn_data['old_data']))
 
                   <div style="margin-top: 10px;margin-bottom: 10px">
-                     <label>Project Start Date : </label> <label class="label-bold">{{$pcn_data['new_data']['proposed_start_date']}}</label>
+                     <label>Project Start Date : </label> <label class="label-bold">
+                      <?php echo ($pcn_data['new_data']['proposed_start_date']=='')?'':date("d-m-Y", strtotime($pcn_data['new_data']['proposed_start_date']))  ?>
+                     </label>
                   </div>
                    <div style="margin-top: 10px;margin-bottom: 10px">
-                     <label>Project End Date : </label> <label class="label-bold">{{$pcn_data['new_data']['proposed_end_date']}}</label>
+                     <label>Project End Date : </label> <label class="label-bold"><?php echo ($pcn_data['new_data']['proposed_end_date']=='')?'':date("d-m-Y", strtotime($pcn_data['new_data']['proposed_end_date']))  ?>
+                     </label>
                   </div> 
                   <div style="margin-top: 10px;margin-bottom: 10px">
                      <label>Provide Holiday : </label> <label class="label-bold">{{$pcn_data['new_data']['approve_holidays']}}</label>
@@ -71,16 +74,22 @@
                   </div>
 
                    <div style="margin-top: 10px;margin-bottom: 10px">
-                     <label>Actual Start Date : </label> <label class="label-bold">{{$pcn_data['new_data']['actual_start_date']}}</label>
+                     <label>Actual Start Date : </label> <label class="label-bold">
+                       <?php echo ($pcn_data['new_data']['actual_start_date']=='')?'':date("d-m-Y", strtotime($pcn_data['new_data']['actual_start_date']))  ?>
+                     </label>
                   </div>
                    <div style="margin-top: 10px;margin-bottom: 10px">
-                     <label>Actual Completed Date : </label> <label class="label-bold">{{$pcn_data['new_data']['actual_completed_date']}}</label>
+                     <label>Actual Completed Date : </label> <label class="label-bold">
+                      <?php echo ($pcn_data['new_data']['actual_completed_date']=='')?'':date("d-m-Y", strtotime($pcn_data['new_data']['actual_completed_date']))  ?>
+                     </label>
                   </div>
                    <div style="margin-top: 10px;margin-bottom: 10px">
                      <label>Actual Hold Days/Holidays : </label> <label class="label-bold">{{$pcn_data['new_data']['hold_days']}}</label>
                   </div>
                    <div style="margin-top: 10px;margin-bottom: 10px">
-                     <label>DLP Date : </label> <label class="label-bold">{{$pcn_data['new_data']['dlp_date']}}</label>
+                     <label>DLP Date : </label> <label class="label-bold">
+                       <?php echo ($pcn_data['new_data']['dlp_date']=='')?'':date("d-m-Y", strtotime($pcn_data['new_data']['dlp_date']))  ?>
+                     </label>
                   </div>
                    <div style="margin-top: 10px;margin-bottom: 10px">
                      <label>status : </label> <label class="label-bold">{{$pcn_data['new_data']['status']}}</label>
@@ -114,10 +123,14 @@
                   </div>
 
                   <div style="margin-top: 10px;margin-bottom: 10px">
-                     <label>Project Start Date : </label> <label class="label-bold">{{$pcn_data['old_data']['proposed_start_date']}}</label>
+                     <label>Project Start Date : </label> <label class="label-bold">
+                      <?php echo ($pcn_data['old_data']['proposed_start_date']=='')?'':date("d-m-Y", strtotime($pcn_data['old_data']['proposed_start_date']))  ?>
+                     </label>
                   </div>
                    <div style="margin-top: 10px;margin-bottom: 10px">
-                     <label>Project End Date : </label> <label class="label-bold">{{$pcn_data['old_data']['proposed_end_date']}}</label>
+                     <label>Project End Date : </label> <label class="label-bold">
+                      <?php echo ($pcn_data['old_data']['proposed_end_date']=='')?'':date("d-m-Y", strtotime($pcn_data['old_data']['proposed_end_date']))  ?>
+                     </label>
                   </div> 
                   <div style="margin-top: 10px;margin-bottom: 10px">
                      <label>Provide Holiday : </label> <label class="label-bold">{{$pcn_data['old_data']['approve_holidays']}}</label>
@@ -126,16 +139,22 @@
                      <label>Approved Holidays : </label> <label class="label-bold">{{$pcn_data['old_data']['approved_days']}}</label>
                   </div>
                    <div style="margin-top: 10px;margin-bottom: 10px">
-                     <label>Actual Start Date : </label> <label class="label-bold">{{$pcn_data['old_data']['actual_start_date']}}</label>
+                     <label>Actual Start Date : </label> <label class="label-bold">
+                      <?php echo ($pcn_data['old_data']['actual_start_date']=='')?'':date("d-m-Y", strtotime($pcn_data['old_data']['actual_start_date']))  ?>
+                     </label>
                   </div>
                    <div style="margin-top: 10px;margin-bottom: 10px">
-                     <label>Actual Completed Date : </label> <label class="label-bold">{{$pcn_data['old_data']['actual_completed_date']}}</label>
+                     <label>Actual Completed Date : </label> <label class="label-bold">
+                      <?php echo ($pcn_data['old_data']['actual_completed_date']=='')?'':date("d-m-Y", strtotime($pcn_data['old_data']['actual_completed_date']))  ?>
+                     </label>
                   </div>
                    <div style="margin-top: 10px;margin-bottom: 10px">
                      <label>Actual Hold Days/Holidays : </label> <label class="label-bold">{{$pcn_data['old_data']['hold_days']}}</label>
                   </div>
                    <div style="margin-top: 10px;margin-bottom: 10px">
-                     <label>DLP Date : </label> <label class="label-bold">{{$pcn_data['old_data']['dlp_date']}}</label>
+                     <label>DLP Date : </label> <label class="label-bold">
+                      <?php echo ($pcn_data['old_data']['dlp_date']=='')?'':date("d-m-Y", strtotime($pcn_data['old_data']['dlp_date']))  ?>
+                     </label>
                   </div>
                    <div style="margin-top: 10px;margin-bottom: 10px">
                      <label>status : </label> <label class="label-bold">{{$pcn_data['old_data']['status']}}</label>

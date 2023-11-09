@@ -44,19 +44,30 @@
           
         </div>
              
-
-
            <div id="div2">
             <a href="{{route('intends')}}"><button class="btn btn-light btn-outline-secondary" >View Indents</button></a>
           </div>
           
-          @if(Auth::user()->role_id == '1')
+          @if(Auth::user()->role_id == '1' or Auth::user()->role_id == '2')
             <div id="div2" style="margin-right: 30px">
-              <a onclick="return confirm('Further Dispatch will be restricted to this Indent number and it will be marked as Completed.')" href="{{route('update_indent_status',$id)}}"><button class="btn btn-light btn-outline-secondary">Mark as Complete</button></a>
+              <a data-bs-toggle="modal" data-bs-target="#triggerModal"  class="btn btn-light btn-outline-secondary" href="" title="<?php echo ($indents->settlement_triggerd == 'YES')? $indents->trigger_comments.'-'.$indents->commentor->employee_id:''  ?>"><label id="modal">Trigger settlement</label></a>
+
             </div>
           @endif
           
+          @if(Auth::user()->role_id == '3' AND $indents->settlement_triggerd == 'YES')
+            <div id="div2" style="margin-right: 30px">
+              <button class="btn btn-light btn-outline-secondary" title="<?php echo ($indents->settlement_triggerd == 'YES')? $indents->trigger_comments.'-'.$indents->commentor->employee_id:''  ?>" >settlement Comments</button>
+            </div>
+          @endif
 
+
+           @if( (Auth::user()->role_id == '1' or Auth::user()->role_id == '3') AND $indents->settlement_triggerd == 'YES')
+            <div id="div2" style="margin-right: 30px">
+              <a data-bs-toggle="modal" data-bs-target="#settlementModal"  class="btn btn-light btn-outline-secondary" href="" title="<?php echo ($indents->indent_settled == 'YES')? $indents->settled_comments.'-'.$indents->settler->employee_id:''  ?>" ><label id="modal">Indent Settled </label></a> 
+            </div>
+          @endif
+        
 
         </div>
     	
@@ -141,4 +152,66 @@
 
   
 </div>
+
+<!-- trigger Modal -->
+        <div class="modal fade" id="triggerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Trigger for Indent Settlement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="{{route('trigger_settlement')}}">
+                  @csrf
+                  
+                  <input type="hidden" name="indent_no" value="{{$id}}">
+
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Add your Comments</label>
+                    <textarea class="form-control" id="comment" name="comment" ></textarea>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Trigger</button>
+                  </div>
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
+
+<!-- settlement Modal -->
+        <div class="modal fade" id="settlementModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Indent Settlement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="{{route('settle_indent')}}">
+                  @csrf
+                  
+                  <input type="hidden" name="indent_no" value="{{$id}}">
+
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Add your Comments</label>
+                    <textarea class="form-control" id="comment" name="comment" ></textarea>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Settle</button>
+                  </div>
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
 @endsection

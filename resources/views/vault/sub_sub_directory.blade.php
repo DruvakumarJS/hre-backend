@@ -60,21 +60,21 @@ div.click-to-top:hover span {
               <a target="_blank" href="{{ URL::to('/') }}/vault/{{$foldername}}/{{$sub_folder_name}}/{{$image}}">
                  <img src="{{ URL::to('/') }}/vault/{{$foldername}}/{{$sub_folder_name}}/{{$image}}" title="{{$value->name}}.{{$value->type}} , {{date('d-m-Y H:i', strtotime($value->updated_at))}}" style="height: 100px;width: 100px"> 
               </a>
-              <label>{{$value->name}} <?php echo ($key == '0') ?'':'('.$key .')'?> </label>
+              <label>{{$value->name}} </label>
 
             @elseif($value->type == 'pdf')
               
                <a target="_blank" href="{{ URL::to('/') }}/vault/{{$foldername}}/{{$sub_folder_name}}/{{$image}}">
                  <i class="fa fa-file-pdf-o" title="{{$value->name}}.{{$value->type}} , {{date('d-m-Y H:i', strtotime($value->updated_at))}}" style="font-size:100px;width: 100px; color: "></i>
               </a>
-              <label>{{$value->name}} <?php echo ($key == '0') ?'':'('.$key .')'?> </label>
+              <label>{{$value->name}} </label>
 
             @else
             
               <a target="_blank" href="{{ URL::to('/') }}/vault/{{$foldername}}/{{$sub_folder_name}}/{{$image}}">
                  <i class="fa fa-file" title="{{$value->name}}.{{$value->type}} , {{date('d-m-Y H:i', strtotime($value->updated_at))}}" style="font-size:100px;width: 100px; color: "></i>
               </a>
-              <label>{{$value->name}} <?php echo ($key == '0') ?'':'('.$key .')'?> </label>
+              <label>{{$value->name}} </label>
 
             @endif
           </div>
@@ -180,14 +180,14 @@ div.click-to-top:hover span {
                  <form action="{{ route('save_sub_sub_directory_files') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
-                    <div class="mb-3">
+                   <!--  <div class="mb-3">
                       <label for="recipient-name" class="col-form-label">Document Name</label>
                       <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name of the document" required>
                     </div>
-
-                    <div class="form-group mb-4">
+ -->
+                    <div class="form-group mb-4" style="margin-top: 20px">
                         <div class="custom-file text-left">
-                            <input type="file" name="file[]" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" class="custom-file-input" id="customFile">
+                            <input type="file" name="file[]" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" class="custom-file-input" id="customFile" required multiple>
                            
                         </div>
                     </div>

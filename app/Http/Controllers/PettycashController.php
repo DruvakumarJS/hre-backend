@@ -327,8 +327,68 @@ class PettycashController extends Controller
        
         $data = PettycashSummary::where('user_id',$id)->orderBy('id', 'DESC')->first();
 
-       // print_r(json_encode($data)); die();
         $user = Employee::where('user_id' , $id)->first();
+
+
+        /*$data = array();
+            $now = strtotime('2023-10-05');
+            $last = strtotime('2023-10-20');
+
+           $open_credits = PettycashSummary::where('user_id','1')->where('transaction_date' ,'<=' , date('Y-m-d', $now))->where('type','Credit')->sum('amount');
+           $open_debits = PettycashSummary::where('user_id','1')->where('transaction_date' ,'<=' , date('Y-m-d', $now))->where('type','Debit')->sum('amount');
+
+           $open_balance = intval($open_credits)-intval($open_debits);
+           
+           print_r($open_credits ."".$open_debits."=".$open_balance);print_r("<br>"); 
+
+
+           $close_credits = PettycashSummary::where('user_id','1')->where('transaction_date' ,'<=' , date('Y-m-d', $last))->where('type','Credit')->sum('amount');
+           $close_debits = PettycashSummary::where('user_id','1')->where('transaction_date' ,'<=' , date('Y-m-d', $last))->where('type','Debit')->sum('amount');
+
+           $close_balance = intval($close_credits)-intval($close_debits); 
+
+           print_r($close_credits ."".$close_debits."=".$close_balance); die();   
+
+           while($now <= $last ) {
+
+          
+           $summary = PettycashSummary::where('user_id','1')->where('transaction_date',date('Y-m-d', $now))->orderBy('id','ASC')->get();
+          
+
+            foreach ($summary as $key => $value) {
+                $reference = $value->reference_number;
+                $mode = $value->mode;
+
+                if($reference == '' ){
+                   $reference = '';
+                }
+
+                if($mode == '' ){
+                   $mode = '';
+                }
+
+                $finance = User::select('name')->where('id',$value->finance_id)->first();
+
+                $data[]=[
+                    'date' => \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('d-m-Y'),
+                    'finance_id' => $finance->name, 
+                    'amount' => $value->amount,
+                    'comment' => $value->comment,
+                    'issued_date' => \Carbon\Carbon::createFromFormat('Y-m-d', $value->transaction_date)->format('d-m-Y') ,
+                    'type' => $value->type,
+                    'balance' => $value->balance,
+                    'mode' => $mode,
+                    'created_at' =>\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('d-m-Y-H:i'),
+                    'ref' => $reference
+                ];
+              
+            
+         }
+
+          $now = strtotime('+1 day', $now);
+         } 
+
+         print_r(json_encode($data)); die();*/
 
          return view('pettycash/summary',compact('data','id', 'user') );
 

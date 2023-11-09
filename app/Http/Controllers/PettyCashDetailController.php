@@ -267,6 +267,17 @@ class PettyCashDetailController extends Controller
             $now = strtotime($request->from_date);
             $last = strtotime($request->to_date);
 
+           $open_credits = PettycashSummary::where('user_id',$request->id)->where('transaction_date' ,'<' , date('Y-m-d', $now))->where('type','Credit')->sum('amount');
+           $open_debits = PettycashSummary::where('user_id',$request->id)->where('transaction_date' ,'<' , date('Y-m-d', $now))->where('type','Debit')->sum('amount');
+           $open_balance = intval($open_credits)-intval($open_debits);
+           
+          // print_r($open_credits ."".$open_debits."=".$open_balance);print_r("<br>"); 
+           $close_credits = PettycashSummary::where('user_id',$request->id)->where('transaction_date' ,'<=' , date('Y-m-d', $last))->where('type','Credit')->sum('amount');
+           $close_debits = PettycashSummary::where('user_id',$request->id)->where('transaction_date' ,'<=' , date('Y-m-d', $last))->where('type','Debit')->sum('amount');
+           $close_balance = intval($close_credits)-intval($close_debits); 
+
+          // print_r($close_credits ."".$close_debits."=".$close_balance); die();  
+
            while($now <= $last ) {
 
            /* $summary = PettycashSummary::where('user_id',$request->id)->where('created_at','LIKE',date('Y-m-d', $now).'%')->get();
@@ -311,7 +322,10 @@ class PettyCashDetailController extends Controller
           {
            $data = 'mnm';
           }
-          echo json_encode($data);
+
+          $detail = ['opening' => $open_balance , 'closing'=> $close_balance , 'summary' => $data];
+
+          echo json_encode($detail);
         
     }
 

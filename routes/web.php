@@ -153,6 +153,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('search_grn', [IntendController::class,'search_grn'])->name('search_grn');
     Route::get('update_indent_status/{id}', [IntendController::class,'update_indent_status'])->name('update_indent_status');
     Route::post('filter_materials', [IntendController::class,'filter_materials'])->name('filter_materials');
+    Route::post('trigger-settlement', [IntendController::class,'trigger_settlement'])->name('trigger_settlement');
+    Route::post('settle-indent', [IntendController::class,'settle_indent'])->name('settle_indent');
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');
     Route::get('generate-pdf', [HomeController::class, 'generatePDF'])->name('pdf');
@@ -292,10 +294,10 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('import_material',[ImportController::class,'importmaterial'])->name('import_material');
 
     Route::get('export_customer',[ExportController::class,'customer'])->name('export_customer');
-    Route::get('export-pcn',[ExportController::class,'pcn'])->name('export-pcn');
+    Route::get('export-pcn/{search}',[ExportController::class,'pcn'])->name('export-pcn');
     Route::get('export_indent/{id}',[ExportController::class,'indent'])->name('export_indent');
     Route::post('download_multiple_indents',[ExportController::class,'download_multiple_indents'])->name('download_multiple_indents');
-    Route::get('export_tickets/{filter}',[ExportController::class,'ticket'])->name('export_tickets');
+    Route::post('export_tickets',[ExportController::class,'ticket'])->name('export_tickets');
     Route::get('export_pettycash',[ExportController::class,'pettycash'])->name('export_pettycash');
     Route::post('export_attendance',[ExportController::class,'attendance'])->name('export_attendance');
     Route::get('download_attendance',[ExportController::class,'month_report'])->name('download_monthly_attendance');

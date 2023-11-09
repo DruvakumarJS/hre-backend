@@ -20,19 +20,19 @@
             
             <a class="{{request()->routeIs('filter_indents')
                       ? 'active' : ''}}"
-                       href="{{route('filter_indents','all')}}" > <button class="btn" id="div1" style="margin-left: 50px">All({{$all}})</button> </a>
+                       href="{{route('filter_indents','all')}}" > <button class="btn" id="div1" style="margin-left: 30px">All({{$all}})</button> </a>
 
-            <label  style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
+            <label  style="margin-left: 10px;margin-top: 10px" class="label-medium" id="div1">|</label>
             
             <a class="{{request()->routeIs('filter_indents')
-                      ? 'active' : ''}}" href="{{route('filter_indents','Active')}}"><button class="btn" id="div1" style="margin-left: 20px">Active({{$activeCount}})</button></a>
+                      ? 'active' : ''}}" href="{{route('filter_indents','Active')}}"><button class="btn" id="div1" style="margin-left: 10px">Active({{$activeCount}})</button></a>
 
 
-            <label  style="margin-left: 20px;margin-top: 10px" class="label-medium" id="div1">|</label>
+            <label  style="margin-left: 10px;margin-top: 10px" class="label-medium" id="div1">|</label>
           
             <a class="{{request()->routeIs('filter_indents')
                       ? 'active' : ''}}" href="{{route('filter_indents','Completed')}}">
-              <button class="btn" id="div1" style="margin-left: 20px">Completed({{$compltedCount}})</button>
+              <button class="btn" id="div1" style="margin-left: 10px">Completed({{$compltedCount}})</button>
               </a>
           
          
@@ -56,6 +56,14 @@
                 </div>
               </div>
            </form>
+          </div>
+
+          <div id="div2" style="margin-right: 30px">
+             <form id="theForm" method="POST" action="download_multiple_indents">
+                        @csrf
+                        <input type="hidden" name="selctedindent" id="selctedindent">
+                        <button class="btn btn-light btn-outline-secondary" id="download" onclick="GetSelected()" style="display: none">Download Selected Indents</button>
+                      </form> 
           </div>
 
 
@@ -105,11 +113,7 @@
                             
                           </tbody>
                         </table>
-                      <form id="theForm" method="POST" action="download_multiple_indents">
-                        @csrf
-                        <input type="hidden" name="selctedindent" id="selctedindent">
-                        <button class="btn btn-sm btn-light btn-outline-secondary" id="download" onclick="GetSelected()" style="display: none">Download Selected Indents</button>
-                      </form>  
+                      
                     
                        
 

@@ -47,12 +47,18 @@
       <div>
          <label class="div-margin" style="font-weight: bolder;font-size: 25px">{{$user->name}}</label> <label >{{$user->user->roles->alias}}</label>
        
-        <div id="div2" style="margin-right: 30px">
+       <!--  <div id="div2" style="margin-right: 30px">
            <label class="label-bold">Outstanding Balance : </label> <label> {{$data->balance}}</label> 
-        </div>
+        </div> -->
+
+         <div id="div2" style="margin-right: 30px">
+        <label>Opening Balance : </label> <label id="opening" class="label-bold"></label> <label style="margin-left: 30px">  Closing Balance : </label> <label id="closing" class="label-bold"></label>
+      </div>
+     
          
       </div>
 
+     
 
     <div class="form-build">
 
@@ -136,46 +142,50 @@ $(function() {
    success:function(data)
    {
     
-    console.log(data);
+    console.log(data['summary']);
+
+    $("#opening").html(data['opening']);
+    $("#closing").html(data['closing']);
+   
     var output = '';
     var bal='';
     $('#total_records').text(data.length);
-    for(var count = 0; count < data.length; count++)
+    for(var count = 0; count < data['summary'].length; count++)
     {
-      var dates = data[count].date ;
+      var dates = data['summary'][count].date ;
 
-    
+   // alert(dates);
 
      output += '<tr>';
    /*  output += '<td>' + data[count].date + '</td>';*/
-     output += '<td>' + data[count].issued_date + '</td>';
-     output += '<td>'+ data[count].mode + '</td>';
-     output += '<td>'+ data[count].ref + '</td>';
-     output += '<td>' + data[count].comment + '</td>';
+     output += '<td>' + data['summary'][count].issued_date + '</td>';
+     output += '<td>'+ data['summary'][count].mode + '</td>';
+     output += '<td>'+ data['summary'][count].ref + '</td>';
+     output += '<td>' + data['summary'][count].comment + '</td>';
 
 
-      var tittle = 'Created&nbsp;on&nbsp;'+data[count].created_at+'&nbsp;by&#13;'+data[count].finance_id;
+      var tittle = 'Created&nbsp;on&nbsp;'+data['summary'][count].created_at+'&nbsp;by&#13;'+data['summary'][count].finance_id;
      
     
-     if(data[count].type == 'Credit'){
-         output += '<td>' + data[count].amount + '</td>';
-         var tittle = 'Created&nbsp;on&nbsp;'+data[count].created_at+'&nbsp;by&#13;'+data[count].finance_id;
+     if(data['summary'][count].type == 'Credit'){
+         output += '<td>' + data['summary'][count].amount + '</td>';
+         var tittle = 'Created&nbsp;on&nbsp;'+data['summary'][count].created_at+'&nbsp;by&#13;'+data['summary'][count].finance_id;
      
      }
      else {
           output += '<td></td>';
      }
 
-     if(data[count].type == 'Debit'){
-         output += '<td>' + data[count].amount + '</td>';
-         var tittle = 'Approved&nbsp;on&nbsp;'+data[count].created_at+'&nbsp;by&#13;'+data[count].finance_id;
+     if(data['summary'][count].type == 'Debit'){
+         output += '<td>' + data['summary'][count].amount + '</td>';
+         var tittle = 'Approved&nbsp;on&nbsp;'+data['summary'][count].created_at+'&nbsp;by&#13;'+data['summary'][count].finance_id;
      
      }
      else {
           output += '<td></td>';
      }
 
-     output += '<td>' + data[count].date + '</td>';
+     output += '<td>' + data['summary'][count].date + '</td>';
      output += '<td> <i class="fa fa-user"  title=' + tittle +'></i> </td>';
      
     

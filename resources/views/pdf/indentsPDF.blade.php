@@ -86,8 +86,9 @@
                                            <th scope="col">Material Id</th>
                                            <th scope="col">Material Category</th>
                                            <th scope="col">Material Name</th> 
-                                           <th scope="col">Brand</th> 
-                                            <th scope="col">Description</th>                               
+                                           <th scope="col">Brand</th>
+                                           <th scope="col">Features</th>
+                                           <th scope="col">Description</th>                               
                                           <th scope="col">Total Quantity</th>
                                        
                                         </tr>
@@ -101,6 +102,21 @@
                                             <td style="text-align: center; ">{{$value['category']}}</td>
                                             <td style="text-align: center; ">{{$value['name']}}</td>
                                             <td style="text-align: center; ">{{$value['brand']}}</td>
+                                            <table style="border-color: white">
+                                              <tbody >
+                                                @php
+                                                 $info = json_decode($value['features']);
+                                                @endphp
+
+                                                @foreach($info as $key => $val)
+                                                  
+                                                        <tr>
+                                                            <label>{{$key}} = {{$val}}</label>
+                                                        </tr>
+                                                   
+                                                @endforeach
+                                              </tbody>
+                                            </table>
                                             <td style="text-align: center; ">{{$value['comments']}}</td>
                                             <td style="text-align: center; ">{{$value['quantity']}} {{$value['uom']}}</td>
                                           

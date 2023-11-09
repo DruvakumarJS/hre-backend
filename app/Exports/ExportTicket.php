@@ -14,15 +14,17 @@ class ExportTicket implements FromCollection, WithHeadings
     */
 
     public $filter ;
+    public $search ;
 
     public function __construct($filter ) 
     {
-        $this->filter = $filter;    
+        $this->filter = $filter;  
+        $this->filter = $filter;     
     } 
 
     public function collection()
     {
-    	
+    	$search=$this->search;
         if($this->filter == 'all'){
         	 $att= DB::table('tickets')
            ->select(

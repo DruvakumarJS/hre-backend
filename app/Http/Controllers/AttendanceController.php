@@ -278,7 +278,9 @@ class AttendanceController extends Controller
                 'logout_date' => $only_date
               ]); 
 
-              $body = "Logout timing on date ".$login->date. " is set to ".$only_date.' '.$only_time." and total working hours is reduced by ".$request->break.' '.$request->unit;  
+              $body = "Logout timing on date ".date("d-m-Y", strtotime($login->date)). " is set to ".date("d-m-Y", strtotime($only_date)).' '.$only_time." and total working hours is reduced by ".$request->break.' '.$request->unit;  
+
+
 
         }
         else if(isset($request->logout_time)){
@@ -303,7 +305,9 @@ class AttendanceController extends Controller
                 'logout_date' => $only_date
               ]); 
 
-            $body = "Logout timing on date ".$login->date. " is set to ".$only_date.' '.$only_time;
+            $body = "Logout timing on date ".date("d-m-Y", strtotime($login->date)). " is set to ".date("d-m-Y", strtotime($only_date)).' '.$only_time;
+
+
 
         }
         else if(isset($request->break)){
@@ -325,7 +329,7 @@ class AttendanceController extends Controller
                 'total_hours' => $diffrence
               ]);
 
-            $body = "total working hours on date ".$login->date." is reduced by ".$request->break.' '.$request->unit;
+            $body = "total working hours on date ".date("d-m-Y", strtotime($login->date))." is reduced by ".$request->break.' '.$request->unit;
 
         }
 

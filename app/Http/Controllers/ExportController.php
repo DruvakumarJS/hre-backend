@@ -49,8 +49,11 @@ class ExportController extends Controller
          return Excel::download(new ExportIndents($id), $file_name);
      }
 
-     public function ticket($filter){
-    //  print_r($filter);die();
+     public function ticket(Request $request ){
+     // print_r($request->search);die();
+
+      $filter = $request->filter;
+      $search = $request->search;
        if($filter == 'Pending')
         {
           $filter = 'Pending/Ongoing';
@@ -60,12 +63,10 @@ class ExportController extends Controller
            $file_name = $filter.'_tickets.csv';
         }
       
-     	
-       
 
         if($filter=='all'){
          if(Ticket::exists()){
-          return Excel::download(new ExportTicket($filter), $file_name);
+          return Excel::download(new ExportTicket($filter , $search), $file_name);
          }
          else {
             return redirect()->back();
@@ -113,10 +114,10 @@ class ExportController extends Controller
         }
      }
 
-      public function pcn(){
+      public function pcn($search){
 
         if(Pcn::exists()){
-             return Excel::download(new ExportPcn() , "PCNs.csv");
+             return Excel::download(new ExportPcn($search) , "PCNs.csv");
 
         }
         else{

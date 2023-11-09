@@ -441,8 +441,7 @@
                                 </li>
                             @endif
                         @else
-                           
-                          
+                              
                             <!--  <a href="{{route('notification', Auth::user()->id)}}" class="notification"> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a> -->
                            <!--  <div class="dropdown">
                                <a data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
@@ -458,7 +457,6 @@
                              <a class="dropdown-item" href="{{route('vault_master')}}"><img class="circle" src="{{asset('images/vault1.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;margin-right: 10px"></a>
 
                              <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moddl"><img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;margin-right: 10px"></a>
-
 
 
                              @if(Auth::user()->role_id == 1)

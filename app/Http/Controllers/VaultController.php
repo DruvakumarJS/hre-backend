@@ -123,6 +123,8 @@ class VaultController extends Controller
                 
             $fileName = basename($_FILES['file']['name'][$key]); 
             $temp = explode(".", $fileName);
+
+             //print_r($temp[0]); die();
                  
             $fileName = rand('111111','999999') . '.' . end($temp);
 
@@ -130,8 +132,16 @@ class VaultController extends Controller
            // print_r($destinationPath); die();
             //move($destinationPath,$fileName);
             move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
+            
 
-            $imagearray[] = $fileName ;
+             $vault = Vault::create([
+                'name' => $temp[0],
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $fileName ,
+            ]); 
+
              
                  
             }
@@ -139,16 +149,9 @@ class VaultController extends Controller
           }
 
 
-        $imageNames = implode(',', $imagearray);
+      //  $imageNames = implode(',', $imagearray);
 
-        $vault = Vault::create([
-                'name' => $request->name,
-                'type' => end($temp),
-                'sub_folders' => $sub_folders,
-                'folder' => $path,
-                'filename'=> $imageNames ,
-            ]); 
-
+       
        // print_r($path); die();
         return redirect()->back();
            
@@ -216,7 +219,15 @@ class VaultController extends Controller
             //move($destinationPath,$fileName);
             move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
 
-            $imagearray[] = $fileName ;
+           // $imagearray[] = $fileName ;
+
+             $vault = Vault::create([
+                'name' => $temp[0],
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $fileName ,
+            ]); 
              
                  
             }
@@ -224,15 +235,9 @@ class VaultController extends Controller
           }
 
 
-        $imageNames = implode(',', $imagearray);
+       // $imageNames = implode(',', $imagearray);
 
-        $vault = Vault::create([
-                'name' => $request->name,
-                'type' => end($temp),
-                'sub_folders' => $sub_folders,
-                'folder' => $path,
-                'filename'=> $imageNames ,
-            ]); 
+       
 
        // print_r($path); die();
         return redirect()->back();

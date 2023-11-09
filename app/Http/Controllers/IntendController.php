@@ -175,6 +175,7 @@ class IntendController extends Controller
               'quantity' => $value->quantity,
               'comments' => $value->decription,
               'uom'=> $value->materials->uom,
+              'features' => $value->materials->information
 
              ];
            }
@@ -257,7 +258,7 @@ class IntendController extends Controller
     public function show($id)
     {
        // return view('indent/details',compact('id'));
-        $indents= Intend::select('id', 'pcn')->where('indent_no',$id)->first();
+        $indents= Intend::where('indent_no',$id)->first();
         $indent_id = $indents->id ;
         $pcn = $indents->pcn ;
 
@@ -265,7 +266,7 @@ class IntendController extends Controller
              where('indent_id',$indent_id)->orderBy('material_id', 'ASC')->paginate(25);
 
        // print_r(json_encode($indents_list));die();
-         return view('indent/view_indents',compact('id' , 'indents_list' , 'pcn'));
+         return view('indent/view_indents',compact('id' , 'indents_list' , 'pcn' ,'indents'));
     }
 
     /**
@@ -281,9 +282,12 @@ class IntendController extends Controller
        $grn = GRN::where('indent_list_id' , $id)->orderby('id', 'DESC')->get();
        $activegrn = GRN::where('indent_list_id' , $id)->where('status', '!=' ,'Received')->orderby('id', 'DESC')->get();
        $dispatched = $activegrn->sum('dispatched');
+       $total_grn = GRN::where('indent_list_id' , $id)->get();
+       $total_dispatch = $total_grn->sum('dispatched');
+
 
       // print_r($dispatched);die();
-       return view('indent/edit_indent_items',compact('indend_data' , 'id' , 'grn' ,'dispatched'));
+       return view('indent/edit_indent_items',compact('indend_data' , 'id' , 'grn' ,'dispatched','total_dispatch'));
     }
 
     /**
@@ -848,5 +852,37 @@ class IntendController extends Controller
 
     print_r(sizeof($product)); die();    
 
+  }
+
+  public function trigger_settlement(Request $request){
+   // print_r($request->Input()); die();
+
+    $update =  Intend::where('indent_no', $request->indent_no)->update(
+      [
+       'settlement_triggerd' => 'YES' , 
+       'trigger_comments' => $request->comment ,
+       'commenter_id' => Auth::user()->id
+     ]);
+
+    if($update){
+      return redirect()->back();
+    }
+
+
+  }
+
+  public function settle_indent(Request $request){
+     $update =  Intend::where('indent_no', $request->indent_no)->update(
+      [
+       'indent_settled' => 'YES' , 
+       'settled_comments' => $request->comment ,
+       'settler_id' => Auth::user()->id,
+       'status' => 'Completed'
+     ]);
+
+     if($update){
+        return redirect()->back();
+      }
+    
   }
 }

@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <style type="text/css">
     td{
 max-width: 100px;
@@ -9,9 +10,8 @@ overflow: hidden;
 text-overflow: clip;
 white-space: nowrap;
 }
-
-
 </style>
+
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
@@ -27,14 +27,15 @@ white-space: nowrap;
           @endif
 
            <div id="div3" style="margin-right: 30px">
-             <a href="{{route('export-pcn')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
+             <a href="{{route('export-pcn',$search)}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
+            
           </div>
 
           <div id="div2" style="margin-right: 30px">
            <form method="POST" action="{{route('search_pcn_details')}}">
             @csrf
              <div class="input-group mb-3">
-                <input class="form-control" type="text" name="search" placeholder="Search here">
+                <input class="form-control" type="text" name="search" placeholder="Search here" value="{{$search}}">
                 <div class="input-group-prepend">
                    <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
                 </div>

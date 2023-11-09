@@ -315,7 +315,9 @@
 
               </div>
               <div class="modal-body">
-                <form method="post" action="{{route('modify_ticket')}}" enctype="multipart/form-data">
+                <!-- <form method="post" action="{{route('modify_ticket')}}" enctype="multipart/form-data"> -->
+                  <form id="myform">
+                  
                   @csrf
                    <label>Subject : </label>
                    <label class="label-bold">{{$ticket->issue}}</label>
@@ -325,23 +327,27 @@
                     
                      <!-- <input type="text" class="form-control" id="message" name="message" required> -->
                   </div>
-                  <textarea name="message" placeholder="Enter your comments here..." required style="width: 100%; padding: 10px"></textarea>
-                  <input type="hidden" name="sender" value="{{Auth::user()->id}}">
-                  <input type="hidden" name="ticket_no" value="{{$id}}">
-                  <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
-                  <input type="hidden" name="action" value="Completed">
+                  <textarea name="message" id="comment" placeholder="Enter your comments here..." required style="width: 100%; padding: 10px"></textarea>
+                  <input type="hidden" name="sender" id="sender" value="{{Auth::user()->id}}">
+                  <input type="hidden" name="ticket_no" id="ticket_no" value="{{$id}}">
+                  <input type="hidden" name="ticket_id" id="ticket_id" value="{{$ticket->id}}">
+                  <input type="hidden" name="action" id="action" value="Completed">
 
                   <div class="mb-3">
                     <label for="message-text" class="col-form-label">Attach Image *</label>
-                      <input type="file" class="form-control form-control-sm" name="image" id="imgInp" required accept="image/*">
+                      <input type="file" id="file" class="form-control form-control-sm" name="image[]" id="imgInp" required accept="image/*" multiple>
                 
                   </div>
 
                   <div class="modal-footer">
                    
-                    <button type="submit" class="btn btn-danger">Send</button>
+                    <button type="submit" class="btn btn-danger" id="submittion">Send</button>
                   </div>
                 </form>
+
+                 <div class="form-group row">
+                    <output id="result" />
+                </div>
               </div>
               
             </div>
@@ -349,6 +355,191 @@
         </div>
 <!--Completed Modal -->
 
+<script type="text/javascript">
+  var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+  var imagesArray = [];
+   var filesInput = document.getElementById('file');
+    
+    filesInput.addEventListener('change', function(e) {
+      var output = document.getElementById('result');
+      var files = e.target.files; //FileList object
+
+       if(files.length > 4 || imagesArray.length >=4){
+        document.getElementById('file').value= null;
+        alert("You can only upload a maximum of 4 files");
+
+        
+      }
+      else {
+      
+      for (var i = 0; i < files.length; i++) {
+       // alert('ll');
+        var currFile = files[i];
+     
+       imagesArray.push(files[i]);
+
+        displayImages();
+
+      
+      }
+
+       function displayImages() {
+
+        let images = ""
+        imagesArray.forEach((image, index) => {
+     
+          images += `<div class="image">
+                <img  src="${URL.createObjectURL(image)}" alt="image">
+                '<span data-indx="`+index+`" class="img-delete"><b class="remove_icon">X</b></span>'
+              </div>` 
+           })
+        
+         
+        output.innerHTML = images
+
+       }
+
+
+       $(".img-delete").click(function(){
+            //alert("kkk");
+          //  alert(imagesArray.length);
+                   var imgInd = $(this).attr('data-indx');
+                  // alert(imgInd);
+                   imagesArray.splice(imgInd,1);
+                   $(this).parent(".image").remove();
+
+                   
+                   
+
+                });
+
+    
+    }
+
+    });
+
+    $(document).ready(function(){
+
+         $('#submittion').click(function(){
+
+              
+             var comments = $('#comment').val();
+             var action = $('#action').val();
+             var ticket_no = $('#ticket_no').val();
+             var ticket_id = $('#ticket_id').val();
+             var sender = $('#sender').val();
+            // alert(comments);
+            
+            
+
+            if(comments == ''){
+              alert("Please Add comments");
+              return;
+             }
+             
+             
+             if(imagesArray.length == 0){
+              alert("Please attach image(s) ");
+              return;
+             }
+
+             document.getElementById("submittion").style.display= "none" ;
+
+              
+                     var fd = new FormData();
+                     console.log(fd);
+
+                      imagesArray.forEach(function(image, i) {
+                         fd.append('image[]',image);
+                      });
+
+                     // Append data 
+                    // fd.append('file',imagesArray);
+                     fd.append('_token',CSRF_TOKEN);
+                     fd.append('ticket_no',ticket_no);
+                     fd.append('ticket_id',ticket_id);
+                     fd.append('sender',sender);
+                     fd.append('message',comments);
+                     fd.append('action',action);
+                     // Hide alert 
+                     $('#responseMsg').hide();
+                    
+                     
+                     // AJAX request 
+                     $.ajax({
+                          url: "{{ route('modify_ticket') }}",
+                          method: 'post',
+                          data: fd,
+                          contentType: false,
+                          processData: false,
+                          dataType: 'json',
+                          success: function(response){
+                             // console.log(response);
+                            
+                             // alert("Ticket Created Succesfully");
+                              // window.location.href = "{{ route('tickets')}}";
+                            // document.getElementById("myForm").reset();
+                            //$('#myForm').trigger("reset");
+                            jQuery("#submit input[type=text]").val('');
+                             var data = response;
+                             alert(data);
+
+
+                          },
+                          error: function(response){
+                                console.log("error : " + JSON.stringify(response) );
+                          }
+                     });
+               
+
+         });
+    });
+</script>
+
+<style type="text/css">
+  output{
+  width: 100%;
+  min-height: 150px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+  position: relative;
+  border-radius: 5px;
+}
+
+output .image{
+  height: 150px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+output .image img{
+  height: 100%;
+  width: 100%;
+}
+
+output .image span {
+  position: absolute;
+  top: -4px;
+  right: 4px;
+  cursor: pointer;
+  font-size: 22px;
+  color: white;
+}
+
+output .image span:hover {
+  opacity: 0.8;
+}
+
+output .span--hidden{
+  visibility: hidden;
+}
+
+
+</style>
 
 
 @endsection
