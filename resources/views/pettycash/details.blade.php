@@ -153,9 +153,9 @@
                                             @endif
                                             @endif
 
-                                            <!-- @if( (Auth::user()->role_id == '1') && $value->isapproved != '0')                        
+                                            @if( (Auth::user()->role_id == '1') && $value->isapproved != '0')                        
                                                <a style="margin-top: 10px" id="MyrevertModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-danger">Revert</button></a>  
-                                            @endif -->
+                                            @endif
                                       </td> 
                                       
                                    <!-- 
