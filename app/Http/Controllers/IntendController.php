@@ -517,7 +517,7 @@ class IntendController extends Controller
       
     }
 
-    public function action(Request $request){
+    /*public function action(Request $request){
 
         $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
           ->where('item_code' , 'LIKE', '%'.$request->search.'%')
@@ -528,9 +528,9 @@ class IntendController extends Controller
         
         return response()->json($product);
 
-    }
+    }*/
 
-   /* public function action(Request $request){
+    public function action(Request $request){
      
         $search = $request->search;
         $search_array = explode(',', $search);
@@ -571,7 +571,7 @@ class IntendController extends Controller
         $product=$product->get();
 
         return response()->json($product);
-    }*/
+    }
 
     public function grn(){
 
@@ -848,9 +848,9 @@ class IntendController extends Controller
 
         $product=$product->get();
        
-      
+      return response()->json($product);
 
-    print_r(sizeof($product)); die();    
+   // print_r(sizeof($product)); die();    
 
   }
 
