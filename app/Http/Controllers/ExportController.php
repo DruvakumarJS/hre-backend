@@ -34,8 +34,9 @@ use Auth;
 
 class ExportController extends Controller
 {
-     public function customer($search){
-     // print_r($search); die();
+     public function customer(Request $request){
+     // print_r("se".$request->search); die();
+       $search = $request->search ;
         $file_name = 'customers.csv';
         if(Customer::exists()){
          return Excel::download(new ExportCustomer($search), $file_name);
@@ -127,8 +128,9 @@ class ExportController extends Controller
         }
      }
 
-      public function pcn($search){
+      public function pcn( Request $request){
 
+        $search = $request->search ;
         if(Pcn::exists()){
              return Excel::download(new ExportPcn($search) , "PCNs.csv");
 
@@ -212,7 +214,13 @@ class ExportController extends Controller
     public function material(Request $request){
          
       // print_r($request->Input());die();
-       $filter = $request->search ;
+       if($request->search == ''){
+        $filter = 'all';
+       }
+       else{
+         $filter = $request->search ;
+       }
+      
        if(isset($request->start_date)){
         $start = $request->start_date . ' 00:00:01';
        $end = $request->end_date. ' 23:59:59'; 

@@ -32,30 +32,8 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::with('address')->orderBy('id', 'DESC')->paginate(25);
+       
         $search = '';
-        //return view('customer/list',compact('customers'));
-
-      /* $emailarray = User::select('email')->where('role_id','1')->get();
-       foreach ($emailarray as $key => $value) {
-          $emailid[]=$value->email;
-       }
-      
-        $data = ['name' => "TATA" , 'mobile'=>"8123747334" , 'email'=>"tata@gmail.com"];
-            $subject = "New Customer Added";
-            $address = 'druva@netiapps.com,abhishek@netiapps.com' ;
-            $to = explode(',', $address);
- 
-         Mail::to($emailid)->send(new CustomerMail($data,$subject));*/
-
-      /* $mail_data = [
-            'subject' => 'New message subject.'
-        ];
-        
-        $job = (new SendCustomerEmail($mail_data))
-                ->delay(now()->addSeconds(2)); 
-
-        dispatch($job);*/
-
 
         return view('customer/list',compact('customers' , 'search'));
          
@@ -415,7 +393,12 @@ class CustomerController extends Controller
     }
 
     public function search(Request $request){
-        $search = $request->search ;
+       
+        if($request->search == ''){
+          return redirect()->route('view_customers');
+        }
+
+    $search = $request->search ;
     $customers = Customer::where('name' , 'LIKE', '%'.$request->search.'%')
     ->orWhere('email' , 'LIKE', '%'.$request->search.'%')
     ->orWhere('mobile' ,'LIKE', '%'.$request->search.'%')

@@ -27,7 +27,17 @@ white-space: nowrap;
           @endif
 
            <div id="div3" style="margin-right: 30px">
-             <a href="{{route('export-pcn',$search)}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
+          
+          <form method="POST" action="{{route('export-pcn')}}">
+            @csrf
+            <input type="hidden" name="search" value="{{$search}}">
+             <div class="input-group mb-3">
+            
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary" type="submit" >Download CSV</button>
+                </div>
+              </div>
+           </form>
             
           </div>
 

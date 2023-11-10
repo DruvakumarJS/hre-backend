@@ -39,7 +39,7 @@ class ExportMaterial implements FromCollection , WithHeadings
         else if($search != ''){
            
             $material =  DB::table('materials')
-            ->select('item_code', 'category_id' , 'name' , 'brand' , 'uom' , 'information')
+            ->select(DB::raw("DATE_FORMAT(`created_at`, '%d-%m-%Y') as date"),'item_code', 'category_id' , 'name' , 'brand' , 'uom' , 'information')
             ->where('item_code', 'LIKE','%'.$search.'%')
             ->orWhere('name', 'LIKE','%'.$search.'%')
             ->orWhere('brand', 'LIKE','%'.$search.'%')
@@ -53,7 +53,7 @@ class ExportMaterial implements FromCollection , WithHeadings
         }
         else {
              $material =  DB::table('materials')
-            ->select('item_code', 'category_id' , 'name' , 'brand' , 'uom' , 'information')
+            ->select(DB::raw("DATE_FORMAT(`created_at`, '%d-%m-%Y') as date"),'item_code', 'category_id' , 'name' , 'brand' , 'uom' , 'information')
             ->whereBetween('created_at', [$this->start , $this->end])
             ->get();
         }
@@ -64,7 +64,7 @@ class ExportMaterial implements FromCollection , WithHeadings
 
     public function headings(): array
     {
-    	return ['Date','Material Code' , 'Category ID' , 'Material Name' , 'Brand' , 'UoM' , 'More info'];
+    	return ['Date','Material ID' , 'Category ID' , 'Material Name' , 'Make/Brand' , 'UoM' , 'Specifications'];
 
     }
 }

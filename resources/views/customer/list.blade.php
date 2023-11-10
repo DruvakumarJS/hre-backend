@@ -40,7 +40,17 @@
           </div>
 
           <div id="div2" style="margin-right: 30px" >
-            <a href="{{route('export_customer',$search)}}" class="btn btn-light btn-outline-secondary" href=""><label id="modal">Download CSV</label></a>
+           <!--  <a href="{{route('export_customer',$search)}}" class="btn btn-light btn-outline-secondary" href=""><label >Download CSV</label></a> -->
+            <form method="POST" action="{{route('export_customer')}}">
+            @csrf
+            <input type="hidden" name="search" value="{{$search}}">
+             <div class="input-group mb-3">
+            
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary" type="submit" >Download CSV</button>
+                </div>
+              </div>
+           </form>
           </div>
 
         @if(Session::has('message'))
@@ -65,8 +75,8 @@
                               <th scope="col">Billing Name</th>
                               <th scope="col">Contact person</th>
                               <th scope="col">Designation</th>
-                              <th scope="col">Email</th>
                               <th scope="col">Mobile</th>
+                              <th scope="col">Email</th>
                               <!-- <th scope="col" width="200px">Address</th> -->
                               <th scope="col"></th>
                              
@@ -81,8 +91,9 @@
                               <td>{{$value->name}}</td>
                               <td>{{$value->full_name}}</td>
                               <td>{{$value->designation}}</td>
-                              <td>{{$value->email}}</td>
                               <td>{{$value->mobile}}</td>
+                              <td>{{$value->email}}</td>
+                              
                              <!--  <td>
                                   @foreach($value->address as $key1 =>$value1)
                                      {{$key1+1}} : {{ $value1->area }} ,{{ $value1->city }} , {{ $value1->state }} <br>

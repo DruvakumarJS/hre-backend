@@ -77,7 +77,7 @@ class ExportCustomer implements FromCollection, WithHeadings
     public function headings(): array
      {       
        return [
-         'Date','Name','Brand' , 'State' , 'GST No.' , 'Name' , 'Designation' , 'Mobile' , 'Email','Name2' , 'Designation2' , 'Mobile2' , 'Email2', 'Name3' , 'Designation3' , 'Mobile3' , 'Email3','Name4' , 'Designation4' , 'Mobile4' , 'Email4'
+         'Date','Billing Name','Brand' , 'State' , 'GST No.' , 'Name' , 'Designation' , 'Mobile' , 'Email','Name2' , 'Designation2' , 'Mobile2' , 'Email2', 'Name3' , 'Designation3' , 'Mobile3' , 'Email3','Name4' , 'Designation4' , 'Mobile4' , 'Email4'
        ];
      }
 }

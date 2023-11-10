@@ -22,14 +22,14 @@ class ExportCategory implements FromCollection, WithHeadings
 
     public function collection()
     {
-        $cat= DB::table('categories')->select(DB::raw("DATE_FORMAT(`created_at`, '%d-%m-%Y') as date"),'category', 'material_category')->get();
+        $cat= DB::table('categories')->select(DB::raw("DATE_FORMAT(`created_at`, '%d-%m-%Y') as date"),'category', 'material_category' , 'description')->get();
         return $cat ;
     }
 
      public function headings(): array
      {       
        return [
-         'Date','Category','Category code' 
+         'Date','Category','Category code','Description'
        ];
      }
 }
