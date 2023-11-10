@@ -47,24 +47,50 @@
            <div id="div2">
             <a href="{{route('intends')}}"><button class="btn btn-light btn-outline-secondary" >View Indents</button></a>
           </div>
-          
-          @if(Auth::user()->role_id == '1' or Auth::user()->role_id == '2')
-            <div id="div2" style="margin-right: 30px">
-              <a data-bs-toggle="modal" data-bs-target="#triggerModal"  class="btn btn-light btn-outline-secondary" href="" title="<?php echo ($indents->settlement_triggerd == 'YES')? $indents->trigger_comments.'-'.$indents->commentor->employee_id:''  ?>"><label id="modal">Endorse Settle</label></a>
 
+
+          @if(Auth::user()->role_id == '1' or Auth::user()->role_id == '2')
+
+        
+            <div id="div2" style="margin-right: 30px">
+              @if($indents->settlement_triggerd != 'YES') 
+              <a data-bs-toggle="modal" data-bs-target="#triggerModal"  class="btn btn-light btn-outline-secondary" href="" ><label id="modal">Endorse Settle</label></a>
+              @endif 
+
+              @if($indents->settlement_triggerd == 'YES')            
+              <a data-bs-toggle="modal" data-bs-target="#endorseModal"  href="">
+              <button class="btn btn-success " >Endorse Comments</button></a>
+              @endif 
+              
             </div>
+            
           @endif
           
           @if(Auth::user()->role_id == '3' AND $indents->settlement_triggerd == 'YES')
             <div id="div2" style="margin-right: 30px">
-              <button class="btn btn-light btn-outline-secondary" title="<?php echo ($indents->settlement_triggerd == 'YES')? $indents->trigger_comments.'-'.$indents->commentor->employee_id:''  ?>" >Endorse Comments</button>
+              <a  data-bs-toggle="modal" data-bs-target="#endorseModal"  href="">
+              <button class="btn btn-success " >Endorse Comments</button></a>
             </div>
+
           @endif
 
 
-           @if( (Auth::user()->role_id == '1' or Auth::user()->role_id == '3') AND $indents->settlement_triggerd == 'YES')
+           @if( (Auth::user()->role_id == '1' or Auth::user()->role_id == '2' or Auth::user()->role_id == '3') AND $indents->settlement_triggerd == 'YES')
+          
             <div id="div2" style="margin-right: 30px">
+
+              @if($indents->indent_settled != 'YES')
+              @if(Auth::user()->role_id == '1' or Auth::user()->role_id == '3')
               <a data-bs-toggle="modal" data-bs-target="#settlementModal"  class="btn btn-light btn-outline-secondary" href="" title="<?php echo ($indents->indent_settled == 'YES')? $indents->settled_comments.'-'.$indents->settler->employee_id:''  ?>" ><label id="modal">Settle Indent </label></a> 
+              @endif
+              @endif
+
+             @if($indents->indent_settled == 'YES')
+             @if(Auth::user()->role_id == '1' or Auth::user()->role_id == '2' or Auth::user()->role_id == '3')
+              <a  data-bs-toggle="modal" data-bs-target="#settleModal"  href="">
+              <button class="btn btn-danger " >Settled Comments</button></a>
+              @endif
+            @endif
             </div>
           @endif
         
@@ -158,7 +184,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Trigger for Indent Settlement</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Trigger for Endorse Settle</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -189,7 +215,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Indent Settlement</h5>
+                <h5 class="modal-title" id="exampleModalLabel"> Settle Indent</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -208,6 +234,54 @@
                     <button type="submit" class="btn btn-danger">Settle</button>
                   </div>
                 </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
+
+
+<!-- Ednorse message Modal -->
+        <div class="modal fade" id="endorseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Endorse Settlement Comments</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+               <div>
+                 <label class="label-bold"><?php echo ($indents->settlement_triggerd == 'YES')? $indents->trigger_comments:''  ?></label>
+               </div>
+               <div>
+                 <label>Commenter Name : </label> <label class="label-bold"><?php echo ($indents->settlement_triggerd == 'YES')? $indents->commentor->name.' - '.$indents->commentor->employee_id:''  ?></label>
+               </div>
+               
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
+
+<!-- settle message Modal -->
+        <div class="modal fade" id="settleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Endorse Settlement Comments</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+               <div>
+                 <label class="label-bold"><?php echo ($indents->indent_settled == 'YES')? $indents->settled_comments.' - '.$indents->settler->employee_id:''  ?> </label>
+               </div>
+               <div>
+                 <label>Commenter Name : </label> <label class="label-bold"><?php echo ($indents->indent_settled == 'YES')? $indents->settler->name.' - '.$indents->settler->employee_id:''  ?></label>
+               </div>
+               
+               
               </div>
               
             </div>

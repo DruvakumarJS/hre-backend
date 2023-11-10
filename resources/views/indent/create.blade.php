@@ -169,12 +169,12 @@ $( document ).ready(function() {
            
          
         }
-      }).data("ui-autocomplete")._renderItem = function (ul, item) {
+      })/*.data("ui-autocomplete")._renderItem = function (ul, item) {
             var regx = new RegExp('(' + this.term + ')', 'ig');
            // var label = item.value.replace(regx, "<span class='highlight'>" + this.term + "</span>");
              var label = item.value.replace(regx, "<span class='highlight'>" + this.term + "</span>");
             return $("<li/>").data("ui-autocomplete-item", item).append($("<a>").html(label)).appendTo(ul);
-        };
+        };*/
   
 });
 

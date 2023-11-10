@@ -33,14 +33,7 @@ class PcnController extends Controller
 
     public function index()
     {
-        if(Auth::user()->role_id == '1'){
-          // $pcns = Pcn::orderByraw('length(pcn),pcn')->paginate(25); 
-           $pcns = Pcn::orderBy('pcnumber', 'desc')->paginate(25); 
-          // $pcns=DB::table('pcns')->orderByraw('length(pcn),pcn')->paginate(25);
-        }
-        else {
-             $pcns = Pcn::where('status','Active')->orderByraw('length(pcn),pcn')->paginate(25); 
-        }
+       $pcns = Pcn::orderBy('pcnumber', 'desc')->paginate(25); 
        
        return view('pcn/list', compact('pcns'));
     }
@@ -438,7 +431,8 @@ class PcnController extends Controller
 
     public function view_pcn()
     {
-        $pcns = Pcn::orderByraw('length(pcn),pcn')->paginate(25);
+        //$pcns = Pcn::orderByraw('length(pcn),pcn')->paginate(25);
+        $pcns = Pcn::orderBy('pcnumber', 'desc')->paginate(25); 
         $search = '';
         return view('pcn/view_pcn' , compact('pcns','search'));
     }

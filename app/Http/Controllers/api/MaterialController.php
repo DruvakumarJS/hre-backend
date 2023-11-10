@@ -156,7 +156,7 @@ class MaterialController extends Controller
 
     function material_search(Request $request){
         $search = $request->search;
-        $search_array = explode(',', $search);
+        $search_array = explode(' ', $search);
         $product = array();
         $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"));
   

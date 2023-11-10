@@ -56,8 +56,9 @@ white-space: nowrap;
                               <th scope="col">Brand</th>
                               <th scope="col">Email</th>
                               <th scope="col">Address</th>
-                              @if(Auth::user()->id == '1')
                               <th scope="col">Status</th>
+                              
+                              @if(Auth::user()->id == '1')
                               
                               <th scope="col">Action</th>
                              @endif
@@ -72,8 +73,9 @@ white-space: nowrap;
                               <td width="100px">{{$value->brand}}</td>
                               <td>{{$value->customer->email}}</td>
                               <td>{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}</td>
-                              @if(Auth::user()->role_id == '1')
                               <td>{{$value->status}}</td>
+                              
+                              @if(Auth::user()->role_id == '1')
                               
                               <td ><a href="{{route('edit_pcn',$value->pcn)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
                               </td>
