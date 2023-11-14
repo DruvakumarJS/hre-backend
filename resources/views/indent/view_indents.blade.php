@@ -110,7 +110,7 @@
                               <th scope="col">Material_id</th>
                               <th scope="col">Material Name</th>
                               <th scope="col">Brand</th>
-                              <th scope="col">Information</th>
+                              <th scope="col">Specifications</th>
                               <th scope="col">Description</th>                          
                               <th scope="col">Total Indent</th>
                               <th scope="col">Total GRN</th>

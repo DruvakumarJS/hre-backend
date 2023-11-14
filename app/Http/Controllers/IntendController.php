@@ -218,7 +218,7 @@ class IntendController extends Controller
           //Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
 
                 try {
-                     Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
+                    // Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
                     } catch (\Exception $e) {
                         return $e->getMessage();
                        

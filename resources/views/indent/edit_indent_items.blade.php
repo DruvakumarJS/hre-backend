@@ -74,7 +74,7 @@
                     </div>
 
                     <div style="margin-top: 20px">
-                        <label>Material Description</label>
+                        <label>Material Specifications</label>
                         <div>
                             @php
                                 $info = json_decode($indend_data->materials->information , true);
