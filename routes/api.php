@@ -45,6 +45,7 @@ Route::post('/create-ticket',[TicketController::class,'create']);
 Route::post('/get-tickets',[TicketController::class,'index']);
 Route::post('/update-ticket',[TicketController::class,'update']);
 Route::post('/update-ticket-status',[TicketController::class,'modify_ticket_status']);
+Route::post('/update-ticket-status_2',[TicketController::class,'modify_ticket_status_2']);
 Route::post('/search-ticket',[TicketController::class,'search']);
 Route::post('/search-pcn',[IndentController::class,'search_pcn']);
 
