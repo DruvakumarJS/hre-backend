@@ -277,7 +277,6 @@ class TicketController extends Controller
    }
 
 
-
    function conversation(Request $request){
 
 	   if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no) && isset($request->message) && isset($request->recipient) ){
@@ -536,6 +535,194 @@ class TicketController extends Controller
                 'recipient' => $ticket->creator,
                 'status' => 'pending',
                 'filename' => $fileName]);
+            
+            if($conversation){
+
+              $subject = "Ticket Completed : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn;
+
+              $body = "The Ticket No. ".$request->ticket_no." is Completed ";
+              $ticketarray = ['ticket_no' => $request->ticket_no ];
+
+              $emailarray = User::select('email')->where('id',$ticket->creator)->orWhere('role_id','2')->get();
+
+                   foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                   }
+
+             // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+
+             $updateticket = Ticket::where('id',$ticket->id)->update([
+               'status' => $request->action ,'comments' =>$request->message]);
+
+             if($updateticket){
+
+                try {
+                      Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                     
+                     return response()->json([
+                        'status' => 1 ,
+                        'message' => 'Ticket Updated Successfully']);
+                    }     
+                    
+                
+             }
+             else {
+                 return response()->json([
+                    'status' => 0 ,
+                    'message' => 'Could not Update ticket']);
+
+             }
+
+            }
+            else{
+                return response()->json([
+                    'status' => 0 ,
+                    'message' => 'Could not create conversation']);
+
+            }
+
+
+
+
+        }
+         else if($request->action == 'Resolved'){
+            $conversation = TicketConversation::create([
+                        'ticket_id' => $ticket->id ,
+                        'ticket_no' => $ticket->ticket_no ,
+                        'message' => 'This ticket is Resolved' ,
+                        'sender' => $request->user_id ,
+                        'recipient' => $ticket->creator,
+                        ]);  
+
+            if($conversation){
+               
+              $subject = "Ticket Resolved : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn;
+
+              $body = "The Ticket No. ".$request->ticket_no." is Resolved ";
+              $ticketarray = ['ticket_no' => $request->ticket_no ];
+              
+              $emailarray = User::select('email')->orWhere('role_id','1')->get();
+
+                   foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                   }
+              $updateticket = Ticket::where('id',$ticket->id)->update([
+               'status' => $request->action , 'comments' =>$request->message]);
+
+              if($updateticket){
+
+                try {
+                      Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                    } catch (\Exception $e) {
+                        return $e->getMessage();
+                       
+                    } 
+                    finally {
+                     
+                     return response()->json([
+                        'status' => 1 ,
+                        'message' => 'Ticket Updated Successfully']);
+                    }     
+                    
+                
+             }
+             else {
+                 return response()->json([
+                    'status' => 0 ,
+                    'message' => 'Could not Update ticket']);
+
+             }
+            }
+            else{
+                return response()->json([
+                    'status' => 0 ,
+                    'message' => 'Could not create conversation']);
+            }
+
+              
+
+                          
+
+        }
+        else {
+            return response()->json([
+                    'status' => 0 ,
+                    'message' => 'No action mentioned']);
+
+        }
+       }
+        else {
+             return response()->json([
+                        'status' => 0 ,
+                        'message' => 'Insufficient Data']);
+        }
+    
+      
+    }
+
+    public function modify_ticket_status_2(Request $request){
+
+      //  print_r($request->Input()); die();
+
+        if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no)){
+
+        $ticket = Ticket::where('id',$request->ticket_id)->first();
+        $fileName="";
+        if($request->action == 'Completed' ){
+           /*if($file = $request->hasFile('image')) {
+             
+            $file = $request->file('image') ;
+            $fileName = $file->getClientOriginalName() ;
+            
+           // $newfilename = round(microtime(true)) . '.' . end($temp);
+
+            if(TicketConversation::exists()){
+                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
+                 $temp = explode(".", $file->getClientOriginalName());
+                 $fileName=$request->ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
+            }
+           
+            $destinationPath = public_path().'/ticketimages' ;
+            $file->move($destinationPath,$fileName);
+            
+         }*/
+
+         $imageNames = "" ;
+           if($file = $request->hasFile('image')) {
+
+            foreach($_FILES['image']['name'] as $key=>$val){ 
+                
+               $fileName = basename($_FILES['image']['name'][$key]); 
+                $temp = explode(".", $fileName);
+                 
+                  $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/ticketimages/'.$fileName ;
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
+
+            $imagearray[] = $fileName ;
+            $imageNames = implode(',', $imagearray);
+             
+                 
+            }
+          
+          }
+
+
+            $conversation = TicketConversation::create([
+                'ticket_id' => $request->ticket_id ,
+                'ticket_no' => $request->ticket_no ,
+                'message' => $request->message ,
+                'sender' => $request->user_id ,
+                'recipient' => $ticket->creator,
+                'status' => 'pending',
+                'filename' => $imageNames]);
             
             if($conversation){
 

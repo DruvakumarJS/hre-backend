@@ -60,6 +60,7 @@ Route::post('/get-mypettycash',[PettycashController::class,'mypettycash']);
 Route::post('/upload-pettycash_bill',[PettycashController::class,'upload_bill']);
 Route::post('/get-pettycash_details',[PettycashController::class,'pettycash_details']);
 Route::post('/get-pettycash_summary',[PettycashController::class,'fetch_summary']);
+Route::post('/get-pettycash_bills-summary',[PettycashController::class,'fetch_summary_with_balance']);
 Route::post('/bill_approval_remainder',[PettycashController::class,'reminder']);
 
 

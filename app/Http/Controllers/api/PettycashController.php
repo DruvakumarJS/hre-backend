@@ -295,4 +295,76 @@ class PettycashController extends Controller
       
      
     }
+
+     public function fetch_summary_with_balance(Request $request){
+      $data = array();
+       if($request->from_date != '' && $request->to_date != '' && $request->user_id != '')
+        {
+            $data = array();
+            $now = strtotime($request->from_date);
+            $last = strtotime($request->to_date);
+
+            $open_credits = PettycashSummary::where('user_id',$request->user_id)->where('transaction_date' ,'<' , date('Y-m-d', $now))->where('type','Credit')->sum('amount');
+           $open_debits = PettycashSummary::where('user_id',$request->user_id)->where('transaction_date' ,'<' , date('Y-m-d', $now))->where('type','Debit')->sum('amount');
+           $open_balance = intval($open_credits)-intval($open_debits);
+           
+          // print_r($open_credits ."".$open_debits."=".$open_balance);print_r("<br>"); 
+           $close_credits = PettycashSummary::where('user_id',$request->user_id)->where('transaction_date' ,'<=' , date('Y-m-d', $last))->where('type','Credit')->sum('amount');
+           $close_debits = PettycashSummary::where('user_id',$request->user_id)->where('transaction_date' ,'<=' , date('Y-m-d', $last))->where('type','Debit')->sum('amount');
+           $close_balance = intval($close_credits)-intval($close_debits); 
+
+           while($now <= $last ) {
+
+           /* $summary = PettycashSummary::where('user_id',$request->id)->where('created_at','LIKE',date('Y-m-d', $now).'%')->get();
+*/
+           $summary = PettycashSummary::where('user_id',$request->user_id)->where('transaction_date',date('Y-m-d', $now))->orderBy('id','ASC')->get();
+
+            foreach ($summary as $key => $value) {
+                $reference = $value->reference_number;
+                $mode = $value->mode;
+
+                if($reference == '' ){
+                   $reference = '';
+                }
+
+                if($mode == '' ){
+                   $mode = '';
+                }
+
+                $data[]=[
+                    'bill_submission_date' => $value->created_at->toDateTimeString() ,
+                    'transaction_date' => \Carbon\Carbon::createFromFormat('Y-m-d', $value->transaction_date)->format('d-m-Y') ,
+                    'amount' => $value->amount,
+                    'comment' => $value->comment,
+                    'type' => $value->type,
+                    'mode' => $mode,
+                    'ref' => $reference
+                ];
+              
+            
+         }
+
+          $now = strtotime('+1 day', $now);
+         }
+
+          $detail = ['opening' => $open_balance , 'closing'=> $close_balance , 'summary' => $data];
+        
+         return response()->json([
+              'status' => 1,
+              'message' => 'Success',
+              'data' => $detail
+              ]);
+
+        }
+         else
+          {
+          
+           return response()->json([
+              'status' => 0,
+              'message' => 'UnAuthorized / Insufficient Input',
+              'data' => $data
+              ]);
+
+          }
+    }
 }
