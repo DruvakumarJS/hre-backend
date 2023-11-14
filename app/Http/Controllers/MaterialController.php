@@ -13,7 +13,7 @@ use App\Exports\ExportMaterial;
 use Excel;
 use App\Mail\MaterialMail;
 use Mail;
-
+use DB;
 
 class MaterialController extends Controller
 {
@@ -302,7 +302,7 @@ class MaterialController extends Controller
         ->orWhere('name', 'LIKE','%'.$request->search.'%')
         ->orWhere('brand', 'LIKE','%'.$request->search.'%')
         ->orWhere('uom', 'LIKE','%'.$request->search.'%')
-        ->orWhere('information', 'LIKE','%'.$request->search.'%')
+        ->orWhere(DB::raw('lower(information)'), 'like', '%' . strtolower($request->search) . '%')
         ->paginate(25);
 
         $search = $request->search ;
@@ -325,7 +325,7 @@ class MaterialController extends Controller
             ->orWhere('name', 'LIKE','%'.$search.'%')
             ->orWhere('brand', 'LIKE','%'.$search.'%')
             ->orWhere('uom', 'LIKE','%'.$search.'%')
-            ->orWhere('information', 'LIKE','%'.$search.'%');
+            ->orWhere(DB::raw('lower(information)'), 'like', '%' . strtolower($search) . '%');
          })
             ->paginate(25);
        

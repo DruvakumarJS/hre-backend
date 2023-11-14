@@ -194,7 +194,7 @@ $date = date('dd-mm-yyyy');
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">State *</label>
                             <div class="col-7">
-                               <input id="state" class="form-control" type="text" name="state" value="{{old('state')}}" readonly="readonly" placeholder="State">
+                               <input id="state" class="form-control" type="text" name="state" value="{{old('state')}}"  placeholder="State">
                             </div>
                         </div>
 
@@ -343,9 +343,11 @@ $( document ).ready(function() {
      var location = '<select class="form-control form-select" name="brand" value="{{old('brand')}}" required="required"> <option value=""> Select Brand</option>'
           address.forEach(function(item) {
                // console.log('III==',item)A
+
                var name = item.brand + " , " + item.state;
                var brand = item.brand ;
-               location +=" <option data-gst="+item.gst+" data-state="+item.state+" value='"+brand+"'>"+ name +" </option>";
+               /*location +=" <option data-gst="+item.gst+" data-state="+item.state+" value='"+brand+"'>"+ name +" </option>";*/
+               location +=" <option data-gst="+item.gst+" data-state='"+item.state+"' value='"+brand+"'>"+ name +" </option>";
        });
           location += '</select>'; 
         
@@ -357,7 +359,7 @@ $( document ).ready(function() {
 
     
         $(document).on('change','#location select',function(){
-  
+               
               // $('#city').val($(this).find(':selected').attr('data-city'));
                $('#state').val($(this).find(':selected').attr('data-state'));
                $('#gst').val($(this).find(':selected').attr('data-gst'));

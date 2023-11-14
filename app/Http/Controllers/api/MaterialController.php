@@ -169,7 +169,7 @@ class MaterialController extends Controller
             $query->orWhere('item_code' , 'LIKE', '%'.$search.'%');
             $query->orWhere('name' , 'LIKE', '%'.$search.'%');
             $query->orWhere('brand' , 'LIKE', '%'.$search.'%');
-            $query->orWhere('information' , 'LIKE', '%'.$search.'%');
+            $query->orWhere(DB::raw('lower(information)'), 'like', '%' . strtolower($search) . '%');
 
         });
         
@@ -182,7 +182,7 @@ class MaterialController extends Controller
             $query->orWhere('item_code' , 'LIKE', '%'.$search.'%');
             $query->orWhere('name' , 'LIKE', '%'.$search.'%');
             $query->orWhere('brand' , 'LIKE', '%'.$search.'%');
-            $query->orWhere('information' , 'LIKE', '%'.$search.'%');
+            $query->orWhere(DB::raw('lower(information)'), 'like', '%' . strtolower($search) . '%');
 
             });
            

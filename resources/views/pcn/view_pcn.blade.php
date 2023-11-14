@@ -59,7 +59,7 @@ white-space: nowrap;
             <div class="row">
                 <div class="col-12">
                     <div class="card border-white">
-                        <div class="table table-responsive">
+                        <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
                             <table class="table  table-lg table-hover">
                                 <thead>
                                 <tr>                                   

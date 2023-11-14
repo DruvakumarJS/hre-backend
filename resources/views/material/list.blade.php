@@ -196,7 +196,6 @@ $(function() {
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         
-        
         var from_date = start.format('YYYY-MM-DD');
         var to_date = end.format('YYYY-MM-DD');
        // alert(from_date);

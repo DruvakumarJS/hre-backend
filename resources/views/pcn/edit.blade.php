@@ -278,10 +278,11 @@ $( document ).ready(function() {
 
      var location = '<select class="form-control form-select" name="brand" required="required"> <option value=""> Select Brand</option>'
           address.forEach(function(item) {
-               // console.log('III==',item)A
+               // console.log('III==',item)
+               alert(item.state);
                var name = item.brand + " , " + item.state;
                var brand = item.brand ;
-               location +=" <option data-gst="+item.gst+" data-state="+item.state+" value='"+brand+"'>"+ name +" </option>";
+               location +=" <option data-gst="+item.gst+" data-state='"+item.state+"' value='"+brand+"'>"+ name +" </option>";
        });
           location += '</select>'; 
         

@@ -40,6 +40,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
+                'pcns.brand',
                 'pcns.area',
                 'pcns.city',
                 'tickets.category' ,
@@ -63,6 +64,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
+                'pcns.brand',
                 'pcns.area',
                 'pcns.city',
                 'tickets.category' ,
@@ -87,6 +89,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
+                'pcns.brand',
                 'pcns.area',
                 'pcns.city',
                 'tickets.category' ,
@@ -117,6 +120,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
+                'pcns.brand',
                 'pcns.area',
                 'pcns.city',
                 'tickets.category' ,
@@ -144,6 +148,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
+                'pcns.brand',
                 'pcns.area',
                 'pcns.city',
                 'tickets.category' ,
@@ -175,6 +180,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
+                'pcns.brand',
                 'pcns.area',
                 'pcns.city',
                 'tickets.category' ,
@@ -199,6 +205,7 @@ class ExportTicket implements FromCollection, WithHeadings
                  $query->orWhere('tickets.category','LIKE','%'.$search.'%');
                 
                  })
+              
                ->orderBy('tickets.id','DESC')
                ->get(); 
           }
@@ -226,6 +233,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
+                'pcns.brand',
                 'pcns.area',
                 'pcns.city',
                 'tickets.category' ,
@@ -260,6 +268,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
+                'pcns.brand',
                 'pcns.area',
                 'pcns.city',
                 'tickets.category' ,
@@ -310,6 +319,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
+                'pcns.brand',
                 'pcns.area',
                 'pcns.city',
                 'tickets.category' ,
@@ -350,6 +360,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
+                'pcns.brand',
                 'pcns.area',
                 'pcns.city',
                 'tickets.category' ,
@@ -388,7 +399,7 @@ class ExportTicket implements FromCollection, WithHeadings
     public function headings(): array
      {       
        return [
-         'Created Date','Ticket ID', 'PCN' , 'Billing Name' , 'Area' , 'City' , 'category' , 'Description' ,  'Creator' , 'Is Reopened' , 'Priority' , 'TAT' , 'Latest Comment' , 'Updated Date','Status'
+         'Created Date','Ticket ID', 'PCN' , 'Billing Name' , 'Brand', 'Area' , 'City' , 'category' , 'Description' ,  'Creator' , 'Is Reopened' , 'Priority' , 'TAT' , 'Latest Comment' , 'Updated Date','Status'
        ];
      }
 }
