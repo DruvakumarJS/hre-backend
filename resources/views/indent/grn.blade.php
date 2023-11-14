@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<style type="text/css">
+  thead th {
+ 
+  height: 50px;
+}
+</style>
 <div class="container">
   <div class="row justify-content-center">
 	 <div class="container-header">
@@ -27,7 +33,7 @@
     <div class="page-container">
         <div class="div-margin">
             
-            <div class="card border-white">
+            <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
                         <table class="table">
                           <thead>
