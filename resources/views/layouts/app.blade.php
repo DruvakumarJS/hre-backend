@@ -474,6 +474,9 @@
                                     <a href="{{route('settings')}}" data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-right: 10px;"> </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item" href="{{route('users')}}">User Master</a></li>
+                                       <!--  @if(auth::user()->id == 1)
+                                         <li><a class="dropdown-item" href="{{route('roles')}}">Role Master</a></li>
+                                        @endif -->
                                         <li><a class="dropdown-item" href="{{route('materials_master')}}">Material Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('department_master')}}">Department Master</a></li>
                                       

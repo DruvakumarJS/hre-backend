@@ -542,7 +542,8 @@ class PettyCashDetailController extends Controller
 
                  if($updatetable){
 
-                     return redirect()->back()->withMesage('Updated');
+                    // return redirect()->back()->withMesage('Updated');
+                     return redirect()->route('details_pettycash',$Data->user_id)->withMesage('Updated');
                  }
 
             
@@ -575,7 +576,8 @@ class PettyCashDetailController extends Controller
                       ]);
 
 
-                 return redirect()->back()->withMesage('Updated');
+                // return redirect()->back()->withMesage('Updated');
+                  return redirect()->route('details_pettycash',$Data->user_id)->withMesage('Updated');
             }
        
 

@@ -389,4 +389,8 @@ class UserController extends Controller
     public function back(){
         return redirect()->back();
     }
+
+    public function roles(){
+        return view('user/roles');
+    }
 }

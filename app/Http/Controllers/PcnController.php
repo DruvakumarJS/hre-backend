@@ -486,6 +486,9 @@ class PcnController extends Controller
     public function search(Request $request){
       
       $search = $request->search;
+      if($search == ''){
+        return redirect()->route('PCN');
+      }
            $pcns = Pcn::where('pcn','LIKE', '%'.$request->search.'%')
            ->orWhere('client_name','LIKE', '%'.$request->search.'%')
            ->orWhere('brand','LIKE', '%'.$request->search.'%')
@@ -503,6 +506,7 @@ class PcnController extends Controller
     }
 
     public function search_pcn_details(Request $request){
+       // print_r($request->Input()); die();
       
       $search = $request->search;
       if($search == ''){
