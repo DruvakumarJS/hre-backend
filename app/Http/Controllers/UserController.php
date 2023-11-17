@@ -132,6 +132,9 @@ class UserController extends Controller
                    else if($request->role == 'finance') {
                     return redirect()->route('finance');
                    }
+                   else{
+                    return redirect()->route('view_users',$role_id->id);
+                   }
 
 
                    }
@@ -175,7 +178,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $userData = Employee::where('user_id',$id)->first();
-        return view('user/edit', compact('userData' , 'id'));
+        $roles = Roles::all();
+        return view('user/edit', compact('userData' , 'id' , 'roles'));
     }
 
     /**
@@ -391,6 +395,58 @@ class UserController extends Controller
     }
 
     public function roles(){
-        return view('user/roles');
+        $admins_count = User::where('role_id','1')->count();
+        $manager_count = User::where('role_id','2')->count();
+        $procurement_count = User::where('role_id','3')->count();
+        $supervisors_count = User::where('role_id','4')->count();
+        $finance_count = User::where('role_id','5')->count();
+
+        $admins = User::where('role_id','6')->count();
+        $exec_manager_count = User::where('role_id','7')->count();
+        $exec_procurement_count = User::where('role_id','8')->count();
+        $trianee_supervisors_count = User::where('role_id','9')->count();
+        $accounts_count = User::where('role_id','10')->count();
+       
+        $assi_manager_count = User::where('role_id','11')->count();
+        $assi_procurement_count = User::where('role_id','12')->count();
+        $accountant_count = User::where('role_id','13')->count();
+
+        $hr_count = User::where('role_id','14')->count();
+        $exec_hr_count = User::where('role_id','15')->count();
+
+        $counts = ['r1'=>$admins_count , 'r2'=>$manager_count , 'r3'=>$procurement_count ,'r4'=>$supervisors_count ,'r5'=>$finance_count ,'r6'=>$admins , 'r7'=>$exec_manager_count , 'r8'=>$exec_procurement_count ,'r9'=>$trianee_supervisors_count ,'r10'=>$accounts_count , 'r11'=>$assi_manager_count , 'r12'=>$assi_procurement_count , 'r13'=>$accountant_count ,'r14'=>$hr_count ,'r15'=>$exec_hr_count  ];
+
+        return view('user/roles',compact('counts'));
+    }
+
+    public function view_users($role_id){
+      // print_r($role_id); die();
+       $roles = Roles::where('id', $role_id)->first();
+       $role_name = $roles->name;
+       $alias = $roles->alias ;
+
+       $data = Employee::where('role_id',$role_id)->orWhere('role',$role_name)->paginate(20);
+
+       return view('user/users',compact('data' , 'role_name' , 'alias')); 
+    }
+
+    public function promote(Request $request){
+       // print_r($request->Input()); die();
+
+        $user_id = $request->user_id;
+        $newrole = $request->newrole ;
+
+        $role = Roles::where('id',$newrole)->first();
+
+        $update = User::where('id',$user_id)->update(['role_id'=>$newrole, 'role' => $role->name]);
+
+        if($update){
+            $promote = Employee::where('user_id',$user_id)->update(['role_id'=>$newrole, 'role' => $role->name]);
+
+            if($promote){
+                return redirect()->route('view_users',$newrole);
+            }
+        }
+
     }
 }

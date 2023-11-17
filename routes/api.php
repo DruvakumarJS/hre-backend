@@ -67,7 +67,11 @@ Route::post('/bill_approval_remainder',[PettycashController::class,'reminder']);
 
 Route::post('/get-app-data',[AppdataController::class,'index']);
 Route::post('/vault',[AppdataController::class,'vault']);
+
 Route::post('/new-vault',[AppdataController::class,'view_vault']);
+Route::post('/new-vault-level-1',[AppdataController::class,'sub_directory1']);
+Route::post('/new-vault-level-2',[AppdataController::class,'sub_sub_directory']);
+
 
 Route::post('/search-material',[MaterialController::class,'material_search']);
 

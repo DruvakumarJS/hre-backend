@@ -8,6 +8,7 @@ use App\Models\PettycashOverview;
 use App\Models\PettycashSummary;
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\Yearendfreeze;
 use Illuminate\Http\Request;
 use App\Mail\PettycashMail;
 use Auth;
@@ -33,10 +34,18 @@ class PettyCashDetailController extends Controller
          $data = PettyCashDetail::where('user_id' , $id)->orderBy('id', 'DESC')->get();
          $myspent = PettyCashDetail::where('user_id' , $id)->where('isapproved','!=' , '2')->sum('spent_amount');
          $pettycash = PettycashOverview::where('user_id', $id)->first();
+         $closure_date = '';
 
-         //print_r($myspent);die();
+         $finaniclyear = date("m") >= 4 ? date("Y"). '-' . (date("Y")+1) : (date("Y") - 1). '-' . date("Y") ;
+         if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
+          {
+           $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
+           $closure_date =  $yearenddate->yearend_date ;
+          }
 
-        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent' , 'id'));
+        // print_r($closure_date);die();
+
+        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent' , 'id' , 'closure_date'));
     }
 
     /**
@@ -58,7 +67,7 @@ class PettyCashDetailController extends Controller
      */
     public function store(Request $request)
     {
-      //  print_r($request->Input());die();
+       // print_r($request->Input());die();
 
         $fileName='';
         $imagearray=array();
@@ -66,8 +75,23 @@ class PettyCashDetailController extends Controller
 
         $file = $request->file('file');
         $file = $request->file_name; 
-  
+       
+       // if(auth::user()->role_id != '1'){
+          $finaniclyear = date("m") >= 4 ? date("Y"). '-' . (date("Y")+1) : (date("Y") - 1). '-' . date("Y") ;
+          if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
+          {
+            $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
+             if(strtotime(date('Y-m-d',strtotime($request->bill_date))) < strtotime($yearenddate->yearend_date)){
+             // print_r("cant upload to closed year"); 
+              $message = "The bill date is behind account closure date (".date('d-m-Y',strtotime($yearenddate->yearend_date))."). So,You cannot upload a bill ";
+              return response()->json($message);
+           }
 
+          }
+          
+       // }
+        
+       
          if($file = $request->has('file')) {
            
          
@@ -125,7 +149,7 @@ class PettyCashDetailController extends Controller
           //Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data));
 
          // return redirect()->route('details_pettycash',Auth::user()->id);
-          $id="Success";
+          $id="Bill Uploaded successfully";
          
            return response()->json($id);
 
@@ -532,7 +556,7 @@ class PettyCashDetailController extends Controller
                     'finance_id' => Auth::user()->id,
                     'pettycash_id'=> $Data->id,
                     'amount' => $Data->spent_amount ,
-                    'comment' => "Reverted : ".$request->reason ,
+                    'comment' => $request->reason ,
                     'type' => 'Debit',
                     'balance' => $outstanding,
                     'transaction_date' => $Data->bill_date,
@@ -550,6 +574,7 @@ class PettyCashDetailController extends Controller
 
         }
         else if($request->status == '2'){
+         // print_r("hhh"); die();
              $update = PettyCashDetail::where('id',$request->id)->update(['isapproved' => $request->status , 'remarks' => $request->remarks." (Reverted : ".$request->reason.")"]);
             if($update){
                 $Data = PettyCashDetail::where('id',$request->id)->first();
@@ -563,7 +588,9 @@ class PettyCashDetailController extends Controller
 
                 $updatetable = PettycashOverview::where('user_id',$Data->user_id)->update(['total_balance'=>$outstanding]);
 
-                $summary = PettycashSummary::create([
+                $delete_summary = PettycashSummary::where('pettycash_id',$request->id)->delete();
+
+               /* $summary = PettycashSummary::create([
                     'user_id' => $Data->user_id ,
                     'finance_id' => Auth::user()->id,
                     'pettycash_id'=> $Data->id,
@@ -574,6 +601,7 @@ class PettyCashDetailController extends Controller
                     'transaction_date' => $Data->bill_date,
                     'reference_number'=>$Data->bill_number
                       ]);
+*/
 
 
                 // return redirect()->back()->withMesage('Updated');

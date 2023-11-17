@@ -16,8 +16,7 @@
         <div id="div2" >
             <a class="btn btn-light btn-outline-secondary" href="{{route('create_new')}}"><i class="fa fa-plus"></i> Issue Pettycash</a>
         </div>
-
-       
+     
 
         <div id="div2" style="margin-right: 30px">
            <form method="POST" action="{{route('search_pettycash')}}">
@@ -36,6 +35,8 @@
         </div>
 
 @endif
+
+
  </div>
      @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>

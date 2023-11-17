@@ -23,6 +23,7 @@ use App\Http\Controllers\RestoreController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\VaultController;
+use App\Http\Controllers\YearendfreezeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -233,6 +234,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
 
     Route::get('settings/RoleMaster',[UserController::class, 'roles'])->name('roles');
     Route::get('settings/RoleMaster/view-users/{roleid}',[UserController::class, 'view_users'])->name('view_users');
+    Route::post('promote',[UserController::class , 'promote'])->name('promote');
 
 
     Route::get('materials',[MaterialController::class,'index'])->name('materials');
@@ -324,6 +326,11 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('view_vault/{folder}/{sub_folder}',[VaultController::class,'sub_sub_directory'])->name('sub_sub_directory');
     Route::post('save_sub_sub_directory_files',[VaultController::class,'save_sub_sub_directory_files'])->name('save_sub_sub_directory_files');
     Route::post('testimages',[PettyCashDetailController::class,'test'])->name('testimages');
+
+    Route::get('year-end-closure',[YearendfreezeController::class,'index'])->name('year_end_closure');
+    Route::post('save_acc_closure_date',[YearendfreezeController::class,'store'])->name('save_acc_closure_date');
+    Route::put('update_acc_closure_date/{id}',[YearendfreezeController::class,'update'])->name('update_acc_closure_date');
+
 
 
 

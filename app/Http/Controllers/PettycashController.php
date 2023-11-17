@@ -8,10 +8,12 @@ use App\Models\PettyCashDetail;
 use App\Models\PettycashSummary;
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\Yearendfreeze;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+
 
 class PettycashController extends Controller
 {
@@ -70,7 +72,25 @@ class PettycashController extends Controller
      */
     public function store(Request $request)
     {
-       // print_r($request->Input());die();
+       
+
+
+        $finaniclyear = date("m") >= 4 ? date("Y"). '-' . (date("Y")+1) : (date("Y") - 1). '-' . date("Y") ;
+
+          if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
+          {
+            $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
+             print_r($yearenddate->yearend_date);
+
+             if(strtotime($request->issued_date) < strtotime($yearenddate->yearend_date)){
+             
+
+              return redirect()->back()->withMessage("The issued date is behind account closure date (".date('d-m-Y',strtotime($yearenddate->yearend_date))."). So,You cannot issue amount ");
+           }
+
+          }
+ print_r($request->Input());die();
+
         $craete = Pettycash::create([
             'user_id' => $request->user_id ,
             'finance_id' => $request->finance_id , 

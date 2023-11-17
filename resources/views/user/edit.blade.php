@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Edit User</label>
-          <!-- <div id="div2">
-             <a href="{{route('edit_user' , $id)}}"><button class="btn btn-light btn-outline-secondary"> View Users</button></a>
+       <!--    <div id="div2">
+             <a data-bs-toggle="modal" data-bs-target="#promoteModal"><button class="btn btn-light btn-outline-success"> Promote </button></a>
           </div> -->
           
            @if(Session::has('message'))
@@ -90,13 +90,63 @@
 
        </div>
 
+
        <button class="btn btn-danger div-margin" type="submit" value="submit">SUBMIT</button>
 
       </form>
     </div>
     </div>
 
-     <script type="text/javascript">
+    <!-- Modal -->
+        <div class="modal fade" id="promoteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Promote / Upgrade Designation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="{{route('promote')}}">
+                  @csrf
+                  <div class="mb-3">
+                    <label>Employee Name : </label> <label class="label-bold">{{ $userData->name }}</label>
+                    
+                  </div>
+
+                  <div class="mb-3">
+                    <label>Employee ID : </label> <label class="label-bold">{{ $userData->employee_id }}</label>
+                    
+                  </div>
+                  <div class="mb-3">
+                    <label>Current Designation : </label> <label class="label-bold">{{ $userData->user->roles->alias }}</label>
+                    
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">New Designation</label>
+                    <select class="form-control form-select" name="newrole" required>
+                      <option value="">Select designation</option>
+                      @foreach($roles as $key=>$value)
+                        <option  value="{{$value->id}}">{{ $value->alias}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+
+                  <input type="hidden" name="user_id" value="{{ $userData->user_id}}">
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">SAVE</button>
+                  </div>
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
+
+<script type="text/javascript">
       
   function validate(evt) {
   var theEvent = evt || window.event;
@@ -114,8 +164,8 @@
     theEvent.returnValue = false;
     if(theEvent.preventDefault) theEvent.preventDefault();
   }
-}
-    </script>
+ }
+</script>
 
 
 @endsection

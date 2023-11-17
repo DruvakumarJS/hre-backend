@@ -93,6 +93,15 @@
             @endif
             </div>
           @endif
+
+
+          @if(Session::has('message'))
+            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
+            <script type="text/javascript">
+              var message = '{{ Session::get('message') }}' ;
+              alert(message);
+            </script>
+        @endif 
         
 
         </div>

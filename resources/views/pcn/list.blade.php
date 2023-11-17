@@ -58,7 +58,7 @@ white-space: nowrap;
                               <th scope="col">Address</th>
                               <th scope="col">Status</th>
                               
-                              @if(Auth::user()->id == '1')
+                              @if(Auth::user()->role_id == '1')
                               
                               <th scope="col">Action</th>
                              @endif

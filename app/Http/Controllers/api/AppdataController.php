@@ -100,26 +100,103 @@ class AppdataController extends Controller
     }
 
     public function view_vault(Request $request){
-
+       $vault = array();
         if(isset($request->user_id)){
-           $folderarray= array();
-           $folders = Vault::select('folder')->where('sub_folders' , '1')->groupBy('folder')->get();
-           foreach ($folders as $key => $value) {
-            
-              $folderarray[]=$value->folder;
-           }
-           print_r(($folderarray));
+
+            $docs = Vault::where('sub_folders' , '0')->get();
+            $folders = Vault::select('folder')->where('sub_folders' , '1')->groupBy('folder')->get();
+
+            foreach ($folders as $key => $value) {
+               $directories[] = substr($value->folder, 6);
+            }
+
+            $vault = ['data' => $docs , 'folders' => $directories];
+
+            return response()->json([
+                        'status'=> 1,
+                        'message' => 'Success',
+                        'data' => $vault
+                        
+                ]);
+
         }
         else{
 
             return response()->json([
                             'status'=> 0,
                             'message' => 'UnAuthorized',
-                            'data' => $data
+                            'data' => $vault
                             
                     ]);
         }
 
         
+    }
+
+    public function sub_directory1(Request $request){
+         $vault=array();
+        if(isset($request->user_id) && isset($request->foldername)){
+            $foldername = $request->foldername ;
+           
+            $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','2')->where('folder','LIKE','vault/'.$foldername.'/%')->get();
+            $folderarray = array();
+            $data = Vault::where('folder','LIKE','vault/'.$foldername)->get();
+
+            
+            foreach ($folders as $key => $value) {
+                $directory = $value->folder;
+               // $folder_name = substr($directory, 6);
+                $folder_name = explode('/' , $directory);
+                $folderarray[] = $folder_name[2] ;
+            }
+
+            $vault = ['data' => $data , 'folders' => $folderarray];
+
+            return response()->json([
+                        'status'=> 1,
+                        'message' => 'Success',
+                        'data' => $vault
+                        
+                ]);
+        
+        }
+        else{
+            return response()->json([
+                            'status'=> 0,
+                            'message' => 'UnAuthorized',
+                            'data' => $vault
+                            
+                    ]);
+
+        }
+     
+    }
+
+    public function sub_sub_directory(Request $request){
+        $vault=array();
+       if(isset($request->user_id) && isset($request->foldername) && isset($request->sub_folder_name)){
+        $foldername = $request->foldername ;
+        $sub_folder_name = $request->sub_folder_name ;
+       
+        $vault = Vault::where('folder','LIKE','vault/'.$foldername.'/'.$sub_folder_name.'%')->get();
+
+        return response()->json([
+                        'status'=> 1,
+                        'message' => 'Success',
+                        'data' => $vault
+                        
+                ]);
+
+        }
+        else{
+            return response()->json([
+                            'status'=> 0,
+                            'message' => 'UnAuthorized',
+                            'data' => $vault
+                            
+                    ]);
+
+        }
+
     }
 }

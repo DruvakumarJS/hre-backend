@@ -16,7 +16,7 @@ class RoleSeeder extends Seeder
     {
         $input = [
                     [
-                        'name' => 'admin',
+                        'name' => 'superadmin',
                         'alias' => 'Super Admin',
                         'description'=>'All Controles'
                     ],
@@ -40,35 +40,57 @@ class RoleSeeder extends Seeder
                         'alias' => 'Finance Manager',
                         'description'=>'Responsible for Pettycash'
                     ] ,
+                    [
+                        'name' => 'admin',
+                        'alias' => 'Admin',
+                        'description'=>'All controles'
+                    ] ,
 
                     [
-                        'name' => 'asst_manager',
-                        'alias' => 'Assistant Project Manager',
-                        'description'=>'no controle'
-                    ],
-                    [
                         'name' => 'exec_manager',
-                        'alias' => 'Executive project Manager',
+                        'alias' => 'Executive Project Manager',
                         'description'=>'no controle'
                     ],
-                    [
-                        'name' => 'asst_procurement',
-                        'alias' => 'Assistant Procurement Manager',
-                        'description'=>'no controle'
-                    ],
-                    [
+                     [
                         'name' => 'exec_procuement',
                         'alias' => 'Executive Procurement Manager',
                         'description'=>'no controle'
                     ],
+                     [
+                        'name' => 'trainee',
+                        'alias' => 'Supervisor-Trainee',
+                        'description'=>'no controle'
+                    ],
+                     [
+                        'name' => 'accounts_manager',
+                        'alias' => 'Accounts manager',
+                        'description'=>'no controle'
+                    ],
+
                     [
-                        'name' => 'asst_finance',
-                        'alias' => 'Assistant Finance Manager',
+                        'name' => 'assist_manager',
+                        'alias' => 'Assistant project Manager',
                         'description'=>'no controle'
                     ],
                     [
-                        'name' => 'jun_finance',
-                        'alias' => 'Junior Finance Manager',
+                        'name' => 'assist_procurement',
+                        'alias' => 'Assistant Procurement',
+                        'description'=>'no controle'
+                    ],
+                    [
+                        'name' => 'accountant',
+                        'alias' => 'Accountant',
+                        'description'=>'no controle'
+                    ],
+                   
+                    [
+                        'name' => 'hr_manager',
+                        'alias' => 'HR Manager',
+                        'description'=>'no controle'
+                    ],
+                    [
+                        'name' => 'hr_executive',
+                        'alias' => 'HR Executive',
                         'description'=>'no controle'
                     ]
                  ];

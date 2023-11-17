@@ -34,7 +34,7 @@ p {
   background-color: #f2f8f9;
   border-radius: 4px;
   padding: 32px 24px;
-  margin: 12px;
+  margin: {{ $counts['r1'] }}px;
   text-decoration: none;
   z-index: 0;
   overflow: hidden;
@@ -87,7 +87,7 @@ p {
                     <h3 class="card-title">Super Admin</h3>
                    <a href="{{ route('view_users','1')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
                     <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r1'] }}</label>
                     </div>
                   
                   </div>
@@ -99,9 +99,9 @@ p {
                   <div class="card-body">
                     <h3 class="card-title">Admin</h3>
                     
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                   <a href="{{ route('view_users','6')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
                     <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r6'] }}</label>
                     </div>
                   </div>
                 </div>
@@ -117,22 +117,9 @@ p {
                   <div class="card-body">
                     <h3 class="card-title">Manager</h3>
                     
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                   <a href="{{ route('view_users','2')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
                     <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-3">
-                <div class="card2 border-white card_shadow" style="padding: 20px 20px 20px 20px">
-                  <div class="card-body">
-                    <h3 class="card-title">Assistant</h3>
-                    
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
-                    <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r2'] }}</label>
                     </div>
                   </div>
                 </div>
@@ -143,16 +130,77 @@ p {
                   <div class="card-body">
                     <h3 class="card-title">Executive</h3>
                     
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                   <a href="{{ route('view_users','7')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
                     <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r7'] }}</label>
                     </div>
                   </div>
                 </div>
               </div>
 
+               <div class="col-sm-3">
+                <div class="card2 border-white card_shadow" style="padding: 20px 20px 20px 20px">
+                  <div class="card-body">
+                    <h3 class="card-title">Assistant</h3>
+                    
+                   <a href="{{ route('view_users','11')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                    <div id="div2">
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r11'] }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
             </div>
         </div>
+
+        <div class="top-counter div-margin">
+          <label class="label-bold">Procurement</label>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="card2 border-white card_shadow" style="padding: 20px 20px 20px 20px">
+                  <div class="card-body">
+                    <h3 class="card-title">Manager</h3>
+                    
+                   <a href="{{ route('view_users','3')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                    <div id="div2">
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r3'] }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div class="card2 border-white card_shadow" style="padding: 20px 20px 20px 20px">
+                  <div class="card-body">
+                    <h3 class="card-title">Executive</h3>
+                    
+                   <a href="{{ route('view_users','8')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                    <div id="div2">
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r8'] }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div class="card2 border-white card_shadow" style="padding: 20px 20px 20px 20px">
+                  <div class="card-body">
+                    <h3 class="card-title">Assistant</h3>
+                    
+                   <a href="{{ route('view_users','12')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                    <div id="div2">
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r12'] }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+        </div>
+        
 
         <div class="top-counter div-margin">
           <label class="label-bold">Supervisors</label>
@@ -162,9 +210,9 @@ p {
                   <div class="card-body">
                     <h3 class="card-title">Supervisor</h3>
                     
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                   <a href="{{ route('view_users','4')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
                     <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r4'] }}</label>
                     </div>
                   </div>
                 </div>
@@ -175,54 +223,9 @@ p {
                   <div class="card-body">
                     <h3 class="card-title">Trainee</h3>
                     
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                   <a href="{{ route('view_users','9')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
                     <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-        </div>
-
-        <div class="top-counter div-margin">
-          <label class="label-bold">Prcurement</label>
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="card2 border-white card_shadow" style="padding: 20px 20px 20px 20px">
-                  <div class="card-body">
-                    <h3 class="card-title">Manager</h3>
-                    
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
-                    <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-3">
-                <div class="card2 border-white card_shadow" style="padding: 20px 20px 20px 20px">
-                  <div class="card-body">
-                    <h3 class="card-title">Assistant</h3>
-                    
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
-                    <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-3">
-                <div class="card2 border-white card_shadow" style="padding: 20px 20px 20px 20px">
-                  <div class="card-body">
-                    <h3 class="card-title">Executive</h3>
-                    
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
-                    <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r9'] }}</label>
                     </div>
                   </div>
                 </div>
@@ -239,9 +242,9 @@ p {
                   <div class="card-body">
                     <h3 class="card-title">Manager</h3>
                     
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                   <a href="{{ route('view_users','5')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
                     <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r5'] }}</label>
                     </div>
                   </div>
                 </div>
@@ -252,9 +255,9 @@ p {
                   <div class="card-body">
                     <h3 class="card-title">Account Manager</h3>
                     
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                   <a href="{{ route('view_users','10')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
                     <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r10'] }}</label>
                     </div>
                   </div>
                 </div>
@@ -265,9 +268,9 @@ p {
                   <div class="card-body">
                     <h3 class="card-title">Accountant</h3>
                     
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                   <a href="{{ route('view_users','13')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
                     <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r13'] }}</label>
                     </div>
                   </div>
                 </div>
@@ -284,9 +287,9 @@ p {
                   <div class="card-body">
                     <h3 class="card-title">Manager</h3>
                     
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                   <a href="{{ route('view_users','14')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
                     <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r14'] }}</label>
                     </div>
                   </div>
                 </div>
@@ -297,9 +300,9 @@ p {
                   <div class="card-body">
                     <h3 class="card-title">Executive</h3>
                     
-                   <a href="#" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                   <a href="{{ route('view_users','15')}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
                     <div id="div2">
-                      <label style="font-weight: bolder;font-size: 25px">12</label>
+                      <label style="font-weight: bolder;font-size: 25px">{{ $counts['r15'] }}</label>
                     </div>
                   </div>
                 </div>

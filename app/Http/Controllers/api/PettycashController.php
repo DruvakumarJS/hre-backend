@@ -11,6 +11,7 @@ use App\Models\PettycashOverview;
 use App\Models\PettyCashDetail;
 use App\Models\Employee;
 use App\Mail\PettycashMail;
+use App\Models\Yearendfreeze;
 use Mail;
 
 class PettycashController extends Controller
@@ -53,6 +54,22 @@ class PettycashController extends Controller
      public function upload_bill(Request $request){
 
      	if(isset($request->user_id) && isset($request->bill_date) && isset($request->spent_amount)){
+
+        /* $finaniclyear = date("m") >= 4 ? date("Y"). '-' . (date("Y")+1) : (date("Y") - 1). '-' . date("Y") ;
+          if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
+          {
+            $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
+             if(strtotime(date('Y-m-d',strtotime($request->bill_date))) < strtotime($yearenddate->yearend_date)){
+             // print_r("cant upload to closed year"); 
+              $message = "The bill date is behind account closure date (".date('d-m-Y',strtotime($yearenddate->yearend_date))."). So,You cannot upload a bill ";
+              
+              return response()->json([
+              'status' => 0,
+              'message' => $message
+              ]);
+           }
+
+          }*/
      		
         $fileName='';
         $imagearray=array();

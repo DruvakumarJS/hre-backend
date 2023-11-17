@@ -859,6 +859,10 @@ class IntendController extends Controller
   public function trigger_settlement(Request $request){
    // print_r($request->Input()); die();
 
+    if(GRN::where('indent_no',$request->indent_no)->where('status' ,'Awaiting for Confirmation')->exists()){
+      return redirect()->back()->withMessage('There is pending GRN .You cannot trigger for Endorse settle ');
+    }
+
     $update =  Intend::where('indent_no', $request->indent_no)->update(
       [
        'settlement_triggerd' => 'YES' , 

@@ -106,7 +106,7 @@
                                 <th width="170px">Description</th>
                                 <th>Proof</th>
                                 <th width="140px">Status</th>
-                                 <th>Entry Date</th>
+                                <th>Entry Date</th>
                                 <th width="150px">Remarks</th>
                                
                                 <th>Action</th>
@@ -143,8 +143,11 @@
                                     @endif
                                     <td width="100px">{{date("d-m-Y", strtotime($value->created_at))}}</td> 
                                     <td>{{$value->remarks}}</td>
-
+                                    
+                                  
+                                    @if( (strtotime($value->bill_date) > strtotime($closure_date)) || (auth::user()->role_id == '1') || $closure_date == '')
                                      <td>
+
                                         @if($value->user_id == Auth::user()->id)
                                          @if($value->isapproved == '0')
                                        
@@ -153,19 +156,24 @@
                                          @endif
                                         @endif 
 
-                                         @if( (Auth::user()->role == 'admin') || (Auth::user()->role == 'finance'))
+                                         @if( (Auth::user()->role_id == '1') || (Auth::user()->role_id == '5'))
                                             @if($value->isapproved == '0')
-                                             
+                                                
                                                 <a  id="MybtnModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-secondary">Action</button></a>
-                                               
+                                              
                                             @endif
                                             @endif
 
-                                            @if( (Auth::user()->role_id == '1') && $value->isapproved != '0')                        
+                                            @if( (Auth::user()->role_id == '1') && $value->isapproved != '0')   
+
+
                                                <a style="margin-top: 10px" id="MyrevertModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-danger">Revert</button></a>  
                                             @endif
                                       </td> 
-                                      
+                                    @else
+                                      <td> <button class="btn btn-sm btn-danger" disabled>Closed</button></td>
+                                    @endif  
+                                   
                                    <!-- 
                                       @if( (Auth::user()->role_id == '1') && $value->isapproved != '0')
                                        <td>

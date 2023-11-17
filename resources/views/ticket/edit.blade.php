@@ -44,7 +44,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Description *</label>
                             <div class="col-7">
-                                <textarea  name="issue" id="issue" type="text" class="typeahead form-control" required="required" placeholder="Enter Customer issue here" >{{$tickets->issue}}</textarea>
+                                <textarea  name="issue" id="issue" type="text" class="typeahead form-control" required="required" placeholder="Enter Customer issue here" readonly="readonly" >{{$tickets->issue}}</textarea>
                             </div>
                         </div>
 
