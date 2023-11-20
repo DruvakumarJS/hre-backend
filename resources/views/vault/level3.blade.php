@@ -20,7 +20,7 @@ div.click-to-top:hover span {
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-            <label class="label-bold" id="div1">Vault 2</label>
+            <label class="label-bold" id="div1">Vault 3</label>
          @if(Auth::user()->role_id == '1')
          <div id="div2">
           <button  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm btn-outline-secondary">Add </button>
@@ -48,7 +48,7 @@ div.click-to-top:hover span {
         @foreach($folderarray as $folders)
         <div class="col-md-1">
           <div style="align-items: center;text-align: center;">
-            <a href="{{route('level3',[$foldername,$sub_folder_name,$folders])}}" style="color: white">
+            <a href="{{route('level4',[$f1,$f2,$f3,$folders])}}" style="color: white">
               <i class="fa fa-folder" style="font-size:100px;color:#f0c507"></i>
              <span style="color: black">{{$folders}}</span>
             </a>
@@ -77,21 +77,21 @@ div.click-to-top:hover span {
             @if($value->type == 'png' or $value->type == 'jpg') 
 
              
-              <a target="_blank" href="{{ URL::to('/') }}/vault/{{$foldername}}/{{$sub_folder_name}}/{{$image}}">
-                 <img src="{{ URL::to('/') }}/vault/{{$foldername}}/{{$sub_folder_name}}/{{$image}}" title="{{$value->name}}.{{$value->type}} , {{date('d-m-Y H:i', strtotime($value->updated_at))}}" style="height: 100px;width: 100px"> 
+              <a target="_blank" href="{{ URL::to('/') }}/vault/{{$f1}}/{{$f2}}/{{$f3}}/{{$image}}">
+                 <img src="{{ URL::to('/') }}/vault/{{$f1}}/{{$f2}}/{{$f3}}/{{$image}}" title="{{$value->name}}.{{$value->type}} , {{date('d-m-Y H:i', strtotime($value->updated_at))}}" style="height: 100px;width: 100px"> 
               </a>
               <label>{{$value->name}} </label>
 
             @elseif($value->type == 'pdf')
               
-               <a target="_blank" href="{{ URL::to('/') }}/vault/{{$foldername}}/{{$sub_folder_name}}/{{$image}}">
+               <a target="_blank" href="{{ URL::to('/') }}/vault/{{$f1}}/{{$f2}}/{{$f3}}/{{$image}}">
                  <i class="fa fa-file-pdf-o" title="{{$value->name}}.{{$value->type}} , {{date('d-m-Y H:i', strtotime($value->updated_at))}}" style="font-size:100px;width: 100px; color: "></i>
               </a>
               <label>{{$value->name}} </label>
 
             @else
             
-              <a target="_blank" href="{{ URL::to('/') }}/vault/{{$foldername}}/{{$sub_folder_name}}/{{$image}}">
+              <a target="_blank" href="{{ URL::to('/') }}/vault/{{$f1}}/{{$f2}}/{{$f3}}/{{$image}}">
                  <i class="fa fa-file" title="{{$value->name}}.{{$value->type}} , {{date('d-m-Y H:i', strtotime($value->updated_at))}}" style="font-size:100px;width: 100px; color: "></i>
               </a>
               <label>{{$value->name}}  </label>
@@ -127,7 +127,7 @@ div.click-to-top:hover span {
                 <td width="200px">{{date('d-m-Y H:i', strtotime($value->updated_at))}}</td>
                 <td width="100px">{{$value->type}}</td>
                 <td>
-                  <a target="_blank" href="{{ URL::to('/') }}/{{$foldername}}/{{$sub_folder_name}}//{{$image}}"><button class="btn btn-sm btn-outline-secondary">View</button></a>
+                  <a target="_blank" href="{{ URL::to('/') }}/vault/{{$f1}}/{{$f2}}/{{$f3}}/{{$image}}"><button class="btn btn-sm btn-outline-secondary">View</button></a>
                   @if(Auth::user()->role_id == '1')
                   <a id="MybtnModal_{{$key}}" style="margin-left: 20px" > <button class="btn btn-outline-success btn-sm">Rename</button></a>
                   <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_doc',$value->id)}}" style="margin-left: 20px"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
@@ -195,10 +195,8 @@ div.click-to-top:hover span {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                 <form action="{{ route('save_sub_sub_directory_files') }}" method="POST" enctype="multipart/form-data">
+                 <form action="{{ route('save_level3_files') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-
-                    
 
                     <div class="mb-3">
                       <label for="recipient" class="col-form-label">Select Folder</label>
@@ -229,8 +227,9 @@ div.click-to-top:hover span {
                            
                         </div>
                     </div>
-                    <input type="hidden" name="main_directory" value="{{$foldername}}">
-                    <input type="hidden" name="sub_directory" value="{{$sub_folder_name}}">
+                    <input type="hidden" name="f1" value="{{$f1}}">
+                    <input type="hidden" name="f2" value="{{$f2}}">
+                    <input type="hidden" name="f3" value="{{$f3}}">
                     <button class="btn btn-danger">Upload</button>
                     
                 </form>

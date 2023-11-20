@@ -325,6 +325,16 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('save_sub_directory_files',[VaultController::class,'save_sub_directory_files'])->name('save_sub_directory_files');
     Route::get('view_vault/{folder}/{sub_folder}',[VaultController::class,'sub_sub_directory'])->name('sub_sub_directory');
     Route::post('save_sub_sub_directory_files',[VaultController::class,'save_sub_sub_directory_files'])->name('save_sub_sub_directory_files');
+
+    Route::get('view_vault/{f1}/{f2}/{f3}',[VaultController::class,'level3'])->name('level3');
+    Route::post('save_level3_files',[VaultController::class,'save_level3_files'])->name('save_level3_files');
+
+    Route::get('view_vault/{f1}/{f2}/{f3}/{f4}',[VaultController::class,'level4'])->name('level4');
+    Route::post('save_level4_files',[VaultController::class,'save_level4_files'])->name('save_level4_files');
+
+    Route::get('view_vault/{f1}/{f2}/{f3}/{f4}/{f5}',[VaultController::class,'level5'])->name('level5');
+    Route::post('save_level5_files',[VaultController::class,'save_level5_files'])->name('save_level5_files');
+
     Route::post('testimages',[PettyCashDetailController::class,'test'])->name('testimages');
 
     Route::get('year-end-closure',[YearendfreezeController::class,'index'])->name('year_end_closure');

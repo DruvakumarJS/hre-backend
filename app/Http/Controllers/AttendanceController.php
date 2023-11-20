@@ -650,7 +650,7 @@ class AttendanceController extends Controller
 
         foreach ($employees as $key => $value) {
 
-        $days_present = Attendance::where('user_id',$value->user_id)->where('date','LIKE','%'.date('Y-m').'%')->get();
+        $days_present = Attendance::where('user_id',$value->user_id)->where('date','LIKE','%'.date('Y-m').'%')->groupBy('date')->get();
         $role = Roles::where('name',$value->role)->first();
            
             $result = [

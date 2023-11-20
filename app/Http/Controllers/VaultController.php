@@ -24,7 +24,7 @@ class VaultController extends Controller
         $vault = Vault::all();
         $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','1')->where('folder','LIKE','vault/'.'%')->get();
         $folderarray = array();
-        $data = Vault::where('folder','vault')->get();
+        $data = Vault::where('folder','vault')->where('filename','!=','')->get();
 
         
         foreach ($folders as $key => $value) {
@@ -43,7 +43,7 @@ class VaultController extends Controller
        
         $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','2')->where('folder','LIKE','vault/'.$foldername.'/%')->get();
         $folderarray = array();
-        $data = Vault::where('folder','LIKE','vault/'.$foldername)->get();
+        $data = Vault::where('folder','LIKE','vault/'.$foldername)->where('filename','!=','')->get();
 
         
         foreach ($folders as $key => $value) {
@@ -60,11 +60,76 @@ class VaultController extends Controller
     }
 
     public function sub_sub_directory($foldername , $sub_folder_name){
-        /*$folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','2')->where('folder','LIKE','vault/'.$foldername.'/%')->get();*/
+     
+        $folderarray = array();
+        $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','3')->where('folder','LIKE','vault/'.$foldername.'/'.$sub_folder_name.'/%')->get();
        
-        $data = Vault::where('folder','LIKE','vault/'.$foldername.'/'.$sub_folder_name.'%')->get();
+        foreach ($folders as $key => $value) {
+            $directory = $value->folder;
+           // $folder_name = substr($directory, 6);
+            $folder_name = explode('/' , $directory);
+            $folderarray[] = $folder_name[3] ;
+        }
 
-        return view('vault/sub_sub_directory',compact('data' , 'foldername','sub_folder_name'));
+         // print_r($folderarray); die();
+       
+        $data = Vault::where('folder','LIKE','vault/'.$foldername.'/'.$sub_folder_name)->where('filename','!=','')->get();
+
+        return view('vault/sub_sub_directory',compact('data' , 'folderarray','foldername','sub_folder_name'));
+
+    }
+
+    public function level3($f1 , $f2 ,$f3){
+
+        $folderarray = array();
+        $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','4')->where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3.'/%')->get();
+
+        foreach ($folders as $key => $value) {
+            $directory = $value->folder;
+           // $folder_name = substr($directory, 6);
+            $folder_name = explode('/' , $directory);
+            $folderarray[] = $folder_name[4] ;
+        }
+       
+        $data = Vault::where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3)->where('filename','!=','')->get();
+       //  print_r(json_encode($data)); die();
+
+        return view('vault/level3',compact('data' , 'folderarray','f1','f2','f3'));
+
+    }
+
+    public function level4($f1 , $f2 ,$f3 , $f4){
+     // print_r("kk"); die();
+        $folderarray = array();
+        $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','5')->where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3.'/'.$f4.'/%')->get();
+
+        foreach ($folders as $key => $value) {
+            $directory = $value->folder;
+           // $folder_name = substr($directory, 6);
+            $folder_name = explode('/' , $directory);
+            $folderarray[] = $folder_name[5] ;
+        }
+       
+        $data = Vault::where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3.'/'.$f4)->where('filename','!=','')->get();
+
+        return view('vault/level4',compact('data' ,'folderarray', 'f1','f2','f3','f4'));
+
+    }
+
+    public function level5($f1 , $f2 ,$f3 , $f4 , $f5){
+        $folderarray = array();
+        $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','6')->where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3.'/'.$f4.'/'.$f5.'/%')->get();
+
+        foreach ($folders as $key => $value) {
+            $directory = $value->folder;
+           // $folder_name = substr($directory, 6);
+            $folder_name = explode('/' , $directory);
+            $folderarray[] = $folder_name[6] ;
+        }
+       
+        $data = Vault::where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3.'/'.$f4.'/'.$f5)->where('filename','!=','')->get();
+
+        return view('vault/level5',compact('data' ,'folderarray', 'f1','f2','f3','f4','f5'));
 
     }
 
@@ -280,7 +345,7 @@ class VaultController extends Controller
         }
         else{
             $path ='vault/'.$request->main_directory.'/'.$request->sub_directory; 
-            $sub_folders = '2' ;
+            $sub_folders = '3' ;
         }
 
         if(Vault::where('name', $request->name)->where('sub_folders', $sub_folders)->exists()){
@@ -293,6 +358,7 @@ class VaultController extends Controller
        // print_r($path); die();
 
         if($file = $request->hasFile('file')) {
+         // print_r("ll"); die();
 
             foreach($_FILES['file']['name'] as $key=>$val){ 
                 
@@ -306,7 +372,14 @@ class VaultController extends Controller
             //move($destinationPath,$fileName);
             move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
 
-            $imagearray[] = $fileName ;
+            //$imagearray[] = $fileName ;
+             $vault = Vault::create([
+                'name' => $temp[0],
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $fileName ,
+            ]); 
              
                  
             }
@@ -314,7 +387,7 @@ class VaultController extends Controller
           }
 
 
-        $imageNames = implode(',', $imagearray);
+        /*$imageNames = implode(',', $imagearray);
 
         $vault = Vault::create([
                 'name' => $request->name,
@@ -322,7 +395,287 @@ class VaultController extends Controller
                 'sub_folders' => $sub_folders,
                 'folder' => $path,
                 'filename'=> $imageNames ,
+            ]); */
+
+       // print_r($path); die();
+        return redirect()->back();
+           
+        }
+        else{
+         
+          return redirect()->back();
+        } 
+
+    }
+
+    public function save_level3_files(Request $request){
+       // print_r($request->Input()); die();
+        if($request->hasFile('file')){
+
+        $imagearray= array();
+        if($request->directory != ''){
+            $folder =  $request->directory ;
+        }
+        else if($request->folder_name != ''){
+            $folder =  $request->folder_name ;
+        }
+        else{
+            $folder = '';
+        }
+
+
+        if($folder != ''){
+            $path = 'vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'. $folder;
+            $sub_folders = '4' ;
+
+            if (file_exists(public_path().'/'.$path)) {
+              
+            } else {
+               
+                File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
+            }
+            
+        }
+        else{
+            $path ='vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3; 
+            $sub_folders = '4' ;
+        }
+
+        if(Vault::where('name', $request->name)->where('sub_folders', $sub_folders)->exists()){
+             
+             return redirect()->back()->withMessage('Document name already exists. Please use different name');
+
+            }
+
+
+        //print_r($path); die();
+
+        if($file = $request->hasFile('file')) {
+         // print_r("ll"); die();
+
+            foreach($_FILES['file']['name'] as $key=>$val){ 
+                
+            $fileName = basename($_FILES['file']['name'][$key]); 
+            $temp = explode(".", $fileName);
+                 
+            $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/'.$path.'/'.$fileName ;
+           // print_r($destinationPath); die();
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
+
+            //$imagearray[] = $fileName ;
+             $vault = Vault::create([
+                'name' => $temp[0],
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $fileName ,
             ]); 
+             
+                 
+            }
+          
+          }
+
+
+        /*$imageNames = implode(',', $imagearray);
+
+        $vault = Vault::create([
+                'name' => $request->name,
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $imageNames ,
+            ]); */
+
+       // print_r($path); die();
+        return redirect()->back();
+           
+        }
+        else{
+         
+          return redirect()->back();
+        } 
+
+    }
+
+    public function save_level4_files(Request $request){
+       // print_r($request->Input()); die();
+        if($request->hasFile('file')){
+
+        $imagearray= array();
+        if($request->directory != ''){
+            $folder =  $request->directory ;
+        }
+        else if($request->folder_name != ''){
+            $folder =  $request->folder_name ;
+        }
+        else{
+            $folder = '';
+        }
+
+
+        if($folder != ''){
+            $path = 'vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$request->f4.'/'. $folder;
+            $sub_folders = '5' ;
+
+            if (file_exists(public_path().'/'.$path)) {
+              
+            } else {
+               
+                File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
+            }
+            
+        }
+        else{
+            $path ='vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$request->f4; 
+            $sub_folders = '5' ;
+        }
+
+        if(Vault::where('name', $request->name)->where('sub_folders', $sub_folders)->exists()){
+             
+             return redirect()->back()->withMessage('Document name already exists. Please use different name');
+
+            }
+
+
+        //print_r($path); die();
+
+        if($file = $request->hasFile('file')) {
+         // print_r("ll"); die();
+
+            foreach($_FILES['file']['name'] as $key=>$val){ 
+                
+            $fileName = basename($_FILES['file']['name'][$key]); 
+            $temp = explode(".", $fileName);
+                 
+            $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/'.$path.'/'.$fileName ;
+           // print_r($destinationPath); die();
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
+
+            //$imagearray[] = $fileName ;
+             $vault = Vault::create([
+                'name' => $temp[0],
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $fileName ,
+            ]); 
+             
+                 
+            }
+          
+          }
+
+
+        /*$imageNames = implode(',', $imagearray);
+
+        $vault = Vault::create([
+                'name' => $request->name,
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $imageNames ,
+            ]); */
+
+       // print_r($path); die();
+        return redirect()->back();
+           
+        }
+        else{
+         
+          return redirect()->back();
+        } 
+
+    }
+
+
+    public function save_level5_files(Request $request){
+       // print_r($request->Input()); die();
+        if($request->hasFile('file')){
+
+        $imagearray= array();
+        if($request->directory != ''){
+            $folder =  $request->directory ;
+        }
+        else if($request->folder_name != ''){
+            $folder =  $request->folder_name ;
+        }
+        else{
+            $folder = '';
+        }
+
+
+        if($folder != ''){
+            $path = 'vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$request->f4.'/'.$request->f5.'/'. $folder;
+            $sub_folders = '6' ;
+
+            if (file_exists(public_path().'/'.$path)) {
+              
+            } else {
+               
+                File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
+            }
+           
+        }
+        else{
+            $path ='vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$request->f4.'/'.$request->f5; 
+            $sub_folders = '6' ;
+        }
+
+        if(Vault::where('name', $request->name)->where('sub_folders', $sub_folders)->exists()){
+             
+             return redirect()->back()->withMessage('Document name already exists. Please use different name');
+
+            }
+
+
+        //print_r($path); die();
+
+        if($file = $request->hasFile('file')) {
+         // print_r("ll"); die();
+
+            foreach($_FILES['file']['name'] as $key=>$val){ 
+                
+            $fileName = basename($_FILES['file']['name'][$key]); 
+            $temp = explode(".", $fileName);
+                 
+            $fileName = rand('111111','999999') . '.' . end($temp);
+
+            $destinationPath = public_path().'/'.$path.'/'.$fileName ;
+           // print_r($destinationPath); die();
+            //move($destinationPath,$fileName);
+            move_uploaded_file($_FILES["file"]["tmp_name"][$key], $destinationPath);
+
+            //$imagearray[] = $fileName ;
+             $vault = Vault::create([
+                'name' => $temp[0],
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $fileName ,
+            ]); 
+             
+                 
+            }
+          
+          }
+
+
+        /*$imageNames = implode(',', $imagearray);
+
+        $vault = Vault::create([
+                'name' => $request->name,
+                'type' => end($temp),
+                'sub_folders' => $sub_folders,
+                'folder' => $path,
+                'filename'=> $imageNames ,
+            ]); */
 
        // print_r($path); die();
         return redirect()->back();
@@ -427,7 +780,10 @@ class VaultController extends Controller
      */
     public function destroy($id)
     {
-        $vault = Vault::where('id', $id)->delete();
+        //$vault = Vault::where('id', $id)->delete();
+        $vault = Vault::where('id', $id)->update(['filename' => '']);
        return redirect()->back();
+
+
     }
 }

@@ -101,9 +101,10 @@ class AppdataController extends Controller
 
     public function view_vault(Request $request){
        $vault = array();
+       $directories = array();
         if(isset($request->user_id)){
 
-            $docs = Vault::where('sub_folders' , '0')->get();
+            $docs = Vault::where('sub_folders' , '0')->where('filename','!=','')->get();
             $folders = Vault::select('folder')->where('sub_folders' , '1')->groupBy('folder')->get();
 
             foreach ($folders as $key => $value) {
@@ -135,12 +136,12 @@ class AppdataController extends Controller
 
     public function sub_directory1(Request $request){
          $vault=array();
-        if(isset($request->user_id) && isset($request->foldername)){
-            $foldername = $request->foldername ;
+        if(isset($request->user_id) && isset($request->f1)){
+            $f1 = $request->f1 ;
            
-            $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','2')->where('folder','LIKE','vault/'.$foldername.'/%')->get();
+            $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','2')->where('folder','LIKE','vault/'.$f1.'/%')->get();
             $folderarray = array();
-            $data = Vault::where('folder','LIKE','vault/'.$foldername)->get();
+            $data = Vault::where('folder','LIKE','vault/'.$f1)->where('filename','!=','')->get();
 
             
             foreach ($folders as $key => $value) {
@@ -174,11 +175,157 @@ class AppdataController extends Controller
 
     public function sub_sub_directory(Request $request){
         $vault=array();
-       if(isset($request->user_id) && isset($request->foldername) && isset($request->sub_folder_name)){
-        $foldername = $request->foldername ;
-        $sub_folder_name = $request->sub_folder_name ;
-       
-        $vault = Vault::where('folder','LIKE','vault/'.$foldername.'/'.$sub_folder_name.'%')->get();
+        $folderarray=array();
+       if(isset($request->user_id) && isset($request->f1) && isset($request->f2)){
+        $foldername = $request->f1 ;
+        $sub_folder_name = $request->f2 ;
+
+         $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','3')->where('folder','LIKE','vault/'.$foldername.'/'.$sub_folder_name.'/%')->get();
+            $folderarray = array();
+            $data = Vault::where('folder','LIKE','vault/'.$foldername.'/'.$sub_folder_name)->where('filename','!=','')->get();
+
+
+            
+            foreach ($folders as $key => $value) {
+                $directory = $value->folder;
+               // $folder_name = substr($directory, 6);
+                $folder_name = explode('/' , $directory);
+                $folderarray[] = $folder_name[3] ;
+            }
+    
+        $vault = ['data' => $data , 'folders' => $folderarray];
+
+        return response()->json([
+                        'status'=> 1,
+                        'message' => 'Success',
+                        'data' => $vault
+                        
+                ]);
+
+        }
+        else{
+            return response()->json([
+                            'status'=> 0,
+                            'message' => 'UnAuthorized',
+                            'data' => $vault
+                            
+                    ]);
+
+        }
+
+    }
+
+    public function level3(Request $request){
+        $vault=array();
+        $folderarray=array();
+
+       if(isset($request->user_id) && isset($request->f1) && isset($request->f2) && isset($request->f3)){
+        $f1 = $request->f1 ;
+        $f2 = $request->f2 ;
+        $f3 = $request->f3 ;
+
+         $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','4')->where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3.'/%')->get();
+            $folderarray = array();
+            $data = Vault::where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3)->where('filename','!=','')->get();
+
+
+            foreach ($folders as $key => $value) {
+                $directory = $value->folder;    
+               // $folder_name = substr($directory, 6);
+                $folder_name = explode('/' , $directory);
+                $folderarray[] = $folder_name[4] ;
+            }
+    
+        $vault = ['data' => $data , 'folders' => $folderarray];
+
+        return response()->json([
+                        'status'=> 1,
+                        'message' => 'Success',
+                        'data' => $vault
+                        
+                ]);
+
+        }
+        else{
+            return response()->json([
+                            'status'=> 0,
+                            'message' => 'UnAuthorized',
+                            'data' => $vault
+                            
+                    ]);
+
+        }
+
+    }
+
+    public function level4(Request $request){
+        $vault=array();
+        $folderarray=array();
+
+       if(isset($request->user_id) && isset($request->f1) && isset($request->f2) && isset($request->f3) && isset($request->f4)){
+        $f1 = $request->f1 ;
+        $f2 = $request->f2 ;
+        $f3 = $request->f3 ;
+        $f4 = $request->f4 ;
+
+         $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','4')->where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3.'/'.$f4.'/%')->get();
+            $folderarray = array();
+            $data = Vault::where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3.'/'.$f4)->where('filename','!=','')->get();
+
+
+            foreach ($folders as $key => $value) {
+                $directory = $value->folder;    
+               // $folder_name = substr($directory, 6);
+                $folder_name = explode('/' , $directory);
+                $folderarray[] = $folder_name[5] ;
+            }
+    
+        $vault = ['data' => $data , 'folders' => $folderarray];
+
+        return response()->json([
+                        'status'=> 1,
+                        'message' => 'Success',
+                        'data' => $vault
+                        
+                ]);
+
+        }
+        else{
+            return response()->json([
+                            'status'=> 0,
+                            'message' => 'UnAuthorized',
+                            'data' => $vault
+                            
+                    ]);
+
+        }
+
+    }
+
+    public function level5(Request $request){
+        $vault=array();
+        $folderarray=array();
+
+       if(isset($request->user_id) && isset($request->f1) && isset($request->f2) && isset($request->f3) && isset($request->f4) && isset($request->f5)){
+        $f1 = $request->f1 ;
+        $f2 = $request->f2 ;
+        $f3 = $request->f3 ;
+        $f4 = $request->f4 ;
+        $f5 = $request->f5 ;
+
+         $folders = Vault::select('folder')->groupBy('folder')->where('sub_folders','4')->where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3.'/'.$f4.'/'.$f5.'/%')->get();
+            $folderarray = array();
+            $data = Vault::where('folder','LIKE','vault/'.$f1.'/'.$f2.'/'.$f3.'/'.$f4.'/'.$f5)->where('filename','!=','')->get();
+
+
+            foreach ($folders as $key => $value) {
+                $directory = $value->folder;    
+               // $folder_name = substr($directory, 6);
+                $folder_name = explode('/' , $directory);
+                $folderarray[] = $folder_name[5] ;
+            }
+    
+        $vault = ['data' => $data , 'folders' => $folderarray];
 
         return response()->json([
                         'status'=> 1,

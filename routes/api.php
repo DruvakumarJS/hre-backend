@@ -71,6 +71,9 @@ Route::post('/vault',[AppdataController::class,'vault']);
 Route::post('/new-vault',[AppdataController::class,'view_vault']);
 Route::post('/new-vault-level-1',[AppdataController::class,'sub_directory1']);
 Route::post('/new-vault-level-2',[AppdataController::class,'sub_sub_directory']);
+Route::post('/new-vault-level-3',[AppdataController::class,'level3']);
+Route::post('/new-vault-level-4',[AppdataController::class,'level4']);
+Route::post('/new-vault-level-5',[AppdataController::class,'level5']);
 
 
 Route::post('/search-material',[MaterialController::class,'material_search']);
