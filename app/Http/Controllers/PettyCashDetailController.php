@@ -81,7 +81,7 @@ class PettyCashDetailController extends Controller
           if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
           {
             $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
-             if(strtotime(date('Y-m-d',strtotime($request->bill_date))) < strtotime($yearenddate->yearend_date)){
+             if(strtotime(date('Y-m-d',strtotime($request->bill_date))) <= strtotime($yearenddate->yearend_date)){
              // print_r("cant upload to closed year"); 
               $message = "The bill date is behind account closure date (".date('d-m-Y',strtotime($yearenddate->yearend_date))."). So,You cannot upload a bill ";
               return response()->json($message);

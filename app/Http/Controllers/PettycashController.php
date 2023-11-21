@@ -80,7 +80,7 @@ class PettycashController extends Controller
             $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
              print_r($yearenddate->yearend_date);
 
-             if(strtotime($request->issued_date) < strtotime($yearenddate->yearend_date)){
+             if(strtotime($request->issued_date) <= strtotime($yearenddate->yearend_date)){
              
 
               return redirect()->back()->withMessage("The issued date is behind account closure date (".date('d-m-Y',strtotime($yearenddate->yearend_date))."). So,You cannot issue amount ");
