@@ -143,7 +143,7 @@ class CustomerController extends Controller
           //Mail::to($emailid)->send(new CustomerMail($data,$subject));
 
           try {
-             Mail::to('druva@netiapps.com')->send(new CustomerMail($data,$subject));
+             Mail::to($emailid)->send(new CustomerMail($data,$subject));
             } catch (\Exception $e) {
                 return $e->getMessage();
                
