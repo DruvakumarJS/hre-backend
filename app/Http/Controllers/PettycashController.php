@@ -73,8 +73,6 @@ class PettycashController extends Controller
     public function store(Request $request)
     {
        
-
-
         $finaniclyear = date("m") >= 4 ? date("Y"). '-' . (date("Y")+1) : (date("Y") - 1). '-' . date("Y") ;
 
           if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
@@ -89,7 +87,7 @@ class PettycashController extends Controller
            }
 
           }
- print_r($request->Input());die();
+
 
         $craete = Pettycash::create([
             'user_id' => $request->user_id ,
