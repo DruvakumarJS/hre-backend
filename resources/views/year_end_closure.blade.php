@@ -13,7 +13,7 @@
            
            <div id="div2">
             
-             <a data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-light btn-outline-secondary" href="">Freeze Year End</i> </a>
+             <a data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-light btn-outline-secondary" href="">Set Closing Date</i> </a>
     
           </div>
         
@@ -24,7 +24,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Set Accounts Year End Closure Date</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Set Financial Year Closing Date</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -36,7 +36,7 @@
                   </div>
 
                   <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Accounts Closure Date</label>
+                    <label for="message-text" class="col-form-label">Financial Year Closing Date</label>
                      <input type="text" class="form-control" id="date" name="date" autocomplete="off" required>
                   </div>
 
@@ -61,7 +61,7 @@
 
 
         <div>
-        	<label class="label-bold" style="margin-left: 20px" >Year End Closure Details</label>
+        	<label class="label-bold" style="margin-left: 20px" >Financial Year Closing Details</label>
 
         	<div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
@@ -69,7 +69,7 @@
                           <thead>
                             <tr>
                               <th scope="col">Financial Year</th>
-                              <th scope="col">Account Closure Date</th>
+                              <th scope="col">F.Y Closing Date</th>
                               <th scope="col">Comments</th>
                               <th >Action</th> 
                              

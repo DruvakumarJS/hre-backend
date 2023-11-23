@@ -491,7 +491,7 @@
                                         </li> 
                                         <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li>
                                         <!-- <li><a class="dropdown-item" href="{{route('view_vault')}}">Vault</a></li> -->
-                                       <!--  <li><a class="dropdown-item" href="{{ route('year_end_closure')}}">Year End Closure</a></li> -->
+                                        <li><a class="dropdown-item" href="{{ route('year_end_closure')}}">Financial Year Closing</a></li>
 
                                     </ul>
                                 </div>
