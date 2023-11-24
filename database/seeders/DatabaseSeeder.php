@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UnitSeeder::class);
         $this->call(ThicknessSeeder::class);
         $this->call(DepartmentsSeeder::class);
+        $this->call(TeamSeeder::class);
     }
 }

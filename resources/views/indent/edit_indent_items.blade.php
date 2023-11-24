@@ -98,7 +98,7 @@
                 <div class=" col-md-8 div-margin">
                     <div style="margin-left: 20px">
 
-                    @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '3' )
+                    @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' || Auth::user()->roles->team_id == 5 )
                      @if($indend_data->pending > 0 && $indend_data->indent->status == 'Active')
                     
                         <form method="post" action="{{route('update_quantity')}}">
@@ -167,7 +167,7 @@
                                     <td>{{$value->comment}}</td>
                                     <td>{{date('d-m-Y H:i' ,strtotime($value->created_at))}}</td>
                                     <td>
-                                        @if(Auth::user()->role_id == '3' || Auth::user()->role_id == '1')
+                                        @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' || Auth::user()->role_id == '10')
                                         @if($value->status == 'Awaiting for Confirmation' && $indend_data->indent->status == 'Active') 
                                         <a id="MybtnModal_{{$key}}"><button class="btn btn-sm btn-outline-secondary">Edit</button></a>
                                         @endif

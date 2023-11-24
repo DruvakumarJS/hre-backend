@@ -49,7 +49,43 @@ class LoginController extends Controller
               
             case '5':
               return '/finance_home';
-              break;        
+              break; 
+
+            case '6':
+              return '/finance_home';
+              break;
+
+            case '7':
+              return '/finance_home';
+              break;
+              
+            case '8':
+              return '/finance_home';
+              break;
+              
+            case '9':
+              return '/finance_home';
+              break;
+              
+            case '10':
+              return '/finance_home';
+              break;
+              
+            case '11':
+              return '/finance_home';
+              break;
+              
+            case '12':
+              return '/finance_home';
+              break;
+              
+            case '13':
+              return '/finance_home';
+              break;
+              
+            case '14':
+              return '/finance_home';
+              break;                          
 
             default:
               return '/logout'; 

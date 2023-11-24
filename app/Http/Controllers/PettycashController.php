@@ -8,6 +8,7 @@ use App\Models\PettyCashDetail;
 use App\Models\PettycashSummary;
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\FootPrint;
 use App\Models\Yearendfreeze;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class PettycashController extends Controller
     {
         $user = Auth::user();
 
-        if($user->role == 'admin' || $user->role == 'finance'){
+        if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' OR Auth::user()->role_id == '6' OR Auth::user()->role_id == '7' OR Auth::user()->role_id == '8' ){
            
                 $data = PettycashOverview::with(['details' => function ($query) {
                     $query->where('isapproved', '=', 0);
@@ -152,6 +153,15 @@ class PettycashController extends Controller
                     'mode' => $request->mode,
                     'reference_number' => $request->refernce ]);
                }
+
+               $emp =Employee::where('user_id',$request->user_id)->first();
+
+               $footprint = FootPrint::create([
+                    'action' => 'Pettycash issued to - '.$emp->employee_id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Pettycash',
+                    'operation' => 'C'
+                ]);
 
             return redirect()->route('pettycash');
 
@@ -274,6 +284,15 @@ class PettycashController extends Controller
                }
 
        // }
+
+               $emp =Employee::where('user_id',$request->user_id)->first();
+
+               $footprint = FootPrint::create([
+                    'action' => 'Pettycash amount modified - '.$emp->employee_id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Pettycash',
+                    'operation' => 'U'
+                ]);
        
        return redirect()->route('pettycash_info',$request->user_id);
 
@@ -295,6 +314,7 @@ class PettycashController extends Controller
             return redirect()->back()->withMessage('This Pettycash is already used by the employee');
         }
         else {
+            
              $delete = Pettycash::where('id', $id)->delete();
              return redirect()->back();
 

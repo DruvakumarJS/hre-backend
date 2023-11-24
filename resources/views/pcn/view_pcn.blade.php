@@ -28,6 +28,7 @@ white-space: nowrap;
 
            <div id="div3" style="margin-right: 30px">
           
+          @if(Auth::user()->role_id != 14 )
           <form method="POST" action="{{route('export-pcn')}}">
             @csrf
             <input type="hidden" name="search" value="{{$search}}">
@@ -38,7 +39,7 @@ white-space: nowrap;
                 </div>
               </div>
            </form>
-            
+          @endif  
           </div>
 
           <div id="div2" style="margin-right: 30px">
@@ -100,7 +101,7 @@ white-space: nowrap;
                                     <td style="text-align: center; ">{{$value->days_acheived}}</td>
                                     <td><?php echo ($value->dlp_date) !='' ? date("d-m-Y", strtotime($value->dlp_date)):'' ; ?></td>
                                     <td>{{$value->status}}</td>
-                                    @if(Auth::user()->role_id == 1)
+                                    @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2)
                                     <td>
                                         <a href="{{route('edit_pcn',$value->pcn)}}"><i class="fa fa-edit"></i></a>
                                     </td>

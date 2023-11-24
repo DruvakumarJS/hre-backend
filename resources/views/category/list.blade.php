@@ -16,11 +16,13 @@
             
           </div>
         
+          @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 10)
            <div id="div2" style="margin-right: 30px" >
             <a data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-light btn-outline-secondary" href=""><i class="fa fa-plus"></i> 
              <label id="modal">Create Category</label>
            </a>
           </div>
+          @endif
 
           <div id="div2" style="margin-right: 30px">
            <form method="POST" action="{{route('search_category')}}">
@@ -33,10 +35,12 @@
               </div>
            </form>
           </div>
-
+          
+          @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 10 )
           <div id="div2" style="margin-right: 30px" >
             <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import Categories</label></a>
-        </div>
+          </div>
+          @endif
 
            <div id="div3" style="margin-right: 30px">
              <a href="{{route('export-categories')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
@@ -148,16 +152,20 @@
                               <td>{{$value->material_category}}</td>
                               <td width="300px">{{$value->description}}</td>
                               <td>
+                                 @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 10 OR auth::user()->role_id == 11)
                                 <a href="{{route('add_product',$value->code)}}"><label class="btn btn-light btn-outline-secondary  btn-sm">Add Product</label></a>
+                                @endif
                                 <a href="{{route('view_products',$value->code)}}"><label class="btn btn-light btn-outline-secondary btn-sm">View Product</label></a>   
                               </td>
                                <td class="openModal" >
                                 <!-- <a href="" data-bs-toggle="modal"  data-bs-target="#myModal" ><i class='fa fa-edit' style='font-size:24px;'></i></a> -->
-
+                               @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)
                                 <a id="MybtnModal_{{$key}}" data-id="{{$value->category}}"> <button class="btn btn-light curved-text-button btn-sm">Edit</button></i></a>
-                                
-                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_category',$value->code)}}" > <button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>
+                                @endif
 
+                                @if(auth::user()->role_id == 1)
+                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_category',$value->code)}}" > <button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>
+                                @endif
                                    
                               </td>
                               <td>

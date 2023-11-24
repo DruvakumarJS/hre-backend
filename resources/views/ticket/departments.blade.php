@@ -15,11 +15,12 @@
     <div class="row justify-content-center">
    <div class="container-header">
             <label class="label-bold" id="div1">Departments</label>
-           <div id="div2">
-            <a data-bs-toggle="modal" data-bs-target="#exampleModal" href="" class="btn btn-light btn-outline-secondary" >
-             <label id="modal">Create Department </label> </a>
-          </div>
-        
+             @if(auth::user()->role_id == 1)
+               <div id="div2">
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal" href="" class="btn btn-light btn-outline-secondary" >
+                 <label id="modal">Create Department </label> </a>
+              </div>
+             @endif
        </div>
       
       <div class="page-container div-margin">
@@ -44,8 +45,13 @@
                 <td width="400px">{{$value->role_alias}}</td>
                 <td width="300px">{{$value->description}}</td>
                 <td>
+                   @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)
                   <a id="mymodal_{{$key}}" href="#"><button class="btn btn-sm btn-outline-success">Edit</button></a>
+                  @endif
+
+                   @if(auth::user()->role_id == 1)
                   <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_department', $value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
+                  @endif
 
                 </td>
               </tr>

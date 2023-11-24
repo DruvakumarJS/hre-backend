@@ -156,7 +156,7 @@
                                          @endif
                                         @endif 
 
-                                         @if( (Auth::user()->role_id == '1') || (Auth::user()->role_id == '5'))
+                                         @if( (Auth::user()->role_id == '1') || (Auth::user()->role_id == '2') || (Auth::user()->role_id == '6') || (Auth::user()->role_id == '7') || (Auth::user()->role_id == '8'))
                                             @if($value->isapproved == '0')
                                                 
                                                 <a  id="MybtnModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-secondary">Action</button></a>
@@ -164,7 +164,7 @@
                                             @endif
                                             @endif
 
-                                            @if( (Auth::user()->role_id == '1') && $value->isapproved != '0')   
+                                            @if( ( Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' OR Auth::user()->role_id == '6' ) && $value->isapproved != '0')   
 
 
                                                <a style="margin-top: 10px" id="MyrevertModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-danger">Revert</button></a>  

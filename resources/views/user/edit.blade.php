@@ -5,10 +5,12 @@
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Edit User</label>
-       <!--    <div id="div2">
+
+          @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)  
+          <div id="div2">
              <a data-bs-toggle="modal" data-bs-target="#promoteModal"><button class="btn btn-light btn-outline-success"> Promote </button></a>
-          </div> -->
-          
+          </div>
+          @endif
            @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
           @endif       
@@ -127,7 +129,9 @@
                     <select class="form-control form-select" name="newrole" required>
                       <option value="">Select designation</option>
                       @foreach($roles as $key=>$value)
+                      @if($value->alias != $userData->user->roles->alias)
                         <option  value="{{$value->id}}">{{ $value->alias}}</option>
+                      @endif  
                       @endforeach
                     </select>
                   </div>

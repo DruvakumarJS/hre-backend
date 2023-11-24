@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\SizeMaster;
 use App\Models\UnitMaster;
 use App\Models\User;
+use App\Models\FootPrint;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportMaterial;
@@ -14,6 +15,7 @@ use Excel;
 use App\Mail\MaterialMail;
 use Mail;
 use DB;
+use Auth;
 
 class MaterialController extends Controller
 {
@@ -162,6 +164,14 @@ class MaterialController extends Controller
            
         } 
         finally {
+
+
+                $footprint = FootPrint::create([
+                    'action' => 'New product created - '.$itemcode,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Products',
+                    'operation' => 'C'
+                ]);
          
           return redirect()->route('add_product',$request->code);
         }             
@@ -264,6 +274,13 @@ class MaterialController extends Controller
                                         'uom' =>$request->uom,
                                         'information'=> $features]);
       if($update_material){
+
+        $footprint = FootPrint::create([
+                    'action' => 'Product details modified - '.$request->id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Products',
+                    'operation' => 'U'
+                ]);
         
         return redirect()->route('materials');
       }
@@ -281,7 +298,17 @@ class MaterialController extends Controller
 
     public function destroy($id)
     {
+        $product = Material::where('id',$id)->first();
+        $itemcode = $product->item_code ;
         $DeleteMaterial = Material::where('id',$id)->delete();
+
+        $footprint = FootPrint::create([
+                    'action' => 'Product deleted - '.$itemcode,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Products',
+                    'operation' => 'D'
+                ]);
+
          return redirect()->route('materials');
     }
 

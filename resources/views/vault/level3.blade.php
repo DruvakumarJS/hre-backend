@@ -21,7 +21,7 @@ div.click-to-top:hover span {
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Vault 3</label>
-         @if(Auth::user()->role_id == '1')
+          @if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' OR Auth::user()->role_id == '3' OR Auth::user()->role_id == '6' OR Auth::user()->role_id == '9' OR Auth::user()->role_id == '10')
          <div id="div2">
           <button  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm btn-outline-secondary">Add </button>
         </div>
@@ -128,8 +128,11 @@ div.click-to-top:hover span {
                 <td width="100px">{{$value->type}}</td>
                 <td>
                   <a target="_blank" href="{{ URL::to('/') }}/vault/{{$f1}}/{{$f2}}/{{$f3}}/{{$image}}"><button class="btn btn-sm btn-outline-secondary">View</button></a>
-                  @if(Auth::user()->role_id == '1')
+                  @if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' OR Auth::user()->role_id == '3' OR Auth::user()->role_id == '6' OR Auth::user()->role_id == '9' OR Auth::user()->role_id == '10')
                   <a id="MybtnModal_{{$key}}" style="margin-left: 20px" > <button class="btn btn-outline-success btn-sm">Rename</button></a>
+                  @endif
+
+                  @if(auth::user()->role_id == '1' OR Auth::user()->role_id == '2')
                   <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_doc',$value->id)}}" style="margin-left: 20px"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
                   @endif
                 </td>

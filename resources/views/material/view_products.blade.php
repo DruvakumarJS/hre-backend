@@ -81,16 +81,17 @@
 
                                   @endforeach
                                 </tbody>
-                              </table></td>
-                               <td>
-                                  <a href="{{route('edit_product',$value->item_code)}}" > <i class='fa fa-edit' style='font-size:24px;color:blue;'></i></a>
-                              </td>
+                              </table>
+                               @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)
+                                 <td>
+                                    <a href="{{route('edit_product',$value->item_code)}}" > <i class='fa fa-edit' style='font-size:24px;color:blue;'></i></a>
+                                </td>
 
-                              <td >
-                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_product',$value->id)}}" > <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
+                                <td >
+                                    <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_product',$value->id)}}" > <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
 
-                              </td>
-
+                                </td>
+                               @endif
                             </tr>
 
                           @endforeach

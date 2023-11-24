@@ -14,6 +14,8 @@ use Excel;
 use App\Mail\CustomerMail;
 use Mail;
 use App\Jobs\SendCustomerEmail;
+use App\Models\FootPrint;
+use Auth;
 
 
 class CustomerController extends Controller
@@ -149,6 +151,12 @@ class CustomerController extends Controller
                
             } 
             finally {
+                $footprint = FootPrint::create([
+                    'action' => 'New Customer created - '.$request->name,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Customer',
+                    'operation' => 'C'
+                ]);
              
               return redirect()->route('view_customers');
             }     
@@ -305,6 +313,13 @@ class CustomerController extends Controller
                        
                     } 
                     finally {
+
+                        $footprint = FootPrint::create([
+                            'action' => 'Customer details modified - '.$cust_data->name,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'Customer',
+                            'operation' => 'U'
+                        ]);
                      
                       return redirect()->route('view_customers');
                     }     
@@ -333,10 +348,18 @@ class CustomerController extends Controller
 
        // $delete = Address::();
         //echo 'RESP='.$request->input('id');exit;
-
+        $data = Address::where('id',$request->id)->first();
         $deleteAddress = Address::where('id',$request->id)->delete();
 
         if($deleteAddress){
+
+            $footprint = FootPrint::create([
+                            'action' => 'Customer address/brand deleted- '.$data->brand,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'Customer',
+                            'operation' => 'D'
+                        ]);
+
             return response()->json([
                 'status'=>1,
                 'message'=> 'deleted' ]);
@@ -358,10 +381,19 @@ class CustomerController extends Controller
 
         }
         else {
-
+             $Customer = Customer::find($id)->first();
+             $name = $Customer->name ;
              $deleteCustomer = Customer::find($id)->delete();
 
                 if($deleteCustomer){
+                    
+                    $footprint = FootPrint::create([
+                            'action' => 'Customer deleted - '.$name,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'Customer',
+                            'operation' => 'D'
+                        ]);
+
                     return redirect()->route('view_customers')->withmessage('Sucessfully Deleted ');
                 }
                 else{

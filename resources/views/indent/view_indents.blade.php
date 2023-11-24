@@ -49,47 +49,60 @@
           </div>
 
 
-          @if(Auth::user()->role_id == '1' or Auth::user()->role_id == '2')
-
+          @if( (Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' ) OR 
+              ((Auth::user()->roles->team_id == 3 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=13 OR Auth::user()->role_id !=14 )) OR
+              ((Auth::user()->roles->team_id == 4 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=8 )) OR 
+              ((Auth::user()->roles->team_id == 5 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=12  ))  
+              )
         
             <div id="div2" style="margin-right: 30px">
               @if($indents->settlement_triggerd != 'YES') 
               <a data-bs-toggle="modal" data-bs-target="#triggerModal"  class="btn btn-light btn-outline-secondary" href="" ><label id="modal">Endorse Settle</label></a>
               @endif 
 
-              @if($indents->settlement_triggerd == 'YES')            
+             <!--  @if($indents->settlement_triggerd == 'YES')            
               <a data-bs-toggle="modal" data-bs-target="#endorseModal"  href="">
               <button class="btn btn-success " >Endorse Comments</button></a>
-              @endif 
+              @endif  -->
               
             </div>
             
           @endif
           
-          @if(Auth::user()->role_id == '3' AND $indents->settlement_triggerd == 'YES')
+           @if( (Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' ) OR 
+              ((Auth::user()->roles->team_id == 3 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=13 OR Auth::user()->role_id !=14 )) OR
+              ((Auth::user()->roles->team_id == 4 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=8 )) OR 
+              ((Auth::user()->roles->team_id == 5 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=12  )) OR (Auth::user()->role_id == '10' or Auth::user()->role_id == '11')  
+              )
+          @if($indents->settlement_triggerd == 'YES')
             <div id="div2" style="margin-right: 30px">
               <a  data-bs-toggle="modal" data-bs-target="#endorseModal"  href="">
               <button class="btn btn-success " >Endorse Comments</button></a>
             </div>
 
           @endif
+          @endif
+
+            @if( (Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' ) OR 
+              ((Auth::user()->roles->team_id == 3 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=13 OR Auth::user()->role_id !=14 )) OR
+              ((Auth::user()->roles->team_id == 4 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=8 )) OR 
+              ((Auth::user()->roles->team_id == 5 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=12  )) OR (Auth::user()->role_id == '10' or Auth::user()->role_id == '11')  
+              )
 
 
-           @if( (Auth::user()->role_id == '1' or Auth::user()->role_id == '2' or Auth::user()->role_id == '3') AND $indents->settlement_triggerd == 'YES')
-          
             <div id="div2" style="margin-right: 30px">
 
-              @if($indents->indent_settled != 'YES')
-              @if(Auth::user()->role_id == '1' or Auth::user()->role_id == '3')
+              @if($indents->indent_settled != 'YES' AND $indents->settlement_triggerd == 'YES')
+              @if(Auth::user()->role_id == '1' or Auth::user()->role_id == '2' or Auth::user()->role_id == '10' or Auth::user()->role_id == '11')
               <a data-bs-toggle="modal" data-bs-target="#settlementModal"  class="btn btn-light btn-outline-secondary" href="" title="<?php echo ($indents->indent_settled == 'YES')? $indents->settled_comments.'-'.$indents->settler->employee_id:''  ?>" ><label id="modal">Settle Indent </label></a> 
               @endif
               @endif
 
              @if($indents->indent_settled == 'YES')
-             @if(Auth::user()->role_id == '1' or Auth::user()->role_id == '2' or Auth::user()->role_id == '3')
+             
               <a  data-bs-toggle="modal" data-bs-target="#settleModal"  href="">
               <button class="btn btn-danger " >Settled Comments</button></a>
-              @endif
+              
             @endif
             </div>
           @endif

@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\Roles;
 use App\Models\User;
 use App\Mail\AttendanceMail;
+use App\Models\FootPrint;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportAttendance;
@@ -15,6 +16,7 @@ use DB;
 use Auth;
 use Excel;
 use Mail;
+
 
 class AttendanceController extends Controller
 {
@@ -39,8 +41,80 @@ class AttendanceController extends Controller
         $attendance= array();
         $date = date('Y-m-d');
 
-        $employees = Attendance::select('user_id')->where('date', 'LIKE','%'.date('Y-m-d').'%')->groupBy('user_id')->get();
+        if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 9){
+            $employees = Attendance::select('user_id')->where('date', 'LIKE','%'.date('Y-m-d').'%')->groupBy('user_id')->get();
+        }
+        else if(Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 ){
+            
+            $role = Roles::select('id')->where('team_id','3')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
 
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+
+              
+            }
+            
+           // print_r(json_encode($userIDs)); die();
+
+            $employees = Attendance::select('user_id')
+            ->where('date', 'LIKE','%'.date('Y-m-d').'%')
+            ->whereIn('user_id',$userIDs)
+            ->groupBy('user_id')->get();
+        }
+        else if(Auth::user()->role_id == 8 ){
+            
+            $role = Roles::select('id')->where('team_id','4')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+
+              
+            }
+            
+            //print_r(json_encode($userIDs)); die();
+
+            $employees = Attendance::select('user_id')
+            ->where('date', 'LIKE','%'.date('Y-m-d').'%')
+            ->whereIn('user_id',$userIDs)
+            ->groupBy('user_id')->get();
+        }
+        else if(Auth::user()->role_id == 10 OR Auth::user()->role_id == 11){
+            
+            $role = Roles::select('id')->where('team_id','5')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+            
+            //print_r(json_encode($userIDs)); die();
+
+            $employees = Attendance::select('user_id')
+            ->where('date', 'LIKE','%'.date('Y-m-d').'%')
+            ->whereIn('user_id',$userIDs)
+            ->groupBy('user_id')->get();
+        }
+        else{
+         $employees = Attendance::select('user_id')
+         ->where('date', 'LIKE','%'.date('Y-m-d').'%')
+         ->where('user_id',Auth::user()->id)
+         ->groupBy('user_id')->get();
+
+        }
+
+       
         foreach ($employees as $key => $value) {
            // print_r($value->user_id);
 
@@ -238,6 +312,7 @@ class AttendanceController extends Controller
          $only_time = date("H:i", strtotime($request->logout_time));
          $only_date = date("Y-m-d", strtotime($request->logout_time));
          // print_r($only_time);die();
+         $empl = Employee::where('user_id',$request->id)->first(); 
 
         if(isset($request->logout_time) && isset($request->break)){
             $login = Attendance::where('user_id' , $request->id)->where('date' , $date)->orderBy('id','desc')->first();
@@ -359,6 +434,12 @@ class AttendanceController extends Controller
                        
                     } 
                     finally {
+                       $footprint = FootPrint::create([
+                            'action' => 'Attendance details modified - '.$empl->employee_id,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'Attendance',
+                            'operation' => 'U'
+                        ]); 
                      
                      return redirect()->back();
                     }           
@@ -386,11 +467,12 @@ class AttendanceController extends Controller
         $search = '';
 
         foreach ($employees as $key => $value) {
-
+        
         $days_present = Attendance::select('date')->where('user_id',$value->user_id)->where('date','LIKE','%'.date('Y-m').'%')->groupBy('date')->get();
          $workinghours = Attendance::where('user_id',$value->user_id)->where('date','LIKE','%'.date('Y-m').'%')->get();
-        $role = Roles::where('name',$value->role)->first();
-           
+        
+         $role = Roles::where('id',$value->role_id)->first();
+            
             $result = [
                 'employee_id' => $value->employee_id,
                 'user_id' => $value->user_id,

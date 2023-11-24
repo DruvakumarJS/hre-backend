@@ -17,6 +17,8 @@
                 </div>
             </div>
         </div>
+
+       @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 9)
          <form method="POST" action="{{route('export_attendance')}}">
           @csrf
             <input type="hidden" name="user_id" id="user_id" value="{{$employee->user_id}}">
@@ -28,7 +30,7 @@
             </div>
           
         </form>
-
+       @endif   
         
 
     </div>
@@ -281,7 +283,7 @@ $(function() {
 
 
     
-     output += '<td>' + '@if((Auth::user()->role_id == 1)OR (Auth::user()->role_id == 5) )<button type="button" value='+data[count].date+' id="editdate'+count+'" data-date="'+dates+'" class="btn btn-sm btn-light btn-outline-secondary" onclick="edit('+count+')">Edit</button>@endif'+'</td></tr>';
+     output += '<td>' + '@if((Auth::user()->role_id == 1)OR (Auth::user()->role_id == 9) )<button type="button" value='+data[count].date+' id="editdate'+count+'" data-date="'+dates+'" class="btn btn-sm btn-light btn-outline-secondary" onclick="edit('+count+')">Edit</button>@endif'+'</td></tr>';
    
     }
    // alert(working_hours2);

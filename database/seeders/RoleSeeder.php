@@ -18,81 +18,91 @@ class RoleSeeder extends Seeder
                     [
                         'name' => 'superadmin',
                         'alias' => 'Super Admin',
-                        'description'=>'All Controles'
+                        'description'=>'All Controles',
+                        'team_id'=> 1
                     ],
+                     [
+                        'name' => 'admin',
+                        'alias' => 'Admin',
+                        'description'=>'All controles',
+                        'team_id'=> 2
+                    ] ,
                     [
-                        'name' => 'manager',
+                        'name' => 'project_manager',
                         'alias' => 'Project Manager',
-                        'description'=>'Can manage Tickets'
+                        'description'=>'Can manage Tickets',
+                        'team_id'=> 3
+                    ],
+                     [
+                        'name' => 'asst_manager',
+                        'alias' => 'Assistant Project Manager',
+                        'description'=>'no controle',
+                        'team_id'=> 3
+                    ],
+                     [
+                        'name' => 'project_incharge',
+                        'alias' => 'Project Incharge',
+                        'description'=>'no controle',
+                        'team_id'=> 3
                     ],
                     [
-                        'name' => 'procurement',
-                        'alias' => 'Procurement',
-                        'description'=>'Dispatch Indents'
+                        'name' => 'finance_manager',
+                        'alias' => 'Finance Manager',
+                        'description'=>'Responsible for Pettycash',
+                        'team_id'=> 4
+                    ] ,
+                     [
+                        'name' => 'sr_accountant',
+                        'alias' => 'Sr Accountant',
+                        'description'=>'no controle',
+                        'team_id'=> 4
                     ],
+                    [
+                        'name' => 'jr_accountant',
+                        'alias' => 'Jr Accountant',
+                        'description'=>'no controle',
+                        'team_id'=> 4
+                    ],
+                     [
+                        'name' => 'hr',
+                        'alias' => 'HR',
+                        'description'=>'no controle',
+                        'team_id'=> 4
+                    ],
+
+                    [
+                        'name' => 'procurement_manager',
+                        'alias' => 'Procurement Manager',
+                        'description'=>'Dispatch Indents',
+                        'team_id'=> 5
+                    ],
+                     [
+                        'name' => 'sr_executive',
+                        'alias' => 'Sr Executive',
+                        'description'=>'no controle',
+                        'team_id'=> 5
+                    ],
+                    [
+                        'name' => 'jr_executive',
+                        'alias' => 'Jr Executive',
+                        'description'=>'no controle',
+                        'team_id'=> 5
+                    ],
+                    
                     [
                         'name' => 'supervisor',
                         'alias' => 'Supervisor',
-                        'description'=>'Create Indents'
+                        'description'=>'Create Indents',
+                        'team_id'=> 3
                     ],
-                    [
-                        'name' => 'finance',
-                        'alias' => 'Finance Manager',
-                        'description'=>'Responsible for Pettycash'
-                    ] ,
-                    [
-                        'name' => 'admin',
-                        'alias' => 'Admin',
-                        'description'=>'All controles'
-                    ] ,
-
-                    [
-                        'name' => 'exec_manager',
-                        'alias' => 'Executive Project Manager',
-                        'description'=>'no controle'
-                    ],
+                    
                      [
-                        'name' => 'exec_procuement',
-                        'alias' => 'Executive Procurement Manager',
-                        'description'=>'no controle'
-                    ],
-                     [
-                        'name' => 'trainee',
-                        'alias' => 'Supervisor-Trainee',
-                        'description'=>'no controle'
-                    ],
-                     [
-                        'name' => 'accounts_manager',
-                        'alias' => 'Accounts manager',
-                        'description'=>'no controle'
-                    ],
-
-                    [
-                        'name' => 'assist_manager',
-                        'alias' => 'Assistant project Manager',
-                        'description'=>'no controle'
-                    ],
-                    [
-                        'name' => 'assist_procurement',
-                        'alias' => 'Assistant Procurement',
-                        'description'=>'no controle'
-                    ],
-                    [
-                        'name' => 'accountant',
-                        'alias' => 'Accountant',
-                        'description'=>'no controle'
-                    ],
-                   
-                    [
-                        'name' => 'hr_manager',
-                        'alias' => 'HR Manager',
-                        'description'=>'no controle'
-                    ],
-                    [
-                        'name' => 'hr_executive',
-                        'alias' => 'HR Executive',
-                        'description'=>'no controle'
+                        'name' => 'trainee_supervisor',
+                        'alias' => 'Trainee Supervisor',
+                        'description'=>'no controle',
+                        'team_id'=> 3
                     ]
+                    
                  ];
         foreach ($input as $key => $value) {
             $role = Roles::create($value);

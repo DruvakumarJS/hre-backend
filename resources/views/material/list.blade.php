@@ -114,13 +114,17 @@
                                 </tbody>
                               </table>
                             </td>
+                             
                               
                               <td>
-                                  <a href="{{route('edit_product',$value->item_code)}}" > <button class="btn btn-light curved-text-button btn-sm">Edit</button></i></a>   
-                             
-                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_product',$value->id)}}" > <button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>   
+                                @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 10) 
+                                  <a href="{{route('edit_product',$value->item_code)}}" > <button class="btn btn-light curved-text-button btn-sm">Edit</button></a> 
+                                @endif
+                                 @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)
+                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_product',$value->id)}}" > <button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a> 
+                                @endif  
                               </td>
-                              
+                             
                             </tr>
                           
                           @endforeach   

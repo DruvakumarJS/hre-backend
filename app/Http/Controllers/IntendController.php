@@ -8,6 +8,7 @@ use App\Models\Indent_tracker;
 use App\Models\GRN;
 use App\Models\Pcn;
 use App\Models\User;
+use App\Models\Roles;
 use App\Models\Employee;
 use App\Models\Material;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Exports\ExportIndents;
 use App\Mail\IndentsMail;
 use App\Mail\GRNMail;
+use App\Models\FootPrint;
 use App\Jobs\SendIndentEmail;
 use Excel;
 use Auth ;
@@ -38,13 +40,57 @@ class IntendController extends Controller
     public function index()
     { 
 
-       if(Auth::user()->role_id != 4 ) {
+       if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11 OR Auth::user()->role_id == 12) {
         $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->orderBy('created_at', 'ASC')->paginate(25);
 
         $all = Intend::count();
         $activeCount = Intend::where('status','Active')->count();
         //$pendingCount = Intend::where('status','Pending')->count();
         $compltedCount = Intend::where('status','Completed')->count();
+       }
+       elseif(Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 5){
+
+        $role = Roles::select('id')->where('team_id','3')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->whereIn('user_id',$userIDs)->orderBy('created_at', 'ASC')->paginate(25);
+
+        $all = Intend::whereIn('user_id',$userIDs)->count();
+        $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+           
+
+       }
+       elseif(Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 8 OR Auth::user()->role_id == 9){
+
+        $role = Roles::select('id')->where('team_id','4')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->whereIn('user_id',$userIDs)->orderBy('created_at', 'ASC')->paginate(25);
+
+        $all = Intend::whereIn('user_id',$userIDs)->count();
+        $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+           
+
        }
        else {
         $indents=Intend::where('user_id' ,Auth::user()->id)->paginate(25);
@@ -224,6 +270,14 @@ class IntendController extends Controller
                        
                     } 
                     finally {
+
+                      $footprint = FootPrint::create([
+                          'action' => 'New indent created - '.$ind_no,
+                          'user_id' => Auth::user()->id,
+                          'module' => 'Indent',
+                          'operation' => 'C'
+                      ]);
+
                      
                        $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
            
@@ -232,9 +286,9 @@ class IntendController extends Controller
            
         }
 
-         $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
+         /*$data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
            
-           return redirect()->back()->with('Indent',$data);
+           return redirect()->back()->with('Indent',$data);*/
 
      }
      else {
@@ -261,12 +315,13 @@ class IntendController extends Controller
         $indents= Intend::where('indent_no',$id)->first();
         $indent_id = $indents->id ;
         $pcn = $indents->pcn ;
+        $user = User::where('id',$indents->user_id)->first();
 
         $indents_list = Indent_list::withSum('grns','dispatched')->
              where('indent_id',$indent_id)->orderBy('material_id', 'ASC')->paginate(25);
 
        // print_r(json_encode($indents_list));die();
-         return view('indent/view_indents',compact('id' , 'indents_list' , 'pcn' ,'indents'));
+         return view('indent/view_indents',compact('id' , 'indents_list' , 'pcn' ,'indents','user'));
     }
 
     /**
@@ -309,6 +364,14 @@ class IntendController extends Controller
             ]);
 
        if($Update){
+
+        $footprint = FootPrint::create([
+                          'action' => 'GRN details modified - '.$request->grn,
+                          'user_id' => Auth::user()->id,
+                          'module' => 'GRN',
+                          'operation' => 'U'
+                      ]);
+
          return redirect()->route('edit_intends',$request->id)
                             ->withmessage('GRN Updated successfully');
 
@@ -444,6 +507,13 @@ class IntendController extends Controller
                        
                     } 
                     finally {
+
+                      $footprint = FootPrint::create([
+                          'action' => 'GRN created- '.$GRN_id,
+                          'user_id' => Auth::user()->id,
+                          'module' => 'GRN',
+                          'operation' => 'C'
+                      ]);
                      
                      return redirect()->route('edit_intends',$request->id)
                             ->withmessage('GRN created successfully');
@@ -666,6 +736,13 @@ class IntendController extends Controller
                 'pending' => $pending,
                 'recieved' => $received,
                 'status'=> $status ]);
+            
+            $footprint = FootPrint::create([
+                    'action' => 'GRN accepted - '.$request->grn,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'GRN',
+                    'operation' => 'U'
+                ]);
 
 
             return redirect()->route('grn');
@@ -804,6 +881,13 @@ class IntendController extends Controller
       $update = Intend::where('indent_no' , $id) ->update(['status' => 'Completed']);
 
       if($update){
+        $footprint = FootPrint::create([
+                    'action' => 'Indent status updated - '.$id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Indent',
+                    'operation' => 'U'
+                ]);
+
         return redirect()->route('intends');
       }
 
@@ -871,6 +955,14 @@ class IntendController extends Controller
      ]);
 
     if($update){
+
+      $footprint = FootPrint::create([
+                    'action' => 'Indent endorse triggered - '.$request->indent_no,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Indent',
+                    'operation' => 'U'
+                ]);
+
       return redirect()->back();
     }
 
@@ -887,6 +979,13 @@ class IntendController extends Controller
      ]);
 
      if($update){
+      $footprint = FootPrint::create([
+                    'action' => 'Indent settled - '.$request->indent_no,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Indent',
+                    'operation' => 'U'
+                ]);
+
         return redirect()->back();
       }
     

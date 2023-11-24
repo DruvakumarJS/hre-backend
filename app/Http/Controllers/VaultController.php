@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Vault;
 use Illuminate\Http\Request;
 use File;
+use App\Models\FootPrint;
+use Auth;
 
 class VaultController extends Controller
 {
@@ -207,17 +209,17 @@ class VaultController extends Controller
                 'filename'=> $fileName ,
             ]); 
 
-             
+            $footprint = FootPrint::create([
+                    'action' => 'New File uploaded - '.$path.'/'.$temp[0]. '.' . end($temp),
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Vault',
+                    'operation' => 'C'
+                ]); 
                  
             }
           
           }
 
-
-      //  $imageNames = implode(',', $imagearray);
-
-       
-       // print_r($path); die();
         return redirect()->back();
            
         }
@@ -293,13 +295,19 @@ class VaultController extends Controller
                 'folder' => $path,
                 'filename'=> $fileName ,
             ]); 
+
+             $footprint = FootPrint::create([
+                    'action' => 'New File uploaded - '.$path.'/'.$temp[0]. '.' . end($temp),
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Vault',
+                    'operation' => 'C'
+                ]); 
+                 
+            }
              
                  
             }
-          
-          }
-
-
+         
        // $imageNames = implode(',', $imagearray);
 
        
@@ -380,11 +388,20 @@ class VaultController extends Controller
                 'folder' => $path,
                 'filename'=> $fileName ,
             ]); 
+
+             $footprint = FootPrint::create([
+                    'action' => 'New File uploaded - '.$path.'/'.$temp[0]. '.' . end($temp),
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Vault',
+                    'operation' => 'C'
+                ]); 
+                 
+            }
              
                  
             }
           
-          }
+         
 
 
         /*$imageNames = implode(',', $imagearray);
@@ -473,11 +490,20 @@ class VaultController extends Controller
                 'folder' => $path,
                 'filename'=> $fileName ,
             ]); 
+
+             $footprint = FootPrint::create([
+                    'action' => 'New File uploaded - '.$path.'/'.$temp[0]. '.' . end($temp),
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Vault',
+                    'operation' => 'C'
+                ]); 
+                 
+            }
              
                  
             }
           
-          }
+          
 
 
         /*$imageNames = implode(',', $imagearray);
@@ -566,11 +592,20 @@ class VaultController extends Controller
                 'folder' => $path,
                 'filename'=> $fileName ,
             ]); 
+
+             $footprint = FootPrint::create([
+                    'action' => 'New File uploaded - '.$path.'/'.$temp[0]. '.' . end($temp),
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Vault',
+                    'operation' => 'C'
+                ]); 
+                 
+            }
              
                  
             }
           
-          }
+          
 
 
         /*$imageNames = implode(',', $imagearray);
@@ -660,11 +695,20 @@ class VaultController extends Controller
                 'folder' => $path,
                 'filename'=> $fileName ,
             ]); 
+
+             $footprint = FootPrint::create([
+                    'action' => 'New File uploaded - '.$path.'/'.$temp[0]. '.' . end($temp),
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Vault',
+                    'operation' => 'C'
+                ]); 
+                 
+            }
              
                  
             }
           
-          }
+          
 
 
         /*$imageNames = implode(',', $imagearray);
@@ -766,9 +810,19 @@ class VaultController extends Controller
      */
     public function update(Request $request)
     {
-       //print_r($request->Input());die();
+      // print_r($request->Input());die();
+
+        $files = Vault::where('id', $request->id)->first(); 
 
        $vault = Vault::where('id', $request->id)->update(['name' => $request->name]);
+
+       $footprint = FootPrint::create([
+                    'action' => 'File renamed - '.$files->folder.'/'.$files->name.' to '.$request->name,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Vault',
+                    'operation' => 'U'
+                ]);
+
        return redirect()->back();
     }
 
@@ -781,7 +835,17 @@ class VaultController extends Controller
     public function destroy($id)
     {
         //$vault = Vault::where('id', $id)->delete();
+        $files = Vault::where('id', $id)->first(); 
+
         $vault = Vault::where('id', $id)->update(['filename' => '']);
+
+        $footprint = FootPrint::create([
+                    'action' => 'File deleted - '.$files->folder.'/'.$files->name.'.'.$files->type,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Vault',
+                    'operation' => 'U'
+                ]);
+
        return redirect()->back();
 
 

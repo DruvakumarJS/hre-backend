@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Material;
+use App\Models\FootPrint;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportCategory;
 use Excel;
-
+use Auth;
 
 class CategoryController extends Controller
 {
@@ -87,6 +88,13 @@ class CategoryController extends Controller
 
          }
 
+                    $footprint = FootPrint::create([
+                        'action' => 'New Category created- '.$categoryName,
+                        'user_id' => Auth::user()->id,
+                        'module' => 'Material Category',
+                        'operation' => 'C'
+                    ]);
+
           return redirect()->route('materials_master');
          }
 
@@ -158,6 +166,14 @@ class CategoryController extends Controller
                                 'material_category' => $request->material_category,
                                 'description' => $request->desc
                             ]);
+
+         $footprint = FootPrint::create([
+                        'action' => 'Category details modified - '.$request->name,
+                        'user_id' => Auth::user()->id,
+                        'module' => 'Material Category',
+                        'operation' => 'U'
+                    ]);
+                                     
         return redirect()->route('materials_master');
     }
 
@@ -179,7 +195,17 @@ class CategoryController extends Controller
       
         }
         else{
+            $cat = Category::where('code',$id)->first();
+            $cat_name = $cat->category;
             $delete = Category::where('code',$id)->delete();
+
+            $footprint = FootPrint::create([
+                        'action' => 'Category deleted - '.$cat_name,
+                        'user_id' => Auth::user()->id,
+                        'module' => 'Material Category',
+                        'operation' => 'U'
+                    ]);
+
         return redirect()->route('materials_master');
         }
 

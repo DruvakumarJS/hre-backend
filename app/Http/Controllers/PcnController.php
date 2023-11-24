@@ -16,6 +16,7 @@ use DB;
 use App\Mail\PcnMail;
 use Mail;
 use App\Jobs\SendPCNEmails;
+use App\Models\FootPrint;
 
 
 class PcnController extends Controller
@@ -200,6 +201,13 @@ class PcnController extends Controller
                   return $e->getMessage();
                }
                finally{
+
+                $footprint = FootPrint::create([
+                    'action' => 'New PCN created - '.'PCN_'.$request->pcn,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'PCN',
+                    'operation' => 'C'
+                ]);
 
                   return redirect()->back()->with('PCN' , $data);
                }
@@ -400,6 +408,13 @@ class PcnController extends Controller
                        
                     } 
                     finally {
+
+                        $footprint = FootPrint::create([
+                            'action' => 'PCN details modified - '.$request->pcn,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'PCN',
+                            'operation' => 'U'
+                        ]);
                      
                       return redirect()->route('view_pcn');
                     }             

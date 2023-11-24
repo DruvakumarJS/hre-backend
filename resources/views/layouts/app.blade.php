@@ -49,7 +49,6 @@
                     {{ config('app.name', 'Laravel') }}
                 </a> -->
 
-               @if(Auth::user()->role_id == 1)
                <div class="d-flex flex-column text-center" >
                    
                     <img class="logo" src="{{asset('images/logo_new.svg')}}">
@@ -64,7 +63,7 @@
                       ? 'active' : ''}}"
                       >
                       <label class="nav-links">Home</label></a>
-
+                  @if(Auth::user()->role_id =='1' OR Auth::user()->role_id =='2' OR Auth::user()->role_id =='3' OR Auth::user()->role_id =='4' OR Auth::user()->role_id =='5' OR Auth::user()->role_id =='6' OR Auth::user()->role_id =='7' OR Auth::user()->role_id =='8' OR Auth::user()->role_id =='9' OR Auth::user()->role_id =='10' OR Auth::user()->role_id =='11')
                     <a href="{{route('view_customers')}}"
                      class="{{request()->routeIs('view_customers')
                         || request()->routeIs('create_customer')
@@ -73,7 +72,7 @@
                       ? 'active' : ''}}"
                     >
                       <label class="nav-links">Customers</label></a>
-
+                  @endif
                     <a href="{{route('PCN')}}"
                       class="{{request()->routeIs('PCN')
                       || request()->routeIs('create_pcn')
@@ -105,7 +104,8 @@
                     || request()->routeIs('search_ticket')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
-
+                  
+                 
                     <a href="{{route('attendance')}}"
                     class="{{request()->routeIs('attendance')
                     ||request()->routeIs('employee-details')
@@ -132,298 +132,7 @@
                       <label class="nav-links" >Petty Cash</label></a>
                </div>
 
-               @elseif(Auth::user()->role_id == 5)
-
-                <div class="d-flex flex-column text-center" >
-                   
-                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
-                 
-                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
-               </div>
-
-              
-
-               <div class="navigation">
-                 <a href="{{route('finance_home')}}"
-                     class="{{request()->routeIs('finance_home')
-                      ? 'active' : ''}}"
-                    >
-                      <label class="nav-links">Home</label></a>
-
-                    <a href="{{route('view_customers')}}"
-                     class="{{request()->routeIs('view_customers')
-                        || request()->routeIs('create_customer')
-                      ? 'active' : ''}}"
-                    >
-                      <label class="nav-links">Customers</label></a>
-
-                    <a href="{{route('PCN')}}"
-                      class="{{request()->routeIs('PCN')
-                      || request()->routeIs('create_pcn')
-                      || request()->routeIs('search_pcn')
-                      || request()->routeIs('view_pcn')
-                      || request()->routeIs('edit_pcn')
-                      || request()->routeIs('search_pcn_details')
-                      ? 'active' : ''}}">
-                    <label class="nav-links">PCN</label></a>
-
-                    <a href="{{route('intends')}}"
-                     class="{{request()->routeIs('intends')
-                     ||request()->routeIs('indent_details')
-                     ||request()->routeIs('create_indent')
-                     ||request()->routeIs('edit_intends')
-                     ||request()->routeIs('filter_indents')
-                     ||request()->routeIs('search_indent')
-                     ||request()->routeIs('grn')
-                     || request()->routeIs('search_grn')
-                      ? 'active' : ''}}">
-                      <label class="nav-links">Indents</label></a>
-
-                    <a href="{{route('tickets')}}"
-                    class="{{request()->routeIs('tickets')
-                    || request()->routeIs('edit-ticket')
-                    || request()->routeIs('ticket-details')
-                    || request()->routeIs('generate-ticket')
-                    || request()->routeIs('search_ticket')
-                      ? 'active' : ''}}">
-                    <label class="nav-links" >Tickets</label></a>
-
-                    <a href="{{route('attendance')}}"
-                    class="{{request()->routeIs('attendance')
-                    ||request()->routeIs('employee-details')
-                    ||request()->routeIs('employee-history')
-                    ||request()->routeIs('get_attendance_by_date')
-                    ||request()->routeIs('search_attendance')
-                    ||request()->routeIs('search_attendance_by_date')
-                    ||request()->routeIs('search_user_attendance')
-                    ||request()->routeIs('search_employee')
-                      ? 'active' : ''}}">
-                    <label class="nav-links" >Attendance</label></a>
-
-                    <a href="{{route('pettycash')}}"
-                    class="{{request()->routeIs('pettycash')
-                    ||request()->routeIs('edit_pettycash')
-                    ||request()->routeIs('view_summary')
-                    ||request()->routeIs('details_pettycash')
-                    ||request()->routeIs('update_bill_status')
-                    ||request()->routeIs('pettycash_expenses')
-                    ||request()->routeIs('search_pettycash')
-                      ? 'active' : ''}}">
-                      <label class="nav-links" >Petty Cash</label></a>
-               </div>
-
-               @elseif(Auth::user()->role_id == 2)
-
-               <div class="d-flex flex-column text-center" >
-                   
-                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
-                 
-                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
-               </div>
-
-               
-
-               <div class="navigation">
-                   <a href="{{route('manager_home')}}"
-                     class="{{request()->routeIs('manager_home')
-                      ? 'active' : ''}}"
-                    >
-                      <label class="nav-links">Home</label></a>
-
-
-                    <a href="{{route('PCN')}}"
-                     class="{{request()->routeIs('PCN')
-                     || request()->route('edit_pcn')
-                     || request()->routeIs('search_pcn')
-                     || request()->routeIs('create_pcn')
-                     || request()->routeIs('edit_pcn')
-                     || request()->routeIs('view_pcn')
-                     || request()->routeIs('search_pcn_details')
-                      ? 'active' : ''}}"
-                      ><label class="nav-links">PCN</label></a>
-
-                      <a href="{{route('intends')}}"
-                     class="{{request()->routeIs('intends')
-                     ||request()->routeIs('indent_details')
-                     ||request()->routeIs('create_indent')
-                     ||request()->routeIs('edit_intends')
-                     ||request()->routeIs('filter_indents')
-                     ||request()->routeIs('grn')
-                     ||request()->routeIs('search_indent')
-                     ||request()->routeIs('search_grn')
-                      ? 'active' : ''}}">
-                      <label class="nav-links">Indents</label></a>
-
-                    <a href="{{route('tickets')}}"
-                    class="{{request()->routeIs('tickets')
-                    || request()->routeIs('edit-ticket')
-                    || request()->routeIs('ticket-details')
-                    || request()->routeIs('generate-ticket')
-                    || request()->routeIs('search_ticket')
-                      ? 'active' : ''}}">
-                    <label class="nav-links" >Tickets</label></a>
-
-                     <a href="{{route('attendance')}}"
-                    class="{{request()->routeIs('attendance')
-                    ||request()->routeIs('employee-details')
-                    ||request()->routeIs('employee-history')
-                    ||request()->routeIs('get_attendance_by_date')
-                    ||request()->routeIs('search_attendance')
-                    ||request()->routeIs('search_attendance_by_date')
-                    ||request()->routeIs('search_user_attendance')
-                    ||request()->routeIs('search_employee')
-                      ? 'active' : ''}}">
-                    <label class="nav-links" >Attendance</label></a>
-
-                    <a href="{{route('pettycash')}}"
-                    class="{{request()->routeIs('pettycash')
-                    ||request()->routeIs('edit_pettycash')
-                    ||request()->routeIs('details_pettycash')
-                    ||request()->routeIs('view_summary')
-                    ||request()->routeIs('update_bill_status')
-                    ||request()->routeIs('pettycash_expenses')
-                      ? 'active' : ''}}">
-                      <label class="nav-links" >Petty Cash</label></a>
-
-               </div>
-
-               @elseif(Auth::user()->role_id == 3)
-
-               <div class="d-flex flex-column text-center" >
-                   
-                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
-                 
-                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
-               </div>
-
-              
-               <div class="navigation">
-
-                 <a href="{{route('procurement_home')}}"
-                     class="{{request()->routeIs('procurement_home')
-                      ? 'active' : ''}}"
-                    >
-                      <label class="nav-links">Home</label></a>
-
-                    <a href="{{route('PCN')}}"
-                      class="{{request()->routeIs('PCN')
-                      || request()->routeIs('create_pcn')
-                      || request()->routeIs('search_pcn')
-                      || request()->routeIs('view_pcn')
-                      || request()->routeIs('edit_pcn')
-                      || request()->routeIs('search_pcn_details')
-                      ? 'active' : ''}}">
-                    <label class="nav-links">PCN</label></a>  
-
-
-                    <a href="{{route('intends')}}"
-                     class="{{request()->routeIs('intends')
-                     ||request()->routeIs('indent_details')
-                     ||request()->routeIs('create_indent')
-                     ||request()->routeIs('edit_intends')
-                     ||request()->routeIs('filter_indents')
-                     ||request()->routeIs('grn')
-                     ||request()->routeIs('search_indent')
-                     ||request()->routeIs('search_grn')
-                      ? 'active' : ''}}">
-                      <label class="nav-links">Indents</label></a>
-
-                    <a href="{{route('tickets')}}"
-                    class="{{request()->routeIs('tickets')
-                    || request()->routeIs('edit-ticket')
-                    || request()->routeIs('ticket-details')
-                    || request()->routeIs('generate-ticket')
-                    || request()->routeIs('search_ticket')
-                      ? 'active' : ''}}">
-                    <label class="nav-links" >Tickets</label></a>
-
-                    <a href="{{route('employee-history',Auth::user()->id)}}"
-                    class="{{request()->routeIs('employee-history')
-                    
-                      ? 'active' : ''}}">
-                    <label class="nav-links" >Attendance</label></a>
-
-                    <a href="{{route('pettycash')}}"
-                    class="{{request()->routeIs('pettycash')
-                    ||request()->routeIs('edit_pettycash')
-                    ||request()->routeIs('details_pettycash')
-                    ||request()->routeIs('view_summary')
-                    ||request()->routeIs('update_bill_status')
-                    ||request()->routeIs('pettycash_expenses')
-                      ? 'active' : ''}}">
-                      <label class="nav-links" >Petty Cash</label></a>
-     
-               </div>
-
-                @elseif(Auth::user()->role_id == 4)
-
-               <div class="d-flex flex-column text-center" >
-                   
-                    <img class="logo" src="{{asset('images/logo2.svg')}}" >
-                 
-                   <span style="color: #ffffff;font-weight: 600;font-style: normal;font-size: 11px;margin-top: -8px;transform: translateX(-19px);">One Stop Solution</span>
-               </div>
-
-               
-
-               <div class="navigation">
-
-                <a href="{{route('supervisor_home')}}"
-                     class="{{request()->routeIs('supervisor_home')
-                      ? 'active' : ''}}"
-                    >
-                      <label class="nav-links">Home</label></a>
-
-                    <a href="{{route('PCN')}}"
-                      class="{{request()->routeIs('PCN')
-                      || request()->routeIs('create_pcn')
-                      || request()->routeIs('search_pcn')
-                      || request()->routeIs('view_pcn')
-                      || request()->routeIs('edit_pcn')
-                      ? 'active' : ''}}">
-                    <label class="nav-links">PCN</label></a>  
-
-                      
-                    <a href="{{route('intends')}}"
-                     class="{{request()->routeIs('intends')
-                     ||request()->routeIs('create_indent')
-                     ||request()->routeIs('indent_details')
-                     ||request()->routeIs('edit_intends')
-                     ||request()->routeIs('filter_indents')
-                     ||request()->routeIs('grn')
-                     ||request()->routeIs('search_grn')
-                     ||request()->routeIs('search_indent')
-                      ? 'active' : ''}}">
-                      <label class="nav-links">Indents</label></a>
-
-                    <a href="{{route('tickets')}}"
-                    class="{{request()->routeIs('tickets')
-                    || request()->routeIs('edit-ticket')
-                    || request()->routeIs('ticket-details')
-                    || request()->routeIs('generate-ticket')
-                    || request()->routeIs('search_ticket')
-                      ? 'active' : ''}}">
-                    <label class="nav-links" >Tickets</label></a>
-
-                    <a href="{{route('employee-history',Auth::user()->id)}}"
-                    class="{{request()->routeIs('employee-history')
-                    
-                      ? 'active' : ''}}">
-                    <label class="nav-links" >Attendance</label></a>
-
-                    <a href="{{route('pettycash')}}"
-                    class="{{request()->routeIs('pettycash')
-                    ||request()->routeIs('edit_pettycash')
-                    ||request()->routeIs('details_pettycash')
-                    ||request()->routeIs('view_summary')
-                    ||request()->routeIs('update_bill_status')
-                    ||request()->routeIs('pettycash_expenses')
-                      ? 'active' : ''}}">
-                      <label class="nav-links" >Petty Cash</label></a>
-               </div>
-
-
-               @endif
+             
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -468,18 +177,19 @@
                              <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moddl"><img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;margin-right: 10px"></a>
 
 
-                             @if(Auth::user()->role_id == 1)
+                           
                                 <div class="dropdown">
 
                                     <a href="{{route('settings')}}" data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-right: 10px;"> </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item" href="{{route('users')}}">User Master</a></li>
-                                       <!--  @if(auth::user()->id == 1)
+                                        @if(auth::user()->id == 1)
                                          <li><a class="dropdown-item" href="{{route('roles')}}">Role Master</a></li>
-                                        @endif -->
+                                        @endif
                                         <li><a class="dropdown-item" href="{{route('materials_master')}}">Material Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('department_master')}}">Department Master</a></li>
-                                      
+                                       
+                                       @if(auth::user()->role_id == 1)
                                         <li>
                                           <a class="dropdown-item" href="#">Recycle & Restore </a>
                                           <ul class="dropdown-menu dropdown-submenu">
@@ -489,6 +199,7 @@
                                             <li><a class="dropdown-item" href="{{route('restore-material')}}">Materials</a></li>
                                           </ul>  
                                         </li> 
+                                        @endif
                                         <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li>
                                         <!-- <li><a class="dropdown-item" href="{{route('view_vault')}}">Vault</a></li> -->
                                         <li><a class="dropdown-item" href="{{ route('year_end_closure')}}">Financial Year Closing</a></li>
@@ -496,8 +207,7 @@
                                     </ul>
                                 </div>
 
-                             @endif
-
+                          
                              <a href=""> <img class="circle" src="{{asset('images/persons.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;"> </a>
 
                             <div class="userLogin">

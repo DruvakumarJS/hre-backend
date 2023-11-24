@@ -8,6 +8,7 @@ use App\Models\Pcn;
 use App\Models\TicketDepartment;
 use App\Models\User;
 use App\Models\Roles;
+use App\Models\FootPrint;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use File;
@@ -42,8 +43,59 @@ class TicketController extends Controller
         $search = '';
         $tickets=array();
 
-      if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '5'){
+      if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
          $tickets = Ticket::orderby('id' , 'DESC')->paginate(25);
+      }
+      else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
+
+        $role = Roles::select('id')->where('team_id','3')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+            $tickets = Ticket::whereIn('creator',$userIDs)->orderby('id' , 'DESC')->paginate(25);
+
+
+      }
+      else if(Auth::user()->roles->team_id == '4'){
+
+        $role = Roles::select('id')->where('team_id','4')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+            $tickets = Ticket::whereIn('creator',$userIDs)->orderby('id' , 'DESC')->paginate(25);
+
+
+      }
+      else if(Auth::user()->roles->team_id == '5'){
+
+        $role = Roles::select('id')->where('team_id','5')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+            $tickets = Ticket::whereIn('creator',$userIDs)->orderby('id' , 'DESC')->paginate(25);
+
+
       }
       else { 
           $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)->groupBy('ticket_id')->get();
@@ -915,6 +967,13 @@ class TicketController extends Controller
         $insert =TicketDepartment::create(['department' => $request->name , 'description' => $request->desc , 'roles' =>$request->roleids , 'role_alias' => $rolenames]);
 
         if($insert){
+            $footprint = FootPrint::create([
+                    'action' => 'New ticket department created - '.$request->name,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Ticket',
+                    'operation' => 'C'
+                ]);
+
             return redirect()->route('department_master');
         }
 
@@ -943,14 +1002,32 @@ class TicketController extends Controller
         $insert =TicketDepartment::where('id',$id)->update(['department' => $request->name , 'description' => $request->desc , 'roles' =>$role_ids , 'role_alias' => $rolenames]);
 
         if($insert){
+
+            $footprint = FootPrint::create([
+                    'action' => 'Department details modified - '.$request->name,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Ticket',
+                    'operation' => 'U'
+                ]);
+
             return redirect()->route('department_master');
         }
     }
 
     public function delete_department($id){
+        $departments = TicketDepartment::where('id', $id)->first(); 
+        $name = $departments->department;
         $destroy = TicketDepartment::where('id', $id)->delete();
 
         if($destroy){
+
+            $footprint = FootPrint::create([
+                    'action' => 'Department deleted - '.$name,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'User',
+                    'operation' => 'C'
+                ]);
+
              return redirect()->route('department_master');
         }
     }

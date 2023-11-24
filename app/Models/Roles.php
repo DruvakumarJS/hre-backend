@@ -12,7 +12,8 @@ class Roles extends Model
     protected $fillable = [
     	'name',
     	'alias',
-    	'description'];
+    	'description',
+        'team_id'];
     	
 
 	 public function Users()
@@ -20,6 +21,12 @@ class Roles extends Model
 	     return $this->hasMany(User::class,'id','role_id')->withTrashed();
 
 	  }
+
+    public function team()
+      {
+         return $this->belongs(Team::class,'id','team_id');
+
+      }
 }
 
      

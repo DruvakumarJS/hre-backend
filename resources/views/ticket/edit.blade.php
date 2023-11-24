@@ -26,7 +26,7 @@
      					<div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Code Number </label>
                             <div class="col-7">
-                                <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Enter PCN" value="{{$tickets->pcn}}" readonly="readonly">
+                                <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Enter PCN" value="{{$tickets->pcn}}" readonly>
                                 <label>{{$tickets->pcns->client_name}},{{$tickets->pcns->brand}}, {{$tickets->pcns->location}},{{$tickets->pcns->area}},{{$tickets->pcns->city}},{{$tickets->pcns->pincode}}</label>
                                
                             </div>
@@ -36,7 +36,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Department </label>
                             <div class="col-7">
-                                <input name="pcn" id="subject" type="subject" class="typeahead form-control" required="required" value="{{$tickets->category}}" readonly="readonly">
+                                <input name="pcn" id="subject" type="subject" class="typeahead form-control" required="required" value="{{$tickets->category}}" <?php echo($tickets->creator == Auth::user()->id)? '':'readonly' ?> >
                                
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Description *</label>
                             <div class="col-7">
-                                <textarea  name="issue" id="issue" type="text" class="typeahead form-control" required="required" placeholder="Enter Customer issue here" readonly="readonly" >{{$tickets->issue}}</textarea>
+                                <textarea  name="issue" id="issue" type="text" class="typeahead form-control" required="required" placeholder="Enter Customer issue here" <?php echo($tickets->creator == Auth::user()->id)? '':'readonly' ?> >{{$tickets->issue}}</textarea>
                             </div>
                         </div>
 

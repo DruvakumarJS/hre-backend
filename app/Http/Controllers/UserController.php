@@ -9,10 +9,13 @@ Use App\Models\Roles ;
 Use App\Models\Employee ; 
 Use App\Models\Pettycash ; 
 Use App\Models\Attendance ; 
+Use App\Models\Team ;
+Use App\Models\FootPrint ;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 Use App\Exports\ExportUsers;
 use Excel;
+use Auth;
 
 class UserController extends Controller
 {
@@ -70,14 +73,14 @@ class UserController extends Controller
 
 
        if ($validator->fails()) {
-              return redirect()->route('create_user',$request->role)
+              return redirect()->route('create_user',$request->role_id)
                         ->withErrors($validator)
                         ->withInput();
                      
         }
         else{
 
-            $role_id = Roles::where('name',$request->role)->first();
+            $role = Roles::where('id',$request->role_id)->first();
 
             $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',    
@@ -96,8 +99,8 @@ class UserController extends Controller
                     $users = User::create([
                 'name' => $request->name ,
                 'email' => $request->email,
-                'role_id'=> $role_id->id,
-                'role' => $request->role,
+                'role_id'=> $request->role_id,
+                'role' => $role->name,
                 'password' =>Hash::make($request->password)
             ]);
 
@@ -111,9 +114,17 @@ class UserController extends Controller
                     'name' => $request->name ,
                     'mobile' => $request->mobile,
                     'email' => $request->email,
-                    'role' => $request->role,
+                    'role' => $role->name,
+                    'role_id'=> $request->role_id
     
                        ]);
+
+                 $footprint = FootPrint::create([
+                    'action' => 'New user created - '.$request->employee_id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'User',
+                    'operation' => 'C'
+                ]);
 
                    if($request->role == 'supervisor'){
                     return redirect()->route('supervisor');
@@ -133,7 +144,7 @@ class UserController extends Controller
                     return redirect()->route('finance');
                    }
                    else{
-                    return redirect()->route('view_users',$role_id->id);
+                    return redirect()->route('view_users',$role->id);
                    }
 
 
@@ -145,7 +156,7 @@ class UserController extends Controller
 
                 }
                 else {
-                     return redirect()->route('create_user',$request->role)
+                     return redirect()->route('create_user',$request->role_id)
                         ->withMessage("Password and Confirm Password do not match")
                         ->withInput();
                 }
@@ -178,7 +189,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $userData = Employee::where('user_id',$id)->first();
-        $roles = Roles::all();
+
+        $role = Roles::where('id', $userData->role_id)->first();
+
+        $roles = Roles::where('team_id', $role->team_id)->get();
         return view('user/edit', compact('userData' , 'id' , 'roles'));
     }
 
@@ -234,6 +248,7 @@ class UserController extends Controller
 
            }
            else {
+
             $updateuser = User::where('id',$request->user_id)->update([
                 'name' => $request->name,
                 'email' => $request->email]);
@@ -251,7 +266,17 @@ class UserController extends Controller
                        ]);
 
               if($UpdateEmployees){
-                return redirect()->route($request->role);
+
+                 $footprint = FootPrint::create([
+                    'action' => 'user details modified - '.$request->employee_id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'User',
+                    'operation' => 'U'
+                ]);
+
+                $role = Employee::where('user_id',$request->user_id)->first();
+
+                return redirect()->route('view_users',$role->role_id);
               }
               else {
                 return redirect()->back()
@@ -281,15 +306,32 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        
         if(Pettycash::where('user_id', $id)->where('remaining','!=' ,'0')->exists()){
              return redirect()->back()->withMessage('User has unspent Pettycash. so,Cannot delete the user ');
         }
         else {
-            $destroy = User::find($id)->delete();
+
+            $destroy = User::where('id',$id)->delete();
+
 
         if($destroy){
+          // print_r("kkk");die();
+            $emp = Employee::where('user_id',$id)->first();
+            $employee_id = $emp->employee_id;
+
+           
             $deleteEmpl = Employee::where('user_id',$id)->delete();
             if($deleteEmpl){
+
+
+                $footprint = FootPrint::create([
+                    'action' => 'User deleted - '.$employee_id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'User',
+                    'operation' => 'D'
+                ]);
+
                 return redirect()->back();
             }
          
@@ -330,10 +372,26 @@ class UserController extends Controller
                             'logout_date' => date('Y-m-d')
                           ]);
                 if($LOGOUT){
+
+                    $employee = Employee::where('user_id',$id)->first();
+                    $footprint = FootPrint::create([
+                        'action' => $employee->employee_id.'- Force Logout',
+                        'user_id' => Auth::user()->id,
+                        'module' => 'User',
+                        'operation' => 'U'
+                    ]);
                     return redirect()->back();
                 }
             }
             else {
+                $employee = Employee::where('user_id',$id)->first();
+                    $footprint = FootPrint::create([
+                        'action' => 'Force Logout - '.$employee->employee_id,
+                        'user_id' => Auth::user()->id,
+                        'module' => 'User',
+                        'operation' => 'U'
+                    ]);
+                    
                  return redirect()->back();
             }
 
@@ -379,9 +437,9 @@ class UserController extends Controller
     }
 
     
-    public  function create_user($role){
-        $roles = Roles::select('*')->where('name',$role)->first();
-        return view('user/create_user',compact('roles', 'role'));
+    public  function create_user($role_id){
+      
+        return view('user/create_user',compact('role_id'));
     }
 
     public  function create_pcn(){
@@ -425,13 +483,14 @@ class UserController extends Controller
        $role_name = $roles->name;
        $alias = $roles->alias ;
 
-       $data = Employee::where('role_id',$role_id)->orWhere('role',$role_name)->paginate(20);
+       $data = Employee::where('role_id',$role_id)->paginate(20);
 
-       return view('user/users',compact('data' , 'role_name' , 'alias')); 
+       return view('user/users',compact('data' , 'role_name' , 'alias' , 'role_id')); 
     }
 
     public function promote(Request $request){
        // print_r($request->Input()); die();
+
 
         $user_id = $request->user_id;
         $newrole = $request->newrole ;
@@ -444,9 +503,46 @@ class UserController extends Controller
             $promote = Employee::where('user_id',$user_id)->update(['role_id'=>$newrole, 'role' => $role->name]);
 
             if($promote){
+                $employee = Employee::where('user_id',$user_id)->first();
+                $footprint = FootPrint::create([
+                    'action' => $employee->employee_id. ' prompoted as '.$role->alias,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'User',
+                    'operation' => 'U'
+                ]);
                 return redirect()->route('view_users',$newrole);
             }
         }
 
+    }
+
+    public function teams(){
+      
+      $teams = Team::all();
+      $data = array();
+     // $data = Team::with('roles')->get();
+    // return view('user/teams',compact('data'));
+      //print_r(json_encode($data)); die();
+
+     foreach($teams as $key=>$value)
+     {
+        $name=$value->team;
+       // $count= Employee::where('role_id', $value->id)->count();
+
+        $role = Roles::where('team_id', $value->id)->get();
+        $roles = array();
+
+        foreach ($role as $key2 => $value2) {
+            $count = Employee::where('role_id', $value2->id)->count();
+            $roles[] = [ 'id'=>$value2->id ,'name' => $value2->name , 'alias'=> $value2->alias , 'count'=> $count];
+        }
+
+        $data[]=['name' => $name , 'roles'=>$roles];
+
+        //array_push($data, $teamarray);
+     }
+
+    // print_r(json_encode($teamarray));die();
+     return view('user/teams',compact('data'));
     }
 }

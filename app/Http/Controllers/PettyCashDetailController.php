@@ -11,6 +11,7 @@ use App\Models\Employee;
 use App\Models\Yearendfreeze;
 use Illuminate\Http\Request;
 use App\Mail\PettycashMail;
+use App\Models\FootPrint;
 use Auth;
 use ZipArchive;
 use File;
@@ -229,6 +230,13 @@ class PettyCashDetailController extends Controller
           //Mail::to($userdetail->email)->send(new PettycashMail($message));
           //Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data));
 
+               $footprint = FootPrint::create([
+                    'action' => 'Pettycash bill dated '.$Data->bill_date.' approved - '.$userdetail->employee_id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Pettycash',
+                    'operation' => 'U'
+                ]);
+
                      return redirect()->back()->withMesage('Updated');
                  }
 
@@ -251,7 +259,13 @@ class PettyCashDetailController extends Controller
 
                   //Mail::to($userdetail->email)->send(new PettycashMail($message));
                  // Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data));
-
+                 
+                $footprint = FootPrint::create([
+                    'action' => 'Pettycash bill dated '.$Data->bill_date.' rejected - '.$userdetail->employee_id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Pettycash',
+                    'operation' => 'U'
+                ]);
 
                  return redirect()->back()->withMesage('Updated');
             }
@@ -565,6 +579,15 @@ class PettyCashDetailController extends Controller
                }
 
                  if($updatetable){
+
+                  $emp = Employee::where('user_id', $Data->user_id)->first();
+
+                  $footprint = FootPrint::create([
+                    'action' => 'Pettycash bill dated '.$Data->bill_date.' reverted - '.$emp->employee_id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Pettycash',
+                    'operation' => 'U'
+                ]);
 
                     // return redirect()->back()->withMesage('Updated');
                      return redirect()->route('details_pettycash',$Data->user_id)->withMesage('Updated');

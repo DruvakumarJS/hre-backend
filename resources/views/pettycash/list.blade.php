@@ -12,7 +12,7 @@
      <div class="container-header">
         <label class="label-bold" id="div1">Petty Cash</label>
 
-@if(Auth::user()->role_id == '1' || Auth::user()->role_id == '5' )
+@if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '6' OR Auth::user()->role_id == '7' )
         <div id="div2" >
             <a class="btn btn-light btn-outline-secondary" href="{{route('create_new')}}"><i class="fa fa-plus"></i> Issue Pettycash</a>
         </div>
@@ -71,7 +71,8 @@
                         <td>
                             <a href="{{route('view_summary',$value->user_id)}}"><button class="btn btn-sm btn-light btn-outline-secondary">Statement</button></a>
                             <a href="{{route('details_pettycash',$value->user_id)}}"><button class="btn btn-sm btn-outline-success">Transaction info</button></a>
-                            @if(Auth::user()->role_id == '1')
+                           
+                            @if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' OR Auth::user()->role_id == '6')
                             <a href="{{route('pettycash_info',$value->user_id)}}"><button class="btn btn-sm btn-light btn-outline-secondary">More</button></a>
                             @endif
 

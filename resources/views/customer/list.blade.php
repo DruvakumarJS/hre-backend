@@ -13,7 +13,7 @@
       
       <div class="container-header">
             <label class="label-bold" id="div1">Customers / Clients</label>
-          @if(Auth::user()->role_id == 1)  
+          @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2)  
          <div id="div2">
            <a class="btn btn-light btn-outline-secondary" href="{{route('create_customer')}}"><i class="fa fa-plus"></i>
              <label id="modal">Create Customer</label></a>   
@@ -39,6 +39,7 @@
            </form>
           </div>
 
+          @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7)
           <div id="div2" style="margin-right: 30px" >
            <!--  <a href="{{route('export_customer',$search)}}" class="btn btn-light btn-outline-secondary" href=""><label >Download CSV</label></a> -->
             <form method="POST" action="{{route('export_customer')}}">
@@ -52,6 +53,8 @@
               </div>
            </form>
           </div>
+
+          @endif
 
         @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
@@ -99,12 +102,17 @@
                                      {{$key1+1}} : {{ $value1->area }} ,{{ $value1->city }} , {{ $value1->state }} <br>
                                   @endforeach
                                 </td> -->
-                              @if(Auth::user()->role_id == '1')
+                             
                                 <td>
-                                	 <a href="{{route('edit_customer',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
-                                  <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_customer', $value->id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>  
+                                   @if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '2')
+                                	  <a href="{{route('edit_customer',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
+                                   @endif
+
+                                  @if(Auth::user()->role_id == '1')
+                                   <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_customer', $value->id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a> 
+                                  @endif 
                                 </td>
-                              @endif
+                             
                             </tr>
                             @endforeach
                             

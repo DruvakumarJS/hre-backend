@@ -232,7 +232,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('delete_user/{id}',[UserController::class , 'destroy'])->name('delete_user');
     Route::get('force_logout/{id}',[UserController::class , 'force_logout'])->name('force_logout');
 
-    Route::get('settings/RoleMaster',[UserController::class, 'roles'])->name('roles');
+    Route::get('settings/RoleMaster',[UserController::class, 'teams'])->name('roles');
     Route::get('settings/RoleMaster/view-users/{roleid}',[UserController::class, 'view_users'])->name('view_users');
     Route::post('promote',[UserController::class , 'promote'])->name('promote');
 

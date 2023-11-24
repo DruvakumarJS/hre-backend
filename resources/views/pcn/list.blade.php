@@ -20,7 +20,7 @@ white-space: nowrap;
              <label id="modal">View Detailed PCN </label> </a>
           
           </div>
-          @if(Auth::user()->role_id == 1)
+          @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2)
           <div id="div2" style="margin-right: 30px">
              <a class="btn btn-light btn-outline-secondary" href="{{route('create_pcn')}}"><i class="fa fa-plus"></i> 
              <label id="modal">Create PCN</label></a>
@@ -58,7 +58,7 @@ white-space: nowrap;
                               <th scope="col">Address</th>
                               <th scope="col">Status</th>
                               
-                              @if(Auth::user()->role_id == '1')
+                              @if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '2')
                               
                               <th scope="col">Action</th>
                              @endif
@@ -74,12 +74,13 @@ white-space: nowrap;
                               <td>{{$value->customer->email}}</td>
                               <td>{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}</td>
                               <td>{{$value->status}}</td>
-                              
-                              @if(Auth::user()->role_id == '1')
-                              
-                              <td ><a href="{{route('edit_pcn',$value->pcn)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
+                              @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2)
+                              <td >
+                                
+                                 <a href="{{route('edit_pcn',$value->pcn)}}"><button class="btn btn-light curved-text-button btn-sm">Edit</button></a>
+                               
                               </td>
-                              @endif
+                              @endif 
                             </tr>
                           @endforeach
                              

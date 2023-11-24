@@ -11,13 +11,21 @@
              <label id="modal">User Master</label>
            </a>
           </div>
+          
+          @if(auth::user()->role_id == 1)
 
-          <div id="div2" style="margin-right: 30px" >
-            <a class="btn btn-light btn-outline-secondary" href="{{route('create_user',$role_name)}}"><i class="fa fa-plus"></i> 
-             <label id="modal">Add User</label>
-           </a>
-          </div>
-
+            <div id="div2" style="margin-right: 30px" >
+              <a class="btn btn-light btn-outline-secondary" href="{{route('create_user',$role_id)}}"><i class="fa fa-plus"></i> 
+               <label id="modal">Add User</label>
+             </a>
+            </div>
+          @elseif(auth::user()->role_id == 2 AND $role_id != '1')
+            <div id="div2" style="margin-right: 30px" >
+              <a class="btn btn-light btn-outline-secondary" href="{{route('create_user',$role_id)}}"><i class="fa fa-plus"></i> 
+               <label id="modal">Add User</label>
+             </a>
+            </div>
+          @endif
       
            <div id="div3" style="margin-right: 30px">
              <a href="{{route('export-users',$role_name)}}"> <button class="btn btn-light btn-outline-secondary" > Download CSV</button> </a>
@@ -61,15 +69,24 @@
                                    <td>{{$value->role}}</td>                                  
                                    
                                    <td>
-                                    <a href="{{route('edit_user',$value->user_id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
+                                    @if( (auth::user()->role_id == 1) OR (auth::user()->role_id == 2 AND $role_id != '1' ) )
+                                     <a href="{{route('edit_user',$value->user_id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
+                                  
+                                    @endif 
+
                                    @if($value->user->isloggedin == '0')
                                      <button class="btn btn-danger btn-sm " disabled>Force Logout</button>
-                                   @else 
+                                   @elseif( (auth::user()->role_id == 1) OR (auth::user()->role_id == 2 AND $role_id != '1' ) ) 
                                     <a  onclick="return confirm('The Employee can login with his credentials on different device .')" href="{{route('force_logout',$value->user_id)}}"><button class="btn btn-success btn-sm ">Force Logout</button></a>
                                    @endif 
-                                   
-                                   @if($value->user_id != 1)
+
+                                   @if( (auth::user()->role_id == 1) OR (auth::user()->role_id == 2 AND $role_id != '1' ) )
                                     <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_user',$value->user_id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>
+                                    
+                                    @endif
+                                   
+                                   @if($value->user_id != 1 )
+                                    
                                     @endif
                                   </td>
                                </tr>
