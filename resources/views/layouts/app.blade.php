@@ -202,7 +202,13 @@
                                         @endif
                                         <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li>
                                         <!-- <li><a class="dropdown-item" href="{{route('view_vault')}}">Vault</a></li> -->
+                                        @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)
                                         <li><a class="dropdown-item" href="{{ route('year_end_closure')}}">Financial Year Closing</a></li>
+                                        @endif
+
+                                       <!--  @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)
+                                        <li><a class="dropdown-item" href="{{ route('year_end_closure')}}">Foot Print</a></li>
+                                        @endif -->
 
                                     </ul>
                                 </div>

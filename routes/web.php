@@ -114,7 +114,10 @@ Route::middleware('role:supervisor')->group(function () {
    
     });*/
 
-Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('finance_home');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');    
+
+/*Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('finance_home');
  Route::get('/supervisor_home', [SupervisorHomeController::class, 'index'])->name('supervisor_home');
 
  Route::get('/manager_home', [ManagerHomeController::class, 'index'])->name('manager_home');
@@ -122,7 +125,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
 
  Route::get('/procurement_home', [ProcurementHomeController::class, 'index'])->name('procurement_home');
    
-  
+  */
 
 //Route::get('supervisors/{id}',[UserController::class,'view_users'])->name('supervisors');
     Route::get('PCN',[PcnController::class,'index'])->name('PCN');
@@ -221,8 +224,7 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::post('revert_bill_status',[PettyCashDetailController::class,'revert_bill_status'])->name('revert_bill_status');
 
 
-    //admin
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+   
 
     Route::get('settings/UserMaster',[UserController::class, 'index'])->name('users');
     Route::get('settings/create_user/{role}',[UserController::class, 'create_user'])->name('create_user');
@@ -340,6 +342,8 @@ Route::get('/finance_home', [FinanceHomeController::class, 'index'])->name('fina
     Route::get('year-end-closure',[YearendfreezeController::class,'index'])->name('year_end_closure');
     Route::post('save_acc_closure_date',[YearendfreezeController::class,'store'])->name('save_acc_closure_date');
     Route::put('update_acc_closure_date/{id}',[YearendfreezeController::class,'update'])->name('update_acc_closure_date');
+    Route::get('disable-freeze-date/{id}',[YearendfreezeController::class,'disable'])->name('disable_freezedate');
+    Route::get('enable-freeze-date/{id}',[YearendfreezeController::class,'enable'])->name('enable_freezedate');
 
 
 

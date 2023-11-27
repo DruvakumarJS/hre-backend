@@ -107,4 +107,22 @@ class YearendfreezeController extends Controller
     {
         //
     }
+    
+    public function enable($id){
+       
+       $enable = Yearendfreeze::where('id',$id)->update(['isactive'=>'true']);
+
+       if($enable){
+        return redirect()->Back();
+       }
+    }
+
+    public function disable($id){
+       
+       $disable = Yearendfreeze::where('id',$id)->update(['isactive'=>'false']);
+
+       if($disable){
+        return redirect()->Back();
+       }
+    }
 }

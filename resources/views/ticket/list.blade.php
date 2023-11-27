@@ -75,7 +75,7 @@ white-space: nowrap;
 
           </div> 
 
-
+          @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 3 OR auth::user()->role_id == 4 OR auth::user()->role_id == 6 OR auth::user()->role_id == 7 OR auth::user()->role_id == 9 OR auth::user()->role_id == 10 OR auth::user()->role_id == 11 )
           <div id="div2" style="margin-right: 30px">
             
              <form method="post" action="{{ route('export_tickets')}}">
@@ -86,7 +86,8 @@ white-space: nowrap;
              	<button class="btn btn-outline-secondary" type="submit">Download CSV</button>
 
              </form>
-          </div>      
+          </div>  
+          @endif    
        </div>
 
     <div class="page-container"> 
@@ -150,7 +151,7 @@ white-space: nowrap;
 	                	
 	              
 	                	<td>
-	                		@if(Auth::user()->role_id == 1 || Auth::user()->role_id == '2' || Auth::user()->role_id == '3' || Auth::user()->role_id == '4' || Auth::user()->role_id == '6' || Auth::user()->role_id == '7' || Auth::user()->role_id == '10')
+	                		@if(Auth::user()->role_id == 1 || Auth::user()->role_id == '2' || Auth::user()->role_id == '3' || Auth::user()->role_id == '4' || Auth::user()->role_id == '6' || Auth::user()->role_id == '7' || Auth::user()->role_id == '10' || (Auth::user()->id == $value->creator) )
 	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>
 	                		@elseif($value->status == 'Created')
 	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>

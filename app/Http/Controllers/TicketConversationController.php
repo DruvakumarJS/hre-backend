@@ -7,10 +7,12 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Models\Employee;
 use App\Models\Pcn;
+use App\Models\FootPrint;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Mail\TicketConversationMail;
 use Mail;
+use Auth ;
 
 
 class TicketConversationController extends Controller
@@ -113,10 +115,17 @@ class TicketConversationController extends Controller
                       Mail::to($emailid)->send(new TicketConversationMail($ticketarray , $subject));
                      // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
                     } catch (\Exception $e) {
+
                         return $e->getMessage();
                        
                     } 
                     finally {
+                        $footprint = FootPrint::create([
+                            'action' => 'Message from '.$sender->employee_id .' - '. $Ticket->ticket_no,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'Ticket',
+                            'operation' => 'U'
+                        ]);
                     
                      return redirect()->route('ticket-details',$request->ticket_no)->withMessage('Message sent');
                    }             

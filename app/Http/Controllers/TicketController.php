@@ -247,6 +247,13 @@ class TicketController extends Controller
                        
                     } 
                     finally {
+                        $footprint = FootPrint::create([
+                            'action' => 'New Ticket created - '.$ticket_no,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'Ticket',
+                            'operation' => 'C'
+                        ]);
+                  
                       $message = $ticket_no;
                      return response()->json($message);
                    }             
@@ -432,12 +439,32 @@ class TicketController extends Controller
                  // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
 
                     try {
-                      Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                     // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
                     } catch (\Exception $e) {
                         return $e->getMessage();
                        
                     } 
                     finally {
+
+                        $sta = $request->status;
+
+                          if($sta == 'Pending/Ongoing'){
+                            $sta = 'Ongoing';
+                          }
+
+                          if($sta == 'Created'){
+                            $actions = 'Ticket details are modified by creator - '.$ticket->ticket_no;
+                          }
+                          else{
+                             $actions ='Ticket status is modified as '.$sta.' - '.$ticket->ticket_no;
+                          }
+
+                        $footprint = FootPrint::create([
+                            'action' => $actions,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'Ticket',
+                            'operation' => 'U'
+                        ]);
                      
                        return redirect()->route('tickets');
                     }     
@@ -505,6 +532,25 @@ class TicketController extends Controller
         }*/
 
       }
+      $sta = $request->status;
+
+      if($sta == 'Pending/Ongoing'){
+        $sta = 'Ongoing';
+      }
+
+      if($sta == 'Created'){
+        $actions = 'Ticket details are modified by creator - '.$ticket->ticket_no;
+      }
+      else{
+         $actions ='Ticket status is modified as '.$request->status.' - '.$ticket->ticket_no;
+      }
+
+        $footprint = FootPrint::create([
+            'action' => $actions,
+            'user_id' => Auth::user()->id,
+            'module' => 'Ticket',
+            'operation' => 'U'
+        ]);
 
 
      return redirect()->route('tickets');
@@ -689,6 +735,13 @@ class TicketController extends Controller
                    
                 } 
                 finally {
+
+                    $footprint = FootPrint::create([
+                            'action' => 'Ticket is completed - '.$ticket->ticket_no,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'Ticket',
+                            'operation' => 'U'
+                        ]);
                  
                  // return redirect()->back();
                      $message = 'Ticket is Completed';
@@ -727,6 +780,12 @@ class TicketController extends Controller
                    
                 } 
                 finally {
+                    $footprint = FootPrint::create([
+                            'action' => 'Ticket is Resolved - '.$ticket->ticket_no,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'Ticket',
+                            'operation' => 'U'
+                        ]);
                  
                   return redirect()->back();
                     

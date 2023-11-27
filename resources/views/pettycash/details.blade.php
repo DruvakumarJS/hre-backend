@@ -142,10 +142,10 @@
                                          <td style="color: red">Rejected</td> 
                                     @endif
                                     <td width="100px">{{date("d-m-Y", strtotime($value->created_at))}}</td> 
-                                    <td>{{$value->remarks}}</td>
+                                    <td>{{$value->remarks}} {{$value->isactive }}</td>
                                     
                                   
-                                    @if( (strtotime($value->bill_date) > strtotime($closure_date)) || (auth::user()->role_id == '1') || $closure_date == '')
+                                    @if( ((strtotime($value->bill_date) > strtotime($closure_date)) OR (auth::user()->role_id == '1' AND $isactive == 'false') ) OR $closure_date == '')
                                      <td>
 
                                         @if($value->user_id == Auth::user()->id)
@@ -171,7 +171,7 @@
                                             @endif
                                       </td> 
                                     @else
-                                      <td> <button class="btn btn-sm btn-danger" disabled>Closed</button></td>
+                                      <td> <button class="btn btn-sm btn-danger" disabled>Freezed</button></td>
                                     @endif  
                                    
                                    <!-- 

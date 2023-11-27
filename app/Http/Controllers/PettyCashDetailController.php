@@ -42,11 +42,12 @@ class PettyCashDetailController extends Controller
           {
            $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
            $closure_date =  $yearenddate->yearend_date ;
+           $isactive =  $yearenddate->isactive ;
           }
 
         // print_r($closure_date);die();
 
-        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent' , 'id' , 'closure_date'));
+        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent' , 'id' , 'closure_date' ,'isactive'));
     }
 
     /**
@@ -82,9 +83,14 @@ class PettyCashDetailController extends Controller
           if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
           {
             $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
-             if(strtotime(date('Y-m-d',strtotime($request->bill_date))) <= strtotime($yearenddate->yearend_date)){
+
+             if(Auth::user()->role_id == 1 AND $yearenddate->isactive == 'false'){
+
+             }
+
+             elseif(strtotime(date('Y-m-d',strtotime($request->bill_date))) <= strtotime($yearenddate->yearend_date)){
              // print_r("cant upload to closed year"); 
-              $message = "The bill date is behind account closure date (".date('d-m-Y',strtotime($yearenddate->yearend_date))."). So,You cannot upload a bill ";
+              $message = "The bill date is behind account closure date (".date('d-m-Y',strtotime($yearenddate->yearend_date))."). You cannot upload a bill ";
               return response()->json($message);
            }
 

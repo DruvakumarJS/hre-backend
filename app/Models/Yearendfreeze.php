@@ -13,5 +13,7 @@ class Yearendfreeze extends Model
     	'financial_year',
     	'yearend_date',
     	'user_id',
-    	'comments'];
+    	'comments',
+    	'isactive'
+    ];
 }

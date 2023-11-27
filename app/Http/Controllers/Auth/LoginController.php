@@ -36,55 +36,55 @@ class LoginController extends Controller
                return '/home';
               break;
             case '2':
-               return '/manager_home';
+               return '/home';
               break;
 
             case '3':
-              return '/procurement_home';
+              return '/home';
               break;
 
             case '4':
-              return '/supervisor_home';
+              return '/home';
               break;
               
             case '5':
-              return '/finance_home';
+              return '/home';
               break; 
 
             case '6':
-              return '/finance_home';
+              return '/home';
               break;
 
             case '7':
-              return '/finance_home';
+              return '/home';
               break;
               
             case '8':
-              return '/finance_home';
+              return '/home';
               break;
               
             case '9':
-              return '/finance_home';
+              return '/home';
               break;
               
             case '10':
-              return '/finance_home';
+              return '/home';
               break;
               
             case '11':
-              return '/finance_home';
+              return '/home';
               break;
               
             case '12':
-              return '/finance_home';
+              return '/home';
               break;
               
             case '13':
-              return '/finance_home';
+              return '/home';
               break;
               
             case '14':
-              return '/finance_home';
+              return '/home';
               break;                          
 
             default:

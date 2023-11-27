@@ -19,6 +19,7 @@ class CreateYearendfreezesTable extends Migration
             $table->string('yearend_date');
             $table->string('user_id');
             $table->string('comments')->nullable();
+            $table->string('isactive')->default('true');
             $table->timestamps();
         });
     }

@@ -79,12 +79,15 @@ class PettycashController extends Controller
           if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
           {
             $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
-             print_r($yearenddate->yearend_date);
+            // print_r($yearenddate->yearend_date);
 
-             if(strtotime($request->issued_date) <= strtotime($yearenddate->yearend_date)){
+             if(Auth::user()->role_id == 1 AND $yearenddate->isactive == 'false'){
+
+             }
+
+             elseif(strtotime($request->issued_date) <= strtotime($yearenddate->yearend_date)){
              
-
-              return redirect()->back()->withMessage("The issued date is behind account closure date (".date('d-m-Y',strtotime($yearenddate->yearend_date))."). So,You cannot issue amount ");
+              return redirect()->back()->withMessage("The issued date is behind account closure date (".date('d-m-Y',strtotime($yearenddate->yearend_date))."). You cannot issue amount ");
            }
 
           }

@@ -107,22 +107,26 @@
                                      @if($tickets->status == 'Created')
                                    <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
                                    <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
-                                   <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Pending/Ongoing</option>
+                                   <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Ongoing</option>
 
                                    @elseif($tickets->status == 'Rejected')
                                   
                                    <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
-                                    <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
-
+                                   @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 3 OR auth::user()->role_id == 4 OR auth::user()->role_id == 6 OR auth::user()->role_id == 7 OR auth::user()->role_id == 9 OR auth::user()->role_id == 10 OR auth::user()->role_id == 11)
+                                     <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
+                                   @endif
                                     @elseif($tickets->status == 'Resolved')
                                     <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
-                                    <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
+                                    @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 3 OR auth::user()->role_id == 4 OR auth::user()->role_id == 6 OR auth::user()->role_id == 7 OR auth::user()->role_id == 9 OR auth::user()->role_id == 10 OR auth::user()->role_id == 11)
+                                     <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
+                                    @endif
+
                                     @elseif($tickets->status == 'Completed')
                                     <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
                                     <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
 
                                     @elseif($tickets->status == 'Pending/Ongoing')
-                                     <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Pending/Ongoing</option>
+                                     <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Ongoing</option>
                                      <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
 
 
@@ -141,7 +145,7 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Comments</label>
                             <div class="col-7">
-                                <textarea  name="comment" id="comment" type="text" class="typeahead form-control"  placeholder="Enter comments here" required>{{$tickets->comments}}</textarea>
+                                <textarea  name="comment" id="comment" type="text" class="typeahead form-control"  placeholder="Enter comments here" >{{$tickets->comments}}</textarea>
                             </div>
                         </div>
 
@@ -244,12 +248,14 @@
             document.getElementById("user_id").required = false;
             document.getElementById("priority").required = false;
             document.getElementById("tat").required = false;
+            document.getElementById("comment").required = false;
          }
          else if(status == 'Rejected'){
             y.style.display='none';
             document.getElementById("user_id").required = false;
             document.getElementById("priority").required = false;
             document.getElementById("tat").required = false;
+            document.getElementById("comment").required = true;
         }
          else{
           
@@ -257,6 +263,7 @@
             document.getElementById("user_id").required = true;
             document.getElementById("priority").required = true;
             document.getElementById("tat").required = true;
+            document.getElementById("comment").required = true;
          }
 
 
@@ -269,12 +276,14 @@
             document.getElementById("user_id").required = false;
             document.getElementById("priority").required = false;
             document.getElementById("tat").required = false;
+            document.getElementById("comment").required = false;
          }
          else if(status == 'Rejected'){
             y.style.display='none';
             document.getElementById("user_id").required = false;
             document.getElementById("priority").required = false;
             document.getElementById("tat").required = false;
+            document.getElementById("comment").required = true;
         }
          else{
           
@@ -282,6 +291,7 @@
             document.getElementById("user_id").required = true;
             document.getElementById("priority").required = true;
             document.getElementById("tat").required = true;
+            document.getElementById("comment").required = true;
          }
 
        

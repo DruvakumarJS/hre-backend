@@ -83,7 +83,17 @@
                                <td>{{$value->comments}}</td>
                                <td>
                                   <a id="MybtnModal_{{$key}}" data-id="{{$value->category}}"> <button class="btn btn-light curved-text-button btn-sm">Edit</button></i></a>
-                               </td>
+
+                                  @if($value->isactive == 'true')
+                                  <a onclick="return confirm('You are disabling freeze date ')" href="{{route('disable_freezedate',$value->id)}}" > <button class="btn btn-danger btn-sm" >Disable</button></i></a>
+
+                                  @else
+                                  <a onclick="return confirm('You are activating freeze date ')" href="{{route('enable_freezedate',$value->id)}}" > <button class="btn btn-success btn-sm" >Enable</button></i></a>
+
+                                  @endif
+
+                                  
+                               </td> 
                              </tr>
 
                              <!-- Modal -->
