@@ -70,9 +70,9 @@ p {
              
           </div>
 
-         <div id="div2" style="margin-right: 30px" >
+       <!--   <div id="div2" style="margin-right: 30px" >
             <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import</label></a>
-        </div>
+        </div> -->
 
 
     </div>

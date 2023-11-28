@@ -21,6 +21,7 @@ $yvalue=array();
 
           </div>   
         </div>
+    
        <div class="row">
                 <div class="col-sm-6 col-md-4" id="indents" >
                   <a href="{{route('intends')}}" style="color: white">
@@ -79,6 +80,7 @@ $yvalue=array();
                 </div>
       
       </div>
+      
  
  <!-- PCN & Pie chart -->
  @if(sizeof($result)>0)  

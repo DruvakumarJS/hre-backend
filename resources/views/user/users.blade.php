@@ -7,7 +7,7 @@
             <label class="label-bold" id="div1">{{$alias}}</label>
 
           <div id="div2" style="margin-right: 30px" >
-            <a class="btn btn-light btn-outline-secondary" href="{{route('users')}}"> 
+            <a class="btn btn-light btn-outline-secondary" href="{{route('roles')}}"> 
              <label id="modal">User Master</label>
            </a>
           </div>

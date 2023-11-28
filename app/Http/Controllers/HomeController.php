@@ -37,7 +37,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-
+        if(Auth::user()->role_id != 13 AND Auth::user()->role_id != 14){
          $date = date('Y-m-d');
          $todaysIndent = Intend::where('created_at','LIKE','%'.$date.'%')->count();
          $tickets = Ticket::where('created_at','LIKE','%'.$date.'%')->count();
@@ -145,6 +145,16 @@ class HomeController extends Controller
             $pettycashArry = array('date' => $date, 'total_issued'=>$total_issued ,  'total_utilised' => $total_utilised);
 
         return view('dashboard', compact('todaysIndent' , 'tickets' ,'attendance' , 'result' ,'ticketArry', 'date' , 'count' , 'counts_array' , 'pettycashArry'));
+    }
+    else{
+        $date = date('Y-m');
+        $indents = Intend::where('user_id', Auth::user()->id)->count();
+        $attendance = Attendance::where('user_id', Auth::user()->id)->where('date', 'LIKE','%'.date('Y-m-d').'%')->count();
+        $tickets = Ticket::where('creator', Auth::user()->id)->count();
+        
+
+        return view('dashboard', compact('indents' , 'attendance','tickets'));
+    }
 
     }
 

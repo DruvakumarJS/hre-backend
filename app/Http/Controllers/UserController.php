@@ -192,7 +192,8 @@ class UserController extends Controller
 
         $role = Roles::where('id', $userData->role_id)->first();
 
-        $roles = Roles::where('team_id', $role->team_id)->get();
+       // $roles = Roles::where('team_id', $role->team_id)->get();
+         $roles = Roles::get();
         return view('user/edit', compact('userData' , 'id' , 'roles'));
     }
 

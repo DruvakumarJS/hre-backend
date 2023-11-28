@@ -10,7 +10,7 @@ $yvalue=array();
 <div class="container" >
     <div class="row ">
        <div class="container-header">
-            <label class="label-bold" id="div1">Dashboard</label>      
+            <label class="label-bold" id="div1">Dashboard 1 </label>      
           <div id="div2">
            
           <!--  <span id="timestamp"  class="badge badge-danger border border-secondary label-bold" style="color: black;margin-right: 30px"></span> -->
@@ -21,6 +21,9 @@ $yvalue=array();
 
           </div>   
         </div>
+
+      @if(auth::user()->role_id != 13 AND auth::user()->role_id != 14)
+      
        <div class="row">
                 <div class="col-sm-6 col-md-4" id="indents" >
                   <a href="{{route('intends')}}" style="color: white">
@@ -79,7 +82,76 @@ $yvalue=array();
                 </div>
       
       </div>
+
+      @else
+      
+       <div class="row">
+                <div class="col-sm-6 col-md-4 " >
+                    <a href="{{route('intends')}}" style="color: white">
+                        <div class="card border-white">
+                        <div class="card-body">
+                            <img src="{{ asset('images/indent.png') }}" alt="intend" style="width:30px;height: 30px;">
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$indents}}</h2>
+                        </div>
+                        <div  >
+                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px;color: black">Indents</h4>
+                           
+                        </div >
+                        <label class="card-text-label " style="color: black">My Indents </label>
+                        
+                    </div>
+                    </a>
+                    
+                    <!--</div>-->
+                </div>
+
+
+
+                 <div class="col-sm-6 col-md-4" onclick="attendance()">
+                    
+                        <div class="card border-black" style="background-color: #5A5A5A">
+                        <div class="card-body" >
+                            <img src="{{ asset('images/attendance.svg') }}" alt="attendance" style="width:30px;height: 30px;">
+                            <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">{{($attendance == "1") ? 'P' : 'A'}}</h2>
+                        </div>
+                        <div  >
+                            <h4 class="card-text-black" style="color: #fff; font-weight: bold; font-size: 25px">Attendance</h4>
+                           
+                        </div >
+                       <label class="card-text-label " style="color: #fff;">Today's Attendance</label>
+                    </div>
+                    
+                    
+                    <!--</div>-->
+                </div>
+
+
+                 <div class="col-sm-6 col-md-4 " onclick="ticket()">
+                    <a href="{{route('tickets')}}" style="color: white">
+                        <div class="card border-white">
+                        <div class="card-body">
+                            <img src="{{ asset('images/tickets.svg') }}" alt="ticket" style="width:30px;height: 30px;">
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$tickets}}</h2>
+                        </div>
+                        <div  >
+                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px;color: black">Tickets</h4>
+                           
+                        </div >
+                        <label class="card-text-label  " style="color: black">My Tickets </label>
+                      
+                    </div>
+                    </a>
+                    
+                    <!--</div>-->
+                </div>
+
+
+              
+            </div> 
+
+      @endif
  
+ @if(auth::user()->roles->team_id == 1 OR auth::user()->roles->team_id == 2 OR auth::user()->roles->team_id == 5)
  <!-- PCN & Pie chart -->
  @if(sizeof($result)>0)  
       <div class="row justify-content-between">
@@ -155,9 +227,10 @@ $yvalue=array();
         </div>
         
       </div>
- @endif  
+ @endif 
+ @endif
 <!-- TEST -->
-
+ @if(auth::user()->roles->team_id == 1 OR auth::user()->roles->team_id == 2 OR auth::user()->roles->team_id == 4 )
       <div class="row justify-content-between">
         <div class="col-md-6 col-sm-6">
           <div class="card border border-black card_shadow">
@@ -347,12 +420,14 @@ $yvalue=array();
         </div>
         
       </div>
+ @endif 
 
- 
   </div>
 </div>
 
 <!-- PIE CHART -->
+
+@if(auth::user()->roles->team_id == 1 OR auth::user()->roles->team_id == 2 OR auth::user()->roles->team_id == 5)
  <script>
 var xValues = <?php echo json_encode($xvalue); ?>;
 var yValues = <?php echo json_encode($yvalue); ?>;
@@ -403,8 +478,9 @@ function getRandomColor() { //generates random colours and puts them in string
 }
 
 </script>
-
+@endif
 <!-- Tickets -->
+ @if(auth::user()->roles->team_id == 1 OR auth::user()->roles->team_id == 2 OR auth::user()->roles->team_id == 4 )
 <script>
 
    var xValues = <?php echo $ticketArry['tickets_xValue']; ?>;
@@ -551,7 +627,7 @@ function getRandomColor() { //generates random colours and puts them in string
       }
     });
 </script>
-
+@endif
 
 <script type="text/javascript">
   $(document).ready(function() {
