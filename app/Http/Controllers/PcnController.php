@@ -543,5 +543,9 @@ class PcnController extends Controller
 
     }
 
+    public function histogram(){
+        return view('histogram/create');
+    }
+
 
 }

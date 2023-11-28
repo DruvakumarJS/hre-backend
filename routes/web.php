@@ -345,6 +345,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('disable-freeze-date/{id}',[YearendfreezeController::class,'disable'])->name('disable_freezedate');
     Route::get('enable-freeze-date/{id}',[YearendfreezeController::class,'enable'])->name('enable_freezedate');
 
+    Route::get('histogram',[PcnController::class,'histogram'])->name('histogram');
+
 
 
 

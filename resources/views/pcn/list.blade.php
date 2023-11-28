@@ -38,6 +38,10 @@ white-space: nowrap;
               </div>
            </form>
           </div>
+         
+          <div id="div2" style="margin-right: 30px">
+             <a href="{{ route('histogram') }}"><button class="btn btn-outline-secondary">Histogram</button></a>
+          </div>
 
             
         </div>
