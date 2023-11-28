@@ -112,6 +112,7 @@ class IndentController extends Controller
               'quantity' => $value->quantity,
               'comments' => $value->decription,
               'uom'=> $value->materials->uom,
+              'features' => $value->materials->information
              ];
            }
           
