@@ -172,7 +172,7 @@
                                     </ul>
                              </div> -->
 
-                             <a class="dropdown-item" href="{{route('vault_master')}}"><img class="circle" src="{{asset('images/vault1.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;margin-right: 10px"></a>
+                             <a class="dropdown-item" href="{{route('view_vault')}}"><img class="circle" src="{{asset('images/vault1.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;margin-right: 10px"></a>
 
                              <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moddl"><img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;margin-right: 10px"></a>
 
@@ -182,10 +182,10 @@
 
                                     <a href="{{route('settings')}}" data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-right: 10px;"> </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="{{route('users')}}">User Master</a></li>
-                                        @if(auth::user()->id == 1)
+                                        <!-- <li><a class="dropdown-item" href="{{route('users')}}">User Master</a></li> -->
+                                       
                                          <li><a class="dropdown-item" href="{{route('roles')}}">Role Master</a></li>
-                                        @endif
+                                        
                                         <li><a class="dropdown-item" href="{{route('materials_master')}}">Material Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('department_master')}}">Department Master</a></li>
                                        
@@ -200,8 +200,8 @@
                                           </ul>  
                                         </li> 
                                         @endif
-                                        <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li>
-                                        <!-- <li><a class="dropdown-item" href="{{route('view_vault')}}">Vault</a></li> -->
+                                        <!-- <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li> -->
+                                        <li><a class="dropdown-item" href="{{route('view_vault')}}">Vault</a></li>
                                         @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)
                                         <li><a class="dropdown-item" href="{{ route('year_end_closure')}}">Financial Year Closing</a></li>
                                         @endif
