@@ -83,6 +83,12 @@
                       ? 'active' : ''}}">
                     <label class="nav-links">PCN</label></a>
 
+                    <a href="{{route('histogram')}}"
+                      class="{{request()->routeIs('histogram')
+                      
+                      ? 'active' : ''}}">
+                    <label class="nav-links">Histogram</label></a>
+
                     <a href="{{route('intends')}}"
                      class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')

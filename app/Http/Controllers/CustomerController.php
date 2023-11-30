@@ -76,7 +76,7 @@ class CustomerController extends Controller
         }
         else{
            
-           $customer = Customer::create([
+          /* $customer = Customer::create([
             'name' => $request->name,
             'mobile' => $request->mobile1 ,
             'mobile1' => $request->mobile2 ,
@@ -95,17 +95,39 @@ class CustomerController extends Controller
             'full_name3' => $request->full_name4,
             'designation3' => $request->designation4,
            
-           ]);
+           ]);*/
 
-           if($customer){
+           $customer = new Customer ;
+           $customer->name = $request->name ;
+           $customer->mobile = $request->mobile1 ;
+           $customer->mobile1 = $request->mobile2 ;
+           $customer->mobile2 = $request->mobile3 ;
+           $customer->mobile3 = $request->mobile4 ;
+           $customer->email = $request->email1 ;
+           $customer->email1 = $request->email2 ;
+           $customer->email2 = $request->email3 ;
+           $customer->email3 = $request->email4 ;
+           $customer->full_name = $request->full_name1 ;
+           $customer->designation = $request->designation1 ;
+           $customer->full_name1 = $request->full_name2 ;
+           $customer->designation1 = $request->designation2 ;
+           $customer->full_name2 = $request->full_name3 ;
+           $customer->designation2 = $request->designation3 ;
+           $customer->full_name3 = $request->full_name4 ;
+           $customer->designation3 = $request->designation4 ;
+           
+           $customer->save();
 
-            $customer_id = Customer::select('id')->where('email',$request->email1)->first();
+           $customer_id = $customer->id ;
 
+            //$customer_id = Customer::select('id')->where('name',$request->name)->first();
+           
+           if($customer_id != 0 || $customer_id != ''){
             $customer_address =  $request->address ;
 
             foreach ($customer_address as $key => $value) {
                $addres = Address::create([
-                'customer_id'=> $customer_id->id ,
+                'customer_id'=> $customer_id ,
                 'brand' => $value['brand'] , 
                 'state' => $value['state'] ,
                 'gst' => $value['gst'] 
@@ -114,7 +136,7 @@ class CustomerController extends Controller
             } 
 
         
-           }
+          }
        
           $subject = "New Customer Added";
           $details =[ 'name' => $request->name,
@@ -145,7 +167,7 @@ class CustomerController extends Controller
           //Mail::to($emailid)->send(new CustomerMail($data,$subject));
 
           try {
-             Mail::to($emailid)->send(new CustomerMail($data,$subject));
+            // Mail::to($emailid)->send(new CustomerMail($data,$subject));
             } catch (\Exception $e) {
                 return $e->getMessage();
                

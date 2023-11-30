@@ -24,6 +24,7 @@ use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\VaultController;
 use App\Http\Controllers\YearendfreezeController;
+use App\Http\Controllers\HistogramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -345,7 +346,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('disable-freeze-date/{id}',[YearendfreezeController::class,'disable'])->name('disable_freezedate');
     Route::get('enable-freeze-date/{id}',[YearendfreezeController::class,'enable'])->name('enable_freezedate');
 
-    Route::get('histogram',[PcnController::class,'histogram'])->name('histogram');
+    Route::get('histogram_list',[HistogramController::class,'index'])->name('histogram');
+    Route::get('new-histogram',[HistogramController::class,'create'])->name('new_histogram');
+    Route::post('save-histogram',[HistogramController::class,'store'])->name('save_histogram');
+    Route::get('view-histogram-form/{id}',[HistogramController::class,'edit'])->name('view_form');
+    Route::post('update-histogram',[HistogramController::class,'update'])->name('update_histogram');
 
 
 

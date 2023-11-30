@@ -82,7 +82,12 @@ class User extends Authenticatable
 
       public function departments(){
             return $this->hasMany(TicketDepartment::class,'role_id', 'id');
-        }    
+        } 
+
+      public function histogram(){
+            return $this->hasMany(Histogram_billing_details::class,'id', 'user_id');
+        }
+           
 
 
 
