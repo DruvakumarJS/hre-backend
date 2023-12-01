@@ -344,7 +344,10 @@ class PettycashController extends Controller
                     'users.name',
                     'roles.alias',
                     'users.id',
+                    'employees.email',
+                    'employees.mobile',
                     'employees.employee_id',
+                    'roles.alias',
                      DB::raw("CONCAT(users.name,' - ',employees.employee_id,' - ',roles.alias) AS value") 
                     
                 )

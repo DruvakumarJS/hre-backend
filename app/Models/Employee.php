@@ -50,7 +50,11 @@ class Employee extends Model
 
       public function pettycash_overview(){
             return $this->hasMany(Pettycash::class,'user_id', 'user_id');
-        }            
+        } 
+
+       public function histogram_history(){
+        return $this->hasMany(HistogramHistory::class,'user_id', 'user_id');
+    }             
 
       
 }

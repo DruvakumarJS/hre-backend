@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="container-header">
           <div id="div1"> 
-            <label style="font-size: 20px;font-weight: bolder;">PCN Registration Form / Project Histogram</label>
+            <label style="font-size: 20px;font-weight: bolder;">Update - PCN Registration Form / Project Histogram</label>
           </div>
 
           <div id="div2">
@@ -17,7 +17,7 @@
         </div>     
        
         <div class="page-container">
-          <form method="POST" action="{{ route('update_histogram')}}">
+          <form method="POST" action="{{ route('update_histogram_details')}}">
             @csrf
           <div class="row">
             <div class="col-md-6">
@@ -28,13 +28,8 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">PCN </label>
                       <div class="col-9 ">
-                        <!-- <input  class="form-control" type="text" name="pcn" required="required" value=""  placeholder="PCN "> -->
-                        <select class="form-select form-control" name="pcn" required>
-                          <option value="">Select PCN</option>
-                          @foreach($pcn as $keys=>$val)
-                           <option value="{{$val->pcn}}">{{$val->pcn}}</option>
-                          @endforeach
-                        </select>
+                        <input  class="form-control" type="text" name="pcn" required="required"  placeholder="PCN " value="{{$data->pcn}}" readonly>
+                        
                       </div>
                     </div>
 
@@ -72,29 +67,28 @@
                           <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Project Name</label>
                       <div class="col-9"  >
-                        <input  class="form-control" type="text" name="project_name" required="required" value="{{$data->project_name}}"  placeholder="Project Name">
+                        <input  class="form-control" type="text" name="project_name" required="required" value="{{$data->project_name}}"  placeholder="Project Name" readonly>
                       </div>
                   </div>
                         <!--   <label for="" class="col-6 col-form-label">Site Full Address </label>   -->
                            <div class="row" style="margin-top: 10px" >
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="location" required="required" value="{{$data->location}}"  placeholder="location">
+                                <input  class="form-control" type="text" name="location" required="required" value="{{$data->location}}"  placeholder="location" readonly>
                              </div>
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="area" required="required" value="{{$data->area}}"  placeholder="Area / Building">
+                                <input  class="form-control" type="text" name="area" required="required" value="{{$data->area}}"  placeholder="Area / Building" readonly>
                              </div>
                            </div>
 
                            <div class="row" style="margin-top: 10px" >
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="city" required="required" value="{{$data->city}}"  placeholder="City ">
+                                <input  class="form-control" type="text" name="city" required="required" value="{{$data->city}}"  placeholder="City " readonly>
                              </div>
                              <div class="col-3">
-                                <input  class="form-control" type="text" name="state" required="required" value="{{$data->state}}"  placeholder="State">
+                                <input  class="form-control" type="text" name="state" required="required" value="{{$data->state}}"  placeholder="State" readonly>
                              </div>
-
                              <div class="col-3">
-                                <input  class="form-control" type="text" name="pincode" required="required" value="{{$data->pincode}}"  placeholder="PINCODE">
+                                <input  class="form-control" type="text" name="pincode" required="required" value="{{$data->pincode}}"  placeholder="PINCODE" readonly>
                              </div>
                              
                            </div>
@@ -322,22 +316,22 @@
                    <div class="row align-items-end"> 
                     
                      <div class="col-md-3">
-                      <input class="form-control" type="text" name="client[{{$key}}][name]" value="{{$value->client_name}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value->client_name}}" required="required" readonly>
                     </div>
 
                      <div class="col-md-3">
-                      <input class="form-control" type="text" name="client[{{$key}}][designation]" value="{{$value->client_designation}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value->client_designation}}" required="required" readonly>
                     </div>
 
                      <div class="col-md-2">
-                      <input class="form-control" type="text" name="client[{{$key}}][organisation]" value="{{$value->client_organisation}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value->client_organisation}}" required="required" readonly>
                     </div>
 
                     <div class="col-md-2">
-                      <input class="form-control" type="text" name="client[{{$key}}][contact]" value="{{$value->client_contact}}" required="required" minlength="10" maxlength="10" readonly>
+                      <input class="form-control" type="text"  value="{{$value->client_contact}}" required="required" minlength="10" maxlength="10" readonly>
                     </div>
                     <div class="col-md-2">
-                      <input class="form-control" type="text" name="client[{{$key}}][email]" value="{{$value->client_email}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value->client_email}}" required="required" readonly>
                     </div>
 
                    </div>
@@ -350,9 +344,9 @@
 
           </table>
             </div>
-            <!--  <div id="div2">
+             <div id="div2">
                <i class="fa fa-plus" id="dynamic-client"></i>
-             </div> -->
+             </div>
              
 
 
@@ -405,22 +399,22 @@
                    <div class="row align-items-end"> 
                      
                      <div class="col-md-3">
-                      <input class="form-control" type="text" name="arch[{{$key}}][name]" value="{{$value2->arc_name}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value2->arc_name}}" required="required" readonly>
                     </div>
 
                      <div class="col-md-3">
-                      <input class="form-control" type="text" name="arch[{{$key}}][designation]" value="{{$value2->arc_designation}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value2->arc_designation}}" required="required" readonly>
                     </div>
 
                     <div class="col-md-2">
-                      <input class="form-control" type="text" name="arch[{{$key}}][organisation]" value="{{$value2->arc_organisation}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value2->arc_organisation}}" required="required" readonly>
                     </div>
 
                     <div class="col-md-2">
-                      <input class="form-control" type="text" name="arch[{{$key}}][contact]" value="{{$value2->arc_contact}}" required="required" minlength="10" maxlength="10" readonly>
+                      <input class="form-control" type="text" value="{{$value2->arc_contact}}" required="required" minlength="10" maxlength="10" readonly>
                     </div>
                     <div class="col-md-2">
-                      <input class="form-control" type="text" name="arch[{{$key}}][email]" value="{{$value2->arc_email}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value2->arc_email}}" required="required" readonly>
                     </div>
 
                    </div>
@@ -431,9 +425,9 @@
               @endforeach
           </table>
             </div>
-             <!-- <div id="div2">
+             <div id="div2">
                <i class="fa fa-plus" id="dynamic-arc"></i>
-             </div> -->
+             </div>
 
             <!-- landlord -->
 
@@ -482,22 +476,22 @@
                    <div class="row align-items-end"> 
                      
                      <div class="col-md-3">
-                      <input class="form-control" type="text" name="land[0][name]" value="{{$value3->land_name}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value3->land_name}}" required="required" readonly>
                     </div>
 
                      <div class="col-md-3">
-                      <input class="form-control" type="text" name="land[0][designation]" value="{{$value3->land_designation}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value3->land_designation}}" required="required" readonly>
                     </div>
 
                      <div class="col-md-2">
-                      <input class="form-control" type="text" name="land[0][organisation]" value="{{$value3->land_organisation}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value3->land_organisation}}" required="required" readonly>
                     </div>
 
                     <div class="col-md-2">
-                      <input class="form-control" type="text" name="land[0][contact]" value="{{$value3->land_contact}}" required="required" minlength="10" maxlength="10" readonly>
+                      <input class="form-control" type="text"  value="{{$value3->land_contact}}" required="required" minlength="10" maxlength="10" readonly>
                     </div>
                     <div class="col-md-2">
-                      <input class="form-control" type="text" name="land[0][email]" value="{{$value3->land_email}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value3->land_email}}" required="required" readonly>
                     </div>
 
                    </div>
@@ -508,9 +502,9 @@
                 @endforeach
           </table>
             </div>
-            <!--  <div id="div2">
+             <div id="div2">
                <i class="fa fa-plus" id="dynamic-land"></i>
-             </div> -->
+             </div>
 
           </div>
           
@@ -565,24 +559,24 @@
                    <div class="row align-items-end"> 
                      
                      <div class="col-md-2">
-                      <input class="form-control" type="text" name="hre[0][name]" value="{{$value4->name}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value4->name}}" required="required" readonly>
                     </div>
 
                      <div class="col-md-2">
-                      <input class="form-control" type="text" name="hre[0][designation]" value="{{$value4->designation}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value4->designation}}" required="required" readonly>
                     </div>
 
                     <div class="col-md-2">
-                      <input class="form-control" type="text" name="hre[0][contact]" value="{{$value4->contact}}" required="required" minlength="10" maxlength="10" readonly>
+                      <input class="form-control" type="text"  value="{{$value4->contact}}" required="required" minlength="10" maxlength="10" readonly>
                     </div>
                     <div class="col-md-2">
-                      <input class="form-control" type="text" name="hre[0][email]" value="{{$value4->email}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value4->email}}" required="required" readonly>
                     </div>
                     <div class="col-md-2">
-                      <input class="form-control" type="date" name="hre[0][start]" value="{{$value4->start_date}}" required="required" readonly>
+                      <input class="form-control" type="date"  value="{{$value4->start_date}}" required="required" readonly>
                     </div>
                     <div class="col-md-2">
-                      <input class="form-control" type="date" name="hre[0][end]" value="{{$value4->end_date}}" required="required" readonly>
+                      <input class="form-control" type="date"  value="{{$value4->end_date}}" required="required" readonly>
                     </div>
 
                    </div>
@@ -593,9 +587,9 @@
               @endforeach
           </table>
             </div>
-            <!--  <div id="div2">
+             <div id="div2">
                <i class="fa fa-plus" id="dynamic-hre"></i>
-             </div> -->
+             </div>
             
           </div>
         </div>
@@ -618,39 +612,39 @@
                      
                      <div class="col-md-3">
                       <label class="label-bold">Department Heading</label>
-                      <input class="form-control" type="text" name="vendor[0][company]" value="{{$value5->department}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value5->department}}" required="required" readonly>
                     </div>
 
                      <div class="col-md-3">
                       <label class="label-bold">Vendor Company Name</label>
-                      <input class="form-control" type="text" name="vendor[0][company]" value="{{$value5->company_name}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value5->company_name}}" required="required" readonly>
                     </div>
 
                     <div class="col-md-3">
                       <label class="label-bold">Contractor's Name</label>
-                      <input class="form-control" type="text" name="vendor[0][name]" value="{{$value5->contracter_name}}"value="{{$value5->department}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value5->contracter_name}}"value="{{$value5->department}}" required="required" readonly>
                     </div>
                     <div class="col-md-3">
                       <label class="label-bold">Mobile No.</label>
-                      <input class="form-control" type="text" name="vendor[0][mobile]" value="{{$value5->contracter_mobile}}" required="required" minlength="10" maxlength="10" readonly>
+                      <input class="form-control" type="text"  value="{{$value5->contracter_mobile}}" required="required" minlength="10" maxlength="10" readonly>
                     </div>
                   </div>
                    <div class="row">
                     <div class="col-md-3">
                       <label class="label-bold">Supervisor Name</label>
-                      <input class="form-control" type="text" name="vendor[0][supervisor]" value="{{$value5->supervisor_name}}" required="required" readonly>
+                      <input class="form-control" type="text"  value="{{$value5->supervisor_name}}" required="required" readonly>
                     </div>
                     <div class="col-md-3">
                       <label class="label-bold">Mobile No.</label>
-                      <input class="form-control" type="text" name="vendor[0][supr_mobile]" value="{{$value5->supervisor_mobile}}" required="required" minlength="10" maxlength="10" readonly>
+                      <input class="form-control" type="text"  value="{{$value5->supervisor_mobile}}" required="required" minlength="10" maxlength="10" readonly>
                     </div>
                     <div class="col-md-3">
                       <label class="label-bold">Start Date</label>
-                      <input class="form-control" type="date" name="vendor[0][start]" value="{{$value5->start_date}}" required="required" readonly>
+                      <input class="form-control" type="date"  value="{{$value5->start_date}}" required="required" readonly>
                     </div>
                     <div class="col-md-3">
                       <label class="label-bold">End Date</label>
-                      <input class="form-control" type="date" name="vendor[0][end]" value="{{$value5->end_date}}" required="required" readonly>
+                      <input class="form-control" type="date"  value="{{$value5->end_date}}" required="required" readonly>
                     </div>
 
                    </div>
@@ -661,9 +655,9 @@
               @endforeach
           </table>
             </div>
-             <!-- <div id="div2">
+             <div id="div2">
                <i class="fa fa-plus" id="dynamic-vendor"></i>
-             </div> -->
+             </div>
         </div>
 
         <!-- last form -->
@@ -738,7 +732,202 @@
   
 </div>
 
+<script type="text/javascript">
+    var i = 0;
+    var j = 'n';
+    $("#dynamic-client").click(function () {
+        ++i;
+         $("#dynamicclient").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][email]" required="required"></div> </div></td></tr>');
+        
 
+        document.getElementById("btnn").style.display="block";
+    });
+    $(document).on('click', '.remove-input-field', function () {
+    
+      if (j==0 && i==1){
+       
+        alert('There must be atleast one address');
+      }
+      else
+       {
+        $(this).parents('tr').remove();
+         --i;
+      }
+
+    });
+
+     $(document).on('click', '.remove-input-mandate', function () {
+     
+      if(!i == 0){
+      j=0;
+        $(this).parents('tr').remove();
+       
+      }
+      else {
+        alert('There must be atleast one address');
+      }
+        
+    });
+      
+</script>
+
+
+<script type="text/javascript">
+    var i = 0;
+    var j = 'n';
+    $("#dynamic-arc").click(function () {
+        ++i;
+         $("#dynamicArc").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="arch['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="arch['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][email]" required="required"></div> </div></td></tr>');
+        
+
+        document.getElementById("btnn").style.display="block";
+    });
+    $(document).on('click', '.remove-input-field', function () {
+    
+      if (j==0 && i==1){
+       
+        alert('There must be atleast one address');
+      }
+      else
+       {
+        $(this).parents('tr').remove();
+         --i;
+      }
+
+    });
+
+     $(document).on('click', '.remove-input-mandate', function () {
+     
+      if(!i == 0){
+      j=0;
+        $(this).parents('tr').remove();
+       
+      }
+      else {
+        alert('There must be atleast one address');
+      }
+        
+    });
+      
+</script>
+
+
+<script type="text/javascript">
+    var i = 0;
+    var j = 'n';
+    $("#dynamic-land").click(function () {
+        ++i;
+         $("#dynamicland").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="land['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="land['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][organisation]"required=" required"></div>  <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][email]" required="required"></div> </div></td></tr>');
+        
+
+        document.getElementById("btnn").style.display="block";
+    });
+    $(document).on('click', '.remove-input-field', function () {
+    
+      if (j==0 && i==1){
+       
+        alert('There must be atleast one address');
+      }
+      else
+       {
+        $(this).parents('tr').remove();
+         --i;
+      }
+
+    });
+
+     $(document).on('click', '.remove-input-mandate', function () {
+     
+      if(!i == 0){
+      j=0;
+        $(this).parents('tr').remove();
+       
+      }
+      else {
+        alert('There must be atleast one address');
+      }
+        
+    });
+      
+</script>
+
+<script type="text/javascript">
+    var i = 0;
+    var j = 'n';
+    $("#dynamic-hre").click(function () {
+        ++i;
+         $("#dynamichre").append('<tr><td><div class="row align-items-end"><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"required=" required"></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" required="required"></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" required="required"></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]" required="required"></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]" required="required"></div> </div></div></td></tr>');
+        
+
+        document.getElementById("btnn").style.display="block";
+    });
+    $(document).on('click', '.remove-input-field', function () {
+    
+      if (j==0 && i==1){
+       
+        alert('There must be atleast one address');
+      }
+      else
+       {
+        $(this).parents('tr').remove();
+         --i;
+      }
+
+    });
+
+     $(document).on('click', '.remove-input-mandate', function () {
+     
+      if(!i == 0){
+      j=0;
+        $(this).parents('tr').remove();
+       
+      }
+      else {
+        alert('There must be atleast one address');
+      }
+        
+    });
+      
+</script>
+
+<script type="text/javascript">
+    var i = 0;
+    var j = 'n';
+    $("#dynamic-vendor").click(function () {
+        ++i;
+         $("#dynamicvendor").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][department]"required=" required" placeholder="department"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" required="required" placeholder="contractor name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" required="required" placeholder="mobile"></div>  </div><div class="row"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div> </div></div></td></tr>');
+        
+
+        document.getElementById("btnn").style.display="block";
+    });
+    $(document).on('click', '.remove-input-field', function () {
+    
+      if (j==0 && i==1){
+       
+        alert('There must be atleast one address');
+      }
+      else
+       {
+        $(this).parents('tr').remove();
+         --i;
+      }
+
+    });
+
+     $(document).on('click', '.remove-input-mandate', function () {
+     
+      if(!i == 0){
+      j=0;
+        $(this).parents('tr').remove();
+       
+      }
+      else {
+        alert('There must be atleast one address');
+      }
+        
+    });
+      
+</script>
 
 
 @endsection

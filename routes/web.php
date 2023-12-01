@@ -25,6 +25,7 @@ use App\Http\Controllers\ExportController;
 use App\Http\Controllers\VaultController;
 use App\Http\Controllers\YearendfreezeController;
 use App\Http\Controllers\HistogramController;
+use App\Http\Controllers\VendorDepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -351,6 +352,15 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('save-histogram',[HistogramController::class,'store'])->name('save_histogram');
     Route::get('view-histogram-form/{id}',[HistogramController::class,'edit'])->name('view_form');
     Route::post('update-histogram',[HistogramController::class,'update'])->name('update_histogram');
+    Route::get('update-histogram-form/{id}',[HistogramController::class,'update_form'])->name('update_form');
+    Route::get('view_history/{id}',[HistogramController::class,'view_history'])->name('view_history');
+    Route::post('update-histogram-details',[HistogramController::class,'update_histogram_details'])->name('update_histogram_details');
+
+    Route::get('vendor_master',[VendorDepartmentController::class,'index'])->name('vendor_master');
+    Route::get('add-vendor',[VendorDepartmentController::class,'create'])->name('add_vendor');
+    Route::post('save-vendor',[VendorDepartmentController::class,'store'])->name('save_vendor');
+    Route::get('edit-vendor/{id}',[VendorDepartmentController::class,'edit'])->name('edit_vendor');
+    Route::post('update-vendor',[VendorDepartmentController::class,'update'])->name('update_vendor');
 
 
 

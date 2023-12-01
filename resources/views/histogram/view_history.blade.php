@@ -1,0 +1,64 @@
+@extends('layouts.app')
+
+@section('content')
+
+<div class="container">
+    <div class="row justify-content-center">
+       <div class="container-header">
+            <label class="label-bold" id="div1">Histogram History</label>
+           
+         
+          <div id="div2" style="margin-right: 30px">
+             <a  href="{{route('histogram')}}"> <button class="btn btn-outline-secondary">Histogram</button></a>
+          </div>
+          
+
+      
+        </div>
+
+       <div class="page-container">
+        <div class="div-margin">
+        	
+
+        	<div class="card border-white scroll tableFixHead" style="height: 270px; padding: 0px 5px 20px 20px">
+
+                        <table class="table">
+                          <thead>
+                            <tr style="height: 50px">
+                              <th scope="col">PCN</th>
+                              <th scope="col">Subitted By</th>
+                              <th scope="col">Submitted Date</th>
+                              <th scope="col">Submitted Time</th>
+                              <th scope="col">Action</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($data as $key=>$value)
+                            <tr>
+                              <td>{{$value->pcn}}</td>
+                              <td>{{$value->user->employee_id}} - {{$value->user->name}}</td>
+                              <td>{{date('d-m-Y' ,strtotime($value->submission_date))}}</td>
+                              <td>{{date('H:i' ,strtotime($value->submission_time))}}</td>
+                              <td>
+                                <a href=""><button class="btn btn-sm btn-light btn-outline-secondary">View PDF</button></a>
+                                <a href=""><button class="btn btn-sm btn-light btn-outline-secondary">Delete PDF</button></a>
+                              </td>
+                            </tr>
+
+                            @endforeach
+                           
+                             
+                          </tbody>
+                        </table>
+
+                        
+                        
+                    </div>
+                   
+          </div>
+        </div>
+      </div>  
+    </div>
+</div>
+@endsection

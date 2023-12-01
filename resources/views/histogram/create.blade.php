@@ -42,6 +42,8 @@
                       </div>
                     </div>
 
+                   
+
                 </div>
               </div>
               
@@ -75,17 +77,20 @@
                            </div>
 
                            <div class="row" style="margin-top: 10px" >
-                             <div class="col-4">
+                             <div class="col-6">
                                 <input  class="form-control" type="text" name="city" required="required" value=""  placeholder="City ">
                              </div>
-                             <div class="col-4">
+                             <div class="col-3">
                                 <input  class="form-control" type="text" name="state" required="required" value=""  placeholder="State">
                              </div>
-                             <div class="col-4">
+
+                             <div class="col-3">
                                 <input  class="form-control" type="text" name="pincode" required="required" value=""  placeholder="PINCODE">
                              </div>
+                             
                            </div>
 
+                          
                             
                         </div>
                         
@@ -111,14 +116,14 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Target Start Date </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="date" name="target_start_date" required="required" value=""  placeholder="PCN ">
+                        <input  class="form-control" type="date"  name="target_start_date" required="required" value="" id="target_start_date" placeholder="Target Start Date " autocomplete="off">
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Target End Date </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="date" name="target_end_date" required="required" value=""  placeholder="Billing Name ">
+                        <input  class="form-control" type="date" name="target_end_date" required="required" value=""  id="target_end_date" placeholder="Target End Date " autocomplete="off">
                       </div>
                     </div>
 
@@ -149,14 +154,14 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual Start Date </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="date" name="actual_start_date" required="required" value=""  placeholder="PCN ">
+                        <input  class="form-control" type="date" name="actual_start_date" required="required" value="" id="actual_start_date" placeholder="Actual Start Date " autocomplete="off">
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual End Date </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="date" name="actual_end_date" required="required" value=""  placeholder="Billing Name ">
+                        <input  class="form-control" type="date" name="actual_end_date" required="required" value=""  id="actual_end_date" placeholder="Actual End Date " autocomplete="off">
                       </div>
                     </div>
 
@@ -190,7 +195,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">PO DATE </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="date" name="po_date" required="required" value=""  placeholder="PO Date">
+                  <input  class="form-control" type="date" name="po_date" required="required" value=""  id="po_date" placeholder="PO Date " autocomplete="off">
                 </div>
               </div>
             
@@ -247,7 +252,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-4 col-form-label label-bold">DLP End Date </label>
                 <div class="col-8 " >
-                  <input  class="form-control" type="date" name="dlp_end_date" required="required" value=""  placeholder="DLP End Date">
+                  <input  class="form-control" type="date" name="dlp_end_date" required="required" value=""  placeholder="DLP End Date" id="dlp_end_date" autocomplete="off">
                 </div>
               </div>
             
@@ -429,17 +434,18 @@
                      
                      <div class="col-md-2">
                       <label class="label-bold">Name</label>
-                      <input class="form-control" type="text" name="hre[0][name]" required="required">
+                      <input  id="client_name" type="text" class="typeahead form-control"  name="hre[0][name]" required="required" placeholder="Search by name / ID">
+                     <!--  <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required"  placeholder="Search by name / ID"> -->
                     </div>
 
                      <div class="col-md-2">
                       <label class="label-bold">Designation</label>
-                      <input class="form-control" type="text" name="hre[0][designation]" required="required">
+                      <input class="form-control" id="designation" type="text" name="hre[0][designation]" required="required">
                     </div>
 
                     <div class="col-md-2">
                       <label class="label-bold">Contact No.</label>
-                      <input class="form-control" type="text" name="hre[0][contact]" required="required" minlength="10" maxlength="10">
+                      <input class="form-control" type="text" id="contact" name="hre[0][contact]" required="required" minlength="10" maxlength="10">
                     </div>
                     <div class="col-md-2">
                       <label class="label-bold">Email ID</label>
@@ -496,26 +502,27 @@
 
                      <div class="col-md-3">
                       <label class="label-bold">Vendor Company Name</label>
-                      <input class="form-control" type="text" name="vendor[0][company]" required="required">
+                      <input class="form-control" type="text" name="vendor[0][company]" required="required"
+                      placeholder="company name">
                     </div>
 
                     <div class="col-md-3">
                       <label class="label-bold">Contractor's Name</label>
-                      <input class="form-control" type="text" name="vendor[0][name]" required="required" >
+                      <input class="form-control" type="text" name="vendor[0][name]" required="required" placeholder="contractor's name" >
                     </div>
                     <div class="col-md-3">
                       <label class="label-bold">Mobile No.</label>
-                      <input class="form-control" type="text" name="vendor[0][mobile]" required="required" minlength="10" maxlength="10">
+                      <input class="form-control" type="text" name="vendor[0][mobile]" required="required" minlength="10" maxlength="10" placeholder="Mobile No.">
                     </div>
                   </div>
                    <div class="row">
                     <div class="col-md-3">
                       <label class="label-bold">Supervisor Name</label>
-                      <input class="form-control" type="text" name="vendor[0][supervisor]" required="required" >
+                      <input class="form-control" type="text" name="vendor[0][supervisor]" required="required" placeholder="supervisor name">
                     </div>
                     <div class="col-md-3">
                       <label class="label-bold">Mobile No.</label>
-                      <input class="form-control" type="text" name="vendor[0][supr_mobile]" required="required" minlength="10" maxlength="10">
+                      <input class="form-control" type="text" name="vendor[0][supr_mobile]" required="required" minlength="10" maxlength="10" placeholder="mobile no">
                     </div>
                     <div class="col-md-3">
                       <label class="label-bold">Start Date</label>
@@ -555,7 +562,7 @@
     var j = 'n';
     $("#dynamic-client").click(function () {
         ++i;
-         $("#dynamicclient").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][contact]" required="required" minlength="15" maxlength="15"></div><div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][email]" required="required"></div> </div></td></tr>');
+         $("#dynamicclient").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][email]" required="required"></div> </div></td></tr>');
         
 
         document.getElementById("btnn").style.display="block";
@@ -595,7 +602,7 @@
     var j = 'n';
     $("#dynamic-arc").click(function () {
         ++i;
-         $("#dynamicArc").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="arch['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="arch['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][contact]" required="required" minlength="15" maxlength="15"></div><div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][email]" required="required"></div> </div></td></tr>');
+         $("#dynamicArc").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="arch['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="arch['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][email]" required="required"></div> </div></td></tr>');
         
 
         document.getElementById("btnn").style.display="block";
@@ -635,7 +642,7 @@
     var j = 'n';
     $("#dynamic-land").click(function () {
         ++i;
-         $("#dynamicland").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="land['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="land['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][organisation]"required=" required"></div>  <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][contact]" required="required" minlength="15" maxlength="15"></div><div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][email]" required="required"></div> </div></td></tr>');
+         $("#dynamicland").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="land['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="land['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][organisation]"required=" required"></div>  <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][email]" required="required"></div> </div></td></tr>');
         
 
         document.getElementById("btnn").style.display="block";
@@ -674,7 +681,7 @@
     var j = 'n';
     $("#dynamic-hre").click(function () {
         ++i;
-         $("#dynamichre").append('<tr><td><div class="row align-items-end"><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"required=" required"></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" required="required"></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]" required="required" minlength="15" maxlength="15"></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][start]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][end]" required="required"></div> </div></div></td></tr>');
+         $("#dynamichre").append('<tr><td><div class="row align-items-end"><div class="col-md-2"><input class="form-control" type="text" id="client_name_['+ i +']" name="hre['+ i +'][name]"required=" required"></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" required="required"></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" required="required"></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]" required="required"></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]" required="required"></div> </div></div></td></tr>');
         
 
         document.getElementById("btnn").style.display="block";
@@ -705,6 +712,38 @@
       }
         
     });
+
+      $( document ).ready(function() {
+  var path = "{{ route('autocomplete_employee') }}";
+   let text = "";
+    $( '#client_name_['+ i +']' ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            success: function( data ) {
+              
+              console.log(data);
+               response( data );
+               //$('#user_name').val(ui.item.lable);
+              
+            }
+          });
+        },
+        select: function (event, ui) {
+          $('#client_name').val(ui.item.name);
+          $('#designation').val(ui.item.alias);
+          $('#contact').val(ui.item.mobile);
+           
+        }
+      });
+
+    
+});
       
 </script>
 
@@ -713,7 +752,7 @@
     var j = 'n';
     $("#dynamic-vendor").click(function () {
         ++i;
-         $("#dynamicvendor").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][department]"required=" required" placeholder="department"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" required="required" placeholder="contractor name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" required="required" placeholder="mobile"></div>  </div><div class="row"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][end]" required="required"></div> </div></div></td></tr>');
+         $("#dynamicvendor").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]"><option value="">Select</option><option>Civil</option><option>Carpentry</option></select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" required="required" placeholder="mobile"></div>  </div><div class="row"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div> </div></div></td></tr>');
         
 
         document.getElementById("btnn").style.display="block";
@@ -744,9 +783,110 @@
       }
         
     });
+
+    
       
 </script>
 
+<script type="text/javascript">
+
+$( document ).ready(function() {
+  var path = "{{ route('autocomplete_employee') }}";
+   let text = "";
+    $( "#client_name" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            success: function( data ) {
+              
+              console.log(data);
+               response( data );
+               //$('#user_name').val(ui.item.lable);
+              
+            }
+          });
+        },
+        select: function (event, ui) {
+          $('#client_name').val(ui.item.name);
+          $('#designation').val(ui.item.alias);
+          $('#contact').val(ui.item.mobile);
+           
+        }
+      });
+
+    
+});
+
+</script>
+<!-- 
+<script type="text/javascript">
+  $( function() {
+      $( "#target_start_date" ).datepicker({
+        //minDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+         
+        }
+      });
+    });
+
+  $( function() {
+      $( "#target_end_date" ).datepicker({
+        //minDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+         
+        }
+      });
+    });
+
+  $( function() {
+      $( "#actual_start_date" ).datepicker({
+        //minDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+         
+        }
+      });
+    });
+
+  $( function() {
+      $( "#actual_end_date" ).datepicker({
+        //minDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+         
+        }
+      });
+    });
+
+   $( function() {
+      $( "#po_date" ).datepicker({
+        //minDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+         
+        }
+      });
+    });
+
+    $( function() {
+      $( "#dlp_end_date" ).datepicker({
+        //minDate:0,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, $el) {
+         
+        }
+      });
+    });
+
+</script>
+ -->
 
 
 @endsection

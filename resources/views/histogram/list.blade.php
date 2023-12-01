@@ -58,8 +58,8 @@
                               <td>{{$value->city}}</td>
                               <td>{{$value->state}}</td>
                               <td>
-                                 <a href="{{ route('view_form',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">View History</button></a>
-                                <a href="{{ route('view_form',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">Update</button></a>
+                                 <a href="{{ route('view_history',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">View History</button></a>
+                                <a href="{{ route('update_form',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">Update</button></a>
                               </td>
                               
                             </tr>
@@ -81,6 +81,7 @@
                             <tr style="height: 50px">
                               <th scope="col">Pending Form</th>
                               <th scope="col">Billing Name</th>
+                              <th scope="col">Brand Name</th>
                               <th scope="col">location</th>
                               <th scope="col">Area</th>
                               <th scope="col">City</th>
@@ -100,6 +101,7 @@
                             <tr>
                               <td>{{$key+1}}</td>
                               <td>{{$value->billing_name}}</td>
+                              <td>{{$value->brand}}</td>
                               <td>{{$value->location}}</td>
                               <td>{{$value->area}}</td>
                               <td>{{$value->city}}</td>

@@ -85,7 +85,10 @@
 
                     <a href="{{route('histogram')}}"
                       class="{{request()->routeIs('histogram')
-                      
+                      || request()->routeIs('new_histogram')
+                      || request()->routeIs('view_form')
+                      || request()->routeIs('view_history')
+                      || request()->routeIs('update_form')
                       ? 'active' : ''}}">
                     <label class="nav-links">Histogram</label></a>
 
@@ -193,7 +196,8 @@
                                          <li><a class="dropdown-item" href="{{route('roles')}}">Role Master</a></li>
                                         
                                         <li><a class="dropdown-item" href="{{route('materials_master')}}">Material Master</a></li>
-                                        <li><a class="dropdown-item" href="{{route('department_master')}}">Department Master</a></li>
+                                        <li><a class="dropdown-item" href="{{route('department_master')}}">Ticket Department Master</a></li>
+                                        <li><a class="dropdown-item" href="{{route('vendor_master')}}">Vendor Department Master</a></li>
                                        
                                        @if(auth::user()->role_id == 1)
                                         <li>
