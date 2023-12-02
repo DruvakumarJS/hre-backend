@@ -14,10 +14,10 @@
           
 
           <div id="div2" style="margin-right: 30px">
-           <form method="POST" action="{{route('search_pcn')}}">
+           <form method="POST" action="{{route('search_histogram')}}">
             @csrf
              <div class="input-group mb-3">
-                <input class="form-control" type="text" name="search" placeholder="Search here">
+                <input class="form-control" type="text" name="search" placeholder="Search here" value="{{$search}}">
                 <div class="input-group-prepend">
                    <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
                 </div>
@@ -52,7 +52,7 @@
                             <tr>
                               <td>{{$value->pcn}}</td>
                               <td>{{$value->billing_name}}</td>
-                              <td>{{$value->brand}}</td>
+                              <td>{{$value->project_name}}</td>
                               <td>{{$value->location}}</td>
                               <td>{{$value->area}}</td>
                               <td>{{$value->city}}</td>

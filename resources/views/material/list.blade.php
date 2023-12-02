@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-            <label class="label-bold" id="div1">Materials</label>
+            <label class="label-bold" id="div1">Materials {{$search}}</label>
            
           <div id="div2" >
             <a class="btn btn-light btn-outline-secondary" href="{{route('materials_master')}}"> View Category</a>

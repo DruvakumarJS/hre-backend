@@ -314,6 +314,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('export',[ExportController::class , 'category'])->name('export-categories');
     Route::post('export-material',[ExportController::class,'material'])->name('export-materials');
     Route::post('export_summary',[ExportController::class,'summary'])->name('export_summary');
+    Route::post('export_vendors',[ExportController::class,'vendors'])->name('export_vendors');
 
     Route::get('show-notification/{id}',[NotificationController::class,'index'])->name('notification');
     Route::get('view-notification',[NotificationController::class,'show'])->name('view_notification');
@@ -355,12 +356,15 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('update-histogram-form/{id}',[HistogramController::class,'update_form'])->name('update_form');
     Route::get('view_history/{id}',[HistogramController::class,'view_history'])->name('view_history');
     Route::post('update-histogram-details',[HistogramController::class,'update_histogram_details'])->name('update_histogram_details');
+    Route::post('search-histogram',[HistogramController::class,'search'])->name('search_histogram');
 
     Route::get('vendor_master',[VendorDepartmentController::class,'index'])->name('vendor_master');
     Route::get('add-vendor',[VendorDepartmentController::class,'create'])->name('add_vendor');
     Route::post('save-vendor',[VendorDepartmentController::class,'store'])->name('save_vendor');
     Route::get('edit-vendor/{id}',[VendorDepartmentController::class,'edit'])->name('edit_vendor');
     Route::post('update-vendor',[VendorDepartmentController::class,'update'])->name('update_vendor');
+    Route::post('search-vendor',[VendorDepartmentController::class,'search'])->name('search_vendor');
+    Route::get('autocomplete_vendor',[VendorDepartmentController::class,'autocomplete_vendor'])->name('autocomplete_vendor');
 
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\VendorDepartment;
 use App\Models\VendorStaff;
 use Illuminate\Http\Request;
+use DB;
 
 class VendorDepartmentController extends Controller
 {
@@ -15,8 +16,9 @@ class VendorDepartmentController extends Controller
      */
     public function index()
     {
-        $data = VendorDepartment::orderBy('vid','DESC')->get();
-        return view('vendor/list',compact('data'));
+        $search = '';
+        $data = VendorDepartment::orderBy('vid','DESC')->paginate(25);
+        return view('vendor/list',compact('data','search'));
     }
 
     /**
@@ -158,5 +160,58 @@ class VendorDepartmentController extends Controller
     public function destroy(VendorDepartment $vendorDepartment)
     {
         //
+    }
+
+    public function search(Request $request){
+        $search = $request->search;
+        
+        if($search == ''){
+            return redirect()->route('vendor_master');
+        }else{
+
+        $data = VendorDepartment::orderBy('vid','DESC')
+        ->where('vid','LIKE','%'.$search.'%')
+        ->orWhere('billing_name','LIKE','%'.$search.'%')
+        ->orWhere('vendor_type','LIKE','%'.$search.'%')
+        ->orWhere('building','LIKE','%'.$search.'%')
+        ->orWhere('area','LIKE','%'.$search.'%')
+        ->orWhere('city','LIKE','%'.$search.'%')
+        ->orWhere('state','LIKE','%'.$search.'%')
+        ->orWhere('owner','LIKE','%'.$search.'%')
+        ->orWhere('mobile','LIKE','%'.$search.'%')
+        ->orWhere('email','LIKE','%'.$search.'%')
+        ->paginate(25);
+        return view('vendor/list',compact('data','search'));
+        }
+
+    }
+
+    public function autocomplete_vendor(Request $request){
+        $search = $request->get('search') ;
+       
+                    $data = DB::table('vendor_departments')
+            ->select(
+                    'vendor_departments.vid',
+                    'vendor_departments.billing_name',
+                    'vendor_departments.owner',
+                    'vendor_departments.mobile',
+                    'vendor_departments.id',
+                    /*'vendor_staff.email',
+                    'vendor_staff.mobile',*/
+                     DB::raw("CONCAT(vendor_departments.vid,' - ',vendor_departments.billing_name) AS value") 
+                    
+                )
+          // ->select( DB::raw("CONCAT(users.name,' - ',roles.alias) AS value") )
+            //->join('vendor_staff', 'vendor_departments.id', '=', 'vendor_staff.vendor_id')
+            
+            ->where(function($query)use ($search){
+                    $query->where('vendor_departments.vid_id','LIKE','%'.$search.'%')
+                    ->orWhere('vendor_departments.vid','LIKE','%'.$search.'%')
+                    ->orWhere('vendor_departments.billing_name','LIKE','%'.$search.'%');
+                 })
+        
+            ->get();
+         
+        return response()->json($data);
     }
 }

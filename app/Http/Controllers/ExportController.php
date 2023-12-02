@@ -15,6 +15,7 @@ use App\Exports\ExportCategory;
 use App\Exports\ExportMaterial;
 use App\Exports\ExportPettycashSummary;
 use App\Exports\ExportMultipleIndents;
+use App\Exports\ExportVendors;
 
 use Excel ;
 use App\Models\Customer;
@@ -27,6 +28,8 @@ use App\Models\Category;
 use App\Models\Material;
 use App\Models\Intend;
 use App\Models\PettycashSummary;
+use App\Models\VendorDepartment;
+
 use DB;
 use Auth;
 
@@ -286,5 +289,12 @@ class ExportController extends Controller
      
       return Excel::download(new ExportMultipleIndents($indentarray), $file_name);
    
+    }
+
+    public function vendors(Request $request){
+      $file_name = 'vendors_departments.csv';
+      $search = $request->search ;
+
+       return Excel::download(new ExportVendors($search), $file_name);
     }
 }

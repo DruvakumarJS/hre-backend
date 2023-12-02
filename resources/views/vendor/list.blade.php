@@ -12,7 +12,7 @@
     <div class="row justify-content-center">
       
       <div class="container-header">
-            <label class="label-bold" id="div1">Customers / Clients</label>
+            <label class="label-bold" id="div1">Vendor Departments</label>
           @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2)  
          <div id="div2">
            <a class="btn btn-light btn-outline-secondary" href="{{route('add_vendor')}}"><i class="fa fa-plus"></i>
@@ -20,18 +20,24 @@
          </div>
 
           <div id="div2" style="margin-right: 30px" >
-            <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Download CSV</label></a>
+             <form method="post" action="{{ route('export_vendors')}}">
+              @csrf
+              <input type="hidden" name="search" value="{{$search}}">
+
+              <button class="btn btn-outline-secondary" type="submit">Download CSV</button>
+
+             </form>
           </div>
           @endif
 
           
 
           <div id="div2" style="margin-right: 30px">
-           <form method="POST" action="">
+           <form method="POST" action="{{ route('search_vendor')}}">
             @csrf
-            <input type="hidden" name="search" value="">
+            <input type="hidden" name="search" value="{{$search}}">
              <div class="input-group mb-3">
-                <input class="form-control" type="text" name="search" placeholder="Search here" value="">
+                <input class="form-control" type="text" name="search" placeholder="Search here" value="{{$search}}">
                 <div class="input-group-prepend">
                    <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
                 </div>
@@ -96,7 +102,10 @@
                             
                           </tbody>
                         </table>
+                        <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
+                                    of {{$data->total()}} results</label>
 
+                                {!! $data->links('pagination::bootstrap-4') !!}
                          
                         
                     </div>

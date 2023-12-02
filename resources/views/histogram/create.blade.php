@@ -60,12 +60,21 @@
                       <div class="col-9 " >
                         <div class="form-group row">
 
-                          <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Project Name</label>
-                      <div class="col-9"  >
-                        <input  class="form-control" type="text" name="project_name" required="required" value=""  placeholder="Project Name">
-                      </div>
-                  </div>
+                          <!-- <div class="form-group row " style="margin-top: 10px">
+                              <label for="" class="col-3 col-form-label">Project Name</label>
+                              <div class="col-9"  >
+                                <input  class="form-control" type="text" name="project_name" required="required" value=""  placeholder="Project Name">
+                              </div>
+                          </div> -->
+                          <div class="row" style="margin-top: 10px" >
+                             <div class="col-6">
+                                <input  class="form-control" type="text" name="project_name" required="required" value=""  placeholder="Project Name">
+                             </div>
+                             <div class="col-6">
+                                <input  class="form-control" type="text" name="type" required="required" value=""  placeholder="Type Of Work">
+                             </div>
+                           </div>
+
                         <!--   <label for="" class="col-6 col-form-label">Site Full Address </label>   -->
                            <div class="row" style="margin-top: 10px" >
                              <div class="col-6">
@@ -449,7 +458,7 @@
                     </div>
                     <div class="col-md-2">
                       <label class="label-bold">Email ID</label>
-                      <input class="form-control" type="text" name="hre[0][email]" required="required" >
+                      <input class="form-control" type="text" id="email" name="hre[0][email]" required="required" >
                     </div>
                     <div class="col-md-2">
                       <label class="label-bold">Start Date</label>
@@ -502,17 +511,17 @@
 
                      <div class="col-md-3">
                       <label class="label-bold">Vendor Company Name</label>
-                      <input class="form-control" type="text" name="vendor[0][company]" required="required"
+                      <input class="typeahead form-control" id="vendor" type="text" name="vendor[0][company]" required="required"
                       placeholder="company name">
                     </div>
 
                     <div class="col-md-3">
                       <label class="label-bold">Contractor's Name</label>
-                      <input class="form-control" type="text" name="vendor[0][name]" required="required" placeholder="contractor's name" >
+                      <input class="form-control" id="contractor_name" type="text" name="vendor[0][name]" required="required" placeholder="contractor's name" >
                     </div>
                     <div class="col-md-3">
                       <label class="label-bold">Mobile No.</label>
-                      <input class="form-control" type="text" name="vendor[0][mobile]" required="required" minlength="10" maxlength="10" placeholder="Mobile No.">
+                      <input class="form-control" id="contractor_mobile" type="text" name="vendor[0][mobile]" required="required" minlength="10" maxlength="10" placeholder="Mobile No.">
                     </div>
                   </div>
                    <div class="row">
@@ -815,8 +824,51 @@ $( document ).ready(function() {
           $('#client_name').val(ui.item.name);
           $('#designation').val(ui.item.alias);
           $('#contact').val(ui.item.mobile);
+          $('#email').val(ui.item.email);
            
         }
+      });
+
+    
+});
+
+</script>
+
+<script type="text/javascript">
+
+$( document ).ready(function() {
+  var path = "{{ route('autocomplete_vendor') }}";
+   let text = "";
+    $( "#vendor" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            success: function( data ) {
+              
+              console.log(data);
+               response( data );
+               //$('#user_name').val(ui.item.lable);
+              
+            }
+          });
+        },
+         select: function (event, ui) {
+           $('#vendor').val(ui.item.billing_name);
+            //$('#brand').val(ui.item.brand);
+            $('#contractor_name').val(ui.item.id);
+            $('#contractor_name').val(ui.item.owner);
+            $('#contractor_mobile').val(ui.item.mobile);
+
+           var address = ui.item.address ;
+           console.log(address); 
+
+        }
+
       });
 
     

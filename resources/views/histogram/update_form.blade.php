@@ -64,12 +64,22 @@
                       <div class="col-9 " >
                         <div class="form-group row">
 
-                          <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Project Name</label>
-                      <div class="col-9"  >
-                        <input  class="form-control" type="text" name="project_name" required="required" value="{{$data->project_name}}"  placeholder="Project Name" readonly>
-                      </div>
-                  </div>
+                         <!--  <div class="form-group row " style="margin-top: 10px">
+                            <label for="" class="col-3 col-form-label">Project Name</label>
+                            <div class="col-9"  >
+                              <input  class="form-control" type="text" name="project_name" required="required" value="{{$data->project_name}}"  placeholder="Project Name" readonly>
+                            </div>
+                        </div> -->
+
+                         <div class="row" style="margin-top: 10px" >
+                             <div class="col-6">
+                                <input  class="form-control" type="text" name="project_name" required="required"  placeholder="Project Name" value="{{$data->project_name}}">
+                             </div>
+                             <div class="col-6">
+                                <input  class="form-control" type="text" name="type" required="required"  placeholder="Type Of Work" value="{{$data->type_of_work}}">
+                             </div>
+                           </div>
+                           
                         <!--   <label for="" class="col-6 col-form-label">Site Full Address </label>   -->
                            <div class="row" style="margin-top: 10px" >
                              <div class="col-6">

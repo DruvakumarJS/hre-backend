@@ -35,7 +35,8 @@ class Histogram_billing_details extends Model
         'user_id',
         'pcn',
         'form_verified_by',
-        'pcn_alloted_by'
+        'pcn_alloted_by',
+        'type_of_work'
     ];
 
     public function user(){

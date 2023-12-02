@@ -41,6 +41,7 @@ class CreateHistogramBillingDetailsTable extends Migration
             $table->string('pcn')->nullable();
             $table->string('form_verified_by')->nullable();
             $table->string('pcn_alloted_by')->nullable();
+            $table->string('type_of_work')->nullable();
             $table->timestamps();
         });
     }

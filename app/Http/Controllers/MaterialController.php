@@ -325,14 +325,57 @@ class MaterialController extends Controller
 
     public function search(Request $request){
 
-        $MaterialList = Material::where('item_code', 'LIKE','%'.$request->search.'%')
+        /*$MaterialList = Material::where('item_code', 'LIKE','%'.$request->search.'%')
         ->orWhere('name', 'LIKE','%'.$request->search.'%')
         ->orWhere('brand', 'LIKE','%'.$request->search.'%')
         ->orWhere('uom', 'LIKE','%'.$request->search.'%')
         ->orWhere(DB::raw('lower(information)'), 'like', '%' . strtolower($request->search) . '%')
         ->paginate(25);
 
-        $search = $request->search ;
+        $search = $request->search ;*/
+
+        //print_r($request->search); die();
+
+        $search = $request->search;
+        $search_array = explode(' ', $search);
+        $product = array();
+        $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"));
+  
+        foreach ($search_array as $key => $value) {
+
+          if($key == '0'){
+           $search = $value;
+            
+           $product = $product->where(function($query)use($search){
+            $query->orWhere('item_code' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('name' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('brand' , 'LIKE', '%'.$search.'%');
+            $query->orWhere(DB::raw('lower(information)'), 'like', '%' . strtolower($search) . '%');
+            //$query->orWhere('information' , 'LIKE', '%'.$search.'%');
+
+        });
+        
+
+          }
+          else if($key > '0'){
+          $search = $value;
+
+           $product = $product->where(function($query)use($search){
+            $query->orWhere('item_code' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('name' , 'LIKE', '%'.$search.'%');
+            $query->orWhere('brand' , 'LIKE', '%'.$search.'%');
+             $query->orWhere(DB::raw('lower(information)'), 'like', '%' . strtolower($search) . '%');
+           // $query->orWhere('information' , 'LIKE', '%'.$search.'%');
+
+            });
+           
+          }
+         
+         
+        }
+
+        $search = $request->search;
+        $MaterialList=$product->paginate(25);
        
       return view('material/list', compact('MaterialList' , 'search'));
 

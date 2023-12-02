@@ -28,7 +28,9 @@ class HistogramController extends Controller
 
         $data =Histogram_billing_details::whereNotNull('pcn')->get(); 
 
-        return view('histogram/list',compact('data','histogram'));
+        $search = '';
+
+        return view('histogram/list',compact('data','histogram','search'));
     }
 
     /**
@@ -56,6 +58,7 @@ class HistogramController extends Controller
         $billing->brand=$request->brand;
         $billing->gst = $request->gst;
         $billing->project_name = $request->project_name;
+        $billing->type_of_work = $request->type;
         $billing->location = $request->location;
         $billing->area = $request->area;
         $billing->city = $request->city;
@@ -276,6 +279,7 @@ class HistogramController extends Controller
             'pcn'=>$request->pcn,
             'billing_name'=>$pcn_details->client_name,
             'project_name'=>$pcn_details->brand,
+            'type_of_work'=>$pcn_details->type_of_work,
             'gst'=> $pcn_details->gst,
             'location'=>$pcn_details->location,
             'area'=> $pcn_details->area,
@@ -471,5 +475,28 @@ class HistogramController extends Controller
     public function destroy(Histogram $histogram)
     {
         //
+    }
+
+    public function search(Request $request){
+        $search = $request->search ;
+
+        if($search == ''){
+            return redirect()->route('histogram');
+        }
+        else{
+            $histogram = Histogram_billing_details::whereNull('pcn')->get();
+
+            $data =Histogram_billing_details::where('pcn','LIKE','%'.$search.'%')
+            ->orWhere('pcn','LIKE','%'.$search.'%')
+            ->orWhere('billing_name','LIKE','%'.$search.'%')
+            ->orWhere('location','LIKE','%'.$search.'%')
+            ->orWhere('project_name','LIKE','%'.$search.'%')
+            ->orWhere('area','LIKE','%'.$search.'%')
+            ->orWhere('city','LIKE','%'.$search.'%')
+            ->orWhere('state','LIKE','%'.$search.'%')
+            ->get(); 
+
+            return view('histogram/list',compact('data','histogram','search'));
+        }
     }
 }
