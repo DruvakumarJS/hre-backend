@@ -20,7 +20,7 @@
         </div>
         @endif
         
-         @if((auth::user()->role_id == '1') or (auth::user()->role_id == '5') or (auth::user()->role_id == '2')) 
+         @if((auth::user()->role_id == '1') or (auth::user()->role_id == '9') or (auth::user()->role_id == '2')) 
           <div id="div2" style="margin-right: 30px">
             <a  class="btn btn-light btn-outline-secondary" href="{{route('employee-details')}}"> View Employees</a>
         </div>
@@ -51,9 +51,13 @@
               </div>
            </form>
           </div>
-
+         @elseif(auth::user()->role_id == '9')
+          <div id="div2" style="margin-right: 30px">
+            <a  class="btn btn-light btn-outline-secondary" href="{{route('employee-details')}}"> View Employees</a>
+        </div>
 
          @endif
+
        
 
         
