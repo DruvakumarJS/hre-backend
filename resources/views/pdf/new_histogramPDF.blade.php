@@ -37,7 +37,7 @@
                               <thead>
                                 <tr>
                                    <th width="100px" height="20px"><label style="font-size: 10px" >Project Code Number</label></th>
-                                   <th height="20px"><label style="font-size: 10px">{{$data->pcn}}</label></th>
+                                   <th height="20px"><label style="font-size: 10px"></label></th>
                                 </tr>
                               </thead>
                             </table>
@@ -441,12 +441,12 @@
       <tr style="height: 50px">
         <th width="130px">Designation</th>
         <th width="250px">{{$data->user->roles->alias}}</th>
-        <th align="left" width="250px" style="text-align: start">Verified By </th>
+        <th align="left" width="250px" style="text-align: start">Verified By : </th>
       </tr>
       <tr style="height: 70px">
         <th width="130px">Date</th>
         <th width="250px">{{date('d-m-Y',strtotime($data->created_at))}}</th>
-        <th align="left" width="250px"style="text-align: start">PCN Alloted By </th>
+        <th align="left" width="250px"style="text-align: start">PCN Alloted By :  </th>
       </tr>
       <tr style="height: 30px">
         <th width="130px">Signature</th>

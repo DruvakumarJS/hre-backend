@@ -138,13 +138,15 @@
         @if($pcn_data->status == 'Active')
 
         @if($ticket->status != 'Resolved')
-        @if($can_reply == "True" or Auth::user()->role_id == 1 or Auth::user()->role_id == 2 or Auth::user()->role_id == 3 or  Auth::user()->role_id == 4 or  Auth::user()->role_id == 5 or Auth::user()->id == $ticket->creator)
+        @if($can_reply == "True" or Auth::user()->role_id == 1 or Auth::user()->role_id == 2 or Auth::user()->role_id == 3 or Auth::user()->role_id == 4 or  Auth::user()->role_id == 5 or Auth::user()->id == $ticket->creator)
      	 <div id="div2" style="display: block">
            <a data-bs-toggle="modal" data-bs-target="#replyModal"  class="btn btn-light btn-outline-secondary" href=""><i class="fa fa-plus"></i> 
              <label id="modal">Reply</label>
            </a>
       </div>
-      @elseif(Auth::user()->role_id == 1 or Auth::user()->roles->team_id == 4 or Auth::user()->roles->team_id == 5)
+      @endif
+
+      @if(Auth::user()->team_id == 1 or Auth::user()->roles->team_id == 2 or Auth::user()->roles->team_id == 3 or Auth::user()->roles->team_id == 4 or Auth::user()->roles->team_id == 5)
        <div id="div2" style="display: block ; margin-right: 30px">
           
       <a data-bs-toggle="modal" data-bs-target="#completeModal"  class="btn btn-light btn-outline-secondary" href="">

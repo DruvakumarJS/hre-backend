@@ -357,6 +357,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('view_history/{id}',[HistogramController::class,'view_history'])->name('view_history');
     Route::post('update-histogram-details',[HistogramController::class,'update_histogram_details'])->name('update_histogram_details');
     Route::post('search-histogram',[HistogramController::class,'search'])->name('search_histogram');
+    Route::get('delete-history/{id}/{histogram_id}',[HistogramController::class,'delete_history'])->name('delete_history');
 
     Route::get('vendor_master',[VendorDepartmentController::class,'index'])->name('vendor_master');
     Route::get('add-vendor',[VendorDepartmentController::class,'create'])->name('add_vendor');

@@ -95,47 +95,46 @@
 
                       
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Status</label>
+                            <label for="" class="col-5 col-form-label">Status {{$tickets->status}}</label>
                             <div class="col-7">
                                
                                 <select class="form-control form-select" name="status" id='status' required="required"  onchange="run()" >
-                                @if((Auth::user()->role_id != '1') and (Auth::user()->role_id != '2') and (Auth::user()->role_id != '5'))
-                                 <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
 
-                                @else
+                                    @if($tickets->status == 'Created')
 
-                                     @if($tickets->status == 'Created')
-                                   <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
-                                   <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
-                                   <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Ongoing</option>
+                                    <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
+                                    
+                                    @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 10)
+                                     <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
+                                    @endif
+                                    @endif 
 
-                                   @elseif($tickets->status == 'Rejected')
-                                  
-                                   <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>
-                                   @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 3 OR auth::user()->role_id == 4 OR auth::user()->role_id == 6 OR auth::user()->role_id == 7 OR auth::user()->role_id == 9 OR auth::user()->role_id == 10 OR auth::user()->role_id == 11)
-                                     <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
-                                   @endif
-                                    @elseif($tickets->status == 'Resolved')
-                                    <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
-                                    @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 3 OR auth::user()->role_id == 4 OR auth::user()->role_id == 6 OR auth::user()->role_id == 7 OR auth::user()->role_id == 9 OR auth::user()->role_id == 10 OR auth::user()->role_id == 11)
-                                     <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
+                                    @if($tickets->status == 'Pending/Ongoing')
+                                     <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Ongoing</option>
+
+                                     <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
+ 
                                     @endif
 
-                                    @elseif($tickets->status == 'Completed')
-                                    <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
-                                    <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
+                                    @if($tickets->status == 'Completed')
+                                     <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
+                                     @if(Auth::user()->role_id = 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 9 OR Auth::user()->role_id == 10)
+                                     <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
+                                     @endif
 
-                                    @elseif($tickets->status == 'Pending/Ongoing')
-                                     <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Ongoing</option>
+                                    @endif
+
+                                    @if($tickets->status == 'Resolved')
                                      <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
 
+                                    @if(Auth::user()->role_id = 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 9 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11)
+                                     <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
 
-                                   @endif
+                                     @endif
 
-                                   @endif
+                                    @endif
 
-   
-                                   
+                                    
                                 </select>
                                
                             </div>

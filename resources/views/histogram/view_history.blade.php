@@ -12,7 +12,9 @@
              <a  href="{{route('histogram')}}"> <button class="btn btn-outline-secondary">Histogram</button></a>
           </div>
           
-
+       @if(Session::has('message'))
+            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
+        @endif  
       
         </div>
 
@@ -41,8 +43,8 @@
                               <td>{{date('d-m-Y' ,strtotime($value->submission_date))}}</td>
                               <td>{{date('H:i' ,strtotime($value->submission_time))}}</td>
                               <td>
-                                <a href=""><button class="btn btn-sm btn-light btn-outline-secondary">View PDF</button></a>
-                                <a href=""><button class="btn btn-sm btn-light btn-outline-secondary">Delete PDF</button></a>
+                                <a target="_blank" href="{{ URL::to('/') }}/{{$value->path}}/{{$value->filename}}" ><button class="btn btn-sm btn-light btn-outline-secondary">View PDF</button></a>
+                                <a href="{{route('delete_history',[$value->id , $value->histogram_id])}}"><button class="btn btn-sm btn-light btn-outline-secondary">Delete PDF</button></a>
                               </td>
                             </tr>
 

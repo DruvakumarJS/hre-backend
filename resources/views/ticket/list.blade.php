@@ -151,13 +151,16 @@ white-space: nowrap;
 	                	
 	              
 	                	<td>
-	                		@if(Auth::user()->role_id == 1 || Auth::user()->role_id == '2' || Auth::user()->role_id == '3' || Auth::user()->role_id == '4' || Auth::user()->role_id == '6' || Auth::user()->role_id == '7' || Auth::user()->role_id == '10' || (Auth::user()->id == $value->creator) )
+	                		<!-- @if(Auth::user()->role_id == 1 || Auth::user()->role_id == '2' || Auth::user()->role_id == '3' || Auth::user()->role_id == '4' || Auth::user()->role_id == '6' || Auth::user()->role_id == '7' || Auth::user()->role_id == '9'|| Auth::user()->role_id == '10' || (Auth::user()->id == $value->creator) )
 	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>
+	                		
 	                		@elseif($value->status == 'Created')
 	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>
 	                		@else
-	                		<!-- <a href=""><button class="btn btn-light curved-text-button btn-sm" disabled>Edit</button></a> -->
-                            @endif
+	                		
+                            @endif -->
+
+                            <a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>
 
 	                		 @if($value->status == 'Created' || $value->status == 'Rejected'  )
 	                		 <a href=""><button class="btn-light btn-outline-grey btn-sm" disabled >Info/Convo</button></a>

@@ -7,11 +7,11 @@
        <div class="container-header">
             <label class="label-bold" id="div1">Histogram</label>
            
-         
+         @if(Auth::user()->roles->team_id == 1 OR Auth::user()->roles->team_id == 2 OR Auth::user()->roles->team_id == 3 OR Auth::user()->roles->team_id == 4 OR (Auth::user()->roles->team_id == 5 AND Auth::user()->role_id == 10) )
           <div id="div2" style="margin-right: 30px">
              <a  href="{{route('new_histogram')}}"> <button class="btn btn-outline-secondary">Fill New Histogram</button></a>
           </div>
-          
+          @endif
 
           <div id="div2" style="margin-right: 30px">
            <form method="POST" action="{{route('search_histogram')}}">
@@ -73,7 +73,9 @@
                         
                     </div>
                     <!--</div>-->
-                    <label class="label-bold">Pending Form</label>
+            
+           
+            <label class="label-bold">Pending Form</label>
             <div class="card border-white scroll tableFixHead" style="height: 270px; padding: 0px 5px 20px 20px">
 
                         <table class="table">
@@ -121,8 +123,8 @@
 
                         
                         
-                    </div>   
-
+              </div>   
+          
           </div>
         </div>
       </div>  

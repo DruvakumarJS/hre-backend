@@ -711,14 +711,14 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Verified By</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="billing_name" required="required" value="{{auth::user()->name}} - {{auth::user()->roles->alias}}">
+                        <input  class="form-control" type="text" name="billing_name" required="required" >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">PCN Alloted By</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="gst" required="required" value="{{auth::user()->name}} - {{auth::user()->roles->alias}}" >
+                        <input  class="form-control" type="text" name="gst" required="required"  >
                       </div>
                     </div>
 
