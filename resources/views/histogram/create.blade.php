@@ -722,37 +722,6 @@
         
     });
 
-      $( document ).ready(function() {
-  var path = "{{ route('autocomplete_employee') }}";
-   let text = "";
-    $( '#client_name_['+ i +']' ).autocomplete({
-        source: function( request, response ) {
-          $.ajax({
-            url: path,
-            type: 'GET',
-            dataType: "json",
-            data: {
-               search: request.term
-            },
-            success: function( data ) {
-              
-              console.log(data);
-               response( data );
-               //$('#user_name').val(ui.item.lable);
-              
-            }
-          });
-        },
-        select: function (event, ui) {
-          $('#client_name').val(ui.item.name);
-          $('#designation').val(ui.item.alias);
-          $('#contact').val(ui.item.mobile);
-           
-        }
-      });
-
-    
-});
       
 </script>
 
@@ -797,7 +766,7 @@
       
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 $( document ).ready(function() {
   var path = "{{ route('autocomplete_employee') }}";
@@ -832,9 +801,9 @@ $( document ).ready(function() {
     
 });
 
-</script>
+</script> -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 $( document ).ready(function() {
   var path = "{{ route('autocomplete_vendor') }}";
@@ -874,71 +843,8 @@ $( document ).ready(function() {
     
 });
 
-</script>
-<!-- 
-<script type="text/javascript">
-  $( function() {
-      $( "#target_start_date" ).datepicker({
-        //minDate:0,
-        dateFormat: 'yy-mm-dd',
-        onSelect: function(dateText, $el) {
-         
-        }
-      });
-    });
+</script> -->
 
-  $( function() {
-      $( "#target_end_date" ).datepicker({
-        //minDate:0,
-        dateFormat: 'yy-mm-dd',
-        onSelect: function(dateText, $el) {
-         
-        }
-      });
-    });
-
-  $( function() {
-      $( "#actual_start_date" ).datepicker({
-        //minDate:0,
-        dateFormat: 'yy-mm-dd',
-        onSelect: function(dateText, $el) {
-         
-        }
-      });
-    });
-
-  $( function() {
-      $( "#actual_end_date" ).datepicker({
-        //minDate:0,
-        dateFormat: 'yy-mm-dd',
-        onSelect: function(dateText, $el) {
-         
-        }
-      });
-    });
-
-   $( function() {
-      $( "#po_date" ).datepicker({
-        //minDate:0,
-        dateFormat: 'yy-mm-dd',
-        onSelect: function(dateText, $el) {
-         
-        }
-      });
-    });
-
-    $( function() {
-      $( "#dlp_end_date" ).datepicker({
-        //minDate:0,
-        dateFormat: 'yy-mm-dd',
-        onSelect: function(dateText, $el) {
-         
-        }
-      });
-    });
-
-</script>
- -->
 
 
 @endsection
