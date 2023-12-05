@@ -435,17 +435,17 @@
     <table style="margin-top: 30px">
       <tr height="100px">
         <th width="130px">Form Filled By</th>
-        <th width="250px">{{$data->user->name}}</th>
+        <th width="250px">{{auth::user()->name}}</th>
         <th align="left" width="250px" style="align-content: start">HRE Office Only</th>
       </tr>
       <tr style="height: 50px">
         <th width="130px">Designation</th>
-        <th width="250px">{{$data->user->roles->alias}}</th>
+        <th width="250px">{{auth::user()->roles->alias}}</th>
         <th align="left" width="250px" style="text-align: start">Verified By </th>
       </tr>
       <tr style="height: 70px">
         <th width="130px">Date</th>
-        <th width="250px">{{date('d-m-Y',strtotime($data->created_at))}}</th>
+        <th width="250px">{{date('d-m-Y H:i')}}</th>
         <th align="left" width="250px"style="text-align: start">PCN Alloted By </th>
       </tr>
       <tr style="height: 30px">

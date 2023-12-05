@@ -54,7 +54,12 @@ class Employee extends Model
 
        public function histogram_history(){
         return $this->hasMany(HistogramHistory::class,'user_id', 'user_id');
-    }             
+    }  
+
+      public function footprint(){
+            return $this->hasMany(FootPrint::class,'user_id', 'user_id');
+        }  
+           
 
       
 }

@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Pettycash;
 use App\Models\PettyCashDetail;
 use App\Models\Attendance;
+use App\Models\FootPrint;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TestEmail;
 use PDF;
@@ -159,7 +160,20 @@ class HomeController extends Controller
     }
 
      public function destroy(){
+         
+         $role = Auth::user()->roles->alias;
+         $id = Auth::user()->id ;
+        
          auth()->logout();
+
+         $footprint = FootPrint::create([
+                  'action' => 'Logged out of '.$role.' Dashboard',
+                  'user_id' => $id,
+                  'module' => 'Logout',
+                  'operation' => 'U'
+              ]);
+         
+
          return redirect()->route('login');
     }
 
@@ -188,6 +202,29 @@ class HomeController extends Controller
 
 
         // Mail::to('druva@netiapps.com')->send(new TestEmail());
+
+    }
+
+    public function footprint(){
+        $data = FootPrint::orderBy('id', 'DESC')->paginate(50);
+        $search = '';
+
+        return view('footprint',compact('data', 'search'));
+    }
+
+    public function search_footprint(Request $request){
+         $search = $request->search;
+         
+         $data = FootPrint::orderBy('id', 'DESC')
+                 ->where('created_at' , 'LIKE' , $search.'%')
+                 ->orWhere('action' , 'LIKE' , $search.'%')
+                 ->orWhere('module' , 'LIKE' , $search.'%')
+                 ->orWhereHas('user',function($query)use ($search){
+                    $query->where('name','LIKE','%'.$search.'%')->orWhere('employee_id','LIKE','%'.$search.'%');
+                 })
+                 ->paginate(50);
+
+         return view('footprint',compact('data', 'search'));        
 
     }
 }

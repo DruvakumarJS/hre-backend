@@ -5,8 +5,8 @@
 <div class="container">
     <div class="row justify-content-center">
        <div class="container-header">
-            <label class="label-bold" id="div1">Histogram History</label>
-           
+            <label class="label-bold" id="div1">Histogram History </label>
+            <label>{{$histogram->pcn}} - {{$histogram->project_name}}</label>
          
           <div id="div2" style="margin-right: 30px">
              <a  href="{{route('histogram')}}"> <button class="btn btn-outline-secondary">Histogram</button></a>
@@ -44,7 +44,7 @@
                               <td>{{date('H:i' ,strtotime($value->submission_time))}}</td>
                               <td>
                                 <a target="_blank" href="{{ URL::to('/') }}/{{$value->path}}/{{$value->filename}}" ><button class="btn btn-sm btn-light btn-outline-secondary">View PDF</button></a>
-                                <a href="{{route('delete_history',[$value->id , $value->histogram_id])}}"><button class="btn btn-sm btn-light btn-outline-secondary">Delete PDF</button></a>
+                                <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_history',[$value->id , $value->histogram_id])}}"><button class="btn btn-sm btn-light btn-outline-secondary">Delete PDF</button></a>
                               </td>
                             </tr>
 

@@ -11,6 +11,7 @@ use App\Models\HistogramLandlordDetails;
 use App\Models\VendorDetail;
 use App\Models\Employee;
 use App\Models\Pcn;
+use App\Models\FootPrint;
 use App\Models\HistogramHistory;
 use Illuminate\Http\Request;
 use App\Mail\HistogramMail;
@@ -28,7 +29,13 @@ class HistogramController extends Controller
      */
     public function index()
     {
-        $histogram = Histogram_billing_details::whereNull('pcn')->get();
+        if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 5 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7) {
+             $histogram = Histogram_billing_details::whereNull('pcn')->get();
+        }
+        else{
+             $histogram = Histogram_billing_details::where('user_id' , Auth::user()->id)->whereNull('pcn')->get();
+        }
+       
 
         $data =Histogram_billing_details::whereNotNull('pcn')->get(); 
 
@@ -263,19 +270,19 @@ class HistogramController extends Controller
        // $subject = "Hi";
 
         try {
-              Mail::to($empl->email)->send(new HistogramMail($subject , $attachment));
+              Mail::to(Auth::user()->email)->send(new HistogramMail($subject , $attachment));
              // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
             } catch (\Exception $e) {
                 return $e->getMessage();
                
             } 
             finally {
-                /*$footprint = FootPrint::create([
-                    'action' => 'New Ticket created - '.$ticket_no,
+                $footprint = FootPrint::create([
+                    'action' => 'New Histogram created By - '.$empl->employee_id.' on '.$request->project_name,
                     'user_id' => Auth::user()->id,
-                    'module' => 'Ticket',
+                    'module' => 'Histogram',
                     'operation' => 'C'
-                ]);*/
+                ]);
           
              // print_r($billing_id); die(); 
               return redirect()->route('histogram');
@@ -301,6 +308,7 @@ class HistogramController extends Controller
      * @param  \App\Models\Histogram  $histogram
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
         $data = Histogram_billing_details::where('id' ,$id)->first();
@@ -368,6 +376,13 @@ class HistogramController extends Controller
         ]);
        }*/
 
+       $footprint = FootPrint::create([
+                    'action' => 'Histogram verified - '.$request->pcn,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Histogram',
+                    'operation' => 'U'
+                ]);
+
         return redirect()->route('histogram');
         
     }
@@ -387,8 +402,10 @@ class HistogramController extends Controller
 
     public function view_history($id){
         $data = HistogramHistory::where('histogram_id', $id)->get();
+        $histogram = Histogram_billing_details::where('id' , $id)->first();
 
-        return view('histogram/view_history',compact('data'));
+
+        return view('histogram/view_history',compact('data','histogram'));
     }
 
     public function update_histogram_details(Request $request){
@@ -536,7 +553,7 @@ class HistogramController extends Controller
                 $attachment = public_path($path.'/'.$filename) ;
 
                      try {
-                          Mail::to($empl->email)->send(new HistogramMail($subject , $attachment));
+                          Mail::to(Auth::user()->email)->send(new HistogramMail($subject , $attachment));
                          // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
                         } catch (\Exception $e) {
                             return $e->getMessage();
@@ -556,6 +573,13 @@ class HistogramController extends Controller
                         'path' => 'histogram',
                         'filename' => $filename 
                     ]);
+
+                $footprint = FootPrint::create([
+                    'action' => 'Histogram Updated By - '.$empl->employee_id.' on '.$data->pcn,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Histogram',
+                    'operation' => 'U'
+                ]);        
 
             }
 
@@ -617,6 +641,12 @@ class HistogramController extends Controller
             $delete = HistogramHistory::where('id',$id)->delete();  
             
             if($delete){
+                $footprint = FootPrint::create([
+                    'action' => 'Histogram history deleted - '.$data->pcn,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Histogram',
+                    'operation' => 'D'
+                ]);
                  return redirect()->back()->withMessage('Histogram History Successfully Deleted');
             } 
             else {

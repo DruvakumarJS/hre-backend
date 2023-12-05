@@ -216,6 +216,10 @@
                                         <li><a class="dropdown-item" href="{{ route('year_end_closure')}}">Financial Year Closing</a></li>
                                         @endif
 
+                                         @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 3 OR auth::user()->role_id == 4 OR auth::user()->role_id == 5 OR auth::user()->role_id == 6 OR auth::user()->role_id == 7 OR auth::user()->role_id == 9 OR auth::user()->role_id == 10)
+                                        <li><a class="dropdown-item" href="{{ route('footprint')}}">Foot Print</a></li>
+                                        @endif
+
                                        <!--  @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)
                                         <li><a class="dropdown-item" href="{{ route('year_end_closure')}}">Foot Print</a></li>
                                         @endif -->

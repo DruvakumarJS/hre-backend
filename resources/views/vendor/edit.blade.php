@@ -254,7 +254,7 @@
            <input type="hidden" name="id" value="{{$id}}">
 
            <div class="div-margin">
-              <button class="btn btn-success" type="submit">Submit</button>
+              <button class="btn btn-success" type="submit">Update</button>
            </div>
         </form>
     </div>

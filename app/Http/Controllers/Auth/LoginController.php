@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use App\Models\FootPrint ; 
 
 class LoginController extends Controller
 {
@@ -31,6 +32,14 @@ class LoginController extends Controller
     public function redirectTo() 
     {
           $role = Auth::user()->role_id; 
+
+          $footprint = FootPrint::create([
+                  'action' => 'Logged In to '.Auth::user()->roles->alias.' Dashboard',
+                  'user_id' => Auth::user()->id,
+                  'module' => 'Login',
+                  'operation' => 'C'
+              ]);
+
           switch ($role) {
             case '1':
                return '/home';

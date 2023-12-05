@@ -88,6 +88,7 @@ class User extends Authenticatable
             return $this->hasMany(Histogram_billing_details::class,'id', 'user_id');
         }
 
+     
     
            
 

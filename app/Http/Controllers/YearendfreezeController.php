@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Yearendfreeze;
 use Illuminate\Http\Request;
+use App\Models\FootPrint;
 use Auth;
 
 class YearendfreezeController extends Controller
@@ -47,6 +48,12 @@ class YearendfreezeController extends Controller
             'comments' => $request->desc]);
 
         if($save){
+            $footprint = FootPrint::create([
+                  'action' => 'Freeze date created for financial year '.$request->financial_year,
+                  'user_id' => Auth::user()->id,
+                  'module' => 'Freeze Button ',
+                  'operation' => 'C'
+              ]);
             return redirect()->route('year_end_closure');
         }
 
@@ -91,6 +98,12 @@ class YearendfreezeController extends Controller
             'comments' => $request->desc]);
 
         if($save){
+            $footprint = FootPrint::create([
+                  'action' => 'Freeze date updated for financial year '.$request->financial_year,
+                  'user_id' => Auth::user()->id,
+                  'module' => 'Freeze Button ',
+                  'operation' => 'U'
+              ]);
             return redirect()->route('year_end_closure');
         }
 
@@ -113,6 +126,13 @@ class YearendfreezeController extends Controller
        $enable = Yearendfreeze::where('id',$id)->update(['isactive'=>'true']);
 
        if($enable){
+
+        $footprint = FootPrint::create([
+                  'action' => 'Freeze date enabled',
+                  'user_id' => Auth::user()->id,
+                  'module' => 'Freeze Button ',
+                  'operation' => 'U'
+              ]);
         return redirect()->Back();
        }
     }
@@ -122,6 +142,12 @@ class YearendfreezeController extends Controller
        $disable = Yearendfreeze::where('id',$id)->update(['isactive'=>'false']);
 
        if($disable){
+        $footprint = FootPrint::create([
+                  'action' => 'Freeze date disabled',
+                  'user_id' => Auth::user()->id,
+                  'module' => 'Freeze Button ',
+                  'operation' => 'U'
+              ]);
         return redirect()->Back();
        }
     }

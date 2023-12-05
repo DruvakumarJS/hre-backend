@@ -366,7 +366,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('update-vendor',[VendorDepartmentController::class,'update'])->name('update_vendor');
     Route::post('search-vendor',[VendorDepartmentController::class,'search'])->name('search_vendor');
     Route::get('autocomplete_vendor',[VendorDepartmentController::class,'autocomplete_vendor'])->name('autocomplete_vendor');
+    Route::get('delete-vendor/{id}',[VendorDepartmentController::class,'destroy'])->name('delete_vendor');
 
+    Route::get('Foot-Print',[HomeController::class,'footprint'])->name('footprint');
+    Route::post('search-footprint',[HomeController::class,'search_footprint'])->name('search_footprint');
 
 
 

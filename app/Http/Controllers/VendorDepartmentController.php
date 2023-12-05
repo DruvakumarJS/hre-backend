@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\VendorDepartment;
 use App\Models\VendorStaff;
+use App\Models\FootPrint;
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 class VendorDepartmentController extends Controller
 {
@@ -76,6 +78,14 @@ class VendorDepartmentController extends Controller
             ]);
             }
         }
+        
+            $footprint = FootPrint::create([
+                  'action' => 'New Vendor created - '.'VID_'.$request->vid,
+                  'user_id' => Auth::user()->id,
+                  'module' => 'Vendor ',
+                  'operation' => 'C'
+              ]);
+
         
        return redirect()->route('vendor_master');
 
@@ -148,6 +158,13 @@ class VendorDepartmentController extends Controller
             }
         }
 
+        $footprint = FootPrint::create([
+                  'action' => 'New details modified - '.'VID_'.$request->vid,
+                  'user_id' => Auth::user()->id,
+                  'module' => 'Vendor ',
+                  'operation' => 'U'
+              ]);
+
         return redirect()->route('vendor_master');
     }
 
@@ -157,9 +174,33 @@ class VendorDepartmentController extends Controller
      * @param  \App\Models\VendorDepartment  $vendorDepartment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VendorDepartment $vendorDepartment)
+    public function destroy($id)
     {
-        //
+       // print_r($id) ; die();
+        $vendor = VendorDepartment::where('id', $id)->first();
+        $v_id = $vendor->vid;
+        $delete_staff = VendorStaff::where('vendor_id', $id)->delete();
+
+        if($delete_staff){
+            $delete_vendor = VendorDepartment::where('id', $id)->delete();
+
+            if($delete_staff){
+                $footprint = FootPrint::create([
+                  'action' => 'Vendor deleted - '.$v_id,
+                  'user_id' => Auth::user()->id,
+                  'module' => 'Vendor ',
+                  'operation' => 'D'
+              ]);
+                return redirect()->Back()->withMessage('vendor deleted Successfully');
+            }
+            else{
+                 return redirect()->Back()->withMessage('Error while deleting vendor. ');
+            }
+        }
+        else {
+             return redirect()->Back()->withMessage('Error while deleting vendor Staffs');
+        }
+
     }
 
     public function search(Request $request){

@@ -680,21 +680,21 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Form Filled By </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="text" required="required" value="{{$data->user->name}}"  placeholder="PCN " readonly>
+                        <input  class="form-control" type="text" required="required" value="{{auth::user()->name}}"  placeholder="PCN " readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Designation</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="billing_name" required="required" value="{{$data->user->roles->alias}}">
+                        <input  class="form-control" type="text" name="billing_name" required="required" value="{{auth::user()->roles->alias}}">
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Date</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="gst" required="required" value="{{date('d-m-Y',strtotime($data->created_at))}}" >
+                        <input  class="form-control" type="text" name="gst" required="required" value="{{date('d-m-Y H:i')}}" >
                       </div>
                     </div>
 
@@ -711,14 +711,14 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Verified By</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="billing_name" required="required" >
+                        <input  class="form-control" type="text" name="billing_name" >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">PCN Alloted By</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="gst" required="required"  >
+                        <input  class="form-control" type="text" name="gst"  >
                       </div>
                     </div>
 

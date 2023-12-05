@@ -58,7 +58,9 @@
                               <td>{{$value->city}}</td>
                               <td>{{$value->state}}</td>
                               <td>
+                                @if(Auth::user()->roles->team_id == 1 OR Auth::user()->roles->team_id == 2 OR Auth::user()->roles->team_id == 3 OR Auth::user()->roles->team_id == 4 ) 
                                  <a href="{{ route('view_history',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">View History</button></a>
+                                 @endif
                                 <a href="{{ route('update_form',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">Update</button></a>
                               </td>
                               
@@ -91,8 +93,7 @@
                               <th scope="col">Date</th>
                               <th scope="col">Submitted By</th>
                               
-                              @if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '2')
-                              
+                             @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 5 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7) 
                               <th scope="col">Action</th>
                              @endif
                              
@@ -111,7 +112,9 @@
                               <td>{{$value->created_at}}</td>
                               <td>{{$value->user->name}}</td>
                               <td>
+                                @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 5 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7)
                                 <a href="{{ route('view_form',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">View Form</button></a>
+                                @endif
                               </td>
                               
                             </tr>

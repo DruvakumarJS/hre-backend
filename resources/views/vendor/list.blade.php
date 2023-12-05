@@ -13,7 +13,7 @@
       
       <div class="container-header">
             <label class="label-bold" id="div1">Vendor Departments</label>
-          @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2)  
+          @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11)  
          <div id="div2">
            <a class="btn btn-light btn-outline-secondary" href="{{route('add_vendor')}}"><i class="fa fa-plus"></i>
              <label id="modal">Add Vendor</label></a>   
@@ -82,7 +82,7 @@
                           <tbody>
                             @foreach($data as $key=>$value)
                             <tr>
-                              <td>{{$value->vid_id}}</td>
+                              <td>{{$value->vid}}</td>
                               <td>{{$value->billing_name}}</td>
                               <td>{{$value->vendor_type}}</td>
                               <td>{{$value->building}}</td>
@@ -93,7 +93,12 @@
                               <td>{{$value->mobile}}</td>
                               <td>{{$value->email}}</td>
                               <td>
+                                @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 10)
                                 <a href="{{ route('edit_vendor',$value->id)}}"><button class="btn btn-sm btn-light btn-outline-secondary">Edit</button></a>
+                                @endif
+                                 @if(Auth::user()->role_id == 1 )
+                                <a onclick="return confirm('You are deleting a Vendor ')" href="{{ route('delete_vendor',$value->id)}}"><button class="btn btn-sm btn-light btn-outline-danger">Delete</button></a>
+                                @endif
                               </td>
                             </tr>
 
