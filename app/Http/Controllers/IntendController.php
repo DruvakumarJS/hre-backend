@@ -553,23 +553,152 @@ class IntendController extends Controller
     public function filter_indents($filter){
         if($filter=='all'){
 
-            if(Auth::user()->role_id == 4){
-              $indents=Intend::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->paginate(25);
+            if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11 OR Auth::user()->role_id == 12) {
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->orderBy('created_at', 'ASC')->paginate(25);
+
+        $all = Intend::count();
+        $activeCount = Intend::where('status','Active')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::where('status','Completed')->count();
+       }
+       elseif(Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 5){
+
+        $role = Roles::select('id')->where('team_id','3')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
             }
-            else{
-              $indents=Intend::orderBy('id', 'DESC')->paginate(25);
+
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->whereIn('user_id',$userIDs)->orderBy('created_at', 'ASC')->paginate(25);
+
+        $all = Intend::whereIn('user_id',$userIDs)->count();
+        $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+           
+
+       }
+       elseif(Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 8 OR Auth::user()->role_id == 9){
+
+        $role = Roles::select('id')->where('team_id','4')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
             }
+
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->whereIn('user_id',$userIDs)->orderBy('created_at', 'ASC')->paginate(25);
+
+        $all = Intend::whereIn('user_id',$userIDs)->count();
+        $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+           
+
+       }
+       else {
+        $indents=Intend::where('user_id' ,Auth::user()->id)->paginate(25);
+        $all = Intend::where('user_id' ,Auth::user()->id)->count();
+        $activeCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Active')->count();
+      // $pendingCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Pending')->count();
+        $compltedCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Completed')->count();
+       }
+
+
         }
+
         else {
-          if(Auth::user()->role_id == 4){
+         // print_r($filetr)
+
+         /* if(Auth::user()->role_id == 4){
               $indents=Intend::where('user_id', Auth::user()->id)->where('status',$filter)->orderBy('id', 'DESC')->paginate(25);
             }
             else{
               $indents=Intend::where('status',$filter)->orderBy('id', 'DESC')->paginate(25);
+            }*/
+         if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11 OR Auth::user()->role_id == 12) {
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+          ->where('status',$filter)
+          ->orderBy('created_at', 'ASC')
+          ->paginate(25);
+
+        $all = Intend::count();
+        $activeCount = Intend::where('status','Active')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::where('status','Completed')->count();
+       }
+       elseif(Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 5){
+
+        $role = Roles::select('id')->where('team_id','3')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
             }
+
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+         ->whereIn('user_id',$userIDs)
+         ->where('status',$filter)
+         ->orderBy('created_at', 'ASC')->paginate(25);
+
+        $all = Intend::whereIn('user_id',$userIDs)->count();
+        $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+           
+
+       }
+       elseif(Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 8 OR Auth::user()->role_id == 9){
+
+        $role = Roles::select('id')->where('team_id','4')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+        ->whereIn('user_id',$userIDs)
+        ->where('status',$filter)
+        ->orderBy('created_at', 'ASC')->paginate(25);
+
+        $all = Intend::whereIn('user_id',$userIDs)->count();
+        $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+           
+
+       }
+       else {
+        $indents=Intend::where('user_id' ,Auth::user()->id)->where('status',$filter)->paginate(25);
+        $all = Intend::where('user_id' ,Auth::user()->id)->count();
+        $activeCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Active')->count();
+      // $pendingCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Pending')->count();
+        $compltedCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Completed')->count();
+       }
+
              
         }
-       if(Auth::user()->role_id == 4){
+
+
+      /* if(Auth::user()->role_id == 4){
         $all = Intend::where('user_id', Auth::user()->id)->count();
         $activeCount = Intend::where('user_id', Auth::user()->id)->where('status','Active')->count();
         $pendingCount = Intend::where('user_id', Auth::user()->id)->where('status','Pending')->count();
@@ -580,10 +709,10 @@ class IntendController extends Controller
         $activeCount = Intend::where('status','Active')->count();
         $pendingCount = Intend::where('status','Pending')->count();
         $compltedCount = Intend::where('status','Completed')->count();
-      }
+      }*/
         //print_r($pendingCount);
 
-         return view('indent/list' , compact('indents' , 'all' , 'activeCount', 'pendingCount' , 'compltedCount'));
+         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount'));
       
     }
 
@@ -763,7 +892,7 @@ class IntendController extends Controller
 
     public function search(Request $request){
      // print_r($request->search);die();
-      $search = $request->search;
+     /* $search = $request->search;
       
       if(Auth::user()->role_id != 4 ) {
 
@@ -809,10 +938,136 @@ class IntendController extends Controller
         $activeCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Active')->count();
         $compltedCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Completed')->count();
        }
-        
-        //print_r($pendingCount);
+    
+         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount')); */ 
 
-         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount'));              
+        $search = $request->search;
+         
+        if($search == ''){
+          return redirect()->route('intends');
+        } 
+
+        if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11 OR Auth::user()->role_id == 12) {
+
+          $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+              ->where('indent_no','LIKE','%'.$search.'%')
+              ->orWhere('pcn','LIKE','%'.$search.'%')
+              ->orWhereHas('pcns', function ($query) use ($search) {
+              $query->where('brand', 'like', '%'.$search.'%');
+                 })
+              ->paginate(25);
+
+          $all = Intend::count();
+          $activeCount = Intend::where('status','Active')->count();
+          //$pendingCount = Intend::where('status','Pending')->count();
+          $compltedCount = Intend::where('status','Completed')->count();
+
+        }
+        elseif(Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 5){
+           $role = Roles::select('id')->where('team_id','3')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+             ->whereIn('user_id',$userIDs)
+             ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+               $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+             ->orderBy('created_at', 'ASC')
+             ->paginate(25);
+
+        $all = Intend::whereIn('user_id',$userIDs)->count();
+        $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+        }
+
+        elseif(Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 8 OR Auth::user()->role_id == 9){
+
+          $role = Roles::select('id')->where('team_id','4')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+            ->whereIn('user_id',$userIDs)
+            ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+               $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+            ->orderBy('created_at', 'ASC')
+            ->paginate(25);
+
+        $all = Intend::whereIn('user_id',$userIDs)->count();
+        $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+        //$pendingCount = Intend::where('status','Pending')->count();
+        $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+
+        }
+        else{
+        $indents=Intend::where('user_id' ,Auth::user()->id)
+        ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+               $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+        ->paginate(25);
+
+        $all = Intend::where('user_id' ,Auth::user()->id)
+        ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+               $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+        ->count();
+
+        $activeCount = Intend::where('user_id' ,Auth::user()->id)
+        ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+               $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+        ->where('status','Active')->count();
+     
+        $compltedCount = Intend::where('user_id' ,Auth::user()->id)
+        ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+               $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+        ->where('status','Completed')->count();
+        }
+
+       
+       return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount'));            
 
     }
 

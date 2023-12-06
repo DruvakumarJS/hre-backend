@@ -49,7 +49,7 @@ white-space: nowrap;
  
           <div id="div2" style="margin-right: 30px">
              <!-- <input class="form-control" type="text" name="search" placeholder="Filter "> -->
-            @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' )
+           
              <form method="post" action="{{route('filter')}}">
              	@csrf
              <div class="input-group mb-3">
@@ -63,7 +63,7 @@ white-space: nowrap;
 	             	<option <?php echo ($filter == 'Pending')?'selected':''  ?> value="Pending">Ongoing Tickets</option>
 	             	<option <?php echo ($filter == 'Completed')?'selected':''  ?> value="Completed">Completed Tickets</option>
 	             	<option <?php echo ($filter == 'Resolved')?'selected':''  ?> value="Resolved">Resolved Tickets</option>
-	             	<option <?php echo ($filter == 'Reopend')?'selected':''  ?> value="Reopend">Reopend Tickets</option>
+	             	<!-- <option <?php echo ($filter == 'Reopend')?'selected':''  ?> value="Reopend">Reopend Tickets</option> -->
 	             	<option <?php echo ($filter == 'Rejected')?'selected':''  ?> value="Rejected">Rejected Tickets</option>
                  </select>
                  <div class="input-group-prepend">
@@ -71,7 +71,7 @@ white-space: nowrap;
 				  </div>
 				</div>
              </form>
-            @endif
+           
 
           </div> 
 
@@ -235,6 +235,10 @@ white-space: nowrap;
 	}
 
 	function filetrdata(){
+		$('#btn_filter').click();
+	}
+
+	function search(){
 		$('#btn_filter').click();
 	}
 </script>
