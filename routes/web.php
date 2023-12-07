@@ -358,7 +358,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('update-histogram-details',[HistogramController::class,'update_histogram_details'])->name('update_histogram_details');
     Route::post('search-histogram',[HistogramController::class,'search'])->name('search_histogram');
     Route::get('delete-history/{id}/{histogram_id}',[HistogramController::class,'delete_history'])->name('delete_history');
-
+    Route::get('edit-my-histogram-form/{id}',[HistogramController::class,'edit_myform'])->name('edit_my_form');
+    Route::post('edit-my-histogram-form',[HistogramController::class,'update_myform'])->name('update_my_form');
+    
+ 
     Route::get('vendor_master',[VendorDepartmentController::class,'index'])->name('vendor_master');
     Route::get('add-vendor',[VendorDepartmentController::class,'create'])->name('add_vendor');
     Route::post('save-vendor',[VendorDepartmentController::class,'store'])->name('save_vendor');

@@ -238,10 +238,10 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-4 col-form-label label-bold">DLP Applicable </label>
                 <div class="col-6 " >
-                  <select class="form-control form-select" name="is_dlp_applicable" disabled>
+                  <select class="form-control form-select" name="is_dlp_applicable" >
                     <option value="">Select</option>
-                    <option value="Yes" <?php echo ($data->is_dlp_applicable == 'Yes')?'selected':'' ?> >Yes</option>
-                    <option value="No" <?php echo ($data->is_dlp_applicable == 'No')?'selected':'' ?>>No</option>
+                    <option value="Yes" <?php echo ($data->is_dlp_applicable == 'Yes')?'selected':'' ?> disabled>Yes</option>
+                    <option value="No" <?php echo ($data->is_dlp_applicable == 'No')?'selected':'' ?> disabled>No</option>
                   </select>
                 </div>
               </div>

@@ -30,7 +30,7 @@
         
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;">
-          <label>Hello , New Histogram Created , Please find the attachement below for details</label>
+          <label>Hello, Please find the attachement below for details</label>
             
            
 

@@ -117,7 +117,7 @@
                                 @endif
 
                                 @if(auth::user()->id == $value->user_id)
-                                 <a ><button class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                                 <a href="{{route('edit_my_form',$value->id)}}" ><button class="btn btn-sm btn-outline-secondary">Edit</button></a>
                                 @endif
                               </td>
                               

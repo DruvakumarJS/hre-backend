@@ -95,66 +95,7 @@ class HistogramController extends Controller
 
         if($billing_id != 0 || $billing_id != ''){
 
-            /*foreach ($request->client as $key => $value) {
-                
-            HistogramClientDetails::create([
-                'histogram_billing_id'=> $billing_id,
-                'client_name' => $value['name'],
-                'client_designation' => $value['designation'],
-                'client_organisation' => $value['organisation'],
-                'client_contact' => $value['contact'],
-                'client_email' => $value['email']
-                 ]);
-            }
-
-            foreach ($request->arch as $key2 => $value2) {
-            HistogramArchitectDetails::create([
-                'histogram_billing_id'=> $billing_id,
-                'arc_name' => $value2['name'],
-                'arc_designation' => $value2['designation'],
-                'arc_organisation' => $value2['organisation'],
-                'arc_contact' => $value2['contact'],
-                'arc_email' => $value2['email']
-                 ]);
-            }
-
-            foreach ($request->land as $key3 => $value3) {
-            HistogramLandlordDetails::create([
-                'histogram_billing_id'=> $billing_id,
-                'land_name' => $value3['name'],
-                'land_designation' => $value3['designation'],
-                'land_organisation' => $value3['organisation'],
-                'land_contact'=> $value3['contact'],
-                'land_email' => $value3['email']
-                 ]);
-            }
-
-            foreach ($request->hre as $key5 => $value5) {
-            HreDetail::create([
-                'histogram_billing_id'=> $billing_id,
-                'name' => $value5['name'],
-                'designation' => $value5['designation'],
-                'contact' => $value5['contact'],
-                'email'=> $value5['email'],
-                'start_date' => $value5['start'],
-                'end_date' => $value5['end']
-                 ]);
-            }
-
-            
-            foreach ($request->vendor as $key4 => $value4) {
-            VendorDetail::create([
-                'histogram_billing_id'=> $billing_id,
-                'department' => $value4['department'],
-                'company_name' => $value4['company'],
-                'contracter_name' => $value4['name'],
-                'contracter_mobile' => $value4['mobile'],
-                'supervisor_name'=> $value4['supervisor'],
-                'supervisor_mobile' => $value4['supr_mobile'],
-                'start_date' => $value4['start'],
-                'end_date' => $value4['end']
-                 ]);
-            }*/
+           
 
             if(isset($request->client)){
 
@@ -244,49 +185,49 @@ class HistogramController extends Controller
             $vendor = VendorDetail::where('histogram_billing_id' ,$id)->get();
     
            
-                $filename = 'histogram.pdf';
-                $path = 'histogram' ;
+            $filename = 'histogram.pdf';
+            $path = 'histogram' ;
+           
+            if (file_exists(public_path().'/'.$path)) {
+              
+            } else {
                
-                if (file_exists(public_path().'/'.$path)) {
-                  
-                } else {
+                File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
+            }
+
+            $pdf = PDF::loadView('pdf/new_histogramPDF',compact('data','client','arch','land','hre','vendor' ));
+        
+            $savepdf = $pdf->save(public_path($filename));
+
+            
+            }
+
+           
+            $attachment = public_path($filename) ;
+
+            $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first();
+
+            $subject = "New Histogram Created - ".$empl->employee_id." Project Name - ".$request->project_name;
+           // $subject = "Hi";
+
+            try {
+                  Mail::to(Auth::user()->email)->send(new HistogramMail($subject , $attachment));
+                 // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
+                } catch (\Exception $e) {
+                    return $e->getMessage();
                    
-                    File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
-                }
-
-                $pdf = PDF::loadView('pdf/new_histogramPDF',compact('data','client','arch','land','hre','vendor' ));
-            
-                $savepdf = $pdf->save(public_path($filename));
-
-            
-        }
-
-       
-        $attachment = public_path($filename) ;
-
-        $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first();
-
-        $subject = "New Histogram Created - ".$empl->employee_id." Project Name - ".$request->project_name;
-       // $subject = "Hi";
-
-        try {
-              Mail::to(Auth::user()->email)->send(new HistogramMail($subject , $attachment));
-             // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
-            } catch (\Exception $e) {
-                return $e->getMessage();
-               
-            } 
-            finally {
-                $footprint = FootPrint::create([
-                    'action' => 'New Histogram created By - '.$empl->employee_id.' on '.$request->project_name,
-                    'user_id' => Auth::user()->id,
-                    'module' => 'Histogram',
-                    'operation' => 'C'
-                ]);
-          
-             // print_r($billing_id); die(); 
-              return redirect()->route('histogram');
-           } 
+                } 
+                finally {
+                    $footprint = FootPrint::create([
+                        'action' => 'New Histogram created By - '.$empl->employee_id.' on '.$request->project_name,
+                        'user_id' => Auth::user()->id,
+                        'module' => 'Histogram',
+                        'operation' => 'C'
+                    ]);
+              
+                 // print_r($billing_id); die(); 
+                  return redirect()->route('histogram');
+               } 
 
        
     }
@@ -308,6 +249,192 @@ class HistogramController extends Controller
      * @param  \App\Models\Histogram  $histogram
      * @return \Illuminate\Http\Response
      */
+
+    public function edit_myform($id){
+        $data = Histogram_billing_details::where('id' ,$id)->first();
+
+        $client = HistogramClientDetails::where('histogram_billing_id' ,$id)->get();
+        $arch = HistogramArchitectDetails::where('histogram_billing_id' ,$id)->get();
+        $land = HistogramLandlordDetails::where('histogram_billing_id' ,$id)->get();
+        $hre = HreDetail::where('histogram_billing_id' ,$id)->get();
+        $vendor = VendorDetail::where('histogram_billing_id' ,$id)->get();
+    
+        $pcn = Pcn::where('status' , 'Active')->get(); 
+
+        //print_r(json_encode($client));die();
+        return view('histogram/edit',compact('data','client','arch','land','hre','vendor','pcn' ,'id'));
+    }
+
+     public function update_myform(Request $request)
+    {
+        
+       // print_r(json_encode($request->Input())); die();
+
+        $update =Histogram_billing_details::where('id',$request->histogram_id)->update([
+            'billing_name'=>$request->billing_name,
+            'project_name'=>$request->project_name,
+            'type_of_work'=>$request->type,
+            'gst'=> $request->gst,
+            'location'=>$request->location,
+            'area'=> $request->area,
+            'city' => $request->city,
+            'state'=> $request->state,
+            'form_verified_by' => Auth::user()->id,
+            'pcn_alloted_by' => Auth::user()->id,
+            'target_start_date' =>  $request->target_start_date,
+            'target_end_date' =>  $request->target_end_date,
+            'approved_holidays_no' =>  $request->approved_holidays_no,
+            'holiday_dates' =>  $request->holiday_dates,
+            'actual_start_date' =>  $request->actual_start_date,
+            'actual_end_date' =>  $request->actual_end_date,
+            'hold_days_no' =>  $request->hold_days_no,
+            'hold_dates' =>  $request->hold_dates,
+            'po_date' =>  $request->po_date,
+            'po_number' =>  $request->po_number,
+            'is_dlp_applicable' =>  $request->is_dlp_applicable,
+            'dlp_days' =>  $request->dlp_days,
+            'dlp_end_date' =>  $request->dlp_end_date
+        ]) ;
+
+        $client = HistogramClientDetails::where('histogram_billing_id' ,$request->histogram_id)->delete();
+        $arch = HistogramArchitectDetails::where('histogram_billing_id' ,$request->histogram_id)->delete();
+        $land = HistogramLandlordDetails::where('histogram_billing_id' ,$request->histogram_id)->delete();
+        $hre = HreDetail::where('histogram_billing_id' ,$request->histogram_id)->delete();
+        $vendor = VendorDetail::where('histogram_billing_id' ,$request->histogram_id)->delete();
+
+        $billing_id = $request->histogram_id ;
+
+         if(isset($request->client)){
+
+        foreach ($request->client as $key => $value) {
+                
+            HistogramClientDetails::create([
+                'histogram_billing_id'=> $billing_id,
+                'client_name' => $value['name'],
+                'client_designation' => $value['designation'],
+                'client_organisation' => $value['organisation'],
+                'client_contact' => $value['contact'],
+                'client_email' => $value['email']
+                 ]);
+            }
+           } 
+
+
+            if(isset($request->arch)){
+                foreach ($request->arch as $key2 => $value2) {
+            HistogramArchitectDetails::create([
+                'histogram_billing_id'=> $billing_id,
+                'arc_name' => $value2['name'],
+                'arc_designation' => $value2['designation'],
+                'arc_organisation' => $value2['organisation'],
+                'arc_contact' => $value2['contact'],
+                'arc_email' => $value2['email']
+                 ]);
+            }
+            }
+            
+
+            if(isset($request->land)){
+            foreach ($request->land as $key3 => $value3) {
+            HistogramLandlordDetails::create([
+                'histogram_billing_id'=> $billing_id,
+                'land_name' => $value3['name'],
+                'land_designation' => $value3['designation'],
+                'land_organisation' => $value3['organisation'],
+                'land_contact'=> $value3['contact'],
+                'land_email' => $value3['email']
+                 ]);
+            }
+           }
+
+            if(isset($request->hre)){
+               foreach ($request->hre as $key3 => $value3) {
+                 HreDetail::create([
+                    'histogram_billing_id'=> $billing_id,
+                    'name' => $value3['name'],
+                    'designation' => $value3['designation'],
+                    'contact' => $value3['contact'],
+                    'email'=> $value3['email'],
+                    'start_date' => $value3['start'],
+                    'end_date' => $value3['end']
+                     ]);
+            }
+
+           }
+
+
+          
+            if(isset($request->vendor)){
+                foreach ($request->vendor as $key4 => $value4) {
+                VendorDetail::create([
+                    'histogram_billing_id'=> $billing_id,
+                    'department' => $value4['department'],
+                    'company_name' => $value4['company'],
+                    'contracter_name' => $value4['name'],
+                    'contracter_mobile' => $value4['mobile'],
+                    'supervisor_name'=> $value4['supervisor'],
+                    'supervisor_mobile' => $value4['supr_mobile'],
+                    'start_date' => $value4['start'],
+                    'end_date' => $value4['end']
+                     ]);
+                }
+            }
+
+            $id = $billing_id ;
+
+            $data = Histogram_billing_details::where('id' ,$id)->first();
+
+            $client = HistogramClientDetails::where('histogram_billing_id' ,$id)->get();
+            $arch = HistogramArchitectDetails::where('histogram_billing_id' ,$id)->get();
+            $land = HistogramLandlordDetails::where('histogram_billing_id' ,$id)->get();
+            $hre = HreDetail::where('histogram_billing_id' ,$id)->get();
+            $vendor = VendorDetail::where('histogram_billing_id' ,$id)->get();
+
+            $filename = 'histogram.pdf';
+            $path = 'histogram' ;
+           
+            if (file_exists(public_path().'/'.$path)) {
+              
+            } else {
+               
+                File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
+            }
+
+            $pdf = PDF::loadView('pdf/new_histogramPDF',compact('data','client','arch','land','hre','vendor' ));
+        
+            $savepdf = $pdf->save(public_path($filename));
+           
+            $attachment = public_path($filename) ;
+
+            $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first();
+
+            $subject = "Histogram Edited - ".$empl->employee_id." Project Name - ".$request->project_name;
+           // $subject = "Hi";
+
+            try {
+                  Mail::to(Auth::user()->email)->send(new HistogramMail($subject , $attachment));
+                 // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
+                } catch (\Exception $e) {
+                    return $e->getMessage();
+                   
+                } 
+                finally {
+                    $footprint = FootPrint::create([
+                    'action' => 'Histogram Edited - by '.$empl->employee_id.' on '.$request->project_name,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Histogram',
+                    'operation' => 'U'
+                ]);
+
+                return redirect()->route('histogram');
+
+               } 
+
+
+
+       
+        
+    }
 
     public function edit($id)
     {
@@ -386,6 +513,8 @@ class HistogramController extends Controller
         return redirect()->route('histogram');
         
     }
+
+
 
     public function update_form($id){
         $data = Histogram_billing_details::where('id' ,$id)->first();

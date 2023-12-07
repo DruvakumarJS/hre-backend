@@ -297,7 +297,7 @@
               </div>
               <div class="modal-body">
                <div>
-                 <label class="label-bold"><?php echo ($indents->indent_settled == 'YES')? $indents->settled_comments.' - '.$indents->settler->employee_id:''  ?> </label>
+                 <label class="label-bold"><?php echo ($indents->indent_settled == 'YES')? $indents->settled_comments:''  ?> </label>
                </div>
                <div>
                  <label>Commenter Name : </label> <label class="label-bold"><?php echo ($indents->indent_settled == 'YES')? $indents->settler->name.' - '.$indents->settler->employee_id:''  ?></label>
