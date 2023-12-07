@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.rawgit.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI/master/jquery-ui.multidatespicker.js"></script>
+
 
 <div class="container">
     <div class="row justify-content-center">
@@ -146,7 +150,9 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Dates</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="holiday_dates" required="required" value=""  placeholder="Approved Holiday Dates" >
+                       <!--  <input  class="form-control date" id="holiday_dates"  type="text" name="holiday_dates" required="required" value=""  placeholder="Approved Holiday Dates" autocomplete="off" multiple> -->
+                       <input  class="form-control" id="multiple-date-select" name="holiday_dates" autocomplete="off" placeholder="select dates" />
+                       
                       </div>
                     </div>
 
@@ -184,7 +190,8 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Dates</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="hold_dates" required="required" value=""  placeholder="Holiday & Project Hold Dates" >
+                        <!-- <input  class="form-control" type="text" name="hold_dates" required="required" value=""  placeholder="Holiday & Project Hold Dates" > -->
+                         <input  class="form-control" id="multiple-date-select2" name="hold_dates" name="hold_dates" autocomplete="off" placeholder="select dates" />
                       </div>
                     </div>
 
@@ -250,7 +257,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">DLP Days </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="text" name="dlp_days" required="required" value=""  placeholder="DLP Days">
+                  <input  class="form-control" type="text" name="dlp_days"  value=""  placeholder="DLP Days">
                 </div>
               </div>
                         
@@ -261,7 +268,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-4 col-form-label label-bold">DLP End Date </label>
                 <div class="col-8 " >
-                  <input  class="form-control" type="date" name="dlp_end_date" required="required" value=""  placeholder="DLP End Date" id="dlp_end_date" autocomplete="off">
+                  <input  class="form-control" type="date" name="dlp_end_date"  value=""  placeholder="DLP End Date" id="dlp_end_date" autocomplete="off">
                 </div>
               </div>
             
@@ -432,6 +439,15 @@
           <div class="card-body" >
             <h5 class="card-header" style="font-weight: bolder;background-color: #edf2ef">HRE Details</h5>
 
+            <div id="div2">
+                <input class="btn btn-outline-secondary form-control" type= "button" value= "Clear" onclick= "clearInput()">
+            </div>
+
+            <div id="div2">
+               <input class="typeahead form-control" type="text" name="product" id="product" placeholder="Search name / ID" >
+            </div>
+           
+
             <div>
               
                <table class="table table-responsive " id="dynamichre">
@@ -443,30 +459,23 @@
                      
                      <div class="col-md-2">
                       <label class="label-bold">Name</label>
-                      <input  id="client_name" type="text" class="typeahead form-control"  name="hre[0][name]" required="required" placeholder="Search by name / ID">
-                     <!--  <input name="client_name" id="client_name" type="text" class="typeahead form-control" required="required"  placeholder="Search by name / ID"> -->
                     </div>
 
                      <div class="col-md-2">
                       <label class="label-bold">Designation</label>
-                      <input class="form-control" id="designation" type="text" name="hre[0][designation]" required="required">
                     </div>
 
                     <div class="col-md-2">
                       <label class="label-bold">Contact No.</label>
-                      <input class="form-control" type="text" id="contact" name="hre[0][contact]" required="required" minlength="10" maxlength="10">
                     </div>
                     <div class="col-md-2">
                       <label class="label-bold">Email ID</label>
-                      <input class="form-control" type="text" id="email" name="hre[0][email]" required="required" >
                     </div>
                     <div class="col-md-2">
                       <label class="label-bold">Start Date</label>
-                      <input class="form-control" type="date" name="hre[0][start]" required="required" >
                     </div>
                     <div class="col-md-2">
                       <label class="label-bold">End Date</label>
-                      <input class="form-control" type="date" name="hre[0][end]" required="required" >
                     </div>
 
                    </div>
@@ -477,85 +486,44 @@
 
           </table>
             </div>
-             <div id="div2">
+            <!--  <div id="div2">
                <i class="fa fa-plus" id="dynamic-hre"></i>
-             </div>
+             </div> -->
             
           </div>
-        </div>
 
-        
+          <div id = "dynamic_form" style="display: none;">
+               <div id="container"></div>
+            
+           </div> 
+          </div>
+       
 
        <!-- Row 6 Vendor details -->
 
        <div class="card">
         <div class="card-body">
           <h5 class="card-header">All Vendors Details</h5>
-          <div>
-              
-               <table class="table table-responsive " id="dynamicvendor">
-              
-              <tr>
-                  <td>
-                   
-                   <div class="row align-items-end"> 
-                     
-                     <div class="col-md-3">
-                      <label class="label-bold">Department Heading</label>
-                      <select class="form-control form-select" name="vendor[0][department]">
-                        <option value="">Select</option>
-                        <option>Civil</option>
-                        <option>Carpentry</option>
-                      </select>
-                    </div>
+          <div id="div2">
+            <input class="btn btn-outline-secondary form-control" type= "button" value= "Clear" onclick= "clearvendorInput()">
+          </div>
 
-                     <div class="col-md-3">
-                      <label class="label-bold">Vendor Company Name</label>
-                      <input class="typeahead form-control" id="vendor" type="text" name="vendor[0][company]" required="required"
-                      placeholder="company name">
-                    </div>
+          <div id="div2">
+            <input class="typeahead form-control" type="text" name="vendor_search" id="vendor_search" placeholder="Search Vendor Name / ID" >
+          </div>
+          
+        </div>
 
-                    <div class="col-md-3">
-                      <label class="label-bold">Contractor's Name</label>
-                      <input class="form-control" id="contractor_name" type="text" name="vendor[0][name]" required="required" placeholder="contractor's name" >
-                    </div>
-                    <div class="col-md-3">
-                      <label class="label-bold">Mobile No.</label>
-                      <input class="form-control" id="contractor_mobile" type="text" name="vendor[0][mobile]" required="required" minlength="10" maxlength="10" placeholder="Mobile No.">
-                    </div>
-                  </div>
-                   <div class="row">
-                    <div class="col-md-3">
-                      <label class="label-bold">Supervisor Name</label>
-                      <input class="form-control" type="text" name="vendor[0][supervisor]" required="required" placeholder="supervisor name">
-                    </div>
-                    <div class="col-md-3">
-                      <label class="label-bold">Mobile No.</label>
-                      <input class="form-control" type="text" name="vendor[0][supr_mobile]" required="required" minlength="10" maxlength="10" placeholder="mobile no">
-                    </div>
-                    <div class="col-md-3">
-                      <label class="label-bold">Start Date</label>
-                      <input class="form-control" type="date" name="vendor[0][start]" required="required" >
-                    </div>
-                    <div class="col-md-3">
-                      <label class="label-bold">End Date</label>
-                      <input class="form-control" type="date" name="vendor[0][end]" required="required" >
-                    </div>
-
-                   </div>
-
-                   </td> 
-
-                 </tr>  
-
-          </table>
-            </div>
-             <div id="div2">
-               <i class="fa fa-plus" id="dynamic-vendor"></i>
-             </div>
+         <div id="dynamic_form_vendor" style="display: none;">
+               <div id="container_vendor"></div>
+            
         </div>
          
        </div>
+
+      
+
+
        <div id="div2">
          <button class="btn btn-success" type="submit">Submit</button>
        </div>
@@ -730,7 +698,7 @@
     var j = 'n';
     $("#dynamic-vendor").click(function () {
         ++i;
-         $("#dynamicvendor").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]"><option value="">Select</option><option>Civil</option><option>Carpentry</option></select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" required="required" placeholder="mobile"></div>  </div><div class="row"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div> </div></div></td></tr>');
+         $("#dynamicvendor").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]" required><option value="">Select</option><option>Civil</option><option>Carpentry</option></select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" required="required" placeholder="mobile"></div>  </div><div class="row"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div> </div></div></td></tr>');
         
 
         document.getElementById("btnn").style.display="block";
@@ -844,6 +812,272 @@ $( document ).ready(function() {
 });
 
 </script> -->
+
+<script type="text/javascript">
+  var i = 0;
+
+$( document ).ready(function() {
+  var path = "{{ route('autocomplete_employee') }}";
+   let text = "";
+    $( "#product" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            
+            success: function (data) {
+              
+                response(data)
+            }
+        });
+    },
+        select: function (event, ui) {
+
+          $('#product').val(ui.item.value);
+           var name = ui.item.name;
+          var emplid = ui.item.employee_id;
+          var designation = ui.item.alias;
+          var mobile = ui.item.mobile;
+          var email = ui.item.email;
+
+          // populateHREinputs(name , emplid , designation , mobile , email);
+           populateinputs(name , emplid , designation , mobile , email);
+           
+           
+         
+        }
+      })
+});
+
+ $(document).on('click', '.remove-input-field', function () {
+//  alert(i);
+  //document.getElementById("row").remove();
+  Swal.fire({
+  title: 'Are you sure to remove this material?',
+ // text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, remove it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+   // document.getElementById("row").remove();
+   $(this).parents('tr').remove();
+   // clearInput();
+   /* Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )*/
+  }
+})
+  
+    });
+
+function populateinputs(item_code , name ,  brand , info , uom){
+   var x = document.getElementById("dynamic_form");
+   if (x.style.display === "none") {
+    x.style.display = "block";
+  } 
+ const JSONobject = JSON.parse(info); 
+ 
+  const res_array = []; 
+   for(let i in JSONobject) { 
+      res_array.push([i,JSONobject[i]]); 
+   };
+
+
+  
+  // console.log('INOF==',inform);
+
+  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" value="'+ brand +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" readonly></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" readonly></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  required></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  required></div>  </div></td></tr>') ;
+
+  setTimeout(function(){
+  adjustHeight(this);       
+},1000)
+ 
+    ++i;
+
+  }
+
+
+ function adjustHeight(el){
+    el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight)+"px" : "60px";
+}
+
+function clearInput(){
+    //alert("ll");
+      var getValue= document.getElementById("product");
+        if (getValue.value !="") {
+            getValue.value = "";
+        }
+ }
+
+</script>
+
+
+<script type="text/javascript">
+  var i = 0;
+
+$( document ).ready(function() {
+  var path = "{{ route('autocomplete_vendor') }}";
+   let text = "";
+    $( "#vendor_search" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            
+            success: function (data) {
+              
+                response(data)
+            }
+        });
+    },
+        select: function (event, ui) {
+
+          $('#vendor_search').val(ui.item.value);
+           var name = ui.item.billing_name;
+          var contr_name = ui.item.owner;
+          var mobile = ui.item.mobile;
+          //alert(owner);
+          
+
+           populatevendorinputs(name , contr_name , mobile );
+           
+            
+         
+        }
+      })
+});
+
+ $(document).on('click', '.remove-input-field', function () {
+//  alert(i);
+  //document.getElementById("row").remove();
+  Swal.fire({
+  title: 'Are you sure to remove this material?',
+ // text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, remove it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+   // document.getElementById("row").remove();
+   $(this).parents('tr').remove();
+   // clearInput();
+   /* Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )*/
+  }
+})
+  
+    });
+
+function populatevendorinputs(item_code , name ,  brand ){
+ // alert(name);
+   var x = document.getElementById("dynamic_form_vendor");
+   if (x.style.display === "none") {
+    x.style.display = "block";
+  } 
+
+  $('#container_vendor').append('<div class="row align-items-end div-margin"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]"><option value="">Select</option><option>Civil</option><option>Carpentry</option></select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" value="'+ item_code +'" readonly required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" value="'+ name +'" readonly required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" value="'+ brand +'" readonly required="required" placeholder="mobile"></div>  </div><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]" minlength="10" maxlength="10" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div> </div>') ;
+
+  setTimeout(function(){
+  adjustHeight(this);       
+},1000)
+ 
+    ++i;
+
+  }
+
+
+ function adjustHeight(el){
+    el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight)+"px" : "60px";
+}
+
+function clearvendorInput(){
+    //alert("ll");
+      var getValue= document.getElementById("vendor_search");
+        if (getValue.value !="") {
+            getValue.value = "";
+        }
+ }
+
+</script>
+<script type="text/javascript">
+ var arr = [];
+
+function removeRow(r) {
+  var index = arr.indexOf(r);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+}
+$('#multiple-date-select').multiDatesPicker({
+  onSelect: function(datetext) {
+    let table = $('#table-data');
+    let rowLast = table.data('lastrow');
+    let rowNext = rowLast + 1;
+    let r = table.find('tr').filter(function() {
+      return ($(this).data('date') == datetext);
+    }).eq(0);
+    // a little redundant checking both here 
+    if (!!r.length && arr.includes(datetext)) {
+      removeRow(datetext);
+      r.remove();
+    } else {
+      // not found so add it
+      let col = $('<td></td>').html(datetext);
+      let row = $('<tr></tr>');
+      row.data('date', datetext);
+      row.attr('id', 'newrow' + rowNext);
+      row.append(col).appendTo(table);
+      table.data('lastrow', rowNext);
+      arr.push(datetext);
+    }
+  }
+});
+
+$('#multiple-date-select2').multiDatesPicker({
+  onSelect: function(datetext) {
+    let table = $('#table-data');
+    let rowLast = table.data('lastrow');
+    let rowNext = rowLast + 1;
+    let r = table.find('tr').filter(function() {
+      return ($(this).data('date') == datetext);
+    }).eq(0);
+    // a little redundant checking both here 
+    if (!!r.length && arr.includes(datetext)) {
+      removeRow(datetext);
+      r.remove();
+    } else {
+      // not found so add it
+      let col = $('<td></td>').html(datetext);
+      let row = $('<tr></tr>');
+      row.data('date', datetext);
+      row.attr('id', 'newrow' + rowNext);
+      row.append(col).appendTo(table);
+      table.data('lastrow', rowNext);
+      arr.push(datetext);
+    }
+  }
+});
+// set start, first row will be 0 could be in markup
+//$('#table-data').data('lastrow', -1);
+</script>
 
 
 

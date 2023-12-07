@@ -76,7 +76,7 @@
                                 <input  class="form-control" type="text" name="project_name" required="required"  placeholder="Project Name" value="{{$data->project_name}}">
                              </div>
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="type" required="required"  placeholder="Type Of Work" value="{{$data->type_of_work}}">
+                                <input  class="form-control" type="text" name="type" required="required"  placeholder="Type Of Work" value="{{$data->type_of_work}}" readonly>
                              </div>
                            </div>
                            
@@ -129,28 +129,28 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Target Start Date </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="date" name="target_start_date" required="required" value="{{$data->target_start_date}}"  placeholder="PCN ">
+                        <input  class="form-control" type="date" name="target_start_date" required="required" value="{{$data->target_start_date}}"  placeholder="PCN " readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Target End Date </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="date" name="target_end_date" required="required" value="{{$data->target_end_date}}"  placeholder="Billing Name ">
+                        <input  class="form-control" type="date" name="target_end_date" required="required" value="{{$data->target_end_date}}"  placeholder="Billing Name " readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Approved Holidays Count</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="Number" name="approved_holidays_no" required="required" value="{{$data->approved_holidays_no}}"  placeholder="Approved Holidays Count">
+                        <input  class="form-control" type="Number" name="approved_holidays_no" required="required" value="{{$data->approved_holidays_no}}"  placeholder="Approved Holidays Count" readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Dates</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="holiday_dates" required="required" value="{{$data->holiday_dates}}"  placeholder="Approved Holiday Dates" >
+                        <input  class="form-control" type="text" name="holiday_dates" required="required" value="{{$data->holiday_dates}}"  placeholder="Approved Holiday Dates" readonly>
                       </div>
                     </div>
 
@@ -167,28 +167,28 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual Start Date </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="date" name="actual_start_date" required="required" value="{{$data->actual_start_date}}"  placeholder="PCN ">
+                        <input  class="form-control" type="date" name="actual_start_date" required="required" value="{{$data->actual_start_date}}"  placeholder="PCN " readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual End Date </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="date" name="actual_end_date" required="required" value="{{$data->actual_end_date}}"  placeholder="Billing Name ">
+                        <input  class="form-control" type="date" name="actual_end_date" required="required" value="{{$data->actual_end_date}}"  placeholder="Billing Name " readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Holidays & Project Hold Days </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="Number" name="hold_days_no" required="required" value="{{$data->hold_days_no}}"  placeholder="Holidays and Hold Count">
+                        <input  class="form-control" type="Number" name="hold_days_no" required="required" value="{{$data->hold_days_no}}"  placeholder="Holidays and Hold Count" readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Dates</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="hold_dates" required="required" value="{{$data->hold_dates}}"  placeholder="Holiday & Project Hold Dates" >
+                        <input  class="form-control" type="text" name="hold_dates" required="required" value="{{$data->hold_dates}}"  placeholder="Holiday & Project Hold Dates" readonly>
                       </div>
                     </div>
 
@@ -208,7 +208,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">PO DATE </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="date" name="po_date" required="required" value="{{$data->po_date}}"  placeholder="PO Date">
+                  <input  class="form-control" type="date" name="po_date" required="required" value="{{$data->po_date}}"  placeholder="PO Date" readonly>
                 </div>
               </div>
             
@@ -220,7 +220,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">PO Number </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="text" name="po_number" required="required" value="{{$data->po_number}}"  placeholder="PO Number">
+                  <input  class="form-control" type="text" name="po_number" required="required" value="{{$data->po_number}}"  placeholder="PO Number" readonly>
                 </div>
               </div>
             
@@ -238,7 +238,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-4 col-form-label label-bold">DLP Applicable </label>
                 <div class="col-6 " >
-                  <select class="form-control form-select" name="is_dlp_applicable">
+                  <select class="form-control form-select" name="is_dlp_applicable" disabled>
                     <option value="">Select</option>
                     <option value="Yes" <?php echo ($data->is_dlp_applicable == 'Yes')?'selected':'' ?> >Yes</option>
                     <option value="No" <?php echo ($data->is_dlp_applicable == 'No')?'selected':'' ?>>No</option>
@@ -254,7 +254,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">DLP Days </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="text" name="dlp_days" required="required" value="{{$data->dlp_days}}"  placeholder="DLP Days">
+                  <input  class="form-control" type="text" name="dlp_days" required="required" value="{{$data->dlp_days}}"  placeholder="DLP Days" readonly>
                 </div>
               </div>
                         
@@ -265,7 +265,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-4 col-form-label label-bold">DLP End Date </label>
                 <div class="col-8 " >
-                  <input  class="form-control" type="date" name="dlp_end_date" required="required" value="{{$data->dlp_end_date}}"  placeholder="DLP End Date">
+                  <input  class="form-control" type="date" name="dlp_end_date" required="required" value="{{$data->dlp_end_date}}"  placeholder="DLP End Date" readonly>
                 </div>
               </div>
             
@@ -526,6 +526,14 @@
           <div class="card-body" >
             <h5 class="card-header" style="font-weight: bolder;background-color: #edf2ef">HRE Details</h5>
 
+            <div id="div2">
+                <input class="btn btn-outline-secondary form-control" type= "button" value= "Clear" onclick= "clearInput()">
+            </div>
+
+            <div id="div2">
+               <input class="typeahead form-control" type="text" name="product" id="product" placeholder="Search name / ID" >
+            </div>
+
             <div>
               
                <table class="table table-responsive " id="dynamichre">
@@ -597,11 +605,16 @@
               @endforeach
           </table>
             </div>
-             <div id="div2">
+             <!-- <div id="div2">
                <i class="fa fa-plus" id="dynamic-hre"></i>
-             </div>
+             </div> -->
             
           </div>
+
+          <div id = "dynamic_form" style="display: none;">
+               <div id="container"></div>
+            
+           </div> 
         </div>
 
         
@@ -611,6 +624,15 @@
        <div class="card">
         <div class="card-body">
           <h5 class="card-header">All Vendors Details</h5>
+
+          <div id="div2">
+            <input class="btn btn-outline-secondary form-control" type= "button" value= "Clear" onclick= "clearvendorInput()">
+          </div>
+
+          <div id="div2">
+            <input class="typeahead form-control" type="text" name="vendor_search" id="vendor_search" placeholder="Search Vendor Name / ID" >
+          </div>
+
           <div>
               
                <table class="table table-responsive " id="dynamicvendor">
@@ -665,9 +687,14 @@
               @endforeach
           </table>
             </div>
-             <div id="div2">
+            <!--  <div id="div2">
                <i class="fa fa-plus" id="dynamic-vendor"></i>
-             </div>
+             </div> -->
+        </div>
+
+         <div id="dynamic_form_vendor" style="display: none;">
+               <div id="container_vendor"></div>
+            
         </div>
 
         <!-- last form -->
@@ -711,14 +738,14 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Verified By</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="billing_name" >
+                        <input  class="form-control" type="text" name="billing_name" readonly="">
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">PCN Alloted By</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="gst"  >
+                        <input  class="form-control" type="text" name="gst" readonly="" >
                       </div>
                     </div>
 
@@ -937,6 +964,211 @@
         
     });
       
+</script>
+
+<script type="text/javascript">
+  var i = 0;
+
+$( document ).ready(function() {
+  var path = "{{ route('autocomplete_employee') }}";
+   let text = "";
+    $( "#product" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            
+            success: function (data) {
+              
+                response(data)
+            }
+        });
+    },
+        select: function (event, ui) {
+
+          $('#product').val(ui.item.value);
+           var name = ui.item.name;
+          var emplid = ui.item.employee_id;
+          var designation = ui.item.alias;
+          var mobile = ui.item.mobile;
+          var email = ui.item.email;
+
+          // populateHREinputs(name , emplid , designation , mobile , email);
+           populateinputs(name , emplid , designation , mobile , email);
+           
+           
+         
+        }
+      })
+});
+
+ $(document).on('click', '.remove-input-field', function () {
+//  alert(i);
+  //document.getElementById("row").remove();
+  Swal.fire({
+  title: 'Are you sure to remove this material?',
+ // text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, remove it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+   // document.getElementById("row").remove();
+   $(this).parents('tr').remove();
+   // clearInput();
+   /* Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )*/
+  }
+})
+  
+    });
+
+function populateinputs(item_code , name ,  brand , info , uom){
+   var x = document.getElementById("dynamic_form");
+   if (x.style.display === "none") {
+    x.style.display = "block";
+  } 
+ const JSONobject = JSON.parse(info); 
+ 
+  const res_array = []; 
+   for(let i in JSONobject) { 
+      res_array.push([i,JSONobject[i]]); 
+   };
+
+
+  
+  // console.log('INOF==',inform);
+
+  $('#container').append('<div class="row " id="row" style="padding:20px"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" value="'+ brand +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" readonly></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" readonly></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  required></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  required></div>  </div>') ;
+
+  setTimeout(function(){
+  adjustHeight(this);       
+},1000)
+ 
+    ++i;
+
+  }
+
+
+ function adjustHeight(el){
+    el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight)+"px" : "60px";
+}
+
+function clearInput(){
+    //alert("ll");
+      var getValue= document.getElementById("product");
+        if (getValue.value !="") {
+            getValue.value = "";
+        }
+ }
+
+</script>
+
+
+<script type="text/javascript">
+  var i = 0;
+
+$( document ).ready(function() {
+  var path = "{{ route('autocomplete_vendor') }}";
+   let text = "";
+    $( "#vendor_search" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            
+            success: function (data) {
+              
+                response(data)
+            }
+        });
+    },
+        select: function (event, ui) {
+
+          $('#vendor_search').val(ui.item.value);
+           var name = ui.item.billing_name;
+          var contr_name = ui.item.owner;
+          var mobile = ui.item.mobile;
+          //alert(owner);
+          
+
+           populatevendorinputs(name , contr_name , mobile );
+           
+            
+         
+        }
+      })
+});
+
+ $(document).on('click', '.remove-input-field', function () {
+//  alert(i);
+  //document.getElementById("row").remove();
+  Swal.fire({
+  title: 'Are you sure to remove this material?',
+ // text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, remove it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+   // document.getElementById("row").remove();
+   $(this).parents('tr').remove();
+   // clearInput();
+   /* Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )*/
+  }
+})
+  
+    });
+
+function populatevendorinputs(item_code , name ,  brand ){
+ // alert(name);
+   var x = document.getElementById("dynamic_form_vendor");
+   if (x.style.display === "none") {
+    x.style.display = "block";
+  } 
+
+  $('#container_vendor').append('<div class="row align-items-end div-margin"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]" required><option value="">Select</option><option>Civil</option><option>Carpentry</option></select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" value="'+ item_code +'" readonly required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" value="'+ name +'" readonly required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" value="'+ brand +'" readonly required="required" placeholder="mobile"></div>  </div><div class="row align-items-end"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]"minlength="10" maxlength="10" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div> </div>') ;
+
+  setTimeout(function(){
+  adjustHeight(this);       
+},1000)
+ 
+    ++i;
+
+  }
+
+
+ function adjustHeight(el){
+    el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight)+"px" : "60px";
+}
+
+function clearvendorInput(){
+    //alert("ll");
+      var getValue= document.getElementById("vendor_search");
+        if (getValue.value !="") {
+            getValue.value = "";
+        }
+ }
+
 </script>
 
 

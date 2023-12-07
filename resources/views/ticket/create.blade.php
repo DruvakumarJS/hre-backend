@@ -293,7 +293,7 @@ $( document ).ready(function() {
               alert("Please Select Priority");
               return;
              }
-             
+              
              if(imagesArray.length == 0){
               alert("Please attach image(s) ");
               return;

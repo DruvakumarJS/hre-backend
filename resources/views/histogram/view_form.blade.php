@@ -135,28 +135,28 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Target Start Date </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="date" name="target_start_date" required="required" value="{{$data->target_start_date}}"  placeholder="PCN ">
+                        <input  class="form-control" type="date" name="target_start_date" required="required" value="{{$data->target_start_date}}"  placeholder="PCN " readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Target End Date </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="date" name="target_end_date" required="required" value="{{$data->target_end_date}}"  placeholder="Billing Name ">
+                        <input  class="form-control" type="date" name="target_end_date" required="required" value="{{$data->target_end_date}}"  placeholder="Billing Name " readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Approved Holidays Count</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="Number" name="approved_holidays_no" required="required" value="{{$data->approved_holidays_no}}"  placeholder="Approved Holidays Count">
+                        <input  class="form-control" type="Number" name="approved_holidays_no" required="required" value="{{$data->approved_holidays_no}}"  placeholder="Approved Holidays Count" readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Dates</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="holiday_dates" required="required" value="{{$data->holiday_dates}}"  placeholder="Approved Holiday Dates" >
+                        <input  class="form-control" type="text" name="holiday_dates" required="required" value="{{$data->holiday_dates}}"  placeholder="Approved Holiday Dates" readonly>
                       </div>
                     </div>
 
@@ -173,28 +173,28 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual Start Date </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="date" name="actual_start_date" required="required" value="{{$data->actual_start_date}}"  placeholder="PCN ">
+                        <input  class="form-control" type="date" name="actual_start_date" required="required" value="{{$data->actual_start_date}}"  placeholder="PCN " readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual End Date </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="date" name="actual_end_date" required="required" value="{{$data->actual_end_date}}"  placeholder="Billing Name ">
+                        <input  class="form-control" type="date" name="actual_end_date" required="required" value="{{$data->actual_end_date}}"  placeholder="Billing Name " readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Holidays & Project Hold Days </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="Number" name="hold_days_no" required="required" value="{{$data->hold_days_no}}"  placeholder="Holidays and Hold Count">
+                        <input  class="form-control" type="Number" name="hold_days_no" required="required" value="{{$data->hold_days_no}}"  placeholder="Holidays and Hold Count" readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Dates</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="hold_dates" required="required" value="{{$data->hold_dates}}"  placeholder="Holiday & Project Hold Dates" >
+                        <input  class="form-control" type="text" name="hold_dates" required="required" value="{{$data->hold_dates}}"  placeholder="Holiday & Project Hold Dates" readonly>
                       </div>
                     </div>
 
@@ -214,7 +214,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">PO DATE </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="date" name="po_date" required="required" value="{{$data->po_date}}"  placeholder="PO Date">
+                  <input  class="form-control" type="date" name="po_date" required="required" value="{{$data->po_date}}"  placeholder="PO Date" readonly>
                 </div>
               </div>
             
@@ -226,7 +226,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">PO Number </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="text" name="po_number" required="required" value="{{$data->po_number}}"  placeholder="PO Number">
+                  <input  class="form-control" type="text" name="po_number" required="required" value="{{$data->po_number}}"  placeholder="PO Number" readonly>
                 </div>
               </div>
             
@@ -244,7 +244,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-4 col-form-label label-bold">DLP Applicable </label>
                 <div class="col-6 " >
-                  <select class="form-control form-select" name="is_dlp_applicable">
+                  <select class="form-control form-select" name="is_dlp_applicable" readonly>
                     <option value="">Select</option>
                     <option value="Yes" <?php echo ($data->is_dlp_applicable == 'Yes')?'selected':'' ?> >Yes</option>
                     <option value="No" <?php echo ($data->is_dlp_applicable == 'No')?'selected':'' ?>>No</option>
@@ -260,7 +260,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">DLP Days </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="text" name="dlp_days" required="required" value="{{$data->dlp_days}}"  placeholder="DLP Days">
+                  <input  class="form-control" type="text" name="dlp_days" required="required" value="{{$data->dlp_days}}"  placeholder="DLP Days" readonly>
                 </div>
               </div>
                         
@@ -271,7 +271,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-4 col-form-label label-bold">DLP End Date </label>
                 <div class="col-8 " >
-                  <input  class="form-control" type="date" name="dlp_end_date" required="required" value="{{$data->dlp_end_date}}"  placeholder="DLP End Date">
+                  <input  class="form-control" type="date" name="dlp_end_date" required="required" value="{{$data->dlp_end_date}}"  placeholder="DLP End Date" readonly>
                 </div>
               </div>
             

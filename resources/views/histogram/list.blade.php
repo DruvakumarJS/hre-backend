@@ -115,6 +115,10 @@
                                 @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 5 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7)
                                 <a href="{{ route('view_form',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">View Form</button></a>
                                 @endif
+
+                                @if(auth::user()->id == $value->user_id)
+                                 <a ><button class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                                @endif
                               </td>
                               
                             </tr>

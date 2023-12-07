@@ -62,7 +62,7 @@ class HistogramController extends Controller
      */
     public function store(Request $request)
     {
-       // print_r(json_encode($request->Input())); die();
+      //  print_r(json_encode($request->Input())); die();
 
         $billing = new Histogram_billing_details;
         $billing->billing_name=$request->billing_name;
@@ -336,7 +336,7 @@ class HistogramController extends Controller
     {
         //
         $pcn_details= Pcn::where('pcn',$request->pcn)->first();
-//print_r($pcn_details->brand); die();
+//print_r($request->Input()); die();
 
         $update =Histogram_billing_details::where('id',$request->histogram_id)->update([
             'pcn'=>$request->pcn,
@@ -417,7 +417,7 @@ class HistogramController extends Controller
 
         
 
-        $update = Histogram_billing_details::where('id',$billing_id)->update([
+       /* $update = Histogram_billing_details::where('id',$billing_id)->update([
             'target_start_date' =>  $request->target_start_date,
             'target_end_date' =>  $request->target_end_date,
             'approved_holidays_no' =>  $request->approved_holidays_no,
@@ -432,7 +432,7 @@ class HistogramController extends Controller
             'dlp_days' =>  $request->dlp_days,
             'dlp_end_date' =>  $request->dlp_end_date
                ]);
-
+*/
 
         if(isset($request->client)){
 
