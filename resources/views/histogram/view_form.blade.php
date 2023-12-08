@@ -28,27 +28,27 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">PCN </label>
                       <div class="col-9 ">
-                        <!-- <input  class="form-control" type="text" name="pcn" required="required" value=""  placeholder="PCN "> -->
-                        <select class="form-select form-control" name="pcn" required>
+                        <input  class="typeahead form-control" type="text" id="pcn" name="pcn" required="required" value=""  placeholder="Allot PCN ">
+                        <!-- <select class="form-select form-control" name="pcn" required>
                           <option value="">Select PCN</option>
                           @foreach($pcn as $keys=>$val)
                            <option value="{{$val->pcn}}">{{$val->pcn}}</option>
                           @endforeach
-                        </select>
+                        </select> -->
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Client Billing Name </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="billing_name" required="required" value="{{$data->billing_name}}"  placeholder="Billing Name " readonly>
+                        <input  class="form-control" type="text" id="billing_name" name="billing_name" required="required" value="{{$data->billing_name}}"  placeholder="Billing Name " readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">GST Number </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="gst" required="required" value="{{$data->gst}}"  placeholder="GST Number" minlength="15" maxlength="15" readonly>
+                        <input  class="form-control" type="text" id="gst" name="gst" required="required" value="{{$data->gst}}"  placeholder="GST Number" minlength="15" maxlength="15" readonly>
                       </div>
                     </div>
 
@@ -78,33 +78,33 @@
 
                          <div class="row" style="margin-top: 10px" >
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="project_name" required="required"  placeholder="Project Name" value="{{$data->project_name}}">
+                                <input  class="form-control" type="text" id="project_name" name="project_name" required="required"  placeholder="Project Name" value="{{$data->project_name}}">
                              </div>
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="type" required="required"  placeholder="Type Of Work" value="{{$data->type_of_work}}">
+                                <input  class="form-control" type="text" id="type" name="type" required="required"  placeholder="Type Of Work" value="{{$data->type_of_work}}">
                              </div>
                            </div>
 
                         <!--   <label for="" class="col-6 col-form-label">Site Full Address </label>   -->
                            <div class="row" style="margin-top: 10px" >
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="location" required="required" value="{{$data->location}}"  placeholder="location">
+                                <input  class="form-control" type="text" id="location" name="location" required="required" value="{{$data->location}}"  placeholder="location">
                              </div>
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="area" required="required" value="{{$data->area}}"  placeholder="Area / Building">
+                                <input  class="form-control" type="text" id="area" name="area" required="required" value="{{$data->area}}"  placeholder="Area / Building">
                              </div>
                            </div>
 
                            <div class="row" style="margin-top: 10px" >
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="city" required="required" value="{{$data->city}}"  placeholder="City ">
+                                <input  class="form-control" type="text" id="city" name="city" required="required" value="{{$data->city}}"  placeholder="City ">
                              </div>
                              <div class="col-3">
-                                <input  class="form-control" type="text" name="state" required="required" value="{{$data->state}}"  placeholder="State">
+                                <input  class="form-control" type="text" id="state" name="state" required="required" value="{{$data->state}}"  placeholder="State">
                              </div>
 
                              <div class="col-3">
-                                <input  class="form-control" type="text" name="pincode" required="required" value="{{$data->pincode}}"  placeholder="PINCODE">
+                                <input  class="form-control" type="text" id="pincode" name="pincode" required="required" value="{{$data->pincode}}"  placeholder="PINCODE">
                              </div>
                              
                            </div>
@@ -748,6 +748,45 @@
   
 </div>
 
+<script type="text/javascript">
+  $( document ).ready(function() {
+   var path = "{{ route('get_pcn_data') }}";
+   let text = "";
+    $( "#pcn" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            success: function( data ) {
+              console.log(data);
+               response( data );
+              
+            }
+          });
+        },
+        select: function (event, ui) {
+          //$('#pcn').val();
+           // $('#pcn').val(ui.item.pcn);
+            $('#billing_name').val(ui.item.client_name);
+            $('#gst').val(ui.item.gst);
+            $('#project_name').val(ui.item.brand);
+            $('#type').val(ui.item.work);
+            $('#location').val(ui.item.location);
+            $('#area').val(ui.item.area);
+            $('#city').val(ui.item.city);
+            $('#state').val(ui.item.state);
+            $('#pincode').val(ui.item.pincode);
+
+
+           
+        }
+      });
+    });
+</script>
 
 
 

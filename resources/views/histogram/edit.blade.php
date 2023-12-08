@@ -28,20 +28,20 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">PCN </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="text" name="pcn" required="required"  placeholder="PCN " value="{{$data->pcn}}" readonly>
+                        <input  class="form-control" type="text" name="pcn"  required="required"  placeholder="PCN "  readonly>
                         
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Client Billing Name </label>
+                      <label for="" class="col-3 col-form-label">Client Billing Name* </label>
                       <div class="col-9 " >
                         <input  class="form-control" type="text" name="billing_name" required="required" value="{{$data->billing_name}}"  placeholder="Billing Name " >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">GST Number </label>
+                      <label for="" class="col-3 col-form-label">GST Number* </label>
                       <div class="col-9 " >
                         <input  class="form-control" type="text" name="gst" required="required" value="{{$data->gst}}"  placeholder="GST Number" minlength="15" maxlength="15" >
                       </div>
@@ -127,30 +127,31 @@
                   <h5 class="card-header " style="font-weight: bold;background-color: #edf2ef;">Project Target Days</h5>
                     
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Target Start Date </label>
+                      <label for="" class="col-3 col-form-label">Target Start Date* </label>
                       <div class="col-9 ">
                         <input  class="form-control" type="date" name="target_start_date" required="required" value="{{$data->target_start_date}}"  placeholder="PCN " >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Target End Date </label>
+                      <label for="" class="col-3 col-form-label">Target End Date* </label>
                       <div class="col-9 " >
                         <input  class="form-control" type="date" name="target_end_date" required="required" value="{{$data->target_end_date}}"  placeholder="Billing Name " >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Approved Holidays Count</label>
+                      <label for="" class="col-3 col-form-label">Approved Holidays Count*</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="Number" name="approved_holidays_no" required="required" value="{{$data->approved_holidays_no}}"  placeholder="Approved Holidays Count" >
+                        <input  class="form-control" type="Number" min="0" name="approved_holidays_no" required="required" value="{{$data->approved_holidays_no}}"  placeholder="Approved Holidays Count" >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Dates</label>
+                      <label for="" class="col-3 col-form-label">Note*</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="holiday_dates"  value="{{$data->holiday_dates}}"  placeholder="Approved Holiday Dates" >
+                       <!--  <input  class="form-control" type="text" name="holiday_dates"  value="{{$data->holiday_dates}}"  placeholder="Approved Holiday Dates" > -->
+                        <textarea class="form-control" name="holiday_dates" >{{$data->holiday_dates}}</textarea>
                       </div>
                     </div>
 
@@ -167,28 +168,29 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual Start Date </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="date" name="actual_start_date" required="required" value="{{$data->actual_start_date}}"  placeholder="PCN " >
+                        <input  class="form-control" type="date" name="actual_start_date"  value="{{$data->actual_start_date}}"  placeholder="PCN " >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual End Date </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="date" name="actual_end_date" required="required" value="{{$data->actual_end_date}}"  placeholder="Billing Name " >
+                        <input  class="form-control" type="date" name="actual_end_date"  value="{{$data->actual_end_date}}"  placeholder="Billing Name " >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Holidays & Project Hold Days </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="Number" name="hold_days_no" required="required" value="{{$data->hold_days_no}}"  placeholder="Holidays and Hold Count" >
+                        <input  class="form-control" type="Number" min="0" name="hold_days_no"  value="{{$data->hold_days_no}}"  placeholder="Holidays and Hold Count" >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Dates</label>
+                      <label for="" class="col-3 col-form-label">Note</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="hold_dates"  value="{{$data->hold_dates}}"  placeholder="Holiday & Project Hold Dates" >
+                        <!-- <input  class="form-control" type="text" name="hold_dates"  value="{{$data->hold_dates}}"  placeholder="Holiday & Project Hold Dates" > -->
+                        <textarea class="form-control" name="hold_dates" >{{$data->hold_dates}}</textarea>
                       </div>
                     </div>
 
@@ -206,7 +208,7 @@
           <div class="col-md-4">
             
               <div class="form-group row" style="padding: 5px">
-                <label for="" class="col-3 col-form-label label-bold">PO DATE </label>
+                <label for="" class="col-3 col-form-label label-bold">PO DATE* </label>
                 <div class="col-9 " >
                   <input  class="form-control" type="date" name="po_date" required="required" value="{{$data->po_date}}"  placeholder="PO Date" >
                 </div>
@@ -218,8 +220,8 @@
           <div class="col-md-4">
            
               <div class="form-group row" style="padding: 5px">
-                <label for="" class="col-3 col-form-label label-bold">PO Number </label>
-                <div class="col-9 " >
+                <label for="" class="col-4 col-form-label label-bold">PO Number* </label>
+                <div class="col-8" >
                   <input  class="form-control" type="text" name="po_number" required="required" value="{{$data->po_number}}"  placeholder="PO Number" >
                 </div>
               </div>
@@ -236,7 +238,7 @@
           <div class="col-md-4">
             
               <div class="form-group row" style="padding: 5px">
-                <label for="" class="col-4 col-form-label label-bold">DLP Applicable </label>
+                <label for="" class="col-4 col-form-label label-bold">DLP Applicable* </label>
                 <div class="col-6 " >
                   <select class="form-control form-select" name="is_dlp_applicable" >
                     <option value="">Select</option>
@@ -254,7 +256,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">DLP Days </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="text" name="dlp_days"  value="{{$data->dlp_days}}"  placeholder="DLP Days" >
+                  <input  class="form-control" type="number" name="dlp_days" min="0" value="{{$data->dlp_days}}"  placeholder="DLP Days" >
                 </div>
               </div>
                         
@@ -295,7 +297,7 @@
                      
                     </div>
 
-                     <div class="col-md-3">
+                     <div class="col-md-2">
                       <label class="label-bold">Designation</label>
                       
                     </div>
@@ -330,7 +332,7 @@
                       <input class="form-control" type="text"  value="{{$value->client_name}}" name="client[{{$key0}}][name]" required="required" >
                     </div>
 
-                     <div class="col-md-3">
+                     <div class="col-md-2">
                       <input class="form-control" type="text"  value="{{$value->client_designation}}" name="client[{{$key0}}][designation]" required="required" >
                     </div>
 
@@ -343,6 +345,9 @@
                     </div>
                     <div class="col-md-2">
                       <input class="form-control" type="text"  value="{{$value->client_email}}" name="client[{{$key0}}][email]" required="required" >
+                    </div>
+                     <div class="col-md-1">
+                      <i class="fa fa-trash remove-client-field"></i>
                     </div>
 
                    </div>
@@ -378,7 +383,7 @@
                      
                     </div>
 
-                     <div class="col-md-3">
+                     <div class="col-md-2">
                       <label class="label-bold">Designation</label>
                       
                     </div>
@@ -413,7 +418,7 @@
                       <input class="form-control" type="text"  value="{{$value2->arc_name}}" required="required" name="arch[{{$key2}}][name]">
                     </div>
 
-                     <div class="col-md-3">
+                     <div class="col-md-2">
                       <input class="form-control" type="text"  value="{{$value2->arc_designation}}" required="required" name="arch[{{$key2}}][designation]">
                     </div>
 
@@ -426,6 +431,9 @@
                     </div>
                     <div class="col-md-2">
                       <input class="form-control" type="text"  value="{{$value2->arc_email}}" required="required" name="arch[{{$key2}}][email]">
+                    </div>
+                    <div class="col-md-1">
+                      <i class="fa fa-trash remove-client-field"></i>
                     </div>
 
                    </div>
@@ -456,7 +464,7 @@
                      
                     </div>
 
-                     <div class="col-md-3">
+                     <div class="col-md-2">
                       <label class="label-bold">Designation</label>
                       
                     </div>
@@ -492,7 +500,7 @@
                       <input class="form-control" type="text"  value="{{$value3->land_name}}" required="required" name="land[{{$key3}}][name]">
                     </div>
 
-                     <div class="col-md-3">
+                     <div class="col-md-2">
                       <input class="form-control" type="text"  value="{{$value3->land_designation}}" required="required" name="land[{{$key3}}][designation]" >
                     </div>
 
@@ -505,6 +513,9 @@
                     </div>
                     <div class="col-md-2">
                       <input class="form-control" type="text"  value="{{$value3->land_email}}" required="required" name="land[{{$key3}}][email]" >
+                    </div>
+                     <div class="col-md-1">
+                      <i class="fa fa-trash remove-client-field"></i>
                     </div>
 
                    </div>
@@ -600,8 +611,12 @@
                     <div class="col-md-2">
                       <input class="form-control" type="date"  value="{{$value4->end_date}}" required="required" name="hre[{{$key4}}][end]">
                     </div>
+                    
 
                    </div>
+                    <div class="col-md-1" >
+                      <i class=" fa fa-trash remove-client-field"></i>
+                    </div>
 
                    </td> 
 
@@ -642,6 +657,7 @@
                <table class="table table-responsive " id="dynamicvendor">
                 <input type="hidden"  id="vendor_length" value="{{count($vendor)}}">
               @foreach($vendor as $key5=>$value5)
+
               <tr>
                   <td>
                    
@@ -685,11 +701,17 @@
                     </div>
 
                    </div>
+                   <div class="col-md-1">
+                      <i class=" fa fa-trash remove-client-field"></i>
+                    </div>
+
 
                    </td> 
 
-                 </tr>  
+                 </tr> 
+
               @endforeach
+            
           </table>
             </div>
             <!--  <div id="div2">
@@ -699,7 +721,7 @@
 
          <div id="dynamic_form_vendor" style="display: none;">
                <div id="container_vendor"></div>
-            
+               
         </div>
 
         <!-- last form -->
@@ -781,37 +803,31 @@
        var i = $("#client_length").val();
         ++i;
        
-         $("#dynamicclient").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][email]" required="required"></div> </div></td></tr>');
+         $("#dynamicclient").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][name]"required=" required"></div><div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][email]" required="required"></div> <div class="col-md-1"><i class="fa fa-trash remove-client-field"></i></div></div> </td></tr>');
         
         $("#client_length").val(i);
         document.getElementById("btnn").style.display="block";
     });
-    $(document).on('click', '.remove-input-field', function () {
+    $(document).on('click', '.remove-client-field', function () {
+     // alert("ll");
     
       if (j==0 && i==1){
        
-        alert('There must be atleast one address');
+        alert('There must be atleast one client details');
       }
       else
        {
-        $(this).parents('tr').remove();
-         --i;
-      }
-
-    });
-
-     $(document).on('click', '.remove-input-mandate', function () {
-     
-      if(!i == 0){
-      j=0;
-        $(this).parents('tr').remove();
-       
-      }
-      else {
-        alert('There must be atleast one address');
-      }
+        var del=confirm("Are you sure to delete ?");
+      // alert(del);
+          if (del==true){
+              $(this).parents('tr').remove();
+              --i;
+          }
         
+      }
+
     });
+
       
 </script>
 
@@ -822,12 +838,12 @@
     $("#dynamic-arc").click(function () {
        var i = $("#arch_length").val();
         ++i;
-         $("#dynamicArc").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="arch['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="arch['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][email]" required="required"></div> </div></td></tr>');
+         $("#dynamicArc").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="arch['+ i +'][name]"required=" required"></div><div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][email]" required="required"></div><div class="col-md-1"><i class="fa fa-trash remove-client-field"></i></div></div></td></tr>');
         
 
         document.getElementById("btnn").style.display="block";
     });
-    $(document).on('click', '.remove-input-field', function () {
+    $(document).on('click', '.remove-client-field', function () {
     
       if (j==0 && i==1){
        
@@ -835,25 +851,15 @@
       }
       else
        {
-        $(this).parents('tr').remove();
-         --i;
+        if (del==true){
+              $(this).parents('tr').remove();
+              --i;
+          }
       }
 
     });
 
-     $(document).on('click', '.remove-input-mandate', function () {
-     
-      if(!i == 0){
-      j=0;
-        $(this).parents('tr').remove();
-       
-      }
-      else {
-        alert('There must be atleast one address');
-      }
-        
-    });
-      
+   
 </script>
 
 
@@ -863,7 +869,7 @@
     $("#dynamic-land").click(function () {
        var i = $("#land_length").val();
         ++i;
-         $("#dynamicland").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="land['+ i +'][name]"required=" required"></div><div class="col-md-3"><input class="form-control" type="text" name="land['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][organisation]"required=" required"></div>  <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][email]" required="required"></div> </div></td></tr>');
+         $("#dynamicland").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="land['+ i +'][name]"required=" required"></div><div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][organisation]"required=" required"></div>  <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][email]" required="required"></div><div class="col-md-1"><i class="fa fa-trash remove-client-field"></i></div> </div></td></tr>');
         
 
         document.getElementById("btnn").style.display="block";
@@ -876,8 +882,10 @@
       }
       else
        {
-        $(this).parents('tr').remove();
-         --i;
+         if (del==true){
+              $(this).parents('tr').remove();
+              --i;
+          }
       }
 
     });
@@ -1015,11 +1023,11 @@ $( document ).ready(function() {
       })
 });
 
- $(document).on('click', '.remove-input-field', function () {
-//  alert(i);
+ $(document).on('click', '.remove-hre-field', function () {
+ // alert("lll");
   //document.getElementById("row").remove();
   Swal.fire({
-  title: 'Are you sure to remove this material?',
+  title: 'Are you sure to remove this ?',
  // text: "You won't be able to revert this!",
   icon: 'warning',
   showCancelButton: true,
@@ -1028,8 +1036,8 @@ $( document ).ready(function() {
   confirmButtonText: 'Yes, remove it!'
 }).then((result) => {
   if (result.isConfirmed) {
-   // document.getElementById("row").remove();
-   $(this).parents('tr').remove();
+    document.getElementById("row").remove();
+  // $(this).parents('tr').remove();
    // clearInput();
    /* Swal.fire(
       'Deleted!',
@@ -1051,7 +1059,8 @@ function populateinputs(item_code , name ,  brand , info , uom){
   
   // console.log('INOF==',inform);
 
-  $('#container').append('<div class="row " id="row" style="padding:20px"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" ></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" value="'+ brand +'" ></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" ></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" ></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  required></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  required></div>  </div>') ;
+  $('#container').append('<div class="row " id="row" style="padding:20px"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" ></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" required ></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" ></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" ></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  required></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  required></div> <div class="col-md-1"><i class="fa fa-trash remove-hre-field"></i></div> </div>') ;
+
 
   setTimeout(function(){
   adjustHeight(this);       
@@ -1059,6 +1068,10 @@ function populateinputs(item_code , name ,  brand , info , uom){
  
     ++i;
 
+  }
+
+  function remove_hre(){
+    alert("ll");
   }
 
 
@@ -1116,7 +1129,7 @@ $( document ).ready(function() {
       })
 });
 
- $(document).on('click', '.remove-input-field', function () {
+ $(document).on('click', '.remove-vendor-field', function () {
 //  alert(i);
   //document.getElementById("row").remove();
   Swal.fire({
@@ -1129,8 +1142,8 @@ $( document ).ready(function() {
   confirmButtonText: 'Yes, remove it!'
 }).then((result) => {
   if (result.isConfirmed) {
-   // document.getElementById("row").remove();
-   $(this).parents('tr').remove();
+    document.getElementById("row").remove();
+   //$(this).parents('tr').remove();
    // clearInput();
    /* Swal.fire(
       'Deleted!',
@@ -1150,7 +1163,7 @@ function populatevendorinputs(item_code , name ,  brand ){
   } 
   var i=$("#vendor_length").val();
 
-  $('#container_vendor').append('<div class="row align-items-end div-margin"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]"><option value="">Select</option><option value="Civil">Civil</option><option value="Carpentry">Carpentry</option><option value="Tiles/Stone">Tiles/Stone</option><option value="POP">POP</option><option value="Painting Works">Painting Works</option><option value="Corian Fabrication">Corian Fabrication</option><option value="Ceilling">Ceilling</option><option value="Accoustical work">Accoustical Work</option><option value="Artistic Works">Artistic Works</option><option value="Signage Works">Signage Works</option><option value="Electrical">Electrical</option><option value="Plumbing">Plumbing</option><option value="HVAC">HVAC</option><option value="FAS">FAS</option></select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" value="'+ item_code +'"  required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" value="'+ name +'"  required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" value="'+ brand +'"  required="required" placeholder="mobile"></div>  </div><div class="row align-items-end"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]"minlength="10" maxlength="10" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div> </div>') ;
+  $('#container_vendor').append('<div class="row align-items-end div-margin"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]" required><option value="">Select</option>@foreach($headings as $key=>$value)<option value="{{$value->headings}}">{{$value->headings}}</option>@endforeach</select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" value="'+ item_code +'"  required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" value="'+ name +'"  required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" value="'+ brand +'"  required="required" placeholder="mobile"></div>  </div><div class="row align-items-end"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]"minlength="10" maxlength="10" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div><div class="col-md-1"><i class="fa fa-trash remove-vendor-field"></i></div> </div>') ;
 
   setTimeout(function(){
   adjustHeight(this);       
@@ -1174,6 +1187,7 @@ function clearvendorInput(){
  }
 
 </script>
+
 
 
 @endsection

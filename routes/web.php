@@ -360,7 +360,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('delete-history/{id}/{histogram_id}',[HistogramController::class,'delete_history'])->name('delete_history');
     Route::get('edit-my-histogram-form/{id}',[HistogramController::class,'edit_myform'])->name('edit_my_form');
     Route::post('edit-my-histogram-form',[HistogramController::class,'update_myform'])->name('update_my_form');
-    
+    Route::get('get_pcn_data', [HistogramController::class,'get_pcn_data'])->name('get_pcn_data');
+
     Route::get('vendor_departmnts',[VendorDepartmentController::class,'vendor_headings'])->name('vendor_headings');
     Route::post('save-heading',[VendorDepartmentController::class,'save_heading'])->name('create_headings');
     Route::post('update-heading',[VendorDepartmentController::class,'update_heading'])->name('update_heading');

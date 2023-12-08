@@ -1,10 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdn.rawgit.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI/master/jquery-ui.multidatespicker.js"></script>
-
 
 <div class="container">
     <div class="row justify-content-center">
@@ -33,14 +29,14 @@
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Client Billing Name </label>
+                      <label for="" class="col-3 col-form-label">Client Billing Name*</label>
                       <div class="col-9 " >
                         <input  class="form-control" type="text" name="billing_name" required="required" value=""  placeholder="Billing Name ">
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">GST Number </label>
+                      <label for="" class="col-3 col-form-label">GST Number*</label>
                       <div class="col-9 " >
                         <input  class="form-control" type="text" name="gst" required="required" value=""  placeholder="GST Number" minlength="15" maxlength="15">
                       </div>
@@ -72,33 +68,33 @@
                           </div> -->
                           <div class="row" style="margin-top: 10px" >
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="project_name" required="required" value=""  placeholder="Project Name">
+                                <input  class="form-control" type="text" name="project_name" required="required" value=""  placeholder="Project Name*">
                              </div>
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="type" required="required" value=""  placeholder="Type Of Work">
+                                <input  class="form-control" type="text" name="type" required="required" value=""  placeholder="Type Of Work*">
                              </div>
                            </div>
 
                         <!--   <label for="" class="col-6 col-form-label">Site Full Address </label>   -->
                            <div class="row" style="margin-top: 10px" >
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="location" required="required" value=""  placeholder="Location">
+                                <input  class="form-control" type="text" name="location" required="required" value=""  placeholder="Location*">
                              </div>
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="area" required="required" value=""  placeholder="Area / Building">
+                                <input  class="form-control" type="text" name="area" required="required" value=""  placeholder="Area / Building*">
                              </div>
                            </div>
 
                            <div class="row" style="margin-top: 10px" >
                              <div class="col-6">
-                                <input  class="form-control" type="text" name="city" required="required" value=""  placeholder="City ">
+                                <input  class="form-control" type="text" name="city" required="required" value=""  placeholder="City* ">
                              </div>
                              <div class="col-3">
-                                <input  class="form-control" type="text" name="state" required="required" value=""  placeholder="State">
+                                <input  class="form-control" type="text" name="state" required="required" value=""  placeholder="State*">
                              </div>
 
                              <div class="col-3">
-                                <input  class="form-control" type="text" name="pincode" required="required" value=""  placeholder="PINCODE">
+                                <input  class="form-control" type="text" name="pincode" required="required" value=""  placeholder="PINCODE*">
                              </div>
                              
                            </div>
@@ -127,31 +123,32 @@
                   <h5 class="card-header " style="font-weight: bold;background-color: #edf2ef;">Project Target Days</h5>
                     
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Target Start Date </label>
+                      <label for="" class="col-3 col-form-label">Target Start Date* </label>
                       <div class="col-9 ">
                         <input  class="form-control" type="date"  name="target_start_date" required="required" value="" id="target_start_date" placeholder="Target Start Date " autocomplete="off">
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Target End Date </label>
+                      <label for="" class="col-3 col-form-label">Target End Date* </label>
                       <div class="col-9 " >
                         <input  class="form-control" type="date" name="target_end_date" required="required" value=""  id="target_end_date" placeholder="Target End Date " autocomplete="off">
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Approved Holidays Count</label>
+                      <label for="" class="col-3 col-form-label">Approved Holidays Count*</label>
                       <div class="col-9 " >
                         <input  class="form-control" type="Number" name="approved_holidays_no" required="required" value=""  placeholder="Approved Holidays Count">
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Dates</label>
+                      <label for="" class="col-3 col-form-label">Note*</label>
                       <div class="col-9 " >
                        <!--  <input  class="form-control date" id="holiday_dates"  type="text" name="holiday_dates" required="required" value=""  placeholder="Approved Holiday Dates" autocomplete="off" multiple> -->
-                       <input  class="form-control" id="multiple-date-select" name="holiday_dates" autocomplete="off" placeholder="select dates" />
+                       <!-- <input  class="form-control" id="multiple-date-select" name="holiday_dates" autocomplete="off" placeholder="select dates" /> -->
+                       <textarea class="form-control" name="holiday_dates"></textarea>
                        
                       </div>
                     </div>
@@ -169,29 +166,30 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual Start Date </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="date" name="actual_start_date" required="required" value="" id="actual_start_date" placeholder="Actual Start Date " autocomplete="off">
+                        <input  class="form-control" type="date" name="actual_start_date" value="" id="actual_start_date" placeholder="Actual Start Date " autocomplete="off">
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual End Date </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="date" name="actual_end_date" required="required" value=""  id="actual_end_date" placeholder="Actual End Date " autocomplete="off">
+                        <input  class="form-control" type="date" name="actual_end_date"  value=""  id="actual_end_date" placeholder="Actual End Date " autocomplete="off">
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Holidays & Project Hold Days </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="Number" name="hold_days_no" required="required" value=""  placeholder="Holidays and Hold Count">
+                        <input  class="form-control" type="Number" name="hold_days_no" value=""  placeholder="Holidays and Hold Count">
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Dates</label>
+                      <label for="" class="col-3 col-form-label">Note</label>
                       <div class="col-9 " >
                         <!-- <input  class="form-control" type="text" name="hold_dates" required="required" value=""  placeholder="Holiday & Project Hold Dates" > -->
-                         <input  class="form-control" id="multiple-date-select2" name="hold_dates" name="hold_dates" autocomplete="off" placeholder="select dates" />
+                         <!-- <input  class="form-control" id="multiple-date-select2" name="hold_dates" name="hold_dates" autocomplete="off" placeholder="select dates" /> -->
+                         <textarea class="form-control" name="hold_dates"></textarea>
                       </div>
                     </div>
 
@@ -209,7 +207,7 @@
           <div class="col-md-4">
             
               <div class="form-group row" style="padding: 5px">
-                <label for="" class="col-3 col-form-label label-bold">PO DATE </label>
+                <label for="" class="col-3 col-form-label label-bold">PO DATE* </label>
                 <div class="col-9 " >
                   <input  class="form-control" type="date" name="po_date" required="required" value=""  id="po_date" placeholder="PO Date " autocomplete="off">
                 </div>
@@ -221,8 +219,8 @@
           <div class="col-md-4">
            
               <div class="form-group row" style="padding: 5px">
-                <label for="" class="col-3 col-form-label label-bold">PO Number </label>
-                <div class="col-9 " >
+                <label for="" class="col-4 col-form-label label-bold">PO Number* </label>
+                <div class="col-8 " >
                   <input  class="form-control" type="text" name="po_number" required="required" value=""  placeholder="PO Number">
                 </div>
               </div>
@@ -239,7 +237,7 @@
           <div class="col-md-4">
             
               <div class="form-group row" style="padding: 5px">
-                <label for="" class="col-4 col-form-label label-bold">DLP Applicable </label>
+                <label for="" class="col-4 col-form-label label-bold">DLP Applicable* </label>
                 <div class="col-6 " >
                   <select class="form-control form-select" name="is_dlp_applicable">
                     <option value="">Select</option>
@@ -257,7 +255,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">DLP Days </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="text" name="dlp_days"  value=""  placeholder="DLP Days">
+                  <input  class="form-control" type="number" name="dlp_days"  value="" min="0"  placeholder="DLP Days">
                 </div>
               </div>
                         
@@ -440,7 +438,7 @@
             <h5 class="card-header" style="font-weight: bolder;background-color: #edf2ef">HRE Details</h5>
 
             <div id="div2">
-                <input class="btn btn-outline-secondary form-control" type= "button" value= "Clear" onclick= "clearInput()">
+                <input class="btn btn-outline-secondary form-control" type= "button" value= "Add" onclick= "clearInput()">
             </div>
 
             <div id="div2">
@@ -505,7 +503,7 @@
         <div class="card-body">
           <h5 class="card-header">All Vendors Details</h5>
           <div id="div2">
-            <input class="btn btn-outline-secondary form-control" type= "button" value= "Clear" onclick= "clearvendorInput()">
+            <input class="btn btn-outline-secondary form-control" type= "button" value= "Add" onclick= "clearvendorInput()">
           </div>
 
           <div id="div2">
@@ -891,11 +889,9 @@ function populateinputs(item_code , name ,  brand , info , uom){
       res_array.push([i,JSONobject[i]]); 
    };
 
-
-  
   // console.log('INOF==',inform);
 
-  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" value="'+ brand +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" readonly></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" readonly></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  required></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  required></div>  </div></td></tr>') ;
+  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" required></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" readonly></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" readonly></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  required></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  required></div>  </div></td></tr>') ;
 
   setTimeout(function(){
   adjustHeight(this);       
@@ -993,7 +989,7 @@ function populatevendorinputs(item_code , name ,  brand ){
     x.style.display = "block";
   } 
 
-  $('#container_vendor').append('<div class="row align-items-end div-margin"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]"><option value="">Select</option><option value="Civil">Civil</option><option value="Carpentry">Carpentry</option><option value="Tiles/Stone">Tiles/Stone</option><option value="POP">POP</option><option value="Painting Works">Painting Works</option><option value="Corian Fabrication">Corian Fabrication</option><option value="Ceilling">Ceilling</option><option value="Accoustical work">Accoustical Work</option><option value="Artistic Works">Artistic Works</option><option value="Signage Works">Signage Works</option><option value="Electrical">Electrical</option><option value="Plumbing">Plumbing</option><option value="HVAC">HVAC</option><option value="FAS">FAS</option></select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" value="'+ item_code +'" readonly required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" value="'+ name +'" readonly required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" value="'+ brand +'" readonly required="required" placeholder="mobile"></div>  </div><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]" minlength="10" maxlength="10" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div> </div>') ;
+  $('#container_vendor').append('<div class="row align-items-end div-margin"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]" required><option value="">Select</option>@foreach($headings as $key=>$value)<option value="{{$value->headings}}">{{$value->headings}}</option>@endforeach</select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" value="'+ item_code +'" readonly required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" value="'+ name +'" readonly required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" value="'+ brand +'" readonly required="required" placeholder="mobile"></div>  </div><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]" minlength="10" maxlength="10" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div> </div>') ;
 
   setTimeout(function(){
   adjustHeight(this);       

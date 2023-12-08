@@ -26,11 +26,11 @@ class CreateHistogramBillingDetailsTable extends Migration
             $table->string('pincode');
             $table->string('target_start_date');
             $table->string('target_end_date');
-            $table->string('approved_holidays_no');
+            $table->string('approved_holidays_no')->nullable(;
             $table->string('holiday_dates')->nullable();
-            $table->string('actual_start_date');
-            $table->string('actual_end_date');
-            $table->string('hold_days_no');
+            $table->string('actual_start_date')->nullable();
+            $table->string('actual_end_date')->nullable();
+            $table->string('hold_days_no')->nullable(;
             $table->string('hold_dates')->nullable();
             $table->string('po_date')->nullable();
             $table->string('po_number')->nullable();

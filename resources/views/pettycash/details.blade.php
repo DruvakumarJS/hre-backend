@@ -103,7 +103,7 @@
                                 <th>Amount Utilised</th>
                                 <th>Purpose</th>
                                 <th>PCN</th>
-                                <th width="170px">Description</th>
+                                <th width="170px">Narration</th>
                                 <th>Proof</th>
                                 <th width="140px">Status</th>
                                 <th>Entry Date</th>

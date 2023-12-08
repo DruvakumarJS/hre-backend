@@ -12,6 +12,7 @@ use App\Models\VendorDetail;
 use App\Models\Employee;
 use App\Models\Pcn;
 use App\Models\FootPrint;
+use App\Models\VendorHeadings;
 use App\Models\HistogramHistory;
 use Illuminate\Http\Request;
 use App\Mail\HistogramMail;
@@ -19,6 +20,7 @@ use Auth;
 use PDF;
 use File;   
 use Mail;
+use DB;
 
 class HistogramController extends Controller
 {
@@ -51,7 +53,8 @@ class HistogramController extends Controller
      */
     public function create()
     {
-        return view('histogram/create');
+        $headings  = VendorHeadings::get();
+        return view('histogram/create',compact('headings'));
     }
 
     /**
@@ -260,9 +263,10 @@ class HistogramController extends Controller
         $vendor = VendorDetail::where('histogram_billing_id' ,$id)->get();
     
         $pcn = Pcn::where('status' , 'Active')->get(); 
+         $headings  = VendorHeadings::get();
 
         //print_r(json_encode($client));die();
-        return view('histogram/edit',compact('data','client','arch','land','hre','vendor','pcn' ,'id'));
+        return view('histogram/edit',compact('data','client','arch','land','hre','vendor','pcn' ,'id','headings'));
     }
 
      public function update_myform(Request $request)
@@ -447,9 +451,10 @@ class HistogramController extends Controller
         $vendor = VendorDetail::where('histogram_billing_id' ,$id)->get();
     
         $pcn = Pcn::where('status' , 'Active')->get(); 
+        
 
         //print_r(json_encode($client));die();
-        return view('histogram/view_form',compact('data','client','arch','land','hre','vendor','pcn' ,'id'));
+        return view('histogram/view_form',compact('data','client','arch','land','hre','vendor','pcn' ,'id',));
     }
 
     /**
@@ -524,13 +529,14 @@ class HistogramController extends Controller
         $land = HistogramLandlordDetails::where('histogram_billing_id' ,$id)->get();
         $hre = HreDetail::where('histogram_billing_id' ,$id)->get();
         $vendor = VendorDetail::where('histogram_billing_id' ,$id)->get();
+         $headings  = VendorHeadings::get();
     //print_r(json_encode($client));die();
-        return view('histogram/update_form',compact('data','client','arch','land','hre','vendor' ,'id'));
+        return view('histogram/update_form',compact('data','client','arch','land','hre','vendor' ,'id','headings'));
         
     }
 
     public function view_history($id){
-        $data = HistogramHistory::where('histogram_id', $id)->get();
+        $data = HistogramHistory::where('histogram_id', $id)->orderBy('id' , 'DESC')->get();
         $histogram = Histogram_billing_details::where('id' , $id)->first();
 
 
@@ -546,7 +552,7 @@ class HistogramController extends Controller
 
         
 
-       /* $update = Histogram_billing_details::where('id',$billing_id)->update([
+        $update = Histogram_billing_details::where('id',$billing_id)->update([
             'target_start_date' =>  $request->target_start_date,
             'target_end_date' =>  $request->target_end_date,
             'approved_holidays_no' =>  $request->approved_holidays_no,
@@ -561,7 +567,13 @@ class HistogramController extends Controller
             'dlp_days' =>  $request->dlp_days,
             'dlp_end_date' =>  $request->dlp_end_date
                ]);
-*/
+
+
+        $client = HistogramClientDetails::where('histogram_billing_id' ,$request->histogram_id)->delete();
+        $arch = HistogramArchitectDetails::where('histogram_billing_id' ,$request->histogram_id)->delete();
+        $land = HistogramLandlordDetails::where('histogram_billing_id' ,$request->histogram_id)->delete();
+        $hre = HreDetail::where('histogram_billing_id' ,$request->histogram_id)->delete();
+        $vendor = VendorDetail::where('histogram_billing_id' ,$request->histogram_id)->delete();       
 
         if(isset($request->client)){
 
@@ -786,7 +798,31 @@ class HistogramController extends Controller
         return redirect()->back()->withMessage('Can not be deleted .There must be at lease one document for review purpose');
        }
 
-        print_r($check); die();
+       // print_r($check); die();
 
+    }
+
+
+    public function get_pcn_data(Request $request){
+        $data = DB::table('pcns')
+            ->select(
+                    DB::raw("CONCAT(pcn) AS value"),
+                    'client_name',
+                    'pcn',
+                    'brand',
+                    'location',
+                    'area',
+                    'city',
+                    'state',
+                    'pincode',
+                    'status',
+                    'gst',
+                    'work'
+                )
+                    ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
+                   // ->where('status' , 'Active')
+                    ->get();            
+    
+        return response()->json($data);
     }
 }

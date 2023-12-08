@@ -26,7 +26,7 @@
             <div class="form-group row " style="margin-top: 10px;">
                
                 
-                <table style="padding:10px">
+                <table style="padding:10px;background-color: #c1f2b0">
                   <tr>
                     <th>
                       <div class="form-group row " style="margin-top: 10px;width: 200px">
@@ -82,7 +82,7 @@
           <th>
             <div class="form-group row " style="margin-top: 10px;">
               
-                <table style="padding:10px">
+                <table style="padding:10px;background-color: #FFEBD8">
                   <tr>
                     <th>
                       <div class="form-group row " style="margin-top: 10px;width: 200px">
@@ -139,7 +139,7 @@
           <th>
             <div class="form-group row " style="margin-top: 10px;">
                
-                <table style="padding:10px">
+                <table style="padding:10px;background-color: #D2E0FB">
                   <tr>
                     <th>
                       <div class="form-group row " style="margin-top: 10px;width: 200px">
@@ -201,7 +201,7 @@
 
   <!-- row 2 -->
   
-  <table style="margin-top: 30px">
+  <table style="margin-top: 30px;background-color: #FAE392">
         <tr>
           <th>
             <div class="form-group row " >
@@ -235,7 +235,7 @@
 
     <!-- row 3 -->
   
-  <table style="margin-top: 30px">
+  <table style="margin-top: 30px;background-color: #FAE392">
         <tr>
           <th>
             <div class="form-group" >
@@ -287,7 +287,7 @@
          <label style="font-weight: bold;">Client Details</label> 
       </div>
      
-      <table class="table responsive" width="100%">
+      <table class="table responsive" width="100%" style="background-color: #FDFFAE">
           <thead>
             <tr>
                <th scope="col">Name</th>
@@ -315,7 +315,7 @@
     <div  class="card border-white" style="margin-top: 20px;">
        <label style="font-weight: bold;">Architect/PMC Details</label> 
 
-      <table class="table responsive" width="100%">
+      <table class="table responsive" width="100%" style="background-color: #FDFFAE">
           <thead> 
             <tr>
                <th scope="col">Name</th>
@@ -343,7 +343,7 @@
 
     <div  class="card border-white" style="margin-top: 20px;">
        <label style="font-weight: bold;">Landlord /Property Coordinators</label> 
-      <table class="table responsive" width="100%">
+      <table class="table responsive" width="100%" style="background-color: #FDFFAE">
           <thead>
             <tr>
                <th scope="col">Name</th>
@@ -371,7 +371,7 @@
 
     <div  class="card border-white" style="margin-top: 20px;">
         <label style="font-weight: bold;margin-top: 30px">HRE Details</label>
-      <table class="table responsive" width="100%">
+      <table class="table responsive" width="100%" style="background-color: #F7C8E0">
           <thead>
             <tr>
                <th scope="col">Name</th>
@@ -397,12 +397,11 @@
         </table>
     </div>
 
-
-    
+ 
     <div  class="card border-white" style="margin-top: 20px;">
       <label style="font-weight: bold;margin-top: 30px">All Vendor Details</label>
  
-      <table class="table responsive" width="100%">
+      <table class="table responsive" width="100%" style="background-color: #E8F9FD">
           <thead>
             <tr>
                <th scope="col">Department Heading</th>

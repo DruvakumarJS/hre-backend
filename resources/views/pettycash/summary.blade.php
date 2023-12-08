@@ -76,7 +76,7 @@
 	            <th>Trasnsaction Date</th>
               <th>Mode</th>
               <th>Reference No. / Bill No.</th>
-	            <th>Description</th>
+	            <th>Narration</th>
 	            <th>Credit</th>
 	            <th>Debit</th>
               <th>Entry Date</th>
