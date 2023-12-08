@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\VendorDepartment;
 use App\Models\VendorStaff;
 use App\Models\FootPrint;
+use App\Models\VendorHeadings;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
@@ -254,5 +255,39 @@ class VendorDepartmentController extends Controller
             ->get();
          
         return response()->json($data);
+    }
+
+    public function vendor_headings(){
+      $data = VendorHeadings::paginate(50);
+      return view('vendor.departments',compact('data'));
+    }
+
+    public function save_heading(Request $request){
+     // print_r("kk"); die();
+
+      $save = VendorHeadings::create(['headings' => $request->name , 'description' => $request->desc ]) ;
+
+      if($save){
+        return redirect()->route('vendor_headings');
+      }
+    }
+
+    public function update_heading(Request $request){
+     // print_r("kk"); die();
+
+      $save = VendorHeadings::where('id', $request->id)->update(['headings' => $request->name , 'description' => $request->desc ]) ;
+
+      if($save){
+        return redirect()->route('vendor_headings');
+      }
+    }
+
+    public function delete_heading($id){
+      $dalete = VendorHeadings::where('id', $id)->delete();
+      
+      if($dalete){
+        return redirect()->route('vendor_headings');
+      }
+
     }
 }

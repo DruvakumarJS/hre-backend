@@ -113,6 +113,12 @@
                     || request()->routeIs('search_ticket')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Tickets</label></a>
+
+                    <a href="{{route('vendor_master')}}"
+                    class="{{request()->routeIs('vendor_master')
+                    
+                      ? 'active' : ''}}">
+                    <label class="nav-links" >Vendor</label></a>
                   
                  
                     <a href="{{route('attendance')}}"
@@ -197,7 +203,7 @@
                                         
                                         <li><a class="dropdown-item" href="{{route('materials_master')}}">Material Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('department_master')}}">Ticket Department Master</a></li>
-                                        <li><a class="dropdown-item" href="{{route('vendor_master')}}">Vendor Department Master</a></li>
+                                        <li><a class="dropdown-item" href="{{route('vendor_headings')}}">Vendor Department Master</a></li>
                                        
                                        @if(auth::user()->role_id == 1)
                                         <li>

@@ -12,7 +12,7 @@
     <div class="row justify-content-center">
       
       <div class="container-header">
-            <label class="label-bold" id="div1">Vendor Departments</label>
+            <label class="label-bold" id="div1">Vendors</label>
           @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11)  
          <div id="div2">
            <a class="btn btn-light btn-outline-secondary" href="{{route('add_vendor')}}"><i class="fa fa-plus"></i>

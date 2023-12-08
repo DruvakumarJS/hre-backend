@@ -62,7 +62,7 @@
   cursor: pointer;
   width: -moz-fit-content;
   width: fit-content;
-  padding: 7px 15px;
+  padding: 7px 7px;
 }
 
 .top-counter .card-text {
