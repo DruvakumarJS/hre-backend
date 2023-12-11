@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
          
-        $schedule->call(function () {
+       /* $schedule->call(function () {
 
             $Users = User::where('isloggedin', '1')->get();
 
@@ -73,7 +73,9 @@ class Kernel extends ConsoleKernel
          ->onFailure(function () {
             // print_r("Failed to start");
               
-         });
+         });*/
+
+         
     }
 
     /**

@@ -210,6 +210,7 @@
 
                  </tr>
 
+                 <input type="hidden"  id="staff_length" value="{{count($data->vendor_staffs)}}"> 
                  @foreach($data->vendor_staffs as $key=>$value)
 
                  <tr>
@@ -219,22 +220,26 @@
                      
                      <div class="col-md-3">
                      
-                      <input class="form-control" type="text" name="client[0][name]" required="required" placeholder="Enter Name" value="{{$value->name}}">
+                      <input class="form-control" type="text" name="client[{{$key}}][name]" required="required" placeholder="Enter Name" value="{{$value->name}}">
                     </div>
 
                      <div class="col-md-3">
                      
-                      <input class="form-control" type="text" name="client[0][designation]" required="required"
+                      <input class="form-control" type="text" name="client[{{$key}}][designation]" required="required"
                       placeholder="Enter Designation" value="{{$value->designation}}">
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       
-                      <input class="form-control" type="text" name="client[0][contact]" required="required" minlength="10" maxlength="10" placeholder="Enter Contact No." value="{{$value->mobile}}">
+                      <input class="form-control" type="text" name="client[{{$key}}][contact]" required="required" minlength="10" maxlength="10" placeholder="Enter Contact No." value="{{$value->mobile}}">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       
-                      <input class="form-control" type="text" name="client[0][email]" required="required" placeholder="Enter Email ID" value="{{$value->email}}">
+                      <input class="form-control" type="text" name="client[{{$key}}][email]" required="required" placeholder="Enter Email ID" value="{{$value->email}}">
+                    </div>
+
+                     <div class="col-md-1">
+                      <i class="fa fa-trash remove-client-field"></i>
                     </div>
 
                    </div>
@@ -262,16 +267,18 @@
 </div>
 
 <script type="text/javascript">
-    var i = 0;
+   
     var j = 'n';
     $("#dynamic-client").click(function () {
+       var i = $("#staff_length").val();
+      // alert(i);
         ++i;
-         $("#dynamicclient").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][name]"required=" required" placeholder="Enter Name"></div><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][designation]" required="required" placeholder="Enter Designation"></div> <div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][contact]" required="required" minlength="10" maxlength="10" placeholder="Enter Contact No."></div><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][email]" required="required" placeholder="Enter Email ID"></div> </div></td></tr>');
+         $("#dynamicclient").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][name]"required=" required" placeholder="Enter Name"></div><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][designation]" required="required" placeholder="Enter Designation"></div> <div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][contact]" required="required" minlength="10" maxlength="10" placeholder="Enter Contact No."></div><div class="col-md-2"><input class="form-control" type="text" name="client['+ i +'][email]" required="required" placeholder="Enter Email ID"></div> <div class="col-md-1"><i class="fa fa-trash remove-client-field"></i></div></div></td></tr>');
         
 
         document.getElementById("btnn").style.display="block";
     });
-    $(document).on('click', '.remove-input-field', function () {
+    $(document).on('click', '.remove-client-field', function () {
     
       if (j==0 && i==1){
        
@@ -279,24 +286,16 @@
       }
       else
        {
-        $(this).parents('tr').remove();
-         --i;
+         var del=confirm("Are you sure to delete ?");
+         
+        if (del==true){
+              $(this).parents('tr').remove();
+              --i;
+          }
       }
 
     });
 
-     $(document).on('click', '.remove-input-mandate', function () {
-     
-      if(!i == 0){
-      j=0;
-        $(this).parents('tr').remove();
-       
-      }
-      else {
-        alert('There must be atleast one address');
-      }
-        
-    });
       
 </script>
 

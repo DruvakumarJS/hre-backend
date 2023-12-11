@@ -255,7 +255,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">DLP Days </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="number" name="dlp_days"  value="" min="0"  placeholder="DLP Days">
+                  <input  class="form-control" type="number" name="dlp_days"  value="" min="0" max="366"  placeholder="DLP Days">
                 </div>
               </div>
                         
@@ -891,7 +891,7 @@ function populateinputs(item_code , name ,  brand , info , uom){
 
   // console.log('INOF==',inform);
 
-  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" required></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" readonly></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" readonly></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  required></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  required></div>  </div></td></tr>') ;
+  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" value="'+ brand +'" required></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" readonly></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" readonly></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  required></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  required></div>  </div></td></tr>') ;
 
   setTimeout(function(){
   adjustHeight(this);       

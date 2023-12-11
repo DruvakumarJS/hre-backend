@@ -126,7 +126,7 @@ class VendorDepartmentController extends Controller
      */
     public function update(Request $request)
     {
-       // print_r($request->Input());die();
+       // print_r(json_encode($request->Input()) );die();
 
         $update = VendorDepartment::where('id',$request->id)->update([
             'vid_id' =>  $request->vid,
@@ -147,7 +147,9 @@ class VendorDepartmentController extends Controller
             'state' =>  $request->state
         ]);
 
-        if($update){
+        $delete =  VendorStaff::where('vendor_id' , $request->id)->delete();
+
+        if($delete){
             foreach($request->client as $key=>$value){
               VendorStaff::create([
                 'vendor_id' => $request->id ,

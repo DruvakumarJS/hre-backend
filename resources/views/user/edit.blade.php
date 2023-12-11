@@ -1,4 +1,4 @@
-@extends('layouts.app')
+ @extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -8,7 +8,7 @@
 
           @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)  
           <div id="div2">
-             <a data-bs-toggle="modal" data-bs-target="#promoteModal"><button class="btn btn-light btn-outline-success"> Promote </button></a>
+             <a data-bs-toggle="modal" data-bs-target="#promoteModal"><button class="btn btn-light btn-outline-success"> Change Role </button></a>
           </div>
           @endif
            @if(Session::has('message'))

@@ -16,6 +16,8 @@ use App\Models\VendorHeadings;
 use App\Models\HistogramHistory;
 use Illuminate\Http\Request;
 use App\Mail\HistogramMail;
+use App\Jobs\GeneratePdf;
+use App\Jobs\GenerateNewHistogramPdf;
 use Auth;
 use PDF;
 use File;   
@@ -190,8 +192,27 @@ class HistogramController extends Controller
            
             $filename = 'histogram.pdf';
             $path = 'histogram' ;
+            $name = $data->user->name ;
+            $alias = $data->user->roles->alias;
+
+            GenerateNewHistogramPdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$name ,$alias);
+
+            $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first();
+
+            $footprint = FootPrint::create([
+                        'action' => 'New Histogram created By - '.$empl->employee_id.' on '.$request->project_name,
+                        'user_id' => Auth::user()->id,
+                        'module' => 'Histogram',
+                        'operation' => 'C'
+                    ]);
+              
+            print_r("lll"); die();  
+             return redirect()->route('histogram');
+
+            } 
+
            
-            if (file_exists(public_path().'/'.$path)) {
+            /*if (file_exists(public_path().'/'.$path)) {
               
             } else {
                
@@ -230,7 +251,7 @@ class HistogramController extends Controller
               
                  // print_r($billing_id); die(); 
                   return redirect()->route('histogram');
-               } 
+               } */
 
        
     }
@@ -396,6 +417,10 @@ class HistogramController extends Controller
 
             $filename = 'histogram.pdf';
             $path = 'histogram' ;
+            $name = $data->user->name ;
+            $alias = $data->user->roles->alias;
+
+            GenerateNewHistogramPdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$name ,$alias);
            
             if (file_exists(public_path().'/'.$path)) {
               
@@ -404,7 +429,7 @@ class HistogramController extends Controller
                 File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
             }
 
-            $pdf = PDF::loadView('pdf/new_histogramPDF',compact('data','client','arch','land','hre','vendor' ));
+           /* $pdf = PDF::loadView('pdf/new_histogramPDF',compact('data','client','arch','land','hre','vendor' ));
         
             $savepdf = $pdf->save(public_path($filename));
            
@@ -432,9 +457,10 @@ class HistogramController extends Controller
 
                 return redirect()->route('histogram');
 
-               } 
+               } */
 
-
+        return redirect()->route('histogram');
+      
 
        
         
@@ -544,7 +570,7 @@ class HistogramController extends Controller
     }
 
     public function update_histogram_details(Request $request){
-        //print_r(json_encode($request->Input()));die(); 
+       // print_r(json_encode($request->Input()));die(); 
 
         $billing_id=$request->histogram_id;
 
@@ -667,43 +693,24 @@ class HistogramController extends Controller
             $land = HistogramLandlordDetails::where('histogram_billing_id' ,$id)->get();
             $hre = HreDetail::where('histogram_billing_id' ,$id)->get();
             $vendor = VendorDetail::where('histogram_billing_id' ,$id)->get();
-    
-           
-               $rand = date('d-m-Y').'_'.date('H-i');
-              
-                $filename = 'histogram_'.$rand.'.pdf';
-                // $filename = 'histogram.pdf';
-                $path = 'histogram' ;
-               
-                if (file_exists(public_path().'/'.$path)) {
-                  
-                } else {
-                   
-                    File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
-                }
 
-                $pdf = PDF::loadView('pdf/histogramPDF',compact('data','client','arch','land','hre','vendor' ));
-            
-                $savepdf = $pdf->save(public_path('histogram').'/'.$filename);
+           // print_r($data); die();
 
-                if($savepdf){
+             //$rand = rand('111111111','999999999');
+            $rand = date('d-m-Y').'_'.date('H-i');
+            $filename = 'histogram_'.$rand.'.pdf';
+
+            $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first();
+            $empl_id = $empl->employee_id;
+            $pcn  = $request->pcn ;
+            $empl_mail  = $empl->email ;
+            $name = $data->user->name ;
+            $alias = $data->user->roles->alias;
+
+            GeneratePdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name , $alias);
+
+
                 $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first();
-
-                $subject = "Histogram Updated - ".$empl->employee_id." PCN - ".$data->pcn;
-
-                $attachment = public_path($path.'/'.$filename) ;
-
-                     try {
-                          Mail::to(Auth::user()->email)->send(new HistogramMail($subject , $attachment));
-                         // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
-                        } catch (\Exception $e) {
-                            return $e->getMessage();
-                           
-                        } 
-           
-                  }
-
-
                 $histogram = Histogram_billing_details::where('id',$request->histogram_id)->first();
                         $history = HistogramHistory::create([
                         'pcn'=>$request->pcn,
