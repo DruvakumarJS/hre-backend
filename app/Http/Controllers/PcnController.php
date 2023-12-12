@@ -59,7 +59,7 @@ class PcnController extends Controller
      */
     public function store(Request $request)
     {
-      print_r($request->Input()); 
+      //print_r($request->Input()); 
  
         $pcn = 'PCN_'.$request->pcn;
        if (Pcn::where('pcn',$pcn)->exists()) {
@@ -185,13 +185,26 @@ class PcnController extends Controller
 
                 $subject = 'PCN_'.$request->pcn." - New PCN added";
 
-                $emailarray = User::select('email')->where('role_id', '!=','4')->get();
+                $emailarray = User::select('email')->where('role_id', '!=','13')->where('role_id', '!=','14')->get();
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
 
+               SendPCNEmails::dispatch($pcn_data,$subject ,$emailid);
+
+                $footprint = FootPrint::create([
+                    'action' => 'New PCN created - '.'PCN_'.$request->pcn,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'PCN',
+                    'operation' => 'C'
+                ]);
+
+                return redirect()->back()->with('PCN' , $data);
+
+              // die();
+
                
-               try{
+              /* try{
 
                   Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
                // SendPCNEmails::dispatch($pcn_data,$subject,$emailid);
@@ -210,7 +223,7 @@ class PcnController extends Controller
                 ]);
 
                   return redirect()->back()->with('PCN' , $data);
-               }
+               }*/
 
                
 
@@ -390,17 +403,27 @@ class PcnController extends Controller
                             'old_data'=> $old_data
                             ];*/
 
-                    $pcn_data = ['new_data' => $new_data , 'old_data' =>$old_data ];        
+                $pcn_data = ['new_data' => $new_data , 'old_data' =>$old_data ];        
                             
                 $subject = $request->pcn." is Modified";
 
-                $emailarray = User::select('email')->where('role_id', '!=','4')->get();
+                $emailarray = User::select('email')->where('role_id', '!=','13')->where('role_id', '!=','14')->get();
                    foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;
                    }
 
-            
-                    try {
+                 SendPCNEmails::dispatch($pcn_data,$subject ,$emailid);
+
+                 $footprint = FootPrint::create([
+                            'action' => 'PCN details modified - '.$request->pcn,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'PCN',
+                            'operation' => 'U'
+                        ]);
+                     
+                      return redirect()->route('view_pcn');
+                      
+                   /* try {
                       Mail::to($emailid)->send(new PcnMail($pcn_data,$subject));
                        //Mail::to('druva@netiapps.com')->send(new PcnMail($pcn_data,$subject));
                     } catch (\Exception $e) {
@@ -417,7 +440,7 @@ class PcnController extends Controller
                         ]);
                      
                       return redirect()->route('view_pcn');
-                    }             
+                    }  */           
                    
             }
             else{

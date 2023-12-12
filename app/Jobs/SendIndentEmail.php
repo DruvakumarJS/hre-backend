@@ -10,12 +10,12 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\IndentsMail;
 use Mail;
+use PDF;
 
 class SendIndentEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     public $indent_details;
-    public $attachment;
     public $subject;
     public $emailid;
 
@@ -24,11 +24,10 @@ class SendIndentEmail implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($indent_details ,  $subject ,$attachment , $emailid)
+    public function __construct($indent_details ,  $subject , $emailid)
     {
          $this->indent_details = $indent_details;
          $this->subject = $subject;
-         $this->attachment = $attachment;
          $this->emailid = $emailid ;
     }
 
@@ -39,7 +38,20 @@ class SendIndentEmail implements ShouldQueue
      */
     public function handle()
     {
-       //print_r($this->emailid); die();
-        Mail::to($this->emailid)->send(new IndentsMail($this->indent_details,$this->subject,$this->attachment));
+        $indent_details = $this->indent_details ;
+        $subject = $this->subject ;
+        $filename = 'indent.pdf';
+        $attachment = public_path($filename) ;
+
+
+       $pdf = PDF::loadView('pdf/indentsPDF',compact('indent_details'));
+    
+        $savepdf = $pdf->save(public_path($filename));
+
+         if($savepdf){
+
+           Mail::to($this->emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
+
+         }
     }
 }

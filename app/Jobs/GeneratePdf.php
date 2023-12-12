@@ -92,6 +92,8 @@ class GeneratePdf implements ShouldQueue
 
         $attachment = public_path($path.'/'.$this->filename) ;
 
+        Mail::to($this->empl_mail)->send(new HistogramMail($subject , $attachment));
+
 
           }
 

@@ -12,7 +12,6 @@ class TicketsMail extends Mailable
     use Queueable, SerializesModels;
     public $ticketarray;
     public $subject ;
-
     /**
      * Create a new message instance.
      *

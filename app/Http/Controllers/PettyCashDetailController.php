@@ -497,7 +497,7 @@ class PettyCashDetailController extends Controller
       $empl = Employee::where('user_id', $id)->first();
       $p_data = "PettyCash bill approval request : ".$empl->employee_id;
 
-       $emailarray = User::select('email')->where('role_id','5')->orWhere('role_id','1')->get();
+       $emailarray = User::select('email')->whereIn('role_id',['1','6','7','8'])->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;

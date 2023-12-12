@@ -238,57 +238,33 @@ class IntendController extends Controller
                  'creator' =>Auth::user()->name,
                  'details'=> $data     
           ];
-          
-       $filename = 'indent.pdf';
-       $pdf = PDF::loadView('pdf/indentsPDF', compact('indent_details'));
-    
-       $savepdf = $pdf->save(public_path($filename));
 
-       // $filename = public_path($filename);
-        $attachment = public_path($filename) ;
-
-        if($savepdf){
-           
           $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first(); 
 
           $subject = "New Indent : " .$empl->employee_id." - ".$ind_no ." - ".$request->pcn;
 
-          $emailarray = User::select('email')->where('role_id','3')->get();
+          $emailarray = User::select('email')->whereIn('role_id',['1','10','11','12'])->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
 
-              // SendIndentEmail::dispatch($indent_details,$subject,$attachment,$emailid);
+           SendIndentEmail::dispatch($indent_details,$subject,$emailid);
 
-          //Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
+          $footprint = FootPrint::create([
+                  'action' => 'New indent created - '.$ind_no,
+                  'user_id' => Auth::user()->id,
+                  'module' => 'Indent',
+                  'operation' => 'C'
+              ]);
 
-                try {
-                     Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
-                    } catch (\Exception $e) {
-                        return $e->getMessage();
-                       
-                    } 
-                    finally {
+             
+           $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
 
-                      $footprint = FootPrint::create([
-                          'action' => 'New indent created - '.$ind_no,
-                          'user_id' => Auth::user()->id,
-                          'module' => 'Indent',
-                          'operation' => 'C'
-                      ]);
+          // die();
 
-                     
-                       $data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
-           
-                       return redirect()->back()->with('Indent',$data);
-                    }       
-           
-        }
-
-         /*$data= ['indent_no' =>$ind_no , 'pcn'=>$idtend->pcn , 'detail'=>$pcn_detail ];
-           
-           return redirect()->back()->with('Indent',$data);*/
+           return redirect()->back()->with('Indent',$data);
+      
 
      }
      else {

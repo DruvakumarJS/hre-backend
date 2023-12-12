@@ -146,7 +146,7 @@
       </div>
       @endif
 
-      @if(Auth::user()->team_id == 1 or Auth::user()->roles->team_id == 2 or Auth::user()->roles->team_id == 3 or Auth::user()->roles->team_id == 4 or Auth::user()->roles->team_id == 5)
+     
        <div id="div2" style="display: block ; margin-right: 30px">
           
       <a data-bs-toggle="modal" data-bs-target="#completeModal"  class="btn btn-light btn-outline-secondary" href="">
@@ -154,8 +154,7 @@
            </a>
       </div>
 
-      
-      @endif
+     
 
       @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 9 OR Auth::user()->role_id == 10)
       <div id="div2" style="display: block; margin-right: 30px">

@@ -27,15 +27,19 @@ class GenerateNewHistogramPdf implements ShouldQueue
      protected $hre;
      protected $vendor;
      protected $filename;
+     protected $empl_id;
+     protected $pcn;
+     protected $empl_mail;
      protected $name;
      protected $alias;
+     protected $subject;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($data,$client,$arch,$land,$hre,$vendor,$filename,$name,$alias)
+    public function __construct($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail,$name , $alias , $subject)
     {
         $this->data = $data ;
         $this->client = $client ;
@@ -44,8 +48,12 @@ class GenerateNewHistogramPdf implements ShouldQueue
         $this->hre = $hre ;
         $this->vendor = $vendor ;
         $this->filename = $filename ;
+        $this->empl_id = $empl_id ;
+        $this->pcn = $pcn ;
+        $this->empl_mail = $empl_mail ;
         $this->name = $name ;
         $this->alias = $alias ;
+        $this->subject = $subject ;
        
     }
 
@@ -69,5 +77,11 @@ class GenerateNewHistogramPdf implements ShouldQueue
         $pdf = PDF::loadView('pdf/new_histogramPDF',compact('data','client','arch','land','hre','vendor','name','alias' ));
     
         $savepdf = $pdf->save(public_path($this->filename));
+
+        $attachment = public_path($this->filename) ;
+
+        Mail::to($this->empl_mail)->send(new HistogramMail($this->subject , $attachment));
+
+
     }
 }

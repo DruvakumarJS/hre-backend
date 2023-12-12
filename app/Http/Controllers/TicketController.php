@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use File;
 use App\Mail\TicketsMail;
 use App\Mail\TicketDetailsMail;
+use App\Jobs\SendTicketEmail;
 use PDF;
 use Auth;
 use ZipArchive;
@@ -238,8 +239,23 @@ class TicketController extends Controller
                  
                }
 
+           SendTicketEmail::dispatch($ticketarray , $subject , $emailid) ;   
+
+
+            $footprint = FootPrint::create([
+                            'action' => 'New Ticket created - '.$ticket_no,
+                            'user_id' => Auth::user()->id,
+                            'module' => 'Ticket',
+                            'operation' => 'C'
+                        ]);
+                  
+            $message = $ticket_no;
+
+           // die();
+           return response()->json($message);     
+
          
-                try {
+               /* try {
                       Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
                      // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
                     } catch (\Exception $e) {
@@ -256,8 +272,9 @@ class TicketController extends Controller
                   
                       $message = $ticket_no;
                      return response()->json($message);
-                   }             
-                 }
+                   }    */         
+            
+            }
 
 
         }
@@ -439,7 +456,7 @@ class TicketController extends Controller
                  // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
 
                     try {
-                     // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                      Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
                     } catch (\Exception $e) {
                         return $e->getMessage();
                        
@@ -864,7 +881,7 @@ class TicketController extends Controller
               $body = "The Ticket No. ".$request->ticket_no." is Completed ";
               $ticketarray = ['ticket_no' => $request->ticket_no ];
 
-              $emailarray = User::select('email')->where('id',$ticket->creator)->orWhere('role_id','2')->get();
+              $emailarray = User::select('email')->where('id',$ticket->creator)->get();
 
                    foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;

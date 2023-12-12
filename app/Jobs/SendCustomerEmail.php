@@ -9,19 +9,27 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\user;
+use App\Mail\CustomerMail;
+use Mail;
 
 class SendCustomerEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $mail_data;
+    protected $data;
+    protected $subject;
+    protected $emailid;
+    protected $details;
+    protected $customer_address;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($mail_data)
+    public function __construct($data , $subject , $emailid )
     {
-        $this->mail_data = $mail_data;
+        $this->data = $data;
+        $this->subject = $subject;
+        $this->emailid = $emailid;
     }
 
     /**
@@ -31,18 +39,10 @@ class SendCustomerEmail implements ShouldQueue
      */
     public function handle()
     {
-        $users = User::where('role_id' , '1')->get();
-        $input['subject'] = $this->mail_data['subject'];
-
-        foreach ($users as $key => $value) {
-            $input['email'] = $value->email;
-            $input['name'] = $value->name;
-            
-            \Mail::send('email.testmail', [], function($message) use($input){
-                $message->to($input['email'], $input['name'])
-                    ->subject($input['subject']);
-            });
-        }
+        $data = $this->data ;
+        $subject = $this->subject;
+      
+        Mail::to($this->emailid)->send(new CustomerMail($data ,$subject ));
     }
 
     

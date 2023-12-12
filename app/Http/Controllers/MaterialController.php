@@ -150,7 +150,7 @@ class MaterialController extends Controller
             'information'=> $features
        ];
 
-      $emailarray = User::select('email')->where('role_id','3')->orWhere('role_id', '1')->get();
+      $emailarray = User::select('email')->whereIn('role_id',['1','10','11','12'])->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;

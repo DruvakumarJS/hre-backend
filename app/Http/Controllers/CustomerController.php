@@ -159,21 +159,15 @@ class CustomerController extends Controller
             
           $data = ['details' =>$details  ,'address' => $customer_address];
 
-             $emailarray = User::select('email')->where('role_id','!=','4')->get();
+             $emailarray = User::select('email')->where('role_id','!=','13')->where('role_id','!=','14')->get();
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
 
-          //Mail::to($emailid)->send(new CustomerMail($data,$subject));
+         // Mail::to($emailid)->send(new CustomerMail($data,$subject));
+          SendCustomerEmail::dispatch($data , $subject , $emailid );
 
-          try {
-            // Mail::to($emailid)->send(new CustomerMail($data,$subject));
-            } catch (\Exception $e) {
-                return $e->getMessage();
-               
-            } 
-            finally {
-                $footprint = FootPrint::create([
+         $footprint = FootPrint::create([
                     'action' => 'New Customer created - '.$request->name,
                     'user_id' => Auth::user()->id,
                     'module' => 'Customer',
@@ -181,11 +175,7 @@ class CustomerController extends Controller
                 ]);
              
               return redirect()->route('view_customers');
-            }     
-
-
-        
-        
+    
         }
     }
 
@@ -321,32 +311,24 @@ class CustomerController extends Controller
          $data = ['details' =>$details  ,'address' => $customer_address ,  'old_data'=> $cust_data];
           /*$data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email ,'address' => $customer_address , 'old_data'=> $cust_data];*/
 
-            $emailarray = User::select('email')->where('role_id','!=','4')->get();
+            $emailarray = User::select('email')->where('role_id','!=','13')->where('role_id','!=','14')->get();
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
                
            // Mail::to($emailid)->send(new CustomerMail($data,$subject));
 
-               try {
-                      Mail::to($emailid)->send(new CustomerMail($data,$subject));
-                    } catch (\Exception $e) {
-                        return $e->getMessage();
-                       
-                    } 
-                    finally {
+               SendCustomerEmail::dispatch($data , $subject , $emailid );
 
-                        $footprint = FootPrint::create([
-                            'action' => 'Customer details modified - '.$cust_data->name,
-                            'user_id' => Auth::user()->id,
-                            'module' => 'Customer',
-                            'operation' => 'U'
-                        ]);
-                     
-                      return redirect()->route('view_customers');
-                    }     
+                $footprint = FootPrint::create([
+                    'action' => 'Customer details modified - '.$cust_data->name,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Customer',
+                    'operation' => 'U'
+                ]);
+             
+               return redirect()->route('view_customers');
 
-        
       }
       else{
          return redirect()->Back()->withmessage('Please add atleast one address');

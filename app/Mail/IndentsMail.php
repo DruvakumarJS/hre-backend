@@ -22,7 +22,7 @@ class IndentsMail extends Mailable
     public function __construct($indent_details ,  $subject ,$attachment )
     {
         $this->indent_details = $indent_details;
-         $this->subject = $subject;
+        $this->subject = $subject;
         $this->attachment = $attachment;
        
     }

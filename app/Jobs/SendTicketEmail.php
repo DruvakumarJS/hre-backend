@@ -8,28 +8,27 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\PcnMail;
+use App\Mail\TicketsMail;
 use Mail;
 
-class SendPCNEmails implements ShouldQueue
+class SendTicketEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-     public $pcn_data ;
-     public $subject ;
-     public $emailid ;
+    protected $ticketarray;
+    protected $subject;
+    protected $emailid;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($pcn_data , $subject , $emailid)
+    public function __construct($ticketarray , $subject , $emailid)
     {
-        $this->pcn_data = $pcn_data ;
+        $this->ticketarray = $ticketarray;
         $this->subject = $subject ;
-        $this->emailid =  $emailid ;
+        $this->emailid = $emailid ;
     }
-
 
     /**
      * Execute the job.
@@ -38,7 +37,6 @@ class SendPCNEmails implements ShouldQueue
      */
     public function handle()
     {
-
-        Mail::to($this->emailid)->send(new PcnMail($this->pcn_data,$this->subject));
+        Mail::to($this->emailid)->send(new TicketsMail($this->ticketarray,$this->subject));
     }
 }
