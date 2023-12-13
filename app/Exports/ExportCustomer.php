@@ -25,6 +25,7 @@ class ExportCustomer implements FromCollection, WithHeadings
          $customer =  DB::table('addresses')
          ->select(DB::raw(
             "DATE_FORMAT(addresses.created_at, '%d-%m-%Y') as date"),
+            DB::raw("CONCAT('MAC',customers.id) AS value"),
             'customers.name' , 
             'addresses.brand',
             'addresses.state',
@@ -77,7 +78,7 @@ class ExportCustomer implements FromCollection, WithHeadings
     public function headings(): array
      {       
        return [
-         'Date','Billing Name','Brand' , 'State' , 'GST No.' , 'Name' , 'Designation' , 'Mobile' , 'Email','Name2' , 'Designation2' , 'Mobile2' , 'Email2', 'Name3' , 'Designation3' , 'Mobile3' , 'Email3','Name4' , 'Designation4' , 'Mobile4' , 'Email4'
+         'Date','Customer ID','Billing Name','Brand' , 'State' , 'GST No.' , 'Name' , 'Designation' , 'Mobile' , 'Email','Name2' , 'Designation2' , 'Mobile2' , 'Email2', 'Name3' , 'Designation3' , 'Mobile3' , 'Email3','Name4' , 'Designation4' , 'Mobile4' , 'Email4'
        ];
      }
 }

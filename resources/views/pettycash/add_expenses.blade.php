@@ -224,6 +224,11 @@ output .span--hidden{
             $('#pcn_detail').css('color', 'red');
             document.getElementById("submit").style.display= "none" ;
           }
+          else if(ui.item.status == 'Cancelled'){
+            document.getElementById("pcn_detail").innerHTML="Selected Project is Cancelled, Please contact super Admin for more information";
+            $('#pcn_detail').css('color', 'red');
+            document.getElementById("submit").style.display= "none" ;
+          }
           else {
             document.getElementById("submit").style.display= "block" ;
            document.getElementById("pcn_detail").innerHTML=address;

@@ -225,6 +225,10 @@
                                    <option value="Active"  <?php echo ($pcn_data->status == 'Active') ? 'selected' : ''; ?> >Active</option>
                                   
                                   <option value="Completed"  <?php echo ($pcn_data->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
+
+                                  <option value="Cancelled"  <?php echo ($pcn_data->status == 'Cancelled') ? 'selected' : ''; ?> >Cancelled</option>
+
+                                  <option value="On-Hold"  <?php echo ($pcn_data->status == 'On-Hold') ? 'selected' : ''; ?> >On-Hold</option>
                                 </select>
                             </div>
                         </div>
