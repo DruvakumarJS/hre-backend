@@ -249,7 +249,7 @@ class IntendController extends Controller
                   $emailid[]=$value->email;
                }
 
-           SendIndentEmail::dispatch($indent_details,$subject,$emailid);
+          // SendIndentEmail::dispatch($indent_details,$subject,$emailid);
 
           $footprint = FootPrint::create([
                   'action' => 'New indent created - '.$ind_no,
@@ -477,7 +477,7 @@ class IntendController extends Controller
             
              // Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
                 try {
-                      Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
+                     // Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
                     } catch (\Exception $e) {
                         return $e->getMessage();
                        

@@ -112,7 +112,7 @@ class TicketConversationController extends Controller
 
 
                 try {
-                      Mail::to($emailid)->send(new TicketConversationMail($ticketarray , $subject));
+                     // Mail::to($emailid)->send(new TicketConversationMail($ticketarray , $subject));
                      // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
                     } catch (\Exception $e) {
 

@@ -505,7 +505,7 @@ class PettyCashDetailController extends Controller
 
       
       try {
-              Mail::to($emailid)->send(new PettycashMail($p_data , $id));
+             // Mail::to($emailid)->send(new PettycashMail($p_data , $id));
             } catch (\Exception $e) {
                 return $e->getMessage();
                

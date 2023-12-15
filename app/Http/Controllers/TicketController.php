@@ -239,7 +239,7 @@ class TicketController extends Controller
                  
                }
 
-           SendTicketEmail::dispatch($ticketarray , $subject , $emailid) ;   
+          // SendTicketEmail::dispatch($ticketarray , $subject , $emailid) ;   
 
 
             $footprint = FootPrint::create([
@@ -456,7 +456,7 @@ class TicketController extends Controller
                  // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
 
                     try {
-                      Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                     // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
                     } catch (\Exception $e) {
                         return $e->getMessage();
                        
@@ -891,7 +891,7 @@ class TicketController extends Controller
             'status' => $request->action , 'comments' =>$request->message ]);
 
                 try {
-                  Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body)); 
+                  //Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body)); 
                  // Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));    
                 } catch (\Exception $e) {
                     return $e->getMessage();
@@ -936,7 +936,7 @@ class TicketController extends Controller
             'status' => $request->action ,'comments' =>$request->message]);
 
                 try {
-                  Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body)); 
+                 // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body)); 
                  // Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($ticketarray , $subject , $body));    
                 } catch (\Exception $e) {
                     return $e->getMessage();

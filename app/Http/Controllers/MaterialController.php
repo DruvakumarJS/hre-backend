@@ -158,7 +158,7 @@ class MaterialController extends Controller
       //Mail::to($emailid)->send(new MaterialMail($subject , $material));
 
        try {
-          Mail::to($emailid)->send(new MaterialMail($subject , $material));
+         // Mail::to($emailid)->send(new MaterialMail($subject , $material));
         } catch (\Exception $e) {
             return $e->getMessage();
            

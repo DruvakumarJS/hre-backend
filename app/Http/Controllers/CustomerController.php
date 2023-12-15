@@ -165,7 +165,7 @@ class CustomerController extends Controller
                }
 
          // Mail::to($emailid)->send(new CustomerMail($data,$subject));
-          SendCustomerEmail::dispatch($data , $subject , $emailid );
+         // SendCustomerEmail::dispatch($data , $subject , $emailid );
 
          $footprint = FootPrint::create([
                     'action' => 'New Customer created - '.$request->name,
@@ -318,7 +318,7 @@ class CustomerController extends Controller
                
            // Mail::to($emailid)->send(new CustomerMail($data,$subject));
 
-               SendCustomerEmail::dispatch($data , $subject , $emailid );
+              // SendCustomerEmail::dispatch($data , $subject , $emailid );
 
                 $footprint = FootPrint::create([
                     'action' => 'Customer details modified - '.$cust_data->name,

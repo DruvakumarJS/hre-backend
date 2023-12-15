@@ -190,7 +190,7 @@ class PcnController extends Controller
                   $emailid[]=$value->email;
                }
 
-               SendPCNEmails::dispatch($pcn_data,$subject ,$emailid);
+              // SendPCNEmails::dispatch($pcn_data,$subject ,$emailid);
 
                 $footprint = FootPrint::create([
                     'action' => 'New PCN created - '.'PCN_'.$request->pcn,
@@ -412,7 +412,7 @@ class PcnController extends Controller
                       $emailid[]=$value->email;
                    }
 
-                 SendPCNEmails::dispatch($pcn_data,$subject ,$emailid);
+                // SendPCNEmails::dispatch($pcn_data,$subject ,$emailid);
 
                  $footprint = FootPrint::create([
                             'action' => 'PCN details modified - '.$request->pcn,
