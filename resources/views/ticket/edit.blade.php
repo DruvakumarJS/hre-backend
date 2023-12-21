@@ -120,7 +120,8 @@
 
                                     @if($tickets->status == 'Completed')
                                      <option value="Completed" <?php echo ($tickets->status == 'Completed') ? 'selected' : ''; ?> >Completed</option>
-                                     @if(Auth::user()->role_id = 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 9 OR Auth::user()->role_id == 10)
+
+                                     @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 9 OR Auth::user()->role_id == 10)
                                      <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
                                      @endif
 
@@ -129,7 +130,7 @@
                                     @if($tickets->status == 'Resolved')
                                      <option value="Resolved" <?php echo ($tickets->status == 'Resolved') ? 'selected' : ''; ?> >Resolved</option>
 
-                                    @if(Auth::user()->role_id = 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 9 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11)
+                                    @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 9 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11)
                                      <option value="Re-Opened" <?php echo ($tickets->status == 'Reopen') ? 'selected' : ''; ?> >Reopen</option>
 
                                      @endif

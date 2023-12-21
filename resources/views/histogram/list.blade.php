@@ -78,6 +78,16 @@
             
            
             <label class="label-bold">Pending Form</label>
+
+            <!-- <div id="div3">
+              <form method="post" action="{{ route('search_pending_forms')}}">
+                 @csrf
+                <input type="text" name="search2" >
+                <button>Search</button>
+              </form>
+              
+            </div> -->
+
             <div class="card border-white scroll tableFixHead" style="height: 270px; padding: 0px 5px 20px 20px">
 
                         <table class="table">

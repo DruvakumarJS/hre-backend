@@ -439,8 +439,10 @@ class UserController extends Controller
 
     
     public  function create_user($role_id){
-      
-        return view('user/create_user',compact('role_id'));
+       // print_r($role_id); die();
+        $role = Roles::where('id',$role_id)->first();
+        $rolename = $role->alias ; 
+        return view('user/create_user',compact('role_id' , 'rolename'));
     }
 
     public  function create_pcn(){

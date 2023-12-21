@@ -4,7 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-            <label class="label-bold" id="div1">Add</label>
+            <label class="label-bold" id="div1">Add New Employee</label>
+           
+            
           <div id="div2">
             <a href="{{route('users')}}">
               <button class="btn btn-light btn-outline-secondary"> User Master</button>
@@ -24,7 +26,22 @@
     <div class="page-container">
       <form method="post" action="{{route('save_user')}}">
         @csrf
-       <div class="row">
+
+        <div class="row">
+           
+           <div class="col-md-4">
+                <label>Role</label>
+                <input class="form-control" type="input"  value="{{$rolename}}" readonly>
+                 @error('employee_id')
+               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+             @enderror
+                
+          </div>
+
+          
+
+      </div>
+       <div class="row div-margin">
            
            <div class="col-md-4">
                 <label>Employee ID *</label>

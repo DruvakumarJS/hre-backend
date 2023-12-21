@@ -86,7 +86,11 @@ p {
                 <div class="card2 border-white card_shadow" style="padding: 20px 20px 20px 20px">
                   <div class="card-body">
                     <h3 class="card-title">{{$value2['alias']}}</h3>
-                   <a href="{{ route('view_users',$value2['id'])}}" class="btn btn-light btn-outline-secondary" style="color: black">View more</a>
+                    @if(auth::user()->role_id == '1' OR auth::user()->role_id == '2')
+                   <a href="{{ route('view_users',$value2['id'])}}" class="btn btn-light btn-outline-secondary" style="color: black" >View more</a>
+                   @else
+                     <a class="btn btn-light btn-outline-secondary" style="color: black"  >View more</a>
+                   @endif
                     <div id="div2">
                       <label style="font-weight: bolder;font-size: 25px">{{$value2['count']}}</label>
                     </div>

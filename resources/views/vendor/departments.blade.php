@@ -10,12 +10,24 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-           
+           @if(auth::user()->role_id !=13 AND auth::user()->role_id !=14)
            <div id="div2">
-            <a  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-light btn-outline-secondary" ></i> Create Vendor Department</a>
+            <a  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-light btn-outline-secondary" >Create Vendor Department</a>
             
           </div>
-        
+        @endif
+
+         <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{route('search_vendor_headings')}}">
+            @csrf
+             <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search here" value="{{$search}}">
+                <div class="input-group-prepend">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
+                </div>
+              </div>
+           </form>
+          </div>
          
             
         </div>
@@ -61,7 +73,7 @@
         @endif       
        
         <div>
-        	<label class="label-bold" style="margin-left: 20px" >Material Master</label>
+        	<label class="label-bold" style="margin-left: 20px" >Vendor Departments </label>
 
         	<div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 

@@ -49,10 +49,10 @@
           </div>
 
 
-          @if( (Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' ) OR 
+          @if( ( (Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' ) OR 
               ((Auth::user()->roles->team_id == 3 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=13 OR Auth::user()->role_id !=14 )) OR
               ((Auth::user()->roles->team_id == 4 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=8 )) OR 
-              ((Auth::user()->roles->team_id == 5 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=12  ))  
+              ((Auth::user()->roles->team_id == 5 AND Auth::user()->roles->team_id == $user->roles->team_id) AND  (Auth::user()->role_id !=12 )) ) AND ($indents->status != 'Completed' )  
               )
         
             <div id="div2" style="margin-right: 30px">

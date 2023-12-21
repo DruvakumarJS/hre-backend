@@ -778,6 +778,33 @@ class HistogramController extends Controller
         }
     }
 
+   public function search_pending_forms(Request $request){
+        $search = $request->search2 ;
+
+        if($search == ''){
+            return redirect()->route('histogram');
+        }
+        else{
+            $histogram = Histogram_billing_details::whereNull('pcn')->get();
+
+            $data =Histogram_billing_details::where('pcn','LIKE','%'.$search.'%')
+            ->orWhere('pcn','LIKE','%'.$search.'%')
+            ->orWhere('billing_name','LIKE','%'.$search.'%')
+            ->orWhere('location','LIKE','%'.$search.'%')
+            ->orWhere('project_name','LIKE','%'.$search.'%')
+            ->orWhere('area','LIKE','%'.$search.'%')
+            ->orWhere('city','LIKE','%'.$search.'%')
+            ->orWhere('state','LIKE','%'.$search.'%')
+            ->where(function($query){
+                    $query->whereNull('pcn');
+                 })
+            ->get(); 
+            
+            $search2 = $search;
+            return view('histogram/list',compact('data','histogram','search2'));
+        }
+    }
+
     public function delete_history($id , $histogram_id){
        
        $check = HistogramHistory::where('histogram_id',$histogram_id)->count();

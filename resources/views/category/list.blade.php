@@ -10,11 +10,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-           
+          
            <div id="div2">
-            <a  class="btn btn-light btn-outline-secondary" href="{{route('materials')}}"></i> View All Products</a>
-            
-          </div>
+             <a  class="btn btn-light btn-outline-secondary" href="{{route('materials')}}"> View All Products</a>
+           </div>
+          
         
           @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 10)
            <div id="div2" style="margin-right: 30px" >
@@ -40,12 +40,13 @@
           <div id="div2" style="margin-right: 30px" >
             <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import Categories</label></a>
           </div>
-          @endif
+         
 
            <div id="div3" style="margin-right: 30px">
              <a href="{{route('export-categories')}}"><button class="btn btn-light btn-outline-secondary" > Download CSV</button></a>
           </div>
-
+          
+           @endif
           
 
             

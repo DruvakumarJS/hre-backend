@@ -16,11 +16,11 @@
             <a class="btn btn-light btn-outline-secondary" href="{{route('materials_master')}}"> View Category</a>
             
           </div>
-
+           @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 10)
            <div id="div2" style="margin-right: 30px" >
             <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import Materials</label></a>
           </div>
-          
+          @endif
          
           <div id="div2" style="margin-right: 30px">
            <form method="POST" action="{{route('search_material')}}">

@@ -356,8 +356,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('update-histogram-form/{id}',[HistogramController::class,'update_form'])->name('update_form');
     Route::get('view_history/{id}',[HistogramController::class,'view_history'])->name('view_history');
     Route::post('update-histogram-details',[HistogramController::class,'update_histogram_details'])->name('update_histogram_details');
-    Route::post('search-histogram',[HistogramController::class,'search'])->name('search_histogram');
+    Route::post('search-pending-forms',[HistogramController::class,'search_pending_forms'])->name('search_pending_forms');
     Route::get('delete-history/{id}/{histogram_id}',[HistogramController::class,'delete_history'])->name('delete_history');
+    Route::post('search-histogram',[HistogramController::class,'search'])->name('search_histogram');
     Route::get('edit-my-histogram-form/{id}',[HistogramController::class,'edit_myform'])->name('edit_my_form');
     Route::post('edit-my-histogram-form',[HistogramController::class,'update_myform'])->name('update_my_form');
     Route::get('get_pcn_data', [HistogramController::class,'get_pcn_data'])->name('get_pcn_data');
@@ -375,6 +376,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('search-vendor',[VendorDepartmentController::class,'search'])->name('search_vendor');
     Route::get('autocomplete_vendor',[VendorDepartmentController::class,'autocomplete_vendor'])->name('autocomplete_vendor');
     Route::get('delete-vendor/{id}',[VendorDepartmentController::class,'destroy'])->name('delete_vendor');
+    Route::post('search-vendor-department',[VendorDepartmentController::class,'search_vendor_headings'])->name('search_vendor_headings');
 
     Route::get('Foot-Print',[HomeController::class,'footprint'])->name('footprint');
     Route::post('search-footprint',[HomeController::class,'search_footprint'])->name('search_footprint');

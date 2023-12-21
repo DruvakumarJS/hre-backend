@@ -261,7 +261,8 @@ class VendorDepartmentController extends Controller
 
     public function vendor_headings(){
       $data = VendorHeadings::paginate(50);
-      return view('vendor.departments',compact('data'));
+      $search = '';
+      return view('vendor.departments',compact('data','search'));
     }
 
     public function save_heading(Request $request){
@@ -291,5 +292,11 @@ class VendorDepartmentController extends Controller
         return redirect()->route('vendor_headings');
       }
 
+    }
+
+    public function search_vendor_headings(Request $request){
+      $search=$request->search;
+      $data = VendorHeadings::where('headings', 'LIKE','%'.$search.'%')->orWhere('description', 'LIKE','%'.$search.'%')->paginate(50);
+      return view('vendor.departments',compact('data' ,'search'));
     }
 }

@@ -870,7 +870,7 @@ class TicketController extends Controller
             $conversation = TicketConversation::create([
                 'ticket_id' => $request->ticket_id ,
                 'ticket_no' => $request->ticket_no ,
-                'message' => $request->message ,
+                'message' => "Completed : ".$request->message ,
                 'sender' => $request->sender ,
                 'recipient' => $ticket->creator,
                 'status' => 'pending',

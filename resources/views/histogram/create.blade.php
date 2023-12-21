@@ -24,7 +24,7 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">PCN </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="text" name="pcn" required="required" value=""  placeholder="PCN " readonly>
+                        <input  class="form-control" type="text" name="pcn" required="required" value=""  placeholder="Admin Use Only " readonly>
                       </div>
                     </div>
 
@@ -484,9 +484,7 @@
 
           </table>
             </div>
-            <!--  <div id="div2">
-               <i class="fa fa-plus" id="dynamic-hre"></i>
-             </div> -->
+            
             
           </div>
 
@@ -851,11 +849,11 @@ $( document ).ready(function() {
       })
 });
 
- $(document).on('click', '.remove-input-field', function () {
+ $(document).on('click', '.remove-hre-field', function () {
 //  alert(i);
   //document.getElementById("row").remove();
   Swal.fire({
-  title: 'Are you sure to remove this material?',
+  title: 'Are you sure to remove this User ?',
  // text: "You won't be able to revert this!",
   icon: 'warning',
   showCancelButton: true,
@@ -891,7 +889,7 @@ function populateinputs(item_code , name ,  brand , info , uom){
 
   // console.log('INOF==',inform);
 
-  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" value="'+ brand +'" required></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" readonly></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" readonly></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  required></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  required></div>  </div></td></tr>') ;
+  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" value="'+ brand +'" required></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" readonly></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" readonly></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  ></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  ></div>  <div class="col-md-1"><i class="fa fa-trash remove-hre-field"></i></div></div> </td></tr>') ;
 
   setTimeout(function(){
   adjustHeight(this);       
@@ -989,7 +987,7 @@ function populatevendorinputs(item_code , name ,  brand ){
     x.style.display = "block";
   } 
 
-  $('#container_vendor').append('<div class="row align-items-end div-margin"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]" required><option value="">Select</option>@foreach($headings as $key=>$value)<option value="{{$value->headings}}">{{$value->headings}}</option>@endforeach</select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" value="'+ item_code +'" readonly required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" value="'+ name +'" readonly required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" value="'+ brand +'" readonly required="required" placeholder="mobile"></div>  </div><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]" minlength="10" maxlength="10" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div> </div>') ;
+  $('#container_vendor').append('<div class="row align-items-end div-margin"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]" required><option value="">Select</option>@foreach($headings as $key=>$value)<option value="{{$value->headings}}">{{$value->headings}}</option>@endforeach</select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" value="'+ item_code +'" readonly required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" value="'+ name +'" readonly required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" value="'+ brand +'" readonly required="required" placeholder="mobile"></div>  </div><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]" minlength="10" maxlength="10" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" ></div> </div>') ;
 
   setTimeout(function(){
   adjustHeight(this);       
