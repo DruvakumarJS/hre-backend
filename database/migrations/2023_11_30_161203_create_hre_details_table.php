@@ -20,7 +20,7 @@ class CreateHreDetailsTable extends Migration
             $table->string('designation');
             $table->string('contact');
             $table->string('email');
-            $table->string('start_date');
+            $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->timestamps();
         });

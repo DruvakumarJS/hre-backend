@@ -73,21 +73,23 @@
                                      <a href="{{route('edit_user',$value->user_id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
                                   
                                     @endif 
-
-                                   @if($value->user->isloggedin == '0')
-                                     <button class="btn btn-danger btn-sm " disabled>Force Logout</button>
-                                   @elseif( (auth::user()->role_id == 1) OR (auth::user()->role_id == 2 AND $role_id != '1' ) ) 
+                                  
+                                  
+                                   @if( (auth::user()->role_id == 1 AND $value->user->isloggedin == '1') OR (auth::user()->role_id == 2 AND $role_id != '1' AND $value->user->isloggedin == '1') ) 
                                     <a  onclick="return confirm('The Employee can login with his credentials on different device .')" href="{{route('force_logout',$value->user_id)}}"><button class="btn btn-success btn-sm ">Force Logout</button></a>
-                                   @endif 
+                                   
+
+                                   @elseif((auth::user()->role_id == 1) OR (auth::user()->role_id == 2 AND $role_id != '1' ))
+                                    <button class="btn btn-danger btn-sm " disabled>Force Logout</button>
+
+                                   @endif
 
                                    @if( (auth::user()->role_id == 1) OR (auth::user()->role_id == 2 AND $role_id != '1' ) )
                                     <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_user',$value->user_id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a>
                                     
                                     @endif
                                    
-                                   @if($value->user_id != 1 )
-                                    
-                                    @endif
+                                  
                                   </td>
                                </tr>
                             @endforeach   

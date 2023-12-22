@@ -22,8 +22,8 @@ class CreateVendorDetailsTable extends Migration
             $table->string('contracter_mobile');
             $table->string('supervisor_name');
             $table->string('supervisor_mobile');
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->string('start_date')->nullable();;
+            $table->string('end_date')->nullable();;
             $table->timestamps();
         });
     }

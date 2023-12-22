@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-           @if(auth::user()->role_id !=13 AND auth::user()->role_id !=14)
+           @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 )
            <div id="div2">
             <a  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-light btn-outline-secondary" >Create Vendor Department</a>
             

@@ -36,6 +36,7 @@
                         <table class="table">
                           <thead>
                             <tr style="height: 50px">
+                              <th scope="col">Histogram ID</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Billing Name</th>
                               <th scope="col">Brand</th>
@@ -50,6 +51,7 @@
                           <tbody>
                             @foreach($data as $key=>$value)
                             <tr>
+                              <td>PH{{$value->id}}</td>
                               <td>{{$value->pcn}}</td>
                               <td>{{$value->billing_name}}</td>
                               <td>{{$value->project_name}}</td>
@@ -61,7 +63,10 @@
                                 @if(Auth::user()->roles->team_id == 1 OR Auth::user()->roles->team_id == 2 OR Auth::user()->roles->team_id == 3 OR Auth::user()->roles->team_id == 4 ) 
                                  <a href="{{ route('view_history',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">View History</button></a>
                                  @endif
-                                <a href="{{ route('update_form',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">Update</button></a>
+
+                                 @if(Auth::user()->roles->team_id == 1 OR Auth::user()->roles->team_id == 2 OR Auth::user()->roles->team_id == 3 OR Auth::user()->roles->team_id == 4 OR Auth::user()->roles->team_id == 5 OR Auth::user()->roles->team_id == 13 OR Auth::user()->roles->team_id == 14 OR Auth::user()->roles->team_id == 6 OR Auth::user()->roles->team_id == 7 OR Auth::user()->roles->team_id == 10 OR Auth::user()->roles->team_id == 11  ) 
+                                  <a href="{{ route('update_form',$value->id)}}"><button class="btn btn-sm btn-outline-success">Update</button></a>
+                                @endif
                               </td>
                               
                             </tr>
@@ -93,7 +98,9 @@
                         <table class="table">
                           <thead>
                             <tr style="height: 50px">
+                              
                               <th scope="col">Pending Form</th>
+                              <th scope="col">Histogram ID</th>
                               <th scope="col">Billing Name</th>
                               <th scope="col">Brand Name</th>
                               <th scope="col">location</th>
@@ -113,6 +120,7 @@
                             @foreach($histogram as $key=>$value)
                             <tr>
                               <td>{{$key+1}}</td>
+                              <td>PH{{$value->id}}</td>
                               <td>{{$value->billing_name}}</td>
                               <td>{{$value->brand}}</td>
                               <td>{{$value->location}}</td>
@@ -127,7 +135,11 @@
                                 @endif
 
                                 @if(auth::user()->id == $value->user_id)
-                                 <a href="{{route('edit_my_form',$value->id)}}" ><button class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                                 <a href="{{route('edit_my_form',$value->id)}}" ><button class="btn btn-sm btn-outline-success">Edit</button></a>
+                                @endif
+
+                                @if(auth::user()->role_id  == 1 OR auth::user()->role_id == 2)
+                                 <a onclick="return confirm('You are deleting the Histogram request')"  href="{{ route('delete_histogram',$value->id)}}" ><button class="btn btn-sm btn-outline-danger">Delete</button></a>
                                 @endif
                               </td>
                               

@@ -750,9 +750,18 @@ class HistogramController extends Controller
      * @param  \App\Models\Histogram  $histogram
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Histogram $histogram)
+    public function destroy($id)
     {
-        //
+        $client = HistogramClientDetails::where('histogram_billing_id' ,$id)->delete();
+        $arch = HistogramArchitectDetails::where('histogram_billing_id' ,$id)->delete();
+        $land = HistogramLandlordDetails::where('histogram_billing_id' ,$id)->delete();
+        $hre = HreDetail::where('histogram_billing_id' ,$id)->delete();
+        $vendor = VendorDetail::where('histogram_billing_id' ,$id)->delete(); 
+        $billing_details = Histogram_billing_details::where('id',$id)->delete();
+
+        if($billing_details){
+            return redirect()->back();
+        }
     }
 
     public function search(Request $request){

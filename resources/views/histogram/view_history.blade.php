@@ -22,7 +22,7 @@
         <div class="div-margin">
         	
 
-        	<div class="card border-white scroll tableFixHead" style="height: 270px; padding: 0px 5px 20px 20px">
+        	<div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
                         <table class="table">
                           <thead>
@@ -44,7 +44,10 @@
                               <td>{{date('H:i' ,strtotime($value->submission_time))}}</td>
                               <td>
                                 <a target="_blank" href="{{ URL::to('/') }}/{{$value->path}}/{{$value->filename}}" ><button class="btn btn-sm btn-light btn-outline-secondary">View PDF</button></a>
+
+                                @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)
                                 <a onclick="return confirm('Are you sure to Delete Permanently?, If Required,Download or Save or Print prior to delete')" href="{{route('delete_history',[$value->id , $value->histogram_id])}}"><button class="btn btn-sm btn-light btn-outline-secondary">Delete PDF</button></a>
+                                @endif
                               </td>
                             </tr>
 

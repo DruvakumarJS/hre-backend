@@ -121,7 +121,7 @@
          
            <div id="container"></div>
            <input type="hidden" name="pcn" id="pcns" required>
-           <button class="btn btn-danger div-margin" id="btn_submit">Submit</button>
+           <button class="btn btn-danger div-margin" id="btn_submit" style="display: none">Submit</button>
           
         </form>
         

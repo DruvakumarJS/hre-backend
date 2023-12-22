@@ -113,7 +113,7 @@
 
                          <div class="form-group row">
                             <div class="offset-5 col-7">
-                                <button name="submit" type="button" class="btn btn-danger" id="submit">Generate Ticket</button>
+                                <button name="submit" type="button" class="btn btn-danger" id="submit" style="display: none">Generate Ticket</button>
                                 
                             </div>
                         </div>

@@ -325,7 +325,7 @@
           </table>
             </div>
              <div id="div2">
-               <i class="fa fa-plus" id="dynamic-client"></i>
+               <i class="fa fa-plus" id="dynamic-client" style="color: green"></i>
              </div>
              
 
@@ -376,7 +376,7 @@
           </table>
             </div>
              <div id="div2">
-               <i class="fa fa-plus" id="dynamic-arc"></i>
+               <i class="fa fa-plus" id="dynamic-arc" style="color: green"></i>
              </div>
 
             <!-- landlord -->
@@ -424,7 +424,7 @@
           </table>
             </div>
              <div id="div2">
-               <i class="fa fa-plus" id="dynamic-land"></i>
+               <i class="fa fa-plus" id="dynamic-land" style="color: green"></i>
              </div>
 
           </div>
@@ -438,7 +438,7 @@
             <h5 class="card-header" style="font-weight: bolder;background-color: #edf2ef">HRE Details</h5>
 
             <div id="div2">
-                <input class="btn btn-outline-secondary form-control" type= "button" value= "Add" onclick= "clearInput()">
+                <input class="btn btn-outline-secondary form-control" type="button" id="hre_add" value= "Add" onclick= "clearInput()">
             </div>
 
             <div id="div2">
@@ -501,7 +501,7 @@
         <div class="card-body">
           <h5 class="card-header">All Vendors Details</h5>
           <div id="div2">
-            <input class="btn btn-outline-secondary form-control" type= "button" value= "Add" onclick= "clearvendorInput()">
+            <input class="btn btn-outline-secondary form-control" id="vendor_add" type= "button" value= "Add" onclick= "clearvendorInput()">
           </div>
 
           <div id="div2">
@@ -842,6 +842,8 @@ $( document ).ready(function() {
 
           // populateHREinputs(name , emplid , designation , mobile , email);
            populateinputs(name , emplid , designation , mobile , email);
+
+           document.querySelector('#hre_add').value = 'Clear';
            
            
          
@@ -889,7 +891,7 @@ function populateinputs(item_code , name ,  brand , info , uom){
 
   // console.log('INOF==',inform);
 
-  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" value="'+ brand +'" required></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" readonly></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" readonly></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  ></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  ></div>  <div class="col-md-1"><i class="fa fa-trash remove-hre-field"></i></div></div> </td></tr>') ;
+  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" value="'+ brand +'" required></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" readonly></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" readonly></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  ></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  ></div>  <div class="col-md-1"><i class="fa fa-trash remove-hre-field" style="color: red"></i></div></div> </td></tr>') ;
 
   setTimeout(function(){
   adjustHeight(this);       
@@ -910,6 +912,7 @@ function clearInput(){
         if (getValue.value !="") {
             getValue.value = "";
         }
+        document.querySelector('#hre_add').value = 'Add';
  }
 
 </script>
@@ -948,7 +951,7 @@ $( document ).ready(function() {
 
            populatevendorinputs(name , contr_name , mobile );
            
-            
+           document.querySelector('#vendor_add').value = 'Clear';
          
         }
       })
@@ -1008,6 +1011,7 @@ function clearvendorInput(){
         if (getValue.value !="") {
             getValue.value = "";
         }
+        document.querySelector('#vendor_add').value = 'Add';
  }
 
 </script>

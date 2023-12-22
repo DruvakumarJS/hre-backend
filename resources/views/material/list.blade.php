@@ -45,7 +45,7 @@
         </div>
 
 
-          
+          @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 10)
            <div id="div3" style="margin-right: 30px">
              <a href=""></a>
              <form method="post" action="{{route('export-materials')}}">
@@ -56,7 +56,7 @@
                <button class="btn btn-light btn-outline-secondary" > Download CSV</button>
              </form>
           </div>
-
+         @endif
 
 
 
