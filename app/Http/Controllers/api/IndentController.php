@@ -13,6 +13,7 @@ use App\Models\Employee;
 use App\Models\Material;
 use App\Models\Category;
 use App\Models\Roles;
+use App\Models\FootPrint;
 
 //use Illuminate\Support\Facades\Mail;
 use App\Mail\IndentsMail;
@@ -129,43 +130,27 @@ class IndentController extends Controller
                  'details'=> $data     
           ];
 
-        $filename = 'indent.pdf';
-        $pdf = PDF::loadView('pdf/indentsPDF', compact('indent_details'));
-    
-        $savepdf = $pdf->save(public_path($filename));
-
-       // $filename = public_path($filename);
-        $attachment = public_path($filename) ;
-
-        if($savepdf){
           $empl = Employee::select('employee_id')->where('user_id',$request->user_id)->first(); 
 
           $subject = "New Indent : " .$empl->employee_id." - ".$ind_no ." - ".$request->pcn;
 
-          $emailarray = User::select('email')->where('role_id','3')->get();
+          $emailarray = User::select('email')->whereIn('role_id',['1','10','11','12'])->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
 
-         // Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
-          try {
-                Mail::to($emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
-              } catch (\Exception $e) {
-                  return $e->getMessage();
-                 
-              } 
-              finally {
-               
-               return response()->json([
-                    'status' => 1 ,
-                    'message' => 'Indent Created Succesfully ',
-                    'data' => ['indent_no' => $idtend->indent_no,'pcn' =>$idtend->pcn ,'pcn_details'=> $pcn_detail   ]
-                    ]);
+          // SendIndentEmail::dispatch($indent_details,$subject,$emailid);
 
-              }          
-           
-        }
+          $footprint = FootPrint::create([
+                  'action' => 'New indent created - '.$ind_no,
+                  'user_id' => $request->user_id,
+                  'module' => 'Indent',
+                  'operation' => 'C',
+                  'platform' => 'Android'
+              ]);
+
+
 
         return response()->json([
          	 		'status' => 1 ,
@@ -193,7 +178,7 @@ class IndentController extends Controller
 
    }
 
-   function indents(Request $request){
+   function indents_backup(Request $request){
     $indentarray=array();
     $final_array=array();
       if(!isset($request->user_id)){
@@ -274,6 +259,115 @@ class IndentController extends Controller
 
    }
 
+   function indents(Request $request){
+
+    $indentarray=array();
+    $final_array=array();
+
+    if(!isset($request->user_id)){
+        
+        return response()->json([
+              'status' => 0 ,
+              'message' => 'UnAuthorized' ,
+              'data' => $indentarray
+              ]);
+      }
+      else {
+    
+        $user = User::where('id' , $request->user_id)->first();
+
+        $role_id = $user->role_id ;
+       
+        if($role_id == 1 OR $role_id == 2 OR $role_id == 10 OR $role_id == 11 OR $role_id == 12) {
+            $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->orderBy('created_at', 'ASC')->get();
+
+            $all = Intend::count();
+            $activeCount = Intend::where('status','Active')->count();
+            
+            $compltedCount = Intend::where('status','Completed')->count();
+           }
+           elseif($role_id == 3 OR $role_id == 4 OR $role_id == 5){
+
+            $role = Roles::select('id')->where('team_id','3')->get();
+                $emp= array();
+                foreach ($role as $key => $value) {
+                   $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                   foreach ($emp as $key2 => $value2) {
+                     $userIDs[] = $value2->user_id;
+                 }
+                  
+                }
+
+            $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->whereIn('user_id',$userIDs)->orderBy('created_at', 'ASC')->get();
+
+            $all = Intend::whereIn('user_id',$userIDs)->count();
+            $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+            
+            $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+               
+
+           }
+           elseif($role_id == 6 OR $role_id == 7 OR $role_id == 8 OR $role_id == 9){
+
+            $role = Roles::select('id')->where('team_id','4')->get();
+                $emp= array();
+                foreach ($role as $key => $value) {
+                   $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                   foreach ($emp as $key2 => $value2) {
+                     $userIDs[] = $value2->user_id;
+                 }
+                  
+                }
+
+            $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")->whereIn('user_id',$userIDs)->orderBy('created_at', 'ASC')->get();
+
+            $all = Intend::whereIn('user_id',$userIDs)->count();
+            $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+            
+            $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+               
+
+           }
+           else {
+            $indents=Intend::where('user_id' ,$request->user_id)->get();
+            $all = Intend::where('user_id' ,$request->user_id)->count();
+            $activeCount = Intend::where('user_id' ,$request->user_id)->where('status','Active')->count();
+          
+            $compltedCount = Intend::where('user_id' ,$request->user_id)->where('status','Completed')->count();
+           }
+
+            $counts=[ 'Active' => $activeCount , 'Completed' => $compltedCount ];
+
+            foreach ($indents as $key => $value) {
+             $pcn_data=Pcn::where('pcn',$value->pcn)->first();
+
+             $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+
+              $indentarray[] = [
+                'indent_id' => $value->id ,
+                'indent_no' => $value->indent_no,
+                'pcn' => $value->pcn,
+                'pcn_detail' => $pcn_detail,
+                'status'=> $value->status,
+                'created_on' => $value->created_at->toDateTimeString()
+
+              ];
+                  
+            }
+
+            $final_array=['counts' => $counts , 'myindents' => $indentarray];
+
+            return response()->json([
+                'status' => 1 ,
+                'message' => 'success' ,
+                'data' => $final_array
+                ]);
+        
+     }
+   }
+
    function indent_details(Request $request){
 
    $indentarray=array();
@@ -322,7 +416,7 @@ class IndentController extends Controller
    $pcn_array= array();
      if(isset($request->user_id))
      {
-      $Pcns = Pcn::get();
+      $Pcns = Pcn::orderBy('pcnumber', 'desc')->get();
       
       foreach ($Pcns as $key => $value) {
       $pcn_array[] = [
@@ -485,6 +579,14 @@ class IndentController extends Controller
                 'pending' => $pending,
                 'recieved' => $received,
                 'status'=> $status ]);
+
+            $footprint = FootPrint::create([
+                    'action' => 'GRN accepted - '.$request->grn,
+                    'user_id' => $request->user_id,
+                    'module' => 'GRN',
+                    'operation' => 'U',
+                    'platform' => 'Android'
+                ]);
 
 
             return response()->json([

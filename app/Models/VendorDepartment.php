@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class VendorDepartment extends Model
 {
    
-    use HasFactory;
+    use HasFactory , SoftDeletes;
 
     protected $fillable = [
     	'vid_id',

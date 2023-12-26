@@ -180,7 +180,7 @@ class VendorDepartmentController extends Controller
     public function destroy($id)
     {
        // print_r($id) ; die();
-        $vendor = VendorDepartment::where('id', $id)->first();
+       /* $vendor = VendorDepartment::where('id', $id)->first();
         $v_id = $vendor->vid;
         $delete_staff = VendorStaff::where('vendor_id', $id)->delete();
 
@@ -202,7 +202,26 @@ class VendorDepartmentController extends Controller
         }
         else {
              return redirect()->Back()->withMessage('Error while deleting vendor Staffs');
-        }
+        }*/
+
+         $vendor = VendorDepartment::where('id', $id)->first();
+        $v_id = $vendor->vid;
+
+         $delete_vendor = VendorDepartment::where('id', $id)->delete();
+
+            if($delete_vendor){
+                $footprint = FootPrint::create([
+                  'action' => 'Vendor deleted - '.$v_id,
+                  'user_id' => Auth::user()->id,
+                  'module' => 'Vendor ',
+                  'operation' => 'D'
+              ]);
+                return redirect()->Back()->withMessage('vendor deleted Successfully');
+
+            }
+            else {
+               return redirect()->Back()->withMessage('Error while deleting vendor. ');
+            }
 
     }
 
@@ -253,6 +272,7 @@ class VendorDepartmentController extends Controller
                     ->orWhere('vendor_departments.vid','LIKE','%'.$search.'%')
                     ->orWhere('vendor_departments.billing_name','LIKE','%'.$search.'%');
                  })
+            ->whereNull('deleted_at')
         
             ->get();
          

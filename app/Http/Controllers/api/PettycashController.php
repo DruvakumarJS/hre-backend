@@ -13,6 +13,7 @@ use App\Models\Employee;
 use App\Mail\PettycashMail;
 use App\Models\Yearendfreeze;
 use Mail;
+use App\Models\FootPrint;
 
 class PettycashController extends Controller
 {
@@ -55,21 +56,30 @@ class PettycashController extends Controller
 
      	if(isset($request->user_id) && isset($request->bill_date) && isset($request->spent_amount)){
 
-        /* $finaniclyear = date("m") >= 4 ? date("Y"). '-' . (date("Y")+1) : (date("Y") - 1). '-' . date("Y") ;
+        $user = User::where('id',$request->user_id)->first();
+
+        $finaniclyear = date("m") >= 4 ? date("Y"). '-' . (date("Y")+1) : (date("Y") - 1). '-' . date("Y") ;
           if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
           {
             $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
-             if(strtotime(date('Y-m-d',strtotime($request->bill_date))) < strtotime($yearenddate->yearend_date)){
+
+             if($user->role_id == 1 AND $yearenddate->isactive == 'false'){
+
+             }
+
+             elseif(strtotime(date('Y-m-d',strtotime($request->bill_date))) <= strtotime($yearenddate->yearend_date)){
              // print_r("cant upload to closed year"); 
-              $message = "The bill date is behind account closure date (".date('d-m-Y',strtotime($yearenddate->yearend_date))."). So,You cannot upload a bill ";
-              
+              $message = "The bill date is behind account closure date (".date('d-m-Y',strtotime($yearenddate->yearend_date))."). You cannot upload a bill ";
+             
               return response()->json([
               'status' => 0,
               'message' => $message
               ]);
            }
 
-          }*/
+          }
+
+      
      		
         $fileName='';
         $imagearray=array();
@@ -127,6 +137,14 @@ class PettycashController extends Controller
 
           //Mail::to($userdetail->email)->send(new PettycashMail($message));
          // Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data));
+
+            $footprint = FootPrint::create([
+                            'action' => 'New Bill Uploaded ',
+                            'user_id' => $request->user_id,
+                            'module' => 'Pettycash',
+                            'operation' => 'C',
+                            'platform' => 'Android'
+                        ]);
 
           	return response()->json([
           		'status' => 1,

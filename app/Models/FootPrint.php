@@ -12,7 +12,8 @@ class FootPrint extends Model
     	'action' ,
     	'user_id',
     	'module',
-    	'operation'];
+    	'operation',
+        'platform'];
 
     public function user(){
 	 return $this->belongsTo(Employee::class,'user_id', 'user_id');

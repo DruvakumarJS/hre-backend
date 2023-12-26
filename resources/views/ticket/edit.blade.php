@@ -104,7 +104,7 @@
 
                                     <option value="Created" <?php echo ($tickets->status == 'Created') ? 'selected' : ''; ?>  >Created</option>
                                     
-                                    @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 10)
+                                    @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2  OR Auth::user()->role_id == 6 )
                                     <option value="Pending/Ongoing" <?php echo ($tickets->status == 'Pending/Ongoing') ? 'selected' : ''; ?>  >Ongoing</option>
 
                                      <option value="Rejected" <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?> >Reject</option>

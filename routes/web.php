@@ -296,6 +296,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('restore_recycle/material',[RestoreController::class,'material_list'])->name('restore-material');
     Route::get('restore_materialr/{id}',[RestoreController::class,'restore_material'])->name('restore_material');
     Route::get('trash_material/{id}',[RestoreController::class,'trash_material'])->name('trash_material');
+    Route::get('restore-vendors',[RestoreController::class,'vendor_list'])->name('restore_vendors');
+     Route::get('restore_vendor/{id}',[RestoreController::class,'restore_vendor'])->name('restore_vendor');
+
 
     Route::post('import_user',[ImportController::class,'importuser'])->name('import_user');
     Route::post('import_customer',[ImportController::class,'importcustomer'])->name('import_customer');

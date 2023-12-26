@@ -13,6 +13,7 @@ use Mail;
 use App\Mail\TicketsMail;
 use App\Mail\TicketDetailsMail;
 use App\Mail\TicketConversationMail;
+use App\Models\FootPrint;
 
 
 class TicketController extends Controller
@@ -143,6 +144,140 @@ class TicketController extends Controller
 
      }
 
+     function mytickets(Request $request){
+
+    $ticketarray= array();
+    $final_array=array();
+
+    if(isset($request->user_id)){
+
+        $user = User::where('id',$request->user_id)->first();
+        $filter="all";
+        $search = '';
+        $tickets=array();
+
+      if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
+         $tickets = Ticket::orderby('id' , 'DESC')->get();
+      }
+      else if($user->role_id == '3' OR $user->role_id == '4' OR $user->role_id == '5'){
+
+        $role = Roles::select('id')->where('team_id','3')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+            $tickets = Ticket::whereIn('creator',$userIDs)->orderby('id' , 'DESC')->get();
+
+
+      }
+      else if($user->role_id == '7' OR $user->role_id == '8' OR $user->role_id == '9'){
+
+        $role = Roles::select('id')->where('team_id','4')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+            $tickets = Ticket::whereIn('creator',$userIDs)->orderby('id' , 'DESC')->get();
+
+
+      }
+      else if($user->role_id == '10' OR $user->role_id == '11' OR $user->role_id == '12'){
+
+        $role = Roles::select('id')->where('team_id','5')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+            $tickets = Ticket::whereIn('creator',$userIDs)->orderby('id' , 'DESC')->get();
+
+
+      }
+      else { 
+        //13 and 14
+          $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', $request->user_id)->groupBy('ticket_id')->get();
+
+          foreach ($ticket_convers as $key => $value) {
+            $ids[]=$value->ticket_id;
+
+          }
+
+        
+       if(sizeof($ticket_convers) > 0){
+       
+        $tickets = Ticket::where(function($query){
+            $query->where('status','!=','Resolved');
+        })
+        ->whereIn('id', $ids)->orWhere('creator', $request->user_id)
+        
+        ->orderby('id' , 'DESC')->get();
+       }
+       else{
+           $tickets = Ticket::where('creator', $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->get();
+       }
+
+      }
+
+        foreach ($tickets as $key => $value) {
+             $images = explode(',', $value->filename);
+             $pcn_data = Pcn::where('pcn',$value->pcn)->first();
+             $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+              $userdetail = Employee::where('user_id', $value->creator)->withTrashed()->first();
+             $ticketarray[]=[
+                    'ticket_creator' => $value->creator,
+                    'creator_name' => $userdetail->name,
+                    'creator_emplid'=> $userdetail->employee_id,
+                    'creator_role'=> $userdetail->user->roles->alias,
+                    'ticket_id'=> $value->id ,
+                    'ticket_no' => $value->ticket_no ,
+                    'pcn' => $value->pcn ,
+                    'pcn_detail' => $pcn_detail,
+                    'pcn_status' => $pcn_data->status ,
+                    'category' => $value->category ,
+                    'message' => $value->issue,
+                    'priority' => $value->priority,
+                    'filepath' => url('/').'/ticketimages/',
+                    'status' => $value->status,
+                    'comments' => $value->comments,
+                    'created_on' => $value->created_at->toDateTimeString(),
+                    'filename' => ($images)];
+         } 
+
+        $count[]= ['Active' => '0' , 'Completed'=> '0' , 'Resolved' => '0'];
+        $final_array=['counts' => $count , 'tickets' =>$ticketarray ];
+
+                return response()->json([
+                    'status'=> 1,
+                    'message' => 'Success' ,
+                    'data' => $ticketarray ]);   
+
+     }
+     else{
+        return response()->json([
+            'status'=> 0,
+            'message' => 'UnAuthorized' ,
+            'data' => $ticketarray]);
+     }
+
+     }
+
 
      function create(Request $request){
       
@@ -230,24 +365,23 @@ class TicketController extends Controller
                   $emailid[]=$value->email;
                  
                }
-         // Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
+          // SendTicketEmail::dispatch($ticketarray , $subject , $emailid) ;   
 
-            try {
-                  Mail::to($emailid)->send(new TicketsMail($ticketarray , $subject));
-                } catch (\Exception $e) {
-                    return $e->getMessage();
-                   
-                } 
-                finally {
-                 
-                return response()->json([
+
+            $footprint = FootPrint::create([
+                            'action' => 'New Ticket created - '.$ticket_no,
+                            'user_id' => $request->user_id,
+                            'module' => 'Ticket',
+                            'operation' => 'C',
+                            'platform' =>'Android'
+                        ]);
+             return response()->json([
                     'status' => 1 ,
                     'message' => 'Ticket Created',
                     'data' =>['ticket_no'=> $ticket_no] 
                 ]);
 
-                }        
-
+           
             
             
         }
@@ -341,6 +475,14 @@ class TicketController extends Controller
                        
                     } 
                     finally {
+
+                         $footprint = FootPrint::create([
+                            'action' => 'Message from '.$sender->employee_id .' - '. $Ticket->ticket_no,
+                            'user_id' => $request->user_id,
+                            'module' => 'Ticket',
+                            'operation' => 'U',
+                            'platform' => 'Android'
+                        ]);
                     
                      return response()->json([
                             'status' => 1 ,
@@ -453,6 +595,16 @@ class TicketController extends Controller
          }
 
             if($update_ticket){
+
+            
+                $footprint = FootPrint::create([
+                            'action' => 'Ticket details are modified by creator - '.$request->ticket_no,
+                            'user_id' => $request->user_id,
+                            'module' => 'Ticket',
+                            'operation' => 'U',
+                            'platform' => 'Android'
+                        ]);
+
                 return response()->json([
                     'status'=> 1,
                     'message' => 'Ticket updated'
@@ -476,35 +628,23 @@ class TicketController extends Controller
         }
     }
 
+    public function assign_ticket(Request $request){
 
-    public function modify_ticket_status(Request $request){
+       // print_r($request->Input()); die();
 
-      //  print_r($request->Input()); die();
+        if($request->status == 'Pending/Ongoing'){
 
-        if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no)){
+            $imageNames = "" ;
 
-        $ticket = Ticket::where('id',$request->ticket_id)->first();
-        $fileName="";
-        if($request->action == 'Completed' ){
-           if($file = $request->hasFile('image')) {
-             
-            $file = $request->file('image') ;
-            $fileName = $file->getClientOriginalName() ;
-            
-           // $newfilename = round(microtime(true)) . '.' . end($temp);
+            $update = Ticket::where('id',$request->ticket_id)->update([
+                    'status' => $request->status,
+                    'comments' => $request->comment,
+                    'assigned_to' => $request->recipient,
+                    'assigner' => $request->user_id,
+                    'priority' => $request->priority,
+                    'tat' => $request->tat
+                     ]);
 
-            if(TicketConversation::exists()){
-                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
-                 $temp = explode(".", $file->getClientOriginalName());
-                 $fileName=$request->ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
-            }
-           
-            $destinationPath = public_path().'/ticketimages' ;
-            $file->move($destinationPath,$fileName);
-            
-         }
-
-        /* $imageNames = "" ;
            if($file = $request->hasFile('image')) {
 
             foreach($_FILES['image']['name'] as $key=>$val){ 
@@ -524,7 +664,114 @@ class TicketController extends Controller
                  
             }
           
-          }*/
+          }
+
+            $ticket = Ticket::where('id',$request->ticket_id)->first();
+
+           $msg = 'Ticket no '.$ticket->ticket_no .' is assigned to you';
+
+           $conversation = TicketConversation::create([
+                'ticket_id' => $ticket->id ,
+                'ticket_no' => $ticket->ticket_no ,
+                'message' => $request->comment ,
+                'sender' => $request->user_id ,
+                'recipient' => $request->recipient,
+                'status' => 'pending',
+                'filename' => $imageNames]);
+
+           if($conversation){
+
+             $recipient_detail = Employee::where('user_id',$request->recipient)->first();
+             $creator_detail = Employee::where('user_id',$ticket->creator)->first();
+             $assigner_detail = Employee::where('user_id',$request->user_id)->first();  
+
+              $subject = "Ticket verified : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn . " - ".$assigner_detail->employee_id ;
+
+              $body = "The Ticket No. ".$ticket->ticket_no." is verified by ".$assigner_detail->name."-".$assigner_detail->employee_id." and is assigned to ".$recipient_detail->name ."-".$recipient_detail->employee_id." .The TAT is set to ".$request->tat." .";
+
+             // print_r(json_encode($recipient_detail)); die();
+              
+              $ticketarray = [
+                 'ticket_no'=> $ticket->ticket_no,
+                 'assigned_to' => $recipient_detail->name ."-".$recipient_detail->employee_id,
+                 'tat' =>$request->tat,
+                 'comments' =>$request->comment
+                 ];
+
+              $emailarray = User::select('email')->where('id',$request->user_id)->orWhere('id',$ticket->creator)->get();
+
+                   foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                   }
+
+             // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+
+                try {
+                 // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                } catch (\Exception $e) {
+                    return $e->getMessage();
+                   
+                } 
+                finally {
+
+                    $sta = $request->status;
+
+                      if($sta == 'Pending/Ongoing'){
+                        $sta = 'Ongoing';
+                      }
+
+                      if($sta == 'Created'){
+                        $actions = 'Ticket details are modified by creator - '.$ticket->ticket_no;
+                      }
+                      else{
+                         $actions ='Ticket status is modified as '.$sta.' - '.$ticket->ticket_no;
+                      }
+
+                    $footprint = FootPrint::create([
+                        'action' => $actions,
+                        'user_id' => $request->user_id,
+                        'module' => 'Ticket',
+                        'operation' => 'U'
+                    ]);
+                 
+                    return response()->json([
+                    'status' => 1 ,
+                    'message' => 'Ticket Assigned Successfully']);
+                }     
+
+               }
+             }
+    }
+
+
+
+
+    public function modify_ticket_status(Request $request){
+
+      //  print_r($request->Input()); die();
+
+        if(isset($request->user_id) && isset($request->ticket_id) && isset($request->ticket_no)){
+
+        $ticket = Ticket::where('id',$request->ticket_id)->first();
+        $fileName="";
+
+       if($request->action == 'Completed' ){
+           if($file = $request->hasFile('image')) {
+             
+            $file = $request->file('image') ;
+            $fileName = $file->getClientOriginalName() ;
+            
+         
+            if(TicketConversation::exists()){
+                 $conversation_id = TicketConversation::select('id')->orderBy('id', 'DESC')->first();
+                 $temp = explode(".", $file->getClientOriginalName());
+                 $fileName=$request->ticket_no .'_'.++$conversation_id->id. '.' . end($temp);
+            }
+           
+            $destinationPath = public_path().'/ticketimages' ;
+            $file->move($destinationPath,$fileName);
+            
+         }
 
 
             $conversation = TicketConversation::create([
@@ -649,6 +896,8 @@ class TicketController extends Controller
                           
 
         }
+
+
         else {
             return response()->json([
                     'status' => 0 ,
@@ -751,6 +1000,14 @@ class TicketController extends Controller
                        
                     } 
                     finally {
+
+                    $footprint = FootPrint::create([
+                            'action' => 'Ticket is completed - '.$ticket->ticket_no,
+                            'user_id' => $request->user_id,
+                            'module' => 'Ticket',
+                            'operation' => 'U',
+                            'platform' => 'Android'
+                        ]);    
                      
                      return response()->json([
                         'status' => 1 ,
@@ -811,6 +1068,14 @@ class TicketController extends Controller
                        
                     } 
                     finally {
+
+                    $footprint = FootPrint::create([
+                            'action' => 'Ticket is Resolved - '.$ticket->ticket_no,
+                            'user_id' => $request->user_id,
+                            'module' => 'Ticket',
+                            'operation' => 'U',
+                            'platform' => 'Android'
+                        ]);     
                      
                      return response()->json([
                         'status' => 1 ,

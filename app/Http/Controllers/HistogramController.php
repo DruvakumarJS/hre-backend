@@ -67,8 +67,7 @@ class HistogramController extends Controller
      */
     public function store(Request $request)
     {
-      //  print_r(json_encode($request->Input())); die();
-
+        
         $billing = new Histogram_billing_details;
         $billing->billing_name=$request->billing_name;
         $billing->brand=$request->brand;

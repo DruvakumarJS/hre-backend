@@ -156,6 +156,14 @@ class PettyCashDetailController extends Controller
           //Mail::to('druva@netiapps.com')->send(new PettycashMail($p_data));
 
          // return redirect()->route('details_pettycash',Auth::user()->id);
+
+          $footprint = FootPrint::create([
+                            'action' => 'New Bill Uploaded - ',
+                            'user_id' => Auth::user()->id,
+                            'module' => 'Pettycash',
+                            'operation' => 'C',
+                        ]);
+
           $id="Bill Uploaded successfully";
          
            return response()->json($id);

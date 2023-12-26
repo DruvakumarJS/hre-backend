@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Employee;
 use App\Models\Category;
 use App\Models\Material;
+use App\Models\VendorDepartment;
+use App\Models\FootPrint;
 
 class RestoreController extends Controller
 {
@@ -148,7 +150,22 @@ class RestoreController extends Controller
 
     }
 
+   
+   public function vendor_list(){
+    $data = VendorDepartment::onlyTrashed()->paginate(20);
+    
+    return view('restore/vendors',compact('data'));
 
+   }
+
+   public function restore_vendor($id){
+    $restor = VendorDepartment::where('id',$id)->restore();
+
+        if($restor){
+             return redirect()->back();
+            
+         }
+   }
 
 
 

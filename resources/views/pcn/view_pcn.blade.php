@@ -28,7 +28,7 @@ white-space: nowrap;
 
            <div id="div3" style="margin-right: 30px">
           
-          @if(Auth::user()->role_id != 14 )
+          @if(Auth::user()->role_id != 14 AND Auth::user()->role_id != 9)
           <form method="POST" action="{{route('export-pcn')}}">
             @csrf
             <input type="hidden" name="search" value="{{$search}}">

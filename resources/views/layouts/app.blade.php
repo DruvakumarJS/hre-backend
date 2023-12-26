@@ -205,16 +205,21 @@
                                         <li><a class="dropdown-item" href="{{route('department_master')}}">Ticket Department Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('vendor_headings')}}">Vendor Department Master</a></li>
                                        
-                                       @if(auth::user()->role_id == 1)
+                                       @if(auth::user()->role_id == 1 )
                                         <li>
                                           <a class="dropdown-item" href="#">Recycle & Restore </a>
                                           <ul class="dropdown-menu dropdown-submenu">
+                                           
                                             <li><a class="dropdown-item" href="{{route('restore-users')}}">Users</a></li>
                                             <li><a class="dropdown-item" href="{{route('restore-customers')}}">Customers</a></li>
                                             <li><a class="dropdown-item" href="{{route('restore-category')}}">Categories</a></li>
                                             <li><a class="dropdown-item" href="{{route('restore-material')}}">Materials</a></li>
+                                            <li><a class="dropdown-item" href="{{route('restore-material')}}">Materials</a></li>
+                                            <li><a class="dropdown-item" href="{{route('restore_vendors')}}">Vendors</a></li>
                                           </ul>  
                                         </li> 
+                                        @elseif(auth::user()->role_id == 2)
+                                           <li><a class="dropdown-item" href="{{route('restore_vendors')}}">Restore Vendors</a></li>
                                         @endif
                                         <!-- <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li> -->
                                         <li><a class="dropdown-item" href="{{route('view_vault')}}">Vault</a></li>
