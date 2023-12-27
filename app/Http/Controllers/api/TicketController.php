@@ -266,7 +266,7 @@ class TicketController extends Controller
                 return response()->json([
                     'status'=> 1,
                     'message' => 'Success' ,
-                    'data' => $ticketarray ]);   
+                    'data' => $final_array ]);   
 
      }
      else{

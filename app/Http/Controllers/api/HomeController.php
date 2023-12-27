@@ -10,6 +10,9 @@ use App\Models\Ticket;
 use App\Models\TicketConversation;
 use App\Models\GRN;
 use App\Models\User;
+use App\Models\Roles;
+use App\Models\Pcn;
+use App\Models\Employee;
 use App\Models\PettycashOverview;
 
 class HomeController extends Controller
@@ -178,6 +181,13 @@ class HomeController extends Controller
 
             /* Tickets*/
 
+            if(Pcn::exists()){
+                $pcn = Pcn::count();
+            }
+            else{
+                 $pcn = '0';
+            }
+
 
     		if(GRN::where('user_id' , $request->user_id)->where('status', '!=','Received')->exists()){
     			$GRN = GRN::where('user_id' , $request->user_id)->where('status', '!=','Received')->count();
@@ -197,7 +207,7 @@ class HomeController extends Controller
             }
 
 
-    		$data = ['attendance' => $attendance , 'indents_count' => $indents , 'tickets_count' => $ticket_c ,'grn_count' => $GRN , 'pettycash' => $balance];
+    		$data = ['attendance' => $attendance , 'indents_count' => $indents , 'tickets_count' => $ticket_c ,'grn_count' => $GRN , 'pettycash' => $balance , 'pcn' => $pcn];
 
     		return response()->json([
     			'status' => 1,
