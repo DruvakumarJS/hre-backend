@@ -1141,7 +1141,7 @@ class TicketController extends Controller
 
    }
 
-   public function search(Request $request){
+   public function searching(Request $request){
         $user_id = $request->user_id;
         $search = $request->search ;
         $ticketarray=array();
@@ -1265,6 +1265,220 @@ class TicketController extends Controller
                     'status'=> 1,
                     'message' => 'Success' ,
                     'data' => $final_array ]);
+
+   }
+
+   public function search(Request $request){
+   
+    $user = User::where('id', $request->user_id)->first();
+    $search = $request->search ;
+
+     if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
+               $tickets = Ticket::orderby('id' , 'DESC')
+                  ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                 ->get();
+            }
+            else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
+
+              $role = Roles::select('id')->where('team_id','3')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = Ticket::whereIn('creator',$userIDs)
+                     ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                     
+                    ->orderby('id' , 'DESC') ->get();
+
+
+            }
+            else if(Auth::user()->roles->team_id == '4'){
+
+              $role = Roles::select('id')->where('team_id','4')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = Ticket::whereIn('creator',$userIDs)
+                    ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                   ->orderby('id' , 'DESC')->get();
+
+
+            }
+            else if(Auth::user()->roles->team_id == '5'){
+
+              $role = Roles::select('id')->where('team_id','5')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = Ticket::whereIn('creator',$userIDs)
+                  ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                  ->orderby('id' , 'DESC')
+                  ->get();
+
+
+            }
+            else { 
+
+              $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)
+             ->where('ticket_no','LIKE','%'.$search.'%')->with('ticket')
+             ->orWhere(function($query) use($search){
+                $query->wherehas('ticket.pcns', fn($q) => $q->where('brand', 'like', '%' . $search . '%'));
+             })
+             ->groupBy('ticket_id')->get();
+
+            
+          
+          foreach ($ticket_convers as $key => $value) {
+            
+            $ids[]=$value->ticket_id;
+
+          }
+  
+             if(sizeof($ticket_convers) > 0){
+
+             // print_r("111"); die();
+             
+              $tickets = Ticket::orderby('id' , 'DESC')
+                 ->where(function($query){
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                 })
+                 ->where(function($query)use($search){
+                     $query->where('ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('pcn','LIKE','%'.$search.'%');
+                     $query->orWhere('category','LIKE','%'.$search.'%');
+                     $query->orWhereHas('pcns',function($query)use($search){
+                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+
+                     });
+   
+                 }) 
+                
+                 ->orWhere(function($query)use($ids){
+                    $query->whereIn('id', $ids);
+                    $query->where('status' ,'!=','Resolved');
+                 }) 
+                          
+                ->get();
+             }
+             else{
+              // print_r("222"); die();
+                 $tickets = Ticket::where(function($query){
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                 })
+                 ->where(function($query)use($search){
+                     $query->where('ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('pcn','LIKE','%'.$search.'%');
+                      $query->orWhere('category','LIKE','%'.$search.'%');
+                     $query->orWhereHas('pcns',function($query)use($search){
+                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                     });
+                     /*$query->orWhere('category','LIKE','%'.$search.'%');                    
+                     $query->orWhere('status','LIKE','%'.$search.'%');*/
+                     
+                 }) 
+                /* ->where(function($query){
+                    $query->where('status' ,'!=','Resolved');
+                 }) */
+                 ->orderby('id' , 'DESC')
+                
+                ->get();
+             }
+
+        }
+
+        foreach ($tickets as $key => $value) {
+             $images = explode(',', $value->filename);
+             $pcn_data = Pcn::where('pcn',$value->pcn)->first();
+             $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+              $userdetail = Employee::where('user_id', $value->creator)->withTrashed()->first();
+             $ticketarray[]=[
+                    'ticket_creator' => $value->creator,
+                    'creator_name' => $userdetail->name,
+                    'creator_emplid'=> $userdetail->employee_id,
+                    'creator_role'=> $userdetail->user->roles->alias,
+                    'ticket_id'=> $value->id ,
+                    'ticket_no' => $value->ticket_no ,
+                    'pcn' => $value->pcn ,
+                    'pcn_detail' => $pcn_detail,
+                    'category' => $value->category ,
+                    'message' => $value->issue,
+                    'priority' => $value->priority,
+                    'filepath' => url('/').'/ticketimages/',
+                    'status' => $value->status,
+                    'created_on' => $value->created_at->toDateTimeString(),
+                    'filename' => ($images)];
+         } 
+
+        $count[]= ['Active' => '0' , 'Completed'=> '0' , 'Resolved' => '0'];
+        $final_array=['counts' => $count , 'tickets' =>$ticketarray ];
+
+         return response()->json([
+                    'status'=> 1,
+                    'message' => 'Success' ,
+                    'data' => $final_array ]);
+
 
    }
 

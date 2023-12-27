@@ -197,14 +197,14 @@ class HistogramController extends Controller
             $empl_mail  = $empl->email ;
             $name = $data->user->name ;
             $alias = $data->user->roles->alias;
-            $subject = "New Histogram Created - ".$empl->employee_id." Project Name - ".$request->project_name;
+            $subject = "New Histogram Created - PH".$data->id." - ".$empl->employee_id." Project Name - ".$request->project_name;
 
             GenerateNewHistogramPdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name , $alias , $subject);
 
             $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first();
 
             $footprint = FootPrint::create([
-                        'action' => 'New Histogram created By - '.$empl->employee_id.' on '.$request->project_name,
+                        'action' => 'PH'.$data->id.' - New Histogram created By - '.$empl->employee_id.' on '.$request->project_name,
                         'user_id' => Auth::user()->id,
                         'module' => 'Histogram',
                         'operation' => 'C'
@@ -427,9 +427,17 @@ class HistogramController extends Controller
             $empl_mail  = $empl->email ;
             $name = $data->user->name ;
             $alias = $data->user->roles->alias;
-            $subject = "Histogram Edited - ".$empl->employee_id." Project Name - ".$request->project_name;
+            $subject = "Histogram Edited - PH".$data->id." - ".$empl->employee_id." Project Name - ".$request->project_name;
 
             GenerateNewHistogramPdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name ,$alias , $subject);
+
+
+                    $footprint = FootPrint::create([
+                        'action' => 'PH'.$data->id.' - Histogram Edited - by '.$empl->employee_id.' on '.$request->project_name,
+                        'user_id' => Auth::user()->id,
+                        'module' => 'Histogram',
+                        'operation' => 'U'
+                   ]);
            
            
            /* $pdf = PDF::loadView('pdf/new_histogramPDF',compact('data','client','arch','land','hre','vendor' ));
@@ -568,7 +576,7 @@ class HistogramController extends Controller
 
            
             $footprint = FootPrint::create([
-                        'action' => 'Histogram verified - '.$request->pcn,
+                        'action' => 'PH'.$data->id.' - Histogram verified - '.$request->pcn,
                         'user_id' => Auth::user()->id,
                         'module' => 'Histogram',
                         'operation' => 'U'
@@ -761,7 +769,7 @@ class HistogramController extends Controller
                     ]);
 
                 $footprint = FootPrint::create([
-                    'action' => 'Histogram Updated By - '.$empl->employee_id.' on '.$data->pcn,
+                    'action' => 'PH'.$data->id.' - Histogram Updated By - '.$empl->employee_id.' on '.$data->pcn,
                     'user_id' => Auth::user()->id,
                     'module' => 'Histogram',
                     'operation' => 'U'
@@ -854,6 +862,7 @@ class HistogramController extends Controller
        $check = HistogramHistory::where('histogram_id',$histogram_id)->count();
 
        if($check > 1){
+        $check = Histogram_billing_details::where('id',$histogram_id)->first();
            $data = HistogramHistory::where('id',$id)->first();
            $path = $data->path.'/'.$data->filename ;
 
@@ -866,7 +875,7 @@ class HistogramController extends Controller
             
             if($delete){
                 $footprint = FootPrint::create([
-                    'action' => 'Histogram history deleted - '.$data->pcn,
+                    'action' => 'PH'.$check->id.' - Histogram history deleted - '.$data->pcn,
                     'user_id' => Auth::user()->id,
                     'module' => 'Histogram',
                     'operation' => 'D'

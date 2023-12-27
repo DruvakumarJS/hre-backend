@@ -13,7 +13,7 @@
         </div>     
        
         <div class="page-container">
-          <form method="POST" action="{{ route('save_histogram')}}">
+          <form id="form" method="POST" action="{{ route('save_histogram')}}">
             @csrf
           <div class="row">
             <div class="col-md-6">
@@ -521,7 +521,7 @@
 
 
        <div id="div2">
-         <button class="btn btn-success" type="submit">Submit</button>
+         <button class="btn btn-success" id="submit" type="submit">Submit</button>
        </div>
        
       </form>
@@ -1077,6 +1077,12 @@ $('#multiple-date-select2').multiDatesPicker({
 //$('#table-data').data('lastrow', -1);
 </script>
 
-
+<script>
+$(document).ready(function() {
+    $(document).on('submit', 'form', function() {
+        $('button').attr('disabled', 'disabled');
+    });
+});
+</script>
 
 @endsection

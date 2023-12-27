@@ -17,7 +17,7 @@
         </div>     
        
         <div class="page-container">
-          <form method="POST" action="{{ route('update_histogram')}}">
+          <form id="form" method="POST" action="{{ route('update_histogram')}}">
             @csrf
           <div class="row">
             <div class="col-md-6">
@@ -740,7 +740,7 @@
        </div>
        <input type="hidden" name="histogram_id" value="{{$id}}">
        <div id="div2">
-         <button class="btn btn-success" type="submit">Update</button>
+         <button class="btn btn-success" id="submit" type="submit">Update</button>
        </div>
        
       </form>
@@ -788,6 +788,12 @@
     });
 </script>
 
-
+<script>
+$(document).ready(function() {
+    $(document).on('submit', 'form', function() {
+        $('button').attr('disabled', 'disabled');
+    });
+});
+</script>
 
 @endsection

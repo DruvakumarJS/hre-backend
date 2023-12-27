@@ -7,10 +7,221 @@ $xvalue=array();
 $yvalue=array();
 @endphp
 
+<style type="text/css">
+  
+h3 {
+  color: #262626;
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+p {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #666666;
+
+  &.small {
+    font-size: 14px;
+  }
+}
+
+.go-corner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  background-color: #f10909;
+  border-radius: 0 4px 0 32px;
+}
+
+.go-arrow {
+  margin-top: -4px;
+  margin-right: -4px;
+  color: white;
+  font-family: courier, sans;
+}
+
+.card1 {
+  display: block;
+  position: relative;
+ 
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 32px 24px;
+
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -16px;
+    right: -16px;
+    background: #f10909;
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    transform: scale(1);
+    transform-origin: 50% 50%;
+    transition: transform 0.25s ease-out;
+  }
+
+  &:hover:before {
+    transform: scale(21);
+
+  }
+}
+
+.card1:hover {
+ box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+  p {
+    transition: all 0.3s ease-out;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  h3 {
+    transition: all 0.3s ease-out;
+    color: #ffffff;
+  }
+}
+
+.card2 {
+  display: block;
+  top: 0px;
+  position: relative;
+  max-width: 262px;
+  background-color: #f2f8f9;
+  border-radius: 4px;
+  padding: 32px 24px;
+  margin: 12px;
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+  border: 1px solid #f2f8f9;
+
+  &:hover {
+    transition: all 0.2s ease-out;
+    box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+    top: -4px;
+    border: 1px solid #cccccc;
+    background-color: white;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -16px;
+    right: -16px;
+    background: #00838d;
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    transform: scale(2);
+    transform-origin: 50% 50%;
+    transition: transform 0.15s ease-out;
+  }
+
+  &:hover:before {
+    transform: scale(2.15);
+  }
+}
+
+.card3 {
+  display: block;
+  top: 0px;
+  position: relative;
+  max-width: 262px;
+  background-color: #f2f8f9;
+  border-radius: 4px;
+  padding: 32px 24px;
+  margin: 12px;
+  text-decoration: none;
+  overflow: hidden;
+  border: 1px solid #f2f8f9;
+  
+  .go-corner {
+    opacity: 0.7;
+  }
+
+  &:hover {
+    border: 1px solid #00838d;
+    box-shadow: 0px 0px 999px 999px rgba(255, 255, 255, 0.5);
+    z-index: 500;
+  }
+}
+
+.card3:hover {
+  p{color: #00838d}
+  .go-corner {
+    transition: opactiy 0.3s linear;
+    opacity: 1;
+  }
+}
+
+.card4 {
+  display: block;
+  top: 0px;
+  position: relative;
+  max-width: 262px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  overflow: hidden;
+  border: 1px solid #cccccc;
+  
+  .go-corner {
+    background-color: #00838d;
+    height: 100%;
+    width: 20px;
+    padding-right: 9px;
+    border-radius: 0;
+    transform: skew(6deg);
+    margin-right: -36px;
+    align-items: start;
+    background-image: linear-gradient(-45deg, #00cc88 1%, #00cc88 100%);
+  }
+  
+  .go-arrow {
+    transform: skew(-6deg);
+    margin-left: -2px;
+    margin-top: 9px;
+    opacity: 0;
+  }
+
+  &:hover {
+    border: 2px solid #00cc88;
+  }
+  
+  h3 {margin-top: 8px;}
+}
+
+.card4:hover {
+  .go-corner {
+    margin-right: -12px;
+  }
+  .go-arrow {
+    opacity: 1;
+  }
+}
+</style>
+
 <div class="container" >
+
     <div class="row ">
        <div class="container-header">
-            <label class="label-bold" id="div1">Dashboard 1 </label>      
+            <label class="label-bold" id="div1">Dashboard  </label>      
           <div id="div2">
            
           <!--  <span id="timestamp"  class="badge badge-danger border border-secondary label-bold" style="color: black;margin-right: 30px"></span> -->
@@ -22,7 +233,164 @@ $yvalue=array();
           </div>   
         </div>
 
-      @if(auth::user()->role_id != 13 AND auth::user()->role_id != 14)
+
+    @if(auth::user()->role_id != 13 AND auth::user()->role_id != 14)
+    <div class="row div-margin">
+       <div class="col-md-4">    
+         <a class="card1" href="{{route('intends')}}" style="color: white">
+            <div>
+                <div class="card-body">
+                    <img src="{{ asset('images/indent.png') }}" alt="intend" style="width:30px;height: 30px;">
+                    <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$todaysIndent}}</h2>
+                </div>
+                <div>
+                    <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Indents</h4>
+                </div>
+                  <label class="card-text-label " style="color: black">Today's Indent</label>
+            </div>
+
+             <div class="go-corner" href="">
+                <div class="go-arrow">
+                  →
+                </div>
+           </div>
+          </a>
+
+        </div>
+        <div class="col-md-4">  
+          <a class="card1" href="{{route('attendance')}}" style="background-color: #5A5A5A">
+              <div >
+                <div class="card-body" >
+                    <img src="{{ asset('images/attendance.svg') }}" alt="attendance" style="width:30px;height: 30px;">
+                    <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">{{$attendance}}</h2>
+                </div>
+                <div  >
+                    <h4 class="card-text-black" style="color: #fff; font-weight: bold; font-size: 25px">Attendance</h4>
+                   
+                </div >
+                <label class="card-text-label" style="color:#fff">Today's Head Count</label>
+              </div>
+
+              <div class="go-corner" href="">
+                <div class="go-arrow">
+                  →
+                </div>
+           </div>
+
+            </a>
+        </div>
+
+        <div class="col-md-4">  
+          <a class="card1" href="{{route('tickets')}}" style="color: white">
+            <div >
+                <div class="card-body">
+                    <img src="{{ asset('images/tickets.svg') }}" alt="ticket" style="width:30px;height: 30px;">
+                    <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$tickets}}</h2>
+                </div>
+                <div  >
+                    <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px">Tickets</h4>
+                   
+                </div >
+                <label class="card-text-label " style="color: black">Today's Ticket</label>
+            </div>
+            <div class="go-corner" href="">
+              <div class="go-arrow">
+                →
+              </div>
+            </div>
+
+       
+          </a>
+
+        </div>
+
+        
+      </div>
+      @else
+
+      <div class="row div-margin">
+                <div class="col-sm-6 col-md-4 " >
+                    <a class="card1" href="{{route('intends')}}" style="color: white">
+                        <div >
+                        <div class="card-body">
+                            <img src="{{ asset('images/indent.png') }}" alt="intend" style="width:30px;height: 30px;">
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$indents}}</h2>
+                        </div>
+                        <div  >
+                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px;color: black">Indents</h4>
+                           
+                        </div >
+                        <label class="card-text-label " style="color: black">My Indents </label>
+                        
+                    </div>
+                    <div class="go-corner" href="">
+                      <div class="go-arrow">
+                        →
+                      </div>
+                    </div>
+                    </a>
+                    
+                    <!--</div>-->
+                </div>
+
+
+
+                 <div class="col-sm-6 col-md-4" onclick="attendance()">
+                       <a class="card1"  style="background-color: #5A5A5A">
+                        <div >
+                        <div class="card-body" >
+                            <img src="{{ asset('images/attendance.svg') }}" alt="attendance" style="width:30px;height: 30px;">
+                            <h2 class="card-text" style="color:#fff;float:right;font-weight: bolder; font-size: 40px ; ">{{($attendance == "1") ? 'P' : 'A'}}</h2>
+                        </div>
+                        <div  >
+                            <h4 class="card-text-black" style="color: #fff; font-weight: bold; font-size: 25px">Attendance</h4>
+                           
+                        </div >
+                       <label class="card-text-label " style="color: #fff;">Today's Attendance</label>
+                    </div>
+                    <div class="go-corner" href="">
+                      <div class="go-arrow">
+                        →
+                      </div>
+                    </div>
+                    </a>
+                    
+                    <!--</div>-->
+                </div>
+
+
+                 <div class="col-sm-6 col-md-4 " onclick="ticket()">
+                    <a class="card1" href="{{route('tickets')}}" style="color: white">
+                        <div >
+                        <div class="card-body">
+                            <img src="{{ asset('images/tickets.svg') }}" alt="ticket" style="width:30px;height: 30px;">
+                            <h2 class="card-text" style="float:right;font-weight: bolder; font-size: 40px ;color: black ">{{$tickets}}</h2>
+                        </div>
+                        <div  >
+                            <h4 class="card-text-black" style="color: #000; font-weight: bold; font-size: 25px;color: black">Tickets</h4>
+                           
+                        </div >
+                        <label class="card-text-label  " style="color: black">My Tickets </label>
+                      
+                    </div>
+                    <div class="go-corner" href="">
+                      <div class="go-arrow">
+                        →
+                      </div>
+                    </div>
+                    </a>
+                    
+                    <!--</div>-->
+                </div>
+
+
+              
+            </div> 
+
+      @endif    
+
+
+      <!-- @if(auth::user()->role_id != 13 AND auth::user()->role_id != 14)
       
        <div class="row">
                 <div class="col-sm-6 col-md-4" id="indents" >
@@ -38,8 +406,7 @@ $yvalue=array();
                         <label class="card-text-label " style="color: black">Today's Indent</label>
                     </div>
                   </a>
-                    
-                    <!--</div>-->
+                  
                 </div>
 
 
@@ -59,7 +426,6 @@ $yvalue=array();
                     </div>
                   </a>
                    
-                    <!--</div>-->
                 </div>
 
 
@@ -77,8 +443,7 @@ $yvalue=array();
                         <label class="card-text-label " style="color: black">Today's Ticket</label>
                     </div>
                   </a>
-                    
-                    <!--</div>-->
+                
                 </div>
       
       </div>
@@ -102,7 +467,7 @@ $yvalue=array();
                     </div>
                     </a>
                     
-                    <!--</div>-->
+                   
                 </div>
 
 
@@ -121,8 +486,7 @@ $yvalue=array();
                        <label class="card-text-label " style="color: #fff;">Today's Attendance</label>
                     </div>
                     
-                    
-                    <!--</div>-->
+                   
                 </div>
 
 
@@ -141,20 +505,19 @@ $yvalue=array();
                       
                     </div>
                     </a>
-                    
-                    <!--</div>-->
+                   
                 </div>
 
 
               
             </div> 
 
-      @endif
+      @endif -->
  
  @if(auth::user()->roles->team_id == 1 OR auth::user()->roles->team_id == 2 OR auth::user()->roles->team_id == 5)
  <!-- PCN & Pie chart -->
  @if(sizeof($result)>0)  
-      <div class="row justify-content-between">
+      <div class="row justify-content-between div-margin">
         <div class="col-md-6 col-sm-6">
 
           <div class="card border-white scroll tableFixHead" style="height: 350px; padding: 0px 5px 20px 20px">
