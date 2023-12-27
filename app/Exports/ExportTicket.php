@@ -26,15 +26,21 @@ class ExportTicket implements FromCollection, WithHeadings
 
     public function collection()
     {
-    	$search=$this->search;
+    	  $search=$this->search;
         $filter=$this->filter;
 
        // print_r($this->search); die();
         
-        if($this->search == '' && $this->filter != ''){
+        $user = Auth::user();
+        
 
-            if($this->filter == 'all'){
-             $att= DB::table('tickets')
+       // print_r($search);  print_r($filter); 
+        
+        if($search == '' && $filter=='all'){
+          // print_r("--11--"); die();
+          if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
+            //print_r("lll"); die();
+               $tickets = DB::table('tickets')
            ->select(
                  DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
                 'tickets.ticket_no' ,
@@ -52,70 +58,25 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-               ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
-               ->join('users', 'tickets.creator', '=', 'users.id')
-               ->orderBy('tickets.id','DESC')
-               ->get(); 
-        }
-        else if($this->filter == 'Reopend'){
-             $att= DB::table('tickets')
-               ->select(
-                DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
-                'tickets.ticket_no' ,
-                'tickets.pcn' ,
-                'pcns.client_name',
-                'pcns.brand',
-                'pcns.area',
-                'pcns.city',
-                'tickets.category' ,
-                'tickets.issue' ,
-                'users.name' ,
-                'tickets.reopened' ,
-                'tickets.priority' ,
-                'tickets.tat' ,
-                'tickets.comments',
-                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
-                'tickets.status')
-               ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
-               ->join('users', 'tickets.creator', '=', 'users.id')
-               ->where('reopened', '1')
-               ->orderBy('tickets.id','DESC')
-               ->get(); 
-        }
-        else {
-             $att= DB::table('tickets')
-               ->select(
-                DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
-                'tickets.ticket_no' ,
-                'tickets.pcn' ,
-                'pcns.client_name',
-                'pcns.brand',
-                'pcns.area',
-                'pcns.city',
-                'tickets.category' ,
-                'tickets.issue' ,
-                'users.name' ,
-                'tickets.reopened' ,
-                'tickets.priority' ,
-                'tickets.tat' ,
-                'tickets.comments',
-                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
-                'tickets.status')
-               ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
-               ->join('users', 'tickets.creator', '=', 'users.id')
-               ->where('tickets.creator' ,$this->filter)
-               ->orWhere('tickets.status', $this->filter)
-               ->orderBy('tickets.id','DESC')
-               ->get(); 
-        }
+                ->orderby('id' , 'DESC')
+                 
+                 ->get();
+            }
+            else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
 
-        }
-        elseif($this->search != '' && $this->filter != ''){
+              $role = Roles::select('id')->where('team_id','3')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
 
-            if($this->filter == 'all'){
-            
-             $att= DB::table('tickets')
-             ->select(
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = DB::table('tickets')
+           ->select(
                  DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
@@ -132,104 +93,109 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->where('tickets.pcn','LIKE','%'.$search.'%')
-                 ->orWhere('tickets.ticket_no','LIKE','%'.$search.'%')
-                 ->orWhere('tickets.status','LIKE','%'.$search.'%')
-                 ->orWhere('tickets.category','LIKE','%'.$search.'%')
-               ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
-               ->join('users', 'tickets.creator', '=', 'users.id')
-               ->orderBy('tickets.id','DESC')
-               ->get(); 
-             }
-             else if($this->filter == 'Reopend'){
-             $att= DB::table('tickets')
-               ->select(
-                DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
-                'tickets.ticket_no' ,
-                'tickets.pcn' ,
-                'pcns.client_name',
-                'pcns.brand',
-                'pcns.area',
-                'pcns.city',
-                'tickets.category' ,
-                'tickets.issue' ,
-                'users.name' ,
-                'tickets.reopened' ,
-                'tickets.priority' ,
-                'tickets.tat' ,
-                'tickets.comments',
-                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
-                'tickets.status')
-               ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
-               ->join('users', 'tickets.creator', '=', 'users.id')
-               ->where('tickets.reopened', '1')
-               ->where(function($query)use($search){
-                 $query->where('tickets.pcn','LIKE','%'.$search.'%');
-                 $query->orWhere('tickets.ticket_no','LIKE','%'.$search.'%');
-                 $query->orWhere('tickets.status','LIKE','%'.$search.'%');
-                 $query->orWhere('tickets.category','LIKE','%'.$search.'%');
-                
-                 })
-               ->orderBy('tickets.id','DESC')
-               ->get(); 
-            }
-            else {
-             $att= DB::table('tickets')
-               ->select(
-                DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
-                'tickets.ticket_no' ,
-                'tickets.pcn' ,
-                'pcns.client_name',
-                'pcns.brand',
-                'pcns.area',
-                'pcns.city',
-                'tickets.category' ,
-                'tickets.issue' ,
-                'users.name' ,
-                'tickets.reopened' ,
-                'tickets.priority' ,
-                'tickets.tat' ,
-                'tickets.comments',
-                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
-                'tickets.status')
-               ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
-               ->join('users', 'tickets.creator', '=', 'users.id')
-               ->where(function($query)use($filter){
-                $query->where('tickets.creator' , $filter);
-                $query->orWhere('tickets.status',$filter);
-             })
-               ->where(function($query)use($search){
-                 $query->where('tickets.pcn','LIKE','%'.$search.'%');
-                 $query->orWhere('tickets.ticket_no','LIKE','%'.$search.'%');
-                 $query->orWhere('tickets.status','LIKE','%'.$search.'%');
-                 $query->orWhere('tickets.category','LIKE','%'.$search.'%');
-                
-                 })
-              
-               ->orderBy('tickets.id','DESC')
-               ->get(); 
-          }
-        }
-        else{
+                ->whereIn('creator',$userIDs)
+                     
+                    ->orderby('id' , 'DESC')->get();
 
-            if($search == ''){
+
+            }
+            else if(Auth::user()->roles->team_id == '4'){
+
+              $role = Roles::select('id')->where('team_id','4')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->whereIn('creator',$userIDs)
+                    
+                   ->orderby('id' , 'DESC')->get();
+
+
+            }
+            else if(Auth::user()->roles->team_id == '5'){
+
+              $role = Roles::select('id')->where('team_id','5')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->whereIn('creator',$userIDs)
+                 
+                  ->orderby('id' , 'DESC')
+                  ->get();
+
+
+            }
+            else { 
 
               $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)
-        
+            
+             
              ->groupBy('ticket_id')->get();
+
+            
           
           foreach ($ticket_convers as $key => $value) {
             
             $ids[]=$value->ticket_id;
 
           }
-         
-        
-       if(sizeof($ticket_convers) > 0){
-    
-        $att= DB::table('tickets')
-               ->select(
-                DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+  
+             if(sizeof($ticket_convers) > 0){
+
+             // print_r("111"); die();
+             
+              $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
@@ -245,24 +211,23 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-               ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
-               ->join('users', 'tickets.creator', '=', 'users.id')
-               ->where(function($query){
-                    $query->where('tickets.creator' , Auth::user()->id);
-                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
+                ->orderby('id' , 'DESC')
+                 ->where(function($query){
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
                  })
-                 
+                
+                
                  ->orWhere(function($query)use($ids){
-                    $query->whereIn('tickets.id', $ids);
-                    $query->where('tickets.status' ,'!=','Resolved');
+                    $query->whereIn('id', $ids);
+                    $query->where('status' ,'!=','Resolved');
                  }) 
-               ->orderBy('tickets.id','DESC')
-               ->get();         
-
-       }
-       else{
-
-            $att= DB::table('tickets')
+                          
+                 ->get();
+             }
+             else{
+              // print_r("222"); die();
+                 $tickets = DB::table('tickets')
            ->select(
                  DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
                 'tickets.ticket_no' ,
@@ -281,41 +246,220 @@ class ExportTicket implements FromCollection, WithHeadings
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
                 ->where(function($query){
-                    $query->where('tickets.creator' , Auth::user()->id);
-                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
                  })
-
-               ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
-               ->join('users', 'tickets.creator', '=', 'users.id')
-               ->orderBy('tickets.id','DESC')
-               ->get();
-            
-
-             } 
+                 
+                 ->orderby('id' , 'DESC')
+                
+                 ->get();
+             }
 
             }
+        }
+        elseif($search != '' && $filter=='all'){
+         // print_r("--22--"); die();
 
-            else{
-            
-            $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)
+          if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
+               $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->orderby('id' , 'DESC')
+                  ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                 ->get();
+            }
+            else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
+
+              $role = Roles::select('id')->where('team_id','3')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->whereIn('creator',$userIDs)
+                     ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                     
+                    ->orderby('id' , 'DESC')->get();
+
+
+            }
+            else if(Auth::user()->roles->team_id == '4'){
+
+              $role = Roles::select('id')->where('team_id','4')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->whereIn('creator',$userIDs)
+                    ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                   ->orderby('id' , 'DESC')->get();
+
+
+            }
+            else if(Auth::user()->roles->team_id == '5'){
+
+              $role = Roles::select('id')->where('team_id','5')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->whereIn('creator',$userIDs)
+                  ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                  ->orderby('id' , 'DESC')
+                  ->get();
+
+
+            }
+            else { 
+
+              $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)
              ->where('ticket_no','LIKE','%'.$search.'%')->with('ticket')
              ->orWhere(function($query) use($search){
                 $query->wherehas('ticket.pcns', fn($q) => $q->where('brand', 'like', '%' . $search . '%'));
              })
              ->groupBy('ticket_id')->get();
+
+            
           
           foreach ($ticket_convers as $key => $value) {
             
             $ids[]=$value->ticket_id;
 
           }
-         
-        
-       if(sizeof($ticket_convers) > 0){
-    
-        $att= DB::table('tickets')
-               ->select(
-                DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+  
+             if(sizeof($ticket_convers) > 0){
+
+             // print_r("111"); die();
+             
+              $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
                 'tickets.ticket_no' ,
                 'tickets.pcn' ,
                 'pcns.client_name',
@@ -331,30 +475,32 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-               ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
-               ->join('users', 'tickets.creator', '=', 'users.id')
-               ->where(function($query){
-                    $query->where('tickets.creator' , Auth::user()->id);
-                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
+                ->orderby('id' , 'DESC')
+                 ->where(function($query){
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
                  })
                  ->where(function($query)use($search){
-                     $query->where('tickets.ticket_no','LIKE','%'.$search.'%');
-                     $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
-                     $query->orWhere('tickets.category','LIKE','%'.$search.'%');
-                       
+                     $query->where('ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('pcn','LIKE','%'.$search.'%');
+                     $query->orWhere('category','LIKE','%'.$search.'%');
+                     $query->orWhereHas('pcns',function($query)use($search){
+                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+
+                     });
+   
                  }) 
-               
+                
                  ->orWhere(function($query)use($ids){
-                    $query->whereIn('tickets.id', $ids);
-                    $query->where('tickets.status' ,'!=','Resolved');
+                    $query->whereIn('id', $ids);
+                    $query->where('status' ,'!=','Resolved');
                  }) 
-               ->orderBy('tickets.id','DESC')
-               ->get();         
-
-       }
-       else{
-
-            $att= DB::table('tickets')
+                          
+                 ->get();
+             }
+             else{
+              // print_r("222"); die();
+                 $tickets = DB::table('tickets')
            ->select(
                  DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
                 'tickets.ticket_no' ,
@@ -373,25 +519,557 @@ class ExportTicket implements FromCollection, WithHeadings
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
                 ->where(function($query){
-                    $query->where('tickets.creator' , Auth::user()->id);
-                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
                  })
                  ->where(function($query)use($search){
-                     $query->where('tickets.ticket_no','LIKE','%'.$search.'%');
-                     $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
-                      $query->orWhere('tickets.category','LIKE','%'.$search.'%');
-                
-                   
+                     $query->where('ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('pcn','LIKE','%'.$search.'%');
+                      $query->orWhere('category','LIKE','%'.$search.'%');
+                     $query->orWhereHas('pcns',function($query)use($search){
+                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                     });
+                     /*$query->orWhere('category','LIKE','%'.$search.'%');                    
+                     $query->orWhere('status','LIKE','%'.$search.'%');*/
+                     
                  }) 
-               ->join('pcns', 'tickets.pcn', '=', 'pcns.pcn')
-               ->join('users', 'tickets.creator', '=', 'users.id')
-               ->orderBy('tickets.id','DESC')
-               ->get();
-            
+                /* ->where(function($query){
+                    $query->where('status' ,'!=','Resolved');
+                 }) */
+                 ->orderby('id' , 'DESC')
+                
+                 ->get();
+             }
 
-            } 
-           }         
+            }
+
+        }
+        elseif($search != '' && $filter!='all'){
+        //  print_r("--33--"); die();
+           
+           if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
+               $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->orderby('id' , 'DESC')
+                  ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                  ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                  })
+                  
+                 ->get();
+            }
+            else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
+
+              $role = Roles::select('id')->where('team_id','3')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->whereIn('creator',$userIDs)
+                     ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                    ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                     })
+                     
+                    ->orderby('id' , 'DESC')->get();
+
+
+            }
+            else if(Auth::user()->roles->team_id == '4'){
+
+              $role = Roles::select('id')->where('team_id','4')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->whereIn('creator',$userIDs)
+                    ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                     ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                     })
+                   ->orderby('id' , 'DESC')->get();
+
+
+            }
+            else if(Auth::user()->roles->team_id == '5'){
+             // print_r("lll");
+
+              $role = Roles::select('id')->where('team_id','5')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = Ticket::whereIn('creator',$userIDs)
+                  ->where(function($query)use($search){
+                       $query->where('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('status','LIKE','%'.$search.'%');
+                       $query->orWhere('category','LIKE','%'.$search.'%');
+                       $query->orWhereHas('pcns',function($query)use($search){
+                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       });
+
+                     })
+                    ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                    })
+                  ->orderby('id' , 'DESC')
+                  ->get();
+
+
+            }
+            else { 
+
+              $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)
+             ->where('ticket_no','LIKE','%'.$search.'%')->with('ticket')
+             ->orWhere(function($query) use($search){
+                $query->wherehas('ticket.pcns', fn($q) => $q->where('brand', 'like', '%' . $search . '%'));
+             })
+             ->groupBy('ticket_id')->get();
+
+            
+          
+          foreach ($ticket_convers as $key => $value) {
+            
+            $ids[]=$value->ticket_id;
+
           }
+  
+             if(sizeof($ticket_convers) > 0){
+
+             // print_r("111"); die();
+             
+              $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->orderby('id' , 'DESC')
+                 ->where(function($query){
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                 })
+                 ->where(function($query)use($search){
+                     $query->where('ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('pcn','LIKE','%'.$search.'%');
+                     $query->orWhere('category','LIKE','%'.$search.'%');
+                     $query->orWhereHas('pcns',function($query)use($search){
+                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+
+                     });
+   
+                 }) 
+                  ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                  })
+                
+                 ->orWhere(function($query)use($ids){
+                    $query->whereIn('id', $ids);
+                    $query->where('status' ,'!=','Resolved');
+                 }) 
+                          
+                 ->get();
+             }
+             else{
+              // print_r("222"); die();
+                 $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->where(function($query){
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                 })
+                 ->where(function($query)use($search){
+                     $query->where('ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('pcn','LIKE','%'.$search.'%');
+                      $query->orWhere('category','LIKE','%'.$search.'%');
+                     $query->orWhereHas('pcns',function($query)use($search){
+                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                     });
+                     /*$query->orWhere('category','LIKE','%'.$search.'%');                    
+                     $query->orWhere('status','LIKE','%'.$search.'%');*/
+                     
+                 }) 
+                ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                  })
+                 ->orderby('id' , 'DESC')
+                
+                 ->get();
+             }
+
+            }
+        }
+        elseif($search == '' && $filter != 'All'){
+         // print_r("--44--"); die();
+
+          if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
+               $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->orderby('id' , 'DESC')
+                  
+                  ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                  })
+                  
+                 ->get();
+            }
+            else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
+
+              $role = Roles::select('id')->where('team_id','3')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->whereIn('creator',$userIDs)
+                    
+                    ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                     })
+                     
+                    ->orderby('id' , 'DESC')->get();
+
+
+            }
+            else if(Auth::user()->roles->team_id == '4'){
+
+              $role = Roles::select('id')->where('team_id','4')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->whereIn('creator',$userIDs)
+                    
+                     ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                     })
+                   ->orderby('id' , 'DESC')->get();
+
+
+            }
+            else if(Auth::user()->roles->team_id == '5'){
+             // print_r("lll");
+
+              $role = Roles::select('id')->where('team_id','5')->get();
+                  $emp= array();
+                  foreach ($role as $key => $value) {
+                     $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                     foreach ($emp as $key2 => $value2) {
+                       $userIDs[] = $value2->user_id;
+                   }
+                    
+                  }
+
+                  $tickets = Ticket::whereIn('creator',$userIDs)
+                  
+                    ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                    })
+                  ->orderby('id' , 'DESC')
+                  ->get();
+
+
+            }
+            else { 
+
+              $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)
+             ->with('ticket')
+            
+             ->groupBy('ticket_id')->get();
+
+            
+          
+          foreach ($ticket_convers as $key => $value) {
+            
+            $ids[]=$value->ticket_id;
+
+          }
+  
+             if(sizeof($ticket_convers) > 0){
+
+             // print_r("111"); die();
+             
+              $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->orderby('id' , 'DESC')
+                 ->where(function($query){
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                 })
+                  
+                  ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                  })
+                
+                 ->orWhere(function($query)use($ids){
+                    $query->whereIn('id', $ids);
+                    $query->where('status' ,'!=','Resolved');
+                 }) 
+                          
+                 ->get();
+             }
+             else{
+              // print_r("222"); die();
+                 $tickets = DB::table('tickets')
+           ->select(
+                 DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
+                'tickets.ticket_no' ,
+                'tickets.pcn' ,
+                'pcns.client_name',
+                'pcns.brand',
+                'pcns.area',
+                'pcns.city',
+                'tickets.category' ,
+                'tickets.issue' ,
+                'users.name' ,
+                'tickets.reopened' ,
+                'tickets.priority' ,
+                'tickets.tat' ,
+                'tickets.comments',
+                DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
+                'tickets.status')
+                ->where(function($query){
+                    $query->where('creator' , Auth::user()->id);
+                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                 })
+                
+                ->where(function($query)use($filter){
+                      $query->where('creator' , $filter);
+                      $query->orWhere('status',$filter);
+                  })
+                 ->orderby('id' , 'DESC')
+                
+                 ->get();
+             }
+
+            }
+        }
+
+        else{
+          print_r("Please Contact Super Admin"); die();
+        }
+
         
         return $att ;   
     }

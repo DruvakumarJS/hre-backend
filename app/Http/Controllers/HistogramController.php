@@ -44,8 +44,9 @@ class HistogramController extends Controller
         $data =Histogram_billing_details::whereNotNull('pcn')->get(); 
 
         $search = '';
+        $search2 = '';
 
-        return view('histogram/list',compact('data','histogram','search'));
+        return view('histogram/list',compact('data','histogram','search','search2'));
     }
 
     /**
@@ -525,25 +526,58 @@ class HistogramController extends Controller
             'dlp_end_date' =>  $request->dlp_end_date
         ]) ;
        
-       /*if($update){
-        $histogram = Histogram_billing_details::where('id',$request->histogram_id)->first();
-        $history = HistogramHistory::create([
-            'pcn'=>$request->pcn,
-            'histogram_id'=>$request->histogram_id,
-            'user_id' => $histogram->user_id,
-            'submission_date' => $histogram->created_at,
-            'submission_time' => $histogram->created_at
-        ]);
-       }*/
+       if($update){
+         
+            $id = $request->histogram_id ;
 
-       $footprint = FootPrint::create([
-                    'action' => 'Histogram verified - '.$request->pcn,
+            $data = Histogram_billing_details::where('id' ,$id)->first();
+
+            $client = HistogramClientDetails::where('histogram_billing_id' ,$id)->get();
+            $arch = HistogramArchitectDetails::where('histogram_billing_id' ,$id)->get();
+            $land = HistogramLandlordDetails::where('histogram_billing_id' ,$id)->get();
+            $hre = HreDetail::where('histogram_billing_id' ,$id)->get();
+            $vendor = VendorDetail::where('histogram_billing_id' ,$id)->get();
+
+           // print_r($data); die();
+
+             //$rand = rand('111111111','999999999');
+            $rand = date('d-m-Y').'_'.date('H-i');
+            $filename = 'histogram_'.$rand.'.pdf';
+
+            $empl = Employee::where('user_id',Auth::user()->id)->first();
+            $empl_id = $empl->employee_id;
+            $pcn  = $request->pcn ;
+            $empl_mail  = $empl->email ;
+            $name = $data->user->name ;
+            $alias = $data->user->roles->alias;
+
+           // print_r('email is '.$empl_mail); die();
+
+            GeneratePdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name , $alias);
+
+            $histogram = Histogram_billing_details::where('id',$request->histogram_id)->first();
+            $history = HistogramHistory::create([
+                    'pcn'=>$request->pcn,
+                    'histogram_id'=>$request->histogram_id,
                     'user_id' => Auth::user()->id,
-                    'module' => 'Histogram',
-                    'operation' => 'U'
+                    'submission_date' => date('Y-m-d H:i:s'),
+                    'submission_time' => date('Y-m-d H:i:s'),
+                    'path' => 'histogram',
+                    'filename' => $filename 
                 ]);
 
-        return redirect()->route('histogram');
+           
+            $footprint = FootPrint::create([
+                        'action' => 'Histogram verified - '.$request->pcn,
+                        'user_id' => Auth::user()->id,
+                        'module' => 'Histogram',
+                        'operation' => 'U'
+                    ]);
+
+            return redirect()->route('histogram');
+       }
+
+            
         
     }
 
@@ -765,53 +799,55 @@ class HistogramController extends Controller
 
     public function search(Request $request){
         $search = $request->search ;
+        $search2 = $request->search2 ;
 
-        if($search == ''){
+        if($search == '' && $search2 == ''){
+            // print_r("lll"); die();
             return redirect()->route('histogram');
         }
-        else{
-            $histogram = Histogram_billing_details::whereNull('pcn')->get();
+        elseif($search == '' && $search2 != ''){
+            // print_r("222"); die();
+             $data =Histogram_billing_details::whereNotNull('pcn')->get();
 
-            $data =Histogram_billing_details::where('pcn','LIKE','%'.$search.'%')
-            ->orWhere('pcn','LIKE','%'.$search.'%')
-            ->orWhere('billing_name','LIKE','%'.$search.'%')
-            ->orWhere('location','LIKE','%'.$search.'%')
-            ->orWhere('project_name','LIKE','%'.$search.'%')
-            ->orWhere('area','LIKE','%'.$search.'%')
-            ->orWhere('city','LIKE','%'.$search.'%')
-            ->orWhere('state','LIKE','%'.$search.'%')
-            ->get(); 
-
-            return view('histogram/list',compact('data','histogram','search'));
-        }
-    }
-
-   public function search_pending_forms(Request $request){
-        $search = $request->search2 ;
-
-        if($search == ''){
-            return redirect()->route('histogram');
-        }
-        else{
-            $histogram = Histogram_billing_details::whereNull('pcn')->get();
-
-            $data =Histogram_billing_details::where('pcn','LIKE','%'.$search.'%')
-            ->orWhere('pcn','LIKE','%'.$search.'%')
-            ->orWhere('billing_name','LIKE','%'.$search.'%')
-            ->orWhere('location','LIKE','%'.$search.'%')
-            ->orWhere('project_name','LIKE','%'.$search.'%')
-            ->orWhere('area','LIKE','%'.$search.'%')
-            ->orWhere('city','LIKE','%'.$search.'%')
-            ->orWhere('state','LIKE','%'.$search.'%')
-            ->where(function($query){
-                    $query->whereNull('pcn');
+             $histogram =Histogram_billing_details::whereNull('pcn')
+              ->where(function($query)use($search2){
+                    $query->where('billing_name','LIKE','%'.$search2.'%');
+                    $query->orWhere('location','LIKE','%'.$search2.'%');
+                    $query->orWhere('project_name','LIKE','%'.$search2.'%');
+                    $query->orWhere('area','LIKE','%'.$search2.'%');
+                    $query->orWhere('city','LIKE','%'.$search2.'%');
+                    $query->orWhere('state','LIKE','%'.$search2.'%');
                  })
-            ->get(); 
             
-            $search2 = $search;
-            return view('histogram/list',compact('data','histogram','search2'));
+            ->get(); 
+
+
         }
+        elseif($search != '' && $search2 == ''){
+            //print_r("333"); die();
+            $histogram = Histogram_billing_details::whereNull('pcn')->get();
+
+            $data =Histogram_billing_details::whereNotNull('pcn')
+            ->where(function($query)use($search){
+                    $query->where('pcn','LIKE','%'.$search.'%');
+                    $query->orWhere('pcn','LIKE','%'.$search.'%');
+                    $query->orWhere('billing_name','LIKE','%'.$search.'%');
+                    $query->orWhere('location','LIKE','%'.$search.'%');
+                    $query->orWhere('project_name','LIKE','%'.$search.'%');
+                    $query->orWhere('area','LIKE','%'.$search.'%');
+                    $query->orWhere('city','LIKE','%'.$search.'%');
+                    $query->orWhere('state','LIKE','%'.$search.'%');
+                 })
+            
+            ->get();   
+        }
+        else{
+           print_r("444"); die();
+        }
+        return view('histogram/list',compact('data','histogram','search','search2'));
     }
+
+   
 
     public function delete_history($id , $histogram_id){
        
@@ -867,7 +903,7 @@ class HistogramController extends Controller
                     'work'
                 )
                     ->where('pcn', 'LIKE', '%'. $request->get('search'). '%')
-                   // ->where('status' , 'Active')
+                    ->where('status' , 'Active')
                     ->get();            
     
         return response()->json($data);

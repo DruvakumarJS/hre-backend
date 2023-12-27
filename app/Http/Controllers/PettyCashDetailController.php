@@ -158,7 +158,7 @@ class PettyCashDetailController extends Controller
          // return redirect()->route('details_pettycash',Auth::user()->id);
 
           $footprint = FootPrint::create([
-                            'action' => 'New Bill Uploaded - ',
+                            'action' => 'New Bill Uploaded ',
                             'user_id' => Auth::user()->id,
                             'module' => 'Pettycash',
                             'operation' => 'C',

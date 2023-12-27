@@ -84,14 +84,14 @@
            
             <label class="label-bold">Pending Form</label>
 
-            <!-- <div id="div3">
-              <form method="post" action="{{ route('search_pending_forms')}}">
+            <div id="div3">
+              <form method="post" action="{{ route('search_histogram')}}">
                  @csrf
-                <input type="text" name="search2" >
-                <button>Search</button>
+                <input type="text" name="search2" value="{{$search2}}">
+                <button class="btn btn-sm btn-outline-secondary">Search</button>
               </form>
               
-            </div> -->
+            </div>
 
             <div class="card border-white scroll tableFixHead" style="height: 270px; padding: 0px 5px 20px 20px">
 
