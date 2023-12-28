@@ -39,7 +39,7 @@ class ExportTicket implements FromCollection, WithHeadings
         if($search == '' && $filter=='all'){
           // print_r("--11--"); die();
           if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
-            //print_r("lll"); die();
+           // print_r("here"); die();
                $tickets = DB::table('tickets')
            ->select(
                  DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
@@ -51,14 +51,15 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->orderby('id' , 'DESC')
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
                  
                  ->get();
             }
@@ -86,7 +87,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
@@ -95,7 +96,9 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.status')
                 ->whereIn('creator',$userIDs)
                      
-                    ->orderby('id' , 'DESC')->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -123,7 +126,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
@@ -132,7 +135,9 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.status')
                 ->whereIn('creator',$userIDs)
                     
-                   ->orderby('id' , 'DESC')->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -160,7 +165,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
@@ -169,8 +174,9 @@ class ExportTicket implements FromCollection, WithHeadings
                 'tickets.status')
                 ->whereIn('creator',$userIDs)
                  
-                  ->orderby('id' , 'DESC')
-                  ->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -204,23 +210,24 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->orderby('id' , 'DESC')
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
                  ->where(function($query){
-                    $query->where('creator' , Auth::user()->id);
-                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                    $query->where('tickets.creator' , Auth::user()->id);
+                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
                  })
                 
                 
                  ->orWhere(function($query)use($ids){
-                    $query->whereIn('id', $ids);
-                    $query->where('status' ,'!=','Resolved');
+                    $query->whereIn('tickets.id', $ids);
+                    $query->where('tickets.status' ,'!=','Resolved');
                  }) 
                           
                  ->get();
@@ -238,7 +245,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
@@ -246,11 +253,12 @@ class ExportTicket implements FromCollection, WithHeadings
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
                 ->where(function($query){
-                    $query->where('creator' , Auth::user()->id);
-                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                    $query->where('tickets.creator' , Auth::user()->id);
+                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
                  })
                  
-                 ->orderby('id' , 'DESC')
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
                 
                  ->get();
              }
@@ -261,6 +269,7 @@ class ExportTicket implements FromCollection, WithHeadings
          // print_r("--22--"); die();
 
           if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
+           // print_r("--221--"); die();
                $tickets = DB::table('tickets')
            ->select(
                  DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
@@ -272,21 +281,22 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->orderby('id' , 'DESC')
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
                   ->where(function($query)use($search){
-                       $query->where('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
-                       $query->orWhere('status','LIKE','%'.$search.'%');
-                       $query->orWhere('category','LIKE','%'.$search.'%');
-                       $query->orWhereHas('pcns',function($query)use($search){
+                       $query->where('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.status','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                       $query->orWhere(function($query)use($search){
                           $query->where('brand' , 'LIKE' , '%'.$search.'%');
                        });
 
@@ -317,27 +327,29 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->whereIn('creator',$userIDs)
+                ->whereIn('tickets.creator',$userIDs)
                      ->where(function($query)use($search){
-                       $query->where('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
-                       $query->orWhere('status','LIKE','%'.$search.'%');
-                       $query->orWhere('category','LIKE','%'.$search.'%');
-                       $query->orWhereHas('pcns',function($query)use($search){
-                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       $query->where('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.status','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                       $query->orWhere('pcns',function($query)use($search){
+                          $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
                        });
 
                      })
                      
-                    ->orderby('id' , 'DESC')->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -365,26 +377,28 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->whereIn('creator',$userIDs)
+                ->whereIn('tickets.creator',$userIDs)
                     ->where(function($query)use($search){
-                       $query->where('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
-                       $query->orWhere('status','LIKE','%'.$search.'%');
-                       $query->orWhere('category','LIKE','%'.$search.'%');
-                       $query->orWhereHas('pcns',function($query)use($search){
-                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       $query->where('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.status','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                       $query->orWhere(function($query)use($search){
+                          $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
                        });
 
                      })
-                   ->orderby('id' , 'DESC')->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -412,27 +426,28 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->whereIn('creator',$userIDs)
+                ->whereIn('tickets.creator',$userIDs)
                   ->where(function($query)use($search){
-                       $query->where('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
-                       $query->orWhere('status','LIKE','%'.$search.'%');
-                       $query->orWhere('category','LIKE','%'.$search.'%');
-                       $query->orWhereHas('pcns',function($query)use($search){
-                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       $query->where('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.status','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                       $query->orWhere(function($query)use($search){
+                          $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
                        });
 
                      })
-                  ->orderby('id' , 'DESC')
-                  ->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -468,32 +483,33 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->orderby('id' , 'DESC')
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
                  ->where(function($query){
-                    $query->where('creator' , Auth::user()->id);
-                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                    $query->where('tickets.creator' , Auth::user()->id);
+                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
                  })
                  ->where(function($query)use($search){
-                     $query->where('ticket_no','LIKE','%'.$search.'%');
-                     $query->orWhere('pcn','LIKE','%'.$search.'%');
-                     $query->orWhere('category','LIKE','%'.$search.'%');
-                     $query->orWhereHas('pcns',function($query)use($search){
-                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                     $query->where('tickets.ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                     $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                     $query->orWhere(function($query)use($search){
+                        $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
 
                      });
    
                  }) 
                 
                  ->orWhere(function($query)use($ids){
-                    $query->whereIn('id', $ids);
-                    $query->where('status' ,'!=','Resolved');
+                    $query->whereIn('tickets.id', $ids);
+                    $query->where('tickets.status' ,'!=','Resolved');
                  }) 
                           
                  ->get();
@@ -511,7 +527,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
@@ -519,15 +535,15 @@ class ExportTicket implements FromCollection, WithHeadings
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
                 ->where(function($query){
-                    $query->where('creator' , Auth::user()->id);
-                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                    $query->where('tickets.creator' , Auth::user()->id);
+                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
                  })
                  ->where(function($query)use($search){
-                     $query->where('ticket_no','LIKE','%'.$search.'%');
-                     $query->orWhere('pcn','LIKE','%'.$search.'%');
-                      $query->orWhere('category','LIKE','%'.$search.'%');
-                     $query->orWhereHas('pcns',function($query)use($search){
-                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                     $query->where('tickets.ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                      $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                     $query->orWhere(function($query)use($search){
+                        $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
                      });
                      /*$query->orWhere('category','LIKE','%'.$search.'%');                    
                      $query->orWhere('status','LIKE','%'.$search.'%');*/
@@ -536,9 +552,10 @@ class ExportTicket implements FromCollection, WithHeadings
                 /* ->where(function($query){
                     $query->where('status' ,'!=','Resolved');
                  }) */
-                 ->orderby('id' , 'DESC')
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
                 
-                 ->get();
+                ->get();
              }
 
             }
@@ -559,28 +576,29 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->orderby('id' , 'DESC')
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
                   ->where(function($query)use($search){
-                       $query->where('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
-                       $query->orWhere('status','LIKE','%'.$search.'%');
-                       $query->orWhere('category','LIKE','%'.$search.'%');
-                       $query->orWhereHas('pcns',function($query)use($search){
-                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       $query->where('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.status','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                       $query->orWhere(function($query)use($search){
+                          $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
                        });
 
                      })
                   ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                   })
                   
                  ->get();
@@ -609,31 +627,33 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->whereIn('creator',$userIDs)
+                ->whereIn('tickets.creator',$userIDs)
                      ->where(function($query)use($search){
-                       $query->where('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
-                       $query->orWhere('status','LIKE','%'.$search.'%');
-                       $query->orWhere('category','LIKE','%'.$search.'%');
-                       $query->orWhereHas('pcns',function($query)use($search){
-                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       $query->where('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.status','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                       $query->orWhere(function($query)use($search){
+                          $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
                        });
 
                      })
                     ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                      })
                      
-                    ->orderby('id' , 'DESC')->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -661,30 +681,32 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->whereIn('creator',$userIDs)
+                ->whereIn('tickets.creator',$userIDs)
                     ->where(function($query)use($search){
-                       $query->where('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
-                       $query->orWhere('status','LIKE','%'.$search.'%');
-                       $query->orWhere('category','LIKE','%'.$search.'%');
-                       $query->orWhereHas('pcns',function($query)use($search){
-                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       $query->where('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.status','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                       $query->orWhere(function($query)use($search){
+                          $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
                        });
 
                      })
                      ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                      })
-                   ->orderby('id' , 'DESC')->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -704,22 +726,23 @@ class ExportTicket implements FromCollection, WithHeadings
 
                   $tickets = Ticket::whereIn('creator',$userIDs)
                   ->where(function($query)use($search){
-                       $query->where('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('pcn','LIKE','%'.$search.'%');
-                       $query->orWhere('ticket_no','LIKE','%'.$search.'%');
-                       $query->orWhere('status','LIKE','%'.$search.'%');
-                       $query->orWhere('category','LIKE','%'.$search.'%');
-                       $query->orWhereHas('pcns',function($query)use($search){
-                          $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                       $query->where('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.ticket_no','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.status','LIKE','%'.$search.'%');
+                       $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                       $query->orWhere(function($query)use($search){
+                          $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
                        });
 
                      })
                     ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                     })
-                  ->orderby('id' , 'DESC')
-                  ->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -755,36 +778,37 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->orderby('id' , 'DESC')
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
                  ->where(function($query){
-                    $query->where('creator' , Auth::user()->id);
-                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                    $query->where('tickets.creator' , Auth::user()->id);
+                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
                  })
                  ->where(function($query)use($search){
-                     $query->where('ticket_no','LIKE','%'.$search.'%');
-                     $query->orWhere('pcn','LIKE','%'.$search.'%');
-                     $query->orWhere('category','LIKE','%'.$search.'%');
-                     $query->orWhereHas('pcns',function($query)use($search){
-                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                     $query->where('tickets.ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                     $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                     $query->orWhere(function($query)use($search){
+                        $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
 
                      });
    
                  }) 
                   ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                   })
                 
                  ->orWhere(function($query)use($ids){
-                    $query->whereIn('id', $ids);
-                    $query->where('status' ,'!=','Resolved');
+                    $query->whereIn('tickets.id', $ids);
+                    $query->where('tickets.status' ,'!=','Resolved');
                  }) 
                           
                  ->get();
@@ -802,7 +826,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
@@ -810,25 +834,26 @@ class ExportTicket implements FromCollection, WithHeadings
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
                 ->where(function($query){
-                    $query->where('creator' , Auth::user()->id);
-                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                    $query->where('tickets.creator' , Auth::user()->id);
+                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
                  })
                  ->where(function($query)use($search){
-                     $query->where('ticket_no','LIKE','%'.$search.'%');
-                     $query->orWhere('pcn','LIKE','%'.$search.'%');
-                      $query->orWhere('category','LIKE','%'.$search.'%');
-                     $query->orWhereHas('pcns',function($query)use($search){
-                        $query->where('brand' , 'LIKE' , '%'.$search.'%');
+                     $query->where('tickets.ticket_no','LIKE','%'.$search.'%');
+                     $query->orWhere('tickets.pcn','LIKE','%'.$search.'%');
+                      $query->orWhere('tickets.category','LIKE','%'.$search.'%');
+                     $query->orWhere(function($query)use($search){
+                        $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
                      });
                      /*$query->orWhere('category','LIKE','%'.$search.'%');                    
                      $query->orWhere('status','LIKE','%'.$search.'%');*/
                      
                  }) 
                 ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                   })
-                 ->orderby('id' , 'DESC')
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
                 
                  ->get();
              }
@@ -839,6 +864,7 @@ class ExportTicket implements FromCollection, WithHeadings
          // print_r("--44--"); die();
 
           if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
+            //print_r("--441--"); die();
                $tickets = DB::table('tickets')
            ->select(
                  DB::raw("DATE_FORMAT(tickets.created_at, '%d-%m-%Y') as formatted_dob"),
@@ -850,18 +876,19 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->orderby('id' , 'DESC')
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
                   
                   ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                   })
                   
                  ->get();
@@ -890,21 +917,23 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->whereIn('creator',$userIDs)
+                ->whereIn('tickets.creator',$userIDs)
                     
                     ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                      })
                      
-                    ->orderby('id' , 'DESC')->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -932,20 +961,22 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->whereIn('creator',$userIDs)
+                ->whereIn('tickets.creator',$userIDs)
                     
                      ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                      })
-                   ->orderby('id' , 'DESC')->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -966,11 +997,12 @@ class ExportTicket implements FromCollection, WithHeadings
                   $tickets = Ticket::whereIn('creator',$userIDs)
                   
                     ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                     })
-                  ->orderby('id' , 'DESC')
-                  ->get();
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->get();
 
 
             }
@@ -1004,27 +1036,28 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
                 'tickets.comments',
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
-                ->orderby('id' , 'DESC')
-                 ->where(function($query){
-                    $query->where('creator' , Auth::user()->id);
-                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
+                ->where(function($query){
+                    $query->where('tickets.creator' , Auth::user()->id);
+                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
                  })
                   
                   ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                   })
                 
                  ->orWhere(function($query)use($ids){
-                    $query->whereIn('id', $ids);
-                    $query->where('status' ,'!=','Resolved');
+                    $query->whereIn('tickets.id', $ids);
+                    $query->where('tickets.status' ,'!=','Resolved');
                  }) 
                           
                  ->get();
@@ -1042,7 +1075,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 'pcns.city',
                 'tickets.category' ,
                 'tickets.issue' ,
-                'users.name' ,
+                
                 'tickets.reopened' ,
                 'tickets.priority' ,
                 'tickets.tat' ,
@@ -1050,15 +1083,16 @@ class ExportTicket implements FromCollection, WithHeadings
                 DB::raw("DATE_FORMAT(tickets.updated_at, '%d-%m-%Y') as updateded_date"),
                 'tickets.status')
                 ->where(function($query){
-                    $query->where('creator' , Auth::user()->id);
-                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                    $query->where('tickets.creator' , Auth::user()->id);
+                    $query->orWhere('tickets.assigned_to' ,Auth::user()->id);
                  })
                 
                 ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
+                      $query->where('tickets.creator' , $filter);
+                      $query->orWhere('tickets.status',$filter);
                   })
-                 ->orderby('id' , 'DESC')
+                ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
+                ->orderby('tickets.id' , 'DESC')
                 
                  ->get();
              }
@@ -1071,13 +1105,13 @@ class ExportTicket implements FromCollection, WithHeadings
         }
 
         
-        return $att ;   
+        return $tickets ;   
     }
 
     public function headings(): array
      {       
        return [
-         'Created Date','Ticket ID', 'PCN' , 'Billing Name' , 'Brand', 'Area' , 'City' , 'category' , 'Description' ,  'Creator' , 'Is Reopened' , 'Priority' , 'TAT' , 'Latest Comment' , 'Updated Date','Status'
+         'Created Date','Ticket ID', 'PCN' , 'Billing Name' , 'Brand', 'Area' , 'City' , 'category' , 'Description' ,  'Is Reopened' , 'Priority' , 'TAT' , 'Latest Comment' , 'Updated Date','Status'
        ];
      }
 }

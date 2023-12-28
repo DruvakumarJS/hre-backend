@@ -58,7 +58,7 @@ class ExportController extends Controller
      public function ticket(Request $request ){
       //print_r('search'.$request->filter);die();
 
-       return redirect()->route('tickets');
+      //return redirect()->route('tickets');
 
       $filter = $request->filter;
       $search = $request->search;

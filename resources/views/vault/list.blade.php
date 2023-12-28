@@ -306,7 +306,7 @@ div.click-to-top:hover span {
 
                     <div class="form-group mb-4" style="margin-top: 20px">
                         <div class="custom-file text-left">
-                            <input type="file" name="file[]" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" class="custom-file-input" id="customFile" multiple required>
+                            <input type="file" name="file[]" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" class="custom-file-input" id="customFile" multiple >
                            
                         </div>
                     </div>

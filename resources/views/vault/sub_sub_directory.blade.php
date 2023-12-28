@@ -20,7 +20,7 @@ div.click-to-top:hover span {
 <div class="container">
     <div class="row justify-content-center">
         <div class="container-header">
-            <label class="label-bold" id="div1">Vault 2</label>
+            <label class="label-bold" id="div1">Vault</label>
           @if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' OR Auth::user()->role_id == '3' OR Auth::user()->role_id == '6' OR Auth::user()->role_id == '9' OR Auth::user()->role_id == '10')
          <div id="div2">
           <button  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm btn-outline-secondary">Add </button>
