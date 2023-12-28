@@ -105,6 +105,86 @@ div.click-to-top:hover span {
         </div>
 
       <div id="listview" style="display: none">
+
+        <label class="label-bold">Folders</label>
+
+        <table class="table">
+          <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Action</th>
+             
+          </tr>
+
+          <tbody>
+           
+              @foreach($folderarray as $key=>$level2)
+               
+              <tr>
+                <td width="200px">{{$level2}} </td>
+                
+                <td>
+                  
+                  @if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' OR Auth::user()->role_id == '3' OR Auth::user()->role_id == '6' OR Auth::user()->role_id == '9' OR Auth::user()->role_id == '10')
+                   <a id="MyfolderModal_{{$key}}" style="margin-left: 20px" > <button class="btn btn-outline-success btn-sm">Rename</button></a>
+                  @endif
+
+                 
+                </td>
+              </tr>
+
+              <!-- Modal -->
+
+                              <div class="modal" id="foldermodal_{{$key}}" >
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Rename Folder</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form method="post" action="{{route('update-foldername')}}">
+                                        @csrf
+                                        <div class="mb-3">
+                                          <label for="recipient-name" class="col-form-label"> Name:</label>
+                                          <input type="text" class="form-control" id="name" name="name" placeholder="Enter Category name" value="{{$level2}}" required>
+                                        </div>
+
+                                         
+                                        <input type="hidden" name="sub_folders" value="3">
+                                        <input type="hidden" name="old_name" value="{{$level2}}">
+                                        <input type="hidden" name="f1" value="{{$foldername}}">
+                                        <input type="hidden" name="f2" value="{{$sub_folder_name}}">
+
+
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                          <button type="submit" class="btn btn-danger">Update</button>
+                                        </div>
+                                      </form>
+                                    </div>
+                    </div>
+                  </div>
+                </div>
+
+                 <!--  end Modal -->
+
+                 <script>
+                $(document).ready(function(){
+                  $('#MyfolderModal_{{$key}}').click(function(){
+                    $('#foldermodal_{{$key}}').modal('show');
+                  });
+                });  
+                </script>
+              @endforeach
+             
+           
+          </tbody>
+        </table>
+
+        <hr/>
+        <label class="label-bold">Documents</label>
+
+
         <table class="table">
           <tr>
               <th scope="col">Name</th>

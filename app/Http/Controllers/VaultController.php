@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use File;
 use App\Models\FootPrint;
 use Auth;
+use Storage;
 
 class VaultController extends Controller
 {
@@ -824,6 +825,163 @@ class VaultController extends Controller
                 ]);
 
        return redirect()->back();
+    }
+
+    public function update_foldername(Request $request){
+        print_r($request->Input()); 
+
+        if($request->sub_folders == '1'){
+            // print_r("1"); die();
+            $data = Vault::where('folder','LIKE','vault/'.$request->old_name.'%')->get();
+            $isrenamed = 'false' ;
+            foreach ($data as $key => $value) {
+                $folder_structure = $value->folder;
+               
+                $arr = explode('/',$folder_structure);
+               
+                if($isrenamed == 'false'){
+                     rename(public_path('/vault/'.$arr[$request->sub_folders]), public_path('/vault/'.$request->name)); 
+                     $old_name = $arr[$request->sub_folders];
+                     $isrenamed = 'true' ;
+                }
+
+               // print_r($old_name); die();
+                     
+                $arr[$request->sub_folders] = $request->name; 
+                
+                $updated_struc = implode('/',$arr);
+             
+                $update = Vault::where('id', $value->id)
+                ->where('sub_folders','!=','0')
+                ->where('folder','LIKE','vault/'.$request->old_name.'%')
+                ->update(['folder' => $updated_struc]);  
+        }
+     
+        }
+        elseif($request->sub_folders == '2'){
+            //print_r("2"); die();
+            $data = Vault::where('folder','LIKE','vault/'.$request->f1.'/'.$request->old_name.'%')->get();
+            $isrenamed = 'false' ;
+           /* print_r("<br>");
+            print_r(json_encode($data)); die();*/
+            foreach ($data as $key => $value) {
+                $folder_structure = $value->folder;
+               
+                $arr = explode('/',$folder_structure);
+               
+                if($isrenamed == 'false'){
+                     rename(public_path('/vault/'.$request->f1.'/'.$arr[$request->sub_folders]), public_path('/vault/'.$request->f1.'/'.$request->name)); 
+                     $old_name = $arr[$request->sub_folders];
+                     $isrenamed = 'true' ;
+                }
+
+               // print_r($old_name); die();
+                     
+                $arr[$request->sub_folders] = $request->name; 
+                
+                $updated_struc = implode('/',$arr);
+             
+                $update = Vault::where('id', $value->id)
+                ->where('sub_folders','!=','0')
+                ->where('folder','LIKE','vault/'.$request->f1.'/'.$request->old_name.'%')
+                ->update(['folder' => $updated_struc]);  
+            }
+ 
+        }
+         elseif($request->sub_folders == '3'){
+            // print_r("3"); die();
+            $data = Vault::where('folder','LIKE','vault/'.$request->f1.'/'.$request->f2.'/'.$request->old_name.'%')->get();
+            $isrenamed = 'false' ;
+           /* print_r("<br>");
+            print_r(json_encode($data)); die();*/
+            foreach ($data as $key => $value) {
+                $folder_structure = $value->folder;
+               
+                $arr = explode('/',$folder_structure);
+               
+                if($isrenamed == 'false'){
+                     rename(public_path('/vault/'.$request->f1.'/'.$request->f2.'/'.$arr[$request->sub_folders]), public_path('/vault/'.$request->f1.'/'.$request->f2.'/'.$request->name)); 
+                     $old_name = $arr[$request->sub_folders];
+                     $isrenamed = 'true' ;
+                }
+
+               // print_r($old_name); die();
+                     
+                $arr[$request->sub_folders] = $request->name; 
+                
+                $updated_struc = implode('/',$arr);
+             
+                $update = Vault::where('id', $value->id)
+                ->where('sub_folders','!=','0')
+                ->where('folder','LIKE','vault/'.$request->f1.'/'.$request->f2.'/'.$request->old_name.'%')
+                ->update(['folder' => $updated_struc]);  
+            }
+ 
+        }
+         elseif($request->sub_folders == '4'){
+            // print_r("4"); die();
+             $data = Vault::where('folder','LIKE','vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$request->old_name.'%')->get();
+            $isrenamed = 'false' ;
+           /* print_r("<br>");
+            print_r(json_encode($data)); die();*/
+            foreach ($data as $key => $value) {
+                $folder_structure = $value->folder;
+               
+                $arr = explode('/',$folder_structure);
+               
+                if($isrenamed == 'false'){
+                     rename(public_path('/vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$arr[$request->sub_folders]), public_path('/vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$request->name)); 
+                     $old_name = $arr[$request->sub_folders];
+                     $isrenamed = 'true' ;
+                }
+
+               // print_r($old_name); die();
+                     
+                $arr[$request->sub_folders] = $request->name; 
+                
+                $updated_struc = implode('/',$arr);
+             
+                $update = Vault::where('id', $value->id)
+                ->where('sub_folders','!=','0')
+                ->where('folder','LIKE','vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$request->old_name.'%')
+                ->update(['folder' => $updated_struc]);  
+            }
+ 
+        }
+         elseif($request->sub_folders == '5'){
+            // print_r("5"); die();
+              $data = Vault::where('folder','LIKE','vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$request->f4.'/'.$request->old_name.'%')->get();
+            $isrenamed = 'false' ;
+           /* print_r("<br>");
+            print_r(json_encode($data)); die();*/
+            foreach ($data as $key => $value) {
+                $folder_structure = $value->folder;
+               
+                $arr = explode('/',$folder_structure);
+               
+                if($isrenamed == 'false'){
+                     rename(public_path('/vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$request->f4.'/'.$arr[$request->sub_folders]), public_path('/vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$request->f4.'/'.$request->name)); 
+                     $old_name = $arr[$request->sub_folders];
+                     $isrenamed = 'true' ;
+                }
+
+               // print_r($old_name); die();
+                     
+                $arr[$request->sub_folders] = $request->name; 
+                
+                $updated_struc = implode('/',$arr);
+             
+                $update = Vault::where('id', $value->id)
+                ->where('sub_folders','!=','0')
+                ->where('folder','LIKE','vault/'.$request->f1.'/'.$request->f2.'/'.$request->f3.'/'.$request->f4.'/'.$request->old_name.'%')
+                ->update(['folder' => $updated_struc]);  
+            }
+ 
+        }
+       
+        return redirect()->back();
+
+
     }
 
     /**

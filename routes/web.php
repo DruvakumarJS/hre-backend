@@ -342,6 +342,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('view_vault/{f1}/{f2}/{f3}/{f4}/{f5}',[VaultController::class,'level5'])->name('level5');
     Route::post('save_level5_files',[VaultController::class,'save_level5_files'])->name('save_level5_files');
+    
+    Route::post('update-foldername',[VaultController::class,'update_foldername'])->name('update-foldername');
+
+
 
     Route::post('testimages',[PettyCashDetailController::class,'test'])->name('testimages');
 
