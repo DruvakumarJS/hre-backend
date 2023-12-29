@@ -344,6 +344,7 @@ class IndentController extends Controller
              $pcn_data=Pcn::where('pcn',$value->pcn)->first();
 
              $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+             $empl = Employee::where('user_id',$value->user_id)->first();
 
               $indentarray[] = [
                 'indent_id' => $value->id ,
@@ -351,6 +352,8 @@ class IndentController extends Controller
                 'pcn' => $value->pcn,
                 'pcn_detail' => $pcn_detail,
                 'status'=> $value->status,
+                'creator_name' => $empl->name,
+                'creator_emplid' => $empl->employee_id,
                 'created_on' => $value->created_at->toDateTimeString()
 
               ];
