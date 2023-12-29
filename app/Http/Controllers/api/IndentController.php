@@ -625,6 +625,7 @@ class IndentController extends Controller
    }
 
    public function search(Request $request){
+    $indentarray=array();
     $user = User::where('id' , $request->user_id)->first();
     $search = $request->search;
 
