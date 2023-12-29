@@ -1273,6 +1273,7 @@ class TicketController extends Controller
     $user = User::where('id', $request->user_id)->first();
     $search = $request->search ;
     $userid = $user->id;
+    $ticketarray=array();
 
    // print_r($userid); die();
 
