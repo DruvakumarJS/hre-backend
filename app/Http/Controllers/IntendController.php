@@ -101,8 +101,9 @@ class IntendController extends Controller
        }
         
         //print_r($pendingCount);
+       $search = '';
 
-         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount'));
+         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount','search'));
     } 
 
     /**
@@ -527,6 +528,7 @@ class IntendController extends Controller
     }
 
     public function filter_indents($filter){
+
         if($filter=='all'){
 
             if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11 OR Auth::user()->role_id == 12) {
@@ -688,7 +690,9 @@ class IntendController extends Controller
       }*/
         //print_r($pendingCount);
 
-         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount'));
+      $search = '';
+
+         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount','search'));
       
     }
 
@@ -918,6 +922,7 @@ class IntendController extends Controller
          return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount')); */ 
 
         $search = $request->search;
+        // print_r($search); die();
          
         if($search == ''){
           return redirect()->route('intends');
@@ -931,7 +936,7 @@ class IntendController extends Controller
               ->orWhereHas('pcns', function ($query) use ($search) {
               $query->where('brand', 'like', '%'.$search.'%');
                  })
-              ->paginate(25);
+              ->paginate(25)->withQueryString();
 
           $all = Intend::count();
           $activeCount = Intend::where('status','Active')->count();
@@ -961,7 +966,7 @@ class IntendController extends Controller
                  });
              })
              ->orderBy('created_at', 'ASC')
-             ->paginate(25);
+             ->paginate(25)->withQueryString();
 
         $all = Intend::whereIn('user_id',$userIDs)->count();
         $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
@@ -992,7 +997,7 @@ class IntendController extends Controller
                  });
              })
             ->orderBy('created_at', 'ASC')
-            ->paginate(25);
+            ->paginate(25)->withQueryString();
 
         $all = Intend::whereIn('user_id',$userIDs)->count();
         $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
@@ -1009,41 +1014,20 @@ class IntendController extends Controller
                $query->where('brand', 'like', '%'.$search.'%');
                  });
              })
-        ->paginate(25);
+        ->paginate(25)->withQueryString();
 
         $all = Intend::where('user_id' ,Auth::user()->id)
-        ->where(function($query)use($search){
-              $query->where('indent_no','LIKE','%'.$search.'%');
-               $query->orWhere('pcn','LIKE','%'.$search.'%');
-               $query->orWhereHas('pcns', function ($query) use ($search) {
-               $query->where('brand', 'like', '%'.$search.'%');
-                 });
-             })
         ->count();
 
         $activeCount = Intend::where('user_id' ,Auth::user()->id)
-        ->where(function($query)use($search){
-              $query->where('indent_no','LIKE','%'.$search.'%');
-               $query->orWhere('pcn','LIKE','%'.$search.'%');
-               $query->orWhereHas('pcns', function ($query) use ($search) {
-               $query->where('brand', 'like', '%'.$search.'%');
-                 });
-             })
         ->where('status','Active')->count();
      
         $compltedCount = Intend::where('user_id' ,Auth::user()->id)
-        ->where(function($query)use($search){
-              $query->where('indent_no','LIKE','%'.$search.'%');
-               $query->orWhere('pcn','LIKE','%'.$search.'%');
-               $query->orWhereHas('pcns', function ($query) use ($search) {
-               $query->where('brand', 'like', '%'.$search.'%');
-                 });
-             })
         ->where('status','Completed')->count();
         }
 
-       
-       return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount'));            
+       $search = $request->search ;
+       return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount','search'));            
 
     }
 

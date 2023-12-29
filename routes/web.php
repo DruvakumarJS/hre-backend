@@ -155,7 +155,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('grn',[IntendController::class,'grn'])->name('grn');
     Route::post('update-grn', [IntendController::class,'update_grn'])->name('update-grn');
     Route::post('edit_quantity', [IntendController::class,'edit_grn'])->name('edit_quantity');
-    Route::post('search_indent', [IntendController::class,'search'])->name('search_indent');
+    Route::get('search_indent', [IntendController::class,'search'])->name('search_indent');
     Route::post('search_grn', [IntendController::class,'search_grn'])->name('search_grn');
     Route::get('update_indent_status/{id}', [IntendController::class,'update_indent_status'])->name('update_indent_status');
     Route::post('filter_materials', [IntendController::class,'filter_materials'])->name('filter_materials');

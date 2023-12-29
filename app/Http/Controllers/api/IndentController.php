@@ -625,6 +625,139 @@ class IndentController extends Controller
    }
 
    public function search(Request $request){
+    $user = User::where('id' , $request->user_id)->first();
+    $search = $request->search;
+
+        $role_id = $user->role_id ;
+       
+        if($role_id == 1 OR $role_id == 2 OR $role_id == 10 OR $role_id == 11 OR $role_id == 12) {
+            $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+              ->where('indent_no','LIKE','%'.$search.'%')
+              ->orWhere('pcn','LIKE','%'.$search.'%')
+              ->orWhereHas('pcns', function ($query) use ($search) {
+              $query->where('brand', 'like', '%'.$search.'%');
+                 })
+            ->orderBy('created_at', 'ASC')->get();
+
+            $all = Intend::count();
+            $activeCount = Intend::where('status','Active')->count();
+            
+            $compltedCount = Intend::where('status','Completed')->count();
+           }
+           elseif($role_id == 3 OR $role_id == 4 OR $role_id == 5){
+
+            $role = Roles::select('id')->where('team_id','3')->get();
+                $emp= array();
+                foreach ($role as $key => $value) {
+                   $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                   foreach ($emp as $key2 => $value2) {
+                     $userIDs[] = $value2->user_id;
+                 }
+                  
+                }
+
+            $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+             ->whereIn('user_id',$userIDs)
+             ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+               $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+             ->orderBy('created_at', 'ASC')
+             ->get();
+
+            $all = Intend::whereIn('user_id',$userIDs)->count();
+            $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+            
+            $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+               
+
+           }
+           elseif($role_id == 6 OR $role_id == 7 OR $role_id == 8 OR $role_id == 9){
+
+            $role = Roles::select('id')->where('team_id','4')->get();
+                $emp= array();
+                foreach ($role as $key => $value) {
+                   $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+                   foreach ($emp as $key2 => $value2) {
+                     $userIDs[] = $value2->user_id;
+                 }
+                  
+                }
+
+            $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+            ->whereIn('user_id',$userIDs)
+            ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+               $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+            ->orderBy('created_at', 'ASC')->get();
+
+            $all = Intend::whereIn('user_id',$userIDs)->count();
+            $activeCount = Intend::whereIn('user_id',$userIDs)->where('status','Active')->count();
+            
+            $compltedCount = Intend::whereIn('user_id',$userIDs)->where('status','Completed')->count();
+               
+
+           }
+           else {
+            $indents=Intend::where('user_id' ,$request->user_id)
+            ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+               $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+            ->get();
+
+            $all = Intend::where('user_id' ,$request->user_id) 
+            ->count();
+
+            $activeCount = Intend::where('user_id' ,$request->user_id)
+            ->where('status','Active')
+            ->count();
+          
+            $compltedCount = Intend::where('user_id' ,$request->user_id)
+            ->where('status','Completed')->count();
+           }
+
+            $counts=[ 'Active' => $activeCount , 'Completed' => $compltedCount ];
+
+            foreach ($indents as $key => $value) {
+             $pcn_data=Pcn::where('pcn',$value->pcn)->first();
+
+             $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+
+              $indentarray[] = [
+                'indent_id' => $value->id ,
+                'indent_no' => $value->indent_no,
+                'pcn' => $value->pcn,
+                'pcn_detail' => $pcn_detail,
+                'status'=> $value->status,
+                'created_on' => $value->created_at->toDateTimeString()
+
+              ];
+                  
+            }
+
+            $final_array=['counts' => $counts , 'myindents' => $indentarray];
+
+            return response()->json([
+                'status' => 1 ,
+                'message' => 'success' ,
+                'data' => $final_array
+                ]);
+   }
+
+   public function searching(Request $request){
       $search = $request->search;
       $role_id = Roles::where('name' , $request->role)->first();
       $indentarray = array();

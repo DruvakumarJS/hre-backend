@@ -47,10 +47,10 @@
           </div>
 
           <div id="div2" style="margin-right: 30px">
-           <form method="POST" action="{{route('search_indent')}}">
+           <form method="GET" action="{{route('search_indent')}}">
             @csrf
              <div class="input-group mb-3">
-                <input class="form-control" type="text" name="search" placeholder="Search here">
+                <input class="form-control" type="text" name="search" placeholder="Search here" value="{{$search}}">
                 <div class="input-group-prepend">
                    <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
                 </div>
@@ -120,7 +120,7 @@
                          <label>Showing {{ $indents->firstItem() }} to {{ $indents->lastItem() }}
                                     of {{$indents->total()}} results</label>
 
-                                {!! $indents->links('pagination::bootstrap-4') !!}
+                                {!! $indents->appends('abc')->links('pagination::bootstrap-4') !!}
                         
                         
                     </div>
