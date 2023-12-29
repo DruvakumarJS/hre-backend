@@ -348,10 +348,11 @@ class UserController extends Controller
     }
 
     public function force_logout($id){
+        //print_r("ll"); die();
           
           $update = User::where('id',$id)->update(['isloggedin' => '0']);
 
-          if($update){
+          if($update && Attendance::where('user_id' , $id)->exists() ){
             $login = Attendance::where('user_id' , $id)->orderBy('id' ,'DESC')->first();
 
             if($login->logout_time == ''){
@@ -398,6 +399,16 @@ class UserController extends Controller
 
             
             
+          }
+          else{
+             $employee = Employee::where('user_id',$id)->first();
+                    $footprint = FootPrint::create([
+                        'action' => 'Force Logout - '.$employee->employee_id,
+                        'user_id' => Auth::user()->id,
+                        'module' => 'User',
+                        'operation' => 'U'
+                    ]);
+            return redirect()->back();
           }
 
     }

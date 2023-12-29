@@ -63,7 +63,18 @@ class ExportController extends Controller
       $filter = $request->filter;
       $search = $request->search;
 
-      if(auth::user()->role_id == '1' OR auth::user()->role_id == '2' OR auth::user()->role_id == '5'){
+      if($filter == 'Pending')
+        {
+          $filter = 'Pending/Ongoing';
+          $file_name = 'Pending_tickets.csv';
+        }
+        else{
+           $file_name = $filter.'_tickets.csv';
+        }
+
+      return Excel::download(new ExportTicket($filter , $search), $file_name);
+
+      /*if(auth::user()->role_id == '1' OR auth::user()->role_id == '2' OR auth::user()->role_id == '5'){
        if($filter == 'Pending')
         {
           $filter = 'Pending/Ongoing';
@@ -117,7 +128,7 @@ class ExportController extends Controller
 
        }
         
-       return redirect()->route('tickets');
+       return redirect()->route('tickets');*/
        
 
      }

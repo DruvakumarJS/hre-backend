@@ -8,6 +8,8 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use DB;
 use Auth;
+use App\Models\Roles;
+use App\Models\Employee;
 
 class ExportTicket implements FromCollection, WithHeadings
 {
@@ -29,12 +31,17 @@ class ExportTicket implements FromCollection, WithHeadings
     	  $search=$this->search;
         $filter=$this->filter;
 
-       // print_r($this->search); die();
+       // print_r($this->filter); die();
+        if($filter == 'Pending')
+        {
+          $filter = 'Pending/Ongoing';
+          
+        }
         
         $user = Auth::user();
         
 
-       // print_r($search);  print_r($filter); 
+       // print_r($search);  print_r($filter);  die();
         
         if($search == '' && $filter=='all'){
           // print_r("--11--"); die();
@@ -304,7 +311,7 @@ class ExportTicket implements FromCollection, WithHeadings
                  ->get();
             }
             else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
-
+             // print_r("--221--"); die();
               $role = Roles::select('id')->where('team_id','3')->get();
                   $emp= array();
                   foreach ($role as $key => $value) {
@@ -341,7 +348,7 @@ class ExportTicket implements FromCollection, WithHeadings
                        $query->orWhere('tickets.ticket_no','LIKE','%'.$search.'%');
                        $query->orWhere('tickets.status','LIKE','%'.$search.'%');
                        $query->orWhere('tickets.category','LIKE','%'.$search.'%');
-                       $query->orWhere('pcns',function($query)use($search){
+                       $query->orWhere(function($query)use($search){
                           $query->where('pcns.brand' , 'LIKE' , '%'.$search.'%');
                        });
 
@@ -894,6 +901,7 @@ class ExportTicket implements FromCollection, WithHeadings
                  ->get();
             }
             else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
+              //print_r("--442--"); die();
 
               $role = Roles::select('id')->where('team_id','3')->get();
                   $emp= array();
@@ -905,6 +913,8 @@ class ExportTicket implements FromCollection, WithHeadings
                    }
                     
                   }
+
+                  //print_r($filter); die();
 
                   $tickets = DB::table('tickets')
            ->select(
@@ -934,7 +944,7 @@ class ExportTicket implements FromCollection, WithHeadings
                 ->join('pcns', 'pcns.pcn' , '=','tickets.pcn')
                 ->orderby('tickets.id' , 'DESC')
                 ->get();
-
+            // print_r(json_encode($tickets)); die();
 
             }
             else if(Auth::user()->roles->team_id == '4'){

@@ -1272,6 +1272,9 @@ class TicketController extends Controller
    
     $user = User::where('id', $request->user_id)->first();
     $search = $request->search ;
+    $userid = $user->id;
+
+   // print_r($userid); die();
 
      if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
                $tickets = Ticket::orderby('id' , 'DESC')
@@ -1288,7 +1291,7 @@ class TicketController extends Controller
                      })
                  ->get();
             }
-            else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
+            else if($user->role_id == '3' OR $user->role_id == '4' OR $user->role_id == '5'){
 
               $role = Roles::select('id')->where('team_id','3')->get();
                   $emp= array();
@@ -1318,7 +1321,7 @@ class TicketController extends Controller
 
 
             }
-            else if(Auth::user()->roles->team_id == '4'){
+            else if($user->roles->team_id == '4'){
 
               $role = Roles::select('id')->where('team_id','4')->get();
                   $emp= array();
@@ -1347,7 +1350,7 @@ class TicketController extends Controller
 
 
             }
-            else if(Auth::user()->roles->team_id == '5'){
+            else if($user->roles->team_id == '5'){
 
               $role = Roles::select('id')->where('team_id','5')->get();
                   $emp= array();
@@ -1379,7 +1382,7 @@ class TicketController extends Controller
             }
             else { 
 
-              $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)
+              $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', $user->id)
              ->where('ticket_no','LIKE','%'.$search.'%')->with('ticket')
              ->orWhere(function($query) use($search){
                 $query->wherehas('ticket.pcns', fn($q) => $q->where('brand', 'like', '%' . $search . '%'));
@@ -1399,9 +1402,9 @@ class TicketController extends Controller
              // print_r("111"); die();
              
               $tickets = Ticket::orderby('id' , 'DESC')
-                 ->where(function($query){
-                    $query->where('creator' , Auth::user()->id);
-                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                 ->where(function($query)use($userid){
+                    $query->where('creator' , $userid);
+                    $query->orWhere('assigned_to', $userid);
                  })
                  ->where(function($query)use($search){
                      $query->where('ticket_no','LIKE','%'.$search.'%');
@@ -1423,9 +1426,9 @@ class TicketController extends Controller
              }
              else{
               // print_r("222"); die();
-                 $tickets = Ticket::where(function($query){
-                    $query->where('creator' , Auth::user()->id);
-                    $query->orWhere('assigned_to' ,Auth::user()->id);
+                 $tickets = Ticket::where(function($query)use($userid){
+                    $query->where('creator' , $userid);
+                    $query->orWhere('assigned_to' ,$userid);
                  })
                  ->where(function($query)use($search){
                      $query->where('ticket_no','LIKE','%'.$search.'%');

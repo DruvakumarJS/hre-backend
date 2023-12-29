@@ -33,7 +33,7 @@ white-space: nowrap;
        
 
            <div id="div2" style="margin-right: 30px">
-           <form method="POST" action="{{route('search_ticket')}}" >
+           <form method="GET" action="{{route('search_ticket')}}" >
             @csrf
              <div class="input-group mb-3">
              	<input type="hidden" name="filter" value="{{$filter}}">
@@ -50,7 +50,7 @@ white-space: nowrap;
           <div id="div2" style="margin-right: 30px">
              <!-- <input class="form-control" type="text" name="search" placeholder="Filter "> -->
            
-             <form method="post" action="{{route('filter')}}">
+             <form method="GET" action="{{route('filter')}}">
              	@csrf
              <div class="input-group mb-3">
              	<input type="hidden" name="search" value="{{$search}}">
@@ -217,7 +217,7 @@ white-space: nowrap;
      		<label>Showing {{ $tickets->firstItem() }} to {{ $tickets->lastItem() }}
                                     of {{$tickets->total()}} results</label>
 
-                                {!! $tickets->links('pagination::bootstrap-4') !!}
+                                {!! $tickets->appends('abc')->links('pagination::bootstrap-4') !!}
               
      	</div>
      	

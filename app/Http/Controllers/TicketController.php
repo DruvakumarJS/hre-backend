@@ -595,7 +595,7 @@ class TicketController extends Controller
 
     public function filter(Request $request)
     {
-       // print_r($request->Input());die();
+        
         $filter = $request->filter ;
         $search = $request->search;
         $user = Auth::user();
@@ -676,14 +676,19 @@ class TicketController extends Controller
 
 
           if($user->role_id == '1' || $user->role_id == '2' || $user->role_id == '6'){
+            //print_r("ll");die();
                $tickets = Ticket::orderby('id' , 'DESC')
+               ->when($filter, function($query) use($filter){
+                    return $query->where('creator',$filter)->orWhere('status',$filter);
+               })
                   
-                  ->where(function($query)use($filter){
-                      $query->where('creator' , $filter);
-                      $query->orWhere('status',$filter);
-                  })
+                  // ->where(function($query)use($filter){
+                  //     $query->where('creator' , $filter);
+                  //     $query->orWhere('status',$filter);
+                  // })
                   
-                 ->paginate(25);
+                 ->paginate(25)->withQueryString();
+              // print_r($tickets);die();  
             }
             else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
 
@@ -705,7 +710,7 @@ class TicketController extends Controller
                       $query->orWhere('status',$filter);
                      })
                      
-                    ->orderby('id' , 'DESC')->paginate(25);
+                    ->orderby('id' , 'DESC')->paginate(25)->withQueryString();
 
 
             }
@@ -753,7 +758,7 @@ class TicketController extends Controller
                       $query->orWhere('status',$filter);
                     })
                   ->orderby('id' , 'DESC')
-                  ->paginate(25);
+                  ->paginate(25)->withQueryString();
 
 
             }
@@ -809,7 +814,7 @@ class TicketController extends Controller
                   })
                  ->orderby('id' , 'DESC')
                 
-                 ->paginate(25);
+                 ->paginate(25)->withQueryString();
              }
 
             }
@@ -1020,7 +1025,7 @@ class TicketController extends Controller
                        });
 
                      })
-                 ->paginate(25);
+                 ->paginate(25)->withQueryString();
             }
             else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
 
@@ -1048,7 +1053,7 @@ class TicketController extends Controller
 
                      })
                      
-                    ->orderby('id' , 'DESC')->paginate(25);
+                    ->orderby('id' , 'DESC')->paginate(25)->withQueryString();
 
 
             }
@@ -1077,7 +1082,7 @@ class TicketController extends Controller
                        });
 
                      })
-                   ->orderby('id' , 'DESC')->paginate(25);
+                   ->orderby('id' , 'DESC')->paginate(25)->withQueryString();
 
 
             }
@@ -1107,7 +1112,7 @@ class TicketController extends Controller
 
                      })
                   ->orderby('id' , 'DESC')
-                  ->paginate(25);
+                  ->paginate(25)->withQueryString();
 
 
             }
@@ -1153,7 +1158,7 @@ class TicketController extends Controller
                     $query->where('status' ,'!=','Resolved');
                  }) 
                           
-                 ->paginate(25);
+                 ->paginate(25)->withQueryString();
              }
              else{
               // print_r("222"); die();
@@ -1177,7 +1182,7 @@ class TicketController extends Controller
                  }) */
                  ->orderby('id' , 'DESC')
                 
-                 ->paginate(25);
+                 ->paginate(25)->withQueryString();
              }
 
             }
@@ -1204,7 +1209,7 @@ class TicketController extends Controller
                       $query->orWhere('status',$filter);
                   })
                   
-                 ->paginate(25);
+                 ->paginate(25)->withQueryString();
             }
             else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
 
@@ -1236,7 +1241,7 @@ class TicketController extends Controller
                       $query->orWhere('status',$filter);
                      })
                      
-                    ->orderby('id' , 'DESC')->paginate(25);
+                    ->orderby('id' , 'DESC')->paginate(25)->withQueryString();
 
 
             }
@@ -1269,7 +1274,7 @@ class TicketController extends Controller
                       $query->where('creator' , $filter);
                       $query->orWhere('status',$filter);
                      })
-                   ->orderby('id' , 'DESC')->paginate(25);
+                   ->orderby('id' , 'DESC')->paginate(25)->withQueryString();
 
 
             }
@@ -1304,7 +1309,7 @@ class TicketController extends Controller
                       $query->orWhere('status',$filter);
                     })
                   ->orderby('id' , 'DESC')
-                  ->paginate(25);
+                  ->paginate(25)->withQueryString();
 
 
             }
@@ -1354,7 +1359,7 @@ class TicketController extends Controller
                     $query->where('status' ,'!=','Resolved');
                  }) 
                           
-                 ->paginate(25);
+                 ->paginate(25)->withQueryString();
              }
              else{
               // print_r("222"); die();
@@ -1379,7 +1384,7 @@ class TicketController extends Controller
                   })
                  ->orderby('id' , 'DESC')
                 
-                 ->paginate(25);
+                 ->paginate(25)->withQueryString();
              }
 
             }
@@ -1395,7 +1400,7 @@ class TicketController extends Controller
                       $query->orWhere('status',$filter);
                   })
                   
-                 ->paginate(25);
+                 ->paginate(25)->withQueryString();
             }
             else if(Auth::user()->role_id == '3' OR Auth::user()->role_id == '4' OR Auth::user()->role_id == '5'){
 
@@ -1417,7 +1422,7 @@ class TicketController extends Controller
                       $query->orWhere('status',$filter);
                      })
                      
-                    ->orderby('id' , 'DESC')->paginate(25);
+                    ->orderby('id' , 'DESC')->paginate(25)->withQueryString();
 
 
             }
@@ -1440,7 +1445,7 @@ class TicketController extends Controller
                       $query->where('creator' , $filter);
                       $query->orWhere('status',$filter);
                      })
-                   ->orderby('id' , 'DESC')->paginate(25);
+                   ->orderby('id' , 'DESC')->paginate(25)->withQueryString();
 
 
             }
@@ -1465,7 +1470,7 @@ class TicketController extends Controller
                       $query->orWhere('status',$filter);
                     })
                   ->orderby('id' , 'DESC')
-                  ->paginate(25);
+                  ->paginate(25)->withQueryString();
 
 
             }
@@ -1504,7 +1509,7 @@ class TicketController extends Controller
                     $query->where('status' ,'!=','Resolved');
                  }) 
                           
-                 ->paginate(25);
+                 ->paginate(25)->withQueryString();
              }
              else{
               // print_r("222"); die();
@@ -1519,7 +1524,7 @@ class TicketController extends Controller
                   })
                  ->orderby('id' , 'DESC')
                 
-                 ->paginate(25);
+                 ->paginate(25)->withQueryString();
              }
 
             }
