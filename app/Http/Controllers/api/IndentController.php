@@ -965,7 +965,15 @@ class IndentController extends Controller
     $pcn_array=array(); 
 
     if(Pcn::where('pcn','LIKE','%'.$request->search.'%')->exists()){
-       $data = Pcn::where('pcn','LIKE','%'.$request->search.'%')->get();
+       $data = Pcn::where('pcn','LIKE','%'.$request->search.'%')
+                    ->orWhere('client_name','LIKE','%'.$request->search.'%')
+                    ->orWhere('brand','LIKE','%'.$request->search.'%')
+                    ->orWhere('location','LIKE','%'.$request->search.'%')
+                    ->orWhere('area','LIKE','%'.$request->search.'%')
+                    ->orWhere('city','LIKE','%'.$request->search.'%')
+                    ->orWhere('state','LIKE','%'.$request->search.'%')
+                    ->orWhere('pincode','LIKE','%'.$request->search.'%')
+                    ->get();
 
        foreach ($data as $key => $value) {
         $pcn_array[] = [

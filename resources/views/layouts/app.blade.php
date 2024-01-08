@@ -297,7 +297,7 @@
                       </div>
 
                       <div style="margin-top: 10px">
-                        <label style="font-family: sans-serif;">Version :</label> <label style="font-size: 17px;font-family: sans-serif;">1.0</label>
+                        <label style="font-family: sans-serif;">Version :</label> <label style="font-size: 17px;font-family: sans-serif;">2.0</label>
                       </div>
 
                        <div style="margin-top: 10px">
@@ -321,7 +321,8 @@
                       </div>
 
                       <div>
-                        <label style="font-size: 17px;font-family: sans-serif;" >Netiapps #406, 9th Main Rd, HRBR Layout 1st Block, HRBR Layout, Kalyan Nagar, Bengaluru, Karnataka 560043</label>
+                        <label>Visit : </label>
+                      <a target="_blank" href="https://www.netiapps.com/">https://www.netiapps.com/</a>
                       </div>
                        
                     </div>

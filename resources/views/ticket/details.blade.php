@@ -5,9 +5,12 @@
 @php
   $can_reply="false";
 @endphp
+<style type="text/css">
+  html, body {margin: 0; overflow: hidden}
+</style>
 <div class="container">
     <div class="row justify-content-center">
-	 <div class="container-header">
+	 <div class="container-header" style="position: sticky;">
             
           <div id="div2">
             <a class="btn btn-light btn-outline-secondary" href="{{route('tickets')}}">
@@ -172,6 +175,9 @@
       @endif
       @endif
 
+    </div>
+      
+      <div class="card border-white scroll tableFixHead" style="height: 300px; padding: 0px 5px 20px 20px">
      		<table class="table ">
      			<tr>
      				<th>Date</th>
@@ -242,7 +248,7 @@
             </script>
      			@endforeach
      		</table>
-     		
+     	 </div>	
      	</div>
      	
      </div>
