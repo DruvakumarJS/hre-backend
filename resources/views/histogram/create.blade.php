@@ -239,7 +239,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-4 col-form-label label-bold">DLP Applicable* </label>
                 <div class="col-6 " >
-                  <select class="form-control form-select" name="is_dlp_applicable">
+                  <select class="form-control form-select" name="is_dlp_applicable" required>
                     <option value="">Select</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
