@@ -50,7 +50,7 @@ class SendIndentEmail implements ShouldQueue
 
          if($savepdf){
 
-           Mail::to($this->emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
+          // Mail::to($this->emailid)->send(new IndentsMail($indent_details,$subject,$attachment));
 
          }
     }

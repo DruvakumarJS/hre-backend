@@ -159,13 +159,13 @@ class CustomerController extends Controller
             
           $data = ['details' =>$details  ,'address' => $customer_address];
 
-             $emailarray = User::select('email')->where('role_id','!=','13')->where('role_id','!=','14')->get();
+             $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','6','7','10','11'])->get();
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
 
          // Mail::to($emailid)->send(new CustomerMail($data,$subject));
-         // SendCustomerEmail::dispatch($data , $subject , $emailid );
+          // SendCustomerEmail::dispatch($data , $subject , $emailid );
 
          $footprint = FootPrint::create([
                     'action' => 'New Customer created - '.$request->name,

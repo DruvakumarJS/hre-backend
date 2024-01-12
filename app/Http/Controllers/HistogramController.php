@@ -11,6 +11,7 @@ use App\Models\HistogramLandlordDetails;
 use App\Models\VendorDetail;
 use App\Models\Employee;
 use App\Models\Pcn;
+use App\Models\User;
 use App\Models\FootPrint;
 use App\Models\VendorHeadings;
 use App\Models\HistogramHistory;
@@ -194,10 +195,16 @@ class HistogramController extends Controller
             $empl = Employee::where('user_id',Auth::user()->id)->first();
             $empl_id = $empl->employee_id;
             $pcn  = $request->pcn ;
-            $empl_mail  = $empl->email ;
+           // $empl_mail  = $empl->email ;
             $name = $data->user->name ;
             $alias = $data->user->roles->alias;
-            $subject = "New Histogram Created - PH".$data->id." - ".$empl->employee_id." Project Name - ".$request->project_name;
+            $subject = "Submission of New Project Histogram Form";
+
+            $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5'])->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $empl_mail[]=$value->email;
+               }
 
             GenerateNewHistogramPdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name , $alias , $subject);
 
@@ -210,7 +217,7 @@ class HistogramController extends Controller
                         'operation' => 'C'
                     ]);
               
-          //  print_r("lll"); die();  
+            print_r("lll"); die();  
              return redirect()->route('histogram');
 
             } 

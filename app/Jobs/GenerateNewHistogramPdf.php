@@ -73,6 +73,7 @@ class GenerateNewHistogramPdf implements ShouldQueue
         $vendor = $this->vendor;
         $name = $this->name;
         $alias = $this->alias;
+        $empl_id = $this->empl_id;
 
         $pdf = PDF::loadView('pdf/new_histogramPDF',compact('data','client','arch','land','hre','vendor','name','alias' ));
     
@@ -80,8 +81,9 @@ class GenerateNewHistogramPdf implements ShouldQueue
 
         $attachment = public_path($this->filename) ;
 
-       // Mail::to($this->empl_mail)->send(new HistogramMail($this->subject , $attachment));
 
+      // Mail::to($this->empl_mail)->send(new HistogramMail($this->subject , $attachment , $data , $name , $empl_id));
+       
 
     }
 }

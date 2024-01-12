@@ -10,18 +10,24 @@ use Illuminate\Queue\SerializesModels;
 class HistogramMail extends Mailable
 {
     use Queueable, SerializesModels;
-     public $attachment;
+    
      public $subject;
-
+     public $attachment;
+     public $data;
+     public $name;
+     public $empl_id;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($subject ,$attachment )
+    public function __construct($subject ,$attachment,$data,$name, $empl_id)
     {
          $this->subject = $subject;
-        $this->attachment = $attachment;
+         $this->attachment = $attachment;
+         $this->data = $data;
+         $this->name = $name;
+         $this->empl_id = $empl_id;
     }
 
     /**
