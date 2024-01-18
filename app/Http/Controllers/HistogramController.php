@@ -69,6 +69,7 @@ class HistogramController extends Controller
      */
     public function store(Request $request)
     {
+        print_r(json_encode($request->Input()) ); die();
         
         $billing = new Histogram_billing_details;
         $billing->billing_name=$request->billing_name;
@@ -103,7 +104,7 @@ class HistogramController extends Controller
 
            
 
-            if(isset($request->client)){
+        if(isset($request->client)){
 
         foreach ($request->client as $key => $value) {
                 
