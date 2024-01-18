@@ -50,9 +50,11 @@
             <div class="col-6 ">
               <select class="form-control form-select" name="vendor_type" required>
                 <option value="">Select</option>
-                <option value="Service Provider">Service Provider</option>
-                <option value="Contractor">Contractor</option>
-                <option value="Sub-Contractor">Sub-Contractor</option>
+                <option value="Sub_Contractor">Sub Contractor</option>
+                <option value="Labour_Contractor">Labour Contractor</option>
+                <option value="Service_Provider">Service Provider</option>
+                
+                
                 
               </select>
             </div>

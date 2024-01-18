@@ -50,9 +50,9 @@
             <div class="col-6 ">
               <select class="form-control form-select" name="vendor_type" required>
                 <option value="">Select</option>
-                <option value="Service Provider" <?php echo ($data->vendor_type == 'Service Provider')?'selected':''  ?>>Service Provider</option>
-                <option value="Contractor" <?php echo ($data->vendor_type == 'Contractor')?'selected':''  ?> >Contractor</option>
-                <option value="Sub-Contractor" <?php echo ($data->vendor_type == 'Sub-Contractor')?'selected':''  ?> >Sub-Contractor</option>
+                <option value="Sub_Contractor" <?php echo ($data->vendor_type == 'Sub_Contractor')?'selected':''  ?>>Sub Contractor</option>
+                <option value="Labour_Contractor" <?php echo ($data->vendor_type == 'Labour_Contractor')?'selected':''  ?> >Labour Contractor</option>
+                <option value="Service_Provider" <?php echo ($data->vendor_type == 'Service_Provider')?'selected':''  ?> >Service Provider</option>
                 
               </select>
             </div>
