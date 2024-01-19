@@ -23,16 +23,27 @@ class ExportUsers implements FromCollection , WithHeadings
     public function collection()
     {
         if($this->role == 'All_users'){
-            $Emp = Employee::select( DB::raw("DATE_FORMAT(`created_at`, '%Y-%m-%d') as date") , 'employee_id' , 'name' , 'email' , 'mobile' )->get();
+           
+            $Emp = DB::table('employees')
+            ->select(DB::raw("DATE_FORMAT(employees.created_at, '%Y-%m-%d') as date"),
+                     'employees.employee_id' , 'employees.name' , 'employees.email' , 'employees.mobile','roles.alias' )
+            ->join('roles', 'roles.id' , '=','employees.role_id')
+            ->get();
         }
         else{
-            $Emp = Employee::select( DB::raw("DATE_FORMAT(`created_at`, '%Y-%m-%d') as date") , 'employee_id' , 'name' , 'email' , 'mobile' )->where('role',$this->role)->get();
+           
+            $Emp = DB::table('employees')
+            ->select(DB::raw("DATE_FORMAT(employees.created_at, '%Y-%m-%d') as date"),
+                     'employees.employee_id' , 'employees.name' , 'employees.email' , 'employees.mobile','roles.alias' )
+            ->join('roles', 'roles.id' , '=','employees.role_id')
+            ->where('role',$this->role)
+            ->get();
         }
         return $Emp;
         
     }
 
     public function headings():array {
-    	return ['Date' , 'Employee ID' , 'Name'  , 'Email ID' , 'Mobile'];
+    	return ['Date' , 'Employee ID' , 'Name'  , 'Email ID' , 'Mobile' , 'Role'];
     }
 }
