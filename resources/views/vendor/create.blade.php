@@ -46,7 +46,7 @@
           </div>
 
           <div class="form-group row " style="margin-top: 10px">
-            <label for="" class="col-3 col-form-label">Vendor Type *</label>
+            <label for="" class="col-3 col-form-label">Business Type *</label>
             <div class="col-6 ">
               <select class="form-control form-select" name="vendor_type" required>
                 <option value="">Select</option>
