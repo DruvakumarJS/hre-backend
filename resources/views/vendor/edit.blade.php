@@ -53,6 +53,7 @@
                 <option value="Sub_Contractor" <?php echo ($data->vendor_type == 'Sub_Contractor')?'selected':''  ?>>Sub Contractor</option>
                 <option value="Labour_Contractor" <?php echo ($data->vendor_type == 'Labour_Contractor')?'selected':''  ?> >Labour Contractor</option>
                 <option value="Service_Provider" <?php echo ($data->vendor_type == 'Service_Provider')?'selected':''  ?> >Service Provider</option>
+                <option value="material_supplier" <?php echo ($data->vendor_type == 'material_supplier')?'selected':''  ?> >Material Supplier</option>
                 
               </select>
             </div>

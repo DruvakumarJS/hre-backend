@@ -53,9 +53,8 @@
                 <option value="Sub_Contractor">Sub Contractor</option>
                 <option value="Labour_Contractor">Labour Contractor</option>
                 <option value="Service_Provider">Service Provider</option>
-                
-                
-                
+                <option value="material_supplier">Material Supplier</option>
+               
               </select>
             </div>
           </div>
