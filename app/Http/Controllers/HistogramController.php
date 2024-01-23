@@ -218,7 +218,7 @@ class HistogramController extends Controller
                         'operation' => 'C'
                     ]);
               
-            print_r("lll"); die();  
+           // print_r("lll"); die();  
              return redirect()->route('histogram');
 
             } 
