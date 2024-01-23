@@ -269,7 +269,7 @@
                 <table style="border:0px">
                   <tr>
                     <th width="150px">DLP End Date</th>
-                    <th width="100px">{{date('d-m-Y' , strtotime($data->dlp_end_date))}}</th>
+                    <th width="100px">{{ ($data->dlp_end_date != '')?date('d-m-Y' , strtotime($data->dlp_end_date)) :'' }}</th>
                   </tr>
                 </table>
 
@@ -389,8 +389,8 @@
                 <td style="text-align: center; ">{{$value4->designation}}</td>
                 <td style="text-align: center; ">{{$value4->contact}}</td>
                 <td style="text-align: center; ">{{$value4->email}}</td>
-                <td style="text-align: center; ">{{date('d-m-Y' , strtotime($value4->start_date))}}</td>
-                <td style="text-align: center; ">{{date('d-m-Y' , strtotime($value4->end_date))}}</td>
+                <td style="text-align: center; "> {{ ($value4->start_date != '')?date('d-m-Y' , strtotime($value4->start_date)) :''}} </td>
+                <td style="text-align: center; "> {{ ($value4->end_date != '')?date('d-m-Y' , strtotime($value4->end_date)) :''}} </td>
              </tr>
              @endforeach
           </tbody>
@@ -423,8 +423,8 @@
                 <td style="text-align: center; ">{{$value5->contracter_mobile}}</td>
                 <td style="text-align: center; ">{{$value5->supervisor_name}}</td>
                 <td style="text-align: center; ">{{$value5->supervisor_mobile}}</td>
-                <td style="text-align: center; ">{{date('d-m-Y' , strtotime($value5->start_date))}}</td>
-                <td style="text-align: center; ">{{date('d-m-Y' , strtotime($value5->end_date))}}</td>
+                <td style="text-align: center; ">{{ ($value5->start_date != '')?date('d-m-Y' , strtotime($value5->start_date)) :''}} </td>
+                <td style="text-align: center; "> {{ ($value5->end_date != '')?date('d-m-Y' , strtotime($value5->end_date)) :''}} </td>
              </tr>
              @endforeach
           </tbody>
@@ -444,7 +444,7 @@
       </tr>
       <tr style="height: 70px">
         <th width="130px">Date</th>
-        <th width="250px">{{date('d-m-Y',strtotime($data->created_at))}}</th>
+        <th width="250px">{{date('d-m-Y H:i')}}</th>
         <th align="left" width="250px"style="text-align: start">PCN Alloted By :  </th>
       </tr>
       <tr style="height: 30px">

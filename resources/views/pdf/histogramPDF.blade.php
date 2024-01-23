@@ -151,7 +151,7 @@
                               <thead>
                                 <tr>
                                    <th width="100px" height="20px"><label style="font-size: 10px" >Actual Start Date</label></th>
-                                   <th height="20px"><label style="font-size: 10px">{{date('d-m-Y' , strtotime($data->actual_start_date))}}</label></th>
+                                   <th height="20px"><label style="font-size: 10px">{{ ($data->actual_start_date != '')?date('d-m-Y' , strtotime($data->actual_start_date)) : ''}}</label></th>
                                 </tr>
                               </thead>
                             </table>
@@ -162,7 +162,7 @@
                               <thead>
                                 <tr>
                                    <th width="100px" height="20px"><label style="font-size: 10px">Actual Completed Date</label></th>
-                                   <th height="20px"><label style="font-size: 10px">{{date('d-m-Y' , strtotime($data->actual_end_date))}}</label></th>
+                                   <th height="20px"><label style="font-size: 10px">{ ($data->actual_end_date != '')?date('d-m-Y' , strtotime($data->actual_end_date)) :''}}</label></th>
                                 </tr>
                               </thead>
                             </table>
@@ -269,7 +269,7 @@
                 <table style="border:0px">
                   <tr>
                     <th width="150px">DLP End Date</th>
-                    <th width="100px">{{date('d-m-Y' , strtotime($data->dlp_end_date))}}</th>
+                    <th width="100px">{{ ($data->dlp_end_date != '')?date('d-m-Y' , strtotime($data->dlp_end_date)) :'' }}</th>
                   </tr>
                 </table>
 
@@ -389,8 +389,8 @@
                 <td style="text-align: center; ">{{$value4->designation}}</td>
                 <td style="text-align: center; ">{{$value4->contact}}</td>
                 <td style="text-align: center; ">{{$value4->email}}</td>
-                <td style="text-align: center; ">{{date('d-m-Y' , strtotime($value4->start_date))}}</td>
-                <td style="text-align: center; ">{{date('d-m-Y' , strtotime($value4->end_date))}}</td>
+                <td style="text-align: center; "> {{ ($value4->start_date != '')?date('d-m-Y' , strtotime($value4->start_date)) :''}} </td>
+                <td style="text-align: center; "> {{ ($value4->end_date != '')?date('d-m-Y' , strtotime($value4->end_date)) :''}} </td>
              </tr>
              @endforeach
           </tbody>
@@ -424,8 +424,8 @@
                 <td style="text-align: center; ">{{$value5->contracter_mobile}}</td>
                 <td style="text-align: center; ">{{$value5->supervisor_name}}</td>
                 <td style="text-align: center; ">{{$value5->supervisor_mobile}}</td>
-                <td style="text-align: center; ">{{date('d-m-Y' , strtotime($value5->start_date))}}</td>
-                <td style="text-align: center; ">{{date('d-m-Y' , strtotime($value5->end_date))}}</td>
+                <td style="text-align: center; ">{{ ($value5->start_date != '')?date('d-m-Y' , strtotime($value5->start_date)) :''}} </td>
+                <td style="text-align: center; "> {{ ($value5->end_date != '')?date('d-m-Y' , strtotime($value5->end_date)) :''}} </td>
              </tr>
              @endforeach
           </tbody>
