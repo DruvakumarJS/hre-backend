@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
        <div class="container-header">
             <label class="label-bold" id="div1">Histogram History </label>
-            <label>{{$histogram->pcn}} - {{$histogram->project_name}}</label>
+            <label class="label-bold">{{$histogram->pcn}} - {{$histogram->project_name}}</label>
          
           <div id="div2" style="margin-right: 30px">
              <a  href="{{route('histogram')}}"> <button class="btn btn-outline-secondary">Histogram</button></a>

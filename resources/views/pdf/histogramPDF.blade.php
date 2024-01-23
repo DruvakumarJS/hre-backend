@@ -162,7 +162,7 @@
                               <thead>
                                 <tr>
                                    <th width="100px" height="20px"><label style="font-size: 10px">Actual Completed Date</label></th>
-                                   <th height="20px"><label style="font-size: 10px">{ ($data->actual_end_date != '')?date('d-m-Y' , strtotime($data->actual_end_date)) :''}}</label></th>
+                                   <th height="20px"><label style="font-size: 10px">{{ ($data->actual_end_date != '')?date('d-m-Y' , strtotime($data->actual_end_date)) :''}}</label></th>
                                 </tr>
                               </thead>
                             </table>
