@@ -73,7 +73,7 @@ class HistogramController extends Controller
         
         $billing = new Histogram_billing_details;
         $billing->billing_name=$request->billing_name;
-        $billing->brand=$request->brand;
+        $billing->brand=$request->project_name;
         $billing->gst = $request->gst;
         $billing->project_name = $request->project_name;
         $billing->type_of_work = $request->type;
