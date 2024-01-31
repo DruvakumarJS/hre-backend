@@ -8,15 +8,15 @@
 .logo {
   width: 65px;
   height: 65px;
-  margin-right: 40px;
+  margin-right: 20px;
 }
 
 .navigation {
   transform: translateY(24px);
 }
 .navigation a {
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 4px;
+  padding-left: 4px;
   font-weight: 600;
   cursor: pointer;
 }
@@ -28,7 +28,6 @@
   background: #f2f2f2;
   border-radius: 8px 8px 0px 0px;
   color: #5a5a5a;
-  padding: 7px 15px;
 }
 
 .userLogin {
