@@ -41,7 +41,7 @@
             <label for="" class="col-3 col-form-label">VID *</label>
 
             <div class="col-6 ">
-              <input  class="form-control" type="number" name="vid" required="required" value=""  placeholder="Enter VID " >
+              <input  class="form-control" type="number" name="vid" required="required" placeholder="Enter VID " value="{{old('vid')}}">
             </div>
           </div>
 
@@ -62,7 +62,7 @@
           <div class="form-group row " style="margin-top: 10px">
             <label for="" class="col-3 col-form-label">Billing Name * </label>
             <div class="col-6 ">
-              <input  class="form-control" type="text" name="billing_name" required="required" value=""  placeholder="Enter Billing Name " >
+              <input  class="form-control" type="text" name="billing_name" required="required"   placeholder="Enter Billing Name " value="{{old('billing_name')}}">
             </div>
           </div>
 
@@ -73,21 +73,21 @@
           <div class="form-group row " style="margin-top: 10px">
             <label for="" class="col-2 col-form-label">GST NO *</label>
             <div class="col-6 ">
-              <input  class="form-control" type="text" name="gst" required="required" minlength="15" maxlength="15"   placeholder="Enter GST " >
+              <input  class="form-control" type="text" name="gst" required="required" minlength="15" maxlength="15"   placeholder="Enter GST " value="{{old('gst')}}">
             </div>
           </div>
 
           <div class="form-group row " style="margin-top: 10px">
             <label for="" class="col-2 col-form-label">PAN *</label>
             <div class="col-6 ">
-              <input  class="form-control" type="text" name="pan" required="required" minlength="10" maxlength="10"  placeholder="Enter PAN  " >
+              <input  class="form-control" type="text" name="pan" required="required" minlength="10" maxlength="10"  placeholder="Enter PAN  " value="{{old('pan')}}">
             </div>
           </div>
 
           <div class="form-group row " style="margin-top: 10px">
             <label for="" class="col-2 col-form-label">TIN *</label>
             <div class="col-6 ">
-              <input  class="form-control" type="text" name="tin" required="required" value=""  placeholder="Enter TIN " >
+              <input  class="form-control" type="text" name="tin" required="required"   placeholder="Enter TIN " value="{{old('tin')}}">
             </div>
           </div>
           
@@ -100,7 +100,7 @@
           <div class="form-group row " style="margin-top: 10px">
             <label for="" class="col-4 col-form-label">Owner Name *</label>
             <div class="col-6 " style="margin-left: 20px" >
-              <input class="form-control" type="text" name="owner_name" required="required" value=""  placeholder="Enter Owner Name" >
+              <input class="form-control" type="text" name="owner_name" required="required"   placeholder="Enter Owner Name" value="{{old('owner_name')}}">
             </div>
           </div>
         </div>
@@ -109,7 +109,7 @@
           <div class="form-group row " style="margin-top: 10px">
             <label for="" class="col-3 col-form-label">Contact *</label>
             <div class="col-6 ">
-              <input  class="form-control" type="text" name="owner_mobile" required="required" value=""  placeholder="Enter Contact No. " >
+              <input  class="form-control" type="text" name="owner_mobile" required="required" placeholder="Enter Contact No. " value="{{old('owner_mobile')}}" maxlength="10" minlength="10">
             </div>
           </div>
         </div>
@@ -118,7 +118,7 @@
           <div class="form-group row " style="margin-top: 10px">
             <label for="" class="col-3 col-form-label">Email *</label>
             <div class="col-6 ">
-              <input  class="form-control" type="text" name="owner_email" required="required" value=""  placeholder="Enter Email ID " >
+              <input  class="form-control" type="text" name="owner_email" required="required"  placeholder="Enter Email ID " value="{{old('owner_email')}}">
             </div>
           </div>
         </div>
@@ -132,42 +132,42 @@
             <div class="form-group row " style="margin-top: 10px">
               <label for="" class="col-3 col-form-label">Door No / Building *</label>
               <div class="col-6 ">
-                <input  class="form-control" type="text" name="building" required="required" value=""  placeholder="Enter Door No / Building " >
+                <input  class="form-control" type="text" name="building" required="required"   placeholder="Enter Door No / Building " value="{{old('building')}}">
               </div>
             </div>
 
             <div class="form-group row " style="margin-top: 10px">
               <label for="" class="col-3 col-form-label">Street & Area *</label>
               <div class="col-6 ">
-                <input  class="form-control" type="text" name="area" required="required" value=""  placeholder="Enter Street & Area " >
+                <input  class="form-control" type="text" name="area" required="required" placeholder="Enter Street & Area " value="{{old('area')}}">
               </div>
             </div>
 
             <div class="form-group row " style="margin-top: 10px">
               <label for="" class="col-3 col-form-label">Nearby Location </label>
               <div class="col-6 ">
-                <input  class="form-control" type="text" name="location" required="required" value=""  placeholder="Enter Nearby Location " >
+                <input  class="form-control" type="text" name="location" required="required"   placeholder="Enter Nearby Location " value="{{old('location')}}">
               </div>
             </div>
 
             <div class="form-group row " style="margin-top: 10px">
               <label for="" class="col-3 col-form-label">City *</label>
               <div class="col-6 ">
-                <input  class="form-control" type="text" name="city" required="required" value=""  placeholder="Enter City " >
+                <input  class="form-control" type="text" name="city" required="required"  placeholder="Enter City " value="{{old('city')}}">
               </div>
             </div>
 
             <div class="form-group row " style="margin-top: 10px">
               <label for="" class="col-3 col-form-label">State *</label>
               <div class="col-6 ">
-                <input  class="form-control" type="text" name="state" required="required" value=""  placeholder="Enter State " >
+                <input  class="form-control" type="text" name="state" required="required"   placeholder="Enter State " value="{{old('state')}}">
               </div>
             </div>
 
             <div class="form-group row " style="margin-top: 10px">
               <label for="" class="col-3 col-form-label">Postal Code * </label>
               <div class="col-6 ">
-                <input  class="form-control" type="text" name="pincode" required="required" value=""  placeholder="Enter PINCODE " >
+                <input  class="form-control" type="text" name="pincode" required="required" placeholder="Enter PINCODE " value="{{old('pincode')}}">
               </div>
             </div>
 
@@ -188,7 +188,7 @@
                      
                      <div class="col-md-3">
                       <label class="label-bold">Name</label>
-                      <input class="form-control" type="text" name="client[0][name]" required="required" placeholder="Enter Name">
+                      <input class="form-control" type="text" name="client[0][name]" required="required" placeholder="Enter Name" >
                     </div>
 
                      <div class="col-md-3">
@@ -199,7 +199,7 @@
 
                     <div class="col-md-3">
                       <label class="label-bold">Contact No.</label>
-                      <input class="form-control" type="text" name="client[0][contact]" required="required" minlength="10" maxlength="10" placeholder="Enter Contact No.">
+                      <input class="form-control" type="text" name="client[0][contact]" required="required" minlength="10" maxlength="10" placeholder="Enter Contact No." >
                     </div>
                     <div class="col-md-3">
                       <label class="label-bold">Email ID</label>
