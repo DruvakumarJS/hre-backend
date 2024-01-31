@@ -43,8 +43,13 @@ class VendorDepartmentController extends Controller
      */
     public function store(Request $request)
     {
-      //  print_r($request->Input()); die();
+       // print_r($request->Input()); die();
 
+        if(VendorDepartment::where('gst',$request->gst)->exists()){
+ 
+           return redirect()->back()->withMessage('Please check the GST number . It already exists')->withInput();
+        }
+       
         $vendor = new VendorDepartment;
         $vendor->vid_id = $request->vid;
         $vendor->vid = 'VID_'.$request->vid;
