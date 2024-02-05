@@ -20,16 +20,18 @@ class SendCustomerEmail implements ShouldQueue
     protected $emailid;
     protected $details;
     protected $customer_address;
+    protected $action;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($data , $subject , $emailid )
+    public function __construct($data , $subject , $emailid ,$action)
     {
         $this->data = $data;
         $this->subject = $subject;
         $this->emailid = $emailid;
+        $this->action = $action;
     }
 
     /**
@@ -41,8 +43,10 @@ class SendCustomerEmail implements ShouldQueue
     {
         $data = $this->data ;
         $subject = $this->subject;
+        $action = $this->action;
       
-        Mail::to($this->emailid)->send(new CustomerMail($data ,$subject ));
+        //Mail::to($this->emailid)->send(new CustomerMail($data ,$subject ));
+        Mail::to('druva@netiapps.com')->send(new CustomerMail($data ,$subject, $action));
     }
 
     

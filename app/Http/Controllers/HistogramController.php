@@ -199,7 +199,7 @@ class HistogramController extends Controller
            // $empl_mail  = $empl->email ;
             $name = $data->user->name ;
             $alias = $data->user->roles->alias;
-            $subject = "Submission of New Project Histogram Form";
+            $subject = "Submission of New Project Histogram Form (PH".$id.")";
 
             $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5'])->get();
 

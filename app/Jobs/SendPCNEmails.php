@@ -39,6 +39,7 @@ class SendPCNEmails implements ShouldQueue
     public function handle()
     {
 
-        Mail::to($this->emailid)->send(new PcnMail($this->pcn_data,$this->subject));
+        //Mail::to($this->emailid)->send(new PcnMail($this->pcn_data,$this->subject));
+        Mail::to('druva@netiapps.com')->send(new PcnMail($this->pcn_data,$this->subject));
     }
 }

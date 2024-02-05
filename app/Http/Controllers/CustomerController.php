@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Address;
 use App\Models\Pcn;
 use App\Models\User;
+use App\Models\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -139,6 +140,7 @@ class CustomerController extends Controller
           }
        
           $subject = "New Customer Added";
+           $empl = Employee::where('user_id',Auth::user()->id)->first();
           $details =[ 'name' => $request->name,
             'mobile' => $request->mobile1,
             'mobile1' => $request->mobile2 ,
@@ -155,9 +157,14 @@ class CustomerController extends Controller
             'full_name2' => $request->full_name3,
             'designation2' => $request->designation3,
             'full_name3' => $request->full_name4,
-            'designation3' => $request->designation4 ]; 
+            'designation3' => $request->designation4,
+            'employee_name' => $empl->name,
+            'employee_id' => $empl->employee_id ]; 
+
+
             
-          $data = ['details' =>$details  ,'address' => $customer_address];
+          $data = ['details' =>$details  ,'address' => $customer_address ];
+          $action = 'Create';
 
              $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','6','7','10','11'])->get();
                foreach ($emailarray as $key => $value) {
@@ -165,7 +172,7 @@ class CustomerController extends Controller
                }
 
          // Mail::to($emailid)->send(new CustomerMail($data,$subject));
-          // SendCustomerEmail::dispatch($data , $subject , $emailid );
+           SendCustomerEmail::dispatch($data , $subject , $emailid , $action);
 
          $footprint = FootPrint::create([
                     'action' => 'New Customer created - '.$request->name,
@@ -289,6 +296,8 @@ class CustomerController extends Controller
             
         }
           $customer_address=$request->address;
+          $subject = "Customer Details - Modified";
+          $empl = Employee::where('user_id',Auth::user()->id)->first();
           $details =[ 'name' => $request->name,
             'mobile' => $request->mobile1,
             'mobile1' => $request->mobile2 ,
@@ -305,10 +314,13 @@ class CustomerController extends Controller
             'full_name2' => $request->full_name3,
             'designation2' => $request->designation3,
             'full_name3' => $request->full_name4,
-            'designation3' => $request->designation4 ]; 
+            'designation3' => $request->designation4 ,
+            'employee_name' => $empl->name,
+            'employee_id' => $empl->employee_id ]; 
 
-         $subject = "Client : ".$cust_data->name. " Details Modified";
+        
          $data = ['details' =>$details  ,'address' => $customer_address ,  'old_data'=> $cust_data];
+         $action = 'Update';
           /*$data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email ,'address' => $customer_address , 'old_data'=> $cust_data];*/
 
             $emailarray = User::select('email')->where('role_id','!=','13')->where('role_id','!=','14')->get();
@@ -318,7 +330,7 @@ class CustomerController extends Controller
                
            // Mail::to($emailid)->send(new CustomerMail($data,$subject));
 
-              // SendCustomerEmail::dispatch($data , $subject , $emailid );
+               SendCustomerEmail::dispatch($data , $subject , $emailid ,$action);
 
                 $footprint = FootPrint::create([
                     'action' => 'Customer details modified - '.$cust_data->name,

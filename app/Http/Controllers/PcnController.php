@@ -181,16 +181,20 @@ class PcnController extends Controller
                             'pincode' => $request->pincode,
                             'gst' => $request->gst];*/
 
-                  $pcn_data=['new_data' => $data];          
+                $empl = Employee::where('user_id',Auth::user()->id)->first();
+          
 
-                $subject = 'PCN_'.$request->pcn." - New PCN added";
+                $pcn_data=['new_data' => $data ,'employee' => $empl ];          
 
-                $emailarray = User::select('email')->where('role_id', '!=','13')->where('role_id', '!=','14')->get();
+                $subject = 'PCN_'.$request->pcn." - New PCN Created";
+
+                $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','6','7','10','11'])->get();
+
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
 
-              // SendPCNEmails::dispatch($pcn_data,$subject ,$emailid);
+               SendPCNEmails::dispatch($pcn_data,$subject ,$emailid);
 
                 $footprint = FootPrint::create([
                     'action' => 'New PCN created - '.'PCN_'.$request->pcn,
@@ -387,6 +391,8 @@ class PcnController extends Controller
         ]);
 
             $new_data = Pcn::where('pcn' ,$request->pcn)->first();
+            $empl = Employee::where('user_id',Auth::user()->id)->first();
+          
 
             if($updatePCN){
                  /*$pcn_data= [
@@ -403,16 +409,17 @@ class PcnController extends Controller
                             'old_data'=> $old_data
                             ];*/
 
-                $pcn_data = ['new_data' => $new_data , 'old_data' =>$old_data ];        
-                            
-                $subject = $request->pcn." is Modified";
+                $pcn_data = ['new_data' => $new_data , 'old_data' =>$old_data, 'employee' => $empl ];          
 
-                $emailarray = User::select('email')->where('role_id', '!=','13')->where('role_id', '!=','14')->get();
+                $subject = $request->pcn." - is Modified ";
+
+                $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','6','7','10','11'])->get();
+
                    foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;
                    }
 
-                // SendPCNEmails::dispatch($pcn_data,$subject ,$emailid);
+                 SendPCNEmails::dispatch($pcn_data,$subject ,$emailid);
 
                  $footprint = FootPrint::create([
                             'action' => 'PCN details modified - '.$request->pcn,

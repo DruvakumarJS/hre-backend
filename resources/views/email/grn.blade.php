@@ -30,12 +30,12 @@
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;">
             <label> Dear {{$grndata['owner']}} , </label>
-            <div>
+            <div style="margin-top: 20px;">
                  <label> Indent materials has been dispatched . Please find the details below: </label>
             </div>
             
-            <div style="margin-top: 10px;">
-                <label>Date : </label> <label class="label-bold">{{date('d-m-Y')}}</label>
+            <div style="margin-top: 20px;">
+                <label>Dispatch Entry Date : </label> <label class="label-bold">{{date('d-m-Y')}}</label>
             </div>
             
             <div  style="margin-top: 10px;">

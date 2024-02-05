@@ -36,6 +36,7 @@ class PettyCashDetailController extends Controller
          $myspent = PettyCashDetail::where('user_id' , $id)->where('isapproved','!=' , '2')->sum('spent_amount');
          $pettycash = PettycashOverview::where('user_id', $id)->first();
          $closure_date = '';
+         $search = '';
 
          $finaniclyear = date("m") >= 4 ? date("Y"). '-' . (date("Y")+1) : (date("Y") - 1). '-' . date("Y") ;
          if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
@@ -47,7 +48,7 @@ class PettyCashDetailController extends Controller
 
         // print_r($closure_date);die();
 
-        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent' , 'id' , 'closure_date' ,'isactive'));
+        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent' , 'id' , 'closure_date' ,'isactive', 'search'));
     }
 
     /**
@@ -538,6 +539,7 @@ class PettyCashDetailController extends Controller
       else{
          $data = PettyCashDetail::where( function ($query) use ($search){
                    $query->where('bill_number' ,'LIKE', $search.'%');
+                   $query->orWhere('billing_no' ,'LIKE', $search.'%');
                    $query->orWhere('spent_amount' ,'LIKE', $search.'%');
                    $query->orWhere('purpose' , 'LIKE', $search.'%');
                    $query->orWhere('pcn' , 'LIKE', $search.'%');
@@ -553,10 +555,19 @@ class PettyCashDetailController extends Controller
 
          $myspent = PettyCashDetail::where('user_id' , $id)->where('isapproved','!=' , '2')->sum('spent_amount');
          $pettycash = PettycashOverview::where('user_id', $id)->first();
+          $closure_date = '';
+
+         $finaniclyear = date("m") >= 4 ? date("Y"). '-' . (date("Y")+1) : (date("Y") - 1). '-' . date("Y") ;
+         if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
+          {
+           $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
+           $closure_date =  $yearenddate->yearend_date ;
+           $isactive =  $yearenddate->isactive ;
+          }
 
          //print_r($data);die();
 
-        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent' , 'id'));
+        return view('pettycash/details',compact('data' , 'pettycash' , 'myspent' , 'id','closure_date' ,'isactive','search'));
       }
 
 

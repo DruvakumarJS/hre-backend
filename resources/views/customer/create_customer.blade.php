@@ -56,7 +56,7 @@
            
            <div class="col-md-3">
                 <label>Mobile Number *</label>
-                <input class="form-control" type="input" name="mobile1" placeholder="Enter Mobile Number" required=""value="{{old('mobile1')}}"  onkeypress='validate(event)'>
+                <input class="form-control" type="input" name="mobile1" placeholder="Enter Mobile Number" required=""value="{{old('mobile1')}}" minlength="10" maxlength="10"  onkeypress='validate(event)'>
                  @error('mobile1')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -98,7 +98,7 @@
            
            <div class="col-md-3">
                
-                <input class="form-control" type="input" name="mobile2" placeholder="Enter Mobile Number" value="{{old('mobile2')}}"  onkeypress='validate(event)'>
+                <input class="form-control" type="input" name="mobile2" placeholder="Enter Mobile Number" value="{{old('mobile2')}}" minlength="10" maxlength="10" onkeypress='validate(event)' >
                  @error('mobile2')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -141,7 +141,7 @@
            
            <div class="col-md-3">
                 
-                <input class="form-control" type="input" name="mobile3" placeholder="Enter Mobile Number" value="{{old('mobile3')}}"  onkeypress='validate(event)'>
+                <input class="form-control" type="input" name="mobile3" placeholder="Enter Mobile Number" value="{{old('mobile3')}}" minlength="10" maxlength="10"  onkeypress='validate(event)'>
                  @error('mobile3')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -184,7 +184,7 @@
            
            <div class="col-md-3">
                 
-                <input class="form-control" type="input" name="mobile4" placeholder="Enter Mobile Number" value="{{old('mobile4')}}"  onkeypress='validate(event)'>
+                <input class="form-control" type="input" name="mobile4" placeholder="Enter Mobile Number" value="{{old('mobile4')}}" minlength="10" maxlength="10" onkeypress='validate(event)'>
                  @error('mobile4')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror

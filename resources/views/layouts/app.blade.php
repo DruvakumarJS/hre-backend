@@ -116,7 +116,8 @@
 
                     <a href="{{route('vendor_master')}}"
                     class="{{request()->routeIs('vendor_master')
-                    
+                    || request()->routeIs('add_vendor')
+                    || request()->routeIs('edit_vendor')
                       ? 'active' : ''}}">
                     <label class="nav-links" >Vendor</label></a>
                   

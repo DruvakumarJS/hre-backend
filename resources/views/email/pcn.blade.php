@@ -29,7 +29,17 @@
       
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;margin-top: 20px;">
-            <label style="margin-top: 20px;">Hi ,Please find the PCN details</label>
+            <label style="margin-top: 20px;">Dear Team ,</label>
+                 @if(!isset($pcn_data['old_data']))
+                   <div style="margin-top: 20px">
+                     <label>Bringing to everyone's notice that new PCN is created.</label>
+                   </div>
+                 @else
+                 <div style="margin-top: 20px">
+                     <label>Bringing to everyone's notice that PCN details is modifed</label>
+                   </div>
+                 
+                 @endif  
                    <div style="margin-top: 20px;">
                      <label>PCN : </label> <label class="label-bold">{{$pcn_data['new_data']['pcn']}}</label>
                   </div>
@@ -55,6 +65,18 @@
                      <label>GST : </label> <label class="label-bold">{{$pcn_data['new_data']['gst']}}</label>
                   </div>
 
+                 @if(!isset($pcn_data['old_data']))
+                  <div>
+                    <label>Created By : {{$pcn_data['employee']['name']}} , {{$pcn_data['employee']['employee_id']}} ,
+                    {{ date('d-m-Y H:i')}}</label>
+                  </div>
+                  @endif
+
+                  @php
+                    $domain = url('/');
+                  @endphp
+
+                 
                    @if(isset($pcn_data['old_data']))
 
                   <div style="margin-top: 10px;margin-bottom: 10px">
@@ -94,9 +116,15 @@
                    <div style="margin-top: 10px;margin-bottom: 10px">
                      <label>status : </label> <label class="label-bold">{{$pcn_data['new_data']['status']}}</label>
                   </div>
+
+                  <div>
+                    <label>Modified By : {{$pcn_data['employee']['name']}} , {{$pcn_data['employee']['employee_id']}} ,
+                    {{ date('d-m-Y H:i')}}</label>
+                  </div>
                   
                   
                    <label style="margin-top: 30px; border-width: 1px;border-color: black;">-----Previous Details-----</label>
+                  
                    <div style="margin-top: 20px;">
                      <label>PCN : </label> <label class="label-bold">{{$pcn_data['old_data']['pcn']}}</label>
                   </div>
@@ -160,16 +188,15 @@
                      <label>status : </label> <label class="label-bold">{{$pcn_data['old_data']['status']}}</label>
                   </div>
 
-                   @endif
                   
-                  @php
-                    $domain = url('/');
-                  @endphp
+                   @endif
 
-                  <div style="margin-top: 20px;">
+                    <div style="margin-top: 20px;">
                      <label class="label-bold">For more details visit : {{$domain}}/PCN</label>
                  
                   </div>
+
+                  
                  
         </main>
     </body>

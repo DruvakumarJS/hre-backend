@@ -18,6 +18,7 @@ use App\Mail\IndentsMail;
 use App\Mail\GRNMail;
 use App\Models\FootPrint;
 use App\Jobs\SendIndentEmail;
+use App\Jobs\SendDispatchEmail;
 use Excel;
 use Auth ;
 use DB;
@@ -237,20 +238,21 @@ class IntendController extends Controller
                  'pcn' => $idtend->pcn ,
                  'pcn_details'=> $pcn_detail ,
                  'creator' =>Auth::user()->name,
-                 'details'=> $data     
+                 'details'=> $data ,
+                 'creator_mail' => Auth::user()->email    
           ];
 
           $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first(); 
 
-          $subject = "New Indent : " .$empl->employee_id." - ".$ind_no ." - ".$request->pcn;
+          $subject = "New Material Indent " .$ind_no." ".$request->pcn;
 
-          $emailarray = User::select('email')->whereIn('role_id',['1','10','11','12'])->get();
+          $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','10','11','12'])->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
 
-          // SendIndentEmail::dispatch($indent_details,$subject,$emailid);
+           SendIndentEmail::dispatch($indent_details,$subject,$emailid);
 
           $footprint = FootPrint::create([
                   'action' => 'New indent created - '.$ind_no,
@@ -472,29 +474,28 @@ class IntendController extends Controller
               'category' => $indent_list_details->materials->Category->category,
               'material_name' => $indent_list_details->materials->name ,
               'dispatched' => $request->quantity.''.$indent_list_details->materials->uom,
+              'creator_mail' => $userdetail->email
              ];
 
-            // print_r($grndata); die();
+              $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','10','11','12'])->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
             
              // Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
-                try {
-                     // Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
-                    } catch (\Exception $e) {
-                        return $e->getMessage();
-                       
-                    } 
-                    finally {
+             SendDispatchEmail::dispatch($grndata,$subject,$emailid);
 
-                      $footprint = FootPrint::create([
-                          'action' => 'GRN created- '.$GRN_id,
-                          'user_id' => Auth::user()->id,
-                          'module' => 'GRN',
-                          'operation' => 'C'
-                      ]);
+              $footprint = FootPrint::create([
+                  'action' => 'GRN created- '.$GRN_id,
+                  'user_id' => Auth::user()->id,
+                  'module' => 'GRN',
+                  'operation' => 'C'
+              ]);
                      
-                     return redirect()->route('edit_intends',$request->id)
-                            ->withmessage('GRN created successfully');
-                    }     
+              return redirect()->route('edit_intends',$request->id)
+                            ->withmessage('GRN created successfully');  
           
              }
 

@@ -12,16 +12,18 @@ class CustomerMail extends Mailable
     use Queueable, SerializesModels;
     public $data;
     public $subject;
+    public $action;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data , $subject)
+    public function __construct($data , $subject,$action)
     {
         $this->data = $data;
         $this->subject = $subject;
+        $this->action  = $action ;
     }
 
     /**
@@ -31,7 +33,14 @@ class CustomerMail extends Mailable
      */
     public function build()
     {
-        //print_r($this->data['details']['name']); die();
-        return $this->subject($this->subject)->view('email.customer');
+       
+        if($this->action == 'Create'){
+            return $this->subject($this->subject)->view('email.customer');
+        }
+        else{
+            return $this->subject($this->subject)->view('email.customer_edit');
+        }
+
+       
     }
 }

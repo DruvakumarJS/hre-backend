@@ -23,7 +23,7 @@
              <div class="input-group mb-3">
               <input type="hidden" name="filter" >
                 <input type="hidden" name="user_id" value="{{$id}}">
-                <input class="form-control" type="text" name="search" placeholder="Search">
+                <input class="form-control" type="text" name="search" placeholder="Search" value="{{$search}}">
                 <div class="input-group-prepend">
                    <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
                 </div>

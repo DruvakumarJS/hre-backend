@@ -85,7 +85,8 @@
                     <th scope="col">Out Of Work</th>
                     <th scope="col">Working Hours</th>
                     <th scope="col">Shift Hours</th>
-                    <th scope="col"></th>
+                    <th></th>
+                    
                 </tr>
                 </thead>
                 <tbody>

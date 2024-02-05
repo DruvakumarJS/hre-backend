@@ -30,8 +30,12 @@
         
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;">
+          <label>Dear Team ,</label>
+          <div style="margin-top: 20px;">
+            <label>Find the attached indent and requesting you to process the same.</label>
+          </div>
             <div style="margin-top: 10px;">
-                <label>Date : </label> <label class="label-bold">{{date('d-m-Y')}}</label>
+                <label>Indnet Date : </label> <label class="label-bold">{{date('d-m-Y')}}</label>
             </div>
 
              <div>
@@ -52,8 +56,7 @@
                   @endphp
                 <label>View on Dashboard : </label> <label class="label-bold">{{$domain}}/indent_details/{{$indent_details['indent_no']}}</label>
             </div>
-
-               
+          
                 <div  class="card border-white" style="margin-top: 10px;">
                   <table class="table responsive" width="100%">
                                       <thead>
