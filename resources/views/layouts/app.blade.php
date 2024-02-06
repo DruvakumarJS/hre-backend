@@ -33,7 +33,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
-  
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -50,50 +50,61 @@
                 </a> -->
 
                <div class="d-flex flex-column text-center" >
-                   
+
                     <img class="logo" src="{{asset('images/logo_new.svg')}}">
-                
+
                </div>
 
-               
-             
-               <div class="navigation">
-                    <a href="{{route('home')}}"
-                     class="{{request()->routeIs('home')
+
+
+
+
+
+
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <div class="navigation">
+                        <a href="{{route('home')}}"
+                           class="{{request()->routeIs('home')
                       ? 'active' : ''}}"
-                      >
-                      <label class="nav-links">Home</label></a>
-                  @if(Auth::user()->role_id =='1' OR Auth::user()->role_id =='2' OR Auth::user()->role_id =='3' OR Auth::user()->role_id =='4' OR Auth::user()->role_id =='5' OR Auth::user()->role_id =='6' OR Auth::user()->role_id =='7' OR Auth::user()->role_id =='8' OR Auth::user()->role_id =='9' OR Auth::user()->role_id =='10' OR Auth::user()->role_id =='11')
-                    <a href="{{route('view_customers')}}"
-                     class="{{request()->routeIs('view_customers')
+                        >
+                            <label class="nav-links">Home</label></a>
+                        @if(Auth::user()->role_id =='1' OR Auth::user()->role_id =='2' OR Auth::user()->role_id =='3' OR Auth::user()->role_id =='4' OR Auth::user()->role_id =='5' OR Auth::user()->role_id =='6' OR Auth::user()->role_id =='7' OR Auth::user()->role_id =='8' OR Auth::user()->role_id =='9' OR Auth::user()->role_id =='10' OR Auth::user()->role_id =='11')
+                            <a href="{{route('view_customers')}}"
+                               class="{{request()->routeIs('view_customers')
                         || request()->routeIs('create_customer')
                         || request()->routeIs('search_customer')
                         || request()->routeIs('edit_customer')
                       ? 'active' : ''}}"
-                    >
-                      <label class="nav-links">Customers</label></a>
-                  @endif
-                    <a href="{{route('PCN')}}"
-                      class="{{request()->routeIs('PCN')
+                            >
+                                <label class="nav-links">Customers</label></a>
+                        @endif
+                        <a href="{{route('PCN')}}"
+                           class="{{request()->routeIs('PCN')
                       || request()->routeIs('create_pcn')
                       || request()->routeIs('search_pcn')
                       || request()->routeIs('view_pcn')
                       || request()->routeIs('edit_pcn')
                       || request()->routeIs('search_pcn_details')
                       ? 'active' : ''}}">
-                    <label class="nav-links">PCN</label></a>
+                            <label class="nav-links">PCN</label></a>
 
-                    <a href="{{route('histogram')}}"
-                      class="{{request()->routeIs('histogram')
+                        <a href="{{route('histogram')}}"
+                           class="{{request()->routeIs('histogram')
                       || request()->routeIs('new_histogram')
                       || request()->routeIs('view_form')
                       || request()->routeIs('view_history')
                       || request()->routeIs('update_form')
                       ? 'active' : ''}}">
-                    <label class="nav-links">Histogram</label></a>
+                            <label class="nav-links">Histogram</label></a>
 
-                    <a href="{{route('intends')}}"
-                     class="{{request()->routeIs('intends')
+                        <a href="{{route('intends')}}"
+                           class="{{request()->routeIs('intends')
                      ||request()->routeIs('indent_details')
                      ||request()->routeIs('create_indent')
                      ||request()->routeIs('edit_intends')
@@ -102,28 +113,32 @@
                      ||request()->routeIs('grn')
                      || request()->routeIs('search_grn')
                       ? 'active' : ''}}">
-                      <label class="nav-links">Indents</label></a>
+                            <label class="nav-links">Indents</label></a>
 
-                    <a href="{{route('tickets')}}"
-                    class="{{request()->routeIs('tickets')
+                        <a href="{{route('tickets')}}"
+                           class="{{request()->routeIs('tickets')
                     || request()->routeIs('edit-ticket')
                     || request()->routeIs('ticket-details')
                     || request()->routeIs('generate-ticket')
                     || request()->routeIs('filter')
                     || request()->routeIs('search_ticket')
                       ? 'active' : ''}}">
-                    <label class="nav-links" >Tickets</label></a>
+                            <label class="nav-links" >Tickets</label></a>
+
+                        
+
 
                     <a href="{{route('vendor_master')}}"
                     class="{{request()->routeIs('vendor_master')
                     || request()->routeIs('add_vendor')
                     || request()->routeIs('edit_vendor')
+
                       ? 'active' : ''}}">
-                    <label class="nav-links" >Vendor</label></a>
-                  
-                 
-                    <a href="{{route('attendance')}}"
-                    class="{{request()->routeIs('attendance')
+                            <label class="nav-links" >Vendor</label></a>
+
+
+                        <a href="{{route('attendance')}}"
+                           class="{{request()->routeIs('attendance')
                     ||request()->routeIs('employee-details')
                     ||request()->routeIs('employee-history')
                     ||request()->routeIs('get_attendance_by_date')
@@ -132,10 +147,10 @@
                     ||request()->routeIs('search_user_attendance')
                     ||request()->routeIs('search_employee')
                       ? 'active' : ''}}">
-                    <label class="nav-links" >Attendance</label></a>
+                            <label class="nav-links" >Attendance</label></a>
 
-                    <a href="{{route('pettycash')}}"
-                    class="{{request()->routeIs('pettycash')
+                        <a href="{{route('pettycash')}}"
+                           class="{{request()->routeIs('pettycash')
                     ||request()->routeIs('edit_pettycash')
                     ||request()->routeIs('create_new')
                     ||request()->routeIs('details_pettycash')
@@ -145,19 +160,8 @@
                     ||request()->routeIs('pettycash_expenses')
                     ||request()->routeIs('search_pettycash')
                       ? 'active' : ''}}">
-                      <label class="nav-links" >Petty Cash</label></a>
-               </div>
-
-             
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
+                            <label class="nav-links" >Petty Cash</label></a>
+                    </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto" style="margin-top: 20px">
@@ -175,14 +179,14 @@
                                 </li>
                             @endif
                         @else
-                              
+
                             <!--  <a href="{{route('notification', Auth::user()->id)}}" class="notification"> <img class="circle" src="{{asset('images/notification.svg')}}" style="width: 20px;height: 20px;"> </a> -->
                            <!--  <div class="dropdown">
                                <a data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 30px"> </a>
 
                                  <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moddl">About</a></li>
-                                        
+
                                         <li><a class="dropdown-item" href="{{route('vault_master')}}">Vault</a></li>
 
                                     </ul>
@@ -193,7 +197,7 @@
                              <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#moddl"><img class="circle" src="{{asset('images/info.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;margin-right: 10px"></a>
 
 
-                           
+
                                 <div class="dropdown">
 
                                     <a href="{{route('settings')}}" data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-right: 10px;"> </a>
@@ -205,20 +209,20 @@
                                         <li><a class="dropdown-item" href="{{route('materials_master')}}">Material Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('department_master')}}">Ticket Department Master</a></li>
                                         <li><a class="dropdown-item" href="{{route('vendor_headings')}}">Vendor Department Master</a></li>
-                                       
+
                                        @if(auth::user()->role_id == 1 )
                                         <li>
                                           <a class="dropdown-item" href="#">Recycle & Restore </a>
                                           <ul class="dropdown-menu dropdown-submenu">
-                                           
+
                                             <li><a class="dropdown-item" href="{{route('restore-users')}}">Users</a></li>
                                             <li><a class="dropdown-item" href="{{route('restore-customers')}}">Customers</a></li>
                                             <li><a class="dropdown-item" href="{{route('restore-category')}}">Categories</a></li>
                                             <li><a class="dropdown-item" href="{{route('restore-material')}}">Materials</a></li>
                                             <li><a class="dropdown-item" href="{{route('restore-material')}}">Materials</a></li>
                                             <li><a class="dropdown-item" href="{{route('restore_vendors')}}">Vendors</a></li>
-                                          </ul>  
-                                        </li> 
+                                          </ul>
+                                        </li>
                                         @elseif(auth::user()->role_id == 2)
                                            <li><a class="dropdown-item" href="{{route('restore_vendors')}}">Restore Vendors</a></li>
                                         @endif
@@ -239,12 +243,12 @@
                                     </ul>
                                 </div>
 
-                          
+
                              <a href=""> <img class="circle" src="{{asset('images/persons.svg')}}" style="width: 20px;height: 20px;margin-left: 10px;"> </a>
 
                             <div class="userLogin">
                                 <h4 style="width: 100px"> {{ Auth::user()->name }}</h4>
-                               
+
                                 <h5 style="width: 100px">{{Auth::user()->roles->alias }}</h5>
                             </div>
 
@@ -325,13 +329,13 @@
                         <label>Visit : </label>
                       <a target="_blank" href="https://www.netiapps.com/">https://www.netiapps.com/</a>
                       </div>
-                       
+
                     </div>
-                  
+
                 </div>
-                
+
               </div>
-              
+
             </div>
           </div>
         </div>
