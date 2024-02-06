@@ -29,9 +29,13 @@
        
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;">
-            <label> New Ticket details , </label>
-            
+            <label> Dear Team , </label>
+
             <div  style="margin-top: 10px;">
+                <label>New service / compliant ticket is created</label> 
+             </div>
+            
+            <div  style="margin-top: 20px;">
                 <label>Ticket Description : </label> <label class="label-bold">{{$ticketarray['issue']}}</label>
              </div>
 

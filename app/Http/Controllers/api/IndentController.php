@@ -14,6 +14,7 @@ use App\Models\Material;
 use App\Models\Category;
 use App\Models\Roles;
 use App\Models\FootPrint;
+use App\Jobs\SendIndentEmail;
 
 //use Illuminate\Support\Facades\Mail;
 use App\Mail\IndentsMail;
@@ -127,21 +128,22 @@ class IndentController extends Controller
                  'pcn' => $idtend->pcn ,
                  'pcn_details'=> $pcn_detail ,
                  'creator' =>$user->name,
-                 'details'=> $data     
+                 'details'=> $data ,
+                 'creator_mail' => $user->email    
           ];
 
           $empl = Employee::select('employee_id')->where('user_id',$request->user_id)->first(); 
 
-          $subject = "New Indent : " .$empl->employee_id." - ".$ind_no ." - ".$request->pcn;
+          $subject = "New Material Indent " .$ind_no." ".$request->pcn;
 
-          $emailarray = User::select('email')->whereIn('role_id',['1','10','11','12'])->get();
+          $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','10','11','12'])->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
-
-          // SendIndentEmail::dispatch($indent_details,$subject,$emailid);
-
+          
+          SendIndentEmail::dispatch($indent_details,$subject,$emailid);
+          
           $footprint = FootPrint::create([
                   'action' => 'New indent created - '.$ind_no,
                   'user_id' => $request->user_id,

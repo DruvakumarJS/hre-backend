@@ -41,7 +41,7 @@ class SendDispatchEmail implements ShouldQueue
         $grndata = $this->grndata;
         $subject = $this->subject;
        // print_r($grndata); die();
-        //Mail::to($this->emailid)->cc($grndata['creator_mail'])->send(new IndentsMail($grndata,$subject));
+        Mail::to($this->emailid)->cc($grndata['creator_mail'])->send(new IndentsMail($grndata,$subject));
         Mail::to('druva@netiapps.com')->cc($grndata['creator_mail'])->send(new GRNMail($grndata,$subject));
 
     }

@@ -8,13 +8,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\TicketsMail;
+use App\Mail\AttendanceMail;
 use Mail;
 
-class SendTicketEmail implements ShouldQueue
+class SendAttendenceEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $ticketarray;
+    protected $attendancearray;
     protected $subject;
     protected $emailid;
 
@@ -23,9 +23,9 @@ class SendTicketEmail implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($ticketarray , $subject , $emailid)
+     public function __construct($attendancearray , $subject , $emailid)
     {
-        $this->ticketarray = $ticketarray;
+        $this->attendancearray = $attendancearray;
         $this->subject = $subject ;
         $this->emailid = $emailid ;
     }
@@ -37,9 +37,8 @@ class SendTicketEmail implements ShouldQueue
      */
     public function handle()
     {
-       // print_r($this->emailid); die();
-        Mail::to($this->emailid)->send(new TicketsMail($this->ticketarray,$this->subject));
-        //Mail::to('druva@netiapps.com')->send(new TicketsMail($this->ticketarray,$this->subject));
-
+        $att = $this->attendancearray ;
+         Mail::to($this->emailid)->cc($att['employee_email'])->send(new AttendanceMail($this->attendancearray,$this->subject));
+        // Mail::to('druva@netiapps.com')->send(new AttendanceMail($this->subject , $this->attendancearray));
     }
 }

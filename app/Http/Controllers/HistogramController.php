@@ -569,7 +569,16 @@ class HistogramController extends Controller
 
            // print_r('email is '.$empl_mail); die();
 
-            GeneratePdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name , $alias);
+            $subject = "Histogram Updated to ".$request->pcn." ".$pcn_details->billing_name ;
+
+             $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','6','7','10','11'])->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+                 
+               }
+
+            GeneratePdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name , $alias , $subject , $emailid);
 
             $histogram = Histogram_billing_details::where('id',$request->histogram_id)->first();
             $history = HistogramHistory::create([
@@ -760,8 +769,18 @@ class HistogramController extends Controller
             $alias = $data->user->roles->alias;
 
            // print_r('email is '.$empl_mail); die();
+            $pcn_details= Pcn::where('pcn',$request->pcn)->first();
 
-            GeneratePdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name , $alias);
+            $subject = "Histogram Updated to ".$request->pcn." ".$pcn_details->billing_name ;
+
+             $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','6','7','10','11'])->get();
+
+               foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+                 
+               }
+
+            GeneratePdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name , $alias, $subject , $emailid);
 
 
                 $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first();

@@ -11,17 +11,17 @@ class AttendanceMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $subject;
-    public $attendance;
+    public $attendancearray;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($subject , $attendance)
+    public function __construct($subject , $attendancearray)
     {
         $this->subject = $subject;
-        $this->attendance= $attendance;
+        $this->attendancearray= $attendancearray;
     }
 
     /**

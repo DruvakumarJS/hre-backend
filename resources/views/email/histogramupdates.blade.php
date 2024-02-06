@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <style>
-             .label-bold{
+           .label-bold{
               font-weight: bold;
               font-size: 15px;
           }
@@ -10,6 +10,7 @@
                 margin: 100px 25px;
             }
 
+        
             footer {
                 position: fixed; 
                 bottom: -60px; 
@@ -26,22 +27,24 @@
     </head>
     <body >
         <!-- Define header and footer blocks before your content -->
-       
+        
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;">
-            <label> Dear {{$ticketarray['assigned_to']}} ,</label>
-            
-            <div  style="margin-top: 10px;">
-                <label >{{$ticketarray['body']}}</label>
-             </div>
-             @php
-              $domain = url('/');
-             @endphp
+         <label>Dear All ,</label>
+         <div style="margin-top: 20px;">
+          <label >Please note the Histogram is Update for everyone's reference. Find the update PDF file in the attachment.</label><br/>
+          <label>The given details are Update or Edited by {{$name}} - {{$empl_id}}</label><br/>
+         </div>
 
-             <div class="label-bold" style="margin-top: 10px;">
-                 <label class="label-bold">View on Dashboard : </label> <label>{{$domain}}/ticket_details/{{$ticketarray['ticket_no']}}</label>
-             </div>
-                              
+         @php
+            $domain = url('/');
+         @endphp
+
+
+         <div style="margin-top: 30px">
+           <label class="label-bold">For more details visit : {{$domain}}/histogram_list</label>
+         </div>
+                               
         </main>
     </body>
 </html>

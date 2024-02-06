@@ -10,20 +10,18 @@ use Illuminate\Queue\SerializesModels;
 class TicketDetailsMail extends Mailable
 {
     use Queueable, SerializesModels;
-     public $ticketarray;
+    public $ticketarray;
     public $subject ;
-    public $body ;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($ticketarray , $subject , $body)
+    public function __construct($ticketarray , $subject)
     {
        $this->ticketarray = $ticketarray;
        $this->subject = $subject ;
-       $this->body = $body ;
     }
 
     /**
@@ -33,6 +31,7 @@ class TicketDetailsMail extends Mailable
      */
     public function build()
     {
+       // print_r($this->subject); die();
         return $this->subject($this->subject)->view('email.ticket_details');
     }
 }

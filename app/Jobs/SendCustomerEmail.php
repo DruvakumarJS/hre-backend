@@ -45,8 +45,8 @@ class SendCustomerEmail implements ShouldQueue
         $subject = $this->subject;
         $action = $this->action;
       
-        //Mail::to($this->emailid)->send(new CustomerMail($data ,$subject ));
-        Mail::to('druva@netiapps.com')->send(new CustomerMail($data ,$subject, $action));
+        Mail::to($this->emailid)->send(new CustomerMail($data ,$subject,$action ));
+        //Mail::to('druva@netiapps.com')->send(new CustomerMail($data ,$subject, $action));
     }
 
     

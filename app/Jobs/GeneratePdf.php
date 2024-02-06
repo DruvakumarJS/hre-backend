@@ -8,9 +8,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\HistogramMail;
+use App\Mail\HistogramUpdateMail;
 use App\Models\FootPrint;
-use App\Models\Employee;
+use App\Models\User;
 use Auth;
 use PDF;
 use File;   
@@ -32,6 +32,8 @@ class GeneratePdf implements ShouldQueue
      protected $empl_mail;
      protected $name;
      protected $alias;
+     protected $subject;
+     protected $emailid;
 
 
     /**
@@ -39,7 +41,7 @@ class GeneratePdf implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail,$name , $alias)
+    public function __construct($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail,$name , $alias , $subject , $emailid)
     {
         $this->data = $data ;
         $this->client = $client ;
@@ -53,6 +55,8 @@ class GeneratePdf implements ShouldQueue
         $this->empl_mail = $empl_mail ;
         $this->name = $name ;
         $this->alias = $alias ;
+        $this->subject = $subject ;
+        $this->emailid = $emailid ;
     }
 
     /**
@@ -81,6 +85,7 @@ class GeneratePdf implements ShouldQueue
         $vendor = $this->vendor;
         $name = $this->name;
         $alias = $this->alias;
+        $empl_id = $this->empl_id;
 
         $pdf = PDF::loadView('pdf/histogramPDF',compact('data','client','arch','land','hre','vendor','name','alias' ));
     
@@ -88,11 +93,16 @@ class GeneratePdf implements ShouldQueue
 
          if($savepdf){
        
-        $subject = "Histogram Updated - ".$this->empl_id." PCN - ".$this->pcn;
+        $subject = $this->subject;
+        $id = $this->data->id ;
 
         $attachment = public_path($path.'/'.$this->filename) ;
 
-        //Mail::to($this->empl_mail)->send(new HistogramMail($subject , $attachment));
+        
+
+        Mail::to($this->emailid)->cc($this->empl_mail)->send(new HistogramUpdateMail($subject , $attachment , $name , $empl_id ,$id));
+       // Mail::to('druva@netiapps.com')->send(new HistogramUpdateMail($subject , $attachment , $name , $empl_id ,$id));
+
 
 
           }

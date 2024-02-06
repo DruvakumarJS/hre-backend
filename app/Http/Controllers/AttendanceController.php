@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ExportAttendance;
 use App\Exports\ExportAttendanceReport;
+use App\Jobs\SendAttendenceEmail;
 use DB;
 use Auth;
 use Excel;
@@ -410,39 +411,34 @@ class AttendanceController extends Controller
 
          $empl = Employee::where('user_id',$request->id)->first(); 
 
-         $subject = "Attendance Modified : " .$empl->employee_id;
+         $subject = "Attendance Modified to " .$empl->employee_id." ".$empl->name;
+
          $editor = Employee::where('user_id',Auth::user()->id)->first(); 
 
-         $attedance=['name' => $empl->name,
+         $attendancearray=[
+                     'name' => $empl->name,
                      'employee_id' => $empl->employee_id ,
                      'editor_name' => $editor->name,
                      'editor_id' => $editor->employee_id,
+                     'employee_email' => $empl->email,
                      'body' => $body];
 
-         $emailarray = User::select('email')->where('role_id','1')->orWhere('id',$request->id)->get();
+         $emailarray = User::select('email')->whereIn('role_id',['1','2','6','9'])->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
 
-         //Mail::to($emailid)->send(new AttendanceMail($subject,$attedance));
+         SendAttendenceEmail::dispatch($attendancearray , $subject , $emailid) ;         
 
-               try {
-                   //  Mail::to($emailid)->send(new AttendanceMail($subject,$attedance));
-                    } catch (\Exception $e) {
-                        return $e->getMessage();
-                       
-                    } 
-                    finally {
-                       $footprint = FootPrint::create([
-                            'action' => 'Attendance details modified - '.$empl->employee_id,
-                            'user_id' => Auth::user()->id,
-                            'module' => 'Attendance',
-                            'operation' => 'U'
-                        ]); 
+         $footprint = FootPrint::create([
+                        'action' => 'Attendance details modified - '.$empl->employee_id,
+                        'user_id' => Auth::user()->id,
+                        'module' => 'Attendance',
+                        'operation' => 'U'
+                    ]); 
                      
-                     return redirect()->back();
-                    }           
+         return redirect()->back();        
 
         
         

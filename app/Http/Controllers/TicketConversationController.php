@@ -11,9 +11,11 @@ use App\Models\FootPrint;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Mail\TicketConversationMail;
+use App\Mail\TicketDetailsMail;
+use App\Jobs\SendTicketUpdatesEmail;
+
 use Mail;
 use Auth ;
-
 
 class TicketConversationController extends Controller
 {
@@ -94,41 +96,32 @@ class TicketConversationController extends Controller
                 
                 $sender = Employee::where('user_id',$request->sender)->first();
                 $recipient = Employee::where('user_id',$request->recipient)->first();
+                $pcndata = Pcn::where('pcn',$Ticket->pcn)->first();
 
-                $subject = "New message : " .$Ticket->ticket_no." - ".$Ticket->category ." - ".$Ticket->pcn  ;
+                $subject = "New message : " .$Ticket->ticket_no." - ".$Ticket->category ." - ".$Ticket->pcn." - ".$pcndata->brand  ;
 
                 $body = "You have a new message from ".$sender->name." regarding ticket no.".$request->ticket_no;
 
-                $ticketarray = ['ticket_no'=>$Ticket->ticket_no ,'sender' => $sender->name , 'recipient' => $recipient->name , 'subject' => $subject , 'message' => $request->message , 'body' => $body];
+                $ticketarray = ['ticket_no'=>$Ticket->ticket_no ,'sender' => $sender->name , 'assigned_to' => $recipient->name." - ".$recipient->employee_id , 'body' => $body ,'action' => 'reply'];
 
 
-                $emailarray=User::where('id',$request->recipient)->orWhere('role_id','1')->get();
+                $emailarray=User::where('id',$request->recipient)->orWhereIn('role_id',['1','2'])->get();
 
                     foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;
                      
                     }
-                    //print_r($emailid); die();
+                   // print_r($emailid); die();
+               SendTicketUpdatesEmail::dispatch($ticketarray , $subject , $emailid) ;   
 
-
-                try {
-                     // Mail::to($emailid)->send(new TicketConversationMail($ticketarray , $subject));
-                     // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
-                    } catch (\Exception $e) {
-
-                        return $e->getMessage();
-                       
-                    } 
-                    finally {
-                        $footprint = FootPrint::create([
+               $footprint = FootPrint::create([
                             'action' => 'Message from '.$sender->employee_id .' - '. $Ticket->ticket_no,
                             'user_id' => Auth::user()->id,
                             'module' => 'Ticket',
                             'operation' => 'U'
                         ]);
                     
-                     return redirect()->route('ticket-details',$request->ticket_no)->withMessage('Message sent');
-                   }             
+                     return redirect()->route('ticket-details',$request->ticket_no)->withMessage('Message sent');         
                  
 
                 

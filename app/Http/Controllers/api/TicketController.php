@@ -14,6 +14,8 @@ use App\Mail\TicketsMail;
 use App\Mail\TicketDetailsMail;
 use App\Mail\TicketConversationMail;
 use App\Models\FootPrint;
+use App\Jobs\SendTicketEmail;
+use App\Jobs\SendTicketUpdatesEmail;
 
 
 class TicketController extends Controller
@@ -338,8 +340,9 @@ class TicketController extends Controller
         if($Insert){
 
           $empl = Employee::where('user_id',$request->user_id)->first(); 
+          $pcndata = Pcn::where('pcn',$request->pcn)->first();
 
-          $subject = "New Ticket : " .$ticket_no." - ".$request->subject ." - ".$request->pcn;
+          $subject = "New Ticket : " .$ticket_no." - ".$request->subject ." - ".$request->pcn." - ".$pcndata->brand;
 
           $ticketarray = [
              'ticket_no'=> $ticket_no,
@@ -359,13 +362,13 @@ class TicketController extends Controller
          //print_r($array); die();
 
          // $emailarray = User::select('email')->where('role_id','1')->orWhere('role_id','2')->get();
-          $emailarray = User::select('email')->whereIn('role_id',$array)->get();
+          $emailarray = User::select('email')->whereIn('role_id',$array)->orWhereIn('role_id',['1','2','3','4','5'])->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                  
                }
-          // SendTicketEmail::dispatch($ticketarray , $subject , $emailid) ;   
+          SendTicketEmail::dispatch($ticketarray , $subject , $emailid) ;    
 
 
             $footprint = FootPrint::create([
@@ -450,45 +453,36 @@ class TicketController extends Controller
             if($conversation){
                 $sender = Employee::where('user_id',$request->user_id)->first();
                 $recipient = Employee::where('user_id',$request->recipient)->first();
+                $pcndata = Pcn::where('pcn',$Ticket->pcn)->first();
 
-                $subject = "New message : " .$Ticket->ticket_no." - ".$Ticket->category ." - ".$Ticket->pcn  ;
+                $subject = "New message : " .$Ticket->ticket_no." - ".$Ticket->category ." - ".$Ticket->pcn." - ".$pcndata->brand  ;
 
                 $body = "You have a new message from ".$sender->name." regarding ticket no.".$request->ticket_no;
 
-                $ticketarray = ['ticket_no'=>$Ticket->ticket_no ,'sender' => $sender->name , 'recipient' => $recipient->name , 'subject' => $subject , 'message' => $request->message , 'body' => $body];
+                $ticketarray = ['ticket_no'=>$Ticket->ticket_no ,'sender' => $sender->name , 'assigned_to' => $recipient->name , 'body' => $body , 'action' => 'reply'];
 
 
-                $emailarray=User::where('id',$request->recipient)->orWhere('role_id','1')->get();
+                 $emailarray=User::where('id',$request->recipient)->orWhereIn('role_id',['1','2'])->get();
 
                     foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;
                      
                     }
-                    //print_r($emailid); die();
+                  
+                SendTicketUpdatesEmail::dispatch($ticketarray , $subject , $emailid) ; 
 
-
-                try {
-                      Mail::to($emailid)->send(new TicketConversationMail($ticketarray , $subject));
-                     // Mail::to($emailid)->queue(new TicketsMail($ticketarray , $subject));
-                    } catch (\Exception $e) {
-                        return $e->getMessage();
-                       
-                    } 
-                    finally {
-
-                         $footprint = FootPrint::create([
-                            'action' => 'Message from '.$sender->employee_id .' - '. $Ticket->ticket_no,
-                            'user_id' => $request->user_id,
-                            'module' => 'Ticket',
-                            'operation' => 'U',
-                            'platform' => 'Android'
-                        ]);
-                    
-                     return response()->json([
-                            'status' => 1 ,
-                            'message' => 'Message sent'
-                         ]);
-                   } 
+                $footprint = FootPrint::create([
+                    'action' => 'Message from '.$sender->employee_id .' - '. $Ticket->ticket_no,
+                    'user_id' => $request->user_id,
+                    'module' => 'Ticket',
+                    'operation' => 'U',
+                    'platform' => 'Android'
+                ]);
+            
+                return response()->json([
+                    'status' => 1 ,
+                    'message' => 'Message sent'
+                 ]);
 
                
            
@@ -684,10 +678,11 @@ class TicketController extends Controller
              $recipient_detail = Employee::where('user_id',$request->recipient)->first();
              $creator_detail = Employee::where('user_id',$ticket->creator)->first();
              $assigner_detail = Employee::where('user_id',$request->user_id)->first();  
+             $pcndata = Pcn::where('pcn',$ticket->pcn)->first();
 
-              $subject = "Ticket verified : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn . " - ".$assigner_detail->employee_id ;
+             $subject = "Ticket Asigned - " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn . " - ".$pcndata->brand ;
 
-              $body = "The Ticket No. ".$ticket->ticket_no." is verified by ".$assigner_detail->name."-".$assigner_detail->employee_id." and is assigned to ".$recipient_detail->name ."-".$recipient_detail->employee_id." .The TAT is set to ".$request->tat." .";
+              $body = "New service / compliant ticket is asigned to you. Kindly verify the ticket and do the needful";
 
              // print_r(json_encode($recipient_detail)); die();
               
@@ -695,26 +690,21 @@ class TicketController extends Controller
                  'ticket_no'=> $ticket->ticket_no,
                  'assigned_to' => $recipient_detail->name ."-".$recipient_detail->employee_id,
                  'tat' =>$request->tat,
-                 'comments' =>$request->comment
+                 'comments' =>$request->comment,
+                 'body' => $body,
+                 'owner' =>$creator_detail->email,
+                 'action' => 'assign'
                  ];
 
-              $emailarray = User::select('email')->where('id',$request->user_id)->orWhere('id',$ticket->creator)->get();
+              $emailarray = User::select('email')->whereIn('role_id',['1','2'])->orWhere('id',$request->recipient)->get();
 
                    foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;
                    }
 
-             // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
+                SendTicketUpdatesEmail::dispatch($ticketarray , $subject , $emailid) ;  
 
-                try {
-                 // Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
-                } catch (\Exception $e) {
-                    return $e->getMessage();
-                   
-                } 
-                finally {
-
-                    $sta = $request->status;
+                $sta = $request->status;
 
                       if($sta == 'Pending/Ongoing'){
                         $sta = 'Ongoing';
@@ -736,8 +726,7 @@ class TicketController extends Controller
                  
                     return response()->json([
                     'status' => 1 ,
-                    'message' => 'Ticket Assigned Successfully']);
-                }     
+                    'message' => 'Ticket Assigned Successfully']);    
 
                }
              }
@@ -777,20 +766,29 @@ class TicketController extends Controller
             $conversation = TicketConversation::create([
                 'ticket_id' => $request->ticket_id ,
                 'ticket_no' => $request->ticket_no ,
-                'message' => $request->message ,
+                'message' => "Completed : ".$request->message ,
                 'sender' => $request->user_id ,
                 'recipient' => $ticket->creator,
                 'status' => 'pending',
                 'filename' => $fileName]);
             
             if($conversation){
+              $pcndata = Pcn::where('pcn',$ticket->pcn)->first();  
+              $creator_detail = Employee::where('user_id',$ticket->creator)->first();
+              $sender_detail = Employee::where('user_id', $request->user_id)->first();
 
-              $subject = "Ticket Completed : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn;
+              $subject = "Ticket Completed : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn." - ".$pcndata->brand;;
 
-              $body = "The Ticket No. ".$request->ticket_no." is Completed ";
-              $ticketarray = ['ticket_no' => $request->ticket_no ];
+              $body = "The Ticket No : ".$ticket->ticket_no." is completed by ".$sender_detail->name." - ".$sender_detail->employee_id.". Completed Comments : ".$request->message;
 
-              $emailarray = User::select('email')->where('id',$ticket->creator)->orWhere('role_id','2')->get();
+               $ticketarray = [
+                  'ticket_no' => $request->ticket_no , 
+                  'owner' => $creator_detail->email , 
+                  'body'=> $body , 
+                  'assigned_to' => 'All' , 
+                  'action' => 'Completed'];
+
+              $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','6','7','8','10','11'])->get();
 
                    foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;
@@ -802,19 +800,11 @@ class TicketController extends Controller
                'status' => $request->action ,'comments' =>$request->message]);
 
              if($updateticket){
+                SendTicketUpdatesEmail::dispatch($ticketarray , $subject , $emailid) ; 
 
-                try {
-                      Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
-                    } catch (\Exception $e) {
-                        return $e->getMessage();
-                       
-                    } 
-                    finally {
-                     
-                     return response()->json([
+                return response()->json([
                         'status' => 1 ,
-                        'message' => 'Ticket Updated Successfully']);
-                    }     
+                        'message' => 'Ticket Updated Successfully']);   
                     
                 
              }
@@ -847,35 +837,36 @@ class TicketController extends Controller
                         ]);  
 
             if($conversation){
+            $pcndata = Pcn::where('pcn',$ticket->pcn)->first();
+            $creator_detail = Employee::where('user_id',$ticket->creator)->first();
+            $sender_detail = Employee::where('user_id', $request->user_id)->first();
                
-              $subject = "Ticket Resolved : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn;
+              $subject = "Ticket Resolved : " .$ticket->ticket_no." - ".$ticket->category ." - ".$ticket->pcn." - ".$pcndata->brand;
 
-              $body = "The Ticket No. ".$request->ticket_no." is Resolved ";
-              $ticketarray = ['ticket_no' => $request->ticket_no ];
+              $body = "The Ticket No : ".$ticket->ticket_no." is resolved by ".$sender_detail->name." - ".$sender_detail->employee_id;
+
+               $ticketarray = ['ticket_no' => $request->ticket_no,
+                'owner' => $creator_detail->email , 
+                'body'=> $body , 
+                'assigned_to' => 'All' , 
+                'action' => 'Resolved' ];
+
               
-              $emailarray = User::select('email')->orWhere('role_id','1')->get();
+              $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','6','7','8','10','11'])->get();
 
                    foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;
                    }
+
               $updateticket = Ticket::where('id',$ticket->id)->update([
                'status' => $request->action , 'comments' =>$request->message]);
 
               if($updateticket){
+               SendTicketUpdatesEmail::dispatch($ticketarray , $subject , $emailid) ; 
 
-                try {
-                      Mail::to($emailid)->send(new TicketDetailsMail($ticketarray , $subject , $body));
-                    } catch (\Exception $e) {
-                        return $e->getMessage();
-                       
-                    } 
-                    finally {
-                     
-                     return response()->json([
+               return response()->json([
                         'status' => 1 ,
                         'message' => 'Ticket Updated Successfully']);
-                    }     
-                    
                 
              }
              else {

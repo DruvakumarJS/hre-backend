@@ -8,16 +8,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\TicketsMail;
+use App\Mail\TicketDetailsMail;
 use Mail;
 
-class SendTicketEmail implements ShouldQueue
+
+class SendTicketUpdatesEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $ticketarray;
     protected $subject;
     protected $emailid;
-
     /**
      * Create a new job instance.
      *
@@ -37,9 +37,15 @@ class SendTicketEmail implements ShouldQueue
      */
     public function handle()
     {
-       // print_r($this->emailid); die();
-        Mail::to($this->emailid)->send(new TicketsMail($this->ticketarray,$this->subject));
-        //Mail::to('druva@netiapps.com')->send(new TicketsMail($this->ticketarray,$this->subject));
-
+      $ticketarray = $this->ticketarray ;
+       
+       if($ticketarray['action'] == 'assign' || $ticketarray['action'] == 'Completed' || $ticketarray['action'] == 'Resolved'){
+           Mail::to($this->emailid)->cc($ticketarray['owner'])->send(new TicketDetailsMail($this->ticketarray,$this->subject));
+       }
+       else{
+          Mail::to($this->emailid)->send(new TicketDetailsMail($this->ticketarray,$this->subject));
+       }
+        
+       // Mail::to('druva@netiapps.com')->send(new TicketDetailsMail($this->ticketarray,$this->subject));
     }
 }

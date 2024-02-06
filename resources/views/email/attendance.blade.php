@@ -30,26 +30,36 @@
        
         <!-- Wrap the content of your PDF inside a main tag -->
         <main style="padding: 30px;margin-top: 20px;">
-            <label style="margin-top: 20px;">Hi ,Please find the attendance details</label>
+                  <label style="margin-top: 20px;">Dear All,</label>
+
                   <div style="margin-top: 20px;">
-                     <label>Employee name : </label> <label class="label-bold">{{$attendance['name']}}</label>
-                  </div>
-                   <div style="margin-top: 20px;">
-                     <label>Employee ID : </label> <label class="label-bold">{{$attendance['employee_id']}}</label>
-                  </div>
-                   <div style="margin-top: 20px;">
-                     <label class="label-bold">{{$attendance['body']}}</label> 
+                    <label>Please note the attendance logout time is modified or out of office is marked.</label>
                   </div>
 
                   <div style="margin-top: 20px;">
-                     <label>Edited by</label> <label class="label-bold">{{$attendance['editor_name']}} - {{$attendance['editor_id']}}</label> 
+                     <label>Employee name : </label> <label class="label-bold">{{$attendancearray['name']}}</label>
+                  </div>
+                   <div style="margin-top: 10px;">
+                     <label>Employee ID : </label> <label class="label-bold">{{$attendancearray['employee_id']}}</label>
+                  </div>
+                   <div style="margin-top: 10px;">
+                     <label >{{$attendancearray['body']}}</label> 
+                  </div>
+
+                  <div style="margin-top: 20px;">
+                     <label>The above details are Edited by</label> <label class="label-bold">{{$attendancearray['editor_name']}} - {{$attendancearray['editor_id']}}</label> 
                   </div>
                   @php
                     $domain = url('/');
                   @endphp
             
                                     
-                  <label class="label-bold" style="margin-top: 20px;">For more details visit : {{$domain}}/employee-history/{{$attendance['employee_id']}}</label>
+                  <label class="label-bold" style="margin-top: 20px;">For more details visit : {{$domain}}/employee-history/{{$attendancearray['employee_id']}}</label>
+                  
+                  <div style="margin-top: 20px;">
+                     <label  >Important Note: Do notify / escalate immediately if any discrepancy</label>
+                  </div>
+                 
                  
         </main>
     </body>
