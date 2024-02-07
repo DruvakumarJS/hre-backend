@@ -182,7 +182,7 @@ class TicketController extends Controller
             if(sizeof($ticket_convers) > 0){
             $tickets = Ticket::whereIn('id', $ids)
             ->orWhereIn('creator',$userIDs)
-            ->orWhere('creator', Auth::user()->id)
+            ->orWhere('creator', $request->user_id)
             ->orderby('id' , 'DESC')->paginate(25);
             }
              else{
@@ -212,7 +212,7 @@ class TicketController extends Controller
             if(sizeof($ticket_convers) > 0){
             $tickets = Ticket::whereIn('id', $ids)
             ->orWhereIn('creator',$userIDs)
-            ->orWhere('creator', Auth::user()->id)
+            ->orWhere('creator', $request->user_id)
             ->orderby('id' , 'DESC')->paginate(25);
             }
              else{
@@ -242,7 +242,7 @@ class TicketController extends Controller
             if(sizeof($ticket_convers) > 0){
             $tickets = Ticket::whereIn('id', $ids)
             ->orWhereIn('creator',$userIDs)
-            ->orWhere('creator', Auth::user()->id)
+            ->orWhere('creator', $request->user_id)
             ->orderby('id' , 'DESC')->paginate(25);
             }
              else{
