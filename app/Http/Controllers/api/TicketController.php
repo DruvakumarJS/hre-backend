@@ -182,11 +182,14 @@ class TicketController extends Controller
             if(sizeof($ticket_convers) > 0){
             $tickets = Ticket::whereIn('id', $ids)
             ->orWhereIn('creator',$userIDs)
-            ->orWhere('creator', $request->user_id)
+            ->orWhere('assigned_to', $request->user_id)
             ->orderby('id' , 'DESC')->paginate(25);
             }
              else{
-                 $tickets = Ticket::whereIn('creator',$userIDs)->orWhere('creator', $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->paginate(25);
+                 $tickets = Ticket::whereIn('creator',$userIDs)
+                 ->orWhere('assigned_to', $request->user_id)
+                 ->orderby('id' , 'DESC')
+                 ->paginate(25);
             } 
 
 
@@ -212,11 +215,14 @@ class TicketController extends Controller
             if(sizeof($ticket_convers) > 0){
             $tickets = Ticket::whereIn('id', $ids)
             ->orWhereIn('creator',$userIDs)
-            ->orWhere('creator', $request->user_id)
+            ->orWhere('assigned_to', $request->user_id)
             ->orderby('id' , 'DESC')->paginate(25);
             }
              else{
-                 $tickets = Ticket::whereIn('creator',$userIDs)->orWhere('creator', $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->paginate(25);
+                 $tickets = Ticket::whereIn('creator',$userIDs)
+                 ->orWhere('assigned_to', $request->user_id)
+                 ->orderby('id' , 'DESC')
+                 ->paginate(25);
             } 
 
 
@@ -242,11 +248,14 @@ class TicketController extends Controller
             if(sizeof($ticket_convers) > 0){
             $tickets = Ticket::whereIn('id', $ids)
             ->orWhereIn('creator',$userIDs)
-            ->orWhere('creator', $request->user_id)
+            ->orWhere('assigned_to', $request->user_id)
             ->orderby('id' , 'DESC')->paginate(25);
             }
              else{
-                 $tickets = Ticket::whereIn('creator',$userIDs)->orWhere('creator', $request->user_id)->orWhere('assigned_to', $request->user_id)->orderby('id' , 'DESC')->paginate(25);
+                 $tickets = Ticket::whereIn('creator',$userIDs)
+                 ->orWhere('assigned_to', $request->user_id)
+                 ->orderby('id' , 'DESC')
+                 ->paginate(25);
             } 
 
 
