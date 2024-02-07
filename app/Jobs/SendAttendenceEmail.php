@@ -38,7 +38,7 @@ class SendAttendenceEmail implements ShouldQueue
     public function handle()
     {
         $att = $this->attendancearray ;
-         Mail::to($this->emailid)->cc($att['employee_email'])->send(new AttendanceMail($this->attendancearray,$this->subject));
+         Mail::to($this->emailid)->cc($att['employee_email'])->send(new AttendanceMail($this->subject , $this->attendancearray));
         // Mail::to('druva@netiapps.com')->send(new AttendanceMail($this->subject , $this->attendancearray));
     }
 }
