@@ -54,7 +54,7 @@
                   @endphp
             
                                     
-                  <label class="label-bold" style="margin-top: 20px;">For more details visit : {{$domain}}/employee-history/{{$attendancearray['employee_id']}}</label>
+                  <label class="label-bold" style="margin-top: 20px;">For more details visit : {{$domain}}/employee-history/{{$attendancearray['user_id']}}</label>
                   
                   <div style="margin-top: 20px;">
                      <label  >Important Note: Do notify / escalate immediately if any discrepancy</label>

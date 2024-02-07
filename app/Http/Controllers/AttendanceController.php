@@ -421,7 +421,8 @@ class AttendanceController extends Controller
                      'editor_name' => $editor->name,
                      'editor_id' => $editor->employee_id,
                      'employee_email' => $empl->email,
-                     'body' => $body];
+                     'body' => $body,
+                     'user_id' => $request->id];
 
          $emailarray = User::select('email')->whereIn('role_id',['1','2','6','9'])->get();
 
