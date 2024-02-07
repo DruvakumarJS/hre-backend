@@ -200,7 +200,7 @@
 
                                 <div class="dropdown">
 
-                                    <a href="{{route('settings')}}" data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-right: 10px;"> </a>
+                                    <a href="{{route('settings')}}" data-bs-toggle="dropdown" aria-expanded="true"> <img class="circle" src="{{asset('images/settings.svg')}}" style="width: 20px;height: 20px;margin-right: 10px;margin-left: 10px;"> </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <!-- <li><a class="dropdown-item" href="{{route('users')}}">User Master</a></li> -->
                                        @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 6 OR auth::user()->role_id == 9)

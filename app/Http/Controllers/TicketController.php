@@ -62,7 +62,20 @@ class TicketController extends Controller
               
             }
 
-            $tickets = Ticket::whereIn('creator',$userIDs)->orderby('id' , 'DESC')->paginate(25);
+            $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)->groupBy('ticket_id')->get();
+            foreach ($ticket_convers as $key => $value) {
+             $ids[]=$value->ticket_id;
+              }
+             // print_r($ids); die();
+            if(sizeof($ticket_convers) > 0){
+            $tickets = Ticket::whereIn('id', $ids)
+            ->orWhereIn('creator',$userIDs)
+            ->orWhere('creator', Auth::user()->id)
+            ->orderby('id' , 'DESC')->paginate(25);
+            }
+             else{
+                 $tickets = Ticket::whereIn('creator',$userIDs)->orWhere('creator', Auth::user()->id)->orWhere('assigned_to', Auth::user()->id)->orderby('id' , 'DESC')->paginate(25);
+            } 
 
 
       }
@@ -79,7 +92,20 @@ class TicketController extends Controller
               
             }
 
-            $tickets = Ticket::whereIn('creator',$userIDs)->orderby('id' , 'DESC')->paginate(25);
+            $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)->groupBy('ticket_id')->get();
+            foreach ($ticket_convers as $key => $value) {
+             $ids[]=$value->ticket_id;
+              }
+             // print_r($ids); die();
+            if(sizeof($ticket_convers) > 0){
+            $tickets = Ticket::whereIn('id', $ids)
+            ->orWhereIn('creator',$userIDs)
+            ->orWhere('creator', Auth::user()->id)
+            ->orderby('id' , 'DESC')->paginate(25);
+            }
+             else{
+                 $tickets = Ticket::whereIn('creator',$userIDs)->orWhere('creator', Auth::user()->id)->orWhere('assigned_to', Auth::user()->id)->orderby('id' , 'DESC')->paginate(25);
+            } 
 
 
       }
@@ -96,7 +122,23 @@ class TicketController extends Controller
               
             }
 
-            $tickets = Ticket::whereIn('creator',$userIDs)->orderby('id' , 'DESC')->paginate(25);
+            $ticket_convers=TicketConversation::select('ticket_id')->where('recipient', Auth::user()->id)->groupBy('ticket_id')->get();
+            foreach ($ticket_convers as $key => $value) {
+             $ids[]=$value->ticket_id;
+              }
+             // print_r($ids); die();
+            if(sizeof($ticket_convers) > 0){
+            $tickets = Ticket::whereIn('id', $ids)
+            ->orWhereIn('creator',$userIDs)
+            ->orWhere('creator', Auth::user()->id)
+            ->orderby('id' , 'DESC')->paginate(25);
+            }
+             else{
+                 $tickets = Ticket::whereIn('creator',$userIDs)->orWhere('creator', Auth::user()->id)->orWhere('assigned_to', Auth::user()->id)->orderby('id' , 'DESC')->paginate(25);
+            } 
+
+
+           /* $tickets = Ticket::whereIn('creator',$userIDs)->orWhere('assigned_to',auth::user()->id)->orderby('id' , 'DESC')->paginate(25);*/
 
 
       }
