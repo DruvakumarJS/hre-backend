@@ -1256,8 +1256,8 @@ class TicketController extends Controller
              }
              else{
               
-                 $tickets = Ticket::where(function($query){
-                    $query->where('creator' , Auth::user()->id);
+                 $tickets = Ticket::where(function($query)use($userIDs){
+                    $query->whereIn('creator',$userIDs);
                     $query->orWhere('assigned_to' ,Auth::user()->id);
                  })
                  ->where(function($query)use($search){
@@ -1330,8 +1330,8 @@ class TicketController extends Controller
              }
              else{
               
-                 $tickets = Ticket::where(function($query){
-                    $query->where('creator' , Auth::user()->id);
+                 $tickets = Ticket::where(function($query)use($userIDs){
+                    $query->whereIn('creator',$userIDs);
                     $query->orWhere('assigned_to' ,Auth::user()->id);
                  })
                  ->where(function($query)use($search){
@@ -1376,6 +1376,7 @@ class TicketController extends Controller
               $ids[]=$value->ticket_id;
 
             }
+            
 
             if(sizeof($ticket_convers) > 0){
 
@@ -1404,8 +1405,8 @@ class TicketController extends Controller
              }
              else{
               
-                 $tickets = Ticket::where(function($query){
-                    $query->where('creator' , Auth::user()->id);
+                 $tickets = Ticket::where(function($query)use($userIDs){
+                    $query->whereIn('creator',$userIDs);
                     $query->orWhere('assigned_to' ,Auth::user()->id);
                  })
                  ->where(function($query)use($search){
