@@ -607,10 +607,10 @@
                       <input class="form-control" type="text"  value="{{$value4->email}}" required="required" name="hre[{{$key4}}][email]" >
                     </div>
                     <div class="col-md-2">
-                      <input class="form-control" type="date"  value="{{$value4->start_date}}" required="required" name="hre[{{$key4}}][start]">
+                      <input class="form-control" type="date"  value="{{$value4->start_date}}"  name="hre[{{$key4}}][start]">
                     </div>
                     <div class="col-md-2">
-                      <input class="form-control" type="date"  value="{{$value4->end_date}}" required="required" name="hre[{{$key4}}][end]">
+                      <input class="form-control" type="date"  value="{{$value4->end_date}}"  name="hre[{{$key4}}][end]">
                     </div>
                     
 
@@ -694,11 +694,11 @@
                     </div>
                     <div class="col-md-3">
                       <label class="label-bold">Start Date</label>
-                      <input class="form-control" type="date"  value="{{$value5->start_date}}" required="required" name="vendor[{{$key5}}][start]">
+                      <input class="form-control" type="date"  value="{{$value5->start_date}}"  name="vendor[{{$key5}}][start]">
                     </div>
                     <div class="col-md-3">
                       <label class="label-bold">End Date</label>
-                      <input class="form-control" type="date"  value="{{$value5->end_date}}" required="required" name="vendor[{{$key5}}][end]">
+                      <input class="form-control" type="date"  value="{{$value5->end_date}}"  name="vendor[{{$key5}}][end]">
                     </div>
 
                    </div>
@@ -1060,7 +1060,7 @@ function populateinputs(item_code , name ,  brand , info , uom){
   
   // console.log('INOF==',inform);
 
-  $('#container').append('<div class="row " id="row" style="padding:20px"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" ></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" value="'+ brand +'" required ></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" ></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" ></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]"  required></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  required></div> <div class="col-md-1"><i class="fa fa-trash remove-hre-field" style="color: red"></i></div> </div>') ;
+  $('#container').append('<div class="row " id="row" style="padding:20px"> <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][name]"  value="'+ item_code +'" ></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][designation]" value="'+ brand +'" required ></div><div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][contact]"  value="'+ info +'" ></div>  <div class="col-md-2"><input class="form-control" type="text" name="hre['+ i +'][email]" value="'+ uom +'" ></div><div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][start]" ></div> <div class="col-md-2"><input class="form-control" type="date" name="hre['+ i +'][end]"  ></div> <div class="col-md-1"><i class="fa fa-trash remove-hre-field" style="color: red"></i></div> </div>') ;
 
 
   setTimeout(function(){
@@ -1165,7 +1165,7 @@ function populatevendorinputs(item_code , name ,  brand ){
   } 
   var i=$("#vendor_length").val();
 
-  $('#container_vendor').append('<div class="row align-items-end div-margin"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]" required><option value="">Select</option>@foreach($headings as $key=>$value)<option value="{{$value->headings}}">{{$value->headings}}</option>@endforeach</select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" value="'+ item_code +'"  required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" value="'+ name +'"  required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" value="'+ brand +'"  required="required" placeholder="mobile"></div>  </div><div class="row align-items-end"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]"minlength="10" maxlength="10" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]" required="required" ></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]" required="required"></div><div class="col-md-1"><i class="fa fa-trash remove-vendor-field" style="color: red"></i></div> </div>') ;
+  $('#container_vendor').append('<div class="row align-items-end div-margin"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]" required><option value="">Select</option>@foreach($headings as $key=>$value)<option value="{{$value->headings}}">{{$value->headings}}</option>@endforeach</select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" value="'+ item_code +'"  required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" value="'+ name +'"  required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" value="'+ brand +'"  required="required" placeholder="mobile"></div>  </div><div class="row align-items-end"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]"minlength="10" maxlength="10" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]"></div><div class="col-md-1"><i class="fa fa-trash remove-vendor-field" style="color: red"></i></div> </div>') ;
 
   setTimeout(function(){
   adjustHeight(this);       
