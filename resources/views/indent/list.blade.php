@@ -107,7 +107,7 @@
                                   <a onclick="return confirm('Are you sure to download?')" href="{{route('export_indent',$value->id)}}" style="margin-left: 10px; color: black"><i class='fa fa-download'></i></a>
                                   <input type="checkbox" id="check" name="check" value="{{$value->id}}">
 
-                                  <a href="{{route('delete_indent',$value->id)}}"><button class="btn btn-light curved-text-button btn-sm">Delete</button></a>
+                                 <!--  <a href="{{route('delete_indent',$value->id)}}"><button class="btn btn-light curved-text-button btn-sm">Delete</button></a> -->
 
                                 </td>
                                 
