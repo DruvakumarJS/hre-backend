@@ -161,6 +161,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('filter_materials', [IntendController::class,'filter_materials'])->name('filter_materials');
     Route::post('trigger-settlement', [IntendController::class,'trigger_settlement'])->name('trigger_settlement');
     Route::post('settle-indent', [IntendController::class,'settle_indent'])->name('settle_indent');
+    Route::get('delete-indent/{id}', [IntendController::class,'destroy_indent'])->name('delete_indent');
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');
     Route::get('generate-pdf', [HomeController::class, 'generatePDF'])->name('pdf');

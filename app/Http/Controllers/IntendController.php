@@ -510,6 +510,16 @@ class IntendController extends Controller
      * @param  \App\Models\Intend  $intend
      * @return \Illuminate\Http\Response
      */
+
+    public function destroy_indent($id)
+    {
+        $delete = Intend::where('id', $id)->delete();
+
+        if($delete){
+          return redirect()->back();
+        }
+    }
+
     public function destroy($id)
     {
         $delete = GRN::where('id', $id)->delete();

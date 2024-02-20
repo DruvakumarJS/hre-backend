@@ -64,10 +64,10 @@ class HomeController extends Controller
 
              foreach ($Pcn as $key => $value) {
                 
-                 $Indents = Intend::where('pcn',$value->pcn)->count();
+                 $Indents = Intend::where('pcn',$value->pcn)->where('status','Active')->count();
 
                  if($Indents > 0){
-                     $result[$value->client_name][$value->pcn][] = $Indents; 
+                     $result[$value->brand][$value->pcn][] = $Indents; 
                  }
 
              }

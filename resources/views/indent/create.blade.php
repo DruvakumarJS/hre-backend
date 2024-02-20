@@ -115,13 +115,13 @@
     
       <div id = "dynamic_form" style="display: none">
 
-        <form method="post" action="{{route('save_indent')}}">
+        <form id="form" method="post" action="{{route('save_indent')}}">
           @csrf
            <label class="div-margin label-bold">Selected Items</label>
          
            <div id="container"></div>
            <input type="hidden" name="pcn" id="pcns" required>
-           <button class="btn btn-danger div-margin" id="btn_submit" style="display: none">Submit</button>
+           <button class="btn btn-danger div-margin" id="btn_submit" type="submit" style="display: none">Submit</button>
           
         </form>
         
@@ -380,6 +380,15 @@ word-wrap:break-word
         };
     });
 </script>
+
+<script>
+$(document).ready(function() {
+    $(document).on('submit', 'form', function() {
+        $('button').attr('disabled', 'disabled');
+    });
+});
+</script>
+
 
 
 
