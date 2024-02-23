@@ -271,7 +271,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-4 col-form-label label-bold">DLP End Date </label>
                 <div class="col-8 " >
-                  <input  class="form-control" type="date" name="dlp_end_date" required="required" value="{{$data->dlp_end_date}}"  placeholder="DLP End Date" >
+                  <input  class="form-control" type="date" name="dlp_end_date" value="{{$data->dlp_end_date}}"  placeholder="DLP End Date" >
                 </div>
               </div>
             
