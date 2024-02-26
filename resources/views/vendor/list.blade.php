@@ -9,8 +9,7 @@
 </style>
 
 <div class="container">
-    <div class="row justify-content-center">
-      
+    
       <div class="container-header">
             <label class="label-bold" id="div1">Vendors</label>
           @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11)  
@@ -51,14 +50,9 @@
         @endif
 
     </div>
-       
-
-    </div>
-
-
-    <div class="page-container">
-    	<div class="div-margin">
-
+    
+    <div class="row">
+    	
     		 <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
                         <table class="table">
@@ -123,10 +117,9 @@
                         
                     </div>
     		
-    	</div>
     	
     </div>
   </div>
-</div>
+
 
 @endsection

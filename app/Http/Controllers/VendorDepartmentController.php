@@ -45,6 +45,11 @@ class VendorDepartmentController extends Controller
     {
        // print_r($request->Input()); die();
 
+      if(VendorDepartment::where('vid_id',$request->vid)->exists()){
+ 
+           return redirect()->back()->withMessage('Please check the VID .It already exists')->withInput();
+        }
+
         if(VendorDepartment::where('gst',$request->gst)->exists()){
  
            return redirect()->back()->withMessage('Please check the GST number . It already exists')->withInput();
