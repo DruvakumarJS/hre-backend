@@ -173,28 +173,28 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual Start Date </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="date" name="actual_start_date" required="required" value="{{$data->actual_start_date}}"  placeholder="PCN " >
+                        <input  class="form-control" type="date" name="actual_start_date"  value="{{$data->actual_start_date}}"  placeholder="PCN " >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Actual End Date </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="date" name="actual_end_date" required="required" value="{{$data->actual_end_date}}"  placeholder="Billing Name " >
+                        <input  class="form-control" type="date" name="actual_end_date"  value="{{$data->actual_end_date}}"  placeholder="Billing Name " >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Holidays & Project Hold Days </label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="Number" name="hold_days_no" required="required" value="{{$data->hold_days_no}}"  placeholder="Holidays and Hold Count" >
+                        <input  class="form-control" type="Number" name="hold_days_no"  value="{{$data->hold_days_no}}"  placeholder="Holidays and Hold Count" >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Dates</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="hold_dates" required="required" value="{{$data->hold_dates}}"  placeholder="Holiday & Project Hold Dates" >
+                        <input  class="form-control" type="text" name="hold_dates"  value="{{$data->hold_dates}}"  placeholder="Holiday & Project Hold Dates" >
                       </div>
                     </div>
 
