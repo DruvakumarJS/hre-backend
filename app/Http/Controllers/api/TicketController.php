@@ -623,6 +623,8 @@ class TicketController extends Controller
                 'filename' => $fileName,
                 'priority' => $request->priority,
                 'status' => $request->status ,
+                'comments' => $request->comment,
+                'assigner' => $request->user_id,
             ]);
 
             
@@ -633,6 +635,8 @@ class TicketController extends Controller
                 'issue' => $request->issue,
                 'priority' => $request->priority,
                 'status' => $request->status ,
+                'comments' => $request->comment,
+                'assigner' => $request->user_id,
                 
             ]);
 

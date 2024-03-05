@@ -354,7 +354,8 @@ class TicketController extends Controller
     {
         $tickets = Ticket::where('ticket_no', $id)->first();
         $supervisor = User::get();
-        return view('ticket/edit', compact('tickets' , 'supervisor'));
+        $category=TicketDepartment::get(); 
+        return view('ticket/edit', compact('tickets' , 'supervisor','category'));
     }
 
     /**
@@ -366,7 +367,7 @@ class TicketController extends Controller
      */
     public function update(Request $request)
     {
-       // print_r($request->Input());die();
+        print_r($request->Input());die();
         $ticket = Ticket::where('id',$request->id)->first();
         $pcn_data = Pcn::where('pcn', $ticket->pcn)->first();
 
@@ -399,11 +400,13 @@ class TicketController extends Controller
          if(($request->status) == 'Created' && $request->hasFile('image')){
 
              $update = Ticket::where('id',$request->id)->update([
+                    'category' => $request->subject ,
                     'issue' => $request->issue ,
                     'status' => $request->status,
                     'comments' => $request->comment,
                     'assigner' => $request->assigner,
                     'filename' => $imageNames,
+                    'priority' => $request->priority,
                      ]);
          }
          
@@ -412,10 +415,12 @@ class TicketController extends Controller
            
            
              $update = Ticket::where('id',$request->id)->update([
+                    'category' => $request->subject ,
                     'issue' => $request->issue ,
                     'status' => $request->status,
                     'comments' => $request->comment,
-                    'assigner' => $request->assigner
+                    'assigner' => $request->assigner,
+                    'priority' => $request->priority,
                      ]);
         }
 

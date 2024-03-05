@@ -36,7 +36,15 @@
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Department </label>
                             <div class="col-7">
-                                <input name="pcn" id="subject" type="subject" class="typeahead form-control" required="required" value="{{$tickets->category}}" <?php echo($tickets->creator == Auth::user()->id)? '':'readonly' ?> >
+                               @if($tickets->creator == Auth::user()->id)
+                                <select class="form-control form-select" name="subject" id="subject" >
+                                @foreach($category as $key=>$value)
+                                    <option <?php echo($tickets->category == $value->department)? 'selected':'' ?>  value="{{$value->department}}" >{{$value->department}}</option>
+                                @endforeach
+                                </select>
+                               @else
+                                 <input name="subject" id="subject" type="subject" class="typeahead form-control" required="required" value="{{$tickets->category}}" <?php echo($tickets->creator == Auth::user()->id)? '':'readonly' ?> >
+                               @endif 
                                
                             </div>
                         </div>
