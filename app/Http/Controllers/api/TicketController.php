@@ -621,7 +621,8 @@ class TicketController extends Controller
                 'category' => $request->subject ,
                 'issue' => $request->issue,
                 'filename' => $fileName,
-                'priority' => $request->priority
+                'priority' => $request->priority,
+                'status' => $request->status ,
             ]);
 
             
@@ -630,7 +631,8 @@ class TicketController extends Controller
             $update_ticket = Ticket::where('ticket_no', $request->ticket_no)->update([
                 'category' => $request->subject ,
                 'issue' => $request->issue,
-                'priority' => $request->priority
+                'priority' => $request->priority,
+                'status' => $request->status ,
                 
             ]);
 
