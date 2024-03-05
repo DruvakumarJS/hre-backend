@@ -367,7 +367,7 @@ class TicketController extends Controller
      */
     public function update(Request $request)
     {
-        print_r($request->Input());die();
+        //print_r($request->Input());die();
         $ticket = Ticket::where('id',$request->id)->first();
         $pcn_data = Pcn::where('pcn', $ticket->pcn)->first();
 
