@@ -1651,6 +1651,7 @@ class TicketController extends Controller
                     'priority' => $value->priority,
                     'filepath' => url('/').'/ticketimages/',
                     'status' => $value->status,
+                    'comments' => $value->comments,
                     'created_on' => $value->created_at->toDateTimeString(),
                     'filename' => ($images)];
          } 
