@@ -37,7 +37,7 @@ class PettycashController extends Controller
            
                 $data = PettycashOverview::with(['details' => function ($query) {
                     $query->where('isapproved', '=', 0);
-                }])->orderBy('id', 'DESC')->paginate();
+                }])->orderBy('id', 'DESC')->paginate(25);
                
                }
 
@@ -45,7 +45,7 @@ class PettycashController extends Controller
             $data = PettycashOverview::where('user_id',Auth::user()->id)
                      ->with(['details' => function ($query) {
                             $query->where('isapproved', '=', 0);
-                        }])->orderBy('id', 'DESC')->paginate(10);
+                        }])->orderBy('id', 'DESC')->paginate(25);
 
         
          }
@@ -447,7 +447,7 @@ class PettycashController extends Controller
             })
         ->with(['details' => function ($query) {
             $query->where('isapproved', '=', 0);
-        }])->orderBy('id', 'DESC')->paginate();
+        }])->orderBy('id', 'DESC')->paginate(25)->withQueryString();
          
          return view('pettycash/list', compact('data'));
     }

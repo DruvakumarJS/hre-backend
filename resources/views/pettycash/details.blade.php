@@ -287,7 +287,7 @@ $(document).ready(function(){
 
               @foreach($revertNames as $key2=>$value2)
                @if(str_contains($value2, ".pdf"))
-                <img class="imagen" id="blah" src="{{ URL::to('/') }}/images/pdf.png" alt="ticketimage" style="width: 100px;height: 100px;margin: 10px" />
+                <img class="imagen" id="blah" src="{{ URL::to('/') }}/images/pdf.png" alt="pettycashproof" style="width: 100px;height: 100px;margin: 10px" />
                @else
                <img class="imagen" id="blah" src="{{ URL::to('/') }}/pettycashfiles/{{$value2}}" alt="ticketimage" style="width: 400px;height: 250px" />
                @endif

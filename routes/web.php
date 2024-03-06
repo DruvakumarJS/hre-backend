@@ -221,7 +221,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('view-summary/{id}',[PettycashController::class,'summary'])->name('view_summary');
     Route::post('summary',[PettyCashDetailController::class,'fetch_summary'])->name('fetch_summary');
     Route::get('download_bills/{id}',[PettyCashDetailController::class,'download_bills'])->name('download_bills');
-    Route::post('search_pettycash',[PettycashController::class,'search'])->name('search_pettycash');
+    Route::get('search_pettycash',[PettycashController::class,'search'])->name('search_pettycash');
     Route::get('pettycash_approval_reminder/{id}',[PettyCashDetailController::class,'reminder'])->name('pettycash_approval_reminder');
     Route::post('search_bill',[PettyCashDetailController::class,'search_bill'])->name('search_bills');
     Route::post('revert_bill_status',[PettyCashDetailController::class,'revert_bill_status'])->name('revert_bill_status');
