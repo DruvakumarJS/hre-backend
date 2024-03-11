@@ -42,7 +42,7 @@ class HistogramController extends Controller
         }
        
 
-        $data =Histogram_billing_details::whereNotNull('pcn')->get(); 
+        $data =Histogram_billing_details::whereNotNull('pcn')->orderByRaw("LENGTH(pcn) DESC")->orderBy('pcn', 'desc')->get(); 
 
         $search = '';
         $search2 = '';
@@ -562,6 +562,7 @@ class HistogramController extends Controller
 
             $empl = Employee::where('user_id',Auth::user()->id)->first();
             $empl_id = $empl->employee_id;
+            $empli_name = $empl->name ; 
             $pcn  = $request->pcn ;
             $empl_mail  = $empl->email ;
             $name = $data->user->name ;
@@ -578,7 +579,7 @@ class HistogramController extends Controller
                  
                }
 
-            GeneratePdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name , $alias , $subject , $emailid);
+            GeneratePdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id , $empli_name,$pcn ,$empl_mail ,$name , $alias , $subject , $emailid);
 
             $histogram = Histogram_billing_details::where('id',$request->histogram_id)->first();
             $history = HistogramHistory::create([
@@ -616,7 +617,8 @@ class HistogramController extends Controller
         $land = HistogramLandlordDetails::where('histogram_billing_id' ,$id)->get();
         $hre = HreDetail::where('histogram_billing_id' ,$id)->get();
         $vendor = VendorDetail::where('histogram_billing_id' ,$id)->get();
-         $headings  = VendorHeadings::get();
+        $headings  = VendorHeadings::get();
+        
     //print_r(json_encode($client));die();
         return view('histogram/update_form',compact('data','client','arch','land','hre','vendor' ,'id','headings'));
         
@@ -765,7 +767,7 @@ class HistogramController extends Controller
             $empl_id = $empl->employee_id;
             $pcn  = $request->pcn ;
             $empl_mail  = $empl->email ;
-            $name = $data->user->name ;
+            $name = $empl->name ;
             $alias = $data->user->roles->alias;
 
            // print_r('email is '.$empl_mail); die();
@@ -842,7 +844,7 @@ class HistogramController extends Controller
         }
         elseif($search == '' && $search2 != ''){
             // print_r("222"); die();
-             $data =Histogram_billing_details::whereNotNull('pcn')->get();
+             $data =Histogram_billing_details::whereNotNull('pcn')->orderByRaw("LENGTH(pcn) DESC")->orderBy('pcn', 'desc')->get();
 
              $histogram =Histogram_billing_details::whereNull('pcn')
               ->where(function($query)use($search2){
@@ -852,6 +854,7 @@ class HistogramController extends Controller
                     $query->orWhere('area','LIKE','%'.$search2.'%');
                     $query->orWhere('city','LIKE','%'.$search2.'%');
                     $query->orWhere('state','LIKE','%'.$search2.'%');
+                    $query->orWhere('id','LIKE','%'.$search2.'%');
                  })
             
             ->get(); 
@@ -872,8 +875,10 @@ class HistogramController extends Controller
                     $query->orWhere('area','LIKE','%'.$search.'%');
                     $query->orWhere('city','LIKE','%'.$search.'%');
                     $query->orWhere('state','LIKE','%'.$search.'%');
+                    $query->orWhere('id','LIKE','%'.$search2.'%');
                  })
-            
+            ->orderByRaw("LENGTH(pcn) DESC")
+            ->orderBy('pcn', 'desc')
             ->get();   
         }
         else{

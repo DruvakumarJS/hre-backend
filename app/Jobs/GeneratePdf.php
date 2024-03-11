@@ -34,6 +34,7 @@ class GeneratePdf implements ShouldQueue
      protected $alias;
      protected $subject;
      protected $emailid;
+     protected $empli_name;
 
 
     /**
@@ -41,7 +42,7 @@ class GeneratePdf implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail,$name , $alias , $subject , $emailid)
+    public function __construct($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$empli_name ,$pcn ,$empl_mail,$name , $alias , $subject , $emailid)
     {
         $this->data = $data ;
         $this->client = $client ;
@@ -51,6 +52,7 @@ class GeneratePdf implements ShouldQueue
         $this->vendor = $vendor ;
         $this->filename = $filename ;
         $this->empl_id = $empl_id ;
+        $this->empli_name = $empli_name ;
         $this->pcn = $pcn ;
         $this->empl_mail = $empl_mail ;
         $this->name = $name ;
@@ -86,6 +88,7 @@ class GeneratePdf implements ShouldQueue
         $name = $this->name;
         $alias = $this->alias;
         $empl_id = $this->empl_id;
+        $empli_name = $this->empli_name ;
 
         $pdf = PDF::loadView('pdf/histogramPDF',compact('data','client','arch','land','hre','vendor','name','alias' ));
     
@@ -100,7 +103,7 @@ class GeneratePdf implements ShouldQueue
 
         
 
-        Mail::to($this->emailid)->cc($this->empl_mail)->send(new HistogramUpdateMail($subject , $attachment , $name , $empl_id ,$id));
+       Mail::to($this->emailid)->cc($this->empl_mail)->send(new HistogramUpdateMail($subject , $attachment , $empli_name , $empl_id ,$id));
        // Mail::to('druva@netiapps.com')->send(new HistogramUpdateMail($subject , $attachment , $name , $empl_id ,$id));
 
 

@@ -33,7 +33,7 @@
          <label>Dear All ,</label>
          <div style="margin-top: 20px;">
           <label >Please note the Histogram is Update for everyone's reference. Find the update PDF file in the attachment.</label><br/>
-          <label>The given details are Update or Edited by {{$name}} - {{$empl_id}}</label><br/>
+          <label>The given details are Update or Edited by {{$empli_name}} - {{$empl_id}}</label><br/>
          </div>
 
          @php

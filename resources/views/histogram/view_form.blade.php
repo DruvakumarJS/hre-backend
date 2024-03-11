@@ -693,14 +693,14 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Designation</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="billing_name" required="required" value="{{$data->user->roles->alias}}">
+                        <input  class="form-control" type="text" name="billing_name" required="required" value="{{$data->user->roles->alias}}" readonly>
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Date</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="gst" required="required" value="{{date('d-m-Y',strtotime($data->created_at))}}" >
+                        <input  class="form-control" type="text" name="gst" required="required" value="{{date('d-m-Y',strtotime($data->created_at))}}" readonly>
                       </div>
                     </div>
 

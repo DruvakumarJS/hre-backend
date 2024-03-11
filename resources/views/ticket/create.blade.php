@@ -239,11 +239,28 @@ $( document ).ready(function() {
         let images = ""
         imagesArray.forEach((image, index) => {
      
-          images += `<div class="image">
+         /* images += `<div class="image">
                 <img  src="${URL.createObjectURL(image)}" alt="image">
                 '<span data-indx="`+index+`" class="img-delete"><b class="remove_icon">X</b></span>'
               </div>` 
-           })
+           })*/
+           const isImage = image.type.startsWith("image/");
+           if(isImage){
+            images += `<div class="image">
+                <img  src="${URL.createObjectURL(image)}" alt="image">
+                '<span data-indx="`+index+`" class="img-delete"><b class="remove_icon">X</b></span>'
+              </div>` 
+           
+          }
+          else{
+            images += `<div class="image">
+                <img  src="{{ url('/')}}/doc.png" alt="image">
+                '<span data-indx="`+index+`" class="img-delete"><b class="remove_icon">X</b></span>'
+              </div>` 
+           
+          }
+     
+          })
         
          
         output.innerHTML = images

@@ -103,7 +103,7 @@
 
                       
                         <div class="form-group row">
-                            <label for="" class="col-5 col-form-label">Status {{$tickets->status}}</label>
+                            <label for="" class="col-5 col-form-label">Status</label>
                             <div class="col-7">
                                
                                 <select class="form-control form-select" name="status" id='status' required="required"  onchange="run()" >
@@ -142,6 +142,10 @@
 
                                      @endif
 
+                                    @endif
+
+                                    @if($tickets->status == 'Rejected')
+                                      <option value="Rejected" readonly <?php echo ($tickets->status == 'Reject') ? 'selected' : ''; ?>  >Rejected</option>
                                     @endif
 
                                     

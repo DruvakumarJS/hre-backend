@@ -735,14 +735,14 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Form Filled By </label>
                       <div class="col-9 ">
-                        <input  class="form-control" type="text" required="required" value="{{auth::user()->name}}"  placeholder="PCN " >
+                        <input  class="form-control" type="text" required="required" readonly value="{{auth::user()->name}}"  placeholder="PCN " >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Designation</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" required="required" value="{{auth::user()->roles->alias}}">
+                        <input  class="form-control" type="text" required="required" readonly value="{{auth::user()->roles->alias}}">
                       </div>
                     </div>
 
@@ -766,14 +766,14 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Verified By</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text"  >
+                        <input  class="form-control" type="text" value="{{$data->pcn_verifier->name}} - {{$data->pcn_verifier->employee_id}}" readonly >
                       </div>
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">PCN Alloted By</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text"  >
+                        <input  class="form-control" type="text" value="{{$data->pcn_verifier->name}} - {{$data->pcn_verifier->employee_id}}" readonly>
                       </div>
                     </div>
 

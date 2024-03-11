@@ -58,7 +58,11 @@ class Employee extends Model
 
       public function footprint(){
             return $this->hasMany(FootPrint::class,'user_id', 'user_id');
-        }  
+        } 
+
+       public function histogram_pcn_verifier(){
+            return $this->hasMany(Histogram_billing_details::class,'user_id', 'pcn_alloted_by');
+        }    
            
 
       

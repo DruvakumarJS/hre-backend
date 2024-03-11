@@ -2,6 +2,9 @@
 <html lang="en">
     <head>
         <style>
+           body {
+            font-family: 'Calibri', sans-serif;
+          }
             @page {
                 margin: 25px 25px;
             }
@@ -43,6 +46,9 @@
 
           }
         </style>
+
+         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Calibri:wght@400;700&display=swap">
+
     </head>
     <body>
         <!-- Define header and footer blocks before your content -->

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <style type="text/css">
+  body {
+      font-family: 'Calibri', sans-serif;
+    }
 
   table, th, td {
     border: 1px solid black;
@@ -8,7 +11,9 @@
 }
 </style>
 <head>
-  <title></title>
+
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Calibri:wght@400;700&display=swap">
+ 
 </head>
 <body>
  
@@ -441,12 +446,12 @@
       <tr style="height: 50px">
         <th width="130px">Designation</th>
         <th width="250px">{{$alias}}</th>
-        <th align="left" width="250px" style="text-align: start">Verified By </th>
+        <th align="left" width="250px" style="text-align: start">Verified By : {{$data->pcn_verifier->name}} - {{$data->pcn_verifier->employee_id}}</th>
       </tr>
       <tr style="height: 70px">
         <th width="130px">Date</th>
         <th width="250px">{{date('d-m-Y H:i')}}</th>
-        <th align="left" width="250px"style="text-align: start">PCN Alloted By </th>
+        <th align="left" width="250px"style="text-align: start">PCN Alloted By : {{$data->pcn_verifier->name}} - {{$data->pcn_verifier->employee_id}}</th>
       </tr>
       <tr style="height: 30px">
         <th width="130px">Signature</th>

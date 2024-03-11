@@ -43,6 +43,10 @@ class Histogram_billing_details extends Model
         return $this->belongsTo(User::class ,'user_id','id');
     }
 
+    public function pcn_verifier(){
+        return $this->belongsTo(Employee::class ,'pcn_alloted_by','user_id');
+    }
+
     public function client(){
         return $this->hasMany(HistogramClientDetails::class ,'histogram_billing_id','id');
     }

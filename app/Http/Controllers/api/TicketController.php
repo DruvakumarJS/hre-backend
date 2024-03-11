@@ -703,7 +703,7 @@ class TicketController extends Controller
                   $fileName = rand('111111','999999') . '.' . end($temp);
 
             $destinationPath = public_path().'/ticketimages/'.$fileName ;
-            //move($destinationPath,$fileName);
+           
             move_uploaded_file($_FILES["image"]["tmp_name"][$key], $destinationPath);
 
             $imagearray[] = $fileName ;
@@ -738,8 +738,7 @@ class TicketController extends Controller
 
               $body = "New service / compliant ticket is asigned to you. Kindly verify the ticket and do the needful";
 
-             // print_r(json_encode($recipient_detail)); die();
-              
+             
               $ticketarray = [
                  'ticket_no'=> $ticket->ticket_no,
                  'assigned_to' => $recipient_detail->name ."-".$recipient_detail->employee_id,
