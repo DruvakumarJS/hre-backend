@@ -82,7 +82,8 @@ white-space: nowrap;
                               <td>{{$value->client_name}}</td>
                               <td width="100px">{{$value->brand}}</td>
                               <td>{{$value->customer->email}}</td>
-                              <td  class="scrollable-cell">{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}</td>
+                              <td  class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+                               title="{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}">{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}</td>
                               <td>{{$value->status}}</td>
                               @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2)
                               <td >

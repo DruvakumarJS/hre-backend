@@ -43,7 +43,7 @@
      <div class="form-build">
         <div class="row">
                 <div class="col-6">
-                    <form name="myForm" >
+                    <form name="myForm" id="form" >
                         @csrf
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Project Code Number*</label>
@@ -321,7 +321,8 @@ $( document ).ready(function() {
               return;
              }
 
-             document.getElementById("submit").style.display= "none" ;
+            // document.getElementById("submit").style.display= "none" ;
+            $('button').attr('disabled', 'disabled');
 
               
                      var fd = new FormData();

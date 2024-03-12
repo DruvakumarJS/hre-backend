@@ -875,7 +875,7 @@ class HistogramController extends Controller
                     $query->orWhere('area','LIKE','%'.$search.'%');
                     $query->orWhere('city','LIKE','%'.$search.'%');
                     $query->orWhere('state','LIKE','%'.$search.'%');
-                    $query->orWhere('id','LIKE','%'.$search2.'%');
+                    $query->orWhere('id','LIKE','%'.$search.'%');
                  })
             ->orderByRaw("LENGTH(pcn) DESC")
             ->orderBy('pcn', 'desc')

@@ -61,7 +61,7 @@ output .span--hidden{
     <div class="form-build">
       <div class="row">
           <div class="col-6">
-            <form name="myForm">
+            <form name="myForm" id="form">
               @csrf
               
                         <div class="form-group row">
@@ -367,7 +367,7 @@ $.ajaxSetup({
               return;
              }
 
-              
+               $('button').attr('disabled', 'disabled');
                      var fd = new FormData();
 
                       imagesArray.forEach(function(image, i) {

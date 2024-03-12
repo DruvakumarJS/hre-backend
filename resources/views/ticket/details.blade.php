@@ -267,7 +267,7 @@
 
               </div>
               <div class="modal-body">
-                <form method="post" action="{{route('reply_conversation')}}" enctype="multipart/form-data">
+                <form method="post" id="form" action="{{route('reply_conversation')}}" enctype="multipart/form-data">
                   @csrf
                    <label>Subject : </label>
                    <label class="label-bold">{{$ticket->issue}}</label>
@@ -302,7 +302,7 @@
 
                   <div class="modal-footer">
                    
-                    <button type="submit" class="btn btn-danger">Send</button>
+                    <button type="submit" class="btn btn-danger" id="submit">Send</button>
                   </div>
                 </form>
               </div>
@@ -343,7 +343,7 @@
 
                   <div class="mb-3">
                     <label for="message-text" class="col-form-label">Attach Image *</label>
-                      <input type="file" id="file" class="form-control form-control-sm" name="image[]" id="imgInp" required accept="image/*" multiple>
+                      <input type="file" id="file" class="form-control form-control-sm" name="image[]" id="imgInp" required  multiple>
                 
                   </div>
 
@@ -396,10 +396,21 @@
         let images = ""
         imagesArray.forEach((image, index) => {
      
-          images += `<div class="image">
+          const isImage = image.type.startsWith("image/");
+           if(isImage){
+            images += `<div class="image">
                 <img  src="${URL.createObjectURL(image)}" alt="image">
                 '<span data-indx="`+index+`" class="img-delete"><b class="remove_icon">X</b></span>'
               </div>` 
+           
+          }
+          else{
+            images += `<div class="image">
+                <img  src="{{ url('/')}}/doc.png" alt="image">
+                '<span data-indx="`+index+`" class="img-delete"><b class="remove_icon">X</b></span>'
+              </div>` 
+           
+          }
            })
         
          
@@ -548,6 +559,14 @@ output .span--hidden{
 
 
 </style>
+
+<script>
+$(document).ready(function() {
+    $(document).on('submit', 'form', function() {
+        $('button').attr('disabled', 'disabled');
+    });
+});
+</script>
 
 
 @endsection
