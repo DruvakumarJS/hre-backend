@@ -348,7 +348,7 @@ class AttendanceController extends Controller
                 'logout_time' => $only_time ,
                 'logout_lat' => $login->login_lat ,
                 'logout_long' => $login->login_long ,
-                'logout_location' =>$login->login_location,
+                'logout_location' =>"Manual edit",
                 'out_of_work'=> $out_of_work,
                 'total_hours' => $total_hour,
                 'logout_date' => $only_date
@@ -376,7 +376,7 @@ class AttendanceController extends Controller
                 'logout_time' =>  $only_time ,
                 'logout_lat' => $login->login_lat ,
                 'logout_long' => $login->login_long ,
-                'logout_location' =>$login->login_location,
+                'logout_location' =>"Manual edit",
                 'total_hours' => $total_hour/60,
                 'logout_date' => $only_date
               ]); 

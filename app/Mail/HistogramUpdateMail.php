@@ -12,7 +12,7 @@ class HistogramUpdateMail extends Mailable
     use Queueable, SerializesModels;
      public $subject;
      public $attachment;
-     public $name;
+     public $empli_name;
      public $empl_id;
      public $id;
 
@@ -21,11 +21,11 @@ class HistogramUpdateMail extends Mailable
      *
      * @return void
      */
-   public function __construct($subject ,$attachment,$name, $empl_id , $id)
+   public function __construct($subject ,$attachment,$empli_name, $empl_id , $id)
     {
          $this->subject = $subject;
          $this->attachment = $attachment;
-         $this->name = $name;
+         $this->empli_name = $empli_name;
          $this->empl_id = $empl_id;
          $this->id = $id;
     }

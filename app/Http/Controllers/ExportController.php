@@ -16,6 +16,7 @@ use App\Exports\ExportMaterial;
 use App\Exports\ExportPettycashSummary;
 use App\Exports\ExportMultipleIndents;
 use App\Exports\ExportVendors;
+use App\Exports\ExportFootprints;
 
 use Excel ;
 use App\Models\Customer;
@@ -309,5 +310,12 @@ class ExportController extends Controller
       $search = $request->search ;
 
        return Excel::download(new ExportVendors($search), $file_name);
+    }
+
+    public function export_footprints(Request $request){
+      $file_name = 'footprints.csv';
+      $search = $request->search ;
+    
+      return Excel::download(new ExportFootprints($search), $file_name);
     }
 }

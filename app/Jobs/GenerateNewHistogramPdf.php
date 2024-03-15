@@ -82,8 +82,8 @@ class GenerateNewHistogramPdf implements ShouldQueue
         $attachment = public_path($this->filename) ;
 
 
-       Mail::to($this->empl_mail)->send(new HistogramMail($this->subject , $attachment , $data , $name , $empl_id));
-       /* Mail::to('druva@netiapps.com')->send(new HistogramMail($this->subject , $attachment , $data , $name , $empl_id));*/
+        Mail::to($this->empl_mail)->send(new HistogramMail($this->subject , $attachment , $data , $name , $empl_id));
+        //Mail::to('druva@netiapps.com')->send(new HistogramMail($this->subject , $attachment , $data , $name , $empl_id));
        
 
     }

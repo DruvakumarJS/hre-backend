@@ -144,7 +144,7 @@
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Note*</label>
+                      <label for="" class="col-3 col-form-label">Dates Note*</label>
                       <div class="col-9 " >
                        <!--  <input  class="form-control date" id="holiday_dates"  type="text" name="holiday_dates" required="required" value=""  placeholder="Approved Holiday Dates" autocomplete="off" multiple> -->
                        <!-- <input  class="form-control" id="multiple-date-select" name="holiday_dates" autocomplete="off" placeholder="select dates" /> -->
@@ -185,7 +185,7 @@
                     </div>
 
                     <div class="form-group row " style="margin-top: 10px">
-                      <label for="" class="col-3 col-form-label">Note</label>
+                      <label for="" class="col-3 col-form-label">Dates Note</label>
                       <div class="col-9 " >
                         <!-- <input  class="form-control" type="text" name="hold_dates" required="required" value=""  placeholder="Holiday & Project Hold Dates" > -->
                          <!-- <input  class="form-control" id="multiple-date-select2" name="hold_dates" name="hold_dates" autocomplete="off" placeholder="select dates" /> -->
@@ -518,10 +518,15 @@
          
        </div>
 
-      
-
-
-       <div id="div2">
+       <div class="div-margin">
+         <label class="label-bold">General Note</label>
+         <div>
+           <textarea class="form-control" placeholder="Enter your comments here...." name="generalnote"></textarea>
+         </div>
+         
+       </div>
+       
+       <div id="div2" style="margin-top: 30px">
          <button class="btn btn-success" id="submit" type="submit">Submit</button>
        </div>
        

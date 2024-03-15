@@ -329,4 +329,6 @@ class VendorDepartmentController extends Controller
       $data = VendorHeadings::where('headings', 'LIKE','%'.$search.'%')->orWhere('description', 'LIKE','%'.$search.'%')->paginate(50);
       return view('vendor.departments',compact('data' ,'search'));
     }
+
+    
 }

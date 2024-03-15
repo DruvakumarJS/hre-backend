@@ -9,6 +9,7 @@ use App\Imports\ImportUser;
 use App\Imports\ImportCustomer;
 use App\Imports\ImportMaterial;
 use App\Imports\ImportCategory;
+use App\Imports\ImportVendor;
 
 class ImportController extends Controller
 {
@@ -45,4 +46,11 @@ class ImportController extends Controller
         }
         //return redirect()->back();
     }
+
+     public function importvendor(Request $request){
+
+        Excel::import(new ImportVendor, $request->file('file'));
+        return redirect()->back();
+    }
+
 }

@@ -435,7 +435,15 @@
              @endforeach
           </tbody>
         </table>
-    </div> 
+    </div>
+
+    <div class="div-margin">
+         <label  class="label-bold">General Note</label>
+         <div class="div-margin">
+           <textarea class="form-control" placeholder="Enter your comments here...." name="generalnote">{{$data->generalnotes}}</textarea>
+         </div>
+         
+       </div> 
 
     <table style="margin-top: 30px">
       <tr height="100px">

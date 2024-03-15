@@ -156,7 +156,7 @@
                     <div class="form-group row " style="margin-top: 10px">
                       <label for="" class="col-3 col-form-label">Dates</label>
                       <div class="col-9 " >
-                        <input  class="form-control" type="text" name="holiday_dates" required="required" value="{{$data->holiday_dates}}"  placeholder="Approved Holiday Dates" >
+                        <input  class="form-control" type="text" name="holiday_dates" <?php echo($data->approved_holidays_no == '0')?'':'required' ?> value="{{$data->holiday_dates}}"  placeholder="Approved Holiday Dates" >
                       </div>
                     </div>
 
@@ -260,7 +260,7 @@
               <div class="form-group row" style="padding: 5px">
                 <label for="" class="col-3 col-form-label label-bold">DLP Days </label>
                 <div class="col-9 " >
-                  <input  class="form-control" type="text" name="dlp_days" required="required" value="{{$data->dlp_days}}"  placeholder="DLP Days" >
+                  <input  class="form-control" type="text" name="dlp_days" required="required" value="<?php echo  ($data->is_dlp_applicable == 'No')?'0':$data->dlp_days ?>"  placeholder="DLP Days" >
                 </div>
               </div>
                         
@@ -675,6 +675,14 @@
                <i class="fa fa-plus" id="dynamic-vendor"></i>
              </div> -->
         </div>
+
+        <div class="div-margin">
+         <label  class="label-bold">General Note</label>
+         <div class="div-margin">
+           <textarea class="form-control" placeholder="Enter your comments here...." name="generalnote">{{$data->generalnotes}}</textarea>
+         </div>
+         
+       </div>
 
         <!-- last form -->
 

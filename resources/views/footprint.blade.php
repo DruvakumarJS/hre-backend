@@ -23,6 +23,16 @@
               </div>
            </form>
           </div>
+
+          <div id="div2" style="margin-right: 30px">
+           <form method="POST" action="{{ route('export-footprints')}}">
+            @csrf
+            <input type="hidden" name="search" value="{{$search}}">
+             <div class="input-group mb-3">
+                   <button class="btn btn-outline-secondary rounded-0" type="submit" >Download CSV</button>
+              </div>
+           </form>
+          </div>
            
         </div>
  

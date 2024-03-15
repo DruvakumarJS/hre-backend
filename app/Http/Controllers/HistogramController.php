@@ -96,6 +96,7 @@ class HistogramController extends Controller
         $billing->dlp_days = $request->dlp_days;
         $billing->dlp_end_date = $request->dlp_end_date;
         $billing->user_id = Auth::user()->id;
+        $billing->generalnotes = $request->generalnote;
         $billing->save();
 
         $billing_id = $billing->id ;
@@ -330,7 +331,8 @@ class HistogramController extends Controller
             'po_number' =>  $request->po_number,
             'is_dlp_applicable' =>  $request->is_dlp_applicable,
             'dlp_days' =>  $request->dlp_days,
-            'dlp_end_date' =>  $request->dlp_end_date
+            'dlp_end_date' =>  $request->dlp_end_date,
+            'generalnotes' => $request->generalnote
         ]) ;
 
         $client = HistogramClientDetails::where('histogram_billing_id' ,$request->histogram_id)->delete();
@@ -539,7 +541,8 @@ class HistogramController extends Controller
             'po_number' =>  $request->po_number,
             'is_dlp_applicable' =>  $request->is_dlp_applicable,
             'dlp_days' =>  $request->dlp_days,
-            'dlp_end_date' =>  $request->dlp_end_date
+            'dlp_end_date' =>  $request->dlp_end_date,
+            'generalnotes' => $request->generalnote
         ]) ;
        
        if($update){
@@ -654,7 +657,8 @@ class HistogramController extends Controller
             'po_number' =>  $request->po_number,
             'is_dlp_applicable' =>  $request->is_dlp_applicable,
             'dlp_days' =>  $request->dlp_days,
-            'dlp_end_date' =>  $request->dlp_end_date
+            'dlp_end_date' =>  $request->dlp_end_date,
+            'generalnotes' => $request->generalnote
                ]);
 
 
@@ -768,7 +772,8 @@ class HistogramController extends Controller
             $pcn  = $request->pcn ;
             $empl_mail  = $empl->email ;
             $name = $empl->name ;
-            $alias = $data->user->roles->alias;
+            $alias = $empl->user->roles->alias;
+            $empli_name = $empl->name ; 
 
            // print_r('email is '.$empl_mail); die();
             $pcn_details= Pcn::where('pcn',$request->pcn)->first();
@@ -782,7 +787,7 @@ class HistogramController extends Controller
                  
                }
 
-            GeneratePdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name , $alias, $subject , $emailid);
+            GeneratePdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$empli_name ,$pcn ,$empl_mail ,$name , $alias, $subject , $emailid);
 
 
                 $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first();

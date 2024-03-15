@@ -386,9 +386,12 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('autocomplete_vendor',[VendorDepartmentController::class,'autocomplete_vendor'])->name('autocomplete_vendor');
     Route::get('delete-vendor/{id}',[VendorDepartmentController::class,'destroy'])->name('delete_vendor');
     Route::post('search-vendor-department',[VendorDepartmentController::class,'search_vendor_headings'])->name('search_vendor_headings');
+    Route::post('import-vendors',[ImportController::class,'importvendor'])->name('import_vendors');
+
 
     Route::get('Foot-Print',[HomeController::class,'footprint'])->name('footprint');
     Route::post('search-footprint',[HomeController::class,'search_footprint'])->name('search_footprint');
+    Route::post('export-footprints',[ExportController::class,'export_footprints'])->name('export-footprints');
 
 
 

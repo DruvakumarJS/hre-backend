@@ -540,6 +540,7 @@ class PettyCashDetailController extends Controller
          $data = PettyCashDetail::where( function ($query) use ($search){
                    $query->where('bill_number' ,'LIKE', $search.'%');
                    $query->orWhere('billing_no' ,'LIKE', $search.'%');
+                   $query->orWhere('billing_no' ,'LIKE', "PC00".$search.'%');
                    $query->orWhere('spent_amount' ,'LIKE', $search.'%');
                    $query->orWhere('purpose' , 'LIKE', $search.'%');
                    $query->orWhere('pcn' , 'LIKE', $search.'%');

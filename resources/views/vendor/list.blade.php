@@ -19,6 +19,10 @@
          </div>
 
           <div id="div2" style="margin-right: 30px" >
+            <a data-bs-toggle="modal" data-bs-target="#importModal"  class="btn btn-light btn-outline-secondary" href=""><label id="modal">Import Vendors</label></a>
+          </div>
+
+          <div id="div2" style="margin-right: 30px" >
              <form method="post" action="{{ route('export_vendors')}}">
               @csrf
               <input type="hidden" name="search" value="{{$search}}">
@@ -27,6 +31,9 @@
 
              </form>
           </div>
+
+          
+
           @endif
 
           
@@ -121,5 +128,34 @@
     </div>
   </div>
 
+<!-- Modal -->
+        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Import Vendor Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="{{ route('import_vendors') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group mb-4">
+                        <div class="custom-file text-left">
+                            <input type="file" name="file" class="custom-file-input" id="customFile" required>
+                           
+                        </div>
+                    </div>
+                    <button class="btn btn-danger">Import</button>
+                    
+                </form>
 
+                    <div id="div2">
+                       <a target="_blank" href="{{ URL::to('/') }}/templates/HRE_Vendor_Template.xlsx" ><button class="btn btn-sm btn-light">Download Template</button></a>
+                    </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
 @endsection

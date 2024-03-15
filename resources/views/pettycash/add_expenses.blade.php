@@ -254,6 +254,7 @@ $.ajaxSetup({
 </script>
 
 <script type="text/javascript">
+  
    var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
    var imagesArray = [];
    var filesInput = document.getElementById('file');
@@ -399,9 +400,13 @@ $.ajaxSetup({
                              // console.log(response);
                              // window.location.href = "{{ route('details_pettycash',1)}}";
                              //alert("Bill Uploaded successfully");
+
                               alert(response);
+                              var userid = '{{ auth::user()->id}}';
+                              var url = "{{route('details_pettycash', '')}}"+"/"+userid;
+ 
                                //window.location.href = location.reload();
-                                window.location.href = "{{ route('pettycash')}}";
+                                window.location.href = url ; 
 
                           },
                           error: function(response){

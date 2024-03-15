@@ -31,7 +31,7 @@
         <div class="div-margin">
         	
 
-        	<div class="card border-white scroll tableFixHead" style="height: 270px; padding: 0px 5px 20px 20px">
+        	<div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 270px; padding: 0px 5px 20px 20px">
 
                         <table class="table">
                           <thead>
@@ -93,7 +93,7 @@
               
             </div>
 
-            <div class="card border-white scroll tableFixHead" style="height: 270px; padding: 0px 5px 20px 20px">
+            <div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 270px; padding: 0px 5px 20px 20px">
 
                         <table class="table">
                           <thead>

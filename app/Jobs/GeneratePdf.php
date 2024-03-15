@@ -43,6 +43,7 @@ class GeneratePdf implements ShouldQueue
      * @return void
      */
     public function __construct($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$empli_name ,$pcn ,$empl_mail,$name , $alias , $subject , $emailid)
+
     {
         $this->data = $data ;
         $this->client = $client ;
@@ -104,7 +105,7 @@ class GeneratePdf implements ShouldQueue
         
 
        Mail::to($this->emailid)->cc($this->empl_mail)->send(new HistogramUpdateMail($subject , $attachment , $empli_name , $empl_id ,$id));
-       // Mail::to('druva@netiapps.com')->send(new HistogramUpdateMail($subject , $attachment , $name , $empl_id ,$id));
+      //  Mail::to('druva@netiapps.com')->send(new HistogramUpdateMail($subject , $attachment ,$empli_name ,  $empl_id ,$id));
 
 
 
