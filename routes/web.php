@@ -382,7 +382,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('save-vendor',[VendorDepartmentController::class,'store'])->name('save_vendor');
     Route::get('edit-vendor/{id}',[VendorDepartmentController::class,'edit'])->name('edit_vendor');
     Route::post('update-vendor',[VendorDepartmentController::class,'update'])->name('update_vendor');
-    Route::post('search-vendor',[VendorDepartmentController::class,'search'])->name('search_vendor');
+    Route::get('search-vendor',[VendorDepartmentController::class,'search'])->name('search_vendor');
     Route::get('autocomplete_vendor',[VendorDepartmentController::class,'autocomplete_vendor'])->name('autocomplete_vendor');
     Route::get('delete-vendor/{id}',[VendorDepartmentController::class,'destroy'])->name('delete_vendor');
     Route::get('search-vendor-department',[VendorDepartmentController::class,'search_vendor_headings'])->name('search_vendor_headings');
