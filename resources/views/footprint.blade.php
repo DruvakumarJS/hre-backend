@@ -12,7 +12,7 @@
         <div class="container-header">
            
             <div id="div2" style="margin-right: 30px">
-           <form method="POST" action="{{ route('search_footprint')}}">
+           <form method="GET" action="{{ route('search_footprint')}}">
             @csrf
             <input type="hidden" name="search" value="{{$search}}">
              <div class="input-group mb-3">

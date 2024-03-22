@@ -451,7 +451,8 @@ class CustomerController extends Controller
     ->orWhere('email' , 'LIKE', '%'.$request->search.'%')
     ->orWhere('mobile' ,'LIKE', '%'.$request->search.'%')
     ->orderBy('id', 'DESC')
-    ->paginate(25);
+    ->paginate(25)
+    ->withQueryString();
 
         return view('customer/list',compact('customers','search'));
     }

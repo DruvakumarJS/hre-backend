@@ -6,12 +6,18 @@
         <div class="container-header">
             <label class="label-bold" id="div1">Add Material</label>
            <div id="div2">
-            <a  class="btn btn-light btn-outline-secondary" href="{{route('materials')}}"></i> View Material</a>
+            <a  class="btn btn-light btn-outline-secondary" href="{{route('materials')}}"> View Material</a>
            
           </div>
           <div id="div2" style="margin-right: 30px">
-             <a  class="btn btn-light btn-outline-secondary" href="{{route('materials_master')}}"></i> View Category</a>
+             <a  class="btn btn-light btn-outline-secondary" href="{{route('materials_master')}}"> View Category</a>
           </div>
+
+           @if(Session::has('message'))
+           <p id="mydiv" class="text-danger text-center">New Material Added : {{ Session::get('message') }}</p>
+           
+           @endif       
+       
        
         </div>
 

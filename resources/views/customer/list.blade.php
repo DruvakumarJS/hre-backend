@@ -27,7 +27,7 @@
           
 
           <div id="div2" style="margin-right: 30px">
-           <form method="POST" action="{{route('search_customer')}}">
+           <form method="GET" action="{{route('search_customer')}}">
             @csrf
             <input type="hidden" name="search" value="{{$search}}">
              <div class="input-group mb-3">

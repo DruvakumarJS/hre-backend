@@ -222,7 +222,8 @@ class HomeController extends Controller
                  ->orWhereHas('user',function($query)use ($search){
                     $query->where('name','LIKE','%'.$search.'%')->orWhere('employee_id','LIKE','%'.$search.'%');
                  })
-                 ->paginate(50);
+                 ->paginate(50)
+                 ->withQueryString();
 
          return view('footprint',compact('data', 'search'));        
 

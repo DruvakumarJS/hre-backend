@@ -173,7 +173,7 @@ class MaterialController extends Controller
                     'operation' => 'C'
                 ]);
          
-          return redirect()->route('add_product',$request->code);
+          return redirect()->route('add_product',$request->code)->withMessage($itemcode);
         }             
         
     }
@@ -375,7 +375,7 @@ class MaterialController extends Controller
         }
 
         $search = $request->search;
-        $MaterialList=$product->paginate(25);
+        $MaterialList=$product->paginate(25)->withQueryString();
        
       return view('material/list', compact('MaterialList' , 'search'));
 

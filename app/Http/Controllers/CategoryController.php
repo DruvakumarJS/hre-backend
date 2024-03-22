@@ -108,7 +108,8 @@ class CategoryController extends Controller
         $categories =  Category::where('category', 'LIKE','%'.$search.'%')
                                 ->orWhere('material_category','LIKE','%'.$search.'%')
                                 ->orWhere('description','LIKE','%'.$search.'%')
-                                ->paginate(25);
+                                ->paginate(25)
+                                ->withQueryString();
 
         return view('category/list',compact('categories','search'));                        
 

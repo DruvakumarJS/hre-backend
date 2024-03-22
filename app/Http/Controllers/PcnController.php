@@ -544,7 +544,7 @@ class PcnController extends Controller
            /*->orWhereHas('customer', function ($query) use ($search) {
                         $query->where('email', 'like', '%'.$search.'%');
                            })*/
-           ->orderBy('pcnumber','DESC')->paginate(25); 
+           ->orderBy('pcnumber','DESC')->paginate(25)->withQueryString();
        
        return view('pcn/list', compact('pcns'));
 

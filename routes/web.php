@@ -138,7 +138,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('save_pcn',[PcnController::class,'store'])->name('save_pcn');
     Route::get('edit_pcn/{id}',[PcnController::class,'edit'])->name('edit_pcn');
     Route::post('update_pcn',[PcnController::class,'update'])->name('update_pcn');
-    Route::post('search_pcn', [PcnController::class,'search'])->name('search_pcn');
+    Route::get('search_pcn', [PcnController::class,'search'])->name('search_pcn');
     Route::post('search_pcn_details', [PcnController::class,'search_pcn_details'])->name('search_pcn_details');
 
 
@@ -250,14 +250,14 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('edit_product/{id}',[MaterialController::class,'edit'])->name('edit_product');
     Route::post('update_product',[MaterialController::class,'update'])->name('update_product');
     Route::get('uoms',[MaterialController::class,'action'])->name('uoms');
-    Route::post('search_material', [MaterialController::class,'search'])->name('search_material');
+    Route::get('search_material', [MaterialController::class,'search'])->name('search_material');
     Route::post('search_product', [MaterialController::class,'search_product'])->name('search_product');
 
     Route::get('settings/Material-master',[CategoryController::class, 'index'])->name('materials_master');
     Route::post('create_category',[CategoryController::class, 'create'])->name('create-category');
     Route::get('delete_category/{id}',[CategoryController::class, 'destroy'])->name('delete_category');
     Route::post('update-category',[CategoryController::class, 'update'])->name('update-category');
-    Route::post('search-category',[CategoryController::class, 'search'])->name('search_category');
+    Route::get('search-category',[CategoryController::class, 'search'])->name('search_category');
     
 
     Route::get('superadmins',[UserController::class, 'view_superadmins'])->name('admin');
@@ -274,7 +274,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('delete_customer/{id}' ,[CustomerController::class,'destroy'])->name('delete_customer');
     Route::post('delete_address' ,[CustomerController::class,'delete_address'])->name('delete_address');
     Route::get('delete_customer//{id}' ,[CustomerController::class,'delete_customer'])->name('delete_customer');
-    Route::post('search_customer', [CustomerController::class,'search'])->name('search_customer');
+    Route::get('search_customer', [CustomerController::class,'search'])->name('search_customer');
 
 
     Route::get('settings',[SettingController::class,'index'])->name('settings');
@@ -390,7 +390,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
     Route::get('Foot-Print',[HomeController::class,'footprint'])->name('footprint');
-    Route::post('search-footprint',[HomeController::class,'search_footprint'])->name('search_footprint');
+    Route::get('search-footprint',[HomeController::class,'search_footprint'])->name('search_footprint');
     Route::post('export-footprints',[ExportController::class,'export_footprints'])->name('export-footprints');
 
 

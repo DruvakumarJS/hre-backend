@@ -36,7 +36,7 @@ white-space: nowrap;
           @endif
 
           <div id="div2" style="margin-right: 30px">
-           <form method="POST" action="{{route('search_pcn')}}">
+           <form method="GET" action="{{route('search_pcn')}}">
             @csrf
              <div class="input-group mb-3">
                 <input class="form-control" type="text" name="search" placeholder="Search here">

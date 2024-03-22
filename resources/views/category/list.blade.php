@@ -25,7 +25,7 @@
           @endif
 
           <div id="div2" style="margin-right: 30px">
-           <form method="POST" action="{{route('search_category')}}">
+           <form method="get" action="{{route('search_category')}}">
             @csrf
              <div class="input-group mb-3">
                 <input class="form-control" type="text" name="search" placeholder="Search here" >
