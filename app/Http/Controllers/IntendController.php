@@ -1216,4 +1216,46 @@ class IntendController extends Controller
       }
     
   }
+
+   public function export_pdf($ind_no){
+   // print_r($ind_no); die();
+     $idtend= Intend::where('id',$ind_no)->first();
+     $pdf_array = Indent_list::where('indent_id' , $idtend->id)->with('materials')->get();
+
+     foreach ($pdf_array as $key => $value) {
+
+       $data[] = [
+        'material_id' => $value->material_id ,
+        'category' => $value->materials->Category->category,
+        'name' => $value->materials->name ,
+        'brand' => $value->materials->brand ,
+        'quantity' => $value->quantity,
+        'comments' => $value->decription,
+        'uom'=> $value->materials->uom,
+        'features' => $value->materials->information
+
+       ];
+     }
+    
+    $pcn_data=Pcn::where('pcn',$idtend->pcn)->first();
+    $empl = Employee::where('user_id',$idtend->user_id)->first();
+
+    $pcn_detail = $pcn_data->client_name . " , ".$pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
+
+     $indent_details = [
+                 'indent_no' => $idtend->indent_no,
+                 'pcn' => $idtend->pcn ,
+                 'pcn_details'=> $pcn_detail ,
+                 'creator' =>$empl->name,
+                 'details'=> $data ,
+                 'creator_mail' => $empl->email    
+          ];
+
+     $pdf = PDF::loadView('pdf/indentsPDF',compact('indent_details'));
+     $filename = 'exported_indent.pdf';
+    
+     $savepdf = $pdf->save(public_path($filename));   
+     return $pdf->download($filename);  
+
+   }
 }

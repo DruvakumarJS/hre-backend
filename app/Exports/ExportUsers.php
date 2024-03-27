@@ -26,7 +26,7 @@ class ExportUsers implements FromCollection , WithHeadings
            
             $Emp = DB::table('employees')
             ->select(DB::raw("DATE_FORMAT(employees.created_at, '%Y-%m-%d') as date"),
-                     'employees.employee_id' , 'employees.name' , 'employees.email' , 'employees.mobile','roles.alias' )
+                     'employees.employee_id' , 'employees.name' , 'employees.email' , 'employees.mobile','roles.alias' ,'employees.appversion')
             ->join('roles', 'roles.id' , '=','employees.role_id')
             ->get();
         }
@@ -34,7 +34,7 @@ class ExportUsers implements FromCollection , WithHeadings
            
             $Emp = DB::table('employees')
             ->select(DB::raw("DATE_FORMAT(employees.created_at, '%Y-%m-%d') as date"),
-                     'employees.employee_id' , 'employees.name' , 'employees.email' , 'employees.mobile','roles.alias' )
+                     'employees.employee_id' , 'employees.name' , 'employees.email' , 'employees.mobile','roles.alias','employees.appversion' )
             ->join('roles', 'roles.id' , '=','employees.role_id')
             ->where('role',$this->role)
             ->get();
@@ -44,6 +44,6 @@ class ExportUsers implements FromCollection , WithHeadings
     }
 
     public function headings():array {
-    	return ['Date' , 'Employee ID' , 'Name'  , 'Email ID' , 'Mobile' , 'Role'];
+    	return ['Date' , 'Employee ID' , 'Name'  , 'Email ID' , 'Mobile' , 'Role' , 'Apk Version'];
     }
 }

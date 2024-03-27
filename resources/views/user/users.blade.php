@@ -54,7 +54,7 @@
                                <th scope="col">Email ID</th>
                                <th scope="col">Mobile</th>
                                <th scope="col">Role</th>
-                               
+                               <th scope="col">Apk version</th>
                                <th scope="col">Action</th>
                            </tr>
                            </thead>
@@ -67,7 +67,7 @@
                                    <td>{{$value->email}}</td>
                                    <td>{{$value->mobile}}</td>
                                    <td>{{$value->role}}</td>                                  
-                                   
+                                   <td>{{$value->appversion}}</td> 
                                    <td>
                                     @if( (auth::user()->role_id == 1) OR (auth::user()->role_id == 2 AND $role_id != '1' ) )
                                      <a href="{{route('edit_user',$value->user_id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>

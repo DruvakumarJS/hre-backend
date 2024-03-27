@@ -45,6 +45,7 @@
                               <th scope="col">City</th>
                               <th scope="col">State</th>
                               <th scope="col">Action</th>
+                              <th scope="col"></th>
                           
                             </tr>
                           </thead>
@@ -61,9 +62,11 @@
                               <td>{{$value->state}}</td>
                               <td>
                                 @if(Auth::user()->roles->team_id == 1 OR Auth::user()->roles->team_id == 2 OR Auth::user()->roles->team_id == 3 OR Auth::user()->roles->team_id == 4 ) 
-                                 <a href="{{ route('view_history',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">View History</button></a>
+                                 <a href="{{ route('view_history',$value->id)}}"><button class="btn btn-sm btn-outline-secondary">History</button></a>
                                  @endif
-
+                                
+                              </td>
+                              <td>
                                  @if(Auth::user()->roles->team_id == 1 OR Auth::user()->roles->team_id == 2 OR Auth::user()->roles->team_id == 3 OR Auth::user()->roles->team_id == 4 OR Auth::user()->roles->team_id == 5 OR Auth::user()->roles->team_id == 13 OR Auth::user()->roles->team_id == 14 OR Auth::user()->roles->team_id == 6 OR Auth::user()->roles->team_id == 7 OR Auth::user()->roles->team_id == 10 OR Auth::user()->roles->team_id == 11  ) 
                                   <a href="{{ route('update_form',$value->id)}}"><button class="btn btn-sm btn-outline-success">Update</button></a>
                                 @endif

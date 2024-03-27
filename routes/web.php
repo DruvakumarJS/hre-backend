@@ -147,6 +147,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('edit_intends/{id}',[IntendController::class,'edit'])->name('edit_intends');
     Route::post('update_quantity',[IntendController::class,'update_dispatches'])->name('update_quantity');
     Route::get('export-indents/{indent_no}',[IntendController::class,'export'])->name('export-indents');
+    Route::get('export-indents-pdf/{indent_no}',[IntendController::class,'export_pdf'])->name('export_indent_pdf');
     
     Route::get('filter_indents/{filter}',[IntendController::class,'filter_indents'])->name('filter_indents');
     Route::get('create_indent',[IntendController::class,'create'])->name('create_indent');

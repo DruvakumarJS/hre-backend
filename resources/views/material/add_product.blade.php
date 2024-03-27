@@ -14,7 +14,10 @@
           </div>
 
            @if(Session::has('message'))
-           <p id="mydiv" class="text-danger text-center">New Material Added : {{ Session::get('message') }}</p>
+          <!--  <p id="mydiv" class="text-danger text-center">New Material Added : {{ Session::get('message') }}</p> -->
+           <script type="text/javascript">
+             alert("New Material Added - Material ID : "+ '{{ Session::get('message') }}' );
+           </script>
            
            @endif       
        

@@ -123,8 +123,14 @@
         </div>
 <!--Import Modal -->
 
- @if(Session::has('message'))
+        @if(Session::has('message'))
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
+        @endif  
+
+          @if(Session::has('success'))
+            <script type="text/javascript">
+             alert("New Category Added - "+ '{{ Session::get('success') }}' );
+           </script>
         @endif       
        
         <div>

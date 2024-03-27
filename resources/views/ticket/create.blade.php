@@ -361,7 +361,7 @@ $( document ).ready(function() {
                             jQuery("#submit input[type=text]").val('');
                              var data = response;
                               $("#modal_body").html(data);
-                             $("#modal").modal('show');
+                              $("#modal").modal('show');
 
 
                           },

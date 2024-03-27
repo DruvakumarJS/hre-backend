@@ -16,15 +16,18 @@ class AppdataController extends Controller
             $user = User::select('isloggedin')->where('id',$request->user_id)->first();
          
          if(User::where('id',$request->user_id)->exists()){
-         	 if($user->isloggedin == '1'){
-           
+
+         	if($user->isloggedin == '1'){
+             if(isset($request->app_version))  {
+                 $update = Employee::where('user_id', $request->user_id)->update(['appversion' => $request->app_version]);
+             }
            
             $data = ['isloggedin' => 'true',
                      'app_version' => '1.0',
                      'need_update' => 'No'];
            
             return response()->json([
-                'status'=> 1,
+                'status'=> 1, 
                 'message' => 'success',
                 'data' => $data
             ]);

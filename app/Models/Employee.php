@@ -18,7 +18,8 @@ class Employee extends Model
     	'mobile',
     	'email',
     	'role',
-        'role_id'
+      'role_id',
+      'appversion'
     	 	
     ];
 

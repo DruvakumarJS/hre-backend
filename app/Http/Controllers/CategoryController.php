@@ -95,7 +95,9 @@ class CategoryController extends Controller
                         'operation' => 'C'
                     ]);
 
-          return redirect()->route('materials_master');
+          $message = 'Category Name : '.$categoryName .', Category Code : '.$material_category ;
+         // return redirect()->route('materials_master');
+          return redirect()->back()->with('success',$message);
          }
 
     public function search(Request $request){

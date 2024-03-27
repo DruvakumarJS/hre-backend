@@ -37,9 +37,12 @@ class ExportIndents implements FromCollection , WithHeadings
             'materials.brand',
             'materials.information',
             'indent_lists.decription',
-            'indent_lists.quantity',
-            'indent_lists.recieved',
-            'indent_lists.pending',
+             DB::raw("CONCAT(indent_lists.quantity,' ',materials.uom) AS quant"),
+           /* 'indent_lists.quantity',*/
+             DB::raw("CONCAT(indent_lists.recieved,' ',materials.uom) AS rec"),
+            //'indent_lists.recieved',
+             DB::raw("CONCAT(indent_lists.pending,' ',materials.uom) AS pend"),
+            //'indent_lists.pending',
             'indent_lists.status'
             ) 
         ->join('intends', 'indent_lists.indent_id', '=', 'intends.id')

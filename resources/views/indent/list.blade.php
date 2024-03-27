@@ -87,7 +87,8 @@
                               <th scope="col">Status</th>
                               
                               <th scope="col">Action</th>
-                             
+                              <th scope="col">Export</th> 
+                              <th scope="col"></th> 
                             </tr>
                           </thead>
                           <tbody>
@@ -104,11 +105,17 @@
                                 <td> 
                                   <a href="{{route('indent_details',$value->indent_no)}}"><button class="btn btn-light curved-text-button btn-sm">View</button></a>
 
-                                  <a onclick="return confirm('Are you sure to download?')" href="{{route('export_indent',$value->id)}}" style="margin-left: 10px; color: black"><i class='fa fa-download'></i></a>
-                                  <input type="checkbox" id="check" name="check" value="{{$value->id}}">
-
                                  <!--  <a href="{{route('delete_indent',$value->id)}}"><button class="btn btn-light curved-text-button btn-sm">Delete</button></a> -->
 
+                                </td>
+                                <td>
+                                  <a onclick="return confirm('Excel File will be downloaded ')" href="{{route('export_indent',$value->id)}}" style="color: black"><i class='fa fa-file-excel-o' style="font-size:18px;color:green"></i></a>
+
+                                  <a onclick="return confirm('PDF File will be downloaded ')" href="{{route('export_indent_pdf',$value->id)}}" style=" color: black"><i class='fa fa-file-pdf-o' style="font-size:18px;color:red"></i></a>
+                                 
+                                </td>
+                                <td>
+                                   <input type="checkbox" id="check" name="check" value="{{$value->id}}">
                                 </td>
                                 
                               </tr>
