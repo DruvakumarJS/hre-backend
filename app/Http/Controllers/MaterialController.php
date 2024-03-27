@@ -173,7 +173,7 @@ class MaterialController extends Controller
                     'operation' => 'C'
                 ]);
          
-          return redirect()->route('add_product',$request->code)->withMessage($itemcode);
+          return redirect()->route('add_product',$request->code)->with('material',$material);
         }             
         
     }

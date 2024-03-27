@@ -12,19 +12,74 @@
           <div id="div2" style="margin-right: 30px">
              <a  class="btn btn-light btn-outline-secondary" href="{{route('materials_master')}}"> View Category</a>
           </div>
-
-           @if(Session::has('message'))
-          <!--  <p id="mydiv" class="text-danger text-center">New Material Added : {{ Session::get('message') }}</p> -->
-           <script type="text/javascript">
-             alert("New Material Added - Material ID : "+ '{{ Session::get('message') }}' );
-           </script>
-           
-           @endif       
-       
-       
         </div>
 
-        <div >
+         @if(Session::has('material'))
+          <script>
+            $(document).ready(function(){
+             // alert("lll");
+                $('#modal').modal('show');
+              });
+            
+            </script>
+
+           <!--  Modal -->
+          <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Material Created Succesfully</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  @php
+                  $data= Session::get('material');
+
+                  @endphp
+                  <div>
+                     <label>Category Id : </label> <label class="label-bold">{{$data['category_id']}}</label>
+                  </div>
+                   <div>
+                     <label>Item Code : </label> <label class="label-bold">{{$data['item_code']}}</label>
+                  </div>
+                   <div>
+                     <label>Name : </label> <label class="label-bold">{{$data['name']}}</label>
+                  </div>
+                   <div>
+                     <label>Brand : </label> <label class="label-bold">{{$data['brand']}}</label>
+                  </div>
+                   <div>
+                     <label>UoM : </label> <label class="label-bold">{{$data['uom']}}</label>
+                  </div>
+                   <div>
+                     <label>Information : </label>
+                      @php
+                       $info = json_decode($data['information']);
+                      @endphp
+
+                      @foreach($info as $key => $val)
+                         <label class="label-bold">{{$key}} = {{$val}} , </label> 
+                      @endforeach
+
+                     
+                  </div>
+                
+
+                  <div id="div2">
+                    <a href=""><button class="btn btn-success">OK , GOT IT</button></a>
+                    
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </div>
+          </div>
+  <!-- Modal -->
+           
+           @endif   
+
+        <div>
          <div>
            
          </div> 

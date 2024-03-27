@@ -19,7 +19,7 @@ $date = date('dd-mm-yyyy');
          
         </div>
 
-        @if(session()->has('PCN'))
+        @if(Session()->has('PCN'))
        <script>
         $(document).ready(function(){
             $('#modal').modal('show');
