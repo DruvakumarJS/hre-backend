@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\GRNMail;
+use App\Mail\IndentsMail;
 use Mail;
 
 
@@ -41,8 +42,9 @@ class SendDispatchEmail implements ShouldQueue
         $grndata = $this->grndata;
         $subject = $this->subject;
        // print_r($grndata); die();
-        Mail::to($this->emailid)->cc($grndata['creator_mail'])->send(new IndentsMail($grndata,$subject));
-        Mail::to('druva@netiapps.com')->cc($grndata['creator_mail'])->send(new GRNMail($grndata,$subject));
+         Mail::to($this->emailid)->cc($grndata['creator_mail'])->send(new GRNMail($grndata,$subject));
+        
+       // Mail::to('druva@netiapps.com')->cc($grndata['creator_mail'])->send(new GRNMail($grndata,$subject));
 
     }
 }
