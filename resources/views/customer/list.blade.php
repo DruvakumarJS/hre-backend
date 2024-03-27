@@ -82,6 +82,7 @@
                               <th scope="col">Email</th>
                               <!-- <th scope="col" width="200px">Address</th> -->
                               <th scope="col"></th>
+                              <th scope="col"></th>
                              
                             </tr>
                           </thead>
@@ -107,7 +108,8 @@
                                    @if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '2')
                                 	  <a href="{{route('edit_customer',$value->id)}}"><button class="btn btn-light btn-sm curved-text-button">Edit</button></a>
                                    @endif
-
+                                </td>
+                                <td>
                                   @if(Auth::user()->role_id == '1')
                                    <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_customer', $value->id)}}"><button class="btn btn-light btn-outline-danger btn-sm">Delete</button></a> 
                                   @endif 

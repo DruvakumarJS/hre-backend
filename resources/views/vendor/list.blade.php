@@ -77,6 +77,7 @@
                               <th scope="col">Email</th>
                               <!-- <th scope="col" width="200px">Address</th> -->
                               <th scope="col">Action</th>
+                              <th></th>
                              
                             </tr>
                           </thead>
@@ -105,6 +106,9 @@
                                 @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 10)
                                 <a href="{{ route('edit_vendor',$value->id)}}"><button class="btn btn-sm btn-light btn-outline-secondary">Edit</button></a>
                                 @endif
+                                
+                              </td>
+                              <td>
                                  @if(Auth::user()->role_id == 1 )
                                 <a onclick="return confirm('You are deleting a Vendor ')" href="{{ route('delete_vendor',$value->id)}}"><button class="btn btn-sm btn-light btn-outline-danger">Delete</button></a>
                                 @endif
