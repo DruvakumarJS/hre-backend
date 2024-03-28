@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <style type="text/css">
+   body {
+      /*font-family: 'Calibri', sans-serif;*/
+       font-family: 'Helvetica', sans-serif;
+       font-size: 14px;
+    }
 
   table, th, td {
     border: 1px solid black;

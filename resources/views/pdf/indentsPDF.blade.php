@@ -3,7 +3,15 @@
     <head>
         <style>
            body {
-            font-family: 'Calibri', sans-serif;
+            font-family: 'Helvetica', sans-serif;
+            font-size: 14px;
+           /* font-family: 'Calibri';
+            src: url('/fonts/Calibri.woff2') format('woff2'),
+                url('/fonts/Calibri.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;*/
+
           }
             @page {
                 margin: 25px 25px;
