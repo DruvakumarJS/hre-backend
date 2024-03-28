@@ -232,17 +232,19 @@ class IntendController extends Controller
 
          $pcn_detail = $pcn_data->client_name . " , ".$pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
 
-          
+          $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first();
+
            $indent_details = [
                  'indent_no' => $idtend->indent_no,
                  'pcn' => $idtend->pcn ,
                  'pcn_details'=> $pcn_detail ,
                  'creator' =>Auth::user()->name,
                  'details'=> $data ,
-                 'creator_mail' => Auth::user()->email    
+                 'creator_mail' => Auth::user()->email,
+                 'employee_id' =>  $empl->employee_id   
           ];
 
-          $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first(); 
+           
 
           $subject = "New Material Indent " .$ind_no." ".$request->pcn;
 
@@ -1248,7 +1250,8 @@ class IntendController extends Controller
                  'pcn_details'=> $pcn_detail ,
                  'creator' =>$empl->name,
                  'details'=> $data ,
-                 'creator_mail' => $empl->email    
+                 'creator_mail' => $empl->email,
+                 'employee_id' =>  $empl->employee_id     
           ];
 
      $pdf = PDF::loadView('pdf/indentsPDF',compact('indent_details'));

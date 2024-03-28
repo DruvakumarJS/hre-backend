@@ -122,6 +122,7 @@ class IndentController extends Controller
 
           $pcn_detail = $pcn_data->brand." , ".$pcn_data->location." , ".$pcn_data->area." , ".$pcn_data->city;
           $user = User::where('id',$request->user_id)->first();
+          $empl = Employee::select('employee_id')->where('user_id',$request->user_id)->first();
           
            $indent_details = [
                  'indent_no' => $idtend->indent_no,
@@ -129,10 +130,11 @@ class IndentController extends Controller
                  'pcn_details'=> $pcn_detail ,
                  'creator' =>$user->name,
                  'details'=> $data ,
-                 'creator_mail' => $user->email    
+                 'creator_mail' => $user->email,
+                 'employee_id' =>  $empl->employee_id     
           ];
 
-          $empl = Employee::select('employee_id')->where('user_id',$request->user_id)->first(); 
+           
 
           $subject = "New Material Indent " .$ind_no." ".$request->pcn;
 

@@ -79,7 +79,7 @@
             </div>
 
              <div style="margin-top: 10px;">
-                <label>Created By : </label> <label>{{$indent_details['creator']}}</label>
+                <label>Created By : </label> <label>{{$indent_details['creator']}} - {{$indent_details['employee_id']}}</label>
             </div>
             <div style="margin-top: 10px;">
                 <label>Indent No : </label> <label>{{$indent_details['indent_no']}}</label>
