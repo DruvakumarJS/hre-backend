@@ -12,6 +12,7 @@ use App\Models\Yearendfreeze;
 use Illuminate\Http\Request;
 use App\Mail\PettycashMail;
 use App\Models\FootPrint;
+use App\Jobs\SendPettycashApprovalRemainder;
 use Auth;
 use ZipArchive;
 use File;
@@ -37,8 +38,10 @@ class PettyCashDetailController extends Controller
          $pettycash = PettycashOverview::where('user_id', $id)->first();
          $closure_date = '';
          $search = '';
+         $isactive = 'false';
 
          $finaniclyear = date("m") >= 4 ? date("Y"). '-' . (date("Y")+1) : (date("Y") - 1). '-' . date("Y") ;
+       //  print_r($finaniclyear);die();
          if(Yearendfreeze::where('financial_year' ,$finaniclyear)->exists())
           {
            $yearenddate = Yearendfreeze::where('financial_year' ,$finaniclyear)->first(); 
@@ -506,12 +509,13 @@ class PettyCashDetailController extends Controller
       $empl = Employee::where('user_id', $id)->first();
       $p_data = "PettyCash bill approval request : ".$empl->employee_id;
 
-       $emailarray = User::select('email')->whereIn('role_id',['1','6','7','8'])->get();
+       $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','8','9'])->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
-
+      
+      SendPettycashApprovalRemainder::dispatch($empl , $p_data , $emailid, $id) ; 
       
       try {
              // Mail::to($emailid)->send(new PettycashMail($p_data , $id));

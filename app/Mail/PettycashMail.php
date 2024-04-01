@@ -12,6 +12,7 @@ class PettycashMail extends Mailable
     use Queueable, SerializesModels;
    
      public $p_data;
+     public $empl;
      public $id;
 
     /**
@@ -19,9 +20,10 @@ class PettycashMail extends Mailable
      *
      * @return void
      */
-    public function __construct($p_data , $id)
+    public function __construct($p_data , $empl, $id)
     {
         $this->p_data=$p_data;
+        $this->empl = $empl;
         $this->id=$id;
     }
 
