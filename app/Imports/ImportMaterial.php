@@ -111,6 +111,15 @@ class ImportMaterial implements ToModel, WithStartRow
                 $arr = explode($code, $validate->item_code);
                 $itemcode = $code.'00'.++$arr[1];
 
+                if(Material::where('category_id',$categoryData->code)
+                           ->where('name' , $row[1])
+                           ->where('brand' , $row[2])
+                           ->where('uom', $row[3])
+                           ->where('information' , $features)
+                           ->exists()){
+                    $this->rowCount--;
+                 }
+                else{
                      $MaterialData = Material::create([
                         'category_id' => $categoryData->code,
                         'item_code' => $itemcode,
@@ -118,11 +127,25 @@ class ImportMaterial implements ToModel, WithStartRow
                         'brand' => $row[2],
                         'uom' => $row[3],
                         'information'=> $features,
-                  ]);   
+                  ]); 
+                }
+
+                      
              }
              else {
 
                 $itemcode = $categoryData->material_category ."001";
+
+                if(Material::where('category_id',$categoryData->code)
+                           ->where('item_code' , $itemcode)
+                           ->where('name' , $row[1])
+                           ->where('brand' , $row[2])
+                           ->where('uom', $row[3])
+                           ->where('information' , $features)
+                           ->exists()){
+                    $this->rowCount--;
+                 }
+                else{
 
                      $MaterialData = Material::create([
                         'category_id' => $categoryData->code,
@@ -132,6 +155,7 @@ class ImportMaterial implements ToModel, WithStartRow
                         'uom' => $row[3],
                         'information'=> $features,
                   ]);
+                 }
 
              }
 
