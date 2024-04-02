@@ -167,6 +167,9 @@ $( document ).ready(function() {
 
            populateinputs(item_code , name , brand , info , uom);
            
+         setTimeout(function() {
+           $('#product').val('');
+         }, 100);
          
         }
       })/*.data("ui-autocomplete")._renderItem = function (ul, item) {
