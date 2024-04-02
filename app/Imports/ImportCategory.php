@@ -13,7 +13,8 @@ class ImportCategory implements ToModel, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    
+    public $rowCount = 0;
+
     public function startRow(): int
     {
         return 2;
@@ -21,6 +22,7 @@ class ImportCategory implements ToModel, WithStartRow
 
     public function model(array $row)
     {
+        ++$this->rowCount;
          $categoryName = strtoupper($row[0]); ;
          $material_category = strtoupper($row[1]) ;
         
@@ -65,4 +67,10 @@ class ImportCategory implements ToModel, WithStartRow
 
         return ;
     }
+
+     public function getRowCount(): int
+    {
+        return $this->rowCount;
+    }
+
 }

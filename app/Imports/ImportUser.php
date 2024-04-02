@@ -16,6 +16,8 @@ class ImportUser implements ToModel, WithStartRow
     * @return \Illuminate\Database\Eloquent\Model|null
     */
 
+    public $rowCount = 0;
+
     public function startRow(): int
     {
         return 2;
@@ -24,7 +26,7 @@ class ImportUser implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-
+        ++$this->rowCount;
         $role = $row['4'];
 
         if($role == 'admin'){
@@ -71,4 +73,10 @@ class ImportUser implements ToModel, WithStartRow
         return;
 
     }
+
+     public function getRowCount(): int
+    {
+        return $this->rowCount;
+    }
+
 }

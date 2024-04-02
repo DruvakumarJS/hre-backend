@@ -12,17 +12,20 @@ class ImportVendor implements ToModel, WithStartRow
     /**
     * @param Collection $collection
     */
-     public function startRow(): int
+    public $rowCount = 0;
+
+    public function startRow(): int
     {
         return 2;
     } 
 
     public function model(array $row)
     {
+       ++$this->rowCount;
        $client = $row[0];
 
         if(VendorDepartment::where('vid_id',$row[0])->exists()){
-
+         $this->rowCount--;
         }
         else {
         	$vidid = 'VID_'.$row[0] ; 
@@ -60,5 +63,10 @@ class ImportVendor implements ToModel, WithStartRow
 
         return ;
 
+    }
+
+    public function getRowCount(): int
+    {
+        return $this->rowCount;
     }
 }

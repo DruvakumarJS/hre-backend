@@ -36,7 +36,7 @@
                         <table class="table">
                           <thead>
                             <tr style="height: 50px">
-                              <th scope="col">Histogram ID</th>
+                              <th scope="col">ID</th>
                               <th scope="col">PCN</th>
                               <th scope="col">Billing Name</th>
                               <th scope="col">Brand</th>

@@ -10,25 +10,69 @@ use App\Imports\ImportCustomer;
 use App\Imports\ImportMaterial;
 use App\Imports\ImportCategory;
 use App\Imports\ImportVendor;
+use App\Models\FootPrint;
+use Auth;
 
 class ImportController extends Controller
 {
     public function importuser(Request $request){
 
-    	Excel::import(new ImportUser, $request->file('file'));
-        return redirect()->back();
+        $import = new ImportUser ;
+
+    	Excel::import($import, $request->file('file'));
+        
+        if($import->getRowCount() == 0){
+            return redirect()->back()->withMessage('No data imported');
+        }
+        else {
+             $footprint = FootPrint::create([
+                    'action' => $import->getRowCount().' User(s) added to the list via import option',
+                    'user_id' => Auth::user()->id,
+                    'module' => 'User',
+                    'operation' => 'C'
+                ]);
+            return redirect()->back()->withMessage('Import Successfull. '.$import->getRowCount() . ' User(s) added .');
+        }
     }
 
      public function importcustomer(Request $request){
+        $import = new ImportCustomer ;
 
-    	Excel::import(new ImportCustomer, $request->file('file'));
-        return redirect()->back();
+    	Excel::import($import, $request->file('file'));
+
+        if($import->getRowCount() == 0){
+            return redirect()->back()->withMessage('No data imported');
+        }
+        else {
+             $footprint = FootPrint::create([
+                    'action' => $import->getRowCount().' Customer(s) added to the list via import option',
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Customer',
+                    'operation' => 'C'
+                ]);
+            return redirect()->back()->withMessage('Import Successfull. '.$import->getRowCount() . ' Customer(s) added .');
+        }
+        
     }
 
      public function importcategory(Request $request){
 
-    	Excel::import(new ImportCategory, $request->file('file'));
-        return redirect()->back();
+        $import = new ImportCategory ;
+
+    	Excel::import($import, $request->file('file'));
+        
+        if($import->getRowCount() == 0){
+            return redirect()->back()->withMessage('No data imported');
+        }
+        else {
+             $footprint = FootPrint::create([
+                    'action' => $import->getRowCount().' Material Category added to the list via import option',
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Material Category',
+                    'operation' => 'C'
+                ]);
+            return redirect()->back()->withMessage('Import Successfull. '.$import->getRowCount() . ' Material Category added .');
+        }
     }
 
      public function importmaterial(Request $request){
@@ -42,14 +86,37 @@ class ImportController extends Controller
             return redirect()->back()->withMessage('No data imported');
         }
         else {
-            return redirect()->back()->withMessage('Import Successfull. '.$import->getRowCount() . ' materials added .');
+             $footprint = FootPrint::create([
+                    'action' => $import->getRowCount().' product(s) added to the list via import option',
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Products',
+                    'operation' => 'C'
+                ]);
+            return redirect()->back()->withMessage('Import Successfull. '.$import->getRowCount() . ' product(s) added .');
         }
         //return redirect()->back();
     }
 
      public function importvendor(Request $request){
 
-        Excel::import(new ImportVendor, $request->file('file'));
+        $import = new ImportVendor ;
+
+        Excel::import($import, $request->file('file'));
+
+        if($import->getRowCount() == 0){
+            return redirect()->back()->withMessage('No data imported');
+        }
+        else {
+             $footprint = FootPrint::create([
+                    'action' => $import->getRowCount().' vendor(s) added to the list via import option',
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Vendor ',
+                    'operation' => 'C'
+                ]);
+
+            return redirect()->back()->withMessage('Import Successfull. '.$import->getRowCount() . ' vendor(s) added .');
+        }
+
         return redirect()->back();
     }
 

@@ -14,6 +14,8 @@ class ImportCustomer implements ToModel, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+   
+    public $rowCount = 0;
 
     public function startRow(): int
     {
@@ -22,10 +24,11 @@ class ImportCustomer implements ToModel, WithStartRow
     
     public function model(array $row)
     {
+       ++$this->rowCount;
        $client = $row[0];
 
         if(Customer::where('name',$row[0])->exists()){
-
+          $this->rowCount--;
         }
         else {
             $customer = Customer::create([
@@ -56,5 +59,9 @@ class ImportCustomer implements ToModel, WithStartRow
 
         return ;
 
+    }
+    public function getRowCount(): int
+    {
+        return $this->rowCount;
     }
 }
