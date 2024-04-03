@@ -53,14 +53,12 @@ class MaterialController extends Controller
         $result = array();
 
         foreach ($data as $key => $value) {
-           // print_r($value['value']); die();
 
            if(!empty($value['value'])){
             $result[$value['spec']]=$value['value'];
            }
             
         }
-
          if(sizeof($result)>0){
              $features = json_encode($result,JSON_UNESCAPED_UNICODE);
          }
@@ -263,7 +261,7 @@ class MaterialController extends Controller
             
         }
          if(sizeof($result)>0){
-             $features = json_encode($result);
+             $features = json_encode($result,JSON_UNESCAPED_UNICODE);
          }
          else{
              $features = "{}";

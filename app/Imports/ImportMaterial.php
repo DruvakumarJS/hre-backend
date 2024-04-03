@@ -99,7 +99,7 @@ class ImportMaterial implements ToModel, WithStartRow
 
          if(sizeof($result)>0){
              $features = json_encode($result,JSON_UNESCAPED_UNICODE);
-         }
+         }  
          else{
              $features = "{}";
          }
