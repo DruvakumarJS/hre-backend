@@ -87,10 +87,10 @@
                               <td>{{$value->vid}}</td>
                               <td>{{$value->billing_name}}</td>
                               @php
-                               if($value->vendor_type == 'Sub_Contractor') $v_type = 'Sub Contractor' ;
-                               if($value->vendor_type == 'Labour_Contractor') $v_type = 'Labour Contractor' ;
-                               if($value->vendor_type == 'Service_Provider') $v_type = 'Service Provider' ;
-                               if($value->vendor_type == 'material_supplier') $v_type = 'Material Supplier' ;
+                               if($value->vendor_type == 'Sub_Contractor' OR $value->vendor_type == 'Sub Contractor') $v_type = 'Sub Contractor' ;
+                               if($value->vendor_type == 'Labour_Contractor' OR $value->vendor_type == 'Labour Contractor') $v_type = 'Labour Contractor' ;
+                               if($value->vendor_type == 'Service_Provider' OR $value->vendor_type == 'Service Provider') $v_type = 'Service Provider' ;
+                               if($value->vendor_type == 'material_supplier'OR $value->vendor_type == 'material Supplier') $v_type = 'Material Supplier' ;
 
                               @endphp
 
