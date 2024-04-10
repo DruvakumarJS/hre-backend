@@ -77,7 +77,7 @@
                               <th scope="col">Email</th>
                               <!-- <th scope="col" width="200px">Address</th> -->
                               <th scope="col">Action</th>
-                              <th></th>
+                              <!-- <th></th> -->
                              
                             </tr>
                           </thead>
@@ -86,7 +86,16 @@
                             <tr>
                               <td>{{$value->vid}}</td>
                               <td>{{$value->billing_name}}</td>
-                              <td>{{$value->vendor_type}}</td>
+                             <!--  <td>{{$value->vendor_type}}</td> -->
+                               @php
+                               if($value->vendor_type == 'Sub_Contractor' OR $value->vendor_type == 'Sub Contractor') $v_type = 'Sub Contractor' ;
+                               if($value->vendor_type == 'Labour_Contractor' OR $value->vendor_type == 'Labour Contractor') $v_type = 'Labour Contractor' ;
+                               if($value->vendor_type == 'Service_Provider' OR $value->vendor_type == 'Service Provider') $v_type = 'Service Provider' ;
+                               if($value->vendor_type == 'material_supplier' OR $value->vendor_type == 'Material Supplier' OR $value->vendor_type == 'Material_Supplier') $v_type = 'Material Supplier' ;
+
+                              @endphp
+
+                              <td>{{$v_type}}</td>
                             
                               <td>{{$value->building}}</td>
                               <td>{{$value->location}} / {{$value->area}}</td>
@@ -99,13 +108,13 @@
                                 @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 10)
                                 <a href="{{ route('edit_vendor',$value->id)}}"><button class="btn btn-sm btn-light btn-outline-secondary">Edit</button></a>
                                 @endif
-                                
-                              </td>
-                              <td>
+
                                  @if(Auth::user()->role_id == 1 )
                                 <a onclick="return confirm('You are deleting a Vendor ')" href="{{ route('delete_vendor',$value->id)}}"><button class="btn btn-sm btn-light btn-outline-danger">Delete</button></a>
                                 @endif
+                                
                               </td>
+                             
                             </tr>
 
                             @endforeach
