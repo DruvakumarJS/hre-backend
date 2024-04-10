@@ -87,15 +87,7 @@
                               <td>{{$value->vid}}</td>
                               <td>{{$value->billing_name}}</td>
                               <td>{{$value->vendor_type}}</td>
-                             <!--  @php
-                               if($value->vendor_type == 'Sub_Contractor' OR $value->vendor_type == 'Sub Contractor') $v_type = 'Sub Contractor' ;
-                               if($value->vendor_type == 'Labour_Contractor' OR $value->vendor_type == 'Labour Contractor') $v_type = 'Labour Contractor' ;
-                               if($value->vendor_type == 'Service_Provider' OR $value->vendor_type == 'Service Provider') $v_type = 'Service Provider' ;
-                               if($value->vendor_type == 'material_supplier' OR $value->vendor_type == 'Material Supplier') $v_type = 'Material Supplier' ;
-
-                              @endphp -->
-
-                              <!-- <td>{{$v_type}}</td> -->
+                            
                               <td>{{$value->building}}</td>
                               <td>{{$value->location}} / {{$value->area}}</td>
                               <td>{{$value->city}}</td>
