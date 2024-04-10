@@ -62,7 +62,7 @@
     	
     		 <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
-                        <table class="table">
+                        <table class="table table-responsive">
                           <thead>
                             <tr>
                               <th scope="col">VID</th>
@@ -86,15 +86,16 @@
                             <tr>
                               <td>{{$value->vid}}</td>
                               <td>{{$value->billing_name}}</td>
-                              @php
+                              <td>{{$value->vendor_type}}</td>
+                             <!--  @php
                                if($value->vendor_type == 'Sub_Contractor' OR $value->vendor_type == 'Sub Contractor') $v_type = 'Sub Contractor' ;
                                if($value->vendor_type == 'Labour_Contractor' OR $value->vendor_type == 'Labour Contractor') $v_type = 'Labour Contractor' ;
                                if($value->vendor_type == 'Service_Provider' OR $value->vendor_type == 'Service Provider') $v_type = 'Service Provider' ;
-                               if($value->vendor_type == 'material_supplier'OR $value->vendor_type == 'Material Supplier') $v_type = 'Material Supplier' ;
+                               if($value->vendor_type == 'material_supplier' OR $value->vendor_type == 'Material Supplier') $v_type = 'Material Supplier' ;
 
-                              @endphp
+                              @endphp -->
 
-                              <td>{{$v_type}}</td>
+                              <!-- <td>{{$v_type}}</td> -->
                               <td>{{$value->building}}</td>
                               <td>{{$value->location}} / {{$value->area}}</td>
                               <td>{{$value->city}}</td>
