@@ -101,7 +101,7 @@
                     @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' || Auth::user()->roles->team_id == 5 )
                      @if($indend_data->pending > 0 && $indend_data->indent->status == 'Active')
                     
-                        <form method="post" action="{{route('update_quantity')}}">
+                        <form id="form" method="post" action="{{route('update_quantity')}}">
                             @csrf
                             <div class="form-group row">
                                
@@ -121,7 +121,7 @@
                                 <input type="hidden" name="id" value="{{$id}}">
                                 <input type="hidden" name="pending" value="{{$indend_data->pending}}">
                                 <div class="col-md-3">
-                                    <button class="btn btn-danger">Submit</button>
+                                    <button class="btn btn-danger" id="submit">Submit</button>
                                 </div>
                             </div>
 
@@ -229,5 +229,15 @@
         </div>
     </div>
 </div>
+
+
+<script>
+$(document).ready(function() {
+    $(document).on('submit', 'form', function() {
+        $('button').attr('disabled', 'disabled');
+    });
+});
+</script>
+
     
 @endsection

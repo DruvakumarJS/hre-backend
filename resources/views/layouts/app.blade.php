@@ -219,7 +219,6 @@
                                             <li><a class="dropdown-item" href="{{route('restore-customers')}}">Customers</a></li>
                                             <li><a class="dropdown-item" href="{{route('restore-category')}}">Categories</a></li>
                                             <li><a class="dropdown-item" href="{{route('restore-material')}}">Materials</a></li>
-                                            <li><a class="dropdown-item" href="{{route('restore-material')}}">Materials</a></li>
                                             <li><a class="dropdown-item" href="{{route('restore_vendors')}}">Vendors</a></li>
                                           </ul>
                                         </li>
