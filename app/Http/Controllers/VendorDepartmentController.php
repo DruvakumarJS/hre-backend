@@ -253,6 +253,8 @@ class VendorDepartmentController extends Controller
         ->orWhere('owner','LIKE','%'.$search.'%')
         ->orWhere('mobile','LIKE','%'.$search.'%')
         ->orWhere('email','LIKE','%'.$search.'%')
+        ->orWhere('gst','LIKE','%'.$search.'%')
+        ->orWhere('pan','LIKE','%'.$search.'%')
         ->paginate(25)
         ->withQueryString();
         return view('vendor/list',compact('data','search'));

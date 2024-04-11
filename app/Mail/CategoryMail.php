@@ -7,10 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MaterialMail extends Mailable
+class CategoryMail extends Mailable
 {
     use Queueable, SerializesModels;
-   public $material_data;
+    public $category_data;
     public $subject;
     public $action;
 
@@ -19,13 +19,12 @@ class MaterialMail extends Mailable
      *
      * @return void
      */
-    public function __construct($material_data , $subject,$action )
+    public function __construct($category_data , $subject,$action )
     {
-        $this->material_data = $material_data;
+        $this->category_data = $category_data;
         $this->subject = $subject ;
         $this->action = $action;
     }
-
     /**
      * Build the message.
      *
@@ -33,14 +32,16 @@ class MaterialMail extends Mailable
      */
     public function build()
     {
+       // print_r($this->category_data);  die();
         if($this->action == 'Create'){
-            return $this->subject($this->subject)->view('email.material_create');
+            return $this->subject($this->subject)->view('email.category_create');
         }
        if($this->action == 'Update'){
-            return $this->subject($this->subject)->view('email.material_update');
+            return $this->subject($this->subject)->view('email.category_update');
         }
        if($this->action == 'Delete'){
-            return $this->subject($this->subject)->view('email.material_delete');
-        }
+            return $this->subject($this->subject)->view('email.category_delete');
+        } 
+        
     }
 }

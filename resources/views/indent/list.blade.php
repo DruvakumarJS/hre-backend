@@ -89,7 +89,7 @@
                               <th scope="col">Action</th>
                               <th scope="col">Export</th> 
                               <th scope="col"></th> 
-                              <th></th>
+                              <!-- <th></th> -->
                             </tr>
                           </thead>
                           <tbody>
@@ -118,11 +118,11 @@
                                 <td>
                                    <input type="checkbox" id="check" name="check" value="{{$value->id}}">
                                 </td>
-                                @if(auth::user()->role_id == 1)
+                               <!--  @if(auth::user()->role_id == 1)
                                   <td>
                                     <a href="{{route('delete_indent',$value->id)}}"><button class="btn btn-outline-danger  btn-sm">Delete</button></a>
                                   </td>
-                                @endif 
+                                @endif  -->
                               </tr>
                           @endforeach
                             

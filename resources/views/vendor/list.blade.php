@@ -8,6 +8,24 @@
 }
 </style>
 
+<style type="text/css">
+  td{
+max-width: 150px;
+overflow: hidden;
+text-overflow: clip;
+white-space: nowrap;
+}
+ .scrollable-cell {
+     
+      overflow-x: auto;/* Display ellipsis (...) for overflowed content */
+  }
+  ::-webkit-scrollbar {
+  height: 4px;              /* height of horizontal scrollbar ← You're missing this */
+  width: 4px;
+}   
+
+</style>
+
 <div class="container">
     
       <div class="container-header">
@@ -69,12 +87,11 @@
                               <th scope="col">Billing Name</th>
                               <th scope="col">Vendor Type</th>
                               <th scope="col">Address</th>
-                              <th scope="col">Location/Area</th>
-                              <th scope="col">City</th>
-                              <th scope="col">State</th>
+                              <th scope="col">PAN</th>
+                              <th scope="col">GST</th>
                               <th scope="col">Owner</th>
-                              <th scope="col">Mobile</th>
-                              <th scope="col">Email</th>
+                              <th scope="col">Mobile / Email</th>
+                              <!-- <th scope="col">Email</th> -->
                               <!-- <th scope="col" width="200px">Address</th> -->
                               <th scope="col">Action</th>
                               <!-- <th></th> -->
@@ -96,14 +113,15 @@
                               @endphp
 
                               <td>{{$v_type}}</td>
-                            
-                              <td>{{$value->building}}</td>
-                              <td>{{$value->location}} / {{$value->area}}</td>
-                              <td>{{$value->city}}</td>
-                              <td>{{$value->state}}</td>
+                              <td class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+                               title="{{$value->building}},{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}}">{{$value->building}},{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}}</td>
+                             
+                              <td>{{$value->pan}}</td>
+                              <td>{{$value->gst}}</td>
                               <td>{{$value->owner}}</td>
-                              <td>{{$value->mobile}}</td>
-                              <td>{{$value->email}}</td>
+                              <td class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+                               title="{{$value->mobile}} - {{$value->email}}">{{$value->mobile}} - {{$value->email}}</td>
+                              <!-- <td>{{$value->email}}</td> -->
                               <td>
                                 @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 6 OR Auth::user()->role_id == 10)
                                 <a href="{{ route('edit_vendor',$value->id)}}"><button class="btn btn-sm btn-light btn-outline-secondary">Edit</button></a>

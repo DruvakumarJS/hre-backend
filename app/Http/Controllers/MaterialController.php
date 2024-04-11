@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\SizeMaster;
 use App\Models\UnitMaster;
 use App\Models\User;
+use App\Models\Employee;
+use App\Jobs\SendMaterialsEmail;
 use App\Models\FootPrint;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -150,31 +152,31 @@ class MaterialController extends Controller
             'information'=> $features
        ];
 
-      $emailarray = User::select('email')->whereIn('role_id',['1','10','11','12'])->get();
+          $empl = Employee::where('user_id', Auth::user()->id)->first();
+          $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','8','9'])->get();
+          $new_material_data = Material::where('item_code', $itemcode)->first();
+          $subject = "New Material Created : Material Name - ".$request->name." , Material Code - ".$itemcode ;
+          
+          $material_data = ['new_data' => $new_material_data , 'employee' => $empl];
+          $action = "Create";
 
-               foreach ($emailarray as $key => $value) {
+
+          foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
-      //Mail::to($emailid)->send(new MaterialMail($subject , $material));
 
-       try {
-         // Mail::to($emailid)->send(new MaterialMail($subject , $material));
-        } catch (\Exception $e) {
-            return $e->getMessage();
-           
-        } 
-        finally {
+          SendMaterialsEmail::dispatch($material_data,$subject,$emailid,$action) ; 
 
-
-                $footprint = FootPrint::create([
+          $footprint = FootPrint::create([
                     'action' => 'New product created - '.$itemcode,
                     'user_id' => Auth::user()->id,
                     'module' => 'Products',
                     'operation' => 'C'
                 ]);
          
-          return redirect()->route('add_product',$request->code)->with('material',$material);
-        }             
+          return redirect()->route('add_product',$request->code)->with('material',$material); 
+
+               
         
     }
 
@@ -249,6 +251,7 @@ class MaterialController extends Controller
     {
        // echo "<pre>";
        // print_r($request->Input());die();
+        $olddetails=Material::where('item_code' , $request->id)->first();
 
         $data = $request->specifications ;
         $result = array();
@@ -274,6 +277,21 @@ class MaterialController extends Controller
                                         'uom' =>$request->uom,
                                         'information'=> $features]);
       if($update_material){
+
+          $empl = Employee::where('user_id', Auth::user()->id)->first();
+          $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','8','9'])->get();
+          $new_material_data = Material::where('item_code', $request->id)->first();
+          $subject = "Edited Material : Material Name - ".$request->name." , Material Code - ".$request->id ;
+          
+          $material_data = ['new_data' => $new_material_data , 'old_data'=> $olddetails ,'employee' => $empl];
+          $action = "Update";
+
+
+          foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+          SendMaterialsEmail::dispatch($material_data,$subject,$emailid,$action) ; 
 
         $footprint = FootPrint::create([
                     'action' => 'Product details modified - '.$request->id,
@@ -301,6 +319,21 @@ class MaterialController extends Controller
         $product = Material::where('id',$id)->first();
         $itemcode = $product->item_code ;
         $DeleteMaterial = Material::where('id',$id)->delete();
+
+          $empl = Employee::where('user_id', Auth::user()->id)->first();
+          $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','8','9'])->get();
+         
+          $subject = "Delete Alert!!! Material : Material Name - ".$product->name." , Material Code - ".$product->item_code ;
+          
+          $material_data = ['new_data' => $product ,'employee' => $empl];
+          $action = "Delete";
+
+
+          foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+          SendMaterialsEmail::dispatch($material_data,$subject,$emailid,$action) ; 
 
         $footprint = FootPrint::create([
                     'action' => 'Product deleted - '.$itemcode,

@@ -132,6 +132,7 @@
                     class="{{request()->routeIs('vendor_master')
                     || request()->routeIs('add_vendor')
                     || request()->routeIs('edit_vendor')
+                    || request()->routeIs('search_vendor')
 
                       ? 'active' : ''}}">
                             <label class="nav-links" >Vendor</label></a>

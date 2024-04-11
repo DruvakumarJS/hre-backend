@@ -946,6 +946,7 @@ class IntendController extends Controller
           $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
               ->where('indent_no','LIKE','%'.$search.'%')
               ->orWhere('pcn','LIKE','%'.$search.'%')
+              ->orWhere('created_at','LIKE','%'.$search.'%')
               ->orWhereHas('pcns', function ($query) use ($search) {
               $query->where('brand', 'like', '%'.$search.'%');
                  })
@@ -973,7 +974,8 @@ class IntendController extends Controller
              ->whereIn('user_id',$userIDs)
              ->where(function($query)use($search){
               $query->where('indent_no','LIKE','%'.$search.'%');
-               $query->orWhere('pcn','LIKE','%'.$search.'%');
+              $query->orWhere('pcn','LIKE','%'.$search.'%');
+              $query->orWhere('created_at','LIKE','%'.$search.'%');
                $query->orWhereHas('pcns', function ($query) use ($search) {
                $query->where('brand', 'like', '%'.$search.'%');
                  });
@@ -1005,6 +1007,7 @@ class IntendController extends Controller
             ->where(function($query)use($search){
               $query->where('indent_no','LIKE','%'.$search.'%');
                $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhere('created_at','LIKE','%'.$search.'%');
                $query->orWhereHas('pcns', function ($query) use ($search) {
                $query->where('brand', 'like', '%'.$search.'%');
                  });
@@ -1023,6 +1026,7 @@ class IntendController extends Controller
         ->where(function($query)use($search){
               $query->where('indent_no','LIKE','%'.$search.'%');
                $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhere('created_at','LIKE','%'.$search.'%');
                $query->orWhereHas('pcns', function ($query) use ($search) {
                $query->where('brand', 'like', '%'.$search.'%');
                  });

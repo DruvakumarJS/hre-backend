@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Material;
+use App\Models\User;
+use App\Models\Employee;
+use App\Jobs\SendMaterialCategoryEmail;
 use App\Models\FootPrint;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -76,10 +79,10 @@ class CategoryController extends Controller
    
          else{
 
-           
+            $code = 'C001';
              $CreateCategory = Category::create(
             [
-                'code' => "C001",
+                'code' => $code,
                 'category' => $categoryName,
                 'material_category' => $material_category,
                 'description' => $categoryDesc
@@ -88,14 +91,30 @@ class CategoryController extends Controller
 
          }
 
-                    $footprint = FootPrint::create([
-                        'action' => 'New Category created- '.$categoryName,
-                        'user_id' => Auth::user()->id,
-                        'module' => 'Material Category',
-                        'operation' => 'C'
-                    ]);
+          $empl = Employee::where('user_id', Auth::user()->id)->first();
+          $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','8','9'])->get();
+          $new_category_data = Category::where('code', $code)->first();
+          $subject = "New Material Category Created : Category Name - ".$categoryName." , Categoty Code - ".$material_category ;
+          
+          $category_data = ['new_data' => $new_category_data , 'employee' => $empl];
+          $action = "Create";
+
+
+          foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+            SendMaterialCategoryEmail::dispatch($category_data,$subject,$emailid,$action) ;    
+
+            $footprint = FootPrint::create([
+                'action' => 'New Category created- '.$categoryName,
+                'user_id' => Auth::user()->id,
+                'module' => 'Material Category',
+                'operation' => 'C'
+            ]);
 
           $message = 'Category Name : '.$categoryName .', Category Code : '.$material_category ;
+
          // return redirect()->route('materials_master');
           return redirect()->back()->with('success',$message);
          }
@@ -162,6 +181,7 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
        // print_r($request->Input());
+        $olddetails = Category::where('id',$request->id)->first();
         $UpdateCategory = Category::where('id',$request->id)
                           ->update(
                             [
@@ -169,6 +189,22 @@ class CategoryController extends Controller
                                 'material_category' => $request->material_category,
                                 'description' => $request->desc
                             ]);
+
+          $empl = Employee::where('user_id', Auth::user()->id)->first();
+          $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','8','9'])->get();
+          $new_category_data = Category::where('id',$request->id)->first();
+
+          $subject = "Edited Material Category : Category Name - ".$request->name." , Categoty Code - ".$request->material_category ;
+          
+          $category_data = ['new_data' => $new_category_data ,'old_data'=> $olddetails , 'employee' => $empl];
+          $action = "Update";
+
+
+          foreach ($emailarray as $key => $value) {
+                  $emailid[]=$value->email;
+               }
+
+            SendMaterialCategoryEmail::dispatch($category_data,$subject,$emailid,$action) ;                    
 
          $footprint = FootPrint::create([
                         'action' => 'Category details modified - '.$request->name,
@@ -208,6 +244,22 @@ class CategoryController extends Controller
                         'module' => 'Material Category',
                         'operation' => 'U'
                     ]);
+
+              $empl = Employee::where('user_id', Auth::user()->id)->first();
+              $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','8','9'])->get();
+              $new_category_data = Category::where('code',$id)->first();
+
+              $subject = " Delete Alert!!! Material category: Category Name - ".$cat->name." , Categoty Code - ".$cat->material_category ;
+              
+              $category_data = ['new_data' => $cat , 'employee' => $empl];
+              $action = "Delete";
+
+
+              foreach ($emailarray as $key => $value) {
+                      $emailid[]=$value->email;
+                   }
+
+            SendMaterialCategoryEmail::dispatch($category_data,$subject,$emailid,$action) ; 
 
         return redirect()->route('materials_master');
         }
