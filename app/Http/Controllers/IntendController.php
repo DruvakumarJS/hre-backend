@@ -487,7 +487,7 @@ class IntendController extends Controller
 
             
              // Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
-             SendDispatchEmail::dispatch($grndata,$subject,$emailid);
+           //  SendDispatchEmail::dispatch($grndata,$subject,$emailid);
 
               $footprint = FootPrint::create([
                   'action' => 'GRN created- '.$GRN_id,

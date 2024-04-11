@@ -117,7 +117,7 @@
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                      <form method="post" action="{{route('update-grn')}}">
+                                      <form method="post" id="form" action="{{route('update-grn')}}">
                                         @csrf
                                         <div class="mb-3">
                                           <label for="recipient-name" class="col-form-label">GRN</label>
@@ -142,7 +142,7 @@
 
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                          <button type="submit" class="btn btn-danger">Update</button>
+                                          <button type="submit" class="btn btn-danger" id="submit">Update</button>
                                         </div>
                                       </form>
                                     </div>
@@ -176,5 +176,12 @@ $(document).ready(function(){
     </div> 
 </div>	
 
+<script>
+$(document).ready(function() {
+    $(document).on('submit', 'form', function() {
+        $('button').attr('disabled', 'disabled');
+    });
+});
+</script>
 
 @endsection
