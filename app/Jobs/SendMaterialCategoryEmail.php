@@ -43,7 +43,7 @@ class SendMaterialCategoryEmail implements ShouldQueue
         $emp = $this->category_data;
         $email = $emp['employee']['email'];
        
-         Mail::to($this->emailid)->cc($email)->send(new CategoryMail($this->category_data,$this->subject));
+         Mail::to($this->emailid)->cc($email)->send(new CategoryMail($this->category_data,$this->subject,$this->action));
         // Mail::to('druva@netiapps.com')->send(new CategoryMail($this->category_data,$this->subject,$this->action));
     }
 }

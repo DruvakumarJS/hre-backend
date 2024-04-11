@@ -42,7 +42,7 @@ class SendMaterialsEmail implements ShouldQueue
          $emp = $this->material_data;
         $email = $emp['employee']['email'];
        
-         Mail::to($this->emailid)->cc($email)->send(new CategoryMail($this->category_data,$this->subject));
+         Mail::to($this->emailid)->cc($email)->send(new MaterialMail($this->material_data,$this->subject,$this->action));
         // Mail::to('druva@netiapps.com')->send(new MaterialMail($this->material_data,$this->subject,$this->action));
     }
 }
