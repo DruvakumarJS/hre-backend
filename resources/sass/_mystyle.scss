@@ -164,7 +164,7 @@ label.caption {
 }
 
  .ui-autocomplete {
-           /* max-height: 200px;*/
+            max-height: 400px;
             overflow-y: auto;
             /* prevent horizontal scrollbar */
             overflow-x: hidden;
@@ -175,12 +175,17 @@ label.caption {
             font-weight: bold;
             background-color: yellow;
         }
+        .ui-state-highlight {
+            background-color: #007bff !important; /* Blue highlighting for focused item */
+            color: #ffffff !important;
+        }
+ 
+
 
    .scrollable-cell {
      
       overflow-x: auto;/* Display ellipsis (...) for overflowed content */
   }  
- 
 
 
 

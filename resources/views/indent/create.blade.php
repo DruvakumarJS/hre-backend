@@ -86,7 +86,7 @@
 
      	<div class="col-md-6 div-margin">
      		 <label>Search Materials</label>
-     		<input class="typeahead form-control" type="text" name="product" id="product" placeholder="Search product code / product name / brand name" >
+     		<input class="typeahead form-control form-select" type="text" name="product" id="product" placeholder="Search product code / product name / brand name" >
 
      	</div>
 
@@ -162,6 +162,19 @@ $( document ).ready(function() {
               });
               $(this).html(highlightedText);
           });
+           // Scroll the list to show the highlighted item if it's out of view
+            var $menu = $(".ui-autocomplete");
+            var $highlightedItem = $menu.find(".ui-state-highlight");
+            if ($highlightedItem.length > 0) {
+                var menuHeight = $menu.height();
+                var itemTop = $highlightedItem.position().top;
+                var itemHeight = $highlightedItem.outerHeight(true);
+                if (itemTop < 0) {
+                    $menu.scrollTop($menu.scrollTop() + itemTop); // Scroll up
+                } else if (itemTop + itemHeight > menuHeight) {
+                    $menu.scrollTop($menu.scrollTop() + itemTop + itemHeight - menuHeight); // Scroll down
+                }
+            }
       },
 
         select: function (event, ui) {
@@ -180,8 +193,25 @@ $( document ).ready(function() {
          }, 100);
          
         }
-      })
+      }).on("keydown", function(event) {
+        // Highlight the focused item when arrow keys are pressed
+        var $menu = $(".ui-autocomplete");
+        var $items = $menu.find(".ui-menu-item");
+        var currentIndex = $items.index($menu.find(".ui-state-highlight"));
 
+        if ($items.length > 0 && (event.which === 38 || event.which === 40)) {
+            $items.removeClass("ui-state-highlight");
+            if (event.which === 38 && currentIndex > 0) {
+                $items.eq(currentIndex - 1).addClass("ui-state-highlight");
+            } else if (event.which === 40 && currentIndex < $items.length - 1) {
+                $items.eq(currentIndex + 1).addClass("ui-state-highlight");
+            }
+        }
+    });
+  // Highlight item when mouseover
+    $(document).on("mouseover", ".ui-menu-item", function() {
+        $(this).addClass("ui-state-highlight").siblings().removeClass("ui-state-highlight");
+    });
   
 });
 
