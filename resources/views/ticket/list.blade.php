@@ -18,6 +18,10 @@ overflow: hidden;
 text-overflow: clip;
 white-space: nowrap;
 }
+ ::-webkit-scrollbar {
+  height: 4px;              
+  width: 4px;    
+  }
 
 
 </style>
@@ -119,10 +123,12 @@ white-space: nowrap;
 	                <tr>
 	                	<td width="90px;">{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td width="50px;">{{$value->ticket_no}}</td>
-	                	<td width="25px;">{{$value->pcn}}</td>
-	                	<td>{{$value->pcns->brand}},{{$value->pcns->city}}</td>
+	                	<td width="25px;" class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+                               title="{{$value->pcn}}">{{$value->pcn}}</td>
+	                	<td class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+                               title="{{$value->pcns->brand}},{{$value->pcns->city}}">{{$value->pcns->brand}},{{$value->pcns->city}}</td>
 	                	<td width="50px">{{$value->category}}</td>
-	                	<td style="overflow: hidden;word-break: break-word;">{{$value->issue}}</td>
+	                	<td class="scrollable-cell" data-toggle="tooltip" data-placement="top" title="{{$value->issue}}">{{$value->issue}}</td>
 	                	 
                        @php
 	                	if($value->priority == 'High'){
@@ -135,7 +141,7 @@ white-space: nowrap;
                          $colors = 'limegreen' ;
 	                	 
                        @endphp
-                       <td width="50px">{{$value->user->name}}</td>
+                       <td width="50px" class="scrollable-cell" data-toggle="tooltip" data-placement="top" title="{{$value->user->name}}">{{$value->user->name}}</td>
 	                	<td width="20px"><button class="btn btn-light" style="width:25px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></td>
 
 	                	<td width="100px"><?php echo ($value->tat!='') ? date("d-m-Y", strtotime($value->tat)) :''  ?></td>

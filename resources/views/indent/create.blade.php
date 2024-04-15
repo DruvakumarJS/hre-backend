@@ -1,15 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<style type="text/css">
-    .highlight
-    {
-        background-color: #FFFFAF;
-        color: Red;
-        font-weight: bold;
-    }
-</style>
-
 
 <div class="container">
 	<div class="justify-content-centre">
@@ -151,11 +142,28 @@ $( document ).ready(function() {
             },
             
             success: function (data) {
-              
-                response(data)
+               // console.log(data);
+               //var mm=data.replace('/\s+/','');
+                response(data);
             }
         });
     },
+    open: function(event, ui) {
+          var terms = $("#product").val().toLowerCase().split(/\s+/); // Split search terms by whitespace
+          $(".ui-menu-item").each(function() {
+              var itemText = $(this).text();
+              var highlightedText = itemText;
+              terms.forEach(function(term) {
+                  if ( (term.trim() !== "" && isNaN(term) && term.length > 1) || (!isNaN(term) && term.trim() !== "" ) ){
+                      highlightedText = highlightedText.replace(new RegExp($.ui.autocomplete.escapeRegex(term), "gi"), function(matched) {
+                          return "<span class='ui-autocomplete-highlight'>" + matched + "</span>";
+                      });
+                  }
+              });
+              $(this).html(highlightedText);
+          });
+      },
+
         select: function (event, ui) {
 
           $('#product').val(ui.item.value);
@@ -172,12 +180,8 @@ $( document ).ready(function() {
          }, 100);
          
         }
-      })/*.data("ui-autocomplete")._renderItem = function (ul, item) {
-            var regx = new RegExp('(' + this.term + ')', 'ig');
-           // var label = item.value.replace(regx, "<span class='highlight'>" + this.term + "</span>");
-             var label = item.value.replace(regx, "<span class='highlight'>" + this.term + "</span>");
-            return $("<li/>").data("ui-autocomplete-item", item).append($("<a>").html(label)).appendTo(ul);
-        };*/
+      })
+
   
 });
 
@@ -227,7 +231,7 @@ var inform ="";
   
    console.log('INOF==',inform);
 
-  $('#container').append('<tr><td><div class="row" id="row"> <div class="col-md-2"><label>Item Code</label><input class="form-control" type="text" name="indent[' + i + '][item_code]"  value="'+ item_code +'" readonly></div><div class="col-md-2"><label>Product Name</label><input class="form-control" type="text" name="indent[' + i + '][name]" value="'+ name +'" readonly></div><div class="col-md-1"><label>Brand</label><input class="form-control" type="text" name="indent[' + i + '][brand]"  value="'+ brand +'" readonly></div>  <div class="col-md-2"><label>Features</label>  <textarea class="form-control" onclick="adjustHeight(this)" readonly>'+ inform +'</textarea>     </div>  <div class="col-md-2"><label>Description</label><input class="form-control" type="text" name="indent[' + i + '][desc]" placeholder="Add additional comments" ></div><div class="col-md-1"><label>Quantity*</label><input class="form-control" type="number" name="indent[' + i + '][quantity]" id="quantity" min="1" required></div>  <div class="col-md-1"><label>UOM*</label><input class="form-control"  name="indent[' + i + '][uom]" value="'+ uom +'" required readonly></div>  <div class="col-md-1"><i class="fa fa-close remove-input-field"></i></div> </div></td></tr>');
+  $('#container').prepend('<tr><td><div class="row" id="row"> <div class="col-md-2"><label>Item Code</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][item_code]"  value="'+ item_code +'" data-toggle="tooltip" data-placement="top" title="'+ item_code +'"readonly></div><div class="col-md-2"><label>Product Name</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][name]" value="'+ name +'" data-toggle="tooltip" data-placement="top" title="'+ name +'" readonly></div><div class="col-md-1"><label>Brand</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][brand]"  value="'+ brand +'" data-toggle="tooltip" data-placement="top" title="'+ brand +'" readonly></div>  <div class="col-md-2"><label>Features</label>  <textarea class="form-control" onclick="adjustHeight(this)" readonly>'+ inform +'</textarea>     </div>  <div class="col-md-2"><label>Description</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][desc]" placeholder="Add additional comments" ></div><div class="col-md-1"><label>Quantity*</label><input class="form-control scrollable-cell" type="number" name="indent[' + i + '][quantity]" id="quantity" min="1"  required></div>  <div class="col-md-1"><label>UOM*</label><input class="form-control scrollable-cell"  name="indent[' + i + '][uom]" value="'+ uom +'" required data-toggle="tooltip" data-placement="top" title="'+ uom +'" readonly></div>  <div class="col-md-1"><i class="fa fa-close remove-input-field"></i></div> </div></td></tr>');
 
   setTimeout(function(){
   adjustHeight(this);       
@@ -376,11 +380,7 @@ word-wrap:break-word
                 }
             },
             minLength: 1
-        }).data("ui-autocomplete")._renderItem = function (ul, item) {
-            var regx = new RegExp('(' + this.term + ')', 'ig');
-            var label = item.value.replace(regx, "<span class='highlight'>" + this.term + "</span>");
-            return $("<li/>").data("ui-autocomplete-item", item).append($("<a>").html(label)).appendTo(ul);
-        };
+        })
     });
 </script>
 

@@ -15,14 +15,11 @@ overflow: hidden;
 text-overflow: clip;
 white-space: nowrap;
 }
- .scrollable-cell {
-     
-      overflow-x: auto;/* Display ellipsis (...) for overflowed content */
-  }
+
   ::-webkit-scrollbar {
-  height: 4px;              /* height of horizontal scrollbar ← You're missing this */
-  width: 4px;
-}   
+  height: 4px;              
+  width: 4px;    
+  } 
 
 </style>
 

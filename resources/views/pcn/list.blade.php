@@ -9,15 +9,11 @@ overflow: hidden;
 text-overflow: clip;
 white-space: nowrap;
 }
- .scrollable-cell {
-     
-      overflow-x: auto;/* Display ellipsis (...) for overflowed content */
+ ::-webkit-scrollbar {
+  height: 4px;              
+  width: 4px;    
   }
-  ::-webkit-scrollbar {
-  height: 4px;              /* height of horizontal scrollbar ← You're missing this */
-  width: 4px;
-}   
-
+ 
 </style>
 <div class="container">
     <div class="row justify-content-center">
@@ -82,7 +78,7 @@ white-space: nowrap;
                               <td>{{$value->client_name}}</td>
                               <td width="100px">{{$value->brand}}</td>
                               <td>{{$value->customer->email}}</td>
-                              <td  class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+                              <td class="scrollable-cell" data-toggle="tooltip" data-placement="top"
                                title="{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}">{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}</td>
                               <td>{{$value->status}}</td>
                               @if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2)
