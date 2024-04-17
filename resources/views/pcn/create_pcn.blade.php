@@ -341,9 +341,9 @@ $( document ).ready(function() {
                // console.log('III==',item)A
 
                var name = item.brand + " , " + item.state;
-               var brand = item.brand ;
+               var brand = encodeURIComponent(item.brand) ;   //item.brand ;
                /*location +=" <option data-gst="+item.gst+" data-state="+item.state+" value='"+brand+"'>"+ name +" </option>";*/
-               location +=" <option data-gst="+item.gst+" data-state='"+item.state+"' value='"+brand+"'>"+ name +" </option>";
+               location +=" <option data-gst="+item.gst+" data-state='"+item.state+"' value="+brand+">"+ name +" </option>";
        });
           location += '</select>'; 
         

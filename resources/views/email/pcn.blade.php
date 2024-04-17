@@ -43,6 +43,9 @@
                    <div style="margin-top: 20px;">
                      <label>PCN : </label> <label class="label-bold">{{$pcn_data['new_data']['pcn']}}</label>
                   </div>
+                   <div style="margin-top: 20px;">
+                     <label>P.O Number : </label> <label class="label-bold">{{$pcn_data['new_data']['po']}}</label>
+                  </div>
                    <div style="margin-top: 10px;">
                      <label>Brand : </label> <label class="label-bold">{{$pcn_data['new_data']['brand']}}</label>
                   </div>
@@ -127,6 +130,9 @@
                   
                    <div style="margin-top: 20px;">
                      <label>PCN : </label> <label class="label-bold">{{$pcn_data['old_data']['pcn']}}</label>
+                  </div>
+                   <div style="margin-top: 20px;">
+                     <label>P.O Number : </label> <label class="label-bold">{{$pcn_data['old_data']['po']}}</label>
                   </div>
                    <div style="margin-top: 10px;">
                      <label>Brand : </label> <label class="label-bold">{{$pcn_data['old_data']['brand']}}</label>

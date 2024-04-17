@@ -75,9 +75,12 @@ white-space: nowrap;
                             @foreach($pcns as $key => $value)
                             <tr> 
                               <td>{{$value->pcn}}</td>
-                              <td>{{$value->client_name}}</td>
-                              <td width="100px">{{$value->brand}}</td>
-                              <td>{{$value->customer->email}}</td>
+                              <td class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+                               title="{{$value->client_name}}">{{$value->client_name}}</td>
+                              <td width="100px" class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+                               title="{{$value->brand}}">{{$value->brand}}</td>
+                              <td class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+                               title="{{$value->customer->email}}">{{$value->customer->email}}</td>
                               <td class="scrollable-cell" data-toggle="tooltip" data-placement="top"
                                title="{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}">{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}},{{$value->pincode}}</td>
                               <td>{{$value->status}}</td>

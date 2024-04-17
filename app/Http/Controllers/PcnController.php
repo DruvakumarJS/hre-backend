@@ -59,8 +59,7 @@ class PcnController extends Controller
      */
     public function store(Request $request)
     {
-      //print_r($request->Input()); 
- 
+     
         $pcn = 'PCN_'.$request->pcn;
        if (Pcn::where('pcn',$pcn)->exists()) {
 
@@ -143,7 +142,7 @@ class PcnController extends Controller
                 'po'=>$request->po_number ,
                 'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,
-                'brand' => $request->brand ,
+                'brand' => urldecode($request->brand),
                 'work' => $request->work,
                 'location' => $request->loc,
                 'area' => $request->building,
@@ -280,7 +279,7 @@ class PcnController extends Controller
      */
     public function update(Request $request)
     {
-       // print_r($request->Input());die();
+      //  print_r($request->Input());die();
 
         $achieved_days = '';
         $holdDays = '';
@@ -366,7 +365,7 @@ class PcnController extends Controller
                 'po'=>$request->po_number,
                 'customer_id' => $request->customer_id ,
                 'client_name' => $request->client_name,
-                'brand' => $request->brand ,
+                'brand' => urldecode($request->brand) ,
                 'work' => $request->work,
                 'location' => $request->loc,
                 'area' => $request->area,
