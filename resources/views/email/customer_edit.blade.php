@@ -133,7 +133,13 @@
 
                   <label>---------- Previous Deatils ----------</label>
 
-                  <label>Client's Contact Details</label>
+                  <div>
+                    <label>Client's Contact Details</label>
+                  </div>
+                   <div style="margin-top: 10px;margin-bottom: 10px">
+                     <label>Client Billing Name : </label><label>{{$data['old_data']['name']}}</label> 
+                  </div>
+                  
 
                    <div  class="card border-white" style="margin-top: 10px;">
                      <table class="table responsive" width="100%">
