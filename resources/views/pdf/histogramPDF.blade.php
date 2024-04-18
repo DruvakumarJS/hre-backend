@@ -439,10 +439,10 @@
         </table>
     </div>
 
-    <div class="div-margin">
-         <label  class="label-bold">General Note</label>
+    <div class="div-margin" style="margin-top: 10px;">
+         <label  class="label-bold" style="font-weight: bold;">General Note</label>
          <div class="div-margin">
-           <textarea class="form-control" placeholder="Enter your comments here...." name="generalnote">{{$data->generalnotes}}</textarea>
+           <textarea class="form-control" placeholder="Enter your comments here...." name="generalnote" style="min-height: 100px;max-height: 200px">{{$data->generalnotes}}</textarea>
          </div>
          
        </div> 
