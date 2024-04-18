@@ -445,7 +445,7 @@
            <textarea class="form-control" placeholder="Enter your comments here...." name="generalnote" style="min-height: 100px;max-height: 200px">{{$data->generalnotes}}</textarea>
          </div>
          
-       </div> 
+    </div> 
 
     <table style="margin-top: 30px">
       <tr height="100px">
