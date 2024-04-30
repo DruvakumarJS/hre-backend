@@ -163,11 +163,10 @@ label.caption {
 
 .ui-autocomplete-highlight {
   font-weight: bold;
-  background-color: yellow;
 }
 
 .ui-state-highlight {
-  background-color: #007bff !important; /* Blue highlighting for focused item */
+  background-color: #007bff !important; /*007bff- Blue highlighting for focused item */
   color: #ffffff !important;
 }
 

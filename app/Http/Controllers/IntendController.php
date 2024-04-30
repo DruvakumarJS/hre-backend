@@ -710,19 +710,6 @@ class IntendController extends Controller
     }
 
     /*public function action(Request $request){
-
-        $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"))
-          ->where('item_code' , 'LIKE', '%'.$request->search.'%')
-          ->orWhere('name' , 'LIKE', '%'.$request->search.'%')
-          ->orWhere('brand' , 'LIKE', '%'.$request->search.'%')
-        ->get();
-
-        
-        return response()->json($product);
-
-    }*/
-
-    public function action(Request $request){
      
         $search = $request->search;
         $search_array = explode(' ', $search);
@@ -733,6 +720,7 @@ class IntendController extends Controller
 
           if($key == '0'){
            $search = $value;
+           $first = $value ;
             
            $product = $product->where(function($query)use($search){
             $query->orWhere('item_code' , 'LIKE', '%'.$search.'%');
@@ -765,7 +753,7 @@ class IntendController extends Controller
         $product=$product->get();
 
         return response()->json($product);
-    }
+    }*/
 
     public function grn(){
 
@@ -1265,4 +1253,114 @@ class IntendController extends Controller
      return $pdf->download($filename);  
 
    }
+
+   public function product_details(Request $request){
+
+        $search = $request->search;
+       
+        $product = array();
+        
+        if(isset($request->code)){
+           if(Material::where('item_code',$request->code)->exists()){
+             $product = Material::where('item_code',$request->code)->first();
+             $resp = ['item' => $product,
+                      'input' => "code"
+                    ];
+           }
+           else{
+            
+              $resp = ['item' => $product,
+                      'input' => "code"
+                    ];
+           }
+  
+          return response()->json($resp);
+        }
+        else if(isset($request->name) && isset($request->brand) &&  isset($request->feature) ){
+        
+       // $search_array = explode(' ', $search);
+       /* $name = $request->name ;
+        $brand = $request->brand;
+        $feature = $request->feature ;*/
+
+        $name = 'Sand' ;
+        $brand = 'gen';
+        $feature = 'd';
+
+        $product =  array();
+        $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"));
+
+        $product = $product->where('name' , 'LIKE', '%'.$name.'%')
+                   ->where('brand' , 'LIKE', '%'.$brand.'%') 
+                   ->where(DB::raw('lower(information)'), 'like', '%' . strtolower($feature) . '%')
+                   ->get();       
+
+
+         $resp = ['item' => $product,
+                  'input' => "search"
+                  ];
+
+        return response()->json($product);
+      }
+
+   }
+
+   public function action(Request $request){
+     
+        $search = $request->search;
+        $search_array = explode(',', $search);
+        $product = array();
+        $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"));
+
+        $size = sizeof($search_array);
+  
+        foreach ($search_array as $key => $value) {
+
+          if($key == '0'){
+           $search = $value;
+           $first = $value ;
+            
+           $product = $product->where(function($query)use($search){
+            $query->where('name' , 'LIKE', '%'.$search.'%');
+           });
+        
+
+          }
+          else if($key == '1'){
+          $search = $value;
+
+           $product = $product->where(function($query)use($search){
+            $query->where('brand' , 'LIKE', '%'.$search.'%');  
+            });
+           
+          }
+          else if($key == '2'){
+           $search = $value;
+
+           $product = $product->where(function($query)use($search){
+             $query->where(DB::raw('lower(information)'), 'LIKE','%'. strtolower($search).'%');
+           // $query->orWhere('information' , 'LIKE', '%'.$search.'%');
+
+            });
+            
+          }
+          else if($key > '2'){
+           $search = $value;
+
+           $product = $product->where(function($query)use($search){
+             $query->where(DB::raw('lower(information)'), 'LIKE','%'. strtolower($search).'%');
+           // $query->orWhere('information' , 'LIKE', '%'.$search.'%');
+
+            });
+            
+          }
+         
+         
+        }
+
+        $product=$product->get();
+
+        return response()->json($product);
+    }
 }
+

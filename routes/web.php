@@ -164,6 +164,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('settle-indent', [IntendController::class,'settle_indent'])->name('settle_indent');
     Route::get('delete-indent/{id}', [IntendController::class,'destroy_indent'])->name('delete_indent');
 
+    Route::get('get-products',[IntendController::class,'product_details'])->name('get_products');
+
+
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');
     Route::get('generate-pdf', [HomeController::class, 'generatePDF'])->name('pdf');
 

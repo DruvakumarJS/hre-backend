@@ -2,6 +2,14 @@
 
 @section('content')
 
+<style type="text/css">
+   .highlighted {
+      background-color: yellow;
+      font-weight: bold;
+  }
+
+</style>
+
 <div class="container">
 	<div class="justify-content-centre">
 		<div class="container-header">
@@ -77,16 +85,28 @@
       
    
      <div class="row">
-      <div class="col-md-4 div-margin">
+      <div class="col-md-3 div-margin">
         <label>Project Code Number</label>
         <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Search PCN " value="{{old('pcn')}}">
         <span class="label-bold" id="pcn_detail"></span>
 
       </div>
 
-     	<div class="col-md-6 div-margin">
-     		 <label>Search Materials</label>
-     		<input class="typeahead form-control form-select" type="text" name="product" id="product" placeholder="Search product code / product name / brand name" >
+      <div class="col-md-3 div-margin" >
+       
+        <label>Search Item Code</label>
+         <div class="input-group mb-3">
+            <input class="form-control" type="text" id="code" name="search" placeholder="Ex : CVL001" >
+            <div class="input-group-prepend">
+               <button class="btn btn-outline-secondary rounded-0" type="submit" id="call-api-btn">Search</button>
+            </div>
+          </div>
+       
+      </div>
+
+     	<div class="col-md-4 div-margin">
+     		 <label>Search Materials (Material Name,Brand,param1,param2...)</label>
+     		<input class="typeahead form-control form-select" type="text" name="product" id="product" placeholder=" Material name,Brand,param1,param2..." >
 
      	</div>
 
@@ -98,6 +118,52 @@
      	
      	
      </div>
+
+
+
+
+      <!-- <div class="row">
+      <div class="col-md-2 div-margin">
+        <label>Project Code Number</label>
+        <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Search PCN " value="{{old('pcn')}}">
+        <span class="label-bold" id="pcn_detail"></span>
+
+      </div>
+
+      <div class="col-md-2 div-margin">
+         <label>Search Material code</label>
+        <input class="typeahead form-control" type="text" name="product" id="code" placeholder="Search product code / product name / brand name" >
+
+      </div>
+
+      <div class="col-md-2 div-margin">
+         <label>Search Material name </label>
+        <input class="form-control" type="text" name="product" id="name" placeholder="Search product code / product name / brand name" >
+
+      </div>
+
+      <div class="col-md-2 div-margin">
+         <label>Search Material Brand</label>
+        <input class="form-control" type="text" name="product" id="brand" placeholder="Search product code / product name / brand name" >
+
+      </div>
+
+      <div class="col-md-2 div-margin">
+         <label>Search Material params</label>
+        <input class="form-control" type="text" name="product" id="feature" placeholder="Search product code / product name / brand name" >
+
+      </div>
+
+      <div class="col-md-1 div-margin">
+        <label></label>
+        <input class="btn btn-outline-secondary form-control" type= "button" value= "Search " id="call-api-btn" >
+        
+      </div>
+      
+      
+     </div>
+
+     <div id="product_list"></div> -->
 
      
      </div> 
@@ -144,12 +210,14 @@ $( document ).ready(function() {
             success: function (data) {
                // console.log(data);
                //var mm=data.replace('/\s+/','');
+              // alert(data);
                 response(data);
             }
         });
     },
     open: function(event, ui) {
-          var terms = $("#product").val().toLowerCase().split(/\s+/); // Split search terms by whitespace
+         // var terms = $("#product").val().toLowerCase().split(/\s+/); // Split search terms by whitespace
+           var terms = $("#product").val().toLowerCase().split(/\s*,\s*/);
           $(".ui-menu-item").each(function() {
               var itemText = $(this).text();
               var highlightedText = itemText;
@@ -421,6 +489,74 @@ $(document).ready(function() {
     });
 });
 </script>
+
+
+
+<script>
+
+    $(document).ready(function(){
+        var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+        // Bind event handler for dropdown change
+       
+        $("#call-api-btn").click(function(){
+            var code = $('#code').val();
+            var name = $('#name').val();
+            var brand = $('#brand').val();
+            var feature = $('#feature').val();
+            var path = "{{ route('get_products') }}";
+
+            if(code){
+                $.ajax({
+                    url: path,
+                    type: 'GET',
+                    data: {
+                        'code': code,
+                        'name': name,
+                        'brand': brand,
+                        'feature': feature,
+                        '_token': CSRF_TOKEN
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.input == 'code'){
+                            if(data.item.length == 0){
+                                alert('Invalid Item Code')
+                                $('#code').val('');
+                            } else {
+                                var item_code = data.item.item_code;
+                                var name = data.item.name;
+                                var brand = data.item.brand;
+                                var info = data.item.information;
+                                var uom = data.item.uom;
+
+                                $('#code').val('');
+                                populateinputs(item_code , name , brand , info , uom);
+                            }
+                        } 
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr);
+                        alert('Error occurred while calling the API.');
+                    }
+
+
+                });
+
+            } else {
+                alert('Please fill any of the search field')
+            }
+        });
+
+
+
+        
+    });
+</script>
+
+
+
 
 
 
