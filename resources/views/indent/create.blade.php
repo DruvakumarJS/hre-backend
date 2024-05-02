@@ -98,7 +98,7 @@
          <div class="input-group mb-3">
             <input class="form-control" type="text" id="code" name="search" placeholder="Ex : CVL001" >
             <div class="input-group-prepend">
-               <button class="btn btn-outline-secondary rounded-0" type="submit" id="call-api-btn">Search</button>
+               <button class="btn btn-outline-secondary rounded-0" type="submit" id="call-api-btn">Add Item</button>
             </div>
           </div>
        
@@ -112,7 +112,7 @@
 
       <div class="col-md-1 div-margin">
         <label></label>
-        <input class="btn btn-outline-secondary form-control" type= "button" value= "Add Item" onclick= "clearInput()">
+        <input class="btn btn-outline-secondary form-control" type= "button" value= "Clear" onclick= "clearInput()">
         
       </div>
      	
@@ -545,7 +545,7 @@ $(document).ready(function() {
                 });
 
             } else {
-                alert('Please fill any of the search field')
+                alert('Please Enter the Item Code . Ex: CVL001')
             }
         });
 

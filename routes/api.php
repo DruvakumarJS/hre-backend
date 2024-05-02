@@ -79,6 +79,8 @@ Route::post('/new-vault-level-5',[AppdataController::class,'level5']);
 
 
 Route::post('/search-material',[MaterialController::class,'material_search']);
+Route::post('/custom-material-search',[MaterialController::class,'custom_material_search']);
+Route::post('/get-product-details',[MaterialController::class,'product_details']);
 
 Route::post('/my-dashboard-details',[HomeController::class,'mydashboard']);
 

@@ -198,6 +198,97 @@ class MaterialController extends Controller
 
     }
 
+    public function custom_material_search(Request $request){
+     
+        $search = $request->search;
+        $search_array = explode(',', $search);
+        $product = array();
+        $product =  Material::select('*',DB::raw("CONCAT(item_code,' - ',name,' - ',brand ,' - ',information) AS value"));
+
+        foreach ($search_array as $key => $value) {
+
+          if($key == '0'){
+           $search = $value;
+           $first = $value ;
+            
+           $product = $product->where(function($query)use($search){
+            $query->where('name' , 'LIKE', '%'.$search.'%');
+           });
+        
+
+          }
+          else if($key == '1'){
+          $search = $value;
+
+           $product = $product->where(function($query)use($search){
+            $query->where('brand' , 'LIKE', '%'.$search.'%');  
+            });
+           
+          }
+          else if($key == '2'){
+           $search = $value;
+
+           $product = $product->where(function($query)use($search){
+             $query->where(DB::raw('lower(information)'), 'LIKE','%'. strtolower($search).'%');
+          
+            });
+            
+          }
+          else if($key > '2'){
+           $search = $value;
+
+           $product = $product->where(function($query)use($search){
+             $query->where(DB::raw('lower(information)'), 'LIKE','%'. strtolower($search).'%');
+          
+            });
+            
+          }
+         
+         
+        }
+
+        $product=$product->get();
+
+        return response()->json([
+            'data' => $product]);
+    }
+
+    public function product_details(Request $request){
+
+        $search = $request->search;
+       
+        $product = array();
+        
+        if(isset($request->code) && isset($request->user_id)){
+           if(Material::where('item_code',$request->code)->exists()){
+             $product = Material::where('item_code',$request->code)->first(); 
+
+             return response()->json([
+                'status' => 'true',
+                'message' => 'data found',
+                'data' => $product]);
+           }
+           else{
+
+            return response()->json([
+                'status' => 'true',
+                'message' => 'Invalid Item Code',
+                'data' => $product]);
+           }
+        
+           
+        }
+        else {
+            return response()->json([
+                'status' => 'false',
+                'message' => 'insufficient data',
+                'data' => $product]);
+
+        }
+        
+
+   }
+
 
      
     
