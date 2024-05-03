@@ -261,7 +261,7 @@ class MaterialController extends Controller
         
         if(isset($request->code) && isset($request->user_id)){
            if(Material::where('item_code',$request->code)->exists()){
-             $product = Material::where('item_code',$request->code)->first(); 
+             $product = Material::where('item_code',$request->code)->get(); 
 
              return response()->json([
                 'status' => 'true',
