@@ -98,7 +98,7 @@ class ExportVendors implements FromCollection , WithHeadings
     public function headings(): array
      {       
        return [
-         'Date','VID','Staff Name','Designation' , 'Mobile' , 'Email' , 'Billing Name' , 'Vendor Type' , 'GST','PAN' , 'TIN' , 'Building' , 'Area', 'Location' , 'City' , 'State' , 'PINCODE','Owner Name' , 'Owner MObile' , 'Owner Email'
+         'Date','VID','Staff Name','Designation' , 'Mobile' , 'Email' , 'Billing Name' , 'Vendor Type' , 'GST','PAN' , 'CIN' , 'Building' , 'Area', 'Location' , 'City' , 'State' , 'PINCODE','Owner Name' , 'Owner MObile' , 'Owner Email'
        ];
      }
 }

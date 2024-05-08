@@ -85,9 +85,9 @@
           </div>
 
           <div class="form-group row " style="margin-top: 10px">
-            <label for="" class="col-2 col-form-label">TIN *</label>
+            <label for="" class="col-2 col-form-label">CIN *</label>
             <div class="col-6 ">
-              <input  class="form-control" type="text" name="tin" value="{{$data->tin}}" required="required" value="{{$data->vid_id}}"  placeholder="Enter TIN " >
+              <input  class="form-control" type="text" name="tin" value="{{$data->tin}}" required="required" value="{{$data->vid_id}}" minlength="21" maxlength="21"  placeholder="Enter TIN " >
             </div>
           </div>
           

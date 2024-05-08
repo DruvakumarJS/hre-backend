@@ -85,9 +85,9 @@
           </div>
 
           <div class="form-group row " style="margin-top: 10px">
-            <label for="" class="col-2 col-form-label">TIN *</label>
+            <label for="" class="col-2 col-form-label">CIN *</label>
             <div class="col-6 ">
-              <input  class="form-control" type="text" name="tin" required="required"   placeholder="Enter TIN " value="{{old('tin')}}">
+              <input  class="form-control" type="text" name="tin" required="required" minlength="21" maxlength="21"  placeholder="Enter TIN " value="{{old('tin')}}">
             </div>
           </div>
           
@@ -187,22 +187,22 @@
                    <div class="row align-items-end"> 
                      
                      <div class="col-md-3">
-                      <label class="label-bold">Name</label>
+                      <label class="label-bold">Name *</label>
                       <input class="form-control" type="text" name="client[0][name]" required="required" placeholder="Enter Name" >
                     </div>
 
                      <div class="col-md-3">
-                      <label class="label-bold">Designation</label>
+                      <label class="label-bold">Designation *</label>
                       <input class="form-control" type="text" name="client[0][designation]" required="required"
                       placeholder="Enter Designation">
                     </div>
 
                     <div class="col-md-3">
-                      <label class="label-bold">Contact No.</label>
+                      <label class="label-bold">Contact No. *</label>
                       <input class="form-control" type="text" name="client[0][contact]" required="required" minlength="10" maxlength="10" placeholder="Enter Contact No." >
                     </div>
                     <div class="col-md-3">
-                      <label class="label-bold">Email ID</label>
+                      <label class="label-bold">Email ID *</label>
                       <input class="form-control" type="text" name="client[0][email]" required="required" placeholder="Enter Email ID" >
                     </div>
 
@@ -231,7 +231,7 @@
     var j = 'n';
     $("#dynamic-client").click(function () {
         ++i;
-         $("#dynamicclient").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][name]"required=" required" placeholder="Enter Name"></div><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][designation]" required="required" placeholder="Enter Designation"></div> <div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][contact]" required="required" minlength="10" maxlength="10" placeholder="Enter Contact No."></div><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][email]" required="required" placeholder="Enter Email ID"></div> </div></td></tr>');
+         $("#dynamicclient").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][name]"required=" required" placeholder="Enter Name"></div><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][designation]" required="required" placeholder="Enter Designation"></div> <div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][contact]"  ="required" minlength="10" maxlength="10" placeholder="Enter Contact No."></div><div class="col-md-3"><input class="form-control" type="text" name="client['+ i +'][email]" required="required" placeholder="Enter Email ID"></div> </div></td></tr>');
         
 
         document.getElementById("btnn").style.display="block";
