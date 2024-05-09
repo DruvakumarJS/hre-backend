@@ -105,13 +105,20 @@ class TicketConversationController extends Controller
                 $ticketarray = ['ticket_no'=>$Ticket->ticket_no ,'sender' => $sender->name , 'assigned_to' => $recipient->name." - ".$recipient->employee_id , 'body' => $body ,'action' => 'reply'];
 
 
-                $emailarray=User::where('id',$request->recipient)->orWhereIn('role_id',['1','2'])->get();
+                $recip = $request->recipient ;
+                $emailarray=User::where(function($query)use($recip){
+                    $query->where('id',$recip);
+                    $query->orWhereIn('role_id',['1','2']);
+                })
+                ->where('status','Active')
+                ->get();
 
                     foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;
-                     
+                                                                                                                                                                                            
                     }
-                   // print_r($emailid); die();
+
+                    //print_r($emailid); die();
                SendTicketUpdatesEmail::dispatch($ticketarray , $subject , $emailid) ;   
 
                $footprint = FootPrint::create([

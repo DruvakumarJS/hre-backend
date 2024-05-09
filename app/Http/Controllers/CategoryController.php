@@ -92,7 +92,12 @@ class CategoryController extends Controller
          }
 
           $empl = Employee::where('user_id', Auth::user()->id)->first();
-          $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','10','11'])->get();
+
+          $emailarray = User::select('email')
+                     ->whereIn('role_id',['1','2','6','7','10','11'])
+                     ->where('status','Active')
+                     ->get();
+
           $new_category_data = Category::where('code', $code)->first();
           $subject = "New Material Category Created : Category Name - ".$categoryName." , Categoty Code - ".$material_category ;
           
@@ -191,7 +196,12 @@ class CategoryController extends Controller
                             ]);
 
           $empl = Employee::where('user_id', Auth::user()->id)->first();
-          $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','10','11'])->get();
+         
+          $emailarray = User::select('email')
+                       ->whereIn('role_id',['1','2','6','7','10','11'])
+                       ->where('status','Active')
+                       ->get();
+
           $new_category_data = Category::where('id',$request->id)->first();
 
           $subject = "Edited Material Category : Category Name - ".$request->name." , Categoty Code - ".$request->material_category ;
@@ -246,7 +256,12 @@ class CategoryController extends Controller
                     ]);
 
               $empl = Employee::where('user_id', Auth::user()->id)->first();
-              $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','10','11'])->get();
+
+              $emailarray = User::select('email')
+                          ->whereIn('role_id',['1','2','6','7','10','11'])
+                          ->where('status','Active')
+                          ->get();
+                          
               $new_category_data = Category::where('code',$id)->first();
 
               $subject = " Delete Alert!!! Material category: Category Name - ".$cat->name." , Categoty Code - ".$cat->material_category ;

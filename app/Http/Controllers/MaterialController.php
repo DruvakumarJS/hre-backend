@@ -153,7 +153,12 @@ class MaterialController extends Controller
        ];
 
           $empl = Employee::where('user_id', Auth::user()->id)->first();
-          $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','10','11'])->get();
+          
+          $emailarray = User::select('email')
+                      ->whereIn('role_id',['1','2','6','7','10','11'])
+                      ->where('status','Active')
+                      ->get();
+
           $new_material_data = Material::where('item_code', $itemcode)->first();
           $subject = "New Material Created : Material Name - ".$request->name." , Material Code - ".$itemcode ;
           
@@ -279,7 +284,12 @@ class MaterialController extends Controller
       if($update_material){
 
           $empl = Employee::where('user_id', Auth::user()->id)->first();
-          $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','10','11'])->get();
+
+          $emailarray = User::select('email')
+                        ->whereIn('role_id',['1','2','6','7','10','11'])
+                        ->where('status','Active')
+                        ->get();
+
           $new_material_data = Material::where('item_code', $request->id)->first();
           $subject = "Edited Material : Material Name - ".$request->name." , Material Code - ".$request->id ;
           
@@ -321,7 +331,11 @@ class MaterialController extends Controller
         $DeleteMaterial = Material::where('id',$id)->delete();
 
           $empl = Employee::where('user_id', Auth::user()->id)->first();
-          $emailarray = User::select('email')->whereIn('role_id',['1','2','6','7','10','11'])->get();
+
+          $emailarray = User::select('email')
+                      ->whereIn('role_id',['1','2','6','7','10','11'])
+                      ->where('status','Active')
+                      ->get();
          
           $subject = "Delete Alert!!! Material : Material Name - ".$product->name." , Material Code - ".$product->item_code ;
           

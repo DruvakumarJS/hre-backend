@@ -82,13 +82,23 @@
                 
           </div>
 
+       </div>
+
+       <div class="row div-margin">
+            
+           <div class="col-md-4">
+                <label>Status</label>
+                <select class="form-control form-select" name="status">
+                  <option value="Active" {{ ($userData->status == 'Active')?'selected':'' }}>Active</option>
+                  <option value="Inactive" {{ ($userData->status == 'Inactive')?'selected':'' }}>Inactive</option>
+                </select>
+                
+                
+          </div>
 
           <input type="hidden" name="role" value="{{$userData->role}}">
           <input type="hidden" name="user_id" value="{{$userData->user_id}}">
           <input type="hidden" name="row_id" value="{{$userData->id}}">
-
-
-        
 
        </div>
 

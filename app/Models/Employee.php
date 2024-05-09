@@ -19,7 +19,8 @@ class Employee extends Model
     	'email',
     	'role',
       'role_id',
-      'appversion'
+      'appversion',
+      'status'
     	 	
     ];
 

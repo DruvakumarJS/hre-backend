@@ -252,7 +252,8 @@ class UserController extends Controller
 
             $updateuser = User::where('id',$request->user_id)->update([
                 'name' => $request->name,
-                'email' => $request->email]);
+                'email' => $request->email,
+                'status' => $request->status]);
            }
             
 
@@ -263,6 +264,7 @@ class UserController extends Controller
                     'name' => $request->name ,
                     'mobile' => $request->mobile,
                     'email' => $request->email,
+                    'status' => $request->status,
     
                        ]);
 

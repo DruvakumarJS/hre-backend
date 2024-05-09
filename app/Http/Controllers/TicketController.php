@@ -277,13 +277,18 @@ class TicketController extends Controller
          //print_r($array); die();
 
          // $emailarray = User::select('email')->where('role_id','1')->orWhere('role_id','2')->get();
-          $emailarray = User::select('email')->whereIn('role_id',$array)->orWhereIn('role_id',['1','2','3','4','5'])->get();
+          $emailarray = User::select('email')
+          ->where('status','Active')
+          ->where(function($query)use($array){
+            $query->whereIn('role_id',$array);
+            $query->orWhereIn('role_id',['1','2','3','4','5']);
+          })
+          ->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                  
                }
-
 
            SendTicketEmail::dispatch($ticketarray , $subject , $emailid) ;   
 
@@ -503,7 +508,14 @@ class TicketController extends Controller
                      'action' => 'assign'
                      ];
 
-                  $emailarray = User::select('email')->whereIn('role_id',['1','2'])->orWhere('id',$request->user_id)->get();
+                  /*$emailarray = User::select('email')->whereIn('role_id',['1','2'])->orWhere('id',$request->user_id)->get();*/
+                   $emailarray = User::select('email')
+                      ->where('status','Active')
+                      ->where(function($query)use($array){
+                        $query->where('id',$request->user_id);
+                        $query->orWhereIn('role_id',['1','2']);
+                      })
+                      ->get();
 
                        foreach ($emailarray as $key => $value) {
                           $emailid[]=$value->email;
@@ -1067,7 +1079,10 @@ class TicketController extends Controller
               'assigned_to' => 'All' , 
               'action' => 'Completed'];
 
-              $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','6','7','8','10','11'])->get();
+              $emailarray = User::select('email')
+                            ->whereIn('role_id',['1','2','3','4','5','6','7','8','10','11'])
+                            ->where('status','Active')
+                            ->get();
 
                    foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;
@@ -1118,7 +1133,10 @@ class TicketController extends Controller
                 'assigned_to' => 'All' , 
                 'action' => 'Resolved' ];
 
-              $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','6','7','8','10','11'])->get();
+              $emailarray = User::select('email')
+                     ->whereIn('role_id',['1','2','3','4','5','6','7','8','10','11'])
+                     ->where('status','Active')
+                     ->get();
 
                    foreach ($emailarray as $key => $value) {
                       $emailid[]=$value->email;

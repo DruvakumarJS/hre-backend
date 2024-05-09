@@ -166,7 +166,11 @@ class CustomerController extends Controller
           $data = ['details' =>$details  ,'address' => $customer_address ];
           $action = 'Create';
 
-             $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','6','7','10','11'])->get();
+             $emailarray = User::select('email')
+                        ->whereIn('role_id',['1','2','3','4','6','7','10','11'])
+                        ->where('status','Active')
+                        ->get();
+
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }
@@ -323,7 +327,11 @@ class CustomerController extends Controller
          $action = 'Update';
           /*$data = ['name' => $request->name , 'mobile'=>$request->mobile , 'email'=>$request->email ,'address' => $customer_address , 'old_data'=> $cust_data];*/
 
-            $emailarray = User::select('email')->where('role_id','!=','13')->where('role_id','!=','14')->get();
+            $emailarray = User::select('email')
+                         ->where('role_id','!=','13')
+                         ->where('role_id','!=','14')
+                         ->where('status','Active')
+                         ->get();
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
                }

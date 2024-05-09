@@ -248,7 +248,10 @@ class IntendController extends Controller
 
           $subject = "New Material Indent " .$ind_no." ".$request->pcn;
 
-          $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','10','11','12'])->get();
+          $emailarray = User::select('email')
+                      ->whereIn('role_id',['1','2','3','4','5','10','11','12'])
+                      ->where('status','Active')
+                      ->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
@@ -479,7 +482,10 @@ class IntendController extends Controller
               'creator_mail' => $userdetail->email
              ];
 
-              $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','10','11','12'])->get();
+              $emailarray = User::select('email')
+                          ->whereIn('role_id',['1','2','3','4','5','10','11','12'])
+                          ->where('status','Active')
+                          ->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;

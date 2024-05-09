@@ -424,7 +424,10 @@ class AttendanceController extends Controller
                      'body' => $body,
                      'user_id' => $request->id];
 
-         $emailarray = User::select('email')->whereIn('role_id',['1','2','6','9'])->get();
+         $emailarray = User::select('email')
+               ->whereIn('role_id',['1','2','6','9'])
+               ->where('status','Active')
+               ->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;

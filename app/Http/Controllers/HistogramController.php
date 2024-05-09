@@ -202,7 +202,10 @@ class HistogramController extends Controller
             $alias = $data->user->roles->alias;
             $subject = "Submission of New Project Histogram Form (PH".$id.")";
 
-            $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5'])->get();
+            $emailarray = User::select('email')
+                          ->whereIn('role_id',['1','2','3','4','5'])
+                          ->where('status','Active')
+                          ->get();
 
                foreach ($emailarray as $key => $value) {
                   $empl_mail[]=$value->email;
@@ -575,7 +578,10 @@ class HistogramController extends Controller
 
             $subject = "Histogram Updated to ".$request->pcn." ".$pcn_details->billing_name ;
 
-             $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','6','7','10','11'])->get();
+             $emailarray = User::select('email')
+                         ->whereIn('role_id',['1','2','3','4','5','6','7','10','11'])
+                         ->where('status','Active')
+                         ->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
@@ -780,7 +786,10 @@ class HistogramController extends Controller
 
             $subject = "Histogram Updated to ".$request->pcn." ".$pcn_details->billing_name ;
 
-             $emailarray = User::select('email')->whereIn('role_id',['1','2','3','4','5','6','7','10','11'])->get();
+             $emailarray = User::select('email')
+                         ->whereIn('role_id',['1','2','3','4','5','6','7','10','11'])
+                         ->where('status','Active')
+                         ->get();
 
                foreach ($emailarray as $key => $value) {
                   $emailid[]=$value->email;
