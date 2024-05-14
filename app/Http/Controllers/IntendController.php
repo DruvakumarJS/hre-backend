@@ -193,7 +193,7 @@ class IntendController extends Controller
 
                     }
                     else {
-                      $totalQualntity = intval($totalQualntity) + intval($value['quantity']);
+                      $totalQualntity = floatval($totalQualntity) + floatval($value['quantity']);
 
                     }
              }
@@ -372,9 +372,9 @@ class IntendController extends Controller
        
     }
 
-    public function update_quantity(Request $request)
+   /* public function update_quantity(Request $request)
     {
-      // print_r($request->Input());die();
+       print_r("1 " .$request->Input());die();
 
         $Insert = Indent_tracker::create([
             'indent_list_id' => $request->id,
@@ -421,11 +421,11 @@ class IntendController extends Controller
                             ->withmessage('Could not update quantity');
         }
 
-    }
+    }*/
 
     public function update_dispatches(Request $request)
     {
-        // print_r($request->Input());die();
+        //   print_r($request->Input());die();
 
          if($request->quantity > $request->pending){
             return redirect()->route('edit_intends',$request->id)
@@ -493,7 +493,7 @@ class IntendController extends Controller
 
             
              // Mail::to($userdetail->email)->send(new GRNMail($grndata, $subject));
-           //  SendDispatchEmail::dispatch($grndata,$subject,$emailid);
+             SendDispatchEmail::dispatch($grndata,$subject,$emailid);
 
               $footprint = FootPrint::create([
                   'action' => 'GRN created- '.$GRN_id,
@@ -781,6 +781,7 @@ class IntendController extends Controller
               'quantity_raised' => $indent_list->quantity,
               'quantity_received' => $indent_list->recieved,
               'quantity_pending' => $indent_list->pending,
+              'uom' => $material->uom
 
             ];
 
@@ -809,7 +810,7 @@ class IntendController extends Controller
 
         $update_grn_data = GRN::where('grn',$request->grn)->update([
                                        'approved'=> $request->approved,
-                                       'damaged' => intval($request->dispatched)-intval($request->approved),
+                                       'damaged' => floatval($request->dispatched)-floatval($request->approved),
                                        'comment' => $request->comment,
                                        'status' => 'Received'
                                       ]);
@@ -819,8 +820,8 @@ class IntendController extends Controller
 
            $indent_list = Indent_list::where('id',$GRNdata->indent_list_id)->first();
             
-            $pending = intval($indent_list->pending)-intval($request->approved);
-            $received = intval($indent_list->recieved)+intval($request->approved);
+            $pending = floatval($indent_list->pending)-floatval($request->approved);
+            $received = floatval($indent_list->recieved)+floatval($request->approved);
 
             if($pending == '0'){
               $status = 'Completed';
@@ -838,8 +839,8 @@ class IntendController extends Controller
 
             $indent_data = Intend::where('indent_no',$GRNdata->indent_no)->first();
 
-            $pending = intval($indent_data->pending)-intval($request->approved);
-            $received = intval($indent_data->recieved)+intval($request->approved);
+            $pending = floatval($indent_data->pending)-floatval($request->approved);
+            $received = floatval($indent_data->recieved)+floatval($request->approved);
 
             if($pending == '0'){
               $status = 'Completed';

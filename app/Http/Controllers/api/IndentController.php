@@ -84,7 +84,7 @@ class IndentController extends Controller
 
                     }
                     else {
-                      $totalQualntity = intval($totalQualntity) + intval($value['quantity']);
+                      $totalQualntity = floatval($totalQualntity) + floatval($value['quantity']);
 
                     }
              }
@@ -572,8 +572,8 @@ class IndentController extends Controller
 
             $indent_data = Intend::where('indent_no',$GRNdata->indent_no)->first();
 
-            $pending = intval($indent_data->pending)-intval($request->approved);
-            $received = intval($indent_data->recieved)+intval($request->approved);
+            $pending = floatval($indent_data->pending)-floatval($request->approved);
+            $received = floatval($indent_data->recieved)+floatval($request->approved);
 
             if($pending == '0'){
               $status = 'Completed';

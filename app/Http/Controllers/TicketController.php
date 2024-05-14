@@ -509,10 +509,11 @@ class TicketController extends Controller
                      ];
 
                   /*$emailarray = User::select('email')->whereIn('role_id',['1','2'])->orWhere('id',$request->user_id)->get();*/
+                  $user_id = $request->user_id;
                    $emailarray = User::select('email')
                       ->where('status','Active')
-                      ->where(function($query)use($array){
-                        $query->where('id',$request->user_id);
+                      ->where(function($query)use($user_id){
+                        $query->where('id',$user_id);
                         $query->orWhereIn('role_id',['1','2']);
                       })
                       ->get();

@@ -100,6 +100,16 @@
 
                     @if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2' || Auth::user()->roles->team_id == 5 )
                      @if($indend_data->pending > 0 && $indend_data->indent->status == 'Active')
+
+                     @php
+                     $isDecimal=false;
+                     $uom = $indend_data->materials->uom;
+                     
+                      if($uom == 'Units' || $uom == 'Cbm' || $uom == 'Cft' || $uom == 'Tonne' || $uom =='Ltr' || $uom =='Ltrs' || $uom == 'Kgs'){
+                            $isDecimal = true;
+                           }
+
+                     @endphp
                     
                         <form id="form" method="post" action="{{route('update_quantity')}}">
                             @csrf
@@ -108,8 +118,8 @@
                                 <label for="text" class="col-3 col-form-label">Quantity Dispatched </label>
                                
                                 <div class="col-3">
-                                    <input id="text" type="Number" class="form-control" placeholder="Enter numbers"
-                                           name="quantity" required="required" min="1" max="<?php echo $indend_data->pending-$dispatched ;?>" value="{{old('quantity')}}">
+                                    <input id="text" type="<?php echo ($isDecimal == 'true')?'number':'text'  ?>" class="form-control" placeholder="Enter numbers"
+                                           name="quantity" required="required"  <?php echo ($isDecimal == 'true')?'step=".01" min="0.1"':'pattern="[0-9]*" min="1" ' ?> max="<?php echo $indend_data->pending-$dispatched ;?>"  value="{{old('quantity')}}">
                                 </div>
 
                                 <div class="col-3">
@@ -189,7 +199,17 @@
 
                                                    <label for="text" >Quantity Dispatched </label>
 
-                                                    <input id="text" type="Number" class="form-control" placeholder="Enter numbers"
+                                                    @php
+                                                     $isDecimal=false;
+                                                     $uom = $indend_data->materials->uom;
+                                                     
+                                                      if($uom == 'Units' || $uom == 'Cbm' || $uom == 'Cft' || $uom == 'Tonne' || $uom =='Ltr' || $uom =='Ltrs' || $uom == 'Kgs'){
+                                                            $isDecimal = true;
+                                                           }
+
+                                                     @endphp
+
+                                                    <input id="text" type="<?php echo ($isDecimal == 'true')?'number':'number'  ?>" class="form-control" placeholder="Enter numbers" <?php echo ($isDecimal == 'true')?'step=".01" min="0.1"':'pattern="[0-9]*" min="1" ' ?>
                                                      name="quantity" required="required" min="1" max="{{$indend_data->pending-$dispatched+$value->dispatched }}" value="{{$value->dispatched}}"  style="width:150px" >
                                                     
                                                     <div style="margin-top: 20px">

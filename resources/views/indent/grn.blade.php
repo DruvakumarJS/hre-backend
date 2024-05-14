@@ -81,6 +81,14 @@
                                 <tbody>
                                   @php
                                    $info = $value2['information'];
+                                   $uom = $value2['uom'];
+                                   $isDecimal=false;
+
+                                   if($uom == 'Units' || $uom == 'Cbm' || $uom == 'Cft' || $uom == 'Tonne' || $uom =='Ltr' || $uom =='Ltrs' || $uom == 'Kgs'){
+                                    $isDecimal = true;
+                                   }
+
+
                                   @endphp
 
                                   @foreach($info as $key3 => $val)
@@ -93,7 +101,7 @@
                                 </tbody>
                               </table>
                               </td>
-                              <td>{{$value['dispatched']}}</td>
+                              <td>{{$value['dispatched']}} {{$value2['uom']}}</td>
                               <td>{{$value['comment']}}</td>
                               <td style="color: <?php echo $color; ?>">{{$value['status']}}</td>
                               @if($value['status']=='Received')
@@ -108,6 +116,8 @@
                           </tr>
 
                           <!-- Modal -->
+
+
 
                               <div class="modal" id="modal_{{$key}}" >
                                 <div class="modal-dialog">
@@ -131,7 +141,7 @@
 
                                         <div class="mb-3">
                                           <label for="message-text" class="col-form-label">Accepted Quantity</label>
-                                           <input type="number" max="{{$value['dispatched']}}" class="form-control" id="approved" name="approved" placeholder="Enter Quantity" max="{{$value['dispatched']}}" required>
+                                           <input type="<?php echo ($isDecimal == 'true')?'number':'number'  ?>" <?php echo ($isDecimal == 'true')?'step=".01"':'pattern="[0-9]*" ' ?> max="{{$value['dispatched']}}" class="form-control" id="approved" name="approved" placeholder="Enter Quantity"  required>
                                         </div>
 
                                         <div class="mb-3">
