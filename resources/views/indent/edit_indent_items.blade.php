@@ -118,7 +118,7 @@
                                 <label for="text" class="col-3 col-form-label">Quantity Dispatched </label>
                                
                                 <div class="col-3">
-                                    <input id="text" type="<?php echo ($isDecimal == 'true')?'number':'text'  ?>" class="form-control" placeholder="Enter numbers"
+                                    <input id="text" type="<?php echo ($isDecimal == 'true')?'number':'number'  ?>" class="form-control" placeholder="Enter numbers"
                                            name="quantity" required="required"  <?php echo ($isDecimal == 'true')?'step=".01" min="0.1"':'pattern="[0-9]*" min="1" ' ?> max="<?php echo $indend_data->pending-$dispatched ;?>"  value="{{old('quantity')}}">
                                 </div>
 
