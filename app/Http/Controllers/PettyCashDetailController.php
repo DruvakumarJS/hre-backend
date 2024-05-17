@@ -520,17 +520,7 @@ class PettyCashDetailController extends Controller
       
       SendPettycashApprovalRemainder::dispatch($empl , $p_data , $emailid, $id) ; 
       
-      try {
-             // Mail::to($emailid)->send(new PettycashMail($p_data , $id));
-            } catch (\Exception $e) {
-                return $e->getMessage();
-               
-            } 
-            finally {
-             
-              return redirect()->back();
-            }     
-     
+        return redirect()->back();
     }
 
     public function search_bill(Request $request){

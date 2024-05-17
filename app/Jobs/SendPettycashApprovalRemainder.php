@@ -27,7 +27,7 @@ class SendPettycashApprovalRemainder implements ShouldQueue
      */
      public function __construct($empl , $p_data , $emailid, $id)
     {
-        $this->empl; = $empl;
+        $this->empl = $empl;
         $this->p_data = $p_data ;
         $this->emailid = $emailid ;
         $this->id = $id ;
@@ -41,6 +41,6 @@ class SendPettycashApprovalRemainder implements ShouldQueue
     {
         $empldata = $this->empl;
          Mail::to($this->emailid)->cc($empldata->email)->send(new PettycashMail($this->p_data,$this->empl,$this->id));
-        // Mail::to('druva@netiapps.com')->send(new PettycashMail($this->p_data,$this->empl,$this->id));
+         //Mail::to('druva@netiapps.com')->send(new PettycashMail($this->p_data,$this->empl,$this->id));
     }
 }
