@@ -120,51 +120,6 @@
      </div>
 
 
-
-
-      <!-- <div class="row">
-      <div class="col-md-2 div-margin">
-        <label>Project Code Number</label>
-        <input name="pcn" id="pcn" type="text" class="typeahead form-control" required="required" placeholder="Search PCN " value="{{old('pcn')}}">
-        <span class="label-bold" id="pcn_detail"></span>
-
-      </div>
-
-      <div class="col-md-2 div-margin">
-         <label>Search Material code</label>
-        <input class="typeahead form-control" type="text" name="product" id="code" placeholder="Search product code / product name / brand name" >
-
-      </div>
-
-      <div class="col-md-2 div-margin">
-         <label>Search Material name </label>
-        <input class="form-control" type="text" name="product" id="name" placeholder="Search product code / product name / brand name" >
-
-      </div>
-
-      <div class="col-md-2 div-margin">
-         <label>Search Material Brand</label>
-        <input class="form-control" type="text" name="product" id="brand" placeholder="Search product code / product name / brand name" >
-
-      </div>
-
-      <div class="col-md-2 div-margin">
-         <label>Search Material params</label>
-        <input class="form-control" type="text" name="product" id="feature" placeholder="Search product code / product name / brand name" >
-
-      </div>
-
-      <div class="col-md-1 div-margin">
-        <label></label>
-        <input class="btn btn-outline-secondary form-control" type= "button" value= "Search " id="call-api-btn" >
-        
-      </div>
-      
-      
-     </div>
-
-     <div id="product_list"></div> -->
-
      
      </div> 
   
@@ -172,13 +127,13 @@
     
       <div id = "dynamic_form" style="display: none">
 
-        <form id="form" method="post" action="{{route('save_indent')}}">
+        <form id="form" method="post" action="{{route('save_indent')}}" onsubmit="return confirmSubmit()">
           @csrf
            <label class="div-margin label-bold">Selected Items</label>
          
            <div id="container"></div>
            <input type="hidden" name="pcn" id="pcns" required>
-           <button class="btn btn-danger div-margin" id="btn_submit" type="submit" style="display: none">Submit</button>
+           <button class="btn btn-danger div-margin" id="btn_submit" type="submit" style="display: none" >Submit</button>
           
         </form>
         
@@ -502,15 +457,14 @@ word-wrap:break-word
     });
 </script>
 
-<script>
+<!-- <script>
 $(document).ready(function() {
     $(document).on('submit', 'form', function() {
         $('button').attr('disabled', 'disabled');
     });
 });
 </script>
-
-
+ -->
 
 <script>
 
@@ -573,6 +527,20 @@ $(document).ready(function() {
 
         
     });
+
+     function confirmSubmit() {
+      // Show confirmation dialog
+     let userConfirmed = confirm("Are you sure you want to submit the form?");
+            
+            // Display message based on user's choice
+            if (userConfirmed) {
+                $('button').attr('disabled', 'disabled');
+                return true; // Proceed with form submission
+            } else {
+                alert("Form submission canceled.");
+                return false; // Cancel form submission
+            }
+    }
 </script>
 
 
