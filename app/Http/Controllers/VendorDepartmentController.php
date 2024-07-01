@@ -20,7 +20,7 @@ class VendorDepartmentController extends Controller
     public function index()
     {
         $search = '';
-        $data = VendorDepartment::orderBy('vid','DESC')->paginate(25);
+        $data = VendorDepartment::orderBy('vid_id','DESC')->paginate(25);
         return view('vendor/list',compact('data','search'));
     }
 
