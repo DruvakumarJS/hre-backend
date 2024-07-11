@@ -23,6 +23,13 @@
         @csrf
         <input type="hidden" value="{{$customer->id}}" name="id">
        <div class="row">
+
+            <div class="col-md-4">
+                <label>Customer ID</label>
+                <input class="form-control" type="input" value="MAC{{$customer->id}}" readonly>
+                 
+          </div>
+
            
            <div class="col-md-4">
                 <label>Billing Name</label>

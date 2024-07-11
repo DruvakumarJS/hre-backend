@@ -74,6 +74,7 @@
                         <table class="table">
                           <thead>
                             <tr>
+                              <th scope="col">Customer ID</th>
                               <th scope="col">Creation Date</th>
                               <th scope="col">Billing Name</th>
                               <th scope="col">Contact person</th>
@@ -91,6 +92,7 @@
                           	@foreach($customers as $key =>$value)
 
                             <tr>
+                              <th>MAC{{$value->id}}</th>
                               <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->name}}</td>
                               <td>{{$value->full_name}}</td>
