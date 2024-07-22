@@ -6,7 +6,7 @@
         <div class="container-header">
             <label class="label-bold" id="div1">Materials</label>
           
-          @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2)
+         @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 OR auth::user()->role_id == 10 OR auth::user()->role_id == 11)
           <div id="div2" style="margin-right: 30px">
             <a class="btn btn-light btn-outline-secondary" href="{{route('add_product',$id)}}"><i class="fa fa-plus"></i> Create Material</a>
           </div>
