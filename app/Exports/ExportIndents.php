@@ -25,38 +25,56 @@ class ExportIndents implements FromCollection , WithHeadings
 
     public function collection()
     { 
-       $att= DB::table('indent_lists')
-        ->select(
-            DB::raw("DATE_FORMAT(indent_lists.created_at, '%d-%m-%Y') as formatted_dob"),
-            'intends.indent_no',
-            'intends.pcn',
-            'pcns.client_name',
-            'pcns.area',
-            'indent_lists.material_id',
-            'materials.name',
-            'materials.brand',
-            'materials.information',
-            'indent_lists.decription',
-             DB::raw("CONCAT(indent_lists.quantity,' ',materials.uom) AS quant"),
-           /* 'indent_lists.quantity',*/
-             DB::raw("CONCAT(indent_lists.recieved,' ',materials.uom) AS rec"),
-            //'indent_lists.recieved',
-             DB::raw("CONCAT(indent_lists.pending,' ',materials.uom) AS pend"),
-            //'indent_lists.pending',
-            'indent_lists.status'
-            ) 
-        ->join('intends', 'indent_lists.indent_id', '=', 'intends.id')
-        ->join('pcns', 'intends.pcn', '=', 'pcns.pcn')
-        ->join('materials', 'indent_lists.material_id', '=', 'materials.item_code')
-        ->where('indent_id',$this->id)
-        ->get();
+       $att = DB::table('indent_lists')
+    ->select(
+        DB::raw("DATE_FORMAT(indent_lists.created_at, '%d-%m-%Y') as formatted_dob"),
+        'intends.indent_no',
+        'intends.pcn',
+        'pcns.client_name',
+        'pcns.area',
+        'indent_lists.material_id',
+        'materials.name',
+        'materials.brand',
+        'materials.information',
+        'indent_lists.decription',
+        DB::raw("CONCAT(indent_lists.quantity, ' ', materials.uom) AS quant"),
+        DB::raw("CONCAT(indent_lists.recieved, ' ', materials.uom) AS rec"),
+        DB::raw("CONCAT(SUM(g_r_n_s.dispatched), ' ', materials.uom) AS dispatched_sum"),
+        DB::raw("CONCAT(indent_lists.pending, ' ', materials.uom) AS pend"),
+        
+        'indent_lists.status'
+    )
+    ->join('intends', 'indent_lists.indent_id', '=', 'intends.id')
+    ->join('pcns', 'intends.pcn', '=', 'pcns.pcn')
+    ->join('materials', 'indent_lists.material_id', '=', 'materials.item_code')
+    ->leftJoin('g_r_n_s', 'indent_lists.id', '=', 'g_r_n_s.indent_list_id')
+    ->where('indent_lists.indent_id', $this->id)
+    ->orderBy('indent_lists.id','DESC')
+    ->groupBy(
+        'indent_lists.id',
+        'intends.indent_no',
+        'intends.pcn',
+        'pcns.client_name',
+        'pcns.area',
+        'indent_lists.material_id',
+        'materials.name',
+        'materials.brand',
+        'materials.information',
+        'indent_lists.decription',
+        'quant',
+        'rec',
+        'pend',
+        'indent_lists.status'
+    )
+    ->get();
 
-        return $att ;
+return $att;
+
     } 	
 
 
 
     public function headings():array{
-    	return ['Date','Indent Number', 'PCN', 'Billing name','Area','Material ID','Material Name', 'Brand','Information', 'Indent Description', 'Total Indent', 'Total GRN','Pending','Status'];
+    	return ['Date','Indent Number', 'PCN', 'Billing name','Area','Material ID','Material Name', 'Brand','Information', 'Indent Description', 'Total Indent', 'Total GRN','Total Dispatch','Pending','Status'];
     }
 }
