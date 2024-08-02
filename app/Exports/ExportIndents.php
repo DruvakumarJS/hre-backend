@@ -49,7 +49,7 @@ class ExportIndents implements FromCollection , WithHeadings
     ->join('materials', 'indent_lists.material_id', '=', 'materials.item_code')
     ->leftJoin('g_r_n_s', 'indent_lists.id', '=', 'g_r_n_s.indent_list_id')
     ->where('indent_lists.indent_id', $this->id)
-    ->orderBy('indent_lists.id','DESC')
+    ->orderBy('indent_lists.material_id','ASC')
     ->groupBy(
         'indent_lists.id',
         'intends.indent_no',
