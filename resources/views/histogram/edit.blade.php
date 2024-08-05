@@ -848,7 +848,7 @@
         ++i;
          $("#dynamicArc").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="arch['+ i +'][name]"required=" required"></div><div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][email]" required="required"></div><div class="col-md-1"><i class="fa fa-trash remove-client-field" style="color: red"></i></div></div></td></tr>');
         
-
+        $("#arch_length").val(i);
         document.getElementById("btnn").style.display="block";
     });
     $(document).on('click', '.remove-client-field', function () {
@@ -879,7 +879,7 @@
         ++i;
          $("#dynamicland").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="land['+ i +'][name]"required=" required"></div><div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][organisation]"required=" required"></div>  <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][email]" required="required"></div><div class="col-md-1"><i class="fa fa-trash remove-client-field" style="color: red"></i></div> </div></td></tr>');
         
-
+        $("#land_length").val(i);
         document.getElementById("btnn").style.display="block";
     });
     $(document).on('click', '.remove-input-field', function () {
@@ -1075,6 +1075,7 @@ function populateinputs(item_code , name ,  brand , info , uom){
 },1000)
  
     ++i;
+    $("#hre_length").val(i);
 
   }
 
@@ -1180,6 +1181,7 @@ function populatevendorinputs(item_code , name ,  brand ){
 },1000)
  
     ++i;
+    $("#vendor_length").val(i);
 
   }
 

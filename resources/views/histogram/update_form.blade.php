@@ -805,7 +805,9 @@
   
 </div>
 
+
 <script type="text/javascript">
+
    
     var j = 'n';
     $("#dynamic-client").click(function () {
@@ -841,6 +843,8 @@
 </script>
 
 
+
+
 <script type="text/javascript">
    
     var j = 'n';
@@ -849,7 +853,7 @@
         ++i;
          $("#dynamicArc").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="arch['+ i +'][name]"required=" required"></div><div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][organisation]"required=" required"></div> <div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="arch['+ i +'][email]" required="required"></div><div class="col-md-1"><i class="fa fa-trash remove-client-field" style="color: red"></i></div></div></td></tr>');
         
-
+        $("#arch_length").val(i);
         document.getElementById("btnn").style.display="block";
     });
     $(document).on('click', '.remove-client-field', function () {
@@ -880,7 +884,7 @@
         ++i;
          $("#dynamicland").append('<tr><td><div class="row align-items-end"><div class="col-md-3"><input class="form-control" type="text" name="land['+ i +'][name]"required=" required"></div><div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][designation]" required="required"></div> <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][organisation]"required=" required"></div>  <div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][contact]" required="required" minlength="10" maxlength="10"></div><div class="col-md-2"><input class="form-control" type="text" name="land['+ i +'][email]" required="required"></div><div class="col-md-1"><i class="fa fa-trash remove-client-field" style="color: red"></i></div> </div></td></tr>');
         
-
+        $("#land_length").val(i);
         document.getElementById("btnn").style.display="block";
     });
     $(document).on('click', '.remove-input-field', function () {
@@ -1076,6 +1080,7 @@ function populateinputs(item_code , name ,  brand , info , uom){
 },1000)
  
     ++i;
+    $("#hre_length").val(i);
 
   }
 
@@ -1171,15 +1176,18 @@ function populatevendorinputs(item_code , name ,  brand ){
    if (x.style.display === "none") {
     x.style.display = "block";
   } 
+  
   var i=$("#vendor_length").val();
-
+ 
   $('#container_vendor').append('<div class="row align-items-end div-margin"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><select class="form-control form-select" name="vendor['+ i +'][department]" required><option value="">Select</option>@foreach($headings as $key=>$value)<option value="{{$value->headings}}">{{$value->headings}}</option>@endforeach</select></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][company]" value="'+ item_code +'"  required="required" placeholder="company name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][name]" value="'+ name +'"  required="required" placeholder="contractors name"></div><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][mobile]" value="'+ brand +'"  required="required" placeholder="mobile"></div>  </div><div class="row align-items-end"  style="padding-left:20px;padding-right:20px"><div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supervisor]" required="required" placeholder="supervisor name"></div> <div class="col-md-3"><input class="form-control" type="text" name="vendor['+ i +'][supr_mobile]"minlength="10" maxlength="10" required="required" placeholder="mobile"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][start]"></div> <div class="col-md-3"><input class="form-control" type="date" name="vendor['+ i +'][end]"></div><div class="col-md-1"><i class="fa fa-trash remove-vendor-field" style="color: red"></i></div> </div>') ;
+
 
   setTimeout(function(){
   adjustHeight(this);       
 },1000)
  
     ++i;
+    var i=$("#vendor_length").val(i);
 
   }
 
