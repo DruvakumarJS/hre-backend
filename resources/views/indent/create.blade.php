@@ -281,23 +281,23 @@ var inform ="";
   //  console.log(`${key} = ${value}`);
      inform = inform +'\n'+ `${key} = ${value}` ;
 });
-
    if(uom == 'Units' || uom == 'Cbm' || uom == 'Cft' || uom == 'Tonne' || uom =='Ltr' || uom =='Ltrs' || uom == 'Kgs'){
     isDecimal = true;
+    
    }
   
-  var inputType = isDecimal ? "number" : "text";
+  var inputType = isDecimal ? "number" : "number";
   var additionalAttributes = '';
   if (isDecimal) {
       additionalAttributes = 'step="0.01"'; // Allows decimal input with two decimal places
   } else {
-      additionalAttributes = 'pattern="[0-9]*"'; // Allows only integer input
+      additionalAttributes = 'pattern="[0-9]*" min="1"'; // Allows only integer input
   }
 
   
    console.log('INOF==',inform);
 
-  $('#container').prepend('<tr><td><div class="row" id="row"> <div class="col-md-2"><label>Item Code</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][item_code]"  value="'+ item_code +'" data-toggle="tooltip" data-placement="top" title="'+ item_code +'"readonly></div><div class="col-md-2"><label>Product Name</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][name]" value="'+ name +'" data-toggle="tooltip" data-placement="top" title="'+ name +'" readonly></div><div class="col-md-1"><label>Brand</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][brand]"  value="'+ brand +'" data-toggle="tooltip" data-placement="top" title="'+ brand +'" readonly></div>  <div class="col-md-2"><label>Features</label>  <textarea class="form-control" onclick="adjustHeight(this)" readonly>'+ inform +'</textarea>     </div>  <div class="col-md-2"><label>Description</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][desc]" placeholder="Add additional comments" ></div><div class="col-md-1"><label>Quantity*</label><input class="form-control scrollable-cell" type='+ inputType + ' name="indent[' + i + '][quantity]" id="quantity" min="1" ' + additionalAttributes + ' required></div>  <div class="col-md-1"><label>UOM*</label><input class="form-control scrollable-cell"  name="indent[' + i + '][uom]" value="'+ uom +'" required data-toggle="tooltip" data-placement="top" title="'+ uom +'" readonly></div>  <div class="col-md-1"><i class="fa fa-close remove-input-field"></i></div> </div></td></tr>');
+  $('#container').prepend('<tr><td><div class="row" id="row"> <div class="col-md-2"><label>Item Code</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][item_code]"  value="'+ item_code +'" data-toggle="tooltip" data-placement="top" title="'+ item_code +'"readonly></div><div class="col-md-2"><label>Product Name</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][name]" value="'+ name +'" data-toggle="tooltip" data-placement="top" title="'+ name +'" readonly></div><div class="col-md-1"><label>Brand</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][brand]"  value="'+ brand +'" data-toggle="tooltip" data-placement="top" title="'+ brand +'" readonly></div>  <div class="col-md-2"><label>Features</label>  <textarea class="form-control" onclick="adjustHeight(this)" readonly>'+ inform +'</textarea>     </div>  <div class="col-md-2"><label>Description</label><input class="form-control scrollable-cell" type="text" name="indent[' + i + '][desc]" placeholder="Add additional comments" ></div><div class="col-md-1"><label>Quantity*</label><input class="form-control scrollable-cell" type='+ inputType + ' name="indent[' + i + '][quantity]" id="quantity"  ' + additionalAttributes + ' required></div>  <div class="col-md-1"><label>UOM*</label><input class="form-control scrollable-cell"  name="indent[' + i + '][uom]" value="'+ uom +'" required data-toggle="tooltip" data-placement="top" title="'+ uom +'" readonly></div>  <div class="col-md-1"><i class="fa fa-close remove-input-field"></i></div> </div></td></tr>');
 
   if (!isDecimal) {
     $('#quantity').on('input', function() {
