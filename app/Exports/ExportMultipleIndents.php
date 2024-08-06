@@ -41,15 +41,34 @@ class ExportMultipleIndents implements FromCollection , WithHeadings
             'materials.brand',
             'materials.information',
             'indent_lists.decription',
-            'indent_lists.quantity',
-            'indent_lists.recieved',
-            'indent_lists.pending',
+            DB::raw("CONCAT(indent_lists.quantity, ' ', materials.uom) AS quant"),
+            DB::raw("CONCAT(indent_lists.recieved, ' ', materials.uom) AS rec"),
+            DB::raw("CONCAT(SUM(g_r_n_s.dispatched), ' ', materials.uom) AS dispatched_sum"),
+            DB::raw("CONCAT(indent_lists.pending, ' ', materials.uom) AS pend"),
             'indent_lists.status'
             ) 
         ->join('intends', 'indent_lists.indent_id', '=', 'intends.id')
         ->join('pcns', 'intends.pcn', '=', 'pcns.pcn')
         ->join('materials', 'indent_lists.material_id', '=', 'materials.item_code')
-        ->whereIn('indent_id',$data)
+        ->leftJoin('g_r_n_s', 'indent_lists.id', '=', 'g_r_n_s.indent_list_id')
+        ->whereIn('indent_lists.indent_id', $data)
+        ->orderBy('indent_lists.material_id','ASC')
+        ->groupBy(
+            'indent_lists.id',
+            'intends.indent_no',
+            'intends.pcn',
+            'pcns.client_name',
+            'pcns.area',
+            'indent_lists.material_id',
+            'materials.name',
+            'materials.brand',
+            'materials.information',
+            'indent_lists.decription',
+            'quant',
+            'rec',
+            'pend',
+            'indent_lists.status'
+        )
         ->get();
 
         return $att ;
@@ -58,6 +77,6 @@ class ExportMultipleIndents implements FromCollection , WithHeadings
 
 
     public function headings():array{
-    	return ['Date','Indent Number', 'PCN', 'Billing name','Area','Material ID','Material Name', 'Brand','Information', 'Indent Description', 'Total Indent', 'Total GRN','Pending','Status'];
+    	return ['Date','Indent Number', 'PCN', 'Billing name','Area','Material ID','Material Name', 'Brand','Information', 'Indent Description', 'Total Indent', 'Total GRN','Total Dispatch','Pending','Status'];
     }
 }

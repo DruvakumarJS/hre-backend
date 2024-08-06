@@ -103,8 +103,9 @@ class IntendController extends Controller
         
         //print_r($pendingCount);
        $search = '';
+       $filtr = 'all';
 
-         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount','search'));
+         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount','search','filtr'));
     } 
 
     /**
@@ -710,8 +711,9 @@ class IntendController extends Controller
         //print_r($pendingCount);
 
       $search = '';
+      $filtr = $filter;
 
-         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount','search'));
+         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount','search','filtr'));
       
     }
 
@@ -763,7 +765,9 @@ class IntendController extends Controller
 
     public function grn(){
 
-        $grns = GRN::where('user_id',Auth::user()->id)->orderBy('id', 'DESC')->get();
+        $grns = GRN::where('user_id',Auth::user()->id)
+               ->orderByRaw("FIELD(status , 'Awaiting for Confirmation', 'Received') ASC")
+               ->paginate(25);
         $grn_array = array();
 
         if(sizeof($grns)>0){
@@ -801,7 +805,7 @@ class IntendController extends Controller
 
          
           }
-           return view('indent/grn',compact('grn_array'));
+           return view('indent/grn',compact('grn_array','grns'));
     }
 
     public function update_grn(Request $request){
@@ -879,58 +883,14 @@ class IntendController extends Controller
     }
 
     public function search(Request $request){
-     // print_r($request->search);die();
-     /* $search = $request->search;
-      
-      if(Auth::user()->role_id != 4 ) {
-
-       $indents = Intend::where('indent_no','LIKE','%'.$search.'%')
-                        ->orWhere('pcn','LIKE','%'.$search.'%')
-                        ->orWhereHas('pcns', function ($query) use ($search) {
-                        $query->where('brand', 'like', '%'.$search.'%');
-                           })
-                        ->paginate(25);
-
-                        
-        $all = Intend::count();
-        $activeCount = Intend::where('status','Active')->count();
-        //$pendingCount = Intend::where('status','Pending')->count();
-        $compltedCount = Intend::where('status','Completed')->count();
-       }
-       else 
-       {
-         if($search != ''){
-          $indents = Intend::where(function($query){
-                          $query->where('user_id', Auth::user()->id);
-                            })
-                        ->where('indent_no','LIKE','%'.$search.'%')
-                        
-                        ->orWhere(function($query)use($search){
-                          $query->where('pcn','LIKE','%'.$search.'%');
-                          $query->where('user_id', Auth::user()->id);
-                            })
-                        ->orWhereHas('pcns', function ($query) use ($search) {
-                           $query->where('brand', 'like', '%'.$search.'%');
-                           $query->where('user_id', Auth::user()->id);
-                           })
-                        
-                        ->paginate(25);
-         }
-         else {
-           $indents=Intend::where('user_id' ,Auth::user()->id)->paginate(25);
-            
-         }
-        
-        
-        $all = Intend::where('user_id' ,Auth::user()->id)->count();
-        $activeCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Active')->count();
-        $compltedCount = Intend::where('user_id' ,Auth::user()->id)->where('status','Completed')->count();
-       }
-    
-         return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount')); */ 
-
+     
         $search = $request->search;
         // print_r($search); die();
+        $filtr = $request->filter;
+
+        if($filtr == 'all'){
+          $filtr = '';
+        }
          
         if($search == ''){
           return redirect()->route('intends');
@@ -938,13 +898,19 @@ class IntendController extends Controller
 
         if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11 OR Auth::user()->role_id == 12) {
 
-          $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
-              ->where('indent_no','LIKE','%'.$search.'%')
-              ->orWhere('pcn','LIKE','%'.$search.'%')
-              ->orWhere('created_at','LIKE','%'.$search.'%')
-              ->orWhereHas('pcns', function ($query) use ($search) {
-              $query->where('brand', 'like', '%'.$search.'%');
-                 })
+          $indents=Intend::where('status','LIKE',$filtr.'%')
+              ->where(function($query)use($search){
+                $query->where('indent_no','LIKE','%'.$search.'%');
+                $query->orWhere('pcn','LIKE','%'.$search.'%');
+                $query->orWhereDate('created_at','LIKE','%'.$search.'%');
+                $query->orWhereMonth('created_at','LIKE','%'.$search.'%');
+                $query->orWhereYear('created_at','LIKE','%'.$search.'%');
+                $query ->orWhereHas('pcns', function ($query2) use ($search) {
+                    $query2->where('brand', 'like', '%'.$search.'%');
+                 });
+                })
+              
+              ->orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
               ->paginate(25)->withQueryString();
 
           $all = Intend::count();
@@ -967,10 +933,13 @@ class IntendController extends Controller
 
         $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
              ->whereIn('user_id',$userIDs)
+             ->where('status','LIKE',$filtr.'%')
              ->where(function($query)use($search){
               $query->where('indent_no','LIKE','%'.$search.'%');
               $query->orWhere('pcn','LIKE','%'.$search.'%');
-              $query->orWhere('created_at','LIKE','%'.$search.'%');
+              $query->orWhereDate('created_at','LIKE','%'.$search.'%');
+              $query->orWhereMonth('created_at','LIKE','%'.$search.'%');
+              $query->orWhereYear('created_at','LIKE','%'.$search.'%');
                $query->orWhereHas('pcns', function ($query) use ($search) {
                $query->where('brand', 'like', '%'.$search.'%');
                  });
@@ -999,10 +968,13 @@ class IntendController extends Controller
 
         $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
             ->whereIn('user_id',$userIDs)
+            ->where('status','LIKE',$filtr.'%')
             ->where(function($query)use($search){
               $query->where('indent_no','LIKE','%'.$search.'%');
                $query->orWhere('pcn','LIKE','%'.$search.'%');
-               $query->orWhere('created_at','LIKE','%'.$search.'%');
+               $query->orWhereDate('created_at','LIKE','%'.$search.'%');
+               $query->orWhereMonth('created_at','LIKE','%'.$search.'%');
+               $query->orWhereYear('created_at','LIKE','%'.$search.'%');
                $query->orWhereHas('pcns', function ($query) use ($search) {
                $query->where('brand', 'like', '%'.$search.'%');
                  });
@@ -1018,10 +990,13 @@ class IntendController extends Controller
         }
         else{
         $indents=Intend::where('user_id' ,Auth::user()->id)
+        ->where('status','LIKE',$filtr.'%')
         ->where(function($query)use($search){
               $query->where('indent_no','LIKE','%'.$search.'%');
                $query->orWhere('pcn','LIKE','%'.$search.'%');
-               $query->orWhere('created_at','LIKE','%'.$search.'%');
+               $query->orWhereDate('created_at','LIKE','%'.$search.'%');
+               $query->orWhereMonth('created_at','LIKE','%'.$search.'%');
+               $query->orWhereYear('created_at','LIKE','%'.$search.'%');
                $query->orWhereHas('pcns', function ($query) use ($search) {
                $query->where('brand', 'like', '%'.$search.'%');
                  });
@@ -1039,7 +1014,7 @@ class IntendController extends Controller
         }
 
        $search = $request->search ;
-       return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount','search'));            
+       return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount','search','filtr'));            
 
     }
 
@@ -1054,6 +1029,9 @@ class IntendController extends Controller
                  $query->where('grn', 'LIKE','%'.$search.'%');
                  $query->orWhere('pcn', 'LIKE' ,'%'.$search.'%');
                  $query->orWhere('indent_no', 'LIKE' ,'%'.$search.'%');
+                 $query->orWhereDate('created_at','LIKE','%'.$search.'%');
+                 $query->orWhereMonth('created_at','LIKE','%'.$search.'%');
+                 $query->orWhereYear('created_at','LIKE','%'.$search.'%');
 
               })
               ->orderBy('id', 'DESC')

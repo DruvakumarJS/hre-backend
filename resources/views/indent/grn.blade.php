@@ -176,7 +176,10 @@ $(document).ready(function(){
                          
                         </table>
 
-                        
+                        <label>Showing {{ $grns->firstItem() }} to {{ $grns->lastItem() }}
+                                    of {{$grns->total()}} results</label>
+
+                                {!! $grns->appends('abc')->links('pagination::bootstrap-4') !!}
                         
                         
                     </div>

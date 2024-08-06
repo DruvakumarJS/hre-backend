@@ -313,7 +313,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('export_customer',[ExportController::class,'customer'])->name('export_customer');
     Route::post('export-pcn',[ExportController::class,'pcn'])->name('export-pcn');
     Route::get('export_indent/{id}',[ExportController::class,'indent'])->name('export_indent');
-    Route::post('download_multiple_indents',[ExportController::class,'download_multiple_indents'])->name('download_multiple_indents');
+    Route::get('download_multiple_indents',[ExportController::class,'download_multiple_indents'])->name('download_multiple_indents');
     Route::post('export_tickets',[ExportController::class,'ticket'])->name('export_tickets');
     Route::get('export_pettycash',[ExportController::class,'pettycash'])->name('export_pettycash');
     Route::post('export_attendance',[ExportController::class,'attendance'])->name('export_attendance');
