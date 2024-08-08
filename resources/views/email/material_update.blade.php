@@ -52,6 +52,17 @@
                   </div>
 
                    @php
+                   $info = json_decode($material_data['new_data']['information']);
+                  @endphp
+                   <label>Additional Specification</label>
+                  @foreach($info as $key => $val)
+                         <div>
+                           <label class="label-bold">{{$key}} = {{$val}}</label>
+                         </div>       
+                     
+                  @endforeach
+
+                   @php
                     $domain = url('/');
                   @endphp
 
@@ -76,6 +87,17 @@
                   <div style="margin-top: 10px;">
                      <label>Material  Brand : </label> <label class="label-bold">{{$material_data['old_data']['brand']}}</label>
                   </div>
+
+                  @php
+                   $info2 = json_decode($material_data['old_data']['information']);
+                  @endphp
+                   <label>Additional Specification</label>
+                  @foreach($info2 as $key => $val)
+                         <div>
+                           <label class="label-bold">{{$key}} = {{$val}}</label>
+                         </div>       
+                     
+                  @endforeach
 
 
                   <div style="margin-top: 20px">

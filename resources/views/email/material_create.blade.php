@@ -45,6 +45,17 @@
                      <label>Material  Brand : </label> <label class="label-bold">{{$material_data['new_data']['brand']}}</label>
                   </div>
 
+                  @php
+                   $info = json_decode($material_data['new_data']['information']);
+                  @endphp
+                  <label>Additional Specification</label>
+                  @foreach($info as $key => $val)
+                         <div>
+                           <label class="label-bold">{{$key}} = {{$val}}</label>
+                         </div>       
+                     
+                  @endforeach
+
                    @php
                     $domain = url('/');
                   @endphp
