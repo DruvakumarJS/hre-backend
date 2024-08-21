@@ -75,7 +75,7 @@
 
 
              <div class="col-md-2">
-                <label>Balance Amount</label>
+                <label>Staff Wallet Balance Amount</label>
                 @if(auth::user()->role_id == '5' || auth::user()->role_id == '1')
                 @if($pettycash->employee->user_id == auth::user()->id)
                  <h3 class="label-bold"><span>&#8377;</span><?php echo intval($pettycash->total_issued) - intval($myspent) ; ?></h3>
