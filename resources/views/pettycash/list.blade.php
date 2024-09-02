@@ -8,13 +8,13 @@
 }
 </style>
 
-<div class="container">
+<div class="container-fluid">
      <div class="container-header">
         <label class="label-bold" id="div1">Petty Cash</label>
 
 @if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '6' OR Auth::user()->role_id == '7' )
         <div id="div2" >
-            <a class="btn btn-light btn-outline-secondary" href="{{route('create_new')}}"><i class="fa fa-plus"></i> Issue Pettycash</a>
+            <a class="btn btn-light btn-outline-secondary" href="{{route('create_new')}}"><i class="fa fa-plus"></i> Issue Petty Cash</a>
         </div>
      
 
@@ -43,7 +43,7 @@
         @endif  
 
      <div class="row">
-        <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
+        <div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
             <table class="table">
                 <thead>
@@ -98,7 +98,7 @@
            <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
                                     of {{$data->total()}} results</label>
 
-                                {!! $data->links('pagination::bootstrap-4') !!}
+            <div class="float">{!! $data->links('pagination::bootstrap-4') !!}</div>              
 
           
 

@@ -9,12 +9,12 @@
 }
 </style>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row justify-content-center">
      <div class="container-header">
         <label class="label-bold" id="div1">Petty Cash Details</label>
         <div id="div2" style="margin-right: 30px">
-            <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}"> View PettyCash List</a>
+            <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}"> View Petty Cash List</a>
         </div>
 
         <div id="div2" style="margin-right: 30px">
@@ -94,7 +94,7 @@
 
          <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
-                        <table class="table table-striped">
+                        <table class="table table-striped table-wrapper-scroll-y">
                             <thead>
                             <tr>
                                 <th>PC ID</th>

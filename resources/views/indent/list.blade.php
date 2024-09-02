@@ -6,7 +6,7 @@
     height: 50px;
   }
 </style>
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Indent</label>
@@ -63,7 +63,7 @@
         
         <div class="page-container">
             <div class="div-margin">
-                <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
+                <div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
                     <table class="table" id="Table1">
                         <thead>
                             <tr>
@@ -109,7 +109,8 @@
                     </table>
 
                     <label>Showing {{ $indents->firstItem() }} to {{ $indents->lastItem() }} of {{$indents->total()}} results</label>
-                    {!! $indents->appends('abc')->links('pagination::bootstrap-4') !!}
+                    
+                    <div class="float">{!! $indents->appends('abc')->links('pagination::bootstrap-4') !!}</div>
                 </div>
             </div>
         </div>

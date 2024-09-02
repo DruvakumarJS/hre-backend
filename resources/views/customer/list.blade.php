@@ -6,9 +6,10 @@
  
   height: 50px;
 }
+
 </style>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
       
       <div class="container-header">
@@ -69,7 +70,7 @@
     <div class="page-container">
     	<div class="div-margin">
 
-    		 <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
+    		 <div class="card border-white table-wrapper-scroll-y tableFixHead " style="height: 600px; padding: 0px 5px 20px 20px">
 
                         <table class="table">
                           <thead>
@@ -94,7 +95,7 @@
                             <tr>
                               <th>MAC{{$value->id}}</th>
                               <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                              <td>{{$value->name}}</td>
+                              <td width="300px">{{$value->name}}</td>
                               <td>{{$value->full_name}}</td>
                               <td>{{$value->designation}}</td>
                               <td>{{$value->mobile}}</td>
@@ -125,9 +126,8 @@
 
                          <label>Showing {{ $customers->firstItem() }} to {{ $customers->lastItem() }}
                                     of {{$customers->total()}} results</label>
-
-                                {!! $customers->links('pagination::bootstrap-4') !!}
-                        
+                                    <div class="float">{!! $customers->links('pagination::bootstrap-4') !!}</div>
+                         
                     </div>
     		
     	</div>

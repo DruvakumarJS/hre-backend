@@ -18,15 +18,15 @@ overflow: hidden;
 text-overflow: clip;
 white-space: nowrap;
 }
- ::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   height: 4px;              
   width: 4px;    
-  }
+  }*/
 
 
 </style>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
 	 <div class="container-header">
             <label class="label-bold" id="div1">Tickets</label>
@@ -96,7 +96,7 @@ white-space: nowrap;
 
     <div class="page-container"> 
      <div class="row">
-     	<div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
+     	<div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
      		<table class="table" >
 
      			<thead>
@@ -123,12 +123,12 @@ white-space: nowrap;
 	                <tr>
 	                	<td width="90px;">{{date("d-m-Y", strtotime($value->created_at))}}</td>
 	                	<td width="50px;">{{$value->ticket_no}}</td>
-	                	<td width="25px;" class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+	                	<td width="25px;"  data-toggle="tooltip" data-placement="top"
                                title="{{$value->pcn}}">{{$value->pcn}}</td>
-	                	<td class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+	                	<td data-toggle="tooltip" data-placement="top"
                                title="{{$value->pcns->brand}},{{$value->pcns->city}}">{{$value->pcns->brand}},{{$value->pcns->city}}</td>
 	                	<td width="50px">{{$value->category}}</td>
-	                	<td class="scrollable-cell" data-toggle="tooltip" data-placement="top" title="{{$value->issue}}">{{$value->issue}}</td>
+	                	<td data-toggle="tooltip" data-placement="top" title="{{$value->issue}}">{{$value->issue}}</td>
 	                	 
                        @php
 	                	if($value->priority == 'High'){
@@ -141,7 +141,7 @@ white-space: nowrap;
                          $colors = 'limegreen' ;
 	                	 
                        @endphp
-                       <td width="50px" class="scrollable-cell" data-toggle="tooltip" data-placement="top" title="{{$value->user->name}}">{{$value->user->name}}</td>
+                       <td width="50px"  data-toggle="tooltip" data-placement="top" title="{{$value->user->name}}">{{$value->user->name}}</td>
 	                	<td width="20px"><button class="btn btn-light" style="width:25px; height: 10px;background-color: <?php echo $colors;  ?>" > </button></td>
 
 	                	<td width="100px"><?php echo ($value->tat!='') ? date("d-m-Y", strtotime($value->tat)) :''  ?></td>
@@ -157,15 +157,7 @@ white-space: nowrap;
 	                	
 	              
 	                	<td>
-	                		<!-- @if(Auth::user()->role_id == 1 || Auth::user()->role_id == '2' || Auth::user()->role_id == '3' || Auth::user()->role_id == '4' || Auth::user()->role_id == '6' || Auth::user()->role_id == '7' || Auth::user()->role_id == '9'|| Auth::user()->role_id == '10' || (Auth::user()->id == $value->creator) )
-	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>
 	                		
-	                		@elseif($value->status == 'Created')
-	                		<a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>
-	                		@else
-	                		
-                            @endif -->
-
                             <a href="{{route('edit-ticket', $value->ticket_no)}}"><button class="btn btn-light curved-text-button btn-sm" style="padding: 1px 10px">Update</button></a>
 
 	                		 @if($value->status == 'Created' || $value->status == 'Rejected'  )
@@ -223,7 +215,8 @@ white-space: nowrap;
      		<label>Showing {{ $tickets->firstItem() }} to {{ $tickets->lastItem() }}
                                     of {{$tickets->total()}} results</label>
 
-                                {!! $tickets->appends('abc')->links('pagination::bootstrap-4') !!}
+                                
+            <div class="float">{!! $tickets->appends('abc')->links('pagination::bootstrap-4') !!}</div>     
               
      	</div>
      	

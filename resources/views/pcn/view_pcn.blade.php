@@ -12,7 +12,7 @@ white-space: nowrap;
 }
 </style>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
        <div class="container-header">
             <label class="label-bold" id="div1">Detailed PCN</label>
@@ -60,7 +60,7 @@ white-space: nowrap;
             <div class="row">
                 <div class="col-12">
                     <div class="card border-white">
-                        <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
+                        <div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
                             <table class="table  table-lg table-hover">
                                 <thead>
                                 <tr>                                   
@@ -115,7 +115,7 @@ white-space: nowrap;
                             <label>Showing {{ $pcns->firstItem() }} to {{ $pcns->lastItem() }}
                                     of {{$pcns->total()}} results</label>
 
-                                {!! $pcns->links('pagination::bootstrap-4') !!}
+                                <div class="float">{!! $pcns->links('pagination::bootstrap-4') !!}</div>
                         </div>
                     </div>
 

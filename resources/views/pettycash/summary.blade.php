@@ -7,7 +7,7 @@
   height: 50px;
 }
 </style>
-<div class="container">
+<div class="container-fluid">
 	<div class="row justify-content-center">
      <div class="container-header">
       
@@ -20,7 +20,7 @@
          
 
         <div id="div2" style="margin-right: 30px;">
-            <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}"> View PettyCash List</a>
+            <a class="btn btn-light btn-outline-secondary" href="{{route('pettycash')}}"> View Petty Cash List</a>
         </div>
 
         <div  id="div2" style="margin-right: 30px" >

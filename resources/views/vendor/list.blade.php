@@ -16,14 +16,9 @@ text-overflow: clip;
 white-space: nowrap;
 }
 
-  ::-webkit-scrollbar {
-  height: 4px;              
-  width: 4px;    
-  } 
-
 </style>
 
-<div class="container">
+<div class="container-fluid">
     
       <div class="container-header">
             <label class="label-bold" id="div1">Vendors</label>
@@ -75,7 +70,7 @@ white-space: nowrap;
     
     <div class="row">
     	
-    		 <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
+    		 <div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
                         <table class="table table-responsive">
                           <thead>
@@ -110,13 +105,13 @@ white-space: nowrap;
                               @endphp
 
                               <td>{{$v_type}}</td>
-                              <td class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+                              <td  data-toggle="tooltip" data-placement="top"
                                title="{{$value->building}},{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}}">{{$value->building}},{{$value->location}},{{$value->area}},{{$value->city}},{{$value->state}}</td>
                              
                               <td>{{$value->pan}}</td>
                               <td>{{$value->gst}}</td>
                               <td>{{$value->owner}}</td>
-                              <td class="scrollable-cell" data-toggle="tooltip" data-placement="top"
+                              <td  data-toggle="tooltip" data-placement="top"
                                title="{{$value->mobile}} - {{$value->email}}">{{$value->mobile}} - {{$value->email}}</td>
                               <!-- <td>{{$value->email}}</td> -->
                               <td>
@@ -140,7 +135,7 @@ white-space: nowrap;
                         <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
                                     of {{$data->total()}} results</label>
 
-                                {!! $data->links('pagination::bootstrap-4') !!}
+                        <div class="float">{!! $data->links('pagination::bootstrap-4') !!}</div>
                          
                         
                     </div>

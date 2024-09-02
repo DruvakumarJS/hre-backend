@@ -18,7 +18,7 @@
        <div class="row">
            <div class="col-md-12">
                <div class="users-list">
-                   <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
+                   <div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
                        <table class="table">
                            <thead>

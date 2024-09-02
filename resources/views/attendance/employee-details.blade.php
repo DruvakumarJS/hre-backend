@@ -10,7 +10,7 @@
 </style>
 
 
-<div class="container">
+<div class="container-fluid">
     <div class="container-header">
         <label class="label-bold" id="div1">Current month Attendance</label>
 

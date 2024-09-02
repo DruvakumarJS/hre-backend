@@ -45,7 +45,7 @@
           </div>
 
 
-        	<div class="card border-white">
+        	<div class="card border-white table-wrapper-scroll-y">
 
                         <table class="table">
                           <thead>
