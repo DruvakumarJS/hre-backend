@@ -7,7 +7,7 @@
   height: 50px;
 }
 </style>
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Users</label>
@@ -55,7 +55,7 @@
                        <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
                                     of {{$data->total()}} results</label>
 
-                                {!! $data->links('pagination::bootstrap-4') !!}
+                                <div class="float">{!! $data->links('pagination::bootstrap-4') !!}</div>
                    </div>
 
                </div>

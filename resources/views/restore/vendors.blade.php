@@ -7,7 +7,7 @@
   height: 50px;
 }
 </style>
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <label class="label-bold">Restore & Recycle</label>
     </div>
@@ -24,6 +24,7 @@
 
          
       </div>
+      <div class="page-container">
 
       <div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
@@ -70,11 +71,11 @@
                          <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
                                     of {{$data->total()}} results</label>
 
-                                {!! $data->links('pagination::bootstrap-4') !!}
+                                <div class="float">{!! $data->links('pagination::bootstrap-4') !!}</div>
                         
                     </div>
 
-
+          </div>
       
       
     </div>

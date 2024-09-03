@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Materials</label>
@@ -41,10 +41,9 @@
           <label class="label-bold">Category : {{$category}}</label>
           <div>
              <label class="label-bold">Category Code : {{$material_category}}</label>
-
           </div>
 
-
+          <div class="page-container">
         	<div class="card border-white table-wrapper-scroll-y">
 
                         <table class="table">
@@ -103,11 +102,11 @@
                         <label>Showing {{ $MaterialList->firstItem() }} to {{ $MaterialList->lastItem() }}
                                     of {{$MaterialList->total()}} results</label>
 
-                                {!! $MaterialList->links('pagination::bootstrap-4') !!}
+                                 <div class="float">{!! $MaterialList->links('pagination::bootstrap-4') !!}</div>
 
                     </div>
                     <!--</div>-->
-                 
+                 </div>
         </div>
     </div>
 

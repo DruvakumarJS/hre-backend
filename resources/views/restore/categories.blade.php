@@ -7,7 +7,7 @@
   height: 50px;
 }
 </style>
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <label class="label-bold">Restore & Recycle</label>
     </div>
@@ -50,7 +50,7 @@
                        <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
                                     of {{$data->total()}} results</label>
 
-                                {!! $data->links('pagination::bootstrap-4') !!}
+                                <div class="float">{!! $data->links('pagination::bootstrap-4') !!}</div>
                    </div>
 
                </div>

@@ -7,7 +7,7 @@
   height: 50px;
 }
 </style>
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Materials {{$search}}</label>
@@ -133,7 +133,7 @@
                         </table>
                          <label>Showing {{ $MaterialList->firstItem() }} to {{ $MaterialList->lastItem() }} of {{$MaterialList->total()}} results</label>
 
-                                {!! $MaterialList->links('pagination::bootstrap-4') !!}
+                                 <div class="float">{!! $MaterialList->links('pagination::bootstrap-4') !!}</div>
                                        
                     </div>
                     <!--</div>-->

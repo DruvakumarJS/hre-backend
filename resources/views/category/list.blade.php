@@ -7,7 +7,7 @@
   height: 50px;
 }
 </style>
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="container-header">
           
@@ -284,7 +284,8 @@ $(document).ready(function(){
                          <label>Showing {{ $categories->firstItem() }} to {{ $categories->lastItem() }}
                                     of {{$categories->total()}} results</label>
 
-                                {!! $categories->links('pagination::bootstrap-4') !!}
+                                
+                                    <div class="float">{!! $categories->links('pagination::bootstrap-4') !!}</div>
                         
                     </div>
                     <!--</div>-->

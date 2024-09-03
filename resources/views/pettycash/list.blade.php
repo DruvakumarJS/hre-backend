@@ -11,13 +11,14 @@
 <div class="container-fluid">
      <div class="container-header">
         <label class="label-bold" id="div1">Petty Cash</label>
+@if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '6' OR Auth::user()->role_id == '7'  )
 
-@if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '6' OR Auth::user()->role_id == '7' )
         <div id="div2" >
             <a class="btn btn-light btn-outline-secondary" href="{{route('create_new')}}"><i class="fa fa-plus"></i> Issue Petty Cash</a>
         </div>
+@endif        
      
-
+@if(Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' OR Auth::user()->role_id == '6' OR Auth::user()->role_id == '7' OR Auth::user()->role_id == '8' )
         <div id="div2" style="margin-right: 30px">
            <form method="GET" action="{{route('search_pettycash')}}">
             @csrf
@@ -42,18 +43,18 @@
             <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
         @endif  
 
-     <div class="row">
+     <div class="page-container">
         <div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Employee ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Issued Amount</th>
-                    <th scope="col">Balance Amount</th>          
-                    <th scope="col">Action</th>
+                    <th >Employee ID</th>
+                    <th >Name</th>
+                    <th >Role</th>
+                    <th >Issued Amount</th>
+                    <th >Balance Amount</th>          
+                    <th >Action</th>
                 </tr>
                 </thead>
                 <tbody>

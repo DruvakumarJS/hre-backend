@@ -95,7 +95,7 @@ white-space: nowrap;
        </div>
 
     <div class="page-container"> 
-     <div class="row">
+     <div class="">
      	<div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
      		<table class="table" >
 

@@ -8,7 +8,7 @@
 }
 </style>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="container-header">
            @if(auth::user()->role_id == 1 OR auth::user()->role_id == 2 )
@@ -211,7 +211,7 @@ $(document).ready(function(){
                          <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
                                     of {{$data->total()}} results</label>
 
-                                {!! $data->links('pagination::bootstrap-4') !!}
+                                <div class="float">{!! $data->links('pagination::bootstrap-4') !!}</div>
                         
                     </div>
                     <!--</div>-->

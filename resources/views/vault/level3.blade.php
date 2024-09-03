@@ -17,7 +17,7 @@ div.click-to-top:hover span {
 }
 </style>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="container-header">
             <label class="label-bold" id="div1">Vault </label>
