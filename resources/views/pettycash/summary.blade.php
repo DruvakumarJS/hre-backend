@@ -77,8 +77,8 @@
               <th>Mode</th>
               <th>Reference No. / Bill No.</th>
 	            <th>Narration</th>
+              <th>Debit</th>
 	            <th>Credit</th>
-	            <th>Debit</th>
               <th>Entry Date</th>
               <th></th>
 	           <!--  <th>Balance</th> -->
@@ -149,9 +149,9 @@ $(function() {
    {
     
     console.log(data['summary']);
-
-    $("#opening").html(data['opening']);
-    $("#closing").html(data['closing']);
+     var openingAmt = formatNumberIndianStyle(data['opening']);
+   $("#opening").html(openingAmt);
+    $("#closing").html( formatNumberIndianStyle(data['closing']));
    
     var output = '';
     var bal='';
@@ -166,25 +166,25 @@ $(function() {
    /*  output += '<td>' + data[count].date + '</td>';*/
      output += '<td>' + data['summary'][count].issued_date + '</td>';
      output += '<td>'+ data['summary'][count].mode + '</td>';
-     output += '<td>'+ data['summary'][count].ref + '</td>';
-     output += '<td>' + data['summary'][count].comment + '</td>';
+     output += '<td width="300px;">'+ data['summary'][count].ref + '</td>';
+     output += '<td width="300px;">' + data['summary'][count].comment + '</td>';
 
 
       var tittle = 'Created&nbsp;on&nbsp;'+data['summary'][count].created_at+'&nbsp;by&#13;'+data['summary'][count].finance_id;
      
     
-     if(data['summary'][count].type == 'Credit'){
-         output += '<td>' + data['summary'][count].amount + '</td>';
-         var tittle = 'Created&nbsp;on&nbsp;'+data['summary'][count].created_at+'&nbsp;by&#13;'+data['summary'][count].finance_id;
+     if(data['summary'][count].type == 'Debit'){
+         output += '<td class="text-danger">' + formatNumberIndianStyle(data['summary'][count].amount) + '</td>';
+         var tittle = 'Approved&nbsp;on&nbsp;'+data['summary'][count].created_at+'&nbsp;by&#13;'+data['summary'][count].finance_id;
      
      }
      else {
           output += '<td></td>';
      }
 
-     if(data['summary'][count].type == 'Debit'){
-         output += '<td>' + data['summary'][count].amount + '</td>';
-         var tittle = 'Approved&nbsp;on&nbsp;'+data['summary'][count].created_at+'&nbsp;by&#13;'+data['summary'][count].finance_id;
+     if(data['summary'][count].type == 'Credit'){
+         output += '<td class="text-success">' + formatNumberIndianStyle(data['summary'][count].amount) + '</td>';
+         var tittle = 'Created&nbsp;on&nbsp;'+data['summary'][count].created_at+'&nbsp;by&#13;'+data['summary'][count].finance_id;
      
      }
      else {
@@ -230,5 +230,36 @@ $(function() {
 
 </script>
 
+<script>
+    function formatNumberIndianStyle(number) {
+        let numStr = number.toString();
+
+        // Return the number as-is if it has 3 or fewer digits
+        if (numStr.length <= 3) {
+            return `₹${numStr}`; 
+        }
+
+        let lastThreeDigits = numStr.slice(-3);
+        let remainingDigits = numStr.slice(0, -3);
+
+        // Format the remaining digits with commas
+        if (remainingDigits !== '') {
+            remainingDigits = remainingDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+        }
+       
+        return `₹${remainingDigits + ',' + lastThreeDigits}`;
+
+        
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        let numberCells = document.querySelectorAll('.number');
+        numberCells.forEach((cell) => {
+            let originalNumber = cell.textContent.trim(); // Get the original number
+            let formattedNumber = formatNumberIndianStyle(originalNumber); // Format it
+            cell.textContent = formattedNumber; // Update the table cell
+        });
+    });
+</script>
 
 @endsection

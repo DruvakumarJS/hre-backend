@@ -63,8 +63,8 @@
                         <td>{{$value->employee->employee_id}}</td>
                         <td>{{$value->employee->name}}</td>
                         <td>{{$value->employee->user->roles->alias}}</td>
-                        <td><span>&#8377;</span>{{$value['total_issued']}}</td>
-                        <td><span>&#8377;</span>{{$value['total_balance']}}</td>
+                        <td class="number">{{ $value['total_issued']}}</td>
+                        <td class="number">{{$value['total_balance']}}</td>
                           @php
                          $size = sizeof($value->details);
                         @endphp
@@ -106,4 +106,38 @@
         </div>
     </div>
 </div>
+
+ <script>
+    function formatNumberIndianStyle(number) {
+        let numStr = number.toString();
+
+        // Return the number as-is if it has 3 or fewer digits
+        if (numStr.length <= 3) {
+            return `₹${numStr}`; 
+        }
+
+        let lastThreeDigits = numStr.slice(-3);
+        let remainingDigits = numStr.slice(0, -3);
+
+        // Format the remaining digits with commas
+        if (remainingDigits !== '') {
+            remainingDigits = remainingDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+        }
+       
+        return `₹${remainingDigits + ',' + lastThreeDigits}`;
+
+        
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        let numberCells = document.querySelectorAll('.number');
+        numberCells.forEach((cell) => {
+            let originalNumber = cell.textContent.trim(); // Get the original number
+            let formattedNumber = formatNumberIndianStyle(originalNumber); // Format it
+            cell.textContent = formattedNumber; // Update the table cell
+        });
+    });
+</script>
+
+
 @endsection

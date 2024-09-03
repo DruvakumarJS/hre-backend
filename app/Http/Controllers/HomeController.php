@@ -71,6 +71,8 @@ class HomeController extends Controller
                  }
 
              }
+
+            // print_r(json_encode($result) );die();
            /*Tickets chart*/
             $montharray=array();
             $month = date("t", strtotime('2021-10-18'));
@@ -227,5 +229,9 @@ class HomeController extends Controller
 
          return view('footprint',compact('data', 'search'));        
 
+    }
+
+    public function reset_password(Request $request){
+        return view('auth.passwords.reset');
     }
 }

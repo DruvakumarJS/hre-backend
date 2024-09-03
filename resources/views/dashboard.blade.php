@@ -520,7 +520,7 @@ p {
       <div class="row justify-content-between div-margin">
         <div class="col-md-6 col-sm-6">
 
-          <div class="card border-white scroll tableFixHead" style="height: 350px; padding: 0px 5px 20px 20px">
+          <div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 350px; padding: 0px 5px 20px 20px">
 
                         <table class="table" >
                           <thead >
@@ -600,8 +600,8 @@ p {
           <div class="card-header text-white label-bold  align-items-center d-flex justify-content-center" style="background-color: #f10909;">Tickets</div>
 
           <div class="row justify-content-between m-2" >
-            <div class="col-md-5 div-margin " style="border:2px solid #f0c6c3; ">
-              <div class="text-black label-bold align-items-center d-flex justify-content-center">Overall</div>
+            <div class="col div-margin " style="border:2px solid #f0c6c3; ">
+              <div class="card-header text-black label-bold align-items-center d-flex justify-content-center">Overall</div>
 
               <div class="card-body text-black">
                     <div class="form-group">            
@@ -635,8 +635,8 @@ p {
               
             </div>
 
-            <div class="col-md-5 div-margin"  style="border:2px solid #f0c6c3; ">
-              <div class="text-black label-bold align-items-center d-flex justify-content-center">Current Month - MTD</div>
+            <div class="col div-margin"  style="border:2px solid #f0c6c3; ">
+              <div class="card-header text-black label-bold align-items-center d-flex justify-content-center">Current Month - MTD</div>
               <div class="card-body text-black">
             
                     <div class="form-group">            
@@ -681,9 +681,9 @@ p {
           <div class="card-header text-white label-bold align-items-center d-flex justify-content-center" style="background-color: #5A5A5A">Petty Cash</div>
 
           <div class="row justify-content-between m-2" >
-            <div class="col-md-5 div-margin"  style="border:2px solid #eeeeee; ">
+            <div class="col div-margin"  style="border:2px solid #eeeeee; ">
              
-               <div class="text-black label-bold align-items-center d-flex justify-content-center">Overall</div>
+               <div class="card-header text-black label-bold align-items-center d-flex justify-content-center">Overall</div>
              
               <div class="card-body text-black">
                     <div class="form-group">            
@@ -717,9 +717,9 @@ p {
               
             </div>
 
-            <div class="col-md-5 div-margin"  style="border:2px solid #eeeeee; ">
+            <div class="col div-margin"  style="border:2px solid #eeeeee; ">
               
-            <div class="text-black label-bold align-items-center d-flex justify-content-center">Current Month - MTD</div>
+            <div class="card-header text-black label-bold align-items-center d-flex justify-content-center">Current Month - MTD</div>
              
               <div class="card-body text-black">
                     <div class="form-group">            
@@ -802,7 +802,7 @@ var barColors = [
  
 ];
 
-new Chart("myChart", {
+var myChart = new Chart("myChart", {
   type: "pie",
   data: {
     labels: xValues,
@@ -822,9 +822,18 @@ new Chart("myChart", {
     title: {
       display: true
      
-    }
+    },
+
   }
 });
+
+$("#myChart").click(
+            function (evt) {
+                var activePoints = myChart.getElementsAtEvent(evt);
+                var labeltag = activePoints[0]._view.label;
+                location.href="search_indent?search="+ labeltag + "&filter=Active";
+
+                });
 
 function getRandomColor() { //generates random colours and puts them in string
   var colors = [];

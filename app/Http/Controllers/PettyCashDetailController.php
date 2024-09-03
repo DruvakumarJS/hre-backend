@@ -73,7 +73,7 @@ class PettyCashDetailController extends Controller
      */
     public function store(Request $request)
     {
-       // print_r($request->Input());die();
+      //  print_r($request->Input());die();
 
         $fileName='';
         $imagearray=array();

@@ -82,8 +82,8 @@
                           <thead>
                             <tr>
                               <th>Date</th>
-                              <th scope="col">Category</th>
-                              <th scope="col">Description</th>
+                              <th >Category</th>
+                              <th >Description</th>
                               <th >Action</th>
                             
                              
@@ -94,7 +94,7 @@
                             @foreach($data as $key => $value)
                               <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
                               <td>{{$value->headings}}</td>
-                              <td width="300px">{{$value->description}}</td>
+                              <td >{{$value->description}}</td>
                               
                                <td class="openModal" >
                                 <!-- <a href="" data-bs-toggle="modal"  data-bs-target="#myModal" ><i class='fa fa-edit' style='font-size:24px;'></i></a> -->

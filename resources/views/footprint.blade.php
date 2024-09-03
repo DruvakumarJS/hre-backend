@@ -7,7 +7,7 @@
   height: 50px;
 }
 </style>
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="container-header">
            
@@ -37,10 +37,10 @@
         </div>
  
        
-        <div>
+        <div class="page-container">
         	 <label class="label-bold" style="margin-left: 20px" >Foot Prints</label>
 
-        	<div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
+        	<div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
                         <table class="table">
                           <thead>
@@ -83,7 +83,7 @@
                          <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
                                     of {{$data->total()}} results</label>
 
-                                {!! $data->links('pagination::bootstrap-4') !!}
+                                <div class="float">{!! $data->links('pagination::bootstrap-4') !!}</div>
                         
                     </div>
                     <!--</div>-->

@@ -245,4 +245,10 @@ display: block;
   background: #fff;
 }
 
+.container-fluid {
+  width: auto !important;
+  margin-right: 10 !important;
+  margin-left: 10px !important;
+}
+
 

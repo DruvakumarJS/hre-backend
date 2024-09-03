@@ -7,7 +7,7 @@
   height: 50px;
 }
 </style>
-<div class="container">
+<div class="container-fluid">
 
     <div class="row justify-content-center">
      <!-- <div class="row">
@@ -195,7 +195,7 @@
                         <label>Showing {{ $indents_list->firstItem() }} to {{ $indents_list->lastItem() }}
                                     of {{$indents_list->total()}} results</label>
 
-                                {!! $indents_list->links('pagination::bootstrap-4') !!}
+                                <div class="float">{!! $indents_list->links('pagination::bootstrap-4') !!}</div>
                         
                     </div>
                     <!--</div>-->

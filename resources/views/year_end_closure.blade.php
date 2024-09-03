@@ -7,7 +7,7 @@
   height: 50px;
 }
 </style>
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="container-header">
            
@@ -60,7 +60,7 @@
 
 
 
-        <div>
+        <div class="page-container">
         	<label class="label-bold" style="margin-left: 20px" >Financial Year Closing Details</label>
 
         	<div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">

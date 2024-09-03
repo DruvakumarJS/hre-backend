@@ -63,13 +63,13 @@
 
             <div class="col-md-2">
                 <label>Issued Amount</label>
-                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total_issued}}</h3>
+                <h3 class="label-bold number">{{$pettycash->total_issued}}</h3>
                 
             </div>
 
             <div class="col-md-2">
                 <label>Bill Accepted for</label>
-                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total_issued-$pettycash->total_balance}}</h3>
+                <h3 class="label-bold number">{{$pettycash->total_issued-$pettycash->total_balance}}</h3>
                 
             </div>
 
@@ -78,13 +78,13 @@
                 <label>Staff Wallet Balance Amount</label>
                 @if(auth::user()->role_id == '5' || auth::user()->role_id == '1')
                 @if($pettycash->employee->user_id == auth::user()->id)
-                 <h3 class="label-bold"><span>&#8377;</span><?php echo intval($pettycash->total_issued) - intval($myspent) ; ?></h3>
+                 <h3 class="label-bold number"><?php echo intval($pettycash->total_issued) - intval($myspent) ; ?></h3>
                 @else
-                <h3 class="label-bold"><span>&#8377;</span>{{$pettycash->total_balance}}</h3>
+                <h3 class="label-bold number">{{$pettycash->total_balance}}</h3>
                 @endif
 
                 @else
-                <h3 class="label-bold"><span>&#8377;</span><?php echo intval($pettycash->total_issued) - intval($myspent) ; ?></h3>
+                <h3 class="label-bold number"><?php echo intval($pettycash->total_issued) - intval($myspent) ; ?></h3>
                  @endif
                 
                 
@@ -117,7 +117,7 @@
                                     <td>{{$value->billing_no}}</td>
                                     <td width="100px">{{date("d-m-Y", strtotime($value->bill_date))}}</td>
                                     <td>{{$value->bill_number}}</td>
-                                    <td><span>&#8377;</span>{{$value->spent_amount}}</td>
+                                    <td class="number">{{$value->spent_amount}}</td>
                                     <td>{{$value->purpose}}</td>
                                     <td>{{$value->pcn}}</td>
                                     <td>{{$value->comments}}</td>
@@ -321,6 +321,38 @@ $(document).ready(function(){
 
  </div>    
 </div>
+
+ <script>
+    function formatNumberIndianStyle(number) {
+        let numStr = number.toString();
+
+        // Return the number as-is if it has 3 or fewer digits
+        if (numStr.length <= 3) {
+            return `₹${numStr}`; 
+        }
+
+        let lastThreeDigits = numStr.slice(-3);
+        let remainingDigits = numStr.slice(0, -3);
+
+        // Format the remaining digits with commas
+        if (remainingDigits !== '') {
+            remainingDigits = remainingDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+        }
+       
+        return `₹${remainingDigits + ',' + lastThreeDigits}`;
+
+        
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        let numberCells = document.querySelectorAll('.number');
+        numberCells.forEach((cell) => {
+            let originalNumber = cell.textContent.trim(); // Get the original number
+            let formattedNumber = formatNumberIndianStyle(originalNumber); // Format it
+            cell.textContent = formattedNumber; // Update the table cell
+        });
+    });
+</script>
 
 
 
