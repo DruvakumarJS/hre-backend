@@ -1,5 +1,8 @@
 /node_modules
 /public/hot
+/public/histogram
+/public/pettycashfiles
+/public/ticketImages
 /public/storage
 /storage/*.key
 /storage/framework/laravel-excel
