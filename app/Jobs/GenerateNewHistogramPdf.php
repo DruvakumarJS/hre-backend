@@ -64,6 +64,14 @@ class GenerateNewHistogramPdf implements ShouldQueue
      */
     public function handle()
     {
+        $path = 'histogram' ;
+
+        if (file_exists(public_path().'/'.$path)) {
+          
+        } else {
+           
+            File::makeDirectory(public_path().'/'.$path, $mode = 0777, true, true);
+        }
        
         $data = $this->data ;
         $client = $this->client  ;
@@ -77,7 +85,7 @@ class GenerateNewHistogramPdf implements ShouldQueue
 
         $pdf = PDF::loadView('pdf/new_histogramPDF',compact('data','client','arch','land','hre','vendor','name','alias' ));
     
-        $savepdf = $pdf->save(public_path($this->filename));
+        $savepdf = $pdf->save(public_path('histogram').'/'.$this->filename);
 
         $attachment = public_path($this->filename) ;
 

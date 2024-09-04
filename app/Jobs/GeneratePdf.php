@@ -104,7 +104,7 @@ class GeneratePdf implements ShouldQueue
 
         
 
-      // Mail::to($this->emailid)->cc($this->empl_mail)->send(new HistogramUpdateMail($subject , $attachment , $empli_name , $empl_id ,$id));
+       Mail::to($this->emailid)->cc($this->empl_mail)->send(new HistogramUpdateMail($subject , $attachment , $empli_name , $empl_id ,$id));
       //  Mail::to('druva@netiapps.com')->send(new HistogramUpdateMail($subject , $attachment ,$empli_name ,  $empl_id ,$id));
 
 

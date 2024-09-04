@@ -192,8 +192,9 @@ class HistogramController extends Controller
             $hre = HreDetail::where('histogram_billing_id' ,$id)->get();
             $vendor = VendorDetail::where('histogram_billing_id' ,$id)->get();
     
-           
-            $filename = 'histogram.pdf';
+            $rand = date('d-m-Y').'_'.date('H-i');
+            $filename = 'histogram_'.$rand.'.pdf';
+          
             $empl = Employee::where('user_id',Auth::user()->id)->first();
             $empl_id = $empl->employee_id;
             $pcn  = $request->pcn ;
@@ -212,6 +213,17 @@ class HistogramController extends Controller
                }
 
             GenerateNewHistogramPdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name , $alias , $subject);
+
+            $histogram = Histogram_billing_details::where('id',$billing_id)->first();
+            $history = HistogramHistory::create([
+                    'pcn'=>'Not Alloted',
+                    'histogram_id'=>$billing_id,
+                    'user_id' => Auth::user()->id,
+                    'submission_date' => date('Y-m-d H:i:s'), 
+                    'submission_time' => date('Y-m-d H:i:s'),
+                    'path' => 'histogram',
+                    'filename' => $filename 
+                ]);
 
             $empl = Employee::select('employee_id')->where('user_id',Auth::user()->id)->first();
 
@@ -432,7 +444,8 @@ class HistogramController extends Controller
             $hre = HreDetail::where('histogram_billing_id' ,$id)->get();
             $vendor = VendorDetail::where('histogram_billing_id' ,$id)->get();
 
-            $filename = 'histogram.pdf';
+            $rand = date('d-m-Y').'_'.date('H-i');
+            $filename = 'histogram_'.$rand.'.pdf';
 
             $empl = Employee::where('user_id',Auth::user()->id)->first();
             $empl_id = $empl->employee_id;
@@ -443,6 +456,17 @@ class HistogramController extends Controller
             $subject = "Histogram Edited - PH".$data->id." - ".$empl->employee_id." Project Name - ".$request->project_name;
 
             GenerateNewHistogramPdf::dispatch($data,$client,$arch,$land,$hre,$vendor,$filename,$empl_id ,$pcn ,$empl_mail ,$name ,$alias , $subject);
+
+            $histogram = Histogram_billing_details::where('id',$request->histogram_id)->first();
+            $history = HistogramHistory::create([
+                    'pcn'=>'Not Alloted',
+                    'histogram_id'=>$billing_id,
+                    'user_id' => Auth::user()->id,
+                    'submission_date' => date('Y-m-d H:i:s'),
+                    'submission_time' => date('Y-m-d H:i:s'),
+                    'path' => 'histogram',
+                    'filename' => $filename 
+                ]);
 
 
                     $footprint = FootPrint::create([
