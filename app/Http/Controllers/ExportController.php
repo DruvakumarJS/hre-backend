@@ -15,6 +15,7 @@ use App\Exports\ExportCategory;
 use App\Exports\ExportMaterial;
 use App\Exports\ExportPettycashSummary;
 use App\Exports\ExportMultipleIndents;
+use App\Exports\ExportFilteredIndents;
 use App\Exports\ExportVendors;
 use App\Exports\ExportFootprints;
 
@@ -294,14 +295,132 @@ class ExportController extends Controller
 
     public function download_multiple_indents(Request $request){
 
-   
+     // print_r($request->input());die();
       $file_name = 'indents.csv';
 
-      $indents = $request->selctedindent;
+      if($request->isallselected == '1'){
+         $search = $request->search;
+         $filter = $request->filter;
 
-      $indentarray= explode (',', $indents);
-     
-      return Excel::download(new ExportMultipleIndents($indentarray), $file_name);
+         $search = $request->search;
+        // print_r($search); die();
+        $filtr = $request->filter;
+
+        if($filtr == 'all'){
+          $filtr = '';
+        }
+         
+        if(Auth::user()->role_id == 1 OR Auth::user()->role_id == 2 OR Auth::user()->role_id == 10 OR Auth::user()->role_id == 11 OR Auth::user()->role_id == 12) {
+
+          $indents=Intend::where('status','LIKE',$filtr.'%')
+              ->where(function($query)use($search){
+                $query->where('indent_no','LIKE','%'.$search.'%');
+                $query->orWhere('pcn','LIKE','%'.$search.'%');
+                $query->orWhereDate('created_at','LIKE','%'.$search.'%');
+                $query->orWhereMonth('created_at','LIKE','%'.$search.'%');
+                $query->orWhereYear('created_at','LIKE','%'.$search.'%');
+                $query ->orWhereHas('pcns', function ($query2) use ($search) {
+                    $query2->where('brand', 'like', '%'.$search.'%');
+                 });
+                })
+              
+              ->orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+              ->get();
+
+        }
+        elseif(Auth::user()->role_id == 3 OR Auth::user()->role_id == 4 OR Auth::user()->role_id == 5){
+           $role = Roles::select('id')->where('team_id','3')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+             ->whereIn('user_id',$userIDs)
+             ->where('status','LIKE',$filtr.'%')
+             ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+              $query->orWhere('pcn','LIKE','%'.$search.'%');
+              $query->orWhereDate('created_at','LIKE','%'.$search.'%');
+              $query->orWhereMonth('created_at','LIKE','%'.$search.'%');
+              $query->orWhereYear('created_at','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+             ->orderBy('created_at', 'ASC')
+             ->get();
+        }
+
+        elseif(Auth::user()->role_id == 6 OR Auth::user()->role_id == 7 OR Auth::user()->role_id == 8 OR Auth::user()->role_id == 9){
+
+          $role = Roles::select('id')->where('team_id','4')->get();
+            $emp= array();
+            foreach ($role as $key => $value) {
+               $emp = Employee::select('user_id')->where('role_id',$value->id)->get();
+
+               foreach ($emp as $key2 => $value2) {
+                 $userIDs[] = $value2->user_id;
+             }
+              
+            }
+
+        $indents=Intend::orderByRaw("FIELD(status , 'Active', 'Completed') ASC")
+            ->whereIn('user_id',$userIDs)
+            ->where('status','LIKE',$filtr.'%')
+            ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+               $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhereDate('created_at','LIKE','%'.$search.'%');
+               $query->orWhereMonth('created_at','LIKE','%'.$search.'%');
+               $query->orWhereYear('created_at','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+            ->orderBy('created_at', 'ASC')
+            ->get();
+
+        
+        }
+        else{
+        $indents=Intend::where('user_id' ,Auth::user()->id)
+        ->where('status','LIKE',$filtr.'%')
+        ->where(function($query)use($search){
+              $query->where('indent_no','LIKE','%'.$search.'%');
+               $query->orWhere('pcn','LIKE','%'.$search.'%');
+               $query->orWhereDate('created_at','LIKE','%'.$search.'%');
+               $query->orWhereMonth('created_at','LIKE','%'.$search.'%');
+               $query->orWhereYear('created_at','LIKE','%'.$search.'%');
+               $query->orWhereHas('pcns', function ($query) use ($search) {
+               $query->where('brand', 'like', '%'.$search.'%');
+                 });
+             })
+        ->get();
+
+       
+        }
+
+        foreach ($indents as $key => $value) {
+          $indentarray[]=$value->id;
+        }
+        
+        return Excel::download(new ExportMultipleIndents($indentarray), $file_name);
+      }
+      else{
+        $indents = $request->selctedindent;
+
+        $indentarray= explode (',', $indents);
+        
+        return Excel::download(new ExportMultipleIndents($indentarray), $file_name);
+      }
+
+      
    
     }
 

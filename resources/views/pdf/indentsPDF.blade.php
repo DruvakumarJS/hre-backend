@@ -98,7 +98,7 @@
                                       <thead>
                                         <tr>
                                            <th scope="col">Sl.no</th>
-                                           <th scope="col">Material Id</th>
+                                           <th scope="col">Item Code </th>
                                            <th scope="col">Material Category</th>
                                            <th scope="col">Material Name</th> 
                                            <th scope="col">Brand</th>

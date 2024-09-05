@@ -2,7 +2,6 @@
 
 namespace App\Exports;
 
-
 use App\Models\Indent_list;
 use App\Models\Intend;
 use App\Models\Material;
@@ -11,13 +10,15 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use DB;
 
-class ExportMultipleIndents implements FromCollection , WithHeadings 
+class ExportFilteredIndents implements FromCollection , WithHeadings 
 {
-    private $indentarray;
+    private $search;
+    private $filter;
    
-    public function __construct($indentarray) 
+    public function __construct($search , $filter) 
     {
-        $this->indentarray = $indentarray;
+        $this->search = $search;
+        $this->filter = $filter;
         //print_r($IndentList);die();
        
     } 
@@ -26,8 +27,13 @@ class ExportMultipleIndents implements FromCollection , WithHeadings
     { 
     	
 
-    	$data = $this->indentarray;
+    	$search = $this->search;
+    	$filter = $this->filter;
     	//print_r($data);die();
+
+    	if($filter == 'all'){
+    		$filter == '';
+    	}
 
        $att= DB::table('indent_lists')
         ->select(
@@ -51,8 +57,20 @@ class ExportMultipleIndents implements FromCollection , WithHeadings
         ->join('pcns', 'intends.pcn', '=', 'pcns.pcn')
         ->join('materials', 'indent_lists.material_id', '=', 'materials.item_code')
         ->leftJoin('g_r_n_s', 'indent_lists.id', '=', 'g_r_n_s.indent_list_id')
-        ->whereIn('indent_lists.indent_id', $data)
-        ->orderBy('indent_lists.material_id','ASC')
+        ->where('indent_lists.status','LIKE',$filter.'%')
+        ->where(function($query)use($search){
+	        $query->where('indent_lists.indent_no','LIKE','%'.$search.'%');
+	        $query->orWhere('indent_lists.pcn','LIKE','%'.$search.'%');
+	        $query->orWhereDate('indent_lists.created_at','LIKE','%'.$search.'%');
+	        $query->orWhereMonth('indent_lists.created_at','LIKE','%'.$search.'%');
+	        $query->orWhereYear('indent_lists.created_at','LIKE','%'.$search.'%');
+	        $query->orWhereHas('indent_lists.pcns', function ($query2) use ($search) {
+	            $query2->where('pcns.brand', 'like', '%'.$search.'%');
+	         });
+	        })
+	      
+	    ->orderByRaw("FIELD(indent_lists.status , 'Active', 'Completed') ASC")
+        
         ->groupBy(
             'indent_lists.id',
             'intends.indent_no',
@@ -77,6 +95,7 @@ class ExportMultipleIndents implements FromCollection , WithHeadings
 
 
     public function headings():array{
-    	return ['Date','Indent Number', 'PCN', 'Billing name','Area','Material ID','Material Name', 'Brand','Specifications', 'Additional Description', 'Total Indent', 'Total GRN','Total Dispatch','Pending','Status'];
+    	return ['Date','Indent Number', 'PCN', 'Billing name','Area','Material ID','Material Name', 'Brand','Information', 'Additional Description', 'Total Indent', 'Total GRN','Total Dispatch','Pending','Status'];
     }
 }
+

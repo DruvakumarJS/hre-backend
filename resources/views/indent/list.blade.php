@@ -56,6 +56,9 @@
                 <form id="theForm" method="GET" action="{{ route('download_multiple_indents')}}">
                     @csrf
                     <input type="hidden" name="selctedindent" id="selctedindent">
+                    <input type="hidden" name="isallselected" id="isallselected">
+                    <input type="hidden" name="search" value="{{$search}}">
+                    <input type="hidden" name="filter" value="{{$filtr}}">
                     <button class="btn btn-light btn-outline-secondary" id="download" onclick="GetSelected()" style="display: none">Download Selected Indents</button>
                 </form> 
             </div>
@@ -153,6 +156,7 @@
 
         $('#all_checkbox').on('change', function() {
             var isChecked = $(this).prop('checked');
+            $('#isallselected').val('1');
             $('.row_checkbox').prop('checked', isChecked);
             checkboxChecker();
         });
@@ -160,6 +164,7 @@
         $('.row_checkbox').on('change', function() {
             var allChecked = $('.row_checkbox').length === $('.row_checkbox:checked').length;
             $('#all_checkbox').prop('checked', allChecked);
+            $('#isallselected').val('0');
             checkboxChecker();
         });
 

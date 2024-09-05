@@ -128,7 +128,7 @@
          <div style="margin-top: 50px">
         	<label class="label-bold" style="margin-left: 20px">Material List</label>
 
-        	<div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
+        	<div class="card border-white table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
                         <table class="table">
                           <thead>
@@ -138,7 +138,7 @@
                               <th scope="col">Material Name</th>
                               <th scope="col">Brand</th>
                               <th scope="col">Specifications</th>
-                              <th scope="col">Description</th>                          
+                              <th scope="col">Additional Description</th>                          
                               <th scope="col">Total Indent</th>
                               <th scope="col">Total GRN</th>
                               <th scope="col">Total Dispatch</th>

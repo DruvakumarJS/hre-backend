@@ -1014,6 +1014,7 @@ class IntendController extends Controller
         }
 
        $search = $request->search ;
+       $filtr = ($filtr == '')?'all':$filtr;
        return view('indent/list' , compact('indents' , 'all' , 'activeCount' , 'compltedCount','search','filtr'));            
 
     }
