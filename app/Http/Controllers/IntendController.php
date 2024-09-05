@@ -303,7 +303,7 @@ class IntendController extends Controller
         $user = User::where('id',$indents->user_id)->first();
 
         $indents_list = Indent_list::withSum('grns','dispatched')->
-             where('indent_id',$indent_id)->orderBy('material_id', 'ASC')->paginate(30);
+             where('indent_id',$indent_id)->orderBy('material_id', 'ASC')->paginate(25);
 
        // print_r(json_encode($indents_list));die();
          return view('indent/view_indents',compact('id' , 'indents_list' , 'pcn' ,'indents','user'));
