@@ -92,7 +92,7 @@
             
         </div>
 
-         <div class="card border-white scroll tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
+         <div class="card border-white  table-wrapper-scroll-y tableFixHead" style="height: 600px; padding: 0px 5px 20px 20px">
 
                         <table class="table table-striped table-wrapper-scroll-y">
                             <thead>
@@ -110,6 +110,7 @@
                                 <th width="150px">Remarks</th>
                                
                                 <th>Action</th>
+                                <th></th>
                             </tr>
                             </thead>
                         @foreach($data as $key =>$value)
@@ -157,23 +158,30 @@
                                         @endif 
 
                                          @if( (Auth::user()->role_id == '1') || (Auth::user()->role_id == '2') || (Auth::user()->role_id == '6') || (Auth::user()->role_id == '7') || (Auth::user()->role_id == '8'))
-                                            @if($value->isapproved == '0')
-                                                
-                                                <a  id="MybtnModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-secondary">Action</button></a>
+                                          @if($value->isapproved == '0')
                                               
-                                            @endif
-                                            @endif
+                                              <a  id="MybtnModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-secondary">Action</button></a>
+                                            
+                                          @endif
+                                          @endif
 
-                                            @if( ( Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' OR Auth::user()->role_id == '6' ) && $value->isapproved != '0')   
+                                          @if( ( Auth::user()->role_id == '1' OR Auth::user()->role_id == '2' OR Auth::user()->role_id == '6' ) && $value->isapproved != '0')   
 
 
-                                               <a style="margin-top: 10px" id="MyrevertModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-danger">Revert</button></a>  
-                                            @endif
+                                             <a style="margin-top: 10px" id="MyrevertModal_{{$key}}" data-bs-toggle="modal" data-bs-target="#importModal" href=""><button class="btn btn-sm btn-outline-danger">Revert</button></a>  
+                                          @endif
+
+                                         
                                       </td> 
                                     @else
                                       <td> <button class="btn btn-sm btn-danger" disabled>Freezed</button></td>
                                     @endif  
+
                                    
+                                     <td>
+                                        <a onclick="return confirm('PDF File will be downloaded ')" href="{{route('export_transaction_details',$value->id)}}"><i class="fa fa-file-pdf-o" style="color: red"></i></a> 
+                                      </td>  
+                                    
                                    <!-- 
                                       @if( (Auth::user()->role_id == '1') && $value->isapproved != '0')
                                        <td>

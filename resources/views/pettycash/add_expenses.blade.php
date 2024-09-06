@@ -113,6 +113,19 @@ output .span--hidden{
                             </div>
                         </div>
 
+                        <!-- <div class="form-group row">
+                            <label for="" class="col-5 col-form-label">Approving Manager* </label>
+                            <div class="col-7">
+                              <select class="form-control form-select" name="managerid" id="managerid">
+                              <option>Select Manager</option>
+                              @foreach($managers as $key=>$value)
+                                <option value="{{$value->user_id}}">{{$value->name}} - {{$value->employee_id}}</option>
+                              @endforeach
+                            </select>
+                            </div>
+                            
+                        </div> -->
+
                         <div class="form-group row">
                             <label for="" class="col-5 col-form-label">Upload bill*</label>
                             <div class="col-7">
@@ -317,11 +330,9 @@ $.ajaxSetup({
                   // alert(imgInd);
                    imagesArray.splice(imgInd,1);
                    $(this).parent(".image").remove();
-                   
-                   
+                                  
 
                 });
-
     
     }
 
@@ -330,13 +341,15 @@ $.ajaxSetup({
    $(document).ready(function(){
 
          $('#submit').click(function(){
-              
+            
              var amount = $('#amount').val();
              var date = $('#bill_date').val();
              var bill_number = $('#bill_number').val();
              var purpose = $('#purpose').val();
              var pcn = $('#pcn').val();
              var comments = $('#comment').val();
+           //  var managerid = $('#managerid').val();
+
 
              if(amount == ''){
               alert("Enter Amount");
@@ -362,6 +375,10 @@ $.ajaxSetup({
               alert("Please Enter Descriptions");
               return;
              }
+            /* if(managerid == ''){
+              alert("Please Select approving manager");
+              return;
+             }*/
 
              if(imagesArray.length == 0){
               alert("Please Upload your Bill ");
@@ -383,7 +400,8 @@ $.ajaxSetup({
                      fd.append('amount',amount);
                      fd.append('purpose',purpose);
                      fd.append('pcn',pcn);
-                     fd.append('comment',comments);   
+                     fd.append('comment',comments); 
+                   //  fd.append('managerid',managerid);   
 
                      // Hide alert 
                      $('#responseMsg').hide();

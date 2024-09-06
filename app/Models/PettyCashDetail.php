@@ -20,9 +20,12 @@ class PettyCashDetail extends Model
     	'comments',
     	'filename',
     	'isapproved',
-        'remarks'
+        'remarks',
+        'approving_manager',
+        'manager_approval'
     ];
 
+    
     
 
 }

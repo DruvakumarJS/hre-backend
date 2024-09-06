@@ -93,7 +93,7 @@ class PettycashController extends Controller
           }
 
 
-        $craete = Pettycash::create([
+        /*$craete = Pettycash::create([
             'user_id' => $request->user_id ,
             'finance_id' => $request->finance_id , 
             'total' => $request->amount,
@@ -103,10 +103,25 @@ class PettycashController extends Controller
             'spend' => '0',
             'mode'=>$request->mode,
             'reference_number' => $request->refernce
-        ]);
+        ]);*/
 
-        if($craete){ 
-            $pettycash= Pettycash::select('id')->where('user_id',$request->user_id)->where('finance_id',$request->finance_id)->where('total',$request->amount)->where('issued_on',$request->issued_date)->orderBy('id', 'DESC')->first();
+        $pettycash = new Pettycash;
+        $pettycash->user_id = $request->user_id;
+        $pettycash->finance_id = $request->finance_id;
+        $pettycash->total = $request->amount;
+        $pettycash->issued_on = $request->issued_date;
+        $pettycash->comments = $request->comment;
+        $pettycash->remaining = $request->amount;
+        $pettycash->spend = '0';
+        $pettycash->mode = $request->mode;
+        $pettycash->reference_number = $request->refernce;
+
+        $pettycash->save();
+
+        $p_id= $pettycash->id;
+
+        if($p_id !='' && $p_id>0){ 
+            $pettycash= Pettycash::where('id',$p_id)->first();
            
             if(PettycashOverview::where('user_id', $request->user_id)->exists()){
 
@@ -312,20 +327,46 @@ class PettycashController extends Controller
     
     public function destroy($id)
     {
-        if(PettyCashDetail::where('pettycash_id' , $id)->exists())
-        {
-            return redirect()->back()->withMessage('This Pettycash is already used by the employee');
-        }
-        else {
-            
-             $delete = Pettycash::where('id', $id)->delete();
-             return redirect()->back();
+
+        $pettycash = Pettycash::where('id',$id)->first();
+        $initial_amount = $pettycash->total;
+        
+        $delete = Pettycash::where('id',$id)->delete();
+
+        if($delete){
+            $deletesummary = PettycashSummary::where('pettycash_id',$id)->delete();
+            if($deletesummary){
+
+             if(PettycashOverview::where('user_id', $pettycash->user_id)->exists()){
+
+                 $data = PettycashOverview::where('user_id', $pettycash->user_id)->first();
+                 $issued = $data->total_issued ;
+                 $balance  = $data->total_balance;
+
+                 $total_issued = intval($issued)-intval($pettycash->total);
+                 $total_balance = intval($balance)-intval($pettycash->total);
+
+                 PettycashOverview::where('user_id', $pettycash->user_id)->update([
+                    'total_issued' => $total_issued,
+                    'total_balance' => $total_balance
+                ]);
+
+                $emp = Employee::where('user_id',$pettycash->user_id)->first();
+
+                $footprint = FootPrint::create([
+                    'action' => 'Pettycash transaction entry deleted - '.$emp->employee_id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Pettycash',
+                    'operation' => 'D'
+                ]);
+
+                
+             }
+            }
 
         }
-       
-        
-            
-      
+        return redirect()->back();
+
     }
 
      function action(Request $request)
@@ -450,6 +491,47 @@ class PettycashController extends Controller
         }])->orderBy('id', 'DESC')->paginate(25)->withQueryString();
          
          return view('pettycash/list', compact('data'));
+    }
+
+    public function modify_pettycash_status($id , $status){
+        print_r($status);die();
+
+        if($status == 'Inactive'){
+            $update = Pettycash::where('id',$id)->update(['status'=> 'Inactive']);
+
+            if($update){
+               $pettycash= Pettycash::where('id',$id)->first();
+           
+            if(PettycashOverview::where('user_id', $pettycash->user_id)->exists()){
+
+                 $data = PettycashOverview::where('user_id', $request->user_id)->first();
+                 $issued = $data->total_issued ;
+                 $balance  = $data->total_balance;
+
+                 $total_issued = intval($issued)-intval($request->amount);
+                 $total_balance = intval($balance)-intval($request->amount);
+
+                 PettycashOverview::where('user_id', $request->user_id)->update([
+                    'total_issued' => $total_issued,
+                    'total_balance' => $total_balance
+                ]);
+
+                
+               }
+
+               $emp = Employee::where('user_id',$request->user_id)->first();
+
+               $footprint = FootPrint::create([
+                    'action' => 'Pettycash status set to Inactive - '.$emp->employee_id,
+                    'user_id' => Auth::user()->id,
+                    'module' => 'Pettycash',
+                    'operation' => 'C'
+                ]);
+            }
+
+        }
+
+
     }
 
    

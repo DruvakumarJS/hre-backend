@@ -141,6 +141,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('edit_pettycash/{id}',[PettycashController::class,'edit'])->name('edit_pettycash');
     Route::post('update_pettycash/{id}',[PettycashController::class,'update'])->name('update_pettycash');
     Route::get('pettycash_delete/{id}',[PettycashController::class,'destroy'])->name('delete_pettycash');
+    Route::get('modify_pettycash_status/{id}/{status}',[PettycashController::class,'modify_pettycash_status'])->name('modify_pettycash_status');
+
+
     Route::get('pettycash_details/{id}',[PettyCashDetailController::class,'index'])->name('details_pettycash');
     Route::get('pettycash_expenses',[PettyCashDetailController::class,'create'])->name('pettycash_expenses');
     Route::post('upload_bills',[PettyCashDetailController::class,'store'])->name('upload_bills');
@@ -153,6 +156,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('pettycash_approval_reminder/{id}',[PettyCashDetailController::class,'reminder'])->name('pettycash_approval_reminder');
     Route::post('search_bill',[PettyCashDetailController::class,'search_bill'])->name('search_bills');
     Route::post('revert_bill_status',[PettyCashDetailController::class,'revert_bill_status'])->name('revert_bill_status');
+    Route::get('export_transaction_details/{id}',[ExportController::class,'export_transaction_details'])->name('export_transaction_details');
 
 
    

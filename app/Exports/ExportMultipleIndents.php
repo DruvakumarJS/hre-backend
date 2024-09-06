@@ -53,6 +53,7 @@ class ExportMultipleIndents implements FromCollection , WithHeadings
         ->leftJoin('g_r_n_s', 'indent_lists.id', '=', 'g_r_n_s.indent_list_id')
         ->whereIn('indent_lists.indent_id', $data)
         ->orderBy('indent_lists.material_id','ASC')
+        ->orderBy('indent_lists.id','ASC')
         ->groupBy(
             'indent_lists.id',
             'intends.indent_no',

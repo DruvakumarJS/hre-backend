@@ -61,8 +61,9 @@ class PettyCashDetailController extends Controller
      */
     public function create()
     {
-    
-        return view('pettycash/add_expenses');
+        $managers = Employee::where('role_id','3')->get();
+       // print_r($managers);die();
+        return view('pettycash/add_expenses',compact('managers'));
     }
 
     /**
@@ -73,7 +74,8 @@ class PettyCashDetailController extends Controller
      */
     public function store(Request $request)
     {
-      //  print_r($request->Input());die();
+     // return json($request->input());
+        //print_r($request->Input());die();
 
         $fileName='';
         $imagearray=array();
@@ -145,7 +147,9 @@ class PettyCashDetailController extends Controller
                 'pcn' => $request->pcn,
                 'comments' => $request->comment,
                 'filename' => $imageNames,
-                'isapproved' => '0'
+                'isapproved' => '0',
+               // 'approving_manager' => $request->managerid,
+               // 'manager_approval' => '0'
             ]);
 
           $finance = pettycash::select('finance_id')->where('id', $request->id)->first();
@@ -355,6 +359,7 @@ class PettyCashDetailController extends Controller
                 $finance = User::select('name')->where('id',$value->finance_id)->first();
 
                 $data[]=[
+                    'id' => 'PCS'.$value->id,
                     'date' => \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('d-m-Y'),
                     'finance_id' => $finance->name, 
                     'amount' => $value->amount,

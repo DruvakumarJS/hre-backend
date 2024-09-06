@@ -30,10 +30,13 @@ use App\Models\Category;
 use App\Models\Material;
 use App\Models\Intend;
 use App\Models\PettycashSummary;
+use App\Models\PettyCashDetail;
+
 use App\Models\VendorDepartment;
 
 use DB;
 use Auth;
+use PDF;
 
 
 
@@ -436,5 +439,19 @@ class ExportController extends Controller
       $search = $request->search ;
     
       return Excel::download(new ExportFootprints($search), $file_name);
+    }
+
+    public function export_transaction_details($id){
+     //print_r($id);die();
+
+     $data = PettyCashDetail::where('id',$id)->first();
+
+     $pdf = PDF::loadView('pdf/pettycashPDF',compact('data'));
+     $filename = 'PC00'.$data->id.'_transaction'.'.pdf';
+    
+     $savepdf = $pdf->save(public_path($filename));   
+     return $pdf->download($filename);  
+
+
     }
 }

@@ -73,6 +73,7 @@
 	    <table class="table table-striped">
 	        <thead>
 	        <tr>
+              <th>PCS_ID</th>
 	            <th>Trasnsaction Date</th>
               <th>Mode</th>
               <th>Reference No. / Bill No.</th>
@@ -164,6 +165,7 @@ $(function() {
 
      output += '<tr>';
    /*  output += '<td>' + data[count].date + '</td>';*/
+     output += '<td>' + data['summary'][count].id + '</td>';
      output += '<td>' + data['summary'][count].issued_date + '</td>';
      output += '<td>'+ data['summary'][count].mode + '</td>';
      output += '<td width="300px;">'+ data['summary'][count].ref + '</td>';

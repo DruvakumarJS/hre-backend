@@ -16,6 +16,18 @@
              <label id="modal">View PettyCash List </label> </a>
           
           </div>
+          
+          @if($data->status == 'Active')
+           <div id="div2" style="margin-right: 30px">
+              <a class="btn btn-light btn-outline-secondary" href="{{route('modify_pettycash_status',[$data->id,'Inactive'])}}">
+              <label id="modal">Deactivate the Transaction</label> </a>
+           </div>
+          @else
+          <div id="div2" style="margin-right: 30px">
+              <a class="btn btn-light btn-outline-secondary" href="{{route('modify_pettycash_status',[$data->id,'Active'])}}">
+              <label id="modal">Activate the Transaction</label> </a>
+           </div>
+          @endif 
 
      </div>
 
@@ -75,6 +87,8 @@
                                 <input name="refernce" id="refernce" type="text" class="form-control" placeholder="Enter Reference Number" id="refernce" value="{{$data->reference_number}}" style="display: none">
                             </div>
                         </div>
+                        
+                       
 
 
                         <input type="hidden" name="rowid" value="{{$data->id}}">
@@ -83,9 +97,14 @@
                          <div class="form-group row">
                             <div class="offset-5 col-7">
                                 <button  type="submit" class="btn btn-danger">Update</button>
-                                
+
+
                             </div>
+
+
                         </div>
+
+
 
                     	
      				</form>
@@ -122,7 +141,7 @@
             document.getElementById("refernce").required = true;
 
          }
-         else {
+         else if(this.value == "Cash"){
             document.getElementById("refernce").style.display= "none" ;
             document.getElementById("ref_lable").style.display= "none" ;
             document.getElementById("refernce").required = false;
