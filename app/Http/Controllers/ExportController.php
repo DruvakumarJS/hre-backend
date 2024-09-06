@@ -449,7 +449,7 @@ class ExportController extends Controller
      $pdf = PDF::loadView('pdf/pettycashPDF',compact('data'));
      $filename = 'PC00'.$data->id.'_transaction'.'.pdf';
     
-     $savepdf = $pdf->save(public_path($filename));   
+    // $savepdf = $pdf->save(public_path($filename));   
      return $pdf->download($filename);  
 
 
