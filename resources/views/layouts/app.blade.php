@@ -109,9 +109,11 @@
                      ||request()->routeIs('create_indent')
                      ||request()->routeIs('edit_intends')
                      ||request()->routeIs('filter_indents')
-                     || request()->routeIs('search_indent')
+                     ||request()->routeIs('search_indent')
                      ||request()->routeIs('grn')
-                     || request()->routeIs('search_grn')
+                     ||request()->routeIs('search_grn')
+                     ||request()->routeIs('grn_list')
+                     ||request()->routeIs('search_deligation_grn')
                       ? 'active' : ''}}">
                             <label class="nav-links">Indents</label></a>
 

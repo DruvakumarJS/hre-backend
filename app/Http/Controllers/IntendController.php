@@ -766,9 +766,11 @@ class IntendController extends Controller
     public function grn(){
 
         $grns = GRN::where('user_id',Auth::user()->id)
+               ->orWhere('delegated_id',Auth::user()->id)
                ->orderByRaw("FIELD(status , 'Awaiting for Confirmation', 'Received') ASC")
                ->paginate(25);
         $grn_array = array();
+        $search = '';
 
         if(sizeof($grns)>0){
 
@@ -797,7 +799,8 @@ class IntendController extends Controller
               'dispatched' => $value->dispatched,
               'comment' => $value->dispatch_comment,
               'status'=> $value->status,
-              'indent_details' => array($material_detail)
+              'indent_details' => array($material_detail),
+              'delegated_id' => $value->delegated_id
             ];
 
             array_push($grn_array, $grs_data);
@@ -805,7 +808,7 @@ class IntendController extends Controller
 
          
           }
-           return view('indent/grn',compact('grn_array','grns'));
+           return view('indent/grn',compact('grn_array','grns','search'));
     }
 
     public function update_grn(Request $request){
@@ -1025,7 +1028,11 @@ class IntendController extends Controller
           return redirect()->route('grn');
       }
       else{
-      $grns = GRN::where('user_id',Auth::user()->id)
+      $grns = GRN::where(function($q){
+                 $q->where('user_id',Auth::user()->id);
+                 $q->orWhere('delegated_id',Auth::user()->id);
+              })
+     
               ->where(function($query)use($search){
                  $query->where('grn', 'LIKE','%'.$search.'%');
                  $query->orWhere('pcn', 'LIKE' ,'%'.$search.'%');
@@ -1036,7 +1043,7 @@ class IntendController extends Controller
 
               })
               ->orderBy('id', 'DESC')
-              ->get();
+              ->paginate(25);
         $grn_array = array();
 
         if(sizeof($grns)>0){
@@ -1054,6 +1061,7 @@ class IntendController extends Controller
               'quantity_raised' => $indent_list->quantity,
               'quantity_received' => $indent_list->recieved,
               'quantity_pending' => $indent_list->pending,
+              'uom' => $material->uom
 
             ];
 
@@ -1065,7 +1073,8 @@ class IntendController extends Controller
               'dispatched' => $value->dispatched,
               'comment' => $value->dispatch_comment,
               'status'=> $value->status,
-              'indent_details' => array($material_detail)
+              'indent_details' => array($material_detail),
+              'delegated_id' => $value->delegated_id
             ];
             
             array_push($grn_array, $grs_data);
@@ -1078,7 +1087,7 @@ class IntendController extends Controller
           
           }
 
-           return view('indent/grn',compact('grn_array'));
+           return view('indent/grn',compact('grn_array','grns','search'));
     }
   }
 
@@ -1347,6 +1356,57 @@ class IntendController extends Controller
         $product=$product->get();
 
         return response()->json($product);
+    }
+
+    public function grn_list(){
+      $search = '';
+      $grns = GRN::where('status','Awaiting for Confirmation')->paginate(25);
+      $employee = Employee::get();
+
+      return view('indent.grn_list',compact('grns','employee','search'));
+    }
+
+    public function deligate_grn(Request $request){
+      //print_r($request->input());die();
+
+      $deleigate = GRN::where('id',$request->grn_id)->where('grn',$request->grn)->update(['delegated_id' => $request->user_id , 'delegator' => Auth::user()->id]);
+
+      if($deleigate){
+
+        $empl = Employee::where('user_id',$request->user_id)->first();
+
+        $footprint = FootPrint::create([
+            'action' => $request->grn .' Delegated to '.$empl->name.' - '.$empl->employee_id,
+            'user_id' => Auth::user()->id,
+            'module' => 'Indent',
+            'operation' => 'U'
+        ]);
+        return redirect()->back();
+      }
+
+    }
+
+    public function search_deligation_grn(Request $request){
+
+      $search = $request->search;
+
+      if($search == ''){
+        return redirect()->route('grn_list');
+      }
+      $grns = GRN::where('status','Awaiting for Confirmation')
+             ->where(function($query)use($search){
+                 $query->where('grn', 'LIKE','%'.$search.'%');
+                 $query->orWhere('pcn', 'LIKE' ,'%'.$search.'%');
+                 $query->orWhere('indent_no', 'LIKE' ,'%'.$search.'%');
+                 $query->orWhereDate('created_at','LIKE','%'.$search.'%');
+                 $query->orWhereMonth('created_at','LIKE','%'.$search.'%');
+                 $query->orWhereYear('created_at','LIKE','%'.$search.'%');
+
+              })
+              ->paginate(25);
+      $employee = Employee::get();
+
+      return view('indent.grn_list',compact('grns','employee','search'));
     }
 }
 

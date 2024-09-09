@@ -21,6 +21,8 @@ class GRN extends Model
     	'damaged',
       'comment',
     	'status',
+      'delegated_id',
+      'delegator'
     	];
 
      function Indent_list()
@@ -35,6 +37,16 @@ class GRN extends Model
          return $this->belongsTo(Intend::class,'indent_no','indent_no');
 
       }
+
+      function user(){
+        return $this->belongsTo(Employee::class, 'user_id','user_id');
+      }
+
+      function deligatee(){
+        return $this->belongsTo(Employee::class, 'delegated_id','user_id');
+      }
+
+
 
 
 }

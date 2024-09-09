@@ -89,6 +89,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('delete-indent/{id}', [IntendController::class,'destroy_indent'])->name('delete_indent');
 
     Route::get('get-products',[IntendController::class,'product_details'])->name('get_products');
+    Route::get('GRN-list', [IntendController::class,'grn_list'])->name('grn_list');
+    Route::post('GRN-deligation', [IntendController::class,'deligate_grn'])->name('deligate_grn');
+    Route::get('search_deligation_grn', [IntendController::class,'search_deligation_grn'])->name('search_deligation_grn');
+
 
 
     Route::get('send_email',[HomeController::class,'send_email'])->name('send_email');

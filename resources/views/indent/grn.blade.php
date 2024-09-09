@@ -15,12 +15,18 @@
             <div id="div2" style="margin-left: 30px">
               <a href="{{route('intends')}}"><button class="btn btn-light btn-outline-secondary" > View Indents </button></a>
             </div>
+            
+            @if(auth::user()->role_id == '1')
+            <div id="div2" style="margin-left: 30px">
+              <a href="{{route('grn_list')}}"><button class="btn btn-light btn-outline-secondary"> Delegate GRN </button></a>
+            </div>
+            @endif
 
             <div id="div2" style="margin-right: 30px">
            <form method="POST" action="{{route('search_grn')}}">
             @csrf
              <div class="input-group mb-3">
-                <input class="form-control" type="text" name="search" placeholder="Search GRN here">
+                <input class="form-control" type="text" name="search" placeholder="Search GRN here" value="{{$search}}">
                 <div class="input-group-prepend">
                    <button class="btn btn-outline-secondary rounded-0" type="submit" >Search</button>
                 </div>
@@ -47,6 +53,7 @@
                               <th scope="col">Information</th>
                               <th scope="col">Dispatched No</th>
                               <th scope="col">Comments</th>
+                              <th scope="col">Owner</th>
                               <th scope="col">Status</th>
                               <th scope="col">Action</th>
                              
@@ -103,6 +110,7 @@
                               </td>
                               <td>{{$value['dispatched']}} {{$value2['uom']}}</td>
                               <td>{{$value['comment']}}</td>
+                              <td>{{ ($value['delegated_id'] == '')?'Self':'Delegated' }}</td>
                               <td style="color: <?php echo $color; ?>">{{$value['status']}}</td>
                               @if($value['status']=='Received')
                               <td>

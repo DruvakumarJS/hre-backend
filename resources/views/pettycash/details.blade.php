@@ -177,10 +177,13 @@
                                       <td> <button class="btn btn-sm btn-danger" disabled>Freezed</button></td>
                                     @endif  
 
-                                   
+                                    @if($value->isapproved != '0' && ((Auth::user()->role_id == '1') || (Auth::user()->role_id == '2') || (Auth::user()->role_id == '6') || (Auth::user()->role_id == '7') || (Auth::user()->role_id == '8') ) )
                                      <td>
-                                        <a onclick="return confirm('PDF File will be downloaded ')" href="{{route('export_transaction_details',$value->id)}}"><i class="fa fa-file-pdf-o" style="color: red"></i></a> 
+                                        <a onclick="return confirm('PDF File will be downloaded ')" href="{{route('export_transaction_details',$value->id)}}"><i class="fa fa-download" style="color: red"></i></a> 
                                       </td>  
+                                    @else
+                                    <td></td>  
+                                    @endif  
                                     
                                    <!-- 
                                       @if( (Auth::user()->role_id == '1') && $value->isapproved != '0')
