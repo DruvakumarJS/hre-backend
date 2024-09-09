@@ -33,7 +33,7 @@ class PettyCashDetailController extends Controller
 
     public function index($id)
     {
-         $data = PettyCashDetail::where('user_id' , $id)->orderBy('id', 'DESC')->get();
+         $data = PettyCashDetail::where('user_id' , $id)->orderBy('id', 'DESC')->paginate(25);
          $myspent = PettyCashDetail::where('user_id' , $id)->where('isapproved','!=' , '2')->sum('spent_amount');
          $pettycash = PettycashOverview::where('user_id', $id)->first();
          $closure_date = '';

@@ -462,7 +462,7 @@ class AttendanceController extends Controller
 
     public function employeedetails()
     {
-        $employees = Employee::get();
+        $employees = Employee::paginate(25);
         $data = array();
         $search = '';
 
@@ -488,7 +488,7 @@ class AttendanceController extends Controller
 
        // print_r($data);die();
 
-        return view('attendance/employee-details', compact('data', 'search') ) ;
+        return view('attendance/employee-details', compact('data', 'search','employees') ) ;
     }
 
     public function employeehistory($id)
@@ -726,7 +726,7 @@ class AttendanceController extends Controller
 
       public function search(Request $request){
 
-        $employees = Employee::where('name','LIKE','%'.$request->search.'%')->orWhere('employee_id','LIKE','%'.$request->search.'%')->get();
+        $employees = Employee::where('name','LIKE','%'.$request->search.'%')->orWhere('employee_id','LIKE','%'.$request->search.'%')->paginate(25);
         $data = array();
         $search = $request->search;
 
@@ -750,7 +750,7 @@ class AttendanceController extends Controller
 
        // print_r($data);die();
 
-        return view('attendance/employee-details', compact('data','search') ) ;
+        return view('attendance/employee-details', compact('data','search','employees') ) ;
        
     }
 

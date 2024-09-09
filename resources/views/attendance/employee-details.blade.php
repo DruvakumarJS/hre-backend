@@ -25,7 +25,7 @@
            <form method="POST" action="{{route('search_employee')}}" >
             @csrf
              <div class="input-group mb-3">
-                <input class="form-control" type="text" id="search" name="search" placeholder="Search by Name / ID"  >
+                <input class="form-control" type="text" id="search" name="search" placeholder="Search by Name / ID"  value="{{$search}}">
                 <div class="input-group-prepend">
                    <button class="btn btn-outline-secondary rounded-0" type="submit"  >Search</button>
                 </div>
@@ -89,7 +89,11 @@
                     
                 </tbody>
             </table>
+             <label>Showing {{ $employees->firstItem() }} to {{ $employees->lastItem() }}
+                    of {{$employees->total()}} results</label>
 
+                
+              <div class="float">{!! $employees->links('pagination::bootstrap-4') !!}</div>
         </div>
     </div>
 

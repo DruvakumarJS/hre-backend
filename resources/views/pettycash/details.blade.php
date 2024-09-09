@@ -223,111 +223,116 @@
             </div>
           </div>
         </div>
-<!-- Action Modal End  -->
+          <!-- Action Modal End  -->
 
-<!-- Revert Modal -->
-        <div class="modal fade" id="revertmodal_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Revert Bill Status</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form method="post" action="{{ route('revert_bill_status') }}" >
-                    @csrf
+          <!-- Revert Modal -->
+                  <div class="modal fade" id="revertmodal_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Revert Bill Status</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form method="post" action="{{ route('revert_bill_status') }}" >
+                              @csrf
 
-                    <div class="form-group ">
-                            <label class="label-bold">Bill Date :</label> <label>{{date("d-m-Y", strtotime($value->bill_date))}} </label><label class="label-bold" style="margin-left: 20px">Bill Amount :</label> <label>{{$value->spent_amount}} </label>
-                            <div>
-                              <label class="label-bold">Remarks : </label> <label>{{$value->remarks}}</label>
-                            </div>
-                       
+                              <div class="form-group ">
+                                      <label class="label-bold">Bill Date :</label> <label>{{date("d-m-Y", strtotime($value->bill_date))}} </label><label class="label-bold" style="margin-left: 20px">Bill Amount :</label> <label>{{$value->spent_amount}} </label>
+                                      <div>
+                                        <label class="label-bold">Remarks : </label> <label>{{$value->remarks}}</label>
+                                      </div>
+                                 
+                              </div>
+
+                               <textarea name="reason" placeholder="Enter reason for revert" style="width: 100%;padding: 10px" required></textarea> 
+
+                              <input type="hidden" name="id" value="{{$value->id}}">
+                               <input type="hidden" name="remarks" value="{{$value->remarks}}">
+                              <input type="hidden" name="pre_status" value="{{$value->isapproved}}">
+
+                              @if($value->isapproved == '2')
+                              <button class="btn btn-success" name="status" value="1">Approve</button>
+                              @endif
+                              @if($value->isapproved == '1')
+                              <button class="btn btn-danger" name="status" value="2">Reject</button>
+                              @endif
+                              
+                          </form>
+                        </div>
+                        
+                      </div>
                     </div>
+                  </div>
+                    <!-- Revert Modal End-->
+                    <script>
+                    $(document).ready(function(){
+                      $('#MybtnModal_{{$key}}').click(function(){
+                        $('#modal_{{$key}}').modal('show');
+                      });
 
-                     <textarea name="reason" placeholder="Enter reason for revert" style="width: 100%;padding: 10px" required></textarea> 
-
-                    <input type="hidden" name="id" value="{{$value->id}}">
-                     <input type="hidden" name="remarks" value="{{$value->remarks}}">
-                    <input type="hidden" name="pre_status" value="{{$value->isapproved}}">
-
-                    @if($value->isapproved == '2')
-                    <button class="btn btn-success" name="status" value="1">Approve</button>
-                    @endif
-                    @if($value->isapproved == '1')
-                    <button class="btn btn-danger" name="status" value="2">Reject</button>
-                    @endif
-                    
-                </form>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-<!-- Revert Modal End-->
-<script>
-$(document).ready(function(){
-  $('#MybtnModal_{{$key}}').click(function(){
-    $('#modal_{{$key}}').modal('show');
-  });
-
-  $('#MyrevertModal_{{$key}}').click(function(){
-    $('#revertmodal_{{$key}}').modal('show');
-  });
-});  
-</script>
+                      $('#MyrevertModal_{{$key}}').click(function(){
+                        $('#revertmodal_{{$key}}').modal('show');
+                      });
+                    });  
+                    </script>
 
 
 
 
 
-<!-- proof -->
+                    <!-- proof -->
 
-<!--  Modal -->
-        <div class="modal fade" id="proof_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Bill Proof</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                @php
-                $revertNames = explode(',', $value->filename);
-                @endphp
+                    <!--  Modal -->
+                            <div class="modal fade" id="proof_{{$key}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Bill Proof</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    @php
+                                    $revertNames = explode(',', $value->filename);
+                                    @endphp
 
-              @foreach($revertNames as $key2=>$value2)
-               @if(str_contains($value2, ".pdf"))
-                <img class="imagen" id="blah" src="{{ URL::to('/') }}/images/pdf.png" alt="pettycashproof" style="width: 100px;height: 100px;margin: 10px" />
-               @else
-               <img class="imagen" id="blah" src="{{ URL::to('/') }}/pettycashfiles/{{$value2}}" alt="ticketimage" style="width: 400px;height: 250px" />
-               @endif
+                                  @foreach($revertNames as $key2=>$value2)
+                                   @if(str_contains($value2, ".pdf"))
+                                    <img class="imagen" id="blah" src="{{ URL::to('/') }}/images/pdf.png" alt="pettycashproof" style="width: 100px;height: 100px;margin: 10px" />
+                                   @else
+                                   <img class="imagen" id="blah" src="{{ URL::to('/') }}/pettycashfiles/{{$value2}}" alt="ticketimage" style="width: 400px;height: 250px" />
+                                   @endif
 
-               <a target="_blank" href="{{ URL::to('/') }}/pettycashfiles/{{$value2}}"><i class="fa fa-expand" style="color: black;font-size:30px;margin: 10px"></i></a> 
+                                   <a target="_blank" href="{{ URL::to('/') }}/pettycashfiles/{{$value2}}"><i class="fa fa-expand" style="color: black;font-size:30px;margin: 10px"></i></a> 
 
-               <!-- <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value2}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> -->
+                                   <!-- <a download href="{{ URL::to('/') }}/pettycashfiles/{{$value2}}"><i class="fa fa-download" style="margin-left: 10px"></i></a> -->
 
 
-             
-               @endforeach
-              
-            </div>
-              
-            </div>
-          </div>
-        </div>
-<!-- Modal -->
-<script>
-$(document).ready(function(){
-  $('#MyproofModal_{{$key}}').click(function(){
-    $('#proof_{{$key}}').modal('show');
-  });
-});  
-</script>
+                                 
+                                   @endforeach
+                                  
+                                </div>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                    <!-- Modal -->
+                    <script>
+                    $(document).ready(function(){
+                      $('#MyproofModal_{{$key}}').click(function(){
+                        $('#proof_{{$key}}').modal('show');
+                      });
+                    });  
+                    </script>
 
-<!-- Proof -->
+                    <!-- Proof -->
                         @endforeach
                         </table>
+                            <label>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }}
+                                    of {{$data->total()}} results</label>
+
+                                 <div class="float">{!! $data->links('pagination::bootstrap-4') !!}</div>
+
                         </div>
 
  </div>    
