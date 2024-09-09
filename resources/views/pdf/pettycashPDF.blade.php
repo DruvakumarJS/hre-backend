@@ -112,9 +112,22 @@
                <div>
                    <label class="lable">Narration  : </label> <label class="lable">{{$data->comments}}</label>
                </div>
+               @php
+               if($data->isapproved == '0'){
+                  $status = 'Awaiting approval';
+                }
+                elseif($data->isapproved == '1'){
+                  $status = 'Approved';
+                }
+                else {
+                   $status = 'Rejected';
+                }
+                       
+              
+               @endphp                     
 
                <div>
-                   <label class="lable">Status  : </label> <label class="lable">{{($data->isapproved == '1') ?'Approved':'Waiting for approval'}}</label>
+                   <label class="lable">Status  : </label> <label class="lable">{{$status}}</label>
                </div>
 
                <div>
