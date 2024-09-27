@@ -51,7 +51,7 @@
      
 
       <div>
-         <label class="div-margin" style="font-weight: bolder;font-size: 25px">{{$user->name}}</label> <label >{{$user->user->roles->alias}}</label>
+         <label class="div-margin" style="font-weight: bolder;font-size: 25px">{{$user->name}} - {{$user->employee_id}} - </label> <label >{{$user->user->roles->alias}}</label>
        
        <!--  <div id="div2" style="margin-right: 30px">
            <label class="label-bold">Outstanding Balance : </label> <label> {{$data->balance}}</label> 

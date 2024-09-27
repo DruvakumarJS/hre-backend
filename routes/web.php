@@ -49,6 +49,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::middleware(['auth'])->group(function () {
+
 Route::get("logout",[HomeController::class,"destroy"])->name("logout");
 
 
@@ -329,7 +331,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('search-footprint',[HomeController::class,'search_footprint'])->name('search_footprint');
     Route::post('export-footprints',[ExportController::class,'export_footprints'])->name('export-footprints');
 
-
+});
 
 
 
