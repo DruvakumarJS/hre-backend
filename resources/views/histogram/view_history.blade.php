@@ -28,7 +28,7 @@
                           <thead>
                             <tr style="height: 50px">
                               <th scope="col">PCN</th>
-                              <th scope="col">Subitted By</th>
+                              <th scope="col">Submitted By</th>
                               <th scope="col">Submitted Date</th>
                               <th scope="col">Submitted Time</th>
                               <th scope="col">Action</th>
